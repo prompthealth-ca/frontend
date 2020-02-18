@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+    />
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+    <title>prompthealth</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light main-header">
+        <div class="container">
+          <a class="navbar-brand" href="#"><img src="assets/img/logo.png"/></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index2.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index3.html">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section
+      class="height-100 h-height-100 text-center bg-cover bg-overlay"
+      style="background-image: url('assets/img/bg.jpg');"
+    >
+      <div class="position-relative text-light">
+        <h2 class="mb-3 animated bounce infinite">
+          Your home for all your health and wellness needs
+        </h2>
+        <h3>
+          All your practitioners in one place
+        </h3>
+        <div class="spacer1"></div>
+        <div class="mediacal-icons mb-3">
+          <img src="assets/img/Medical.png" />
+          <img src="assets/img/mind-and-mood.png" />
+          <img src="assets/img/nutrition.png" />
+          <img src="assets/img/fitness.png" />
+          <img src="assets/img/sleep.png" />
+        </div>
+        <div class="mb-2">
+          <div class="period-box period-box3">
+            <div>
+              <span id="days"></span>
+              <div>Days</div>
+            </div>
+            <div>
+              <span id="hours"></span>
+              <div>Hours</div>
+            </div>
+            <div>
+              <span id="minutes"></span>
+              <div>Minutes</div>
+            </div>
+            <div>
+              <span id="seconds"></span>
+              <div>Seconds</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-raised btn-primary mb-3"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Subscribe here
+        </button>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5
+                  class="modal-title text-center w-100"
+                  id="exampleModalLabel"
+                >
+                  Get notified at launch!
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form class="mb-0" action="">
+                <div class="modal-body pb-0">
+                  <div class="form-row modal-form">
+                    <div class="col-md-12">
+                      <input
+                        type="text"
+                        class="form-control mb-2"
+                        placeholder="Name"
+                      />
+                    </div>
+                    <div class="col-md-12">
+                      <input
+                        type="email"
+                        class="form-control mb-2"
+                        placeholder="Email"
+                      />
+                    </div>
+                    <div class="col-md-12">
+                      <input
+                        type="number"
+                        class="form-control mb-2"
+                        placeholder="Phone Number"
+                      />
+                    </div>
+                    <div class="col-md-12">
+                      <textarea
+                        class="form-control"
+                        placeholder="Message"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <input
+                    type="submit"
+                    value="Submit"
+                    class="btn btn-raised btn-primary"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <p class="btm-text">
+          Get notified of our launch and special promotions
+        </p>
+
+        <div class="social-links">
+          <a href="" class="btn"><i class="fa fa-facebook"></i></a>
+          <a href="https://www.instagram.com/prompthealth/" class="btn"
+            ><i class="fa fa-instagram"></i
+          ></a>
+          <a href="" class="btn"><i class="fa fa-linkedin"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+      integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+      integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function() {
+        $('body').bootstrapMaterialDesign();
+      });
+
+      var deadline = new Date('Mar 5, 2020 15:37:25').getTime();
+      var x = setInterval(function() {
+        var now = new Date().getTime();
+        var t = deadline - now;
+        var days = Math.floor(t / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((t % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerHTML = days;
+        document.getElementById('hours').innerHTML = hours;
+        document.getElementById('minutes').innerHTML = minutes;
+        document.getElementById('seconds').innerHTML = seconds;
+        document.getElementById('demo').innerHTML =
+          days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+        if (t < 0) {
+          clearInterval(x);
+          document.getElementById('demo').innerHTML = 'EXPIRED';
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
+

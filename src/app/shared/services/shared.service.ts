@@ -1,0 +1,263 @@
+import { Injectable, Optional, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+// import 'rxjs/add/operator/toPromise';
+import { catchError, map } from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+
+import { DOCUMENT } from '@angular/common';
+
+declare var jQuery: any;
+
+export class User {
+  constructor(
+    public email: string,
+    public password: string) { }
+}
+
+@Injectable()
+export class SharedService {
+  rootUrl: string = environment.config.BASE_URL;
+  baseUrl: string = environment.config.API_URL;
+
+  constructor(
+    private _router: Router,
+    private rendererFactory: RendererFactory2,
+
+
+
+    @Inject(DOCUMENT) private document,
+    private http: HttpClient) { }
+
+
+  logout() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('loginID');
+    localStorage.removeItem('user');
+    this._router.navigate(['/auth/business']);
+  }
+
+  get(path) {
+    const headers = this.getAuthorizationHeader();
+    return this.http.get(this.rootUrl + path, { headers });
+  }
+
+  post(body, path) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.post(this.rootUrl + path, body, { headers });
+  }
+
+  put(body, path) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + path, body, { headers });
+  }
+
+  login(body) {
+    return this.http.post(this.rootUrl + 'signinbusiness', body);
+  }
+
+  register(body) {
+    return this.http.post(this.rootUrl + 'registerbusiness', body);
+  }
+
+  addPromotion(body) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.post(this.rootUrl + 'promotion', body, { headers });
+  }
+
+  changeStatus(id, model, status) {
+    let headers = this.getAuthorizationHeader();
+    let url = this.rootUrl + 'changestatus?id=' + id + '&model=' + model + '&status=' + status;
+    return this.http.put(url, { headers });
+
+  }
+
+  // delete(Id) {
+
+  //   let headers = this.getAuthorizationHeader();
+  //   return this.http.delete(this.rootUrl + 'delete/' + Id ++ '&model=' + model, { headers });
+  // }
+
+  delete(id, model) {
+
+    let headers = this.getAuthorizationHeader();
+    let url = this.rootUrl + 'delete?id=' + id + '&model=' + model;
+    return this.http.delete(url, { headers });
+  }
+
+  contactus(body) {
+    return this.http.post(this.rootUrl + 'subscribe', body);
+  }
+
+
+  getView(userID) {
+
+    const headers = this.getAuthorizationHeader();
+    return this.http.get(this.rootUrl + 'promotion' + '?id=' + userID, { headers });
+
+  }
+
+  getAllPromotions(options, rowsOnPage, activePage) {
+    let url = this.rootUrl + 'allbusinesspromotions?count=' + rowsOnPage + '&page=' + activePage;
+
+    let headers = this.getAuthorizationHeader();
+    let params = new URLSearchParams();
+    for (let key in options) {
+      params.set(key, options[key])
+    }
+    return this.http.get(url + '&' + params.toString(), { headers: headers });
+  }
+
+  queryParams(path, options) {
+    let headers = this.getAuthorizationHeader();
+    let params = new URLSearchParams();
+    for (let key in options) {
+      params.set(key, options[key])
+    }
+    return this.http.get(this.rootUrl + path + '?' + params.toString(), { headers: headers });
+  }
+
+  queryParamsDelete(path, options) {
+    let headers = this.getAuthorizationHeader();
+    let params = new URLSearchParams();
+    for (let key in options) {
+      params.set(key, options[key])
+    }
+    return this.http.delete(this.rootUrl + path + '?' + params.toString(), { headers: headers });
+  }
+
+  getRoles() {
+    return localStorage.getItem('roles');
+  }
+
+  sendTop() {
+    window.scrollTo(500, 0);
+  }
+
+
+  /*This function is use to remove user session if Access token expired. */
+  checkAccessToken(err): void {
+    let code = err.code;
+    let message = err.message;
+
+    if ((code == 401 && message == "authorization")) {
+      localStorage.removeItem('token');
+      // this.showAlert('Session Expired.', 'alert-danger')
+      // this._router.navigate(['/auth/business']);
+    } else {
+
+    }
+  }
+
+  /*This function is use to get access token from cookie. */
+  getAccessToken(): string {
+    let token = localStorage.getItem('token');
+    return 'Bearer ' + token;
+  }
+
+  /*This function is use to get header with Authorization or without Authorization. */
+  getAuthorizationHeader(access = true) {
+    let token = this.getAccessToken();
+    let headers = {}
+
+    if (access) {
+      headers = new HttpHeaders()
+        .set('Authorization', token);
+    }
+
+
+    return headers;
+  }
+
+  isLogin() {
+    let token = localStorage.getItem('token');
+    if (token) return true;
+    else return false;
+  }
+
+  addCookie(key, value) {
+    localStorage.setItem(key, value);
+  }
+
+  getCookie(key) {
+    let item = localStorage.getItem(key);
+    return item;
+  }
+  addCookieObject(key, obj) {
+    localStorage.setItem(key, JSON.stringify(obj));
+  }
+
+  getCookieObject(key) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+
+  loginID() {
+    return localStorage.getItem('loginID');
+  }
+
+
+
+  // loginUser(res) {
+
+
+  //   // alert("heloo");
+  //   let route = '/dashboard/welcome';
+  //   this.showAlert(res.message, 'alert-success')
+  //   // alert("hiiii");
+  //   this.addCookie('token', res.data.access_token)
+  //   // alert("here");
+  //   this.addCookie('roles', res.data.roles)
+  //   this.addCookie('loginID', res.data.id)
+  //   this.addCookieObject('user', res.data)
+
+  //   this._router.navigate([route]);
+  // }
+
+  removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
+
+    for (var i in originalArray) {
+      lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
+
+    for (i in lookupObject) {
+      newArray.push(lookupObject[i]);
+    }
+    return newArray;
+  }
+
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(resp => {
+        resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+      },
+        err => {
+          reject(err);
+        });
+    });
+
+  }
+
+}
+
+export declare type LinkDefinition = {
+  charset?: string;
+  crossorigin?: string;
+  href?: string;
+  hreflang?: string;
+  media?: string;
+  rel?: string;
+  rev?: string;
+  sizes?: string;
+  target?: string;
+  type?: string;
+} & {
+  [prop: string]: string;
+};

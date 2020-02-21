@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class SubscribeComponent implements OnInit {
   homeForm: FormGroup;
   submitted = false;
-  _host = environment.config.BASE_URL;
+  //_host = environment.config.BASE_URL;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private _sharedService: SharedService, private toastr: ToastrService) { }
   get f() { return this.homeForm.controls; }

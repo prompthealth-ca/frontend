@@ -37,17 +37,15 @@ export class SubscribeComponent implements OnInit {
       // this._sharedService.loader('hide');
       if (res.success) {
         this.toastr.success(res.message);
-
         this.homeForm.reset();
         this.submitted = false;
-
-      }
-
-      else {
-        this.toastr.error("Please enter valid email");
+        
+      }else {
+        this.toastr.error(res.message);
       }
     }, (error) => {
-      // this._sharedService.loader('hide');
+      this.toastr.error("Please check your email id.");
+      //this._sharedService.loader('hide');
     });
   }
 

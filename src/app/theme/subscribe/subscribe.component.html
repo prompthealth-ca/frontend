@@ -49,7 +49,7 @@
         Your home for all your health and wellness needs
       </h2>
       <h3>
-        All your practitioners in one place
+        All your practitioners in one place {{days}}
       </h3>
       <div class="spacer1"></div>
       <div class="mediacal-icons mb-3">
@@ -62,19 +62,22 @@
       <div class="mb-2">
         <div class="period-box period-box3">
           <div>
-            <span id="days"></span>
+
+
+            <span>{{days}}</span>
+            <!-- <input value="{{this.days}}" /> -->
             <div>Days</div>
           </div>
           <div>
-            <span id="hours"></span>
+            <span>{{hours}}</span>
             <div>Hours</div>
           </div>
           <div>
-            <span id="minutes"></span>
+            <span>{{minutes}}</span>
             <div>Minutes</div>
           </div>
           <div>
-            <span id="seconds"></span>
+            <span>{{seconds}}</span>
             <div>Seconds</div>
           </div>
         </div>
@@ -92,7 +95,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-center w-100" id="exampleModalLabel">
-                Get notified at launch!
+                Get notified at launch! {{days}}
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

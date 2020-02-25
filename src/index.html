@@ -26,32 +26,7 @@
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
     integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
     crossorigin="anonymous"></script>
-  <script>
-    $(document).ready(function () {
-      $('body').bootstrapMaterialDesign();
-    });
 
-    var deadline = new Date('Mar 5, 2020 15:37:25').getTime();
-    var x = setInterval(function () {
-      var now = new Date().getTime();
-      var t = deadline - now;
-      var days = Math.floor(t / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((t % (1000 * 60)) / 1000);
-
-      document.getElementById('days').innerHTML = days;
-      document.getElementById('hours').innerHTML = hours;
-      document.getElementById('minutes').innerHTML = minutes;
-      document.getElementById('seconds').innerHTML = seconds;
-      document.getElementById('demo').innerHTML =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
-      if (t < 0) {
-        clearInterval(x);
-        document.getElementById('demo').innerHTML = 'EXPIRED';
-      }
-    }, 1000);
-  </script>
 </body>
 
 </html>

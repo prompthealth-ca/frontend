@@ -10,8 +10,8 @@ export const environment = {
     //BASE_URL: "http://localhost:1337/",
     //API_URL: "http://localhost:1337/",
     //server
-    BASE_URL: "http://3.20.250.225:1337/",
-    API_URL: "http://3.20.250.225:1337/api/"
+    BASE_URL: "https://prompthealth.ca:1337/",
+    API_URL: "https://prompthealth.ca:1337/api/"
   },
   api_routes: {
     LOGIN: 'login',

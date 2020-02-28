@@ -1,0 +1,417 @@
+<!-- Header start-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light main-header">
+  <div class="container">
+    <a class="navbar-brand" href="#"><img src="/assets/img/logo.png"/></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      id="onclick"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      id="onclick1"
+      style="display: none;"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown" dropdown>
+          <a class="nav-link dropdown-toggle" dropdownToggle>
+            <i class="fa fa-search"></i> Book a Practitioner
+          </a>
+          <div *dropdownMenu class="dropdown-menu">
+            <a href="" class="dropdown-item"
+              ><i class="fa fa-stethoscope"></i> <span>Book a GP</span></a
+            >
+            <a href="" class="dropdown-item"
+              ><i class="mkicon toothicon"></i> <span>Book a Dentist</span></a
+            >
+            <a href="" class="dropdown-item"
+              ><i class="mkicon legicon"></i> <span>Book a Physio</span></a
+            >
+            <a href="" class="dropdown-item"
+              ><i class="mkicon boneicon"></i>
+              <span>Book a Chiropractor</span></a
+            >
+            <a href="" class="dropdown-item"
+              ><i class="mkicon headicon"></i>
+              <span>Book a Psychologist</span></a
+            >
+            <a class="dropdown-item" href="#"
+              ><i class="fa fa-search"></i> Search all services...</a
+            >
+          </div>
+        </li>
+        <li class="nav-item dropdown" dropdown>
+          <a class="nav-link dropdown-toggle" dropdownToggle>
+            Login/Signup
+          </a>
+          <div *dropdownMenu class="dropdown-menu">
+            <a class="dropdown-item" href="#">Patient Login</a>
+            <a class="dropdown-item" href="#">Practice Login</a>
+            <a class="dropdown-item" href="#">Practice Signup</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">List Your Practice, It's Free</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- Header end-->
+
+<section
+  class="home-banner"
+  style="background-image: url(assets/img/bannerbg1.jpg);"
+>
+  <div class="container text-center position-relative text-light">
+    <div class="row">
+      <div class="col-md-4 mobi-order2">
+        <img src="assets/img/girl-with-phone.png" class="w-100" />
+      </div>
+      <div class="col-md-8">
+        <h3>Your home for Promthealth</h3>
+        <h4 class="mb-4">All your practitioners in one place</h4>
+        <div class="d-inline-flex box-unified-search">
+          <a href=""><i class="fa fa-stethoscope"></i> <span>GP</span></a>
+          <a href=""><i class="mkicon toothicon"></i> <span>Dentist</span></a>
+          <a href=""><i class="mkicon legicon"></i> <span>Physio</span></a>
+          <a href=""
+            ><i class="mkicon boneicon"></i> <span>Chiropractor</span></a
+          >
+          <a href=""
+            ><i class="mkicon headicon"></i> <span>Psychologist</span></a
+          >
+          <a dropdown dropdownToggle class="position-relative">
+            <i class="mkicon fa fa-ellipsis-v"></i> <span>More</span>
+            <div *dropdownMenu class="dropdown-menu">
+              <a href="#">Patient Login</a>
+            </div>
+          </a>
+        </div>
+        <div class="mt-4">
+          <form class="search-form mb-4">
+            <input
+              type="text"
+              placeholder="Suburb, Practitioner, Practice or Procedure"
+              class="form-control1"
+              list="browsers"
+            />
+            <datalist id="browsers">
+              <option value="GP"> </option>
+              <option value="Dentist"> </option>
+              <option value="Physio"> </option>
+              <option value="Chiropractor"> </option>
+              <option value="Psychologist"> </option>
+            </datalist>
+            <button type="submit" class="btn">
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section1">
+  <div class="container text-center">
+    <h2 class="ttle-bott-bor text-center">
+      Join Canada's largest network of patients
+    </h2>
+    <h4 class="mb-5">
+      We're talking about 7 million + Canadian and more than 30 million bookings
+      online
+    </h4>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card shadow mb-4 mb-sm-0">
+          <div class="card-body">
+            <i class="fa fa-clock-o text-large text-primary"></i>
+            <h5 class="mt-3">Be always on</h5>
+            Be 'always on' for patients even when you switch off after hours
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow mb-4 mb-sm-0">
+          <div class="card-body">
+            <i class="fa fa-calendar text-large text-primary"></i>
+            <h5 class="mt-3">Keep your books full</h5>
+            Get front and centre, where your current and potential patients are
+            already online
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow mb-4 mb-sm-0">
+          <div class="card-body">
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="hand-holding-heart"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 576 512"
+              class="fa-hand-holding-heart fa"
+            >
+              <path
+                fill="currentColor"
+                d="M275.3 250.5c7 7.4 18.4 7.4 25.5 0l108.9-114.2c31.6-33.2 29.8-88.2-5.6-118.8-30.8-26.7-76.7-21.9-104.9 7.7L288 36.9l-11.1-11.6C248.7-4.4 202.8-9.2 172 17.5c-35.3 30.6-37.2 85.6-5.6 118.8l108.9 114.2zm290 77.6c-11.8-10.7-30.2-10-42.6 0L430.3 402c-11.3 9.1-25.4 14-40 14H272c-8.8 0-16-7.2-16-16s7.2-16 16-16h78.3c15.9 0 30.7-10.9 33.3-26.6 3.3-20-12.1-37.4-31.6-37.4H192c-27 0-53.1 9.3-74.1 26.3L71.4 384H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h356.8c14.5 0 28.6-4.9 40-14L564 377c15.2-12.1 16.4-35.3 1.3-48.9z"
+                class=""
+              ></path>
+            </svg>
+            <i class="fa fa-hand-holding-heart text-large text-primary"></i>
+            <h5 class="mt-3">Up your patient experience game</h5>
+            All the tools you need to keep up with your patient's expectations
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <a href="" class="btn btn-primary">Find out more</a>
+    </div>
+  </div>
+</section>
+
+<section
+  class="section1 bg-cover bg-fixed bg-ooverlay"
+  style="background-image: url('assets/img/section4.jpg');"
+>
+  <div class="container text-light text-center">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h2 class="ttle-bott-bor text-center display-4">
+          Welcome to Promthealth
+        </h2>
+        <h4 class="mb-3">
+          Finally, a transparent marketplace where you can find and get to know
+          the mental health professional who's right for you!
+        </h4>
+        <div class="video-sec">
+          <video width="100%" height="234" controls>
+            <source src="assets/video/video2.mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+          <img src="assets/img/laptop-image.png" class="w-100" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section1 pt-xs-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 p-5 bg-light-gray">
+        <h3>Mental Health Resources</h3>
+        <h6>
+          Improving your mental health is something you do for yourself. But,
+          how best to do that when you don’t really know how to do it yourself?
+          You use your resources. Self-help books, support organizations, and
+          websites are examples of such resources. Consider them a part of your
+          therapeutic toolbox.
+        </h6>
+        <p>
+          You don’t have to do it alone when you have a competent,
+          knowledgeable, and trustworthy professional guide to figure out what
+          will help you. Therefore, a mental health professional is a resource
+          as well. We think your visit to AgoraMHN can help you choose the
+          person to help you on your journey.
+        </p>
+        <p>
+          The internet gets you immediate access to all kinds of information and
+          guidance. Frankly, there is a lot of snake oil out there, put out by
+          people or groups that don’t stand up to scientific scrutiny. So, we’ve
+          been careful to pull together some additional resources that we
+          believe to be both useful and grounded in ethical principles.
+        </p>
+        <p>
+          We’ll be adding to this list periodically. However, we don’t intend to
+          reproduce here the vast resources that are available elsewhere. So,
+          use these websites as springboards to find the best information and
+          tools the web has to offer.
+        </p>
+      </div>
+      <div
+        class="col-md-5 bg-cover"
+        style="background-image: url(assets/img/bannerimage.jpg);"
+      ></div>
+    </div>
+  </div>
+</section>
+
+<section class="section1">
+  <div class="container text-center">
+    <h2 class="ttle-bott-bor text-center">Our Recent Blogs</h2>
+    <h4 class="mb-5">
+      Education, commentary, and opinion that you'll want to read. All written
+      by people on the front line of mental health care.
+    </h4>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mk-blog">
+          <img src="assets/img/blog1.jpg" class="w-100 mk-blog-img" />
+          <div class="mk-blog-body">
+            <div class="entry-date">
+              <img src="assets/img/date-icon.png" />
+              &nbsp;&nbsp; January 06th,2020
+            </div>
+            <h2 class="mk-blog-title">
+              <a href="">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </a>
+            </h2>
+            <div class="mk-blog-expt">
+              Quisque lobortis est nec ornare bibendum. Nunc ut tellus ac enim
+              condimentum feugiat at vel justo. Etiam auctor orci quam, ac
+            </div>
+            <a href="" class="btn btn-primary">
+              Read More &nbsp;&nbsp;
+              <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mk-blog">
+          <img src="assets/img/blog2.jpg" class="w-100 mk-blog-img" />
+          <div class="mk-blog-body">
+            <div class="entry-date">
+              <img src="assets/img/date-icon.png" />
+              &nbsp;&nbsp; January 06th,2020
+            </div>
+            <h2 class="mk-blog-title">
+              <a href="">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </a>
+            </h2>
+            <div class="mk-blog-expt">
+              Quisque lobortis est nec ornare bibendum. Nunc ut tellus ac enim
+              condimentum feugiat at vel justo. Etiam auctor orci quam, ac
+            </div>
+            <a href="" class="btn btn-primary">
+              Read More &nbsp;&nbsp;
+              <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mk-blog">
+          <img src="assets/img/blog3.jpg" class="w-100 mk-blog-img" />
+          <div class="mk-blog-body">
+            <div class="entry-date">
+              <img src="assets/img/date-icon.png" />
+              &nbsp;&nbsp; January 06th,2020
+            </div>
+            <h2 class="mk-blog-title">
+              <a href="">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </a>
+            </h2>
+            <div class="mk-blog-expt">
+              Quisque lobortis est nec ornare bibendum. Nunc ut tellus ac enim
+              condimentum feugiat at vel justo. Etiam auctor orci quam, ac
+            </div>
+            <a href="" class="btn btn-primary">
+              Read More &nbsp;&nbsp;
+              <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="main-footer">
+  <div class="container text-center text-sm-left">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4 mb-4 mb-sm-0">
+            <h5>Promthealth</h5>
+            <ul class="footer-ul">
+              <li><a href="">Home</a></li>
+              <li><a href="">About</a></li>
+              <li><a href="">Contact us</a></li>
+              <li><a href="">Practice Services</a></li>
+              <li><a href="">Privacy Security</a></li>
+              <li><a href="">Press Centre</a></li>
+              <li><a href="">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4 mb-sm-0">
+            <h5>Appointments</h5>
+            <ul class="footer-ul">
+              <li>
+                <a href="">GP</a>
+              </li>
+              <li>
+                <a href="">Dentist</a>
+              </li>
+              <li>
+                <a href="">Physio</a>
+              </li>
+              <li>
+                <a href="">Chiropractor</a>
+              </li>
+              <li>
+                <a href="">Psychologist</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4 mb-sm-0">
+            <h5>Directory</h5>
+            <ul class="footer-ul">
+              <li><a href="">Find a Practitioner</a></li>
+              <li><a href="">List Your Practice</a></li>
+              <li><a href="">Find a Dentist</a></li>
+              <li><a href="">Melbourne Dentists</a></li>
+              <li><a href="">Brisbane Dentists</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6 mb-4 mb-sm-0">
+            <h5>Login</h5>
+            <a href="" class="btn btn-white">Practice Login</a>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-3">© 2020 Promthealth</p>
+            <ul class="social-links">
+              <a href="" class="btn btn-white"><i class="fa fa-twitter"></i></a>
+              <a href="" class="btn btn-white"
+                ><i class="fa fa-facebook"></i
+              ></a>
+              <a href="" class="btn btn-white"
+                ><i class="fa fa-linkedin"></i
+              ></a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

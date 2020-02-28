@@ -22,7 +22,7 @@ export class User {
 @Injectable()
 export class SharedService {
   rootUrl: string = environment.config.BASE_URL;
-  baseUrl: string = environment.config.API_URL;
+  //baseUrl: string = environment.config.API_URL;
 
   constructor(
     private _router: Router,

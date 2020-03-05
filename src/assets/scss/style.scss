@@ -1,2 +1,39 @@
 @import "variables";
 @import "mixins";
+
+.navbar-brand img {
+  max-width: 200px;
+}
+
+.height-100 {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > * {
+    width: 100%;
+  }
+}
+
+.heightH-100 {
+  @extend .height-100;
+  min-height: calc(100vh - 56px);
+}
+
+.bg-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-primary {
+  background-color: $primaryColor !important;
+}
+
+.btn-primary {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  &:hover {
+    background-color: $primaryColorhover;
+    border-color: $primaryColorhover;
+  }
+}

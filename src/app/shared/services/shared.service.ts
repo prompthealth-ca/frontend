@@ -1,6 +1,8 @@
 import { Injectable, Optional, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { FlashMessagesService } from 'ngx-flash-messages';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { Observable } from 'rxjs';
 
@@ -27,8 +29,8 @@ export class SharedService {
   constructor(
     private _router: Router,
     private rendererFactory: RendererFactory2,
-
-
+    private _flashMessagesService: FlashMessagesService,
+    private spinner: NgxSpinnerService,
 
     @Inject(DOCUMENT) private document,
     private http: HttpClient) { }
@@ -198,6 +200,20 @@ export class SharedService {
 
   loginID() {
     return localStorage.getItem('loginID');
+  }
+
+  loader(key) {
+    if (key == 'show') this.spinner.show();
+    if (key == 'hide') this.spinner.hide();
+  }
+
+  showAlert(message, alertClass) {
+    // window.scrollTo(0, 0);
+    let obj = {
+      classes: ['alert', alertClass],
+      timeout: 1800
+    }
+    this._flashMessagesService.show(message, obj);
   }
 
 

@@ -6,7 +6,7 @@
   <title>WellnessFrontend</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.jpg">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
   <link rel="stylesheet"
     href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
@@ -26,33 +26,7 @@
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
     integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
     crossorigin="anonymous"></script>
-  <script>
-    $(document).ready(function () {
-      $('body').bootstrapMaterialDesign();
-    });
 
-    var deadline = new Date('Apr 22, 2020 15:37:25').getTime();
-    var x = setInterval(function () {
-      var now = new Date().getTime();
-      var t = deadline - now;
-      var days = Math.floor(t / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((t % (1000 * 60)) / 1000);
-
-
-      if(document.getElementById('days')) document.getElementById('days').innerHTML = days;
-      if(document.getElementById('hours')) document.getElementById('hours').innerHTML = hours;
-      if(document.getElementById('minutes')) document.getElementById('minutes').innerHTML = minutes;
-      if(document.getElementById('seconds')) document.getElementById('seconds').innerHTML = seconds;
-      if(document.getElementById('demo')) document.getElementById('demo').innerHTML =
-        days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
-      if (t < 0) {
-        clearInterval(x);
-        document.getElementById('demo').innerHTML = 'EXPIRED';
-      }
-    }, 1000);
-  </script>
 </body>
 
 </html>

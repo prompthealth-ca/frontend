@@ -1,0 +1,94 @@
+@import "../../../assets/scss/style.scss";
+
+.dropbtn {
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn > img {
+  width: 38px;
+  margin-right: 10px;
+}
+
+span.heading-text-usser {
+  font-size: 15px;
+  color: $primaryColor;
+}
+
+.dropdown-menu.drp-con.show {
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 2px 15px 3px rgba(0, 0, 0, 0.2);
+  z-index: 9999999;
+  left: initial;
+  right: 0;
+  border: none;
+  padding: 0px 0px;
+  border-radius: 5px;
+  margin-top: 13px;
+}
+
+.dropdown-item {
+  padding: 10px 17px;
+}
+a.dropdown-item:hover {
+  background: $primaryColor;
+  position: relative;
+  top: 0px;
+  border-bottom: 1px solid;
+  color: white !important;
+}
+
+img.img-responsive.nav {
+  width: 23px;
+  margin-top: 0.5rem;
+}
+a.navbar-brand {
+  padding: 0;
+}
+nav.navbar.navbar.position-fixed {
+  width: 100%;
+  top: 0;
+  z-index: 999999;
+  background-color: #fff;
+  box-shadow: 0px 0px 8px;
+}
+.flash-messages {
+  position: absolute;
+  padding-left: 1030px;
+  z-index: 999;
+  padding-top: 11px;
+}
+.search-section {
+  background: $primaryColor;
+  border: 1px solid $primaryColor;
+  padding: 8px 0px;
+  padding-top: 14px;
+  box-shadow: 0px 3px 11px 0px #fcfcfc70;
+}
+.hoverCol:hover {
+  background: #cecece66;
+}
+
+.google-btn .fBorder {
+  display: inline-block;
+  width: 100%;
+  max-width: 150px;
+  margin-left: 2rem;
+}
+
+.user-dropdown {
+  .dropdown-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .fa {
+    margin-right: 10px;
+    font-size: 26px;
+    color: #305acc;
+  }
+}

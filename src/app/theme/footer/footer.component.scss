@@ -1,0 +1,64 @@
+@import "../../../assets/scss/style";
+
+footer {
+  // background: $footerBg;
+}
+.footer-top {
+  padding: 25px 0;
+  // color: $footerText;
+  h3 {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 500;
+    // color: $footerText;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    &::after {
+      content: "";
+      width: 75px;
+      height: 1px;
+      display: block;
+      // background: $footerText;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      display: block;
+      a {
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: capitalize;
+        // color: $footerText;
+        padding: 2px 0;
+        margin: 0px 0;
+        display: block;
+      }
+    }
+  }
+}
+
+.footer-bottom {
+  background: #0003;
+  // color: $footerText;
+  font-size: 12px;
+  padding: 10px 5px;
+}
+
+p.copyright {
+  margin: 0;
+  // color: $footerText;
+  > a {
+    // color: $footerText;
+    padding: 0 2px;
+    margin: 0 1px;
+  }
+}

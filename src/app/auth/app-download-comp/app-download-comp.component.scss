@@ -1,0 +1,57 @@
+@import "../../../assets/scss/style";
+
+img.position-absolute {
+  position: absolute;
+  height: 90%;
+  top: 5.2%;
+  width: auto;
+  right: 0;
+}
+.app-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-links > a {
+  max-width: 175px;
+  margin: 6px;
+}
+
+.app-links {
+  position: relative;
+  top: 4.5rem;
+}
+
+.inner-form span.psw {
+  padding-top: 16px;
+  color: $primaryColor;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-card {
+  box-shadow: 0 0 10px 3px #8a88888c;
+  border-radius: 7px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  label {
+    font-size: 14px;
+  }
+}
+.form-control {
+  padding: 10px 15px;
+  font-size: 14px;
+  line-height: normal;
+}
+.mob-app h2 {
+  font-size: 40px;
+}
+
+.app-imgs {
+  text-align: center;
+  img {
+    margin: 10px;
+    max-width: 150px;
+  }
+}

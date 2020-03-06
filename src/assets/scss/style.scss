@@ -1,5 +1,13 @@
 @import "variables";
 @import "mixins";
+a:not([href]) {
+  color: initial;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
 
 .navbar-brand img {
   max-width: 200px;
@@ -17,12 +25,37 @@
 
 .heightH-100 {
   @extend .height-100;
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - #{$headerHeight});
+}
+
+.heightHF-100 {
+  @extend .height-100;
+  min-height: calc(100vh - #{$headerHeight+$footerHeight});
+}
+
+.spacer-top {
+  height: $headerHeight;
 }
 
 .bg-cover {
   background-size: cover;
   background-position: center;
+}
+
+.bg-overlay {
+  position: relative;
+  &::before {
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0000006b;
+    position: absolute;
+  }
+  > * {
+    position: relative;
+  }
 }
 
 .bg-primary {

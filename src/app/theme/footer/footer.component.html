@@ -1,50 +1,41 @@
 <section class="main-footer pt-5 pb-5 bg-primary text-light">
-  <div class="container text-center text-sm-left">
+  <div class="container text-center">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-7">
         <div class="row">
-          <div class="col-md-4 mb-4 mb-sm-0">
-            <h5 class="mb-3">Promthealth</h5>
-            <nav class="nav flex-column">
-              <a class="nav-link p-0 text-light" href="#">Home</a>
-              <a class="nav-link p-0 text-light" href="#">Loyalty program</a>
-              <a class="nav-link p-0 text-light" href="#">Privacy Policy</a>
-              <a class="nav-link p-0 text-light" href="#">Terms & Condition</a>
-            </nav>
-          </div>
-          <div class="col-md-4 mb-4 mb-sm-0">
-            <h5 class="mb-3">Appointments</h5>
-            <nav class="nav flex-column">
-              <a class="nav-link p-0 text-light" href="#">GP</a>
-              <a class="nav-link p-0 text-light" href="#">Dentist</a>
-              <a class="nav-link p-0 text-light" href="#">Physio</a>
-              <a class="nav-link p-0 text-light" href="#">Chiropractor</a>
-              <a class="nav-link p-0 text-light" href="#">Psychologist</a>
-            </nav>
-          </div>
-          <div class="col-md-4 mb-4 mb-sm-0">
-            <h5 class="mb-3">Directory</h5>
-            <nav class="nav flex-column">
-              <a class="nav-link p-0 text-light" href="#"
-                >Find a Practitioner</a
-              >
-              <a class="nav-link p-0 text-light" href="#">List Your Practice</a>
-              <a class="nav-link p-0 text-light" href="#">Find a Dentist</a>
-              <a class="nav-link p-0 text-light" href="#">Melbourne Dentists</a>
-              <a class="nav-link p-0 text-light" href="#">Brisbane Dentists</a>
-            </nav>
+          <div class="col-md-12 mb-4 mb-sm-0">
+            <h5 class="mb-3 text-center">Promthealth</h5>
+            <div class="row">
+              <nav class="nav justify-content-center w-100">
+                <a class="nav-link text-light" [routerLink]="['/home']">Home</a>
+                <a class="nav-link text-light" [routerLink]="['/faq']">FAQ</a>
+                <a class="nav-link text-light" [routerLink]="['/loyalty']"
+                  >Loyalty program</a
+                >
+                <a class="nav-link text-light" [routerLink]="['/policy']"
+                  >Privacy Policy</a
+                >
+                <a
+                  class="nav-link text-light"
+                  [routerLink]="['/term&conditions']"
+                  >Terms & Condition</a
+                >
+              </nav>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="row">
           <div class="col-md-6 mb-4 mb-sm-0">
             <h5 class="mb-3">Login</h5>
-            <a href="/auth/business" class="btn btn-light">Practice Login</a>
+            <a [routerLink]="['/auth/business']" class="btn btn-light"
+              >Practice Login</a
+            >
           </div>
           <div class="col-md-6">
             <p class="mb-3">© 2020 Promthealth</p>
-            <div class="social-links">
+            <div class="social-links d-inline-block">
               <a href="" class="btn btn-light mr-2"
                 ><i class="fa fa-twitter"></i
               ></a>

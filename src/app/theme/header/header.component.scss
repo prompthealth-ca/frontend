@@ -1,1 +1,11 @@
 @import "../../../assets/scss/style.scss";
+
+.main-header {
+  z-index: 999;
+}
+
+@media (max-width: 992px) {
+  .navbar-brand img {
+    max-width: 155px;
+  }
+}

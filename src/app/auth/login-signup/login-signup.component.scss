@@ -14,22 +14,23 @@ label {
   color: #fff;
 }
 
-.tab-content {
+.card {
   background-color: #6d6e71ba;
+}
+
+.tab-content {
   padding: 15px !important;
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .nav-link {
   color: #fff;
-  background-color: #6d6e716e;
-  border: 0 !important;
-  border-radius: 0 !important;
-  &.active {
+  &.active,
+  &:hover {
     color: #fff;
-    background-color: #6d6e71ba;
+    border-color: transparent;
   }
-}
-
-.nav-tabs {
-  border-color: #fff0;
+  &.active {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
 }

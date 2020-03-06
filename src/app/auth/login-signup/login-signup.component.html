@@ -4,19 +4,21 @@
   </p>
 </ngx-spinner>
 
-<div class="spc-top"></div>
-
 <div
-  class="heightH-100 bg-cover"
+  class="heightHF-100 bg-cover pt-4 pb-4"
   style="background-image: url(assets/img/blog1.jpg);"
 >
   <div class="container">
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <div class="rounded overflow-hidden">
+        <div class="rounded overflow-hidden card">
           <nav>
-            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <div
+              class="nav nav-tabs nav-fill border-0"
+              id="nav-tab"
+              role="tablist"
+            >
               <a
                 class="nav-item nav-link active"
                 id="nav-login-tab"
@@ -37,16 +39,6 @@
                 aria-selected="false"
                 >Signup</a
               >
-              <a
-                class="nav-item nav-link"
-                id="nav-forgot-tab"
-                data-toggle="tab"
-                href="#nav-forgot"
-                role="tab"
-                aria-controls="nav-forgot"
-                aria-selected="false"
-                >Forgot Password</a
-              >
             </div>
           </nav>
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -63,7 +55,7 @@
                 [formGroup]="loginForm"
               >
                 <div class="col-md-12 mb-3">
-                  <label>Email</label>
+                  <label>Email <span class="text-danger">*</span></label>
                   <input
                     type="email"
                     class="form-control"
@@ -85,7 +77,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label>Password</label>
+                  <label>Password <span class="text-danger">*</span></label>
                   <input
                     type="password"
                     formControlName="password"
@@ -109,7 +101,12 @@
                     Looks good!
                   </div>
                 </div>
-                <div class="col-md-12 text-right">
+                <div
+                  class="col-md-12 d-flex justify-content-between align-items-center"
+                >
+                  <a class="text-light" [routerLink]="['/auth/forgot-password']"
+                    >Forgot Password</a
+                  >
                   <input type="submit" class="btn btn-primary" />
                 </div>
               </form>
@@ -127,7 +124,7 @@
                 [formGroup]="registerForm"
               >
                 <div class="col-md-12 mb-3">
-                  <label>Name</label>
+                  <label>Name <span class="text-danger">*</span></label>
                   <input
                     type="text"
                     formControlName="bus_name"
@@ -150,7 +147,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label>Email</label>
+                  <label>Email <span class="text-danger">*</span></label>
                   <input
                     type="text"
                     formControlName="email"
@@ -173,7 +170,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label>Phone</label>
+                  <label>Phone <span class="text-danger">*</span></label>
                   <input type="number" class="form-control" required />
                   <div class="valid-feedback">
                     Looks good!
@@ -183,7 +180,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label>Password</label>
+                  <label>Password <span class="text-danger">*</span></label>
                   <input
                     type="password"
                     formControlName="password"
@@ -208,7 +205,9 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label>Confirm Password</label>
+                  <label
+                    >Confirm Password <span class="text-danger">*</span></label
+                  >
                   <input
                     type="password"
                     formControlName="confirm_password"
@@ -226,47 +225,6 @@
                     </div>
                     <div *ngIf="f.confirm_password.errors.mustMatch">
                       Passwords must match
-                    </div>
-                  </div>
-                  <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                </div>
-                <div class="col-md-12 text-right">
-                  <input type="submit" class="btn btn-primary" />
-                </div>
-              </form>
-            </div>
-            <!-- Forgot Tab -->
-            <div
-              class="tab-pane fade"
-              id="nav-forgot"
-              role="tabpanel"
-              aria-labelledby="nav-forgot-tab"
-            >
-              <!-- <form
-                class="form-row"
-                (ngSubmit)="submit()"
-                [formGroup]="forgotForm"
-                class="labeledform forgotform"
-              > -->
-              <form class="form-row">
-                <div class="col-md-12 mb-3">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    formControlName="email"
-                    name="email"
-                    [ngClass]="{ 'is-invalid': submitted && ff.email.errors }"
-                  />
-                  <div *ngIf="ff.email.errors" class="invalid-feedback">
-                    <div *ngIf="ff.email.errors.required">
-                      Email is required
-                    </div>
-                    <div *ngIf="ff.email.errors.email">
-                      Email must be a valid email address
                     </div>
                   </div>
                   <div class="valid-feedback">

@@ -4,6 +4,7 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
 import { HomeModule } from '../home/home.module';
 import { AuthModule } from '../auth/auth.module';
 import { LayoutComponent } from './layout/layout.component';
+import { HomeComponent } from './../home/home.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
       {
         path: '',
         // loadChildren: 'app/home/home.module#HomeModule'

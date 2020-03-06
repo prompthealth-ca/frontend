@@ -79,6 +79,14 @@ export class SharedService {
 
   }
 
+  getSubscriptionPlan() {
+    let date = new Date().getTime().toString();
+    let url = this.rootUrl + 'subscribepackage';
+
+    let headers = this.getAuthorizationHeader();
+    return this.http.get(url, { headers });
+  }
+
   // delete(Id) {
 
   //   let headers = this.getAuthorizationHeader();

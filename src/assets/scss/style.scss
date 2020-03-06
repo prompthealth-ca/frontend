@@ -5,8 +5,11 @@ a:not([href]) {
   text-decoration: none;
 }
 
-body::-webkit-scrollbar {
-  width: 0;
+body {
+  color: $secondaryColor;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 h2,

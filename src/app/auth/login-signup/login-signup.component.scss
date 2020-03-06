@@ -14,4 +14,10 @@ label {
   color: #fff;
 }
 
+.form-control {
+  background-color: #ffffff24 !important;
+  border-radius: 20px;
+  color: #fff;
+}
+
 @include customTab;

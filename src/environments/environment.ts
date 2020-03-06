@@ -7,11 +7,11 @@ export const environment = {
   config: {
     APP_NAME: "Wellness",
     //local
-    //BASE_URL: "http://localhost:1337/",
-    //API_URL: "http://localhost:1337/",
+    BASE_URL: "http://192.168.1.14:1337/",
+    API_URL: "http://192.168.1.14:1337/",
     //server
-    BASE_URL: "https://prompthealth.ca:1337/",
-    API_URL: "https://prompthealth.ca:1337/api/"
+    // BASE_URL: "https://prompthealth.ca:1337/",
+    // API_URL: "https://prompthealth.ca:1337/api/"
   },
   api_routes: {
     LOGIN: 'login',

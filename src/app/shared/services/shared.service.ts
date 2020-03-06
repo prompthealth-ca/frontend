@@ -60,11 +60,11 @@ export class SharedService {
   }
 
   login(body) {
-    return this.http.post(this.rootUrl + 'signinbusiness', body);
+    return this.http.post(this.rootUrl + 'signinUser', body);
   }
 
   register(body) {
-    return this.http.post(this.rootUrl + 'registerbusiness', body);
+    return this.http.post(this.rootUrl + 'register', body);
   }
 
   addPromotion(body) {

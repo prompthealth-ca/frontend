@@ -43,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit {
             let data = JSON.stringify(this.forgotForm.value);
 
             this._sharedService.loader('show');
-            this._sharedService.post(data, 'forgotpasswordbusiness').subscribe((res: any) => {
+            this._sharedService.post(data, 'forgotpassword').subscribe((res: any) => {
                 this._sharedService.loader('hide');
                 if (res.success) {
                     this.toastr.success(res.message);

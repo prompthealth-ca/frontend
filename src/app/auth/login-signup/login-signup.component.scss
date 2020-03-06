@@ -18,6 +18,9 @@ label {
   background-color: #ffffff24 !important;
   border-radius: 20px;
   color: #fff;
+  &::placeholder {
+    color: #fff;
+  }
 }
 
 @include customTab;

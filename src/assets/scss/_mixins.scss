@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 
 @mixin fixedBackgrond {
   background-size: cover;
@@ -8,7 +8,7 @@
 }
 
 @mixin bgOverlay {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 0;
@@ -38,5 +38,30 @@
   }
   textarea.form-control {
     min-height: 87px;
+  }
+}
+
+@mixin customTab($color: #fff, $bg: #4274ba96, $activebg: rgba(0, 0, 0, 0.03)) {
+  .card {
+    background-color: $bg;
+  }
+  .tab-content {
+    padding: 15px !important;
+    background-color: $activebg;
+  }
+  .nav-tabs {
+    .nav-link {
+      color: $color;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      &.active,
+      &:hover {
+        color: $color;
+      }
+      &.active {
+        background-color: $activebg;
+      }
+    }
   }
 }

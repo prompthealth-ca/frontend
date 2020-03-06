@@ -6,8 +6,8 @@ export const environment = {
     // BASE_URL: "http://192.168.0.54:1338/",
     // API_URL: "http://192.168.0.54:1338/",
     //server
-    BASE_URL: "http://18.189.7.137:1337/",
-    API_URL: "http://18.189.7.137:1337/api/",
+    BASE_URL: "http://18.216.244.101/",
+    API_URL: "http://18.216.244.101/api/",
   },
   api_routes: {
     LOGIN: 'login',

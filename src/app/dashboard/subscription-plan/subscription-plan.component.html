@@ -1,3 +1,8 @@
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+  <p style="font-size: 20px; color: white" class="loaderbg">
+    <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+  </p>
+</ngx-spinner>
 <section class="pt-5 pb-5 bg-cover bg-overlay" style="background-image: url(assets/img/blog2.jpg);">
   <div class="container pt-5 pb-5">
     <div class="row">
@@ -14,6 +19,11 @@
 </section>
 
 <section class="container">
+  <ngx-spinner bdColor="#fff" size="medium" color="#fff">
+    <p style="font-size: 20px; color: white" class="loaderbg">
+      <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+    </p>
+  </ngx-spinner>
   <div class="row">
     <div class="col-md-4" *ngFor="let data of subData">
       <div class="shadow bg-light mt--5 rounded-lg mb-4 mb-sm-0">
@@ -24,6 +34,11 @@
           </div>
           <hr />
           <ul class="check_ul">
+            <ngx-spinner bdColor="#fff" size="medium" color="#fff">
+              <p style="font-size: 20px; color: white" class="loaderbg">
+                <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+              </p>
+            </ngx-spinner>
             <li>
               <b>Plan type :</b> {{data.name.name}}
             </li>

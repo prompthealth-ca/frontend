@@ -41,7 +41,7 @@
   }
 }
 
-@mixin customTab($color: #fff, $bg: #4274ba96, $activebg: rgba(0, 0, 0, 0.15)) {
+@mixin customTab($color: #fff, $bg: #4274ba96, $activebg: #ffffff33) {
   .card {
     background-color: $bg;
   }

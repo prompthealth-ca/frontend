@@ -46,7 +46,8 @@ export class ForgotPasswordComponent implements OnInit {
             this._sharedService.post(data, 'forgotpassword').subscribe((res: any) => {
                 this._sharedService.loader('hide');
                 if (res.success) {
-                    this.toastr.success(res.message);
+                    console.log(">>>>>>>", res)
+                    this.toastr.success(res.data.message);
                     this._router.navigate(['/auth/business']);
 
                 } else {

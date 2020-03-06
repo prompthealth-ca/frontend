@@ -218,21 +218,21 @@ export class SharedService {
 
 
 
-  // loginUser(res) {
+  loginUser(res) {
 
 
-  //   // alert("heloo");
-  //   let route = '/dashboard/welcome';
-  //   this.showAlert(res.message, 'alert-success')
-  //   // alert("hiiii");
-  //   this.addCookie('token', res.data.access_token)
-  //   // alert("here");
-  //   this.addCookie('roles', res.data.roles)
-  //   this.addCookie('loginID', res.data.id)
-  //   this.addCookieObject('user', res.data)
+    alert("heloo");
+    let route = '/dashboard/subscriptionplan';
+    this.showAlert(res.message, 'alert-success')
+    alert("hiiii");
+    this.addCookie('token', res.data.access_token)
+    alert("here");
+    this.addCookie('roles', res.data.roles)
+    this.addCookie('loginID', res.data.id)
+    this.addCookieObject('user', res.data)
 
-  //   this._router.navigate([route]);
-  // }
+    this._router.navigate([route]);
+  }
 
   removeDuplicates(originalArray, prop) {
     var newArray = [];

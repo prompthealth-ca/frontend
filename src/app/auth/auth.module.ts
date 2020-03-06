@@ -6,7 +6,7 @@ import { LoginSignupComponent } from './login-signup/login-signup.component';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { AppDownloadCompComponent } from './app-download-comp/app-download-comp.component';
+
 // import { AgmCoreModule } from '@agm/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +31,7 @@ import { ContactUspageComponent } from './contact-uspage/contact-uspage.componen
   declarations: [
     LoginSignupComponent,
     ForgotPasswordComponent,
-    AppDownloadCompComponent,
+
     ContactUspageComponent,
 
 

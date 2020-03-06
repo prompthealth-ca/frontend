@@ -8,7 +8,14 @@ a:not([href]) {
 body {
   color: $secondaryColor;
   &::-webkit-scrollbar {
-    width: 0;
+    width: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f8f9fa;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: $primaryColor;
   }
 }
 
@@ -164,4 +171,17 @@ ul.check_ul {
 
 .text-primary {
   color: $primaryColor !important;
+}
+
+@media (max-width: 767px) {
+  @import "responsive_variables";
+  .heightH-100 {
+    @extend .height-100;
+    min-height: calc(100vh - #{$headerHeight});
+  }
+
+  .heightHF-100 {
+    @extend .height-100;
+    min-height: calc(100vh - #{$headerHeight+$footerHeight});
+  }
 }

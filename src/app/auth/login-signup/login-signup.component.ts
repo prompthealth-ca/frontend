@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
-// import { BehaviorService } from '../../shared/services/behavior.service';
+import { BehaviorService } from '../../shared/services/behavior.service';
 // import { UserIdleService } from 'angular-user-idle';
 declare var jQuery: any;
 // import { AuthService } from 'angular5-social-login';
@@ -60,7 +60,7 @@ export class LoginSignupComponent implements OnInit {
         private ngZone: NgZone,
         private _router: Router,
         private _route: ActivatedRoute,
-        // public _bs: BehaviorService,
+        public _bs: BehaviorService,
         // private socialAuthService: AuthService,
         private _sharedService: SharedService,
         // private userIdle: UserIdleService
@@ -153,8 +153,8 @@ export class LoginSignupComponent implements OnInit {
             this._sharedService.login(data).subscribe((res: any) => {
                 this._sharedService.loader('hide');
                 if (res.success) {
-                    // this._bs.setUser(res.data);
-                    // this._sharedService.loginUser(res);
+                    this._bs.setUser(res.data);
+                    this._sharedService.loginUser(res);
                     this.toastr.success(res.message, '', {
                         // disableTimeOut: true
                         timeOut: 2000

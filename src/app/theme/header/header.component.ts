@@ -74,17 +74,7 @@ export class HeaderComponent implements OnInit {
   route(path) {
     this._router.navigate([path]);
   }
-  routeBussiness(path) {
-    this._router.navigate(["/auth/business"]);
-  }
 
-  routeConsumer(path) {
-    this._router.navigate(["auth/consumer"]);
-  }
-
-  routeContact(path) {
-    this._router.navigate(["auth/contact-us"]);
-  }
 
   logout() {
     this.token = "";
@@ -93,7 +83,7 @@ export class HeaderComponent implements OnInit {
     // this._bs.unsetUser();
     localStorage.removeItem("token");
     this._sharedService.showAlert("Logout Sucessfully", "alert-success");
-    this._router.navigate(["/auth/business"]);
+    this._router.navigate(["/auth/signin-up"]);
   }
 
   fetchUser() {

@@ -41,7 +41,7 @@ export class SharedService {
     localStorage.removeItem('token');
     localStorage.removeItem('loginID');
     localStorage.removeItem('user');
-    this._router.navigate(['/auth/business']);
+    this._router.navigate(['/auth/signin-up']);
   }
 
   get(path) {
@@ -221,12 +221,12 @@ export class SharedService {
   loginUser(res) {
 
 
-    alert("heloo");
+    // alert("heloo");
     let route = '/dashboard/subscriptionplan';
     this.showAlert(res.message, 'alert-success')
-    alert("hiiii");
+    // alert("hiiii");
     this.addCookie('token', res.data.access_token)
-    alert("here");
+    // alert("here");
     this.addCookie('roles', res.data.roles)
     this.addCookie('loginID', res.data.id)
     this.addCookieObject('user', res.data)

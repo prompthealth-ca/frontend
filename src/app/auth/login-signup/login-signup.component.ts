@@ -110,17 +110,11 @@ export class LoginSignupComponent implements OnInit {
 
         this.registerForm = this.formBuilder.group({
 
-            contact_mobile: [undefined, Validators.required],
-            bus_type_other: ['', Validators.required],
-            no_of_employees: ['', Validators.required],
-            sales_person_id: [''],
-            bus_addr: ['', Validators.required],
-            bus_addr_lat: [null],
-            bus_addr_long: [null],
-            bus_name: ['', Validators.required],
-            contact_firstName: ['', Validators.required],
-            contact_lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
+
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+
             password: ['', [Validators.required, Validators.minLength(8)]],
             confirm_password: ['', Validators.required]
         }, {

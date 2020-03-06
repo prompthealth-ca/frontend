@@ -115,6 +115,11 @@ export class LoginSignupComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
 
+            company: ['', Validators.required],
+            url: ['', Validators.required],
+            cAdd: ['', Validators.required],
+            phone: ['', [Validators.required, Validators.minLength(10)]],
+
             password: ['', [Validators.required, Validators.minLength(8)]],
             confirm_password: ['', Validators.required]
         }, {

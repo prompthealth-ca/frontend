@@ -23,6 +23,11 @@ body {
   }
 }
 
+.object-fit-contain {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
 .p-6 {
   padding: $p6 !important;
 }
@@ -60,6 +65,13 @@ h4 {
   font-size: 14px;
 }
 
+.btn {
+  &:hover,
+  &:focus {
+    box-shadow: none;
+  }
+}
+
 .bg-primary {
   background-color: $primaryColor !important;
 }
@@ -68,7 +80,8 @@ h4 {
   color: #fff !important;
   background-color: $primaryColor;
   border-color: $primaryColor;
-  &:hover {
+  &:hover,
+  &:focus {
     color: #fff !important;
     background-color: $primaryColorhover;
     border-color: $primaryColorhover;
@@ -82,10 +95,6 @@ h4 {
     background-color: $primaryColor;
     color: #fff !important;
   }
-}
-
-.navbar-brand img {
-  max-width: 200px;
 }
 
 .height-100 {
@@ -115,6 +124,10 @@ h4 {
 .bg-cover {
   background-size: cover;
   background-position: center;
+}
+
+.bg-fixed {
+  background-attachment: fixed;
 }
 
 .bg-overlay {
@@ -185,6 +198,9 @@ ul.check_ul {
 }
 
 @media (max-width: 767px) {
+}
+
+@media (max-width: 767px) {
   @import "responsive_variables";
   .heightH-100 {
     @extend .height-100;
@@ -194,5 +210,8 @@ ul.check_ul {
   .heightHF-100 {
     @extend .height-100;
     min-height: calc(100vh - #{$headerHeight+$footerHeight});
+  }
+  .spacer-top {
+    height: $headerHeight;
   }
 }

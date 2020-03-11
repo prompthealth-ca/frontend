@@ -112,16 +112,7 @@ export class SharedService {
 
   }
 
-  getAllPromotions(options, rowsOnPage, activePage) {
-    let url = this.rootUrl + 'allbusinesspromotions?count=' + rowsOnPage + '&page=' + activePage;
 
-    let headers = this.getAuthorizationHeader();
-    let params = new URLSearchParams();
-    for (let key in options) {
-      params.set(key, options[key])
-    }
-    return this.http.get(url + '&' + params.toString(), { headers: headers });
-  }
 
   queryParams(path, options) {
     let headers = this.getAuthorizationHeader();

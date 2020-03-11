@@ -1,8 +1,12 @@
 @import "variables";
 @import "mixins";
-a:not([href]) {
-  color: initial;
+
+a:hover {
   text-decoration: none;
+  &:not([href]) {
+    color: initial;
+    text-decoration: none;
+  }
 }
 
 body {
@@ -19,6 +23,17 @@ body {
   }
 }
 
+.p-6 {
+  padding: $p6 !important;
+}
+.pt-6 {
+  padding-top: $p6 !important;
+}
+
+.pb-6 {
+  padding-bottom: $p6 !important;
+}
+
 h2,
 h4 {
   font-weight: 500;
@@ -32,8 +47,41 @@ h4 {
   font-size: 22px;
 }
 
-a:hover {
-  text-decoration: none;
+.mt--5 {
+  margin-top: -84px;
+}
+
+.text-primary {
+  color: $primaryColor !important;
+}
+
+.form-control {
+  line-height: normal;
+  font-size: 14px;
+}
+
+.bg-primary {
+  background-color: $primaryColor !important;
+}
+
+.btn-primary {
+  color: #fff !important;
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  &:hover {
+    color: #fff !important;
+    background-color: $primaryColorhover;
+    border-color: $primaryColorhover;
+  }
+}
+
+.btn-outline-primary {
+  color: $primaryColor !important;
+  border-color: $primaryColor;
+  &:hover {
+    background-color: $primaryColor;
+    color: #fff !important;
+  }
 }
 
 .navbar-brand img {
@@ -85,26 +133,6 @@ a:hover {
   }
 }
 
-.bg-primary {
-  background-color: $primaryColor !important;
-}
-
-.btn-primary {
-  color: #fff !important;
-  background-color: $primaryColor;
-  border-color: $primaryColor;
-  &:hover {
-    color: #fff !important;
-    background-color: $primaryColorhover;
-    border-color: $primaryColorhover;
-  }
-}
-
-.form-control {
-  line-height: normal;
-  font-size: 14px;
-}
-
 // Loader start
 .loader1mk {
   position: relative;
@@ -154,23 +182,6 @@ ul.check_ul {
       font-family: FontAwesome;
     }
   }
-}
-
-.btn-outline-primary {
-  color: $primaryColor !important;
-  border-color: $primaryColor;
-  &:hover {
-    background-color: $primaryColor;
-    color: #fff !important;
-  }
-}
-
-.mt--5 {
-  margin-top: -84px;
-}
-
-.text-primary {
-  color: $primaryColor !important;
 }
 
 @media (max-width: 767px) {

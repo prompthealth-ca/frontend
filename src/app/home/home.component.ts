@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from '../../environments/environment';
-import { SharedService } from '../shared/services/shared.service';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Component, OnInit, ElementRef } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { environment } from "../../environments/environment";
+import { SharedService } from "../shared/services/shared.service";
+import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-
   days: any;
   hours: any;
   minutes: any;
@@ -24,57 +23,54 @@ export class HomeComponent implements OnInit {
   // _host = environment.config.BASE_URL;
   id: any;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private _sharedService: SharedService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService
+  ) {}
 
+  get f() {
+    return this.homeForm.controls;
   }
-
-  get f() { return this.homeForm.controls; }
   ngOnInit() {
-
     this.homeForm = this.formBuilder.group({
-
-      email: ['', [Validators.required, Validators.email]],
-
+      email: ["", [Validators.required, Validators.email]]
     });
 
     this.timer();
     this.id = setInterval(() => {
       this.timer();
     }, 1000);
-
-
   }
-
 
   submit() {
     // alert("here");
-
 
     this.submitted = true;
     let data = JSON.stringify(this.homeForm.value);
 
     // this._sharedService.loader('show');
-    this._sharedService.contactus(data).subscribe((res: any) => {
-      // this._sharedService.loader('hide');
-      if (res.success) {
-        this.toastr.success(res.message);
-        this.homeForm.reset();
-        this.submitted = false;
-
-      } else {
-        this.toastr.error(res.message);
+    this._sharedService.contactus(data).subscribe(
+      (res: any) => {
+        // this._sharedService.loader('hide');
+        if (res.success) {
+          this.toastr.success(res.message);
+          this.homeForm.reset();
+          this.submitted = false;
+        } else {
+          this.toastr.error(res.message);
+        }
+      },
+      error => {
+        this.toastr.error("Please check your email id.");
+        //this._sharedService.loader('hide');
       }
-    }, (error) => {
-      this.toastr.error("Please check your email id.");
-      //this._sharedService.loader('hide');
-    });
+    );
   }
 
   timer() {
-    var deadline = new Date('Mar 5, 2020 15:37:25').getTime();
+    var deadline = new Date("June 5, 2020 15:37:25").getTime();
 
     var now = new Date().getTime();
     var t = deadline - now;
@@ -88,5 +84,4 @@ export class HomeComponent implements OnInit {
     this.minutes = minutes;
     this.seconds = seconds;
   }
-
 }

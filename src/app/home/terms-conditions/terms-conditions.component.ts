@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../shared/services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-terms-conditions',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsConditionsComponent implements OnInit {
 
-  constructor() { }
+  result: any;
+  title: any;
+  description: any;
 
-  ngOnInit(): void {
+  constructor(private _router: Router,
+    private _sharedService: SharedService) {
+    this._sharedService.loader('show');
+    this._sharedService.get("Pages/fixTitle/t-c").subscribe((res: any) => {
+
+      if (res.success) {
+        this._sharedService.loader('hide');
+        this.title = res.data.title
+        this.description = res.data.description
+
+        console.log('this.resultLoyalty', this.result)
+      }
+    },
+      (error) => { });
+  }
+
+  ngOnInit() {
+
   }
 
 }

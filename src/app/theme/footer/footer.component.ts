@@ -11,7 +11,6 @@ declare var FB: any;
 export class FooterComponent implements OnInit {
 
   email: any;
-  result: any;
   constructor(
     private _router: Router,
     private _sharedService: SharedService) { }
@@ -39,22 +38,6 @@ export class FooterComponent implements OnInit {
         this._sharedService.showAlert(res.error.message, 'alert-danger');
       }
     }, (error) => { });
-  }
-
-  loyaltyProgram() {
-    alert("here");
-
-    this._sharedService.get("Pages/fixTitle/loyality-program").subscribe((res: any) => {
-      this._sharedService.loader('hide');
-      if (res.success) {
-        this.result = res.success
-        console.log('this.resultLoyalty', this.result)
-      }
-    },
-      (error) => { });
-
-
-
   }
 
 }

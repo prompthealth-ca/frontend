@@ -10,26 +10,26 @@ import { Router } from '@angular/router';
 export class LoyalityProgramsComponent implements OnInit {
   result: any;
   title: any;
+  description: any;
 
   constructor(private _router: Router,
-    private _sharedService: SharedService) { }
-
-  ngOnInit() {
-    this.loyaltyProgram();
-  }
-  loyaltyProgram() {
-    // alert("here");
-
+    private _sharedService: SharedService) {
+    this._sharedService.loader('show');
     this._sharedService.get("Pages/fixTitle/loyality-program").subscribe((res: any) => {
-      this._sharedService.loader('hide');
+
       if (res.success) {
+        this._sharedService.loader('hide');
         this.title = res.data.title
+        this.description = res.data.description
+
         console.log('this.resultLoyalty', this.result)
       }
     },
       (error) => { });
+  }
 
-
+  ngOnInit() {
 
   }
+
 }

@@ -77,6 +77,28 @@ h4 {
   background-color: $primaryColor !important;
 }
 
+.btn-facebook {
+  background-color: #3b5998 !important;
+  border-color: #3b5998 !important;
+  color: #fff;
+  &:hover {
+    color: #fff !important;
+    background-color: #3b5998 !important;
+    border-color: #3b5998 !important;
+  }
+}
+
+.btn-google {
+  background-color: #db4437 !important;
+  border-color: #db4437 !important;
+  color: #fff !important;
+  &:hover {
+    color: #fff !important;
+    background-color: #db4437 !important;
+    border-color: #db4437 !important;
+  }
+}
+
 .btn-primary {
   color: #fff !important;
   background-color: $primaryColor;

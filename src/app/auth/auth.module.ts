@@ -12,6 +12,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ReactiveFormsModule } from '@angular/forms';
 // import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
+import { ProfessionalRegistrationComponent } from './professional-registration/professional-registration.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
+
 
 
 @NgModule({
@@ -31,10 +34,9 @@ import { ContactUspageComponent } from './contact-uspage/contact-uspage.componen
   declarations: [
     LoginSignupComponent,
     ForgotPasswordComponent,
-
     ContactUspageComponent,
-
-
+    ProfessionalRegistrationComponent,
+    UserRegistrationComponent,
   ]
 })
 export class AuthModule { }

@@ -1,93 +1,125 @@
-<section
-  class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay"
-  style="background-image: url(assets/img/blog1.jpg);"
->
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+  <p style="font-size: 20px; color: white" class="loaderbg">
+    <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+  </p>
+</ngx-spinner>
+<section class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay" style="background-image: url(assets/img/backgroud5.jpg);">
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-sm-3"></div>
       <div class="col-md-4 col-sm-6">
-        <div
-          class="shadow rounded"
-          style="background-color: #ffffff45;color:#fff"
-        >
+        <div class="shadow rounded" style="background-color: #ffffff45;color:#fff">
           <div class="card-body">
             <div class="text-center mb-3">
               <img src="assets/img/logo.png" style="max-width: 220px;" />
             </div>
             <div class="form-row">
-              <div class="col-md-12 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-envelope"></i>
+              <form class="form-row" (ngSubmit)="registerUser()" [formGroup]="registerForm">
+                <div class="col-md-12 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">
+                        Email is required
+                      </div>
+                      <div *ngIf="f.email.errors.email">
+                        Email must be a valid email address
+                      </div>
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Username"
-                  />
                 </div>
-              </div>
-              <div class="col-md-12 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-key"></i>
+                <div class="col-md-12 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-key"></i>
+                      </div>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.password.errors
+                      }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="f.password.errors.minlength">
+                        Password must be at least 8 characters
+                      </div>
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Password"
-                  />
                 </div>
-              </div>
-              <div class="col-md-12 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-key"></i>
+                <div class="col-md-12 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-key"></i>
+                      </div>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Confirm Password"
+                      formControlName="confirm_password" [ngClass]="{
+                        'is-invalid': submitted && f.confirm_password.errors
+                      }" />
+                    <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback">
+                      <div *ngIf="f.confirm_password.errors.required">
+                        Confirm Password is required
+                      </div>
+                      <div *ngIf="f.confirm_password.errors.mustMatch">
+                        Passwords must match
+                      </div>
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Confirm Password"
-                  />
                 </div>
-              </div>
-              <div class="col-md-12 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fa fa-book"></i>
+                <div class="col-md-12 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fa fa-book"></i>
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="How did you hear about us?"
+                      formControlName="hear_from" [ngClass]="{
+                        'is-invalid': submitted && f.hear_from.errors
+                      }" />
+                    <div *ngIf="submitted && f.hear_from.errors" class="invalid-feedback">
+                      <div *ngIf="f.hear_from.errors.required">
+                        Hear from is required
+                      </div>
+
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="How did you hear about us?"
-                  />
                 </div>
-              </div>
-              <div class="col-md-12 mb-2 d-flex align-items-center">
-                <input type="checkbox" class="mr-2" /><span class="small"
-                  >I agree to the terms of service and privacy policy</span
-                >
-              </div>
-              <div class="col-md-12 mb-2 text-right">
-                <button type="submit" class="btn btn-primary">Sign up</button>
-              </div>
-              <div class="col-md-12 text-center">
-                <hr class="border-light" />
-                <button type="submit" class="btn btn-outline-primary mr-2 ml-2">
-                  <i class="fa fa-facebook"></i>
-                </button>
-                <button type="submit" class="btn btn-outline-primary mr-2 ml-2">
-                  <i class="fa fa-google"></i>
-                </button>
-              </div>
+                <div class="col-md-12 mb-2 d-flex align-items-center">
+                  <input type="checkbox" class="mr-2" formControlName="t_c" [ngClass]="{
+                      'is-invalid': submitted && f.t_c.errors
+                    }" /><span class="small">I agree to the terms of service and privacy
+                    policy</span>
+                  <div *ngIf="submitted && f.t_c.errors" class="invalid-feedback">
+                    <div *ngIf="f.t_c.errors.required">
+                      Terms of service and privacy is required
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-12 mb-2 text-right">
+                  <button type="submit" class="btn btn-primary">Sign up</button>
+                </div>
+                <div class="col-md-12 text-center">
+                  <hr class="border-light" />
+                  <button type="submit" class="btn btn-outline-primary mr-2 ml-2">
+                    <i class="fa fa-facebook"></i>
+                  </button>
+                  <button type="submit" class="btn btn-outline-primary mr-2 ml-2">
+                    <i class="fa fa-google"></i>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

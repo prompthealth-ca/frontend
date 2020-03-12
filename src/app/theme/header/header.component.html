@@ -1,18 +1,9 @@
 <header>
-  <nav
-    class="navbar navbar-expand-lg navbar-light bg-light main-header position-fixed shadow-sm w-100"
-  >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light main-header position-fixed shadow-sm w-100">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/img/logo.png"/></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <a class="navbar-brand" href="#"><img src="assets/img/logo.png" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -24,15 +15,8 @@
             <a class="nav-link" [routerLink]="['/home']">About</a>
           </li>
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Solutions</a
-            >
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              aria-expanded="false">Solutions</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Client</a>
               <a class="dropdown-item" href="#">Professional</a>
@@ -48,9 +32,39 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/auth/signin-up']">Login</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link">OR</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#openModal">Join network</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </header>
 <div class="spacer-top"></div>
+<div id="openModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="openModalLabel"
+  style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="popup">
+
+        <div class="content">
+          <div class="form-wrapper">
+            <div class="form-group">
+              <a class="nav-link">PROFESSIONAL</a>
+              <a class="nav-link">USER</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="mt-20">
+          <button type="button" data-dismiss="modal" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

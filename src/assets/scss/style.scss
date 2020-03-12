@@ -91,9 +91,11 @@ h4 {
 .btn-outline-primary {
   color: $primaryColor !important;
   border-color: $primaryColor;
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $primaryColor;
     color: #fff !important;
+    border-color: $primaryColor;
   }
 }
 

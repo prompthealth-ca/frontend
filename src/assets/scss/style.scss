@@ -21,6 +21,7 @@ body {
     border-radius: 20px;
     background-color: $primaryColor;
   }
+  font-family: $themeFont;
 }
 
 .object-fit-contain {
@@ -45,7 +46,7 @@ h4 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 35px;
 }
 
 h4 {
@@ -85,6 +86,13 @@ h4 {
     color: #fff !important;
     background-color: $primaryColorhover;
     border-color: $primaryColorhover;
+  }
+}
+
+.btn-light {
+  color: #212529 !important;
+  &:hover {
+    color: #212529 !important;
   }
 }
 

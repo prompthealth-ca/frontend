@@ -13,7 +13,7 @@
       <div class="col-md-4 col-sm-6">
         <div
           class="shadow rounded"
-          style="background-color: #ffffff82;color:#fff"
+          style="background-color: #ffffff82;color:#6d6e71"
         >
           <div class="card-body">
             <div class="text-center mb-3">
@@ -61,9 +61,6 @@
                       <div>
                         Password is required
                       </div>
-                      <div>
-                        Password must be at least 8 characters
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -87,8 +84,18 @@
                 >
                   <div class="small">
                     Not Registered yet ?
-                    <a href="" class="text-primary">Register Here</a><br />
-                    <a href="" class="text-primary">Forgot Password</a>
+                    <a
+                      href=""
+                      [routerLink]="['/auth/registrationp']"
+                      class="text-primary"
+                      >Register Here</a
+                    ><br />
+                    <a
+                      href=""
+                      [routerLink]="['/auth/forgot-password']"
+                      class="text-primary"
+                      >Forgot Password</a
+                    >
                   </div>
                   <button type="submit" class="btn btn-primary">Login</button>
                 </div>

@@ -3,18 +3,28 @@
     <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
   </p>
 </ngx-spinner>
-<section class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay" style="background-image: url(assets/img/backgroud5.jpg);">
+<section
+  class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay"
+  style="background-image: url(assets/img/backgroud5.jpg);"
+>
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-sm-3"></div>
       <div class="col-md-4 col-sm-6">
-        <div class="shadow rounded" style="background-color: #ffffff45;color:#fff">
+        <div
+          class="shadow rounded"
+          style="background-color: #ffffff82;color:#6d6e71"
+        >
           <div class="card-body">
             <div class="text-center mb-3">
               <img src="assets/img/logo.png" style="max-width: 220px;" />
             </div>
             <div class="form-row">
-              <form class="form-row" (ngSubmit)="registerUser()" [formGroup]="registerForm">
+              <form
+                class="form-row"
+                (ngSubmit)="registerUser()"
+                [formGroup]="registerForm"
+              >
                 <div class="col-md-12 mb-2">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -22,9 +32,17 @@
                         <i class="fa fa-envelope"></i>
                       </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Email" formControlName="email"
-                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Email"
+                      formControlName="email"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                    />
+                    <div
+                      *ngIf="submitted && f.email.errors"
+                      class="invalid-feedback"
+                    >
                       <div *ngIf="f.email.errors.required">
                         Email is required
                       </div>
@@ -41,11 +59,19 @@
                         <i class="fa fa-key"></i>
                       </div>
                     </div>
-                    <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      formControlName="password"
                       [ngClass]="{
                         'is-invalid': submitted && f.password.errors
-                      }" />
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.password.errors"
+                      class="invalid-feedback"
+                    >
                       <div *ngIf="f.password.errors.required">
                         Password is required
                       </div>
@@ -62,11 +88,19 @@
                         <i class="fa fa-key"></i>
                       </div>
                     </div>
-                    <input type="password" class="form-control" placeholder="Confirm Password"
-                      formControlName="confirm_password" [ngClass]="{
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Confirm Password"
+                      formControlName="confirm_password"
+                      [ngClass]="{
                         'is-invalid': submitted && f.confirm_password.errors
-                      }" />
-                    <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback">
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.confirm_password.errors"
+                      class="invalid-feedback"
+                    >
                       <div *ngIf="f.confirm_password.errors.required">
                         Confirm Password is required
                       </div>
@@ -83,11 +117,19 @@
                         <i class="fa fa-book"></i>
                       </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="How did you hear about us?"
-                      formControlName="hear_from" [ngClass]="{
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="How did you hear about us?"
+                      formControlName="hear_from"
+                      [ngClass]="{
                         'is-invalid': submitted && f.hear_from.errors
-                      }" />
-                    <div *ngIf="submitted && f.hear_from.errors" class="invalid-feedback">
+                      }"
+                    />
+                    <div
+                      *ngIf="submitted && f.hear_from.errors"
+                      class="invalid-feedback"
+                    >
                       <div *ngIf="f.hear_from.errors.required">
                         Hear from is required
                       </div>
@@ -95,16 +137,47 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-2 d-flex align-items-center">
-                  <input type="checkbox" class="mr-2" formControlName="t_c" [ngClass]="{
+                  <input
+                    type="checkbox"
+                    class="mr-2"
+                    formControlName="t_c"
+                    [ngClass]="{
                       'is-invalid': submitted && f.t_c.errors
-                    }" /><span class="small">I agree to the terms of service and privacy policy</span>
-                  <div *ngIf="submitted && f.t_c.errors" class="invalid-feedback">
+                    }"
+                  /><span class="small"
+                    >I agree to the terms of service and privacy policy</span
+                  >
+                  <div
+                    *ngIf="submitted && f.t_c.errors"
+                    class="invalid-feedback"
+                  >
                     <div *ngIf="f.t_c.errors.required">
                       Terms of service and privacy is required
                     </div>
                   </div>
                 </div>
-                <div class="col-md-12 mb-2 text-right">
+                <div
+                  class="col-md-12 mb-2 d-flex justify-content-between align-items-center"
+                >
+                  <div class="small">
+                    Already registered?
+                    <a
+                      [routerLink]="['/auth/loginu']"
+                      class="text-primary"
+                      preserveQueryParams
+                      preserveFragment
+                    >
+                      Login here </a
+                    ><br />
+                    <a
+                      [routerLink]="['/user/bob']"
+                      class="text-primary"
+                      preserveQueryParams
+                      preserveFragment
+                    >
+                      Forgot password
+                    </a>
+                  </div>
                   <button type="submit" class="btn btn-primary">Sign up</button>
                 </div>
                 <div class="col-md-12 text-center">
@@ -115,13 +188,6 @@
                   <button type="submit" class="btn btn-google mr-2 ml-2">
                     <i class="fa fa-google"></i>
                   </button>
-                  Already registered?
-                  <a [routerLink]="['/auth/loginu']" preserveQueryParams preserveFragment>
-                    Login here
-                  </a>
-                  <a [routerLink]="['/user/bob']" preserveQueryParams preserveFragment>
-                    Forgot password
-                  </a>
                 </div>
               </form>
             </div>

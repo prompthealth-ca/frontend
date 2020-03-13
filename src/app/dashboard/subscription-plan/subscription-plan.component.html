@@ -39,11 +39,74 @@
                 <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
               </p>
             </ngx-spinner>
-            <li><b>Plan type :</b> {{ data.planType }}</li>
+            <h3>
+              <li><b>Plan type :</b> {{ data.planType }}</li>
+            </h3>
+            <li><b>Professional Profile :</b> {{ data.professionalProfile }}</li>
+            <li><b>Address URL Logo Picture :</b> {{ data.addressURLLogoPicture }}</li>
+            <li><b>Video Upload :</b> {{ data.videoUpload }}</li>
+            <li><b>Social Media Sharing :</b> {{ data.socialMediaSharing }}</li>
+            <li><b>Performance Dashboard :</b> {{ data.performanceDashboard }}</li>
+            <li><b>Real Reviews And Feedback :</b> {{ data.realReviewsAndFeedback }}</li>
+            <li><b>Receive Messages For Booking :</b> {{ data.receiveMessagesForBooking }}</li>
+            <li><b>Send Messages For Recalls :</b> {{ data.sendMessagesForRecalls }}</li>
+            <li><b>Promotions And Discounts Option :</b> {{ data.promotionsAndDiscountsOption }}</li>
+            <li><b>List Products Option :</b> {{ data.listProductsOption }}</li>
+            <li><b>List Any Special Amenities :</b> {{ data.listAnySpecialAmenities }}</li>
+            <li><b>List Of Providers :</b> {{ data.listOfProviders }}</li>
+            <li><b>List Your Type Of Center And Different Locations :</b>
+              {{ data.listYourTypeOfCenterAndDifferentLocations }}</li>
+
           </ul>
-          <a class="btn btn-outline-primary w-100 text-center">Subscribe</a>
+          <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal"
+            data-target="#subscribe">Subscribe</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
+    <div class="modal-content mk-border">
+      <div class="modal-header">
+        <h3>Select Card for Payment</h3>
+        <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#addcard">Add Card</a>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="addcard" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
+    <div class="modal-content mk-border">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
+          Login
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="text-center">
+          <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
+        </div>
+        <div class="text-secondary font-weight-bold mb-3">Are You A</div>
+        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/auth/loginp']" data-dismiss="modal" aria-label="Close"
+          style="max-width: 175px;">PROFESSIONAL</a>
+        or
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/loginu']" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">USER</a>
+      </div>
+    </div>
+  </div>
+</div>

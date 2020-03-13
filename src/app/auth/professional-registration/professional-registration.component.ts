@@ -30,6 +30,7 @@ export class ProfessionalRegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       hear_from: ['', [Validators.required]],
       t_c: ['', [Validators.required]],
+      roles: ['SP'],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required]
     },

@@ -11,6 +11,8 @@ a:hover {
 
 body {
   color: $secondaryColor;
+  font-family: $themeFont;
+  font-size: 15px;
   &::-webkit-scrollbar {
     width: 7px;
   }
@@ -21,7 +23,6 @@ body {
     border-radius: 20px;
     background-color: $primaryColor;
   }
-  font-family: $themeFont;
 }
 
 .object-fit-contain {
@@ -66,7 +67,15 @@ h4 {
   font-size: 14px;
 }
 
+.mk-border {
+  border: 9px solid #6c757dad;
+}
+
 .btn {
+  font-size: 14px;
+  line-height: normal;
+  padding: 10px 15px;
+  font-weight: 400;
   &:hover,
   &:focus {
     box-shadow: none;
@@ -83,8 +92,8 @@ h4 {
   color: #fff;
   &:hover {
     color: #fff !important;
-    background-color: #3b5998 !important;
-    border-color: #3b5998 !important;
+    background-color: #3c6acb !important;
+    border-color: #3c6acb !important;
   }
 }
 
@@ -94,8 +103,8 @@ h4 {
   color: #fff !important;
   &:hover {
     color: #fff !important;
-    background-color: #db4437 !important;
-    border-color: #db4437 !important;
+    background-color: #ea5f54 !important;
+    border-color: #ea5f54 !important;
   }
 }
 
@@ -228,6 +237,23 @@ ul.check_ul {
     }
   }
 }
+
+// testimonials
+$testimonialsavtarSize: 73px;
+.testimonials-avtar {
+}
+
+.testimonials-text {
+  &::before,
+  &::after {
+    content: '"';
+  }
+  font-size: 22px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+// testimonials end
 
 @media (max-width: 767px) {
   @import "responsive_variables";

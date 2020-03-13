@@ -7,6 +7,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
 import { ProfessionalRegistrationComponent } from './professional-registration/professional-registration.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { LoginProfessionalComponent } from './login-professional/login-professional.component';
+import { LoginUserComponent } from './login-user/login-user.component';
 const routes: Routes = [{
 	path: 'signin-up',
 	component: LoginSignupComponent
@@ -26,6 +28,14 @@ const routes: Routes = [{
 {
 	path: 'registrationu',
 	component: UserRegistrationComponent
+},
+{
+	path: 'loginp',
+	component: LoginProfessionalComponent
+},
+{
+	path: 'loginu',
+	component: LoginUserComponent
 }
 ];
 

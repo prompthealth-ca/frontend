@@ -30,6 +30,7 @@ export class UserRegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       hear_from: ['', [Validators.required]],
       t_c: ['', [Validators.required]],
+      roles: ['U'],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required]
     },

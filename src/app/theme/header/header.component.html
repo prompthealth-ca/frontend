@@ -46,13 +46,19 @@
             <a class="nav-link" href="#">Resources</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/auth/signin-up']">Login</a>
+            <a class="nav-link" data-toggle="modal" data-target="#loginmodal"
+              >Login</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link">OR</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal"
+            <a
+              class="nav-link"
+              href="#"
+              data-toggle="modal"
+              data-target="#exampleModal"
               >Join network</a
             >
           </li>
@@ -63,7 +69,7 @@
 </header>
 <div class="spacer-top"></div>
 
-<!-- Modal -->
+<!-- Modal signup -->
 <div
   class="modal fade"
   id="exampleModal"
@@ -106,6 +112,66 @@
         <a
           class="btn btn-primary mr-2"
           [routerLink]="['/auth/registrationp']"
+          data-dismiss="modal"
+          aria-label="Close"
+          >PROFESSIONAL</a
+        >
+        or
+        <a
+          class="btn btn-primary ml-2"
+          [routerLink]="['/auth/registrationu']"
+          data-dismiss="modal"
+          aria-label="Close"
+          >USER</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal login -->
+<div
+  class="modal fade"
+  id="loginmodal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="loginmodal"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="margin: auto !important;width:100%"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5
+          class="modal-title w-100 text-center"
+          id="exampleModalLabel"
+          style="text-indent: 56px;"
+        >
+          Login
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="text-center">
+          <img
+            src="assets/img/logo.png"
+            class="mb-3"
+            style="max-width: 220px;"
+          />
+        </div>
+        <a
+          class="btn btn-primary mr-2"
+          [routerLink]="['/auth/loginp']"
           data-dismiss="modal"
           aria-label="Close"
           >PROFESSIONAL</a

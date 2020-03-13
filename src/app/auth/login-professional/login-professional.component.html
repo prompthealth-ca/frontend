@@ -13,14 +13,18 @@
       <div class="col-md-4 col-sm-6">
         <div
           class="shadow rounded"
-          style="background-color: #ffffff82;color:#fff"
+          style="background-color: #ffffff82;color:#6d6e71"
         >
           <div class="card-body">
             <div class="text-center mb-3">
               <img src="assets/img/logo.png" style="max-width: 220px;" />
             </div>
             <div class="form-row">
-              <form class="form-row">
+              <form
+                class="form-row"
+                (ngSubmit)="loginUser()"
+                [formGroup]="loginForm"
+              >
                 <div class="col-md-12 mb-2">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -33,12 +37,16 @@
                       class="form-control"
                       placeholder="Email"
                       formControlName="email"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
                     />
-                    <div class="invalid-feedback">
-                      <div>
+                    <div
+                      *ngIf="submitted && f.email.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.email.errors.required">
                         Email is required
                       </div>
-                      <div>
+                      <div *ngIf="f.email.errors.email">
                         Email must be a valid email address
                       </div>
                     </div>
@@ -56,12 +64,18 @@
                       class="form-control"
                       placeholder="Password"
                       formControlName="password"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.password.errors
+                      }"
                     />
-                    <div class="invalid-feedback">
-                      <div>
+                    <div
+                      *ngIf="submitted && f.password.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.password.errors.required">
                         Password is required
                       </div>
-                      <div>
+                      <div *ngIf="f.password.errors.minlength">
                         Password must be at least 8 characters
                       </div>
                     </div>
@@ -87,8 +101,18 @@
                 >
                   <div class="small">
                     Not Registered yet ?
-                    <a href="" class="text-primary">Register Here</a><br />
-                    <a href="" class="text-primary">Forgot Password</a>
+                    <a
+                      href=""
+                      [routerLink]="['/auth/registrationp']"
+                      class="text-primary"
+                      >Register Here</a
+                    ><br />
+                    <a
+                      href=""
+                      [routerLink]="['/auth/forgot-password']"
+                      class="text-primary"
+                      >Forgot Password</a
+                    >
                   </div>
                   <button type="submit" class="btn btn-primary">Login</button>
                 </div>

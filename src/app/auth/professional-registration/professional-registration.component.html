@@ -104,9 +104,17 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="col-md-12 mb-2 text-right">
                   <button type="submit" class="btn btn-primary">Sign up</button>
                 </div>
+                Already registered?
+                <a [routerLink]="['/auth/loginp']" preserveQueryParams preserveFragment>
+                  Login here
+                </a>
+                <a [routerLink]="['/auth/forgot-password']" preserveQueryParams preserveFragment>
+                  Forgot password
+                </a>
                 <div class="col-md-12 text-center">
                   <hr class="border-light" />
                   <button type="submit" class="btn btn-facebook mr-2 ml-2">

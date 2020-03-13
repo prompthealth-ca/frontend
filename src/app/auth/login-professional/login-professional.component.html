@@ -3,24 +3,18 @@
     <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
   </p>
 </ngx-spinner>
-<section
-  class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay"
-  style="background-image: url(assets/img/backgroud5.jpg);"
->
+<section class="heightHF-100 pt-4 pb-4 bg-cover bg-overlay" style="background-image: url(assets/img/backgroud5.jpg);">
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-sm-3"></div>
       <div class="col-md-4 col-sm-6">
-        <div
-          class="shadow rounded"
-          style="background-color: #ffffff45;color:#fff"
-        >
+        <div class="shadow rounded" style="background-color: #ffffff45;color:#fff">
           <div class="card-body">
             <div class="text-center mb-3">
               <img src="assets/img/logo.png" style="max-width: 220px;" />
             </div>
             <div class="form-row">
-              <form class="form-row">
+              <form class="form-row" (ngSubmit)="loginUser()" [formGroup]="loginForm">
                 <div class="col-md-12 mb-2">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -28,17 +22,13 @@
                         <i class="fa fa-envelope"></i>
                       </div>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Email"
-                      formControlName="email"
-                    />
-                    <div class="invalid-feedback">
-                      <div>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">
                         Email is required
                       </div>
-                      <div>
+                      <div *ngIf="f.email.errors.email">
                         Email must be a valid email address
                       </div>
                     </div>
@@ -51,17 +41,15 @@
                         <i class="fa fa-key"></i>
                       </div>
                     </div>
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="Password"
-                      formControlName="password"
-                    />
-                    <div class="invalid-feedback">
-                      <div>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password"
+                      [ngClass]="{
+                      'is-invalid': submitted && f.password.errors
+                    }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">
                         Password is required
                       </div>
-                      <div>
+                      <div *ngIf="f.password.errors.minlength">
                         Password must be at least 8 characters
                       </div>
                     </div>
@@ -69,13 +57,8 @@
                 </div>
 
                 <div class="col-md-12 mb-2 d-flex align-items-center">
-                  <input
-                    type="checkbox"
-                    class="mr-2"
-                    formControlName="t_c"
-                  /><span class="small"
-                    >I agree to the terms of service and privacy policy</span
-                  >
+                  <input type="checkbox" class="mr-2" formControlName="t_c" /><span class="small">I agree to the terms
+                    of service and privacy policy</span>
                   <div class="invalid-feedback">
                     <div>
                       Terms of service and privacy is required
@@ -85,6 +68,13 @@
                 <div class="col-md-12 mb-2 text-right">
                   <button type="submit" class="btn btn-primary">Sign up</button>
                 </div>
+                Not Registered yet?
+                <a [routerLink]="['/auth/registrationp']" preserveQueryParams preserveFragment>
+                  Register here
+                </a>
+                <a [routerLink]="['/auth/forgot-password']" preserveQueryParams preserveFragment>
+                  Forgot password
+                </a>
                 <div class="col-md-12 text-center">
                   <hr class="border-light" />
                   <button type="submit" class="btn btn-facebook mr-2 ml-2">

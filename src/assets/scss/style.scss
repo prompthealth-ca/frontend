@@ -148,21 +148,13 @@ h5,
 
 .height-100 {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  > * {
-    width: 100%;
-  }
 }
 
 .heightH-100 {
-  @extend .height-100;
   min-height: calc(100vh - #{$headerHeight});
 }
 
 .heightHF-100 {
-  @extend .height-100;
   min-height: calc(100vh - #{$headerHeight+$footerHeight});
 }
 
@@ -250,12 +242,10 @@ ul.check_ul {
 @media (max-width: 767px) {
   @import "responsive_variables";
   .heightH-100 {
-    @extend .height-100;
     min-height: calc(100vh - #{$headerHeight});
   }
 
   .heightHF-100 {
-    @extend .height-100;
     min-height: calc(100vh - #{$headerHeight+$footerHeight});
   }
   .spacer-top {

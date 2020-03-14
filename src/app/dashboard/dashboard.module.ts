@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SubscriptionPlanComponent } from './subscription-plan/subscription-plan.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -10,7 +10,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

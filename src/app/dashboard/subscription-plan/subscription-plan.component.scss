@@ -1,6 +1,13 @@
 .max-900 {
   max-width: 900px;
 }
+
+.scaleup{
+  &:hover{
+    transform: scale(1.02,1.02);
+  }
+}
+
 .subscription-plans {
   padding: 90px 0;
 }
@@ -451,3 +458,4 @@ button.rightRs {
       font-size: 10px !important;
   }
   }
+ 

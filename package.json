@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~9.0.1",
     "@angular/platform-server": "~9.0.1",
     "@angular/router": "~9.0.1",
+    "@fireflysemantics/angular-stripe-service": "^1.0.0",
     "@nguniversal/express-engine": "^9.0.0",
     "angular5-social-login": "^1.0.9",
     "bootstrap": "^4.4.1",

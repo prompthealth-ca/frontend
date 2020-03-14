@@ -54,8 +54,9 @@
               {{ data.listYourTypeOfCenterAndDifferentLocations }}</li>
 
           </ul>
-          <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal"
-            data-target="#subscribe">Subscribe</a>
+          <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
+            *ngIf="!plan || plan['plan_id']['id'] !== data.id"
+            (click)="checkLogin(data)">{{data.planType == 'Paid' ? 'Buy' : 'Activate'}}</a>
         </div>
       </div>
     </div>
@@ -75,12 +76,13 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <div class="d-inline-flex p-2 border border-secondary rounded mb-3">
-          <input type="radio" class="mr-2">
-          <div class="text-secondary">XXXX-XXXX-XXXX-4242</div>
+        <div *ngFor="let obj of user1['paymentMethod'];let i=index;"
+          class="d-inline-flex p-2 border border-secondary rounded mb-3">
+          <input type="radio" class="mr-2" (click)="selectedCard = obj;errMessage='';" id="defaultcard{{i}}">
+          <div class="text-secondary">xxxx-xxxx-xxxx-{{obj.last4}}</div>
         </div>
         <div class="text-center">
-          <a class="btn btn-primary">Pay Now</a>
+          <a class="btn btn-primary" (click)="save()">Pay Now</a>
         </div>
       </div>
     </div>

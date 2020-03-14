@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   // Start ngOninit
   ngOnInit() {
     if (this._sharedService.isLogin()) {
-      this.fetchUser();
+      // this.fetchUser();
       this.token = localStorage.getItem("token");
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       console.log("sandeep", this.user)
@@ -86,20 +86,20 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(["/auth/signin-up"]);
   }
 
-  fetchUser() {
-    this._sharedService.get("getuserdetail").subscribe(
-      (res: any) => {
-        console.log("response is", res)
-        if (res.success) {
-          // this._bs.setUser(res.data.user);
-          this.uname = res.data.user.email;
-        } else {
-          this._sharedService.checkAccessToken(res.error);
-        }
-      },
-      error => { }
-    );
-  }
+  // fetchUser() {
+  //   this._sharedService.get("getuserdetail").subscribe(
+  //     (res: any) => {
+  //       console.log("response is", res)
+  //       if (res.success) {
+  //         // this._bs.setUser(res.data.user);
+  //         this.uname = res.data.user.email;
+  //       } else {
+  //         this._sharedService.checkAccessToken(res.error);
+  //       }
+  //     },
+  //     error => { }
+  //   );
+  // }
 
   isSelectedURL(path) {
     if ((this.currentUrl == "/" || this.currentUrl == "") && path == "/")

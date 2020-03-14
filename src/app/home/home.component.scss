@@ -6,47 +6,6 @@
   right: 0 !important;
 }
 
-.max-900 {
-  max-width: 900px;
-}
-
-.position-container {
-  position: absolute !important;
-  height: 100%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-}
-
-img.girlimg {
-  position: absolute;
-  bottom: 0;
-  width: auto;
-  height: 80vh;
-}
-
-.ttle-bott-bor {
-  position: relative;
-  padding: 0 0 20px;
-  margin: 0 0 15px;
-  &:after {
-    content: "";
-    background: linear-gradient(90deg, #f8f9fa 0, #6d6e71);
-    width: 100%;
-    max-width: 160px;
-    height: 4px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-  &.text-center:after {
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-  }
-}
-
 // testimonials
 $testimonialsAvtarSize: 73px;
 .testimonials-avtar {
@@ -89,5 +48,11 @@ $testimonialsLiSize: 10px;
   &:hover {
     transform: scale(1.05, 1.05);
     cursor: pointer;
+  }
+}
+
+@media (min-width: 992px) {
+  .max-900 {
+    max-width: 900px;
   }
 }

@@ -43,22 +43,27 @@ body {
   padding-bottom: $p6 !important;
 }
 
+.h2,
 h2,
+.h4,
 h4 {
   font-weight: 500;
   line-height: normal !important;
 }
 
+.h2,
 h2 {
   font-size: 35px;
 }
 
-h4 {
+h4,
+.h4 {
   font-size: 22px;
 }
 
 h5,
 .h5 {
+  font-size: 20px !important;
   line-height: normal !important;
 }
 
@@ -74,6 +79,29 @@ h5,
   line-height: normal;
   font-size: 14px;
 }
+
+// title heading
+.ttle-bott-bor {
+  position: relative;
+  padding: 0 0 20px;
+  margin: 0 0 15px;
+  &:after {
+    content: "";
+    background: linear-gradient(90deg, #f8f9fa 0, #6d6e71);
+    width: 100%;
+    max-width: 160px;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  &.text-center:after {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+}
+// title heading end
 
 .mk-border {
   border: 9px solid #6c757dad;
@@ -148,21 +176,13 @@ h5,
 
 .height-100 {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  > * {
-    width: 100%;
-  }
 }
 
 .heightH-100 {
-  @extend .height-100;
   min-height: calc(100vh - #{$headerHeight});
 }
 
 .heightHF-100 {
-  @extend .height-100;
   min-height: calc(100vh - #{$headerHeight+$footerHeight});
 }
 
@@ -229,12 +249,13 @@ h5,
 }
 // loader end
 
-ul.check_ul {
+.check_ul {
   margin: 0;
   padding: 0;
   list-style: none;
   font-size: 14px;
-  li {
+  > * {
+    font-family: $themeFont !important;
     position: relative;
     padding-left: 20px;
     margin-bottom: 10px;
@@ -245,17 +266,20 @@ ul.check_ul {
       font-family: FontAwesome;
     }
   }
+  &.h5 {
+    > * {
+      padding-left: 30px;
+    }
+  }
 }
 
 @media (max-width: 767px) {
   @import "responsive_variables";
   .heightH-100 {
-    @extend .height-100;
     min-height: calc(100vh - #{$headerHeight});
   }
 
   .heightHF-100 {
-    @extend .height-100;
     min-height: calc(100vh - #{$headerHeight+$footerHeight});
   }
   .spacer-top {

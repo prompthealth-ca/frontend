@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+
+import { SharedService } from '../../shared/services/shared.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-us',
@@ -6,10 +11,60 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
+  contactForm: FormGroup;
+  submitted = false;
 
-  constructor() { }
+  public email
 
-  ngOnInit(): void {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _sharedService: SharedService) { }
+  get ff() { return this.contactForm.controls; }
+
+  ngOnInit() {
+    this._sharedService.sendTop();
+    this.contactForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required]],
+      message: ['', [Validators.required]],
+
+    });
   }
+
+  submit() {
+    this.submitted = true;
+
+    if (this.contactForm.invalid) {
+      return;
+    }
+    else {
+      this.submitted = true;
+      let data = JSON.stringify(this.contactForm.value);
+
+      this._sharedService.loader('show');
+      this._sharedService.post(data, 'contactus').subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.success) {
+          console.log(">>>>>>>", res)
+          this.toastr.success(res.data.message);
+          this._router.navigate(['/home']);
+
+        } else {
+          this._sharedService.loader('hide');
+          if (res.success == false)
+            this.toastr.error(res.error.message);
+
+        }
+
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.");
+      });
+    }
+  }
+
+
 
 }

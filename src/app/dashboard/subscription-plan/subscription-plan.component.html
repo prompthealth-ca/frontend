@@ -29,11 +29,7 @@
             <b class="h5 mb-4">$</b><b class="h5">{{ data.price }}</b>/{{ data.type.name }}
           </div>
           <hr />
-          <ngx-spinner bdColor="#fff" size="medium" color="#fff">
-            <p style="font-size: 20px; color: white" class="loaderbg">
-              <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
-            </p>
-          </ngx-spinner>
+
           <h4 class="mb-3 text-primary">
             <b>Plan type :</b> {{ data.planType }}
           </h4>
@@ -54,9 +50,18 @@
               {{ data.listYourTypeOfCenterAndDifferentLocations }}</li>
 
           </ul>
-          <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
-            *ngIf="!plan || plan['plan_id']['id'] !== data.id"
-            (click)="checkLogin(data)">{{data.planType == 'Paid' ? 'Buy' : 'Activate'}}</a>
+          <div *ngIf="data.name.name !='Enterprice'">
+            <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
+              *ngIf="!plan || plan['plan_id']['id'] !== data.id"
+              (click)="checkLogin(data)">{{data.planType == 'Paid' ? 'Buy' : 'Activate'}}</a>
+          </div>
+
+          <div *ngIf="data.name.name =='Enterprice'">
+            <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
+              (click)="goToContactPage()">Get in touch</a>
+          </div>
+
+
         </div>
       </div>
     </div>

@@ -13,6 +13,7 @@ import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 
+
 @Component({
   selector: 'app-subscription-plan',
   templateUrl: './subscription-plan.component.html',
@@ -203,7 +204,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   goToContactPage() {
-    alert("hii");
+    this._router.navigate(['/contact-us']);
   }
 }
 

@@ -76,8 +76,10 @@ h5,
 }
 
 .form-control {
-  line-height: normal;
+  line-height: normal !important;
+  height: auto !important;
   font-size: 14px;
+  padding: 12px 15px !important;
 }
 
 // title heading
@@ -285,6 +287,16 @@ h5,
 }
 //  mk checkbox end
 
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1150px !important;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1150px !important;
+  }
+}
 @media (min-width: 768px) {
   .ttle-bott-bor.text-center.text-md-left:after {
     left: 0;

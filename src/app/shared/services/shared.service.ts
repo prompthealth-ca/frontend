@@ -87,6 +87,14 @@ export class SharedService {
     return this.http.get(url, { headers });
   }
 
+  getUserDetails() {
+    let date = new Date().getTime().toString();
+    let url = this.rootUrl + 'getuserdetail';
+
+    let headers = this.getAuthorizationHeader();
+    return this.http.get(url, { headers });
+  }
+
   token(body) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'createcustomer', body, { headers });

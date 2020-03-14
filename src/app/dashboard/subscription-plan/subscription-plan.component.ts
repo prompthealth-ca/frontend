@@ -11,6 +11,7 @@ import { SharedService } from '../../shared/services/shared.service';
 import { NgForm } from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-subscription-plan',
@@ -24,16 +25,32 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   stripe;
   loading = false;
   confirmation;
-
+  plan: any;
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
   token: any;
 
   public checkout = {
-    email: 'abc@yopmail.com',
-    token: 'this.token'
+    email: "this.userEmail.email",
+    token: "this.token"
   }
+
+  // public buyPlan = {
+  //   customer_id: "this.userEmail.email",
+  //   token: "this.token",
+  //   subscription_id: ""
+  // }
+
+  user1 = {
+    paymentMethod: []
+  };
+
+  userEmail: any;
+  cardNumber: [];
+  selectedCard: any;
+  errMessage: any;
+  selectedPlan: any;
 
   constructor(private _router: Router,
     private _route: ActivatedRoute,
@@ -43,7 +60,12 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     private toastr: ToastrService, ) { }
 
   ngOnInit() {
+    this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
+      : {};
+    console.log('sandepppppppppp', this.userEmail.email)
+    this.checkout.email = this.userEmail.email;
     this.getSubscriptionPlan();
+    this.getUserDetails();
   }
 
   /*Get all Users */
@@ -65,7 +87,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(
+    this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();
@@ -98,6 +120,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       console.log('Success!', token.id);
       this.token = token.id
       console.log('Sandeep', this.token);
+      this.checkout.token = this.token;
       let data = JSON.parse(JSON.stringify(this.checkout));
       this._sharedService.loader('Show');
       this._sharedService.token(data).subscribe((res: any) => {
@@ -105,7 +128,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
         if (res.success) {
 
           this.toastr.success('Your card has been add successfully');
-
+          jQuery('.modal').click()
         } else {
           this.toastr.error(res.error.message);
         }
@@ -115,6 +138,72 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       });
 
     }
+  }
+  getUserDetails() {
+    this._sharedService.loader('show');
+    this._sharedService.getUserDetails().subscribe((res: any) => {
+      this._sharedService.loader('hide');
+
+      if (res.success) {
+        this.user1 = res.data.user;
+        console.log("card num", this.user1)
+
+      } else {
+        // this._commanService.checkAccessToken(res.error);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+
+    });
+  }
+
+  checkLogin(data) {
+    this.selectedPlan = data;
+    // if(!this.isLogedIn) {
+    // this._sharedService.showAlert("Please Login to purchase this plan",'alert-danger')
+    // } else {
+    // this.checkPlan();
+    // let ID = this.isLogedIn ? 'productPayment' : 'buyPlan';
+    // this.openModal(ID);
+    // }
+  }
+
+  save() {
+    this.errMessage = '';
+
+    if (!this.selectedCard) {
+      this.errMessage = "Please Select Card."
+      return
+    }
+
+    let body = {
+      customer_id: this.selectedCard['customer_id'],
+      token: this.selectedCard['card_id'],
+      subscription_id: this.selectedPlan['id']
+    }
+    this._sharedService.loader('show');
+    this._sharedService.post(body, 'chargePayment').subscribe((res: any) => {
+      if (res.success) {
+        // this.fetchPlan();
+        jQuery('#closeModal').click()
+        // this.openModal()
+        this.toastr.success('Your payment has been successfully done');
+        jQuery('.modal').click()
+        this._sharedService.loader('hide');
+        jQuery('.modal').click()
+      } else {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      }
+    }, err => {
+      let body = JSON.parse(err._body)
+      this._sharedService.loader('hide');
+      this.errMessage = body.err.message
+    });
+  }
+
+  goToContactPage() {
+    alert("hii");
   }
 }
 

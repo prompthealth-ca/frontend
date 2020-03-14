@@ -1,0 +1,26 @@
+@import "../../../assets/scss/mixins";
+
+$fileInputH: 40px;
+$fileInputW: 200px;
+input[type="file"] {
+  display: inline-block;
+  position: relative;
+  height: $fileInputH !important;
+  width: $fileInputW !important;
+  padding: 0 !important;
+  &:after {
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: $fileInputH !important;
+    width: $fileInputW !important;
+    background-color: $primaryColor;
+    content: "Upload";
+  }
+}

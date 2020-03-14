@@ -273,6 +273,32 @@ h5,
   }
 }
 
+// mk checkbox
+.mk-checkbox {
+  flex-wrap: wrap;
+  > input {
+    width: 30px;
+  }
+  > span {
+    width: calc(100% - 30px);
+  }
+}
+//  mk checkbox end
+
+@media (min-width: 768px) {
+  .ttle-bott-bor.text-center.text-md-left:after {
+    left: 0;
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 992px) {
+  .ttle-bott-bor.text-center.text-lg-left:after {
+    left: 0;
+    transform: translateX(0);
+  }
+}
+
 @media (max-width: 767px) {
   @import "responsive_variables";
   .heightH-100 {

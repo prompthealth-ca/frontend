@@ -28,13 +28,13 @@
             </h4>
           </div>
           <div
-            class="card-body d-flex justify-content-center align-items-center"
+            class="card-body d-flex justify-content-center align-items-center flex-wrap flex-md-nowrap"
           >
-            <a class="btn btn-light mr-2 ml-2">Personal Match</a>
-            <a class="btn btn-light mr-2 ml-2">By Category</a> or
+            <a class="btn btn-light mr-2 ml-2 mb-2">Personal Match</a>
+            <a class="btn btn-light mr-2 ml-2 mb-2">By Category</a> or
             <input
               type="text"
-              class="form-control ml-2 mr-2"
+              class="form-control ml-2 mr-2 mb-2"
               style="max-width:200px"
               placeholder="Search by address"
             />
@@ -46,22 +46,28 @@
 </section>
 
 <!-- map section  -->
-<section class="pt-6 pb-6">
-  <div class="container">
+<section class="pt-6 pb-6 position-relative bg-light">
+  <div
+    class="bg-cover leftbgimage d-none d-md-block"
+    style="background-image: url(assets/img/map.png);height: 300px;"
+  ></div>
+  <div class="container position-relative">
     <div class="row">
-      <div class="col-md-6 h5 font-weight-normal">
-        <h2 class="ttle-bott-bor">
-          Find the right practitioner with our interactive map
-        </h2>
-        Prompt Health’s free platform and mobile app connects you to the nearest
-        curated list of health and wellness practitioners based on your needs,
-        with an easy to use interactive map.
+      <div class="col-lg-6 col-md-12">
+        <img src="assets/img/map.png" class="w-100 d-block d-md-none shadow" />
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-12">
         <div
-          class="bg-cover h-100"
-          style="background-image: url(assets/img/map.png);min-height: 300px;"
-        ></div>
+          class="h5 font-weight-normal mb-0 p-5 shadow"
+          style="min-height: 320px;background-color: #fff;"
+        >
+          <h2 class="ttle-bott-bor">
+            Find the right practitioner with our interactive map
+          </h2>
+          Prompt Health’s free platform and mobile app connects you to the
+          nearest curated list of health and wellness practitioners based on
+          your needs, with an easy to use interactive map.
+        </div>
       </div>
     </div>
   </div>
@@ -74,17 +80,19 @@
 >
   <img
     src="assets/img/mobile.png"
-    class="position-absolute h-100 top-0 right-0 d-none d-sm-inline-block"
+    class="position-absolute h-100 top-0 right-0 d-none d-lg-inline-block"
   />
   <div class="container">
     <div class="row">
-      <div class="col-md-3 order-2 order-sm-0">
+      <div class="col-md-12 col-lg-3 order-2 order-lg-0">
         <img
           src="assets/img/mobile.png"
-          class="w-100 mt-3 d-inline-block d-sm-none"
+          class="w-100 mt-3 d-inline-block d-lg-none"
         />
       </div>
-      <div class="col-md-6 text-center text-light h5 font-weight-normal">
+      <div
+        class="col-md-12 col-lg-6 text-center text-light h5 font-weight-normal"
+      >
         <h2 class="ttle-bott-bor text-center mb-4">
           Find the right practitioner at your fingertips- App coming soon!
         </h2>
@@ -176,11 +184,14 @@
 </section>
 
 <!-- About section -->
-<section class="pt-5 pb-5">
+<section class="pb-5" id="aboutsection">
+  <div class="spacer-top"></div>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 h5 font-weight-normal">
-        <h2 class="ttle-bott-bor">About</h2>
+      <div
+        class="col-md-12 col-lg-6 h5 font-weight-normal text-center text-md-center"
+      >
+        <h2 class="ttle-bott-bor text-center text-md-center">About</h2>
         Everybody has different health and wellness goals. You would typically
         ask around, lookup directories or Google search for different health
         professionals. These are called blind referrals as we are all different
@@ -191,7 +202,7 @@
         one easy to use platform and app, clients connect with practitioners,
         services and products at their convenience.
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12 col-lg-6">
         <video width="100%" height="100%" controls>
           <source src="movie.mp4" type="video/mp4" />
           <source src="movie.ogg" type="video/ogg" />
@@ -230,8 +241,10 @@
 <section class="pt-5 pb-5">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-md-8 h5 font-weight-normal">
-        <h2 class="ttle-bott-bor">What makes us unique?</h2>
+      <div class="col-md-8 h5 font-weight-normal text-center text-md-left mb-4">
+        <h2 class="ttle-bott-bor text-center text-md-left">
+          What makes us unique?
+        </h2>
         Prompt Health connects clients with practitioners through intelligent
         questions that serve as a triage, which enables better and faster
         decision making for access to the most suitable solutions. We believe a
@@ -254,7 +267,7 @@
 <section class="pt-5 pb-5">
   <div class="container max-900">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <a
           href=""
           [routerLink]="['/auth/registrationu']"
@@ -272,7 +285,7 @@
           </div>
         </a>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <a
           href=""
           [routerLink]="['/dashboard/subscriptionplan']"

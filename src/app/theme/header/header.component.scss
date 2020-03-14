@@ -6,7 +6,18 @@
 .dropdown-menu,
 .dropdown-item {
   color: inherit;
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
+
+.dropdown-item {
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #f8f9fa;
+  }
+}
+
 .navbar-brand img {
   max-width: 200px;
 }

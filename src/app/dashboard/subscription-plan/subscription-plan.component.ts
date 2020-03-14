@@ -11,6 +11,7 @@ import { SharedService } from '../../shared/services/shared.service';
 import { NgForm } from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-subscription-plan',
@@ -31,9 +32,10 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   token: any;
 
   public checkout = {
-    email: 'abc@yopmail.com',
-    token: 'this.token'
+    email: "this.userEmail.email",
+    token: "this.token"
   }
+  userEmail: any;
 
   constructor(private _router: Router,
     private _route: ActivatedRoute,
@@ -43,6 +45,10 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     private toastr: ToastrService, ) { }
 
   ngOnInit() {
+    this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
+      : {};
+    console.log('sandepppppppppp', this.userEmail.email)
+    this.checkout.email = this.userEmail.email;
     this.getSubscriptionPlan();
   }
 
@@ -65,7 +71,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(
+    this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();
@@ -98,6 +104,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       console.log('Success!', token.id);
       this.token = token.id
       console.log('Sandeep', this.token);
+      this.checkout.token = this.token;
       let data = JSON.parse(JSON.stringify(this.checkout));
       this._sharedService.loader('Show');
       this._sharedService.token(data).subscribe((res: any) => {
@@ -105,7 +112,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
         if (res.success) {
 
           this.toastr.success('Your card has been add successfully');
-
+          jQuery('.modal').click()
         } else {
           this.toastr.error(res.error.message);
         }

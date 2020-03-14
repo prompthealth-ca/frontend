@@ -6,27 +6,6 @@
   right: 0 !important;
 }
 
-.ttle-bott-bor {
-  position: relative;
-  padding: 0 0 20px;
-  margin: 0 0 15px;
-  &:after {
-    content: "";
-    background: linear-gradient(90deg, #f8f9fa 0, #6d6e71);
-    width: 100%;
-    max-width: 160px;
-    height: 4px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-  &.text-center:after {
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-  }
-}
-
 // testimonials
 $testimonialsAvtarSize: 73px;
 .testimonials-avtar {

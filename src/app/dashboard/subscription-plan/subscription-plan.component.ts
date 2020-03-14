@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { NgForm } from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-subscription-plan',
@@ -28,12 +28,19 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
+  token: any;
+
+  public checkout = {
+    email: 'abc@yopmail.com',
+    token: 'this.token'
+  }
 
   constructor(private _router: Router,
     private _route: ActivatedRoute,
     private _sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private stripeService: AngularStripeService) { }
+    private stripeService: AngularStripeService,
+    private toastr: ToastrService, ) { }
 
   ngOnInit() {
     this.getSubscriptionPlan();
@@ -88,7 +95,25 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     if (error) {
       console.log('Error:', error);
     } else {
-      console.log('Success!', token);
+      console.log('Success!', token.id);
+      this.token = token.id
+      console.log('Sandeep', this.token);
+      let data = JSON.parse(JSON.stringify(this.checkout));
+      this._sharedService.loader('Show');
+      this._sharedService.token(data).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.success) {
+
+          this.toastr.success('Your card has been add successfully');
+
+        } else {
+          this.toastr.error(res.error.message);
+        }
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      });
+
     }
   }
 }

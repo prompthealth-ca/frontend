@@ -5,9 +5,13 @@ $fileInputW: 200px;
 input[type="file"] {
   display: inline-block;
   position: relative;
+  border-radius: 4px;
+  overflow: hidden;
   height: $fileInputH !important;
-  width: $fileInputW !important;
+  width: 100%;
+  max-width: $fileInputW !important;
   padding: 0 !important;
+  cursor: pointer;
   &:after {
     font-weight: bold;
     font-size: 14px;
@@ -18,8 +22,8 @@ input[type="file"] {
     position: absolute;
     left: 0;
     top: 0;
-    height: $fileInputH !important;
-    width: $fileInputW !important;
+    height: 100%;
+    width: 100%;
     background-color: $primaryColor;
     content: "Upload";
   }

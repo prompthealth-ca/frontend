@@ -6,155 +6,283 @@
 <section class="pt-5 pb-5 bg-light heightH-100">
   <div class="container">
     <h2 class="ttle-bott-bor mb-5">Service provider detail</h2>
-    <div class="form-row">
-      <form role="form" (ngSubmit)="save()" #updateDetailForm="ngForm">
-        <div class="col-md-6 mb-3">
-          <label>First Name <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="firstName" name="firstName" class="form-control" placeholder="" minlength="3"
-            maxlength="50" (keyup)="trim('firstName')" #firstName="ngModel" [ngModel]="userDetails.firstName"
-            (ngModelChange)="userDetails.firstName = $event" required />
 
-          <div class="error-block">
-            <small *ngIf="firstName.errors?.required && firstName.touched" class="text-danger">
-              First name is required.
-            </small>
-            <small *ngIf="firstName.errors?.minlength && firstName.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
+    <form
+      role="form"
+      class="form-row"
+      (ngSubmit)="save()"
+      #updateDetailForm="ngForm"
+    >
+      <div class="col-md-6 mb-3">
+        <label>First Name <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="firstName"
+          name="firstName"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="50"
+          (keyup)="trim('firstName')"
+          #firstName="ngModel"
+          [ngModel]="userDetails.firstName"
+          (ngModelChange)="userDetails.firstName = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="firstName.errors?.required && firstName.touched"
+            class="text-danger"
+          >
+            First name is required.
+          </small>
+          <small
+            *ngIf="firstName.errors?.minlength && firstName.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Last Name <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="lastName"
+          name="lastName"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="50"
+          (keyup)="trim('lastName')"
+          #lastName="ngModel"
+          [ngModel]="userDetails.lastName"
+          (ngModelChange)="userDetails.lastName = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="lastName.errors?.required && lastName.touched"
+            class="text-danger"
+          >
+            Last name is required.
+          </small>
+          <small
+            *ngIf="lastName.errors?.minlength && lastName.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Company <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="company"
+          name="company"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="50"
+          (keyup)="trim('company')"
+          #company="ngModel"
+          [ngModel]="userDetails.company"
+          (ngModelChange)="userDetails.company = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="company.errors?.required && company.touched"
+            class="text-danger"
+          >
+            Company name is required.
+          </small>
+          <small
+            *ngIf="company.errors?.minlength && company.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Url <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="URL"
+          name="URL"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="50"
+          (keyup)="trim('URL')"
+          #URL="ngModel"
+          [ngModel]="userDetails.URL"
+          (ngModelChange)="userDetails.URL = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="URL.errors?.required && URL.touched"
+            class="text-danger"
+          >
+            URL is required.
+          </small>
+          <small
+            *ngIf="URL.errors?.minlength && URL.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Phone <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="mobile"
+          name="mobile"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="12"
+          (keyup)="trim('mobile')"
+          #mobile="ngModel"
+          [ngModel]="userDetails.mobile"
+          (ngModelChange)="userDetails.mobile = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="mobile.errors?.required && mobile.touched"
+            class="text-danger"
+          >
+            Phone number is required.
+          </small>
+          <small
+            *ngIf="mobile.errors?.minlength && mobile.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Canadian Address <span class="text-danger">*</span></label>
+        <input
+          autofocus
+          type="text"
+          id="can_address"
+          name="can_address"
+          class="form-control"
+          placeholder=""
+          minlength="3"
+          maxlength="50"
+          (keyup)="trim('can_address')"
+          #can_address="ngModel"
+          [ngModel]="userDetails.can_address"
+          (ngModelChange)="userDetails.can_address = $event"
+          required
+        />
+
+        <div class="error-block">
+          <small
+            *ngIf="can_address.errors?.required && can_address.touched"
+            class="text-danger"
+          >
+            Canadian Address is required.
+          </small>
+          <small
+            *ngIf="can_address.errors?.minlength && can_address.touched"
+            class="text-danger"
+          >
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label
+          >Upload provider (Image) <span class="text-danger">*</span></label
+        >
+        <div>
+          <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
+            <img
+              class="profile-wdt rounded-0 w-100"
+              *ngIf="!userDetails.image"
+              src="assets/img/no-image.jpg"
+            />
+            <img
+              *ngIf="userDetails.image"
+              class="w-100 profile-wdt"
+              src="{{ _host }}/images/users/{{ userDetails.image }}"
+            />
           </div>
         </div>
-        <div class="col-md-6 mb-3">
-          <label>Last Name <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="lastName" name="lastName" class="form-control" placeholder="" minlength="3"
-            maxlength="50" (keyup)="trim('lastName')" #lastName="ngModel" [ngModel]="userDetails.lastName"
-            (ngModelChange)="userDetails.lastName = $event" required />
 
-          <div class="error-block">
-            <small *ngIf="lastName.errors?.required && lastName.touched" class="text-danger">
-              Last name is required.
-            </small>
-            <small *ngIf="lastName.errors?.minlength && lastName.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
-          </div>
+        <div class="d-inline-flex align-items-center">
+          <input
+            name="imageUrl"
+            type="file"
+            accept="image/*"
+            (change)="handleInputChange($event)"
+          />
         </div>
-        <div class="col-md-6 mb-3">
-          <label>Company <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="company" name="company" class="form-control" placeholder="" minlength="3"
-            maxlength="50" (keyup)="trim('company')" #company="ngModel" [ngModel]="userDetails.company"
-            (ngModelChange)="userDetails.company = $event" required />
+      </div>
 
-          <div class="error-block">
-            <small *ngIf="company.errors?.required && company.touched" class="text-danger">
-              Company name is required.
-            </small>
-            <small *ngIf="company.errors?.minlength && company.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label>Url <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="URL" name="URL" class="form-control" placeholder="" minlength="3"
-            maxlength="50" (keyup)="trim('URL')" #URL="ngModel" [ngModel]="userDetails.URL"
-            (ngModelChange)="userDetails.URL = $event" required />
-
-          <div class="error-block">
-            <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
-              URL is required.
-            </small>
-            <small *ngIf="URL.errors?.minlength && URL.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label>Phone <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="mobile" name="mobile" class="form-control" placeholder="" minlength="3"
-            maxlength="12" (keyup)="trim('mobile')" #mobile="ngModel" [ngModel]="userDetails.mobile"
-            (ngModelChange)="userDetails.mobile = $event" required />
-
-          <div class="error-block">
-            <small *ngIf="mobile.errors?.required && mobile.touched" class="text-danger">
-              Phone number is required.
-            </small>
-            <small *ngIf="mobile.errors?.minlength && mobile.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
+      <div class="col-md-4 mb-3">
+        <label>Upload provider (logo) <span class="text-danger">*</span></label>
+        <div>
+          <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
+            <img
+              class="profile-wdt rounded-0 w-100"
+              *ngIf="!userDetails.logo_pic"
+              src="assets/img/no-image.jpg"
+            />
+            <img
+              *ngIf="userDetails.logo_pic"
+              class="w-100 profile-wdt"
+              src="{{ _host }}/images/logo/{{ userDetails.logo_pic }}"
+            />
           </div>
         </div>
 
-        <div class="col-md-12 mb-3">
-          <label>Canadian Address <span class="text-danger">*</span></label>
-          <input autofocus type="text" id="can_address" name="can_address" class="form-control" placeholder=""
-            minlength="3" maxlength="50" (keyup)="trim('can_address')" #can_address="ngModel"
-            [ngModel]="userDetails.can_address" (ngModelChange)="userDetails.can_address = $event" required />
-
-          <div class="error-block">
-            <small *ngIf="can_address.errors?.required && can_address.touched" class="text-danger">
-              Canadian Address is required.
-            </small>
-            <small *ngIf="can_address.errors?.minlength && can_address.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
-          </div>
+        <div class="d-inline-flex align-items-center">
+          <input
+            name="imageUrl"
+            type="file"
+            accept="image/*"
+            (change)="handleInputChange1($event)"
+          />
         </div>
-        <div class="col-md-12 mb-3">
-          <label>Upload provider (Image) <span class="text-danger">*</span></label><br />
+      </div>
+      <div class="col-md-12 mb-3 d-flex align-items-start mk-checkbox">
+        <input type="checkbox" /><span class=""
+          >I am licensed in Canada and in good standing with my professional
+          college and/or association</span
+        >
+        <div class="invalid-feedback">
           <div>
-            <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
-              <img class="profile-wdt rounded-0 w-100" *ngIf="!userDetails.image" src="assets/img/no-image.jpg">
-              <img *ngIf="userDetails.image" class="w-100 profile-wdt"
-                src="{{_host}}/images/users/{{userDetails.image}}">
-            </div>
-          </div>
-
-          <div class="d-inline-flex align-items-center">
-            <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
-
+            Terms of service and privacy is required
           </div>
         </div>
-
-        <div class="col-md-12 mb-3">
-          <label>Upload provider (logo) <span class="text-danger">*</span></label><br />
-          <div>
-            <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
-              <img class="profile-wdt rounded-0 w-100" *ngIf="!userDetails.logo_pic" src="assets/img/no-image.jpg">
-              <img *ngIf="userDetails.logo_pic" class="w-100 profile-wdt"
-                src="{{_host}}/images/logo/{{userDetails.logo_pic}}">
-            </div>
-          </div>
-
-          <div class="d-inline-flex align-items-center">
-            <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange1($event)" />
-
-          </div>
-        </div>
-
-
-        <!-- <div class="col-md-4 mb-3">
-          <label>Upload short introductory video
-            <span class="text-danger">*</span></label><br />
-          <input type="file" class="form-control" />
-          <div class="invalid-feedback">
-            Name is required
-          </div>
-        </div> -->
-        <div class="col-md-12 mb-2 d-flex align-items-start mk-checkbox">
-          <input type="checkbox" /><span class="">I am licensed in Canada and in good standing with my professional
-            college and/or association</span>
-          <div class="invalid-feedback">
-            <div>
-              Terms of service and privacy is required
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 mb-2 text-right">
-          <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="col-md-12 mb-2 text-right">
+        <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
 </section>

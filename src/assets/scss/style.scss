@@ -287,6 +287,9 @@ h6,
       font-family: FontAwesome;
     }
   }
+  >.fa-circle:before {
+    font-size: 8px;
+    margin-top: 5px;}
   &.h5 {
     > * {
       padding-left: 30px;

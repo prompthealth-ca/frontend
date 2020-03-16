@@ -1,5 +1,7 @@
 @import "variables";
 @import "mixins";
+// @import "slick.scss";
+// @import "slick-theme.scss";
 
 a:hover {
   text-decoration: none;
@@ -287,9 +289,10 @@ h6,
       font-family: FontAwesome;
     }
   }
-  >.fa-circle:before {
+  > .fa-circle:before {
     font-size: 8px;
-    margin-top: 5px;}
+    margin-top: 5px;
+  }
   &.h5 {
     > * {
       padding-left: 30px;

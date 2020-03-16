@@ -8,7 +8,7 @@ import { PricvacyPolicyComponent } from "./pricvacy-policy/pricvacy-policy.compo
 import { TermsConditionsComponent } from "./terms-conditions/terms-conditions.component";
 import { LoyalityProgramsComponent } from "./loyality-programs/loyality-programs.component";
 import { NgxSpinnerModule } from "ngx-spinner";
-import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ContactUsComponent } from "./contact-us/contact-us.component";
 
 @NgModule({
   declarations: [

@@ -124,7 +124,23 @@ export class SharedService {
 
   }
 
+  addUserDetail(category) {
 
+    const headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + 'updateprofile', category, { headers });
+  }
+
+  uploadImage(object) {
+    let headers = this.getAuthorizationHeader();
+    console.log("object", object)
+    return this.http.post(this.rootUrl + 'upload', object, { headers });
+  }
+
+  uploadImage1(object) {
+    let headers = this.getAuthorizationHeader();
+    console.log("object", object)
+    return this.http.post(this.rootUrl + 'upload', object, { headers });
+  }
 
   queryParams(path, options) {
     let headers = this.getAuthorizationHeader();

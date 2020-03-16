@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-8">
         <h2 class="ttle-bott-bor">Contact us</h2>
-        <form class="card-body" (ngSubmit)="submit()" [formGroup]="contactForm">
+        <form (ngSubmit)="submit()" [formGroup]="contactForm">
           <p class="h5 font-weight-normal mb-4">
             Please complete and submit the form below to contact us with your
             questions, comments or requests.
@@ -11,17 +11,28 @@
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label>Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="name" formControlName="name" name="name"
-                [ngClass]="{ 'is-invalid': submitted && ff.name.errors }" />
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                name="name"
+                [ngClass]="{ 'is-invalid': submitted && ff.name.errors }"
+              />
               <div *ngIf="ff.name.errors" class="invalid-feedback">
                 <div *ngIf="ff.name.errors.required">Name is required</div>
-
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <label>Email <span class="text-danger">*</span></label>
-              <input type="email" class="form-control" id="email" formControlName="email" name="email"
-                [ngClass]="{ 'is-invalid': submitted && ff.email.errors }" />
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                name="email"
+                [ngClass]="{ 'is-invalid': submitted && ff.email.errors }"
+              />
               <div *ngIf="ff.email.errors" class="invalid-feedback">
                 <div *ngIf="ff.email.errors.required">Email is required</div>
                 <div *ngIf="ff.email.errors.email">
@@ -31,11 +42,18 @@
             </div>
             <div class="col-md-12 mb-3">
               <label>Message <span class="text-danger">*</span></label>
-              <textarea class="form-control" id="message" formControlName="message" name="message"
-                [ngClass]="{ 'is-invalid': submitted && ff.message.errors }" style="min-height: 150px;"></textarea>
+              <textarea
+                class="form-control"
+                id="message"
+                formControlName="message"
+                name="message"
+                [ngClass]="{ 'is-invalid': submitted && ff.message.errors }"
+                style="min-height: 150px;"
+              ></textarea>
               <div *ngIf="ff.message.errors" class="invalid-feedback">
-                <div *ngIf="ff.message.errors.required">Message is required</div>
-
+                <div *ngIf="ff.message.errors.required">
+                  Message is required
+                </div>
               </div>
             </div>
             <div class="col-md-12 text-right mb-3">
@@ -48,18 +66,36 @@
         </form>
       </div>
       <div class="col-md-4">
+        <h6 class="text-primary">Address</h6>
         <div class="check_ul h5 font-weight-normal">
-          <div class="mb-3  fa-map-marker">
+          <div class="mb-4  fa-map-marker">
             <b>Lorem ipsum dolor</b><br />
             sit amet, consectetur adipiscing elit.
           </div>
-
-          <div class="mb-3 fa-phone">
+        </div>
+        <h6 class="text-primary">Phone</h6>
+        <div class="check_ul h5 font-weight-normal">
+          <div class="mb-4 fa-phone">
             <a href="tel:1234567890" class="text-primary"> 1234567890</a>
           </div>
-          <div class="mb-3 fa-envelope">
-            <a href="mailto:info@prompthealth.ca" class="text-primary">info@prompthealth.ca</a>
+        </div>
+        <h6 class="text-primary">Email</h6>
+        <div class="check_ul h5 font-weight-normal">
+          <div class="mb-4 fa-envelope">
+            <a href="mailto:info@prompthealth.ca" class="text-primary"
+              >info@prompthealth.ca</a
+            >
           </div>
+        </div>
+
+        <hr />
+        <div class="mb-3 h3">
+          <a href="" target="new" class="text-facebook mr-2"
+            ><i class="fa fa-facebook-square"></i
+          ></a>
+          <a href="" target="new" class="text-google"
+            ><i class="fa fa-google"></i
+          ></a>
         </div>
       </div>
     </div>

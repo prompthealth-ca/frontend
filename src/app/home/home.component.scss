@@ -30,6 +30,18 @@ $testimonialsLiSize: 10px;
   border-radius: 50%;
 }
 
+$slideLeftRightPaddding: 80px;
+.quote-bg {
+  padding-left: $slideLeftRightPaddding;
+  padding-right: $slideLeftRightPaddding;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  .carousel-control-prev,
+  .carousel-control-next {
+    font-size: 32px;
+  }
+}
+
 // testimonials end
 
 // mk-boxes
@@ -62,5 +74,20 @@ $testimonialsLiSize: 10px;
     top: 0px;
     width: 60%;
     height: 100% !important;
+  }
+}
+
+@media (max-width: 676px) {
+  // testimonials
+  $slideLeftRightPaddding: 57px;
+  .quote-bg {
+    padding-left: $slideLeftRightPaddding;
+    padding-right: $slideLeftRightPaddding;
+    background-size: 100px;
+    background-repeat: no-repeat;
+    .carousel-control-prev,
+    .carousel-control-next {
+      font-size: 32px;
+    }
   }
 }

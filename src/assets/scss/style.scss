@@ -27,6 +27,10 @@ body {
   }
 }
 
+label {
+  font-size: 13px;
+}
+
 .object-fit-contain {
   object-fit: contain !important;
   object-position: center !important;
@@ -67,6 +71,12 @@ h5,
   line-height: normal !important;
 }
 
+h6,
+.h6 {
+  font-size: 14px !important;
+  line-height: normal;
+}
+
 .mt--5 {
   margin-top: -84px;
 }
@@ -75,10 +85,18 @@ h5,
   color: $primaryColor !important;
 }
 
+.text-google {
+  color: $googleColor !important;
+}
+
+.text-facebook {
+  color: $facebookColor !important;
+}
+
 .form-control {
   line-height: normal !important;
   height: auto !important;
-  font-size: 14px;
+  font-size: 13px;
   padding: 12px 15px !important;
 }
 
@@ -125,24 +143,24 @@ h5,
 }
 
 .btn-facebook {
-  background-color: #3b5998 !important;
-  border-color: #3b5998 !important;
+  background-color: $facebookColor !important;
+  border-color: $facebookColor !important;
   color: #fff;
   &:hover {
     color: #fff !important;
-    background-color: #3c6acb !important;
-    border-color: #3c6acb !important;
+    background-color: $facebookColorH !important;
+    border-color: $facebookColorH !important;
   }
 }
 
 .btn-google {
-  background-color: #db4437 !important;
-  border-color: #db4437 !important;
+  background-color: $googleColor !important;
+  border-color: $googleColor !important;
   color: #fff !important;
   &:hover {
     color: #fff !important;
-    background-color: #ea5f54 !important;
-    border-color: #ea5f54 !important;
+    background-color: $googleColorH !important;
+    border-color: $googleColorH !important;
   }
 }
 
@@ -210,7 +228,7 @@ h5,
     top: 0;
     height: 100%;
     width: 100%;
-    background-color: #0000006b;
+    background-color: #00000038;
     position: absolute;
   }
   > * {
@@ -257,6 +275,7 @@ h5,
   list-style: none;
   font-size: 14px;
   > * {
+    display: inline-block;
     font-family: $themeFont !important;
     position: relative;
     padding-left: 20px;

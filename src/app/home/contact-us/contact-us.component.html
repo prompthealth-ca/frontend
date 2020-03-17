@@ -1,13 +1,23 @@
-<section class="heightHF-100 pt-4 pb-4">
+<section
+  class="pt-6 pb-6 text-center bg-cover bg-overlay text-light"
+  style="background-image: url(assets/img/background3.jpg);"
+>
+  <div class="container">
+    <h2 class="text-uppercase mb-3">Get in Touch</h2>
+    <p class="h5 font-weight-normal">
+      Please complete and submit the form below to contact us with your
+      questions, comments or requests.
+    </p>
+  </div>
+</section>
+
+<section class="pt-4 pb-4 bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <h2 class="ttle-bott-bor">Contact us</h2>
+      <div class="col-md-7">
+        <h4 class="text-uppercase font-weight-bold">Contact form</h4>
+        <hr />
         <form (ngSubmit)="submit()" [formGroup]="contactForm">
-          <p class="h5 font-weight-normal mb-4">
-            Please complete and submit the form below to contact us with your
-            questions, comments or requests.
-          </p>
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label>Name <span class="text-danger">*</span></label>
@@ -65,22 +75,19 @@
           </div>
         </form>
       </div>
-      <div class="col-md-4">
-        <h6 class="text-primary">Address</h6>
-        <div class="check_ul h5 font-weight-normal">
+      <div class="col-md-5">
+        <h4 class="text-uppercase font-weight-bold">Contact Detail</h4>
+        <hr />
+        <div class="check_ul h6 font-weight-normal">
           <div class="mb-4  fa-map-marker">
             <b>Lorem ipsum dolor</b><br />
             sit amet, consectetur adipiscing elit.
           </div>
-        </div>
-        <h6 class="text-primary">Phone</h6>
-        <div class="check_ul h5 font-weight-normal">
+
           <div class="mb-4 fa-phone">
             <a href="tel:1234567890" class="text-primary"> 1234567890</a>
           </div>
-        </div>
-        <h6 class="text-primary">Email</h6>
-        <div class="check_ul h5 font-weight-normal">
+
           <div class="mb-4 fa-envelope">
             <a href="mailto:info@prompthealth.ca" class="text-primary"
               >info@prompthealth.ca</a
@@ -89,7 +96,7 @@
         </div>
 
         <hr />
-        <div class="mb-3 h3">
+        <div class="mb-3 h4">
           <a href="" target="new" class="text-facebook mr-2"
             ><i class="fa fa-facebook-square"></i
           ></a>

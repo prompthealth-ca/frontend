@@ -216,19 +216,18 @@
         <label
           >Upload provider (Image) <span class="text-danger">*</span></label
         >
-        <div>
-          <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
-            <img
-              class="profile-wdt rounded-0 w-100"
-              *ngIf="!userDetails.image"
-              src="assets/img/no-image.jpg"
-            />
-            <img
-              *ngIf="userDetails.image"
-              class="w-100 profile-wdt"
-              src="{{ _host }}/images/users/{{ userDetails.image }}"
-            />
-          </div>
+
+        <div class="avatar mt-3 mb-3">
+          <img
+            class="profile-wdt rounded-0 w-100"
+            *ngIf="!userDetails.image"
+            src="assets/img/no-image.jpg"
+          />
+          <img
+            *ngIf="userDetails.image"
+            class="w-100 profile-wdt"
+            src="{{ _host }}/images/users/{{ userDetails.image }}"
+          />
         </div>
 
         <div class="d-inline-flex align-items-center">
@@ -243,19 +242,18 @@
 
       <div class="col-md-4 mb-3">
         <label>Upload provider (logo) <span class="text-danger">*</span></label>
-        <div>
-          <div class="avatar mt-3 mb-3" style="height: 108px;width:108px">
-            <img
-              class="profile-wdt rounded-0 w-100"
-              *ngIf="!userDetails.logo_pic"
-              src="assets/img/no-image.jpg"
-            />
-            <img
-              *ngIf="userDetails.logo_pic"
-              class="w-100 profile-wdt"
-              src="{{ _host }}/images/logo/{{ userDetails.logo_pic }}"
-            />
-          </div>
+
+        <div class="avatar mt-3 mb-3">
+          <img
+            class="profile-wdt rounded-0 w-100"
+            *ngIf="!userDetails.logo_pic"
+            src="assets/img/no-image.jpg"
+          />
+          <img
+            *ngIf="userDetails.logo_pic"
+            class="w-100 profile-wdt"
+            src="{{ _host }}/images/logo/{{ userDetails.logo_pic }}"
+          />
         </div>
 
         <div class="d-inline-flex align-items-center">

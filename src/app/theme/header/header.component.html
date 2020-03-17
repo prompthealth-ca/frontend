@@ -1,18 +1,9 @@
 <header>
-  <nav
-    class="navbar navbar-expand-lg navbar-light bg-light main-header position-fixed shadow-sm w-100"
-  >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light main-header position-fixed shadow-sm w-100">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/img/logo.png"/></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <a class="navbar-brand" href="#"><img src="assets/img/logo.png" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -24,41 +15,19 @@
             <a class="nav-link" href="#aboutsection">About</a>
           </li>
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Solutions</a
-            >
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+              aria-expanded="false">Solutions</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#"
-                ><i class="fa fa-user"></i> Client</a
-              >
-              <a class="dropdown-item" href="#"
-                ><svg
-                  aria-hidden="true"
-                  focusable="false"
-                  data-prefix="fas"
-                  data-icon="user-tie"
-                  style="height: 15px;"
-                  role="img"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  class="fa fa-user-tie"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm95.8 32.6L272 480l-32-136 32-56h-96l32 56-32 136-47.8-191.4C56.9 292 0 350.3 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-72.1-56.9-130.4-128.2-133.8z"
-                  ></path>
+              <a class="dropdown-item" [routerLink]="['/client']"><i class="fa fa-user"></i> Client</a>
+              <a class="dropdown-item" [routerLink]="['/professional']"><svg aria-hidden="true" focusable="false"
+                  data-prefix="fas" data-icon="user-tie" style="height: 15px;" role="img"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fa fa-user-tie">
+                  <path fill="currentColor"
+                    d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm95.8 32.6L272 480l-32-136 32-56h-96l32 56-32 136-47.8-191.4C56.9 292 0 350.3 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-72.1-56.9-130.4-128.2-133.8z">
+                  </path>
                 </svg>
-                Professional</a
-              >
-              <a class="dropdown-item" href="#"
-                ><i class="fa fa-building-o"></i> Enterprise</a
-              >
+                Professional</a>
+              <a class="dropdown-item" [routerLink]="['/enterprise']"><i class="fa fa-building-o"></i> Enterprise</a>
             </div>
           </li>
           <li class="nav-item">
@@ -66,25 +35,13 @@
           </li>
 
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href=""
-              data-toggle="modal"
-              data-target="#loginmodal"
-              >Login</a
-            >
+            <a class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link">OR</a>
           </li>
           <li class="nav-item">
-            <a
-              class="nav-link"
-              href=""
-              data-toggle="modal"
-              data-target="#exampleModal"
-              >Join network</a
-            >
+            <a class="nav-link" href="" data-toggle="modal" data-target="#exampleModal">Join network</a>
           </li>
         </ul>
       </div>
@@ -94,126 +51,55 @@
 <div class="spacer-top"></div>
 
 <!-- Modal signup -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog"
-    role="document"
-    style="margin: auto !important;width:100%"
-  >
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
-        <h5
-          class="modal-title w-100 text-center"
-          id="exampleModalLabel"
-          style="text-indent: 56px;"
-        >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
           Join network
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center pb-4">
         <div class="text-center">
-          <img
-            src="assets/img/logo.png"
-            class="mb-3"
-            style="max-width: 220px;"
-          />
+          <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
         </div>
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
-        <a
-          class="btn btn-primary w-100 mr-2"
-          [routerLink]="['/auth/registrationp']"
-          data-dismiss="modal"
-          style="max-width: 175px;"
-          aria-label="Close"
-          >PROFESSIONAL</a
-        >
+        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/auth/registrationp']" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">PROFESSIONAL</a>
         or
-        <a
-          class="btn btn-secondary w-100 ml-2"
-          [routerLink]="['/auth/registrationu']"
-          data-dismiss="modal"
-          style="max-width: 175px;"
-          aria-label="Close"
-          >USER</a
-        >
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/registrationu']" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">USER</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal login -->
-<div
-  class="modal fade"
-  id="loginmodal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="loginmodal"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog"
-    role="document"
-    style="margin: auto !important;width:100%"
-  >
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
-        <h5
-          class="modal-title w-100 text-center"
-          id="exampleModalLabel"
-          style="text-indent: 56px;"
-        >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
           Login
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center pb-4">
         <div class="text-center">
-          <img
-            src="assets/img/logo.png"
-            class="mb-3"
-            style="max-width: 220px;"
-          />
+          <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
         </div>
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
-        <a
-          class="btn btn-primary w-100 mr-2"
-          [routerLink]="['/auth/loginp']"
-          data-dismiss="modal"
-          aria-label="Close"
-          style="max-width: 175px;"
-          >PROFESSIONAL</a
-        >
+        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/auth/loginp']" data-dismiss="modal" aria-label="Close"
+          style="max-width: 175px;">PROFESSIONAL</a>
         or
-        <a
-          class="btn btn-secondary w-100 ml-2"
-          [routerLink]="['/auth/loginu']"
-          data-dismiss="modal"
-          style="max-width: 175px;"
-          aria-label="Close"
-          >USER</a
-        >
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/loginu']" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">USER</a>
       </div>
     </div>
   </div>

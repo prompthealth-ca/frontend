@@ -6,6 +6,9 @@ import { PricvacyPolicyComponent } from "./pricvacy-policy/pricvacy-policy.compo
 import { TermsConditionsComponent } from "./terms-conditions/terms-conditions.component";
 import { LoyalityProgramsComponent } from "./loyality-programs/loyality-programs.component";
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ClientComponent } from './client/client.component';
+import { ProffesionalComponent } from './proffesional/proffesional.component';
+import { EnterpriceComponent } from './enterprice/enterprice.component';
 const routes: Routes = [
   {
     path: "home",
@@ -30,6 +33,18 @@ const routes: Routes = [
   {
     path: "contact-us",
     component: ContactUsComponent
+  },
+  {
+    path: "client",
+    component: ClientComponent
+  },
+  {
+    path: "professional",
+    component: ProffesionalComponent
+  },
+  {
+    path: "enterprise",
+    component: EnterpriceComponent
   }
 ];
 

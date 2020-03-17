@@ -9,6 +9,9 @@ import { TermsConditionsComponent } from "./terms-conditions/terms-conditions.co
 import { LoyalityProgramsComponent } from "./loyality-programs/loyality-programs.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ClientComponent } from './client/client.component';
+import { ProffesionalComponent } from './proffesional/proffesional.component';
+import { EnterpriceComponent } from './enterprice/enterprice.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     PricvacyPolicyComponent,
     TermsConditionsComponent,
     LoyalityProgramsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    ClientComponent,
+    ProffesionalComponent,
+    EnterpriceComponent
   ],
   imports: [
     NgxSpinnerModule,

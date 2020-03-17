@@ -32,7 +32,13 @@
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "src/assets/scss/style.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.4.1.slim.min.js",
+              "src/assets/js/slick.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -97,7 +103,13 @@
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "src/assets/scss/style.scss"
             ],
-            "scripts": ["src/assets/js/main.js"]
+            "scripts": [
+              "src/assets/js/jquery-3.4.1.slim.min.js",
+              "src/assets/js/slick.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/main.js"
+            ]
           }
         },
         "lint": {

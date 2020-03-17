@@ -312,6 +312,13 @@ h6,
 }
 //  mk checkbox end
 
+// slick sdlider
+.slick-prev:before,
+.slick-next:before {
+  color: $secondaryColor !important;
+}
+// slic s;ider end
+
 @media (min-width: 1200px) {
   .container {
     max-width: 1150px !important;

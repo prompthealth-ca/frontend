@@ -32,10 +32,13 @@ $testimonialsLiSize: 10px;
 
 $slideLeftRightPaddding: 80px;
 .quote-bg {
-  padding-left: $slideLeftRightPaddding;
-  padding-right: $slideLeftRightPaddding;
-  background-size: 100px;
-  background-repeat: no-repeat;
+  .carousel-item {
+    background-image: url(../../assets/img/quote.png);
+    padding-left: $slideLeftRightPaddding;
+    padding-right: $slideLeftRightPaddding;
+    background-size: 100px;
+    background-repeat: no-repeat;
+  }
   .carousel-control-prev,
   .carousel-control-next {
     font-size: 32px;
@@ -81,10 +84,10 @@ $slideLeftRightPaddding: 80px;
   // testimonials
   $slideLeftRightPaddding: 57px;
   .quote-bg {
-    padding-left: $slideLeftRightPaddding;
-    padding-right: $slideLeftRightPaddding;
-    background-size: 100px;
-    background-repeat: no-repeat;
+    .carousel-item {
+      padding-left: $slideLeftRightPaddding;
+      padding-right: $slideLeftRightPaddding;
+    }
     .carousel-control-prev,
     .carousel-control-next {
       font-size: 32px;

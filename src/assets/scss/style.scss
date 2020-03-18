@@ -1,5 +1,7 @@
 @import "variables";
 @import "mixins";
+// @import "slick.scss";
+// @import "slick-theme.scss";
 
 a:hover {
   text-decoration: none;
@@ -73,7 +75,7 @@ h5,
 
 h6,
 .h6 {
-  font-size: 14px !important;
+  font-size: 16px !important;
   line-height: normal;
 }
 
@@ -124,7 +126,7 @@ h6,
 // title heading end
 
 .mk-border {
-  border: 9px solid #6c757dad;
+  border: 9px solid #6c757dd1;
 }
 
 .btn {
@@ -275,7 +277,7 @@ h6,
   list-style: none;
   font-size: 14px;
   > * {
-    display: inline-block;
+    display: block;
     font-family: $themeFont !important;
     position: relative;
     padding-left: 20px;
@@ -287,13 +289,9 @@ h6,
       font-family: FontAwesome;
     }
   }
-  >.fa-circle:before {
+  > .fa-circle:before {
     font-size: 8px;
-    margin-top: 5px;}
-  &.h5 {
-    > * {
-      padding-left: 30px;
-    }
+    margin-top: 5px;
   }
 }
 
@@ -308,6 +306,13 @@ h6,
   }
 }
 //  mk checkbox end
+
+// slick slider
+.slick-prev:before,
+.slick-next:before {
+  color: $secondaryColor !important;
+}
+// slick slider end
 
 @media (min-width: 1200px) {
   .container {

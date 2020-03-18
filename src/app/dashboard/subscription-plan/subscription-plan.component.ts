@@ -206,8 +206,9 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   goToContactPage() {
     this._router.navigate(['/contact-us']);
   }
+
 }
 
-
+// end section
 
 

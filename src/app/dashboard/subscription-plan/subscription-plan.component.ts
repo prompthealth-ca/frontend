@@ -189,6 +189,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
         jQuery('#closeModal').click()
         // this.openModal()
         this.toastr.success('Your payment has been successfully done');
+        this._router.navigate(['/dashboard/userdetails']);
         jQuery('.modal').click()
         this._sharedService.loader('hide');
         jQuery('.modal').click()

@@ -3,25 +3,36 @@
     <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
   </p>
 </ngx-spinner>
-<section class="heightHF-100 pt-4 pb-4 d-flex justify-content-center align-items-center bg-secondary">
+<section
+  class="heightHF-100 pt-4 pb-4 d-flex justify-content-center align-items-center bg-secondary"
+>
   <div class="container">
-    <div class="row m-0 justify-content-between bg-white rounded-lg overflow-hidden">
+    <div
+      class="row m-0 justify-content-between bg-white rounded-lg overflow-hidden"
+    >
       <div class="col-md-4 p-0">
         <div class="card-body p-5">
           <h5 class="mb-3">
             Login
           </h5>
-          <a href="" class="btn btn-google w-100 mb-2 font-weight-bold"><i class="fa fa-google"></i> Sign in with
-            Google</a>
-          <a href="" class="btn btn-facebook w-100 mb-2 font-weight-bold"><i class="fa fa-facebook-square"></i> Sign in
-            with Google</a>
+          <a href="" class="btn btn-google w-100 mb-2 font-weight-bold"
+            ><i class="fa fa-google"></i> Sign in with Google</a
+          >
+          <a href="" class="btn btn-facebook w-100 mb-2 font-weight-bold"
+            ><i class="fa fa-facebook-square"></i> Sign in with Facebook</a
+          >
           <hr />
           <div class="form-row">
             <form class="form-row">
               <div class="col-md-12 mb-2">
                 <label>Email address <span class="text-danger">*</span></label>
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Enter your email" formControlName="email" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter your email"
+                    formControlName="email"
+                  />
                   <div class="invalid-feedback">
                     <div>
                       Email is required
@@ -35,8 +46,12 @@
               <div class="col-md-12 mb-2">
                 <label>Password <span class="text-danger">*</span></label>
                 <div class="input-group">
-                  <input type="password" class="form-control" placeholder="Enter your password"
-                    formControlName="password" />
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Enter your password"
+                    formControlName="password"
+                  />
                   <div class="invalid-feedback">
                     <div>
                       Password is required
@@ -46,8 +61,10 @@
               </div>
 
               <div class="col-md-12 mb-2 d-flex align-items-start mk-checkbox">
-                <input type="checkbox" formControlName="t_c" /><span class="small">I agree to the terms of service and
-                  privacy policy</span>
+                <input type="checkbox" formControlName="t_c" /><span
+                  class="small"
+                  >I agree to the terms of service and privacy policy</span
+                >
                 <div class="invalid-feedback">
                   <div>
                     Terms of service and privacy is required
@@ -61,15 +78,22 @@
                 <hr />
               </div>
               <div class="col-md-12">
-                <a href="" [routerLink]="['/auth/registrationu']" class="btn btn-outline-secondary w-100">Create
-                  Account</a>
+                <a
+                  href=""
+                  [routerLink]="['/auth/registrationu']"
+                  class="btn btn-outline-secondary w-100"
+                  >Create Account</a
+                >
               </div>
             </form>
           </div>
         </div>
       </div>
       <div class="col-md-8 p-0">
-        <div class="bg-cover bg-overlay h-100 d-flex align-items-end" style="background-image: url(assets/img/bg.jpg);">
+        <div
+          class="bg-cover bg-overlay h-100 d-flex align-items-end"
+          style="background-image: url(assets/img/bg.jpg);"
+        >
           <div class="w-100 p-4 text-light">
             <h3>Welcome to Propthealth</h3>
             <p>
@@ -82,7 +106,9 @@
     </div>
     <div class="text-center text-light pt-3">
       <span class="mr-2">Forget your password?</span>
-      <a href="" [routerLink]="['/auth/forgot-password']" class="text-light">Get a new password</a>
+      <a href="" [routerLink]="['/auth/forgot-password']" class="text-light"
+        >Get a new password</a
+      >
     </div>
   </div>
 </section>

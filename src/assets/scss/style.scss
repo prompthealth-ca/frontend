@@ -15,8 +15,9 @@ body {
   color: $secondaryColor;
   font-family: $themeFont;
   font-size: 15px;
-  line-height: normal;
+  line-height: 22px;
   letter-spacing: 1px;
+  font-weight: 300;
   &::-webkit-scrollbar {
     width: 7px;
   }
@@ -70,7 +71,7 @@ h4,
 h5,
 .h5 {
   font-size: 20px !important;
-  line-height: normal !important;
+  line-height: 30px !important;
 }
 
 h6,
@@ -142,6 +143,14 @@ h6,
 
 .bg-primary {
   background-color: $primaryColor !important;
+}
+
+.btn-secondary {
+  color: #fff !important;
+  background-color: $secondaryColor !important;
+  border: $secondaryColor !important;
+  &:hover {
+  }
 }
 
 .btn-facebook {
@@ -230,7 +239,7 @@ h6,
     top: 0;
     height: 100%;
     width: 100%;
-    background-color: #00000038;
+    background-color: #0000007a;
     position: absolute;
   }
   > * {

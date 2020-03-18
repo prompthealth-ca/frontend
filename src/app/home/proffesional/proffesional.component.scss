@@ -1,26 +1,10 @@
+@import "../../../assets/scss/mixins";
+
+@include Solutions;
+
 .scaleup {
   &:hover {
     transform: scale(1.02, 1.02);
-  }
-}
-
-.card-header {
-  &.collapsed {
-    .fa-minus {
-      display: none;
-    }
-    .fa-plus {
-      display: inline-block;
-    }
-  }
-  .fa {
-    float: right;
-  }
-  .fa-minus {
-    display: inline-block;
-  }
-  .fa-plus {
-    display: none;
   }
 }
 

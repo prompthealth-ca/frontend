@@ -19,6 +19,7 @@ $testimonialsAvtarSize: 73px;
     content: '"';
   }
   font-size: 22px;
+  line-height: 32px;
   font-weight: 300;
   font-style: italic;
 }
@@ -64,6 +65,10 @@ $slideLeftRightPaddding: 80px;
     transform: scale(1.05, 1.05);
     cursor: pointer;
   }
+}
+
+.playstore img {
+  height: 50px;
 }
 
 @media (min-width: 992px) {

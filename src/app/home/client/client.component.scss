@@ -1,26 +1,11 @@
-.card-header {
-  &.collapsed {
-    .fa-minus {
-      display: none;
-    }
-    .fa-plus {
-      display: inline-block;
-    }
-  }
-  .fa {
-    float: right;
-  }
-  .fa-minus {
-    display: inline-block;
-  }
-  .fa-plus {
-    display: none;
-  }
-}
+@import "../../../assets/scss/mixins";
+
+@include Solutions;
 
 // bg border
 .bg-border {
   position: relative;
+  height: 100%;
   &::after {
     content: "";
     position: absolute;
@@ -33,3 +18,7 @@
   }
 }
 // bg border end
+
+div#accordionExample {
+  min-height: 270px;
+}

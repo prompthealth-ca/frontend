@@ -49,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: "pricing",
-    component: EnterpriceComponent
+    component: PricingComponent
   }
 ];
 

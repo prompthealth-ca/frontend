@@ -18,3 +18,13 @@
     display: none;
   }
 }
+
+.accordion {
+  counter-reset: section;
+  > .card {
+    > *.first-child::before {
+      counter-increment: section;
+      content: "Section " counter(section) ": ";
+    }
+  }
+}

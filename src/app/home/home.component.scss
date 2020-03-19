@@ -1,3 +1,5 @@
+@import "../../assets/scss/mixins";
+
 .top-0 {
   top: 0 !important;
 }
@@ -69,6 +71,15 @@ $slideLeftRightPaddding: 80px;
 
 .playstore img {
   height: 50px;
+}
+
+.image-shadow {
+  @include imageShadow();
+}
+
+video {
+  background-color: #000;
+  border-radius: 5px;
 }
 
 @media (min-width: 992px) {

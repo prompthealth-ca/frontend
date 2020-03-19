@@ -13,7 +13,11 @@
                 <a class="nav-link text-light" [routerLink]="['/loyalty']"
                   >Loyalty program</a
                 >
-                <a class="nav-link text-light" [routerLink]="['/contact-us']"
+                <a
+                  class="nav-link text-light"
+                  data-toggle="modal"
+                  data-target="#Affiliate"
+                  href=""
                   >Affiliate</a
                 >
                 <a class="nav-link text-light" [routerLink]="['/contact-us']"
@@ -53,3 +57,87 @@
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="Affiliate"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Affiliate"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog d-flex justify-content-center align-items-center heightH-100"
+    role="document"
+  >
+    <div class="modal-content mk-border">
+      <div class="modal-header">
+        <h5
+          class="modal-title text-center w-100"
+          id="Affiliate"
+          style="text-indent: 44px;"
+        >
+          Affiliate
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row" method="post">
+          <div class="col-md-12 mb-3">
+            <label>Name <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Your Name"
+              required
+            />
+            <div class="invalid-feedback">
+              Please Enter Name
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Email <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Your Email"
+              required
+            />
+            <div class="invalid-feedback">
+              Please Valid Emial Address
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Message <span class="text-danger">*</span></label>
+            <textarea
+              class="form-control"
+              placeholder="Enter Message here"
+              required
+            ></textarea>
+            <div class="invalid-feedback">
+              Please Enter Message
+            </div>
+          </div>
+          <div class="col-md-12 mb-3 text-right">
+            <button
+              type="button"
+              class="btn btn-secondary mr-2"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,7 @@
+@import "../../../assets/scss/mixins";
+
+@include Solutions;
+
 .card-header {
   font-weight: bold;
   &.collapsed {

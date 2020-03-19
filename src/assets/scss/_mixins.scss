@@ -68,13 +68,26 @@
 
 // solution pages
 @mixin Solutions {
+  $height: 270px;
   .hoverEffectBox {
     position: relative;
     overflow: hidden;
     > *:first-child {
+      min-height: $height;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
       padding: 40px 15px !important;
+      .icon1 {
+        height: 95px;
+        object-fit: contain;
+      }
     }
     > .position-absolute {
+      height: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -91,18 +104,13 @@
       }
     }
   }
-
-  .left-0 {
-    left: 0;
-  }
-  .top-0 {
-    top: 0;
-  }
-
-  .icon1 {
-    height: 63px;
-    object-fit: contain;
-  }
 }
 
 // solution pages end
+
+@mixin imageShadow($left: 30px, $top: 20px, $right: 0px, $bottom: 0px) {
+  box-shadow: (-$left) (-$top) 4px 0 #8c7f7085;
+  border-radius: 5px;
+  width: calc(100% - #{$left}) !important;
+  margin: $top $right $bottom $left;
+}

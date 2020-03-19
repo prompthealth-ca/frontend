@@ -5,9 +5,11 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UserDetailsComponent } from "./user-details/user-details.component";
+import { SubscriptionProfessionalComponent } from './subscription-professional/subscription-professional.component';
+
 
 @NgModule({
-  declarations: [SubscriptionPlanComponent, UserDetailsComponent],
+  declarations: [SubscriptionPlanComponent, UserDetailsComponent, SubscriptionProfessionalComponent],
   imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule]
 })
-export class DashboardModule {}
+export class DashboardModule { }

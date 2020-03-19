@@ -7,8 +7,8 @@ export const environment = {
   config: {
     APP_NAME: "Wellness",
     //local
-    BASE_URL: "http://192.168.1.14:1337/",
-    API_URL: "http://192.168.1.14:1337/",
+    BASE_URL: "http://192.168.1.10:1337/",
+    API_URL: "http://192.168.1.10:1337/",
     //server
     // BASE_URL: "http://18.216.244.101:1337/",
     // API_URL: "http://18.216.244.101:1337/api/"

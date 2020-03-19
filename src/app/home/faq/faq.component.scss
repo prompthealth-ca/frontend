@@ -21,10 +21,10 @@
 
 .accordion {
   counter-reset: section;
-  > .card {
-    > *.first-child::before {
+  > * {
+    > *:first-child::before {
       counter-increment: section;
-      content: "Section " counter(section) ": ";
+      content: counter(section) ". ";
     }
   }
 }

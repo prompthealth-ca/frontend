@@ -1,77 +1,29 @@
 @import "variables";
 
-@mixin fixedBackgrond {
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+@mixin bgOverlay($color: #0000007a) {
   position: relative;
-}
-
-@mixin bgOverlay {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #00000061;
-}
-
-@mixin mkForm {
-  .is-focused .form-control {
-    border-color: #4274ba !important;
+  overflow: hidden;
+  &::before {
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: $color;
+    position: absolute;
   }
-  .form-control {
-    border-radius: 8px;
-    background-image: none;
-    padding: 9px 15px;
-    font-weight: 300;
-    font-size: 14px;
-    border: 1px solid #00000052;
-    &::placeholder {
-      font-size: inherit;
-    }
-    &:invalid {
-      border-color: red !important;
-    }
-  }
-  textarea.form-control {
-    min-height: 87px;
+  > * {
+    position: relative;
   }
 }
 
-@mixin customTab($color: #fff, $bg: #4274ba96, $activebg: #ffffff33) {
-  .card {
-    background-color: $bg;
-  }
-  .tab-content {
-    padding: 15px !important;
-    background-color: $activebg;
-  }
-  .nav-tabs {
-    .nav-link {
-      color: $color;
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-      &.active,
-      &:hover {
-        color: $color;
-      }
-      &.active {
-        background-color: $activebg;
-      }
-    }
-  }
-}
-
-// solution pages
+// Solution pages
 @mixin Solutions {
   $height: 270px;
   .hoverEffectBox {
     position: relative;
     overflow: hidden;
+    border-radius: 7px;
     > *:first-child {
       min-height: $height;
       display: flex;
@@ -87,6 +39,7 @@
     > .position-absolute {
       height: 100%;
       overflow: hidden;
+      background-color: #4274baed !important;
       text-overflow: ellipsis;
       display: flex;
       justify-content: center;
@@ -95,7 +48,10 @@
       top: -100%;
       transition: 1s;
     }
-    &:hover {
+    &:hover,
+    &.focus,
+    &:active {
+      transform: scale(1.07, 1.07);
       .position-absolute {
         top: 0;
         width: 100%;
@@ -106,7 +62,7 @@
   }
 }
 
-// solution pages end
+// Solution pages end
 
 @mixin imageShadow($left: 30px, $top: 20px, $right: 0px, $bottom: 0px) {
   box-shadow: (-$left) (-$top) 4px 0 #8c7f7085;

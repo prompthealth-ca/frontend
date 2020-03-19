@@ -1,4 +1,26 @@
-@import './../../../assets/scss/mixins';
+@import "./../../../assets/scss/mixins";
+@mixin mkForm {
+  .is-focused .form-control {
+    border-color: #4274ba !important;
+  }
+  .form-control {
+    border-radius: 8px;
+    background-image: none;
+    padding: 9px 15px;
+    font-weight: 300;
+    font-size: 14px;
+    border: 1px solid #00000052;
+    &::placeholder {
+      font-size: inherit;
+    }
+    &:invalid {
+      border-color: red !important;
+    }
+  }
+  textarea.form-control {
+    min-height: 87px;
+  }
+}
 
 .navbar-brand > img {
   max-width: 200px;
@@ -59,7 +81,7 @@ h3 {
 .bg-overlay {
   position: relative;
   &::before {
-    content: '';
+    content: "";
     left: 0;
     top: 0;
     height: 100%;

@@ -3,7 +3,10 @@
     <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
   </p>
 </ngx-spinner>
-<section class="pt-5 pb-5 bg-cover bg-overlay" style="background-image: url(assets/img/blog2.jpg);">
+<section
+  class="pt-5 pb-5 bg-cover bg-overlay"
+  style="background-image: url(assets/img/blog2.jpg);"
+>
   <div class="container pt-5 pb-5">
     <div class="row">
       <div class="col-md-3"></div>
@@ -18,15 +21,17 @@
   </div>
 </section>
 
-<section class="container max-900">
-
+<!-- <section class="container max-900">
   <div class="row mt--5 justify-content-center">
     <div class="col-md-4" *ngFor="let data of subData">
       <div class="shadow bg-light rounded-lg mb-4 scaleup">
         <div class="card-body">
           <h5 class="text-primary text-center">{{ data.name.name }}</h5>
-          <div class="text-center d-flex justify-content-center align-items-center">
-            <b class="h5 mb-4">$</b><b class="h5">{{ data.price }}</b>/{{ data.type.name }}
+          <div
+            class="text-center d-flex justify-content-center align-items-center"
+          >
+            <b class="h5 mb-4">$</b><b class="h5">{{ data.price }}</b
+            >/{{ data.type.name }}
           </div>
           <hr />
 
@@ -34,57 +39,271 @@
             <b>Plan type :</b> {{ data.planType }}
           </h4>
           <ul class="check_ul">
-            <li class="fa-circle"><b>Professional Profile :</b> {{ data.professionalProfile }}</li>
-            <li class="fa-circle"><b>Address URL Logo Picture :</b> {{ data.addressURLLogoPicture }}</li>
-            <li class="fa-circle"><b>Video Upload :</b> {{ data.videoUpload }}</li>
-            <li class="fa-circle"><b>Social Media Sharing :</b> {{ data.socialMediaSharing }}</li>
-            <li class="fa-circle"><b>Performance Dashboard :</b> {{ data.performanceDashboard }}</li>
-            <li class="fa-circle"><b>Real Reviews And Feedback :</b> {{ data.realReviewsAndFeedback }}</li>
-            <li class="fa-circle"><b>Receive Messages For Booking :</b> {{ data.receiveMessagesForBooking }}</li>
-            <li class="fa-circle"><b>Send Messages For Recalls :</b> {{ data.sendMessagesForRecalls }}</li>
-            <li class="fa-circle"><b>Promotions And Discounts Option :</b> {{ data.promotionsAndDiscountsOption }}</li>
-            <li class="fa-circle"><b>List Products Option :</b> {{ data.listProductsOption }}</li>
-            <li class="fa-circle"><b>List Any Special Amenities :</b> {{ data.listAnySpecialAmenities }}</li>
-            <li class="fa-circle"><b>List Of Providers :</b> {{ data.listOfProviders }}</li>
-            <li class="fa-circle"><b>List Your Type Of Center And Different Locations :</b>
-              {{ data.listYourTypeOfCenterAndDifferentLocations }}</li>
-
+            <li class="fa-circle">
+              <b>Professional Profile :</b> {{ data.professionalProfile }}
+            </li>
+            <li class="fa-circle">
+              <b>Address URL Logo Picture :</b> {{ data.addressURLLogoPicture }}
+            </li>
+            <li class="fa-circle">
+              <b>Video Upload :</b> {{ data.videoUpload }}
+            </li>
+            <li class="fa-circle">
+              <b>Social Media Sharing :</b> {{ data.socialMediaSharing }}
+            </li>
+            <li class="fa-circle">
+              <b>Performance Dashboard :</b> {{ data.performanceDashboard }}
+            </li>
+            <li class="fa-circle">
+              <b>Real Reviews And Feedback :</b>
+              {{ data.realReviewsAndFeedback }}
+            </li>
+            <li class="fa-circle">
+              <b>Receive Messages For Booking :</b>
+              {{ data.receiveMessagesForBooking }}
+            </li>
+            <li class="fa-circle">
+              <b>Send Messages For Recalls :</b>
+              {{ data.sendMessagesForRecalls }}
+            </li>
+            <li class="fa-circle">
+              <b>Promotions And Discounts Option :</b>
+              {{ data.promotionsAndDiscountsOption }}
+            </li>
+            <li class="fa-circle">
+              <b>List Products Option :</b> {{ data.listProductsOption }}
+            </li>
+            <li class="fa-circle">
+              <b>List Any Special Amenities :</b>
+              {{ data.listAnySpecialAmenities }}
+            </li>
+            <li class="fa-circle">
+              <b>List Of Providers :</b> {{ data.listOfProviders }}
+            </li>
+            <li class="fa-circle">
+              <b>List Your Type Of Center And Different Locations :</b>
+              {{ data.listYourTypeOfCenterAndDifferentLocations }}
+            </li>
           </ul>
-          <div *ngIf="data.name.name !='Enterprice'">
-            <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
+          <div *ngIf="data.name.name != 'Enterprice'">
+            <a
+              class="btn btn-outline-primary w-100 text-center"
+              data-toggle="modal"
+              data-target="#subscribe"
               *ngIf="!plan || plan['plan_id']['id'] !== data.id"
-              (click)="checkLogin(data)">{{data.planType == 'Paid' ? 'Buy' : 'Activate'}}</a>
+              (click)="checkLogin(data)"
+              >{{ data.planType == "Paid" ? "Buy" : "Activate" }}</a
+            >
           </div>
 
-          <div *ngIf="data.name.name =='Enterprice'">
-            <a class="btn btn-outline-primary w-100 text-center" data-toggle="modal" data-target="#subscribe"
-              (click)="goToContactPage()">Get in touch</a>
+          <div *ngIf="data.name.name == 'Enterprice'">
+            <a
+              class="btn btn-outline-primary w-100 text-center"
+              data-toggle="modal"
+              data-target="#subscribe"
+              (click)="goToContactPage()"
+              >Get in touch</a
+            >
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
+<!-- Pricing table -->
+<div class="container">
+  <div class="overflow-auto">
+    <table class="subscriptionTable w-100 table table-striped text-center">
+      <thead>
+        <tr>
+          <th class="border-0"></th>
+          <th class="paid border-0">
+            <span class="text-primary">Center</span>
+            <div
+              class="text-center d-flex justify-content-center align-items-center"
+            >
+              <b class="h5 mb-4">$</b><b class="h5">777</b>/Monthly
+            </div>
+          </th>
+          <th class="free border-0">
+            <span class="text-primary">Enterprise</span>
+            <div
+              class="text-center d-flex justify-content-center align-items-center"
+            >
+              <b class="h5 mb-4">$</b><b class="h5">8787</b>/Monthly
+            </div>
+          </th>
+          <th class="enterprice border-0">
+            <span class="text-primary">Service Provider</span>
+            <div
+              class="text-center d-flex justify-content-center align-items-center"
+            >
+              <b class="h5 mb-4">$</b><b class="h5">555</b>/Yearly
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="text-left">Professional Profile</th>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Address URL Logo Picture</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Video Upload</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Social Media Sharing</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Performance Dashboard</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Real Reviews And Feedback</th>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Receive Messages For Booking</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Send Messages For Recalls</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">Promotions And Discounts Option</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">List Products Option</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">List Any Special Amenities</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">List Of Providers</th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+        <tr>
+          <th class="text-left">
+            List Your Type Of Center And Different Locations
+          </th>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-times text-danger"></i></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td>
+            <a
+              href=""
+              class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup"
+              >Buy</a
+            >
+          </td>
+          <td>
+            <a
+              href=""
+              class="btn btn-secondary w-100 text-center rounded-pill shadow"
+              >Buy</a
+            >
+          </td>
+          <td>
+            <a
+              href=""
+              class="btn btn-secondary w-100 text-center rounded-pill shadow"
+              >Buy</a
+            >
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<!-- Pricing table end -->
+
+<div
+  class="modal fade"
+  id="subscribe"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="subscribeLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="margin: auto !important;width:100%"
+  >
     <div class="modal-content mk-border">
-      <div class="modal-header d-flex justify-content-between align-items-center">
+      <div
+        class="modal-header d-flex justify-content-between align-items-center"
+      >
         <h5 class="text-primary">Select Card for Payment</h5>
         <div class="d-flex justify-content-center align-items-center">
-          <a class="btn btn-outline-primary text-center" data-toggle="modal" data-target="#addcard">Add Card</a>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <a
+            class="btn btn-outline-primary text-center"
+            data-toggle="modal"
+            data-target="#addcard"
+            >Add Card</a
+          >
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       </div>
       <div class="modal-body text-center">
-        <div *ngFor="let obj of user1['paymentMethod'];let i=index;"
-          class="d-inline-flex p-2 border border-secondary rounded mb-3">
-          <input type="radio" class="mr-2" (click)="selectedCard = obj;errMessage='';" id="defaultcard{{i}}">
-          <div class="text-secondary">xxxx-xxxx-xxxx-{{obj.last4}}</div>
+        <div
+          *ngFor="let obj of user1['paymentMethod']; let i = index"
+          class="d-inline-flex p-2 border border-secondary rounded mb-3"
+        >
+          <input
+            type="radio"
+            class="mr-2"
+            (click)="selectedCard = obj; errMessage = ''"
+            id="defaultcard{{ i }}"
+          />
+          <div class="text-secondary">xxxx-xxxx-xxxx-{{ obj.last4 }}</div>
         </div>
         <div class="text-center">
           <a class="btn btn-primary" (click)="save()">Pay Now</a>
@@ -94,28 +313,56 @@
   </div>
 </div>
 
-<div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="addcard" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
+<div
+  class="modal fade"
+  id="addcard"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addcard"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="margin: auto !important;width:100%"
+  >
     <div class="modal-content mk-border">
       <div class="modal-header">
-        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
+        <h5
+          class="modal-title w-100 text-center"
+          id="exampleModalLabel"
+          style="text-indent: 56px;"
+        >
           Add New Card
         </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
-
-        <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout card-from">
-
+        <form
+          #checkout="ngForm"
+          (ngSubmit)="onSubmit(checkout)"
+          class="checkout card-from"
+        >
           <label for="card-info" class="font-weight-bold">Card Info</label>
           <div id="card-info" #cardInfo class="mt-3"></div>
 
           <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
 
           <div class="mt-3">
-            <button class="btn btn-secondary mr-2" data-dismiss="modal" aria-label="Close">Cancel</button>
+            <button
+              class="btn btn-secondary mr-2"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Cancel
+            </button>
             <button type="submit" class="btn btn-primary">Add</button>
           </div>
         </form>

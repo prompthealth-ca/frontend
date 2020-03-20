@@ -4,6 +4,14 @@
   }
 }
 
+.subscriptionTable {
+  min-width: 700px;
+  thead tr {
+    th:first-child {
+      width: 400px;
+    }
+  }
+}
 .subscription-plans {
   padding: 90px 0;
 }

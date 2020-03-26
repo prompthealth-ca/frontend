@@ -1,0 +1,35 @@
+@import "../../../assets/scss/mixins";
+
+.questionaareUser {
+  left: 16px;
+  top: -35px;
+  height: 70px;
+  width: 70px;
+  border: 2px solid #4274ba;
+}
+.user-name {
+  padding-left: 100px;
+  margin-bottom: 5px;
+}
+
+.checkbox {
+  font-weight: 500;
+  position: relative;
+  > input {
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+    &:checked + * {
+      color: $primaryColor;
+    }
+  }
+  &:hover {
+    color: $primaryColor;
+  }
+}

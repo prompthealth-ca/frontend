@@ -33,3 +33,21 @@
     color: $primaryColor;
   }
 }
+
+.accordion {
+  h5 {
+    cursor: pointer;
+  }
+  .collapsedIcon {
+    display: none;
+  }
+
+  .collapsed {
+    .collapsedIcon {
+      display: inline-block !important;
+    }
+    .uncollapsedIcon {
+      display: none !important;
+    }
+  }
+}

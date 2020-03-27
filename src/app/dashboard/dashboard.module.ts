@@ -5,13 +5,20 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UserDetailsComponent } from "./user-details/user-details.component";
-import { SubscriptionProfessionalComponent } from './subscription-professional/subscription-professional.component';
-import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
-
-
+import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
+import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
+import { ListingComponent } from "./listing/listing.component";
+import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 
 @NgModule({
-  declarations: [SubscriptionPlanComponent, UserDetailsComponent, SubscriptionProfessionalComponent, QuestionnaireComponent],
+  declarations: [
+    SubscriptionPlanComponent,
+    UserDetailsComponent,
+    SubscriptionProfessionalComponent,
+    QuestionnaireComponent,
+    ListingComponent,
+    ListingcompareComponent
+  ],
   imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule]
 })
-export class DashboardModule { }
+export class DashboardModule {}

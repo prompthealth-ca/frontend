@@ -1,0 +1,30 @@
+@import "../../../assets/scss/mixins";
+
+.avatartable {
+  position: relative;
+  width: 100%;
+  max-width: 150px;
+  display: block;
+  margin: auto;
+  border: 1px solid;
+  > i {
+    position: absolute;
+    top: -10px;
+    background-color: #f44336;
+    right: -10px;
+    color: #fff;
+    font-size: 18px;
+    padding: 2px;
+  }
+}
+
+.comparetable {
+  th.table-active {
+    min-width: 288px;
+  }
+  thead {
+    th {
+      min-width: 300px;
+    }
+  }
+}

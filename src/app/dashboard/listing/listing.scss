@@ -1,0 +1,94 @@
+@import "../../../assets/scss/mixins";
+
+.profileBox {
+  .profileimg {
+    border: 1px solid $secondaryColor;
+    min-height: 210px;
+    border-bottom: 5px solid $primaryColor;
+  }
+  > *:nth-child(2) {
+    border-bottom: 5px solid #c2c3c5;
+    border-right: 7px solid $secondaryColor;
+  }
+}
+
+hr {
+  margin: 22px 0;
+}
+
+.checkboxBtn {
+  display: inline-block;
+  position: relative;
+  svg.fa {
+    height: 12px;
+  }
+  .fa-check-square {
+    display: none;
+  }
+  > input {
+    height: 1px;
+    width: 1px;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      cursor: pointer;
+    }
+    &:checked {
+      + * {
+        svg.fa {
+          display: none;
+        }
+        .fa-check-square {
+          display: inline-block;
+        }
+        background-color: $primaryColor !important;
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+.radio {
+  position: relative;
+  font-weight: 500;
+  margin-bottom: 10px;
+  > input {
+    margin-right: 10px;
+    &::after {
+      content: "";
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      cursor: pointer;
+    }
+    &:checked {
+      + * {
+        color: $primaryColor;
+      }
+    }
+  }
+}
+
+.filterOverflow {
+  overflow: auto;
+  max-height: 150px;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #c2c3c5;
+    border-radius: 50px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $primaryColor;
+    border-radius: 50px;
+  }
+}

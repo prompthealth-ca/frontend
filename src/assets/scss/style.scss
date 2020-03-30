@@ -12,8 +12,8 @@ a:hover {
 body {
   color: $secondaryColor;
   font-family: $themeFont;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: $themeFontSize;
+  line-height: $themeLignHeight;
   letter-spacing: 1px;
   font-weight: 300;
   &::-webkit-scrollbar {
@@ -271,13 +271,14 @@ h6,
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  line-height: $themeLignHeight;
+  font-size: $themeFontSize;
   > * {
     display: block;
     font-family: $themeFont !important;
     position: relative;
     padding-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     &::before {
       left: 0;
       content: "\f00c";

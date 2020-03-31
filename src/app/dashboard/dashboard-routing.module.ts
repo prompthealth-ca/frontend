@@ -6,6 +6,7 @@ import { SubscriptionProfessionalComponent } from "./subscription-professional/s
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
+import { DetailComponent } from "./detail/detail.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "listingCompare",
     component: ListingcompareComponent
+  },
+  {
+    path: "detail",
+    component: DetailComponent
   }
 ];
 

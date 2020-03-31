@@ -1,14 +1,16 @@
 @import "variables";
 @import "mixins";
 
-a:hover {
-  text-decoration: none;
+a {
+  color: $primaryColor;
+  &:hover {
+    text-decoration: none;
+  }
   &:not([href]) {
     color: initial;
     text-decoration: none;
   }
 }
-
 body {
   color: $secondaryColor;
   font-family: $themeFont;

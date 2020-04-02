@@ -101,8 +101,13 @@ h6,
 .form-control {
   line-height: normal !important;
   height: auto !important;
-  font-size: 13px;
+  font-size: $themeFontSize;
+  line-height: $themeLignHeight;
   padding: 12px 15px !important;
+}
+
+textarea.form-control {
+  height: 120px !important;
 }
 
 // title heading

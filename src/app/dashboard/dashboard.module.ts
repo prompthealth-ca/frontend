@@ -10,6 +10,7 @@ import { QuestionnaireComponent } from "./questionnaire/questionnaire.component"
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
+import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DetailComponent } from "./detail/detail.component";
     QuestionnaireComponent,
     ListingComponent,
     ListingcompareComponent,
-    DetailComponent
+    DetailComponent,
+    ProfileManagementComponent
   ],
   imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule]
 })

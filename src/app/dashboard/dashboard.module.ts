@@ -9,6 +9,8 @@ import { SubscriptionProfessionalComponent } from "./subscription-professional/s
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
+import { DetailComponent } from "./detail/detail.component";
+import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ListingcompareComponent } from "./listingcompare/listingcompare.compone
     SubscriptionProfessionalComponent,
     QuestionnaireComponent,
     ListingComponent,
-    ListingcompareComponent
+    ListingcompareComponent,
+    DetailComponent,
+    ProfileManagementComponent
   ],
   imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule]
 })

@@ -73,7 +73,6 @@ $radius: 0.25rem;
     }
   }
 }
-
 // Solution pages end
 
 @mixin imageShadow($left: 30px, $top: 20px, $right: 0px, $bottom: 0px) {
@@ -82,3 +81,33 @@ $radius: 0.25rem;
   width: calc(100% - #{$left}) !important;
   margin: $top $right $bottom $left;
 }
+
+// Profile Image Input
+@mixin profileImageInput($size: 100px, $radius: 50%) {
+  position: relative;
+  > img {
+    width: $size;
+    height: $size;
+    object-fit: cover;
+    border: 1px solid;
+    border-radius: $radius;
+  }
+  > input {
+    height: 0px;
+    width: 0px;
+    cursor: pointer;
+    &::before {
+      content: "\f044";
+      position: absolute;
+      font-family: FontAwesome;
+      font-size: 13px;
+      background-color: #4274ba;
+      color: #fff;
+      padding: 4px 7px 4px 8px;
+      bottom: 14px;
+      right: 4px;
+      border-radius: 8px;
+    }
+  }
+}
+// Profile image input end

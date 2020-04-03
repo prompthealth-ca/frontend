@@ -1,8 +1,11 @@
 @import "variables";
 @import "mixins";
 
-a:hover {
-  text-decoration: none;
+a {
+  color: $primaryColor;
+  &:hover {
+    text-decoration: none;
+  }
   &:not([href]) {
     color: initial;
     text-decoration: none;
@@ -12,8 +15,8 @@ a:hover {
 body {
   color: $secondaryColor;
   font-family: $themeFont;
-  font-size: 15px;
-  line-height: 22px;
+  font-size: $themeFontSize;
+  line-height: $themeLignHeight;
   letter-spacing: 1px;
   font-weight: 300;
   &::-webkit-scrollbar {
@@ -99,8 +102,13 @@ h6,
 .form-control {
   line-height: normal !important;
   height: auto !important;
-  font-size: 13px;
+  font-size: $themeFontSize;
+  line-height: $themeLignHeight;
   padding: 12px 15px !important;
+}
+
+textarea.form-control {
+  height: 120px !important;
 }
 
 // title heading
@@ -271,13 +279,14 @@ h6,
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  line-height: $themeLignHeight;
+  font-size: $themeFontSize;
   > * {
     display: block;
     font-family: $themeFont !important;
     position: relative;
     padding-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     &::before {
       left: 0;
       content: "\f00c";

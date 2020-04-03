@@ -87,6 +87,15 @@ export class SharedService {
     return this.http.get(url, { headers });
   }
 
+
+  getlistViaFilter(type = '') {
+    let date = new Date().getTime().toString();
+    let url = this.rootUrl + 'questionare?count='  + '&type=' + type ;
+
+    let headers = this.getAuthorizationHeader();
+    return this.http.get(url, { headers });
+  }
+
   getUserDetails() {
     let date = new Date().getTime().toString();
     let url = this.rootUrl + 'getuserdetail';

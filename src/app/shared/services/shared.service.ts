@@ -1,6 +1,6 @@
 import { Injectable, Optional, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -44,9 +44,10 @@ export class SharedService {
     this._router.navigate(['/auth/signin-up']);
   }
 
-  get(path) {
+  get(path, setParams = {}) {
     const headers = this.getAuthorizationHeader();
-    return this.http.get(this.rootUrl + path, { headers });
+    const url = this.rootUrl + path;
+    return this.http.get(url, { headers });
   }
 
   post(body, path) {
@@ -86,16 +87,6 @@ export class SharedService {
     let headers = this.getAuthorizationHeader();
     return this.http.get(url, { headers });
   }
-
-
-  getlistViaFilter(type = '') {
-    let date = new Date().getTime().toString();
-    let url = this.rootUrl + 'questionare?count='  + '&type=' + type ;
-
-    let headers = this.getAuthorizationHeader();
-    return this.http.get(url, { headers });
-  }
-
   getUserDetails() {
     let date = new Date().getTime().toString();
     let url = this.rootUrl + 'getuserdetail';
@@ -141,13 +132,11 @@ export class SharedService {
 
   uploadImage(object) {
     let headers = this.getAuthorizationHeader();
-    console.log("object", object)
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
 
   uploadImage1(object) {
     let headers = this.getAuthorizationHeader();
-    console.log("object", object)
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
 

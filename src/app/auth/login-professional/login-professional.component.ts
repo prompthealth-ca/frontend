@@ -48,7 +48,7 @@ export class LoginProfessionalComponent implements OnInit {
     else {
       this.submitted = true;
       let data = JSON.stringify(this.loginForm.value);
-
+      console.log('data', data, this.loginForm);
       this._sharedService.loader('show');
       this._sharedService.login(data).subscribe((res: any) => {
         this._sharedService.loader('hide');

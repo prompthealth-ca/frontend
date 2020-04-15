@@ -8,7 +8,7 @@ import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
-import { QuestionnaireUserComponent } from './questionnaire-user/questionnaire-user.component';
+// import { QuestionnaireUserComponent } from './questionnaire-user/questionnaire-user.component';
 
 const routes: Routes = [
   {
@@ -26,12 +26,8 @@ const routes: Routes = [
     component: SubscriptionProfessionalComponent
   },
   {
-    path: "questionnaire-sp",
+    path: "questionnaire/:type",
     component: QuestionnaireComponent
-  },
-  {
-    path: "questionnaire-u",
-    component: QuestionnaireUserComponent
   },
   {
     path: "listing",

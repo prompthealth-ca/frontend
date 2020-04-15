@@ -30,7 +30,10 @@ export class QuestionnaireUserComponent implements OnInit {
     this.type="U"
 
     // this._sharedService.loader('show');
-    this._sharedService.getlistViaFilter(this.type).subscribe((res: any) => {
+    let path = `questionare?type=${this.type}`;
+
+    this._sharedService.get(path).subscribe((res: any) => {
+      
       // this._sharedService.loader('hide');
 
       if (res.success) {

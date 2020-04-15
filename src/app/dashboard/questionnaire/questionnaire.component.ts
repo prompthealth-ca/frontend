@@ -9,23 +9,14 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
   styleUrls: ['./questionnaire.component.scss']
 })
 export class QuestionnaireComponent implements OnInit {
-  public questionnaire = {
-
-    treatments: '',
-   
-  };
+  public questionnaire = [];
 
   public type = "SP";
-  public data = [];
   public itemsTotal = 0;
+
+  public selectedItems = [];
   treatment: any;
-  treatmentData = []; 
-  specialtiesData = []; 
-  age_rangeData = []; 
-  customerData = []; 
-  discountData = []; 
-  languagesData = [];
-  priceData = [];
+  public dropdownSettings = {};
   constructor
     (
       private _router: Router,
@@ -34,34 +25,26 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSelectedSkill();
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  
   }
 
   getSelectedSkill() {
-  
     // this._sharedService.loader('show');
-    this._sharedService.getlistViaFilter(this.type).subscribe((res: any) => {
-      
+    let path = `questionare?type=${this.type}`;
+    this._sharedService.get(path).subscribe((res: any) => {
       // this._sharedService.loader('hide');
       if (res.success) {
-        this.data = res.questionare;
-
-        for (let i in this.data) {
-          this.treatmentData.push(this.data[i].treatment); 
-          this.specialtiesData.push(this.data[i].specialties); 
-          this.age_rangeData.push(this.data[i].age_range);
-          this.customerData.push(this.data[i].customer);  
-          this.discountData.push(this.data[i].discount);  
-          this.languagesData.push(this.data[i].languages);  
-          this.priceData.push(this.data[i].price);  
-          console.log('ttttttttttttttttt', i);
-
-        }
-
-        console.log('this.treatmentData', this.treatmentData);
-
-        
-        // this.treatment = res.questionare[0].treatment;
-        console.log('sandeep console.', this.data)
+        this.questionnaire = res.questionare;
+        console.log('this.questionnaire', this.questionnaire);
         
       } else {
         this._sharedService.checkAccessToken(res.error);
@@ -71,10 +54,11 @@ export class QuestionnaireComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
-
-  checkCheckBoxvalue(event){
-    console.log('sandeep',event.checked)
+  onItemSelect(item: any) {
+    console.log(item);
   }
-
+  onSelectAll(items: any) {
+    console.log(items);
+  }
 
 }

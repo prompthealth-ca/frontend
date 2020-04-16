@@ -8,7 +8,6 @@ import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
-// import { QuestionnaireUserComponent } from './questionnaire-user/questionnaire-user.component';
 
 const routes: Routes = [
   {

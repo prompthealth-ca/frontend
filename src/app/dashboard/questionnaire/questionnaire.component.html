@@ -8,12 +8,10 @@
   style="background-image: url(assets/img/question3.png);"
 >
   <div class="container" style="max-width: 700px !important">
-    <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">
-      Questinnaire
-    </h2>
+    <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questinnaire</h2>
     <p class="h4 font-weight-normal">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
-      sagittis diam. Aliquam feugiat efficitur velit
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
+    sagittis diam. Aliquam feugiat efficitur velit
     </p>
   </div>
 </section>
@@ -21,120 +19,24 @@
   <div class="container">
     <div class="row">
       <div *ngFor="let question of questionnaire" class="col-md-12">
-      <h5 class="text-primary text-uppercase">{{ question.question }}</h5>
-
+        <h5 class="text-primary text-uppercase">{{ question.question }}</h5>
         <div class="mb-4">
-          <!-- <div class="desc mb-3">
-            <p>
-              There are several forms of treatment that might be effective for you. If you definitely KNOW what form of treatment you prefer, then enter it here. But if you’ve never sought treatment before, you might want to postpone the choice of treatment format until you see a professional for a comprehensive evaluation. That person can better advise you about the variety of treatment options that could be most helpful. Among them are...
-            </p>
-          </div> -->
-
-        <div class="form-row" *ngIf="question.choice_type === 'Single' || 'single'">
-          <div class="col-md-3"  *ngFor="let options of question.answers" >
-            <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+          <div class="form-row" *ngIf="question.choice_type === 'single'">
+            <div class="col-md-3"  *ngFor="let options of question.answers[0]" >
+              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="question.choice_type === 'multiple'">
+            <div class="col-md-4" *ngFor="let options of question.answers[0]">
+              <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+            </div>
+          </div>
+          <div class="text-right">
+            <hr/>
+            <button class="btn btn-primary">Next</button>
           </div>
         </div>
       </div>
-      <div class="form-row"  *ngIf="question.choice_type === 'Multiple' || 'multiple'">
-        <div  *ngIf="question.answers.length > 3; else multiSelect">
-          <div class="col-md-4" *ngFor="let options of question.answers">
-            <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ options.item_text }}</span></div>
-          </div>
-        </div>
-        <ng-template #multiSelect>
-          <div  *ngFor="let options of question.answers">
-            <ng-multiselect-dropdown [data]="options" [(ngModel)]="selectedItems"
-                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
-                (onSelectAll)="onSelectAll($event)" [required]='true'
-                [placeholder]="'Select options'">
-            </ng-multiselect-dropdown>
-          </div>
-        </ng-template>
-      </div>
-  
-
-        <!-- <h5 class="text-primary text-uppercase">WHAT ARE THE MAIN PROBLEMS?</h5>
-
-        <div class="mb-4">
-      <div class="desc mb-3">
-      <b>Type of Problem(s)</b><br/>
-      While any mental health professional can help with a wide variety of problems and issues, most will concentrate their practice on particular areas of their expertise. Some will rarely treat other conditions. All Agora MHN professionals have specified the broad areas that they treat regularly as well as those areas in which they specialize. So it's time to narrow the field a bit in order to find the best match for you.
-      </div>
-
-        <div class="form-row">
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox" class="mr-3" /> <span>Addictions - substance</span></div>
-          </div>
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox"  class="mr-3" /> <span>Adoption and infertility issues</span></div>
-          </div>
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox"  class="mr-3" /> <span>Aging and geriatric issues</span></div>
-          </div>
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox" class="mr-3" /> <span>Agoraphobia</span></div>
-          </div>
-        </div>
-        </div>
-
-        <h5 class="text-primary text-uppercase">DO YOU NEED TO SEE A THERAPIST WHO IS FLUENT IN ANY LANGUAGE OTHER THAN ENGLISH?</h5>
-
-        <div class="mb-4">
-        <div class="desc mb-3">
-        <b>Language requirements</b><br/>
-          Later on you will be able to filter the search results to specify your language PREFERENCE, but If you MUST have a mental health professional who is able to communicate in a language other than English, please specify here. Otherwise, select "English" and move on.
-        </div>
-        <label class="font-weight-bold">Select Language</label><br/>
-        <select class="form-control w-auto d-inline-block">
-          <option>English</option>
-          <option>American Sign Language</option>
-          <option>Chinese</option>
-          <option>French</option>
-          <option>German</option>
-        </select>
-        </div>
-
-
-        <h5 class="text-primary text-uppercase">DO YOU HAVE ANY APPOINTMENT TIME RESTRICTIONS ?</h5>
-
-        <div class="mb-4">
-        <div class="desc mb-3">
-        <b>“Must Have” appointment restrictions</b><br/>
-          It’s frustrating to find a great therapist only to find that her schedule won’t accommodate your schedule. So, if your schedule is NOT flexible, and you MUST be seen on certain days or during certain hours, specify that here. Otherwise leave this marked as “no restrictions” so you won’t unnecessarily reduce the list of suitable professionals.
-        </div>
-        <div class="form-row">
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox" class="mr-3" /> <span>Addictions - substance</span></div>
-          </div>
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox"  class="mr-3" /> <span>Adoption and infertility issues</span></div>
-          </div>
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox"  class="mr-3" /> <span>Aging and geriatric issues</span></div>
-          </div>
-
-
-          <div class="col-md-4">
-          <div class="radio"><input type="checkbox" class="mr-3" /> <span>Agoraphobia</span></div>
-          </div>
-        </div>
-        </div> -->
-
-
-
-      <div class="text-right">
-      <hr/>
-      <button class="btn btn-primary">Next</button>
-      </div>
-
-
-        </div>
-      </div>
+    </div>
   </div>
 </section>

@@ -1,5 +1,55 @@
 @import "../../../assets/scss/style.scss";
 
+
+// multipallavel dropdown css
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+  width: fit-content;
+}
+ul.dropdown-menu.multi-level.show {
+  width: max-content;
+}
+// .dropdown:hover>.dropdown-menu {
+//   display: block;
+// }
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  .multi-level li a {
+    line-height: 2;
+    color: #6d6e71;
+}
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 6px 7px;
+  border-left-color: #6d6e71;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.dropdown-submenu:hover>a:after {
+  border-left-color: #fff;
+}
+
+
+// end css
+
+
 .main-header {
   z-index: 999;
   font-weight: 500;

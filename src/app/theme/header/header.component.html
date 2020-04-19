@@ -252,17 +252,27 @@
 
           <li class="nav-item">
             <a
+              *ngIf="!isLoggedIn; else logout"
               class="nav-link"
               href=""
               data-toggle="modal"
               data-target="#loginmodal"
-              >Login</a
-            >
+              >Login</a>
+            <ng-template #logout>
+              <a
+              class="nav-link"
+              >Logout</a>
+            </ng-template>
+            
           </li>
-          <li class="nav-item">
+          <li 
+            *ngIf="!isLoggedIn"
+            class="nav-item">
             <a class="nav-link">OR</a>
           </li>
-          <li class="nav-item">
+          <li
+            *ngIf="!isLoggedIn"
+            class="nav-item">
             <a
               class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3"
               href=""
@@ -302,6 +312,7 @@
           Join network
         </h5>
         <button
+          #fileInput
           type="button"
           class="close"
           data-dismiss="modal"
@@ -321,10 +332,8 @@
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
         <a
           class="btn btn-primary w-100 mr-2"
-          [routerLink]="['/auth/registrationp']"
-          data-dismiss="modal"
+          (click)="professionalOption = !professionalOption" 
           style="max-width: 175px;"
-          aria-label="Close"
           >PROFESSIONAL</a
         >
         or
@@ -336,6 +345,16 @@
           aria-label="Close"
           >USER</a
         >
+      </div>
+      <div class="mb-3" *ngIf="professionalOption">
+        <div class="radio">
+          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/registrationsp')"/>
+          <span>Service Provider</span>
+        </div>
+        <div class="radio">
+          <input type="radio" name="Center"  (change) ="handleChange('/auth/registrationc')"/>
+          <span>Center</span>
+        </div>
       </div>
     </div>
   </div>
@@ -384,9 +403,7 @@
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
         <a
           class="btn btn-primary w-100 mr-2"
-          [routerLink]="['/auth/loginp']"
-          data-dismiss="modal"
-          aria-label="Close"
+          (click)="professionalOption = !professionalOption" 
           style="max-width: 175px;"
           >PROFESSIONAL</a
         >
@@ -399,6 +416,16 @@
           aria-label="Close"
           >USER</a
         >
+      </div>
+      <div class="mb-3" *ngIf="professionalOption">
+        <div class="radio">
+          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/loginsp')"/>
+          <span>Service Provider</span>
+        </div>
+        <div class="radio">
+          <input type="radio" name="Center"  (change) ="handleChange('/auth/loginc')"/>
+          <span>Center</span>
+        </div>
       </div>
     </div>
   </div>
@@ -447,7 +474,7 @@
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
         <a
           class="btn btn-primary w-100 mr-2"
-          [routerLink]="['/dashboard/subscriptionplan-professional']"
+          [routerLink]="['/dashboard/subscriptionplan']"
           data-dismiss="modal"
           aria-label="Close"
           style="max-width: 175px;"

@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
 import { ProfessionalRegistrationComponent } from './professional-registration/professional-registration.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
-import { LoginProfessionalComponent } from './login-professional/login-professional.component';
+// import { LoginProfessionalComponent } from './login-professional/login-professional.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 
 
@@ -39,7 +39,6 @@ import { LoginUserComponent } from './login-user/login-user.component';
     ContactUspageComponent,
     ProfessionalRegistrationComponent,
     UserRegistrationComponent,
-    LoginProfessionalComponent,
     LoginUserComponent,
   ]
 })

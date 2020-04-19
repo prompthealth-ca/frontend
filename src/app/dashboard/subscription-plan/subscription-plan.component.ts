@@ -31,6 +31,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   cardHandler = this.onChange.bind(this);
   error: string;
   token: any;
+  roles: string;
+  isLoggedIn = false;
 
   public checkout = {
     email: "this.userEmail.email",
@@ -43,7 +45,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   //   subscription_id: ""
   // }
 
-  user1 = {
+  user = {
     paymentMethod: []
   };
 
@@ -61,12 +63,18 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     private toastr: ToastrService, ) { }
 
   ngOnInit() {
+    console.log('this.isLoggedIn', this.isLoggedIn);
+    if (this._sharedService.isLogin()) {
+      // this.fetchUser();
+      this.isLoggedIn = true;
+    }
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
+      this.roles = localStorage.getItem("roles");
     console.log('sandepppppppppp', this.userEmail.email)
     this.checkout.email = this.userEmail.email;
     this.getSubscriptionPlan();
-    this.getUserDetails();
+    // this.getUserDetails();
   }
 
   /*Get all Users */
@@ -144,10 +152,11 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     this._sharedService.loader('show');
     this._sharedService.getUserDetails().subscribe((res: any) => {
       this._sharedService.loader('hide');
+      console.log("res", res)
 
       if (res.success) {
-        this.user1 = res.data.user;
-        console.log("card num", this.user1)
+        this.user = res.data.roles;
+        console.log("card num", this.user)
 
       } else {
         // this._commanService.checkAccessToken(res.error);

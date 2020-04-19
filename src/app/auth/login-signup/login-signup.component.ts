@@ -70,6 +70,7 @@ export class LoginSignupComponent implements OnInit {
     get f() { return this.registerForm.controls; }
 
     ngOnInit() {
+        console.log('_route', this._route);
         //load Places Autocomplete
         // this.mapsAPILoader.load().then(() => {
 

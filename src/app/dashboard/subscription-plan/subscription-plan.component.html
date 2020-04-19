@@ -221,13 +221,19 @@
         <tr>
           <td></td>
           <td>
-            <a href="" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
+            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
           </td>
           <td>
-            <a href="" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
+            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
           </td>
           <td>
-            <a href="" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
+            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
           </td>
         </tr>
       </tfoot>
@@ -249,11 +255,11 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <div *ngFor="let obj of user1['paymentMethod']; let i = index"
+        <!-- <div *ngFor="let obj of user['paymentMethod']; let i = index"
           class="d-inline-flex p-2 border border-secondary rounded mb-3">
           <input type="radio" class="mr-2" (click)="selectedCard = obj; errMessage = ''" id="defaultcard{{ i }}" />
           <div class="text-secondary">xxxx-xxxx-xxxx-{{ obj.last4 }}</div>
-        </div>
+        </div> -->
         <div class="text-center">
           <a class="btn btn-primary" (click)="save()">Pay Now</a>
         </div>
@@ -309,10 +315,10 @@
           <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
         </div>
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
-        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/dashboard/questionnaire', 'sp']" data-dismiss="modal" aria-label="Close"
+        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/dashboard/questionnaire/SP']" data-dismiss="modal" aria-label="Close"
           style="max-width: 175px;">PROFESSIONAL</a>
         or
-        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', 'u']" data-dismiss="modal"
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire/U']" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">USER</a>
       </div>
     </div>

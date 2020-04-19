@@ -11,7 +11,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class QuestionnaireComponent implements OnInit {
   public questionnaire = [];
 
-  public type = "SP";
+  public type = window.localStorage.getItem('roles');
   public itemsTotal = 0;
 
   public selectedItems = [];
@@ -28,7 +28,18 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getSelectedSkill() {
+
     // this._sharedService.loader('show');
+    console.log('This.type', this._router.url)
+    if(this._router.url.includes('SP')) {
+      this.type = 'SP';
+    }
+    else if(this._router.url.includes('C')) {
+      this.type = 'C';
+    }
+    else {
+      this.type = 'U';
+    }
     let path = `questionare?type=${this.type}`;
     this._sharedService.get(path).subscribe((res: any) => {
       // this._sharedService.loader('hide');

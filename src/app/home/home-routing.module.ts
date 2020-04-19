@@ -10,6 +10,7 @@ import { ClientComponent } from './client/client.component';
 import { ProffesionalComponent } from './proffesional/proffesional.component';
 import { EnterpriceComponent } from './enterprice/enterprice.component';
 import { PricingComponent } from './pricing/pricing.component';
+
 const routes: Routes = [
   {
     path: "home",

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,9 +14,10 @@ import { MustMatch } from '../../_helpers/must-match.validator';
 export class UserRegistrationComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  professionalSignup = false
+  userType = 'U';
 
   constructor(private _router: Router,
-    private _route: ActivatedRoute,
     public _bs: BehaviorService,
     private _sharedService: SharedService,
     private formBuilder: FormBuilder,
@@ -25,12 +26,33 @@ export class UserRegistrationComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit() {
+    switch(this._router.url) {
+      case "/auth/registrationsp": 
+        //some logic
+        this.professionalSignup = true;
+        this.userType = 'SP'
+        break;
+      case "/auth/registrationc": 
+        //some logic
+        this.professionalSignup = true;
+        this.userType = 'C'
+        break;
+      case "/auth/registrationu": 
+        //some logic
+        this.professionalSignup = false;
+        this.userType = 'U'
+        break;
+
+      default:
+        break;
+
+    }
     this.registerForm = this.formBuilder.group({
 
       email: ['', [Validators.required, Validators.email]],
       hear_from: ['', [Validators.required]],
       t_c: ['', [Validators.required]],
-      roles: ['U'],
+      roles: this.userType,
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required]
     },
@@ -61,6 +83,8 @@ export class UserRegistrationComponent implements OnInit {
           this.toastr.success('Thanks for the registeration we have sent a verification email to the address provided, please verfiy account through the email sent');
           this.registerForm.reset();
           this.submitted = false;
+
+          this.userType === 'SP' ? this._router.navigate(['/dashboard/subscriptionplan']) : this._router.navigate(['/']);
         } else {
           this.toastr.error(res.error.message);
         }

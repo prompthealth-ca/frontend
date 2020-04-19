@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
 // import { CookieService } from 'ngx-cookie';
@@ -13,8 +13,11 @@ import { environment } from "../../../environments/environment";
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+
+
+@ViewChild('fileInput') fileInput:ElementRef;
   _host = environment.config.BASE_URL;
-  token = "";
+  public token = "";
   user: any = {};
   cities = [];
   Items = [];
@@ -26,7 +29,8 @@ export class HeaderComponent implements OnInit {
   dashboard: any;
   currentUrl = "";
   uname: any;
-
+  isLoggedIn = false;
+  professionalOption =false;
   constructor(
     private _router: Router,
     private _activateRouter: ActivatedRoute,
@@ -38,8 +42,10 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
+    console.log('this.isLoggedIn', this.isLoggedIn);
     if (this._sharedService.isLogin()) {
       // this.fetchUser();
+      this.isLoggedIn = true;
       this.token = localStorage.getItem("token");
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       console.log("sandeep", this.user)
@@ -80,6 +86,8 @@ export class HeaderComponent implements OnInit {
     this.token = "";
     this.user = {};
 
+    console.log('Comes here')
+
     // this._bs.unsetUser();
     localStorage.removeItem("token");
     this._sharedService.showAlert("Logout Sucessfully", "alert-success");
@@ -106,5 +114,11 @@ export class HeaderComponent implements OnInit {
       return true;
     else if (this.currentUrl.indexOf(path) >= 0 && path != "/") return true;
     else return false;
+  }
+
+  handleChange(url){
+    console.log('---', url)
+    this._router.navigate([url]);
+    this.fileInput.nativeElement.click();
   }
 }

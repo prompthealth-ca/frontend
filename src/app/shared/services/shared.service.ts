@@ -61,6 +61,7 @@ export class SharedService {
   }
 
   login(body) {
+    console.log('body', body)
     return this.http.post(this.rootUrl + 'signinUser', body);
   }
 
@@ -203,7 +204,11 @@ export class SharedService {
 
   isLogin() {
     let token = localStorage.getItem('token');
-    if (token) return true;
+    if (token) {
+      
+      this._router.navigate(['/login']);
+      return true;
+    } 
     else return false;
   }
 
@@ -245,17 +250,12 @@ export class SharedService {
 
   loginUser(res) {
 
-
-    // alert("heloo");
-    let route = '/dashboard/subscriptionplan';
-    this.showAlert(res.message, 'alert-success')
-    // alert("hiiii");
-    this.addCookie('token', res.data.access_token)
-    // alert("here");
-    this.addCookie('roles', res.data.roles)
-    this.addCookie('loginID', res.data.id)
-    this.addCookieObject('user', res.data)
-
+    let route =  res.data.roles === 'U' ? '/' : '/dashboard/subscriptionplan';
+    this.showAlert(res.message, 'alert-success');
+    this.addCookie('token', res.data.access_token);
+    this.addCookie('roles', res.data.roles);
+    this.addCookie('loginID', res.data.id);
+    this.addCookieObject('user', res.data);
     this._router.navigate([route]);
   }
 

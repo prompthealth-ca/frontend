@@ -44,7 +44,7 @@ export function getAuthServiceConfigs() {
     BrowserModule.withServerTransition({ appId: "serverApp" }),
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     BehaviorService,

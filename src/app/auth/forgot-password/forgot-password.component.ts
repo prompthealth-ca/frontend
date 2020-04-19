@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ForgotPasswordComponent implements OnInit {
     forgotForm: FormGroup;
     submitted = false;
-
+    professionalOption = false
     public email
 
     constructor(
@@ -61,6 +61,10 @@ export class ForgotPasswordComponent implements OnInit {
                 this.toastr.error("There are some error please try after some time.");
             });
         }
+    }
+    handleChange(url) {
+        
+        this._router.navigate([url]);
     }
 
 

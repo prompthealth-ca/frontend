@@ -346,14 +346,14 @@
           >USER</a
         >
       </div>
-      <div class="mb-3" *ngIf="professionalOption">
-        <div class="radio">
+      <div class="mb-3 text-center" *ngIf="professionalOption">
+        <div class="radio mb-3">
           <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/registrationsp')"/>
-          <span>Service Provider</span>
+          <span class="font-weight-bold">Service Provider</span>
         </div>
         <div class="radio">
           <input type="radio" name="Center"  (change) ="handleChange('/auth/registrationc')"/>
-          <span>Center</span>
+          <span class="font-weight-bold">Center</span>
         </div>
       </div>
     </div>

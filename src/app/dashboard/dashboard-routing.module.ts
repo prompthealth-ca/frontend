@@ -9,10 +9,16 @@ import { ListingcompareComponent } from "./listingcompare/listingcompare.compone
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 
+import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
+
 const routes: Routes = [
   {
     path: "subscriptionplan",
     component: SubscriptionPlanComponent
+  },
+  {
+    path: "professional",
+    component: ProfessionalHomeComponent
   },
 
   {

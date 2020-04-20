@@ -41,7 +41,9 @@ export class SharedService {
     localStorage.removeItem('token');
     localStorage.removeItem('loginID');
     localStorage.removeItem('user');
-    this._router.navigate(['/auth/signin-up']);
+    localStorage.removeItem('roles');
+    this.showAlert("Logout Sucessfully", "alert-success");
+    this._router.navigate(["/auth/loginu"]);
   }
 
   get(path, setParams = {}) {
@@ -206,7 +208,7 @@ export class SharedService {
     let token = localStorage.getItem('token');
     if (token) {
       
-      this._router.navigate(['/login']);
+      this._router.navigate(['auth/loginu']);
       return true;
     } 
     else return false;
@@ -250,7 +252,7 @@ export class SharedService {
 
   loginUser(res) {
 
-    let route =  res.data.roles === 'U' ? '/' : '/dashboard/subscriptionplan';
+    let route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/subscriptionplan';
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.access_token);
     this.addCookie('roles', res.data.roles);

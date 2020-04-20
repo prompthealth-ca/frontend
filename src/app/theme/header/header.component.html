@@ -252,26 +252,28 @@
 
           <li class="nav-item">
             <a
-              *ngIf="!isLoggedIn; else logout"
+              *ngIf="!token"
               class="nav-link"
               href=""
               data-toggle="modal"
               data-target="#loginmodal"
               >Login</a>
-            <ng-template #logout>
-              <a
-              class="nav-link"
-              >Logout</a>
-            </ng-template>
             
           </li>
+          <li
+           *ngIf="token" class="nav-item">
+              <a
+              class="nav-link"
+              (click) = "logout()"
+              >Logout</a>
+          </li>
           <li 
-            *ngIf="!isLoggedIn"
+            *ngIf="!token"
             class="nav-item">
             <a class="nav-link">OR</a>
           </li>
           <li
-            *ngIf="!isLoggedIn"
+            *ngIf="!token"
             class="nav-item">
             <a
               class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3"

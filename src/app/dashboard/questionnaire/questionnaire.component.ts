@@ -20,7 +20,6 @@ export class QuestionnaireComponent implements OnInit {
   constructor
     (
       private _router: Router,
-      private _route: ActivatedRoute,
       private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
@@ -53,5 +52,12 @@ export class QuestionnaireComponent implements OnInit {
 
       this._sharedService.checkAccessToken(err);
     });
+  }
+
+  saveQuestionnaire() {
+    // TODO: Call the API to save questions
+    console.log('type comes here', this.type);
+    this.type === 'U' ? this._router.navigate(['/dashboard/listing']) : this._router.navigate(['/dashboard/professional']);
+
   }
 }

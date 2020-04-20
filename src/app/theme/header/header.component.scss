@@ -84,3 +84,14 @@ ul.dropdown-menu.multi-level.show {
     max-width: 155px;
   }
 }
+.mb-3 {
+  text-align: center;
+}
+.radio {
+  float: left;
+  width: 50%;
+
+  input {
+    margin-right: 5px;
+  }
+}

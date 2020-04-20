@@ -48,7 +48,7 @@ export class ForgotPasswordComponent implements OnInit {
                 if (res.success) {
                     console.log(">>>>>>>", res)
                     this.toastr.success(res.data.message);
-                    this._router.navigate(['/auth/signin-up']);
+                    this._router.navigate(['/auth/loginu']);
 
                 } else {
                     this._sharedService.loader('hide');

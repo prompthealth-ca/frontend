@@ -12,6 +12,7 @@ import { ListingcompareComponent } from "./listingcompare/listingcompare.compone
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ListingcompareComponent,
     DetailComponent,
     ProfileManagementComponent,
+    ProfessionalHomeComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule, NgMultiSelectDropDownModule.forRoot()]
 })

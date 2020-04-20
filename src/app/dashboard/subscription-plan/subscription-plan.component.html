@@ -118,19 +118,19 @@
           <th class="paid border-0">
             <span class="text-primary">Center</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">777</b>/Monthly
+              <b class="h5 mb-4">$</b><b class="h5">120</b>/Monthly
             </div>
           </th>
           <th class="free border-0">
             <span class="text-primary">Enterprise</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">8787</b>/Monthly
+              <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly
             </div>
           </th>
           <th class="enterprice border-0">
             <span class="text-primary">Service Provider</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">555</b>/Yearly
+              <b class="h5 mb-4">$</b><b class="h5">100</b>/Yearly
             </div>
           </th>
         </tr>
@@ -151,19 +151,19 @@
         <tr>
           <th class="text-left">Video Upload</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
         <tr>
           <th class="text-left">Social Media Sharing</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">Performance Dashboard</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
@@ -181,31 +181,31 @@
         <tr>
           <th class="text-left">Send Messages For Recalls</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">Promotions And Discounts Option</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">List Products Option</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">List Any Special Amenities</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">List Of Providers</th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
@@ -213,7 +213,7 @@
             List Your Type Of Center And Different Locations
           </th>
           <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td><i class="fa fa-check text-success"></i></td>
           <td><i class="fa fa-times text-danger"></i></td>
         </tr>
       </tbody>
@@ -221,17 +221,16 @@
         <tr>
           <td></td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', roles]" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
           </td>
           <td>
-            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
+            <a class="btn btn-secondary w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/contact-us']">Get In Touch</a>
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a> -->
           </td>
           <td>
-            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', user[roles]]" data-dismiss="modal"
+            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questionnaire', roles]" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a>
           </td>

@@ -64,10 +64,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
   ngOnInit() {
     console.log('this.isLoggedIn', this.isLoggedIn);
-    if (this._sharedService.isLogin()) {
-      // this.fetchUser();
-      this.isLoggedIn = true;
-    }
+    if (localStorage.getItem('token')) this.isLoggedIn = true;
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
       this.roles = localStorage.getItem("roles");
@@ -107,8 +104,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.card.removeEventListener('change', this.cardHandler);
-    this.card.destroy();
+    // this.card.removeEventListener('change', this.cardHandler);
+    // this.card.destroy();
   }
 
   onChange({ error }) {

@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
   dashboard: any;
   currentUrl = "";
   uname: any;
-  isLoggedIn = false;
   professionalOption =false;
   constructor(
     private _router: Router,
@@ -42,18 +41,13 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
-    console.log('this.isLoggedIn', this.isLoggedIn);
-    if (this._sharedService.isLogin()) {
-      // this.fetchUser();
-      this.isLoggedIn = true;
       this.token = localStorage.getItem("token");
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       console.log("sandeep", this.user)
-      if (this.token && this.user) {
-        let roles = this.user.roles;
-        this.dashboard = roles == "B" ? "dashboard/home" : "dashboard/welcome";
-      }
-    }
+      // if (this.token && this.user) {
+      //   let roles = this.user.roles;
+      //   this.dashboard = roles == "B" ? "dashboard/home" : "dashboard/welcome";
+      // }
     this._router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
@@ -86,12 +80,8 @@ export class HeaderComponent implements OnInit {
     this.token = "";
     this.user = {};
 
-    console.log('Comes here')
-
-    // this._bs.unsetUser();
-    localStorage.removeItem("token");
-    this._sharedService.showAlert("Logout Sucessfully", "alert-success");
-    this._router.navigate(["/auth/signin-up"]);
+    console.log('Comes here logout')
+    this._sharedService.logout();
   }
 
   // fetchUser() {

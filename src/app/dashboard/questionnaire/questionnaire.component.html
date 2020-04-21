@@ -11,53 +11,112 @@
     <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questionnaire
     </h2>
     <p class="h4 font-weight-normal">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
-    sagittis diam. Aliquam feugiat efficitur velit
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
+      sagittis diam. Aliquam feugiat efficitur velit
     </p>
   </div>
 </section>
-<section class="pt-5 pb-5">
-  <div class="container">
-    <div class="row">
-      <div *ngFor="let question of questionnaire" class="col-md-12">
-        <h5 class="text-primary text-uppercase">{{ question.questions }}</h5>
-        <div class="mb-12">
-          <div class="form-row" *ngIf="question.choiceType === 'single'">
-            <div class="col-md-3"  *ngFor="let options of question.answer" >
-              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.text }}</span></div>
-            </div>
-          </div>
-          <div class="form-row" *ngIf="question.choiceType === 'multiple'">
-            <div
-              [ngClass]="{'col-md-12': options.subans && match, 'col w-25': !(options.subans && match), 'w-25': question.answer.length > 4 }"
-              *ngFor="let options of question.answer">
-              <div class="radio" >
-                <input type="checkbox" class="mr-3" (change)="match =  options.text === options.subans.questions"/> <span>{{ options.text }}</span>
+<section>
+   <div class="container pt-4 pb-4">
+    <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a
+          class="nav-link active btn-circle"
+          id="tab1"
+          data-toggle="pill"
+          href="#pill1"
+          role="tab"
+          aria-controls="pill1"
+          aria-selected="true"
+          >Age</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link btn-circle"
+          id="tap2"
+          data-toggle="pill"
+          href="#pill2"
+          role="tab"
+          aria-controls="pill2"
+          aria-selected="false"
+          >Health Background</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link btn-circle"
+          id="tap3"
+          data-toggle="pill"
+          href="#pill3"
+          role="tab"
+          aria-controls="pill3"
+          aria-selected="false"
+          >Goal</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link btn-circle"
+          id="tap3"
+          data-toggle="pill"
+          href="#pill3"
+          role="tab"
+          aria-controls="pill3"
+          aria-selected="false"
+          >Availability</a
+        >
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="pill1"
+        role="tabpanel"
+        aria-labelledby="tap1"
+      >
+        <div class="row">
+          <div *ngFor="let question of questionnaire" class="col-md-12 question">
+            <h5 class="text-primary text-uppercase">{{ question.questions }}</h5>
+            <div class="mb-12">
+              <div class="form-row" *ngIf="question.choiceType === 'single'">
+                <div class="col-md-3"  *ngFor="let options of question.answer" >
+                  <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.text }}</span></div>
+                </div>
               </div>
-              <div class="sub-options" *ngIf="options.subans && match">
-                <h5 class="text-primary text-uppercase">{{ options.subans.questions }}</h5>
-                <div class="mb-12">
-                  <!-- <div class="form-row" *ngIf="options.subans.choiceType === 'single'">  // Since no choiceType = 'single' in suboptions
-                    <div class=""  *ngFor="let suboptions of options.subans.answer" >
-                      <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ suboptions.text }}</span></div>
-                    </div>
-                  </div> -->
-                  <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
-                    <div 
-                      [ngClass]="{'col-md-12': suboptions.subans && subMatch, 'col-12': !(suboptions.subans && subMatch)}" 
-                      *ngFor="let suboptions of options.subans.answer">
-                      <div class="radio"><input type="checkbox" class="mr-3" (change)="subMatch =  suboptions.text === suboptions.subans.questions"/> <span>{{ suboptions.text }}</span></div>
-                      <div class="sub-options" *ngIf="suboptions.subans && subMatch">
-                        <h5 class="text-primary text-uppercase">{{ suboptions.subans.questions }}</h5>
-                        <div class="mb-12">
-                          <!-- <div class="form-row" *ngIf="suboptions.subans.choiceType === 'single'"> // Since no choiceType = 'single' in suboptions
-                            <div class=""  *ngFor="let sub2options of suboptions.subans.answer" >
-                              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
-                            </div>
-                          </div> -->
-                          <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
-                            <div [ngClass]="{'col-md-12': sub2options.subans && subMatch, 'col-3': !(sub2options.subans && subMatch)} " *ngFor="let sub2options of suboptions.subans.answer">
-                              <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
+              <div class="form-row" *ngIf="question.choiceType === 'multiple'">
+                <div
+                  [ngClass]="{'col-md-12': options.subans && match, 'col w-25': !(options.subans && match), 'w-25': question.answer.length > 4 }"
+                  *ngFor="let options of question.answer">
+                  <div class="radio" >
+                    <input type="checkbox" class="mr-3" (change)="match =  options.text === options.subans.questions"/> <span>{{ options.text }}</span>
+                  </div>
+                  <div class="sub-options" *ngIf="options.subans && match">
+                    <h5 class="text-primary text-uppercase">{{ options.subans.questions }}</h5>
+                    <div class="mb-12">
+                      <!-- <div class="form-row" *ngIf="options.subans.choiceType === 'single'">  // Since no choiceType = 'single' in suboptions
+                        <div class=""  *ngFor="let suboptions of options.subans.answer" >
+                          <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ suboptions.text }}</span></div>
+                        </div>
+                      </div> -->
+                      <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
+                        <div 
+                          [ngClass]="{'col-md-12': suboptions.subans && subMatch, 'col-12': !(suboptions.subans && subMatch)}" 
+                          *ngFor="let suboptions of options.subans.answer">
+                          <div class="radio"><input type="checkbox" class="mr-3" (change)="subMatch =  suboptions.text === suboptions.subans.questions"/> <span>{{ suboptions.text }}</span></div>
+                          <div class="sub-options" *ngIf="suboptions.subans && subMatch">
+                            <h5 class="text-primary text-uppercase">{{ suboptions.subans.questions }}</h5>
+                            <div class="mb-12">
+                              <!-- <div class="form-row" *ngIf="suboptions.subans.choiceType === 'single'"> // Since no choiceType = 'single' in suboptions
+                                <div class=""  *ngFor="let sub2options of suboptions.subans.answer" >
+                                  <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
+                                </div>
+                              </div> -->
+                              <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
+                                <div [ngClass]="{'col-md-12': sub2options.subans && subMatch, 'col-3': !(sub2options.subans && subMatch)} " *ngFor="let sub2options of suboptions.subans.answer">
+                                  <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -68,15 +127,19 @@
               </div>
             </div>
           </div>
-          <!-- <div class="text-right">
-            <hr/>
-            <button class="btn btn-primary">Next</button>
-          </div> -->
+          <hr  class="col-12">
+          <div class="col-12">
+            <div class="text-right">
+              <button type="button" class="pull-left btn btn-default prev-step">
+                <i class="fa fa-chevron-left"></i> Back
+              </button>
+
+              <button type="button" class="btn btn-primary next-step">
+                Next <i class="fa fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-12 text-center">
-        <hr/>
-        <button class="btn btn-primary" (click)="saveQuestionnaire()">Submit</button>
       </div>
     </div>
   </div>

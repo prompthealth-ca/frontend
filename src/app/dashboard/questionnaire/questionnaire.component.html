@@ -10,36 +10,311 @@
   <div class="container" style="max-width: 700px !important">
     <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questinnaire</h2>
     <p class="h4 font-weight-normal">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
-    sagittis diam. Aliquam feugiat efficitur velit
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
+      sagittis diam. Aliquam feugiat efficitur velit
     </p>
   </div>
 </section>
-<section class="pt-5 pb-5">
-  <div class="container">
-    <div class="row">
-      <div *ngFor="let question of questionnaire" class="col-md-12">
-        <h5 class="text-primary text-uppercase">{{ question.question }}</h5>
-        <div class="mb-4">
-          <div class="form-row" *ngIf="question.choice_type === 'single'">
-            <div class="col-md-3"  *ngFor="let options of question.answers[0]" >
-              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+
+<section>
+  <div class="container pt-4 pb-4">
+    <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a
+          class="nav-link active btn-circle"
+          id="tab1"
+          data-toggle="pill"
+          href="#pill1"
+          role="tab"
+          aria-controls="pill1"
+          aria-selected="true"
+          >Lorem ipsum dolor sit amet</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link btn-circle"
+          id="tap2"
+          data-toggle="pill"
+          href="#pill2"
+          role="tab"
+          aria-controls="pill2"
+          aria-selected="false"
+          >ipsum dolor sit amet</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link btn-circle"
+          id="tap3"
+          data-toggle="pill"
+          href="#pill3"
+          role="tab"
+          aria-controls="pill3"
+          aria-selected="false"
+          >sit amet dolor</a
+        >
+      </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div
+        class="tab-pane fade show active"
+        id="pill1"
+        role="tabpanel"
+        aria-labelledby="tap1"
+      >
+        <h5 class="text-primary text-uppercase mb-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut erat
+          sapien
+        </h5>
+
+        <div class="form-row mb-4">
+          <div class="col-md-3">
+            <div class="radio">
+              <input
+                type="radio"
+                name="radio"
+                class="fa fa-circle-o"
+                required="required"
+              />
+              <span>dolor sit amet</span>
             </div>
           </div>
-          <div class="form-row" *ngIf="question.choice_type === 'multiple'">
-            <div class="col-md-4" *ngFor="let options of question.answers[0]">
-              <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
             </div>
           </div>
-          <!-- <div class="text-right">
-            <hr/>
-            <button class="btn btn-primary">Next</button>
-          </div> -->
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="text-primary text-uppercase mb-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut erat
+          sapien
+        </h5>
+
+        <div class="form-row mb-4">
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+        </div>
+
+        <hr/>
+        <div class="text-right">
+          <button type="button" class="btn btn-primary next-step">
+            Next <i class="fa fa-chevron-right"></i>
+          </button>
         </div>
       </div>
-      <div class="col-sm-12 text-center">
+      <div
+        class="tab-pane fade"
+        id="pill2"
+        role="tabpanel"
+        aria-labelledby="tab2"
+      >
+        <h5 class="text-primary text-uppercase mb-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut erat
+          sapien
+        </h5>
+
+        <div class="form-row mb-4">
+          <div class="col-md-3">
+            <div class="radio">
+              <input
+                type="radio"
+                name="radio"
+                class="fa fa-circle-o"
+                required="required"
+              />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+        </div>
+
         <hr/>
-        <button class="btn btn-primary" (click)="saveQuestionnaire()">Submit</button>
+        <div class="text-right">
+          <button type="button" class="btn btn-default prev-step">
+            <i class="fa fa-chevron-left"></i> Back
+          </button>
+
+          <button type="button" class="btn btn-primary next-step">
+            Next <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+      <div
+        class="tab-pane fade"
+        id="pill3"
+        role="tabpanel"
+        aria-labelledby="tab3"
+      >
+        <h5 class="text-primary text-uppercase mb-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut erat
+          sapien
+        </h5>
+
+        <div class="form-row mb-4">
+          <div class="col-md-3">
+            <div class="radio">
+              <input
+                type="radio"
+                name="radio"
+                class="fa fa-circle-o"
+                required="required"
+              />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="radio">
+              <input type="radio" name="radio" class="fa fa-circle-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+        </div>
+
+        <h5 class="text-primary text-uppercase mb-3">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut erat
+          sapien
+        </h5>
+
+        <div class="form-row mb-4">
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="radio">
+              <input type="checkbox" class="fa fa-square-o" />
+              <span>dolor sit amet</span>
+            </div>
+          </div>
+        </div>
+
+        <hr/>
+        <div class="text-right">
+          <button type="button" class="btn btn-default prev-step">
+            <i class="fa fa-chevron-left"></i> Back
+          </button>
+
+          <button type="button" class="btn btn-primary next-step">
+            Next <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

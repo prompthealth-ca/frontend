@@ -17,4 +17,37 @@ jQuery(document).ready(function() {
       }
     ]
   });
+
+  // steps
+  $(".btn-circle").on("click", function() {
+    $(".btn-circle.btn-primary")
+      .removeClass("btn-primary")
+      .addClass("btn-secondary");
+    $(this)
+      .addClass("btn-primary")
+      .removeClass("btn-secondary")
+      .blur();
+  });
+
+  $(".next-step, .prev-step").on("click", function(e) {
+    var $activeTab = $(".tab-pane.active");
+
+    $(".btn-circle.btn-primary")
+      .removeClass("btn-primary")
+      .addClass("btn-secondary");
+
+    if ($(e.target).hasClass("next-step")) {
+      var nextTab = $activeTab.next(".tab-pane").attr("id");
+      $('[href="#' + nextTab + '"]')
+        .addClass("btn-primary")
+        .removeClass("btn-secondary");
+      $('[href="#' + nextTab + '"]').tab("show");
+    } else {
+      var prevTab = $activeTab.prev(".tab-pane").attr("id");
+      $('[href="#' + prevTab + '"]')
+        .addClass("btn-primary")
+        .removeClass("btn-secondary");
+      $('[href="#' + prevTab + '"]').tab("show");
+    }
+  });
 });

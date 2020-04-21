@@ -52,6 +52,11 @@ export class SharedService {
     return this.http.get(url, { headers });
   }
 
+  mockGet(url) {
+    console.log('url', url)
+    return this.http.get(url);
+  }
+
   post(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });

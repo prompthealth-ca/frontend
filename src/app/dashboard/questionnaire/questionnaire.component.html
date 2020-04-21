@@ -8,7 +8,8 @@
   style="background-image: url(assets/img/question3.png);"
 >
   <div class="container" style="max-width: 700px !important">
-    <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questinnaire</h2>
+    <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questionnaire
+    </h2>
     <p class="h4 font-weight-normal">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
     sagittis diam. Aliquam feugiat efficitur velit
@@ -19,16 +20,52 @@
   <div class="container">
     <div class="row">
       <div *ngFor="let question of questionnaire" class="col-md-12">
-        <h5 class="text-primary text-uppercase">{{ question.question }}</h5>
-        <div class="mb-4">
-          <div class="form-row" *ngIf="question.choice_type === 'single'">
-            <div class="col-md-3"  *ngFor="let options of question.answers[0]" >
-              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+        <h5 class="text-primary text-uppercase">{{ question.questions }}</h5>
+        <div class="mb-12">
+          <div class="form-row" *ngIf="question.choiceType === 'single'">
+            <div class="col-md-3"  *ngFor="let options of question.answer" >
+              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ options.text }}</span></div>
             </div>
           </div>
-          <div class="form-row" *ngIf="question.choice_type === 'multiple'">
-            <div class="col-md-4" *ngFor="let options of question.answers[0]">
-              <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ options.item_text }}</span></div>
+          <div class="form-row" *ngIf="question.choiceType === 'multiple'">
+            <div
+              [ngClass]="{'col-md-12': options.subans && match, 'col w-25': !(options.subans && match), 'w-25': question.answer.length > 4 }"
+              *ngFor="let options of question.answer">
+              <div class="radio" >
+                <input type="checkbox" class="mr-3" (change)="match =  options.text === options.subans.questions"/> <span>{{ options.text }}</span>
+              </div>
+              <div class="sub-options" *ngIf="options.subans && match">
+                <h5 class="text-primary text-uppercase">{{ options.subans.questions }}</h5>
+                <div class="mb-12">
+                  <!-- <div class="form-row" *ngIf="options.subans.choiceType === 'single'">  // Since no choiceType = 'single' in suboptions
+                    <div class=""  *ngFor="let suboptions of options.subans.answer" >
+                      <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ suboptions.text }}</span></div>
+                    </div>
+                  </div> -->
+                  <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
+                    <div 
+                      [ngClass]="{'col-md-12': suboptions.subans && subMatch, 'col-12': !(suboptions.subans && subMatch)}" 
+                      *ngFor="let suboptions of options.subans.answer">
+                      <div class="radio"><input type="checkbox" class="mr-3" (change)="subMatch =  suboptions.text === suboptions.subans.questions"/> <span>{{ suboptions.text }}</span></div>
+                      <div class="sub-options" *ngIf="suboptions.subans && subMatch">
+                        <h5 class="text-primary text-uppercase">{{ suboptions.subans.questions }}</h5>
+                        <div class="mb-12">
+                          <!-- <div class="form-row" *ngIf="suboptions.subans.choiceType === 'single'"> // Since no choiceType = 'single' in suboptions
+                            <div class=""  *ngFor="let sub2options of suboptions.subans.answer" >
+                              <div class="radio"><input type="radio" name="options" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
+                            </div>
+                          </div> -->
+                          <div class="form-row" *ngIf="options.subans.choiceType === 'multiple'">
+                            <div [ngClass]="{'col-md-12': sub2options.subans && subMatch, 'col-3': !(sub2options.subans && subMatch)} " *ngFor="let sub2options of suboptions.subans.answer">
+                              <div class="radio"><input type="checkbox" class="mr-3" /> <span>{{ sub2options.text }}</span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- <div class="text-right">

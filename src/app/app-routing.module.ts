@@ -14,16 +14,24 @@ import { ModalModule } from "ngx-bootstrap/modal";
 const routes: Routes = [
   {
     path: '',
-    //loadChildren: 'theme/theme.module#ThemeModule',
     loadChildren: () => ThemeModule
   },
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabled' }), HttpClientModule, BsDropdownModule.forRoot(),
-  TooltipModule.forRoot(),
-  ModalModule.forRoot()],
-  exports: [RouterModule, HttpClientModule, BsDropdownModule, TooltipModule, ModalModule]
+  imports: [
+    BsDropdownModule.forRoot(),
+    HttpClientModule,
+    ModalModule.forRoot(),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
+    TooltipModule.forRoot(),
+  ],
+  exports: [
+    BsDropdownModule,
+    HttpClientModule,
+    ModalModule,
+    RouterModule,
+    TooltipModule,
+  ]
 })
 export class AppRoutingModule { }

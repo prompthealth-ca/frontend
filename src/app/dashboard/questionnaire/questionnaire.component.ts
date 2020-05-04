@@ -1,25 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
-import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
   styleUrls: ['./questionnaire.component.scss']
 })
 export class QuestionnaireComponent implements OnInit {
+  activeTab = 'payment';
   public questionnaire = [];
-
   public type = window.localStorage.getItem('roles');
   public itemsTotal = 0;
-
   public selectedItems = [];
   treatment: any;
   public dropdownSettings = {};
   match = false;
   subMatch = false
-
   public subRes;
   // public subRes1 = {
   //   questionare: 'Option 2',
@@ -181,6 +177,7 @@ export class QuestionnaireComponent implements OnInit {
   ]
   };
 
+  @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
     (
       private _router: Router,
@@ -192,17 +189,20 @@ export class QuestionnaireComponent implements OnInit {
 
   getSelectedSkill() {
 
+     this.type = localStorage.getItem('roles');
     // this._sharedService.loader('show');
-    console.log('This.type', this._router.url)
-    if(this._router.url.includes('SP')) {
-      this.type = 'SP';
-    }
-    else if(this._router.url.includes('C')) {
-      this.type = 'C';
-    }
-    else {
-      this.type = 'U';
-    }
+    // console.log('This.type', this._router.url)
+    // if(this._router.url.includes('SP')) {
+    //   this.type = 'SP';
+    // }
+    // else if(this._router.url.includes('C')) {
+    //   this.type = 'C';
+    // }
+    // else {
+    //   this.type = 'U';
+    // }
+
+    console.log('this.type-------', this.type);
     let path = `questionare?type=${this.type}`;
     this._sharedService.get(path).subscribe((res: any) => {
       // this._sharedService.loader('hide');
@@ -221,9 +221,11 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   saveQuestionnaire() {
+
+    this.ActiveNextTab.emit(this.activeTab);  // TODO: To be added to after form submission
     // TODO: Call the API to save questions
     console.log('type comes here', this.type);
-    this.type === 'U' ? this._router.navigate(['/dashboard/listing']) : this._router.navigate(['/dashboard/professional']);
+    // this.type === 'U' ? this._router.navigate(['/dashboard/listing']) : this._router.navigate(['/dashboard/professional']);
 
   }
   getSubAns(evt) {

@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
-  selector: 'app-login-user',
-  templateUrl: './login-user.component.html',
-  styleUrls: ['./login-user.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginUserComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
@@ -25,17 +25,17 @@ export class LoginUserComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     switch(this.router.url) {
-      case "/auth/loginsp": 
+      case "/auth/login/sp": 
         //some logic
         this.professionalLogin = true;
         // this.userType = 'SP'
         break;
-      case "/auth/loginc": 
+      case "/auth/login/c": 
         //some logic
         this.professionalLogin = true;
         // this.userType = 'C'
         break;
-      case "/auth/loginu": 
+      case "/auth/login/u": 
         //some logic
         this.professionalLogin = false;
         // this.userType = 'U'
@@ -45,7 +45,7 @@ export class LoginUserComponent implements OnInit {
         break;
 
     }
-    console.log('_route', this.router.url);
+    console.log('_route', this.router.url, this.professionalLogin);
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

@@ -1,0 +1,83 @@
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+    <p style="font-size: 20px; color: white" class="loaderbg">
+        <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+    </p>
+</ngx-spinner>
+<!-- <section
+    class="pt-6 pb-6 text-center bg-cover bg-overlay bg-border text-light"
+    style="background-image: url(assets/img/question3.png);"
+>
+    <div class="container" style="max-width: 700px !important">
+        <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Profile</h2>
+        <p class="h4 font-weight-normal">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
+        sagittis diam. Aliquam feugiat efficitur velit
+        </p>
+    </div>
+</section> -->
+<section>
+    <div class="container pt-4 pb-4">
+        <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a
+                class="nav-link btn-circle"
+                [ngClass]="{'active': activeTab === 'basicInfo'}"
+                id="tab1"
+                data-toggle="pill"
+                role="tab"
+                aria-controls="pill1"
+                aria-selected="true"
+                >Basic Information</a
+                >
+            </li>
+            <li class="nav-item">
+                <a
+                class="nav-link btn-circle"
+                [ngClass]="{'active': activeTab === 'questionnaire'}"
+                id="tab2"
+                role="tab"
+                aria-controls="pill2"
+                aria-selected="false"
+                >Questionnaire</a
+                >
+            </li>
+            <li class="nav-item">
+                <a
+                class="nav-link btn-circle"
+                [ngClass]="{'active': activeTab === 'payment'}"
+                id="tab3"
+                role="tab"
+                aria-controls="pill3"
+                aria-selected="false"
+                >Payment</a
+                >
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div
+              *ngIf="activeTab === 'basicInfo'"
+            >
+                <div class="row">
+                    <app-user-details 
+                    (ActiveNextTab)="activeNextTabHandler($event)"></app-user-details>
+                </div>
+            </div>
+            <div
+              *ngIf="activeTab === 'questionnaire'"
+            >
+                <div class="row">
+                    <app-questionnaire
+                    (ActiveNextTab)="activeNextTabHandler($event)"></app-questionnaire>
+                </div>
+            </div>
+            <div
+              class=""
+              *ngIf="activeTab === 'payment'"
+            >
+                <div class="row">
+                    <app-subscription-professional></app-subscription-professional>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UserDetailsComponent } from "./user-details/user-details.component";
 import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
@@ -13,7 +14,10 @@ import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
+import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 
+
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     SubscriptionPlanComponent,
@@ -25,7 +29,13 @@ import { ProfessionalHomeComponent } from './professional-home/professional-home
     DetailComponent,
     ProfileManagementComponent,
     ProfessionalHomeComponent,
+    ProfessionalRegisterComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule, NgxSpinnerModule, FormsModule, NgMultiSelectDropDownModule.forRoot()]
+  imports: [
+    AgmCoreModule.forRoot(  {
+      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      libraries: ['places']
+    }),
+    CommonModule, DashboardRoutingModule, NgxSpinnerModule, GooglePlaceModule, FormsModule, NgMultiSelectDropDownModule.forRoot()]
 })
 export class DashboardModule {}

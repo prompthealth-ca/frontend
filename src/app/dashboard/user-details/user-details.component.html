@@ -5,8 +5,10 @@
 </ngx-spinner>
 <section class="pt-5 pb-5 bg-light heightH-100">
   <div class="container">
-    <h2 class="ttle-bott-bor mb-5">Service provider detail</h2>
-
+    <h2 class="ttle-bott-bor mb-5">Personal Details</h2>
+    <agm-map [latitude]="userDetails.latitude" [longitude]="userDetails.longitude" [scrollwheel]="true" [zoom]="zoom" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
+      <agm-marker [latitude]="userDetails.latitude" [longitude]="userDetails.longitude"></agm-marker>
+    </agm-map>
     <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
       <div class="col-md-6 mb-3">
         <label>First Name <span class="text-danger">*</span></label>
@@ -38,26 +40,73 @@
           </small>
         </div>
       </div>
+
       <div class="col-md-6 mb-3">
-        <label>Company <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="company" name="company" class="form-control" placeholder="" minlength="3"
-          maxlength="50" (keyup)="trim('company')" #company="ngModel" [ngModel]="userDetails.company"
-          (ngModelChange)="userDetails.company = $event" required />
+        <label>Phone <span class="text-danger">*</span></label>
+        <input autofocus type="text" id="phone" name="phone" class="form-control" placeholder="" minlength="3"
+          maxlength="12" (keyup)="trim('phone')" #phone="ngModel" [ngModel]="userDetails.phone"
+          (ngModelChange)="userDetails.phone = $event" required />
 
         <div class="error-block">
-          <small *ngIf="company.errors?.required && company.touched" class="text-danger">
-            Company name is required.
+          <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
+            Phone number is required.
           </small>
-          <small *ngIf="company.errors?.minlength && company.touched" class="text-danger">
+          <small *ngIf="phone.errors?.minlength && phone.touched" class="text-danger">
             Minumum length should be 3.
           </small>
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label>Url <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="URL" name="URL" class="form-control" placeholder="" minlength="3"
-          maxlength="50" (keyup)="trim('URL')" #URL="ngModel" [ngModel]="userDetails.URL"
-          (ngModelChange)="userDetails.URL = $event" required />
+        <label>Email <span class="text-danger">*</span></label>
+        <input autofocus type="email" id="email" name="email" class="form-control" placeholder=""
+          (keyup)="trim('email')" #email="ngModel" [ngModel]="userDetails.email"
+          (ngModelChange)="userDetails.email = $event" required />
+
+        <div class="error-block">
+          <small *ngIf="email.errors?.required && email.touched" class="text-danger">
+            Email is required.
+          </small>
+          <!-- <small *ngIf="mobile.errors? && mobile.touched" class="text-danger">
+            Minumum length should be 3.
+          </small> -->
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Gender <span class="text-danger">*</span></label>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="female" name="gender" #gender="ngModel" [ngModel]="userDetails.gender"/>
+            <span>Female</span>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="male" name="gender" #gender="ngModel"  [ngModel]="userDetails.gender"/>
+            <span>Male</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Do you have a booking system <span class="text-danger">*</span></label>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="yes" name="booking" #booking="ngModel" [ngModel]="userDetails.booking"/>
+            <span>Yes</span>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="no" name="booking" #booking="ngModel"  [ngModel]="userDetails.booking"/>
+            <span>No</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes'">
+        <label>Booking Url <span class="text-danger">*</span></label>
+        <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" minlength="3"
+          maxlength="50" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
+          (ngModelChange)="userDetails.bookingURL = $event" required />
 
         <div class="error-block">
           <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
@@ -68,38 +117,65 @@
           </small>
         </div>
       </div>
+
       <div class="col-md-6 mb-3">
-        <label>Phone <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="mobile" name="mobile" class="form-control" placeholder="" minlength="3"
-          maxlength="12" (keyup)="trim('mobile')" #mobile="ngModel" [ngModel]="userDetails.mobile"
-          (ngModelChange)="userDetails.mobile = $event" required />
+        <label>Address <span class="text-danger">*</span></label>
+        <input type="text" id="address" name="address" class="form-control" placeholder=""
+          (keyup)="trim('address')" #address="ngModel" #search
+          [ngModel]="userDetails.address" required />
 
         <div class="error-block">
-          <small *ngIf="mobile.errors?.required && mobile.touched" class="text-danger">
-            Phone number is required.
+          <small *ngIf="address.errors?.required && address.touched" class="text-danger">
+            Address is required.
           </small>
-          <small *ngIf="mobile.errors?.minlength && mobile.touched" class="text-danger">
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>City <span class="text-danger">*</span></label>
+        <input type="text" id="city" name="city" class="form-control" placeholder=""
+          minlength="3" maxlength="50" (keyup)="trim('city')" #city="ngModel"
+          [ngModel]="userDetails.city" equired />
+
+        <div class="error-block">
+          <small *ngIf="city.errors?.required && city.touched" class="text-danger">
+            City is required.
+          </small>
+          <small *ngIf="city.errors?.minlength && city.touched" class="text-danger">
             Minumum length should be 3.
           </small>
         </div>
       </div>
-
       <div class="col-md-6 mb-3">
-        <label>Canadian Address <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="can_address" name="can_address" class="form-control" placeholder=""
-          minlength="3" maxlength="50" (keyup)="trim('can_address')" #can_address="ngModel"
-          [ngModel]="userDetails.can_address" (ngModelChange)="userDetails.can_address = $event" required />
+        <label>State <span class="text-danger">*</span></label>
+        <input type="text" id="state" name="state" class="form-control" placeholder=""
+          minlength="3" maxlength="50" (keyup)="trim('state')" #state="ngModel"
+          [ngModel]="userDetails.state" required />
 
         <div class="error-block">
-          <small *ngIf="can_address.errors?.required && can_address.touched" class="text-danger">
-            Canadian Address is required.
+          <small *ngIf="state.errors?.required && state.touched" class="text-danger">
+            State is required.
           </small>
-          <small *ngIf="can_address.errors?.minlength && can_address.touched" class="text-danger">
+          <small *ngIf="state.errors?.minlength && state.touched" class="text-danger">
             Minumum length should be 3.
           </small>
         </div>
       </div>
-      <div class="col-md-4 mb-3">
+      <div class="col-md-6 mb-3">
+        <label>Zip Code <span class="text-danger">*</span></label>
+        <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder=""
+          minlength="3" maxlength="50" (keyup)="trim('zipcode')" #zipcode="ngModel"
+          [ngModel]="userDetails.zipcode" required />
+
+        <div class="error-block">
+          <small *ngIf="zipcode.errors?.required && zipcode.touched" class="text-danger">
+            Zipcode is required.
+          </small>
+          <small *ngIf="zipcode.errors?.minlength && zipcode.touched" class="text-danger">
+            Minumum length should be 3.
+          </small>
+        </div>
+      </div>
+      <!-- <div class="col-md-4 mb-3">
         <label>Upload provider (Image) <span class="text-danger">*</span></label>
 
         <div class="avatar mt-3 mb-3">
@@ -134,7 +210,7 @@
             Terms of service and privacy is required
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-md-12 mb-2 text-right">
         <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
           Submit

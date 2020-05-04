@@ -1,49 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { LoginSignupComponent } from './login-signup/login-signup.component';
-
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
-// import { ProfessionalRegistrationComponent } from './professional-registration/professional-registration.component';
-import { UserRegistrationComponent } from './user-registration/user-registration.component';
-// import { LoginProfessionalComponent } from './login-professional/login-professional.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
-import { LoginUserComponent } from './login-user/login-user.component';
-
-const routes: Routes = [{
-	path: 'forgot-password',
-	component: ForgotPasswordComponent
-},
-
-{
-	path: 'contact-us',
-	component: ContactUspageComponent
-},
-{
-	path: 'registrationsp',
-	component: UserRegistrationComponent
-},
-{
-	path: 'registrationc',
-	component: UserRegistrationComponent
-},
-{
-	path: 'registrationu',
-	component: UserRegistrationComponent
-},
-{
-	path: 'loginsp',
-	component: LoginUserComponent
-},
-{
-	path: 'loginc',
-	component: LoginUserComponent
-},
-{
-	path: 'loginu',
-	component: LoginUserComponent
-}
+const routes: Routes = [
+	{
+		path: 'contact-us',
+		component: ContactUspageComponent
+	},
+	{
+		path: 'forgot-password',
+		component: ForgotPasswordComponent
+	},
+	{
+		path: 'registration/:type',
+		component: RegistrationComponent
+	},
+	{
+		path: 'login/:type',
+		component: LoginComponent
+	},
 ];
 
 @NgModule({

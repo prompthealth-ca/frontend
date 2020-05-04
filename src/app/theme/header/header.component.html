@@ -240,7 +240,7 @@
           Join network
         </h5>
         <button
-          #fileInput
+          #signup
           type="button"
           class="close"
           data-dismiss="modal"
@@ -267,7 +267,7 @@
         or
         <a
           class="btn btn-secondary w-100 ml-2"
-          [routerLink]="['/auth/registrationu']"
+          [routerLink]="['/auth/registration', 'u']"
           data-dismiss="modal"
           style="max-width: 175px;"
           aria-label="Close"
@@ -276,11 +276,11 @@
       </div>
       <div class="mb-3 text-center" *ngIf="professionalOption">
         <div class="radio mb-3">
-          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/registrationsp')"/>
+          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/registration', 'sp')"/>
           <span class="font-weight-bold">Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="Center"  (change) ="handleChange('/auth/registrationc')"/>
+          <input type="radio" name="Center"  (change) ="handleChange('/auth/registration', 'c')"/>
           <span class="font-weight-bold">Center</span>
         </div>
       </div>
@@ -312,6 +312,7 @@
           Login
         </h5>
         <button
+          #signin
           type="button"
           class="close"
           data-dismiss="modal"
@@ -338,7 +339,7 @@
         or
         <a
           class="btn btn-secondary w-100 ml-2"
-          [routerLink]="['/auth/loginu']"
+          [routerLink]="['/auth/login', 'u']"
           data-dismiss="modal"
           style="max-width: 175px;"
           aria-label="Close"
@@ -347,11 +348,11 @@
       </div>
       <div class="mb-3" *ngIf="professionalOption">
         <div class="radio">
-          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/loginsp')"/>
+          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/login', 'sp')"/>
           <span>Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="Center"  (change) ="handleChange('/auth/loginc')"/>
+          <input type="radio" name="Center"  (change) ="handleChange('/auth/login', 'c')"/>
           <span>Center</span>
         </div>
       </div>

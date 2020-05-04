@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SubscribeComponent } from './subscribe/subscribe.component';
+import { CanActivate, Routes, RouterModule } from '@angular/router';
 import { HomeModule } from '../home/home.module';
 import { AuthModule } from '../auth/auth.module';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './../home/home.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { AuthGuardService as AuthGuard } from '../auth/auth-gaurd.service';
 
 const routes: Routes = [
   {
@@ -18,21 +18,30 @@ const routes: Routes = [
       },
       {
         path: '',
-        // loadChildren: 'app/home/home.module#HomeModule'
         loadChildren: () => HomeModule
       },
       {
         path: 'auth',
-        // loadChildren: 'app/auth/auth.module#AuthModule',
         loadChildren: () => AuthModule,
       },
       {
         path: 'dashboard',
-        // loadChildren: 'app/dashboard/dashboard.module#DashboardModule'
         loadChildren: () => DashboardModule,
+        // canActivate: [AuthGuard] 
       },
     ]
-  }
+  },
+
+  { 
+    path: '**', 
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+    ]
+  },
 ];
 
 @NgModule({

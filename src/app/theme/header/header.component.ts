@@ -15,7 +15,8 @@ import { environment } from "../../../environments/environment";
 export class HeaderComponent implements OnInit {
 
 
-@ViewChild('fileInput') fileInput:ElementRef;
+@ViewChild('signup') signup:ElementRef;
+@ViewChild('signin') signin:ElementRef;
   _host = environment.config.BASE_URL;
   public token = "";
   user: any = {};
@@ -106,9 +107,13 @@ export class HeaderComponent implements OnInit {
     else return false;
   }
 
-  handleChange(url){
-    console.log('---', url)
-    this._router.navigate([url]);
-    this.fileInput.nativeElement.click();
+  handleChange(url, type){
+    this._router.navigate([url, type]);
+    if(url === '/auth/login') {
+      this.signin.nativeElement.click();
+    }
+    else {
+      this.signup.nativeElement.click();      
+    }
   }
 }

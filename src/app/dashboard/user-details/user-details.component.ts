@@ -1,9 +1,12 @@
-import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild, Output, EventEmitter, NgZone, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { SharedService } from '../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
+ 
+import {} from 'googlemaps';
 
 @Component({
   selector: 'app-user-details',
@@ -11,45 +14,157 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-details.component.scss']
 })
 export class UserDetailsComponent {
-  @ViewChild('myInput', { static: false })
+  // @ViewChild('myInput', { static: false })
+ 
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   myInputVariable: any;
+  activeTab = 'questionnaire';
+  zoom: number;
+  private geoCoder;
   public userDetails = {
     firstName: '',
     lastName: '',
-    company: '',
-    URL: '',
-    can_address: '',
-    mobile: '',
-    logo_pic: '',
+    gender: '',
+    email: '',
+    phone: '',
+    address: '',
+    state: '',
+    city: '',
+    zipcode: '',
+    booking: '',
+    bookingURL: '',
     image: '',
-    short_video: ''
+    logo_pic: '',
+    latitude: 0,
+    longitude: 0,
   };
   public _host = environment.config.BASE_URL;
   public response: any;
   private imageSrc: string = '';
   imageSrc1: any;
 
+  @Output() ActiveNextTab = new EventEmitter<string>();
+
   constructor(private _router: Router,
     private _activateRouter: ActivatedRoute,
     private _flashMessagesService: FlashMessagesService,
     private changeDetectorRef: ChangeDetectorRef,
     private _sharedService: SharedService,
-    private toastr: ToastrService, ) { }
+    private toastr: ToastrService,
+    private mapsAPILoader: MapsAPILoader, 
+    private ngZone: NgZone ) {
+     }
 
   ngOnInit() {
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+ 
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+ 
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+ 
+          //set latitude, longitude and zoom
+          this.userDetails.latitude = place.geometry.location.lat();
+          this.userDetails.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+
+          this.getAddress(this.userDetails.latitude, this.userDetails.longitude);
+        });
+      });
+    });
+  }
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      this.userDetails.city = '';
+      this.userDetails.state = '';
+      this.userDetails.zipcode = '';
+
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          console.log(' esults[0]',  results[0])
+          this.userDetails.address = results[0].formatted_address;
+          // find country name
+          for (var i=0; i<results[0].address_components.length; i++) {
+            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+            if (results[0].address_components[i].types[b] == "locality") {
+              //this is the object you are looking for
+              this.userDetails.city= results[0].address_components[i].long_name;
+              break;
+            }
+            if(this.userDetails.city.length === 0) {
+              if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                //this is the object you are looking for
+                this.userDetails.city= results[0].address_components[i].long_name;
+                break;
+              }
+              if (results[0].address_components[i].types[b] =="administrative_area_level_2") {
+                //this is the object you are looking for
+                this.userDetails.state= results[0].address_components[i].long_name;
+                break;
+              }
+            }
+            if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+              //this is the object you are looking for
+              this.userDetails.state= results[0].address_components[i].long_name;
+              break;
+            }
+            if (results[0].address_components[i].types[b] == "postal_code") {
+              //this is the object you are looking for
+              this.userDetails.zipcode= results[0].address_components[i].long_name;
+              break;
+            }
+          }
+        }
+        //city data
+        console.log('====', this.userDetails)
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+      
+    console.log(' this.userDetails.address',  this.userDetails.address)
+    console.log(' latitude',  latitude)
+    console.log(' longitude',  longitude)
+    });
+  }
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.userDetails.latitude = position.coords.latitude;
+        this.userDetails.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
   }
   save() {
-
+    console.log('------', this.userDetails)
+    this.getAddress(this.userDetails.latitude, this.userDetails.longitude);
+    this.ActiveNextTab.emit(this.activeTab);  // TODO: To be added to after form submission
     this._sharedService.loader('show');
     let data = JSON.parse(JSON.stringify(this.userDetails));
-
-
     this._sharedService.addUserDetail(data).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.success) {
         this.response = res;
         this.toastr.success(res.data.message);
-        this._router.navigate(['/home']);
+        // this._router.navigate(['/home']);
       } else {
         this.toastr.error(res.error.message);
 
@@ -57,8 +172,6 @@ export class UserDetailsComponent {
     }, err => {
       this._sharedService.loader('hide');
     });
-
-
   }
 
   handleInputChange(e) {

@@ -43,7 +43,7 @@ export class SharedService {
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
     this.showAlert("Logout Sucessfully", "alert-success");
-    this._router.navigate(["/auth/loginu"]);
+    this._router.navigate(["/auth/login", "u"]);
   }
 
   get(path, setParams = {}) {
@@ -213,7 +213,7 @@ export class SharedService {
     let token = localStorage.getItem('token');
     if (token) {
       
-      this._router.navigate(['auth/loginu']);
+      this._router.navigate(['auth/login', 'u']);
       return true;
     } 
     else return false;

@@ -13,6 +13,7 @@ import { ClientComponent } from "./client/client.component";
 import { ProffesionalComponent } from "./proffesional/proffesional.component";
 import { EnterpriceComponent } from "./enterprice/enterprice.component";
 import { PricingComponent } from './pricing/pricing.component';
+// import { ProfessionalRegisterComponent } from '../dashboard/professional-register/professional-register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PricingComponent } from './pricing/pricing.component';
     ClientComponent,
     ProffesionalComponent,
     EnterpriceComponent,
-    PricingComponent
+    PricingComponent,
+    // ProfessionalRegisterComponent
   ],
   imports: [
     NgxSpinnerModule,

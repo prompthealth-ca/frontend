@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { UserDetailsComponent } from "./user-details/user-details.component";
 import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
@@ -8,7 +9,7 @@ import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
-
+import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 
 const routes: Routes = [
@@ -49,11 +50,15 @@ const routes: Routes = [
   {
     path: "profilemanagement",
     component: ProfileManagementComponent
+  },
+  {
+    path: "professional-info",
+    component: ProfessionalRegisterComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes), GooglePlaceModule],
+  exports: [RouterModule, ]
 })
 export class DashboardRoutingModule {}

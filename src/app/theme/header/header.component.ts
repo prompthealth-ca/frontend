@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   dashboard: any;
   currentUrl = "";
   uname: any;
+  userType = '';
   professionalOption =false;
   constructor(
     private _router: Router,

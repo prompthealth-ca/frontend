@@ -10,8 +10,11 @@ export const environment = {
     // BASE_URL: "http://192.168.1.10:1337/",
     // API_URL: "http://192.168.1.10:1337/",
     //server
-    BASE_URL: "http://3.12.81.245:1337/",
-    API_URL: "http://3.12.81.245:1337/"
+    // BASE_URL: "http://3.12.81.245:1337/",
+    // API_URL: "http://3.12.81.245:1337/"
+
+    BASE_URL: "http://3.12.81.245:3000/api/v1/",
+    API_URL: "http://3.12.81.245:3000/api/v1/",
   },
   api_routes: {
     LOGIN: 'login',

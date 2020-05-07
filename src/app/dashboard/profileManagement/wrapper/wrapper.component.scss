@@ -1,4 +1,4 @@
-@import "../../../assets/scss/mixins";
+@import "../../../../assets/scss/mixins";
 
 button.close.position-absolute {
   right: 16px;
@@ -53,7 +53,7 @@ ul#pills-tab {
   background-position: center;
   background-size: 80%;
   background-repeat: no-repeat;
-  background-image: url(../../../assets/img/favicon.jpg);
+  background-image: url(../../../../assets/img/favicon.jpg);
 }
 
 .formsoverflow {
@@ -71,10 +71,6 @@ ul#pills-tab {
     background-color: $primaryColor;
     border-radius: 50px;
   }
-}
-
-.profileeditbox {
-  @include profileImageInput(150px);
 }
 
 .blogimageeditbox {

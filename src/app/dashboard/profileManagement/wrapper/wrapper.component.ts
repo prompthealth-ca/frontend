@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-profileManagement",
-  templateUrl: "./profileManagement.component.html",
-  styleUrls: ["./profileManagement.component.scss"]
+  selector: 'app-wrapper',
+  templateUrl: './wrapper.component.html',
+  styleUrls: ['./wrapper.component.scss']
 })
-export class ProfileManagementComponent implements OnInit {
-  constructor() {}
+export class WrapperComponent implements OnInit {
   blogs = [
     {
       img: "assets/img/blog3.jpg",
@@ -45,5 +44,78 @@ export class ProfileManagementComponent implements OnInit {
     }
   ];
 
-  ngOnInit(): void {}
+  listing = [
+    {
+      title: 'My Profile',
+      link: 'my-profile'
+    }
+  ];
+  spListing = [
+    {
+      title: 'My Subscription',
+      link: 'my-subscription'
+    },
+    {
+      title: 'Professional Background',
+      link: 'my-professional-info'
+    },
+    {
+      title: 'My Booking',
+      link: 'my-booking'
+    },
+    {
+      title: 'My Payment',
+      link: 'my-payment'
+    }
+  ];
+  cListing = [
+    {
+      title: 'My Booking',
+      link: 'my-booking'
+    },
+    {
+      title: 'My Payment',
+      link: 'my-payment'
+    },
+    {
+      title: 'Add Professional',
+      link: 'add-professionals'
+    },
+    {
+      title: 'My Videos',
+      link: 'videos-blogs'
+    }
+  ];
+  uListing = [
+    {
+      title: 'My Booking',
+      link: 'my-booking'
+    },
+    {
+      title: 'My Favourite',
+      link: 'my-favourites'
+    },
+    {
+      title: 'Review and Rating',
+      link: 'reviews-ratings'
+    },
+  ];
+  constructor() { }
+
+  ngOnInit(): void {
+    this.listing.push(...this.cListing);
+    
+    // switch(localStorage.getItem("roles")) {
+    //   case 'SP':
+    //     this.listing.push(...this.spListing);
+    //   break;
+    //   case 'C':
+    //     this.listing.push(...this.cListing);
+    //   break;
+    //   case 'U':
+    //     this.listing.push(...this.uListing);
+    //   break;
+    // }
+  }
+
 }

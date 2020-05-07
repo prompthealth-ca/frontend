@@ -35,7 +35,7 @@ export class UserDetailsComponent {
     zipcode: '',
     booking: '',
     bookingURL: '',
-    image: '',
+    image: [],
     logo_pic: '',
     latitude: 0,
     longitude: 0,
@@ -153,6 +153,23 @@ export class UserDetailsComponent {
       });
     }
   }
+  handleImageChange(e) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this.handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+
+  handleReaderLoaded(e) {
+    let reader = e.target;
+    this.userDetails.image = reader.result;
+    console.log('this.imageSrc', this.userDetails.image)
+  }
   save() {
     console.log('------', this.userDetails)
     this.getAddress(this.userDetails.latitude, this.userDetails.longitude);
@@ -174,83 +191,83 @@ export class UserDetailsComponent {
     });
   }
 
-  handleInputChange(e) {
-    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
-    var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
+  // handleInputChange(e) {
+  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     return;
+  //   }
+  //   reader.onload = this._handleReaderLoaded.bind(this);
+  //   reader.readAsDataURL(file);
 
-  }
-  _handleReaderLoaded(e) {
-    let reader = e.target;
-    this.imageSrc = reader.result;
-    console.log(this.imageSrc)
-    this.uploadImage();
-  }
-
-
-  uploadImage() {
-    let object = {
-      data: this.imageSrc,
-      type: 'users'
-    }
-    this._sharedService.loader('show');
-    this._sharedService.uploadImage(object).subscribe((result: any) => {
-      this._sharedService.loader('hide');
-      if (result.success) {
-        this.userDetails.image = result.data.fullPath;
-        console.log('image', this.userDetails.image)
-      }
-      return true;
-    }, err => {
-      this._sharedService.loader('hide');
-      return false;
-    });
-  }
-
-  handleInputChange1(e) {
-    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
-    var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this._handleReaderLoaded1.bind(this);
-    reader.readAsDataURL(file);
-
-  }
-  _handleReaderLoaded1(e) {
-    let reader = e.target;
-    this.imageSrc1 = reader.result;
-    console.log(this.imageSrc1)
-    this.uploadImage1();
-  }
+  // }
+  // _handleReaderLoaded(e) {
+  //   let reader = e.target;
+  //   this.imageSrc = reader.result;
+  //   console.log(this.imageSrc)
+  //   this.uploadImage();
+  // }
 
 
-  uploadImage1() {
-    let object = {
-      data: this.imageSrc1,
-      type: 'logo'
-    }
-    this._sharedService.loader('show');
-    this._sharedService.uploadImage1(object).subscribe((result: any) => {
-      this._sharedService.loader('hide');
-      if (result.success) {
-        this.userDetails.logo_pic = result.data.fullPath;
-        console.log('image', this.userDetails.logo_pic)
-      }
-      return true;
-    }, err => {
-      this._sharedService.loader('hide');
-      return false;
-    });
-  }
+  // uploadImage() {
+  //   let object = {
+  //     data: this.imageSrc,
+  //     type: 'users'
+  //   }
+  //   this._sharedService.loader('show');
+  //   this._sharedService.uploadImage(object).subscribe((result: any) => {
+  //     this._sharedService.loader('hide');
+  //     if (result.success) {
+  //       this.userDetails.image = result.data.fullPath;
+  //       console.log('image', this.userDetails.image)
+  //     }
+  //     return true;
+  //   }, err => {
+  //     this._sharedService.loader('hide');
+  //     return false;
+  //   });
+  // }
+
+  // handleInputChange1(e) {
+  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  //   var pattern = /image-*/;
+  //   var reader = new FileReader();
+  //   if (!file.type.match(pattern)) {
+  //     alert('invalid format');
+  //     return;
+  //   }
+  //   reader.onload = this._handleReaderLoaded1.bind(this);
+  //   reader.readAsDataURL(file);
+
+  // }
+  // _handleReaderLoaded1(e) {
+  //   let reader = e.target;
+  //   this.imageSrc1 = reader.result;
+  //   console.log(this.imageSrc1)
+  //   this.uploadImage1();
+  // }
+
+
+  // uploadImage1() {
+  //   let object = {
+  //     data: this.imageSrc1,
+  //     type: 'logo'
+  //   }
+  //   this._sharedService.loader('show');
+  //   this._sharedService.uploadImage1(object).subscribe((result: any) => {
+  //     this._sharedService.loader('hide');
+  //     if (result.success) {
+  //       this.userDetails.logo_pic = result.data.fullPath;
+  //       console.log('image', this.userDetails.logo_pic)
+  //     }
+  //     return true;
+  //   }, err => {
+  //     this._sharedService.loader('hide');
+  //     return false;
+  //   });
+  // }
 
   trim(key) {
     if (this.userDetails[key] && this.userDetails[key][0] == ' ') this.userDetails[key] = this.userDetails[key].trim();

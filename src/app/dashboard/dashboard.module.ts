@@ -11,7 +11,6 @@ import { QuestionnaireComponent } from "./questionnaire/questionnaire.component"
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
-import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
@@ -27,7 +26,6 @@ import { AgmCoreModule } from '@agm/core';
     ListingComponent,
     ListingcompareComponent,
     DetailComponent,
-    ProfileManagementComponent,
     ProfessionalHomeComponent,
     ProfessionalRegisterComponent,
   ],

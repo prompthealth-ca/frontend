@@ -8,7 +8,7 @@ import { QuestionnaireComponent } from "./questionnaire/questionnaire.component"
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
-import { ProfileManagementComponent } from "./profileManagement/profileManagement.component";
+import { ProfileManagementModule } from "./profileManagement/profile-mangement.module";
 import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 
@@ -21,12 +21,6 @@ const routes: Routes = [
     path: "professional",
     component: ProfessionalHomeComponent
   },
-
-  {
-    path: "userdetails",
-    component: UserDetailsComponent
-  },
-
   {
     path: "subscriptionplan-professional",
     component: SubscriptionProfessionalComponent
@@ -48,8 +42,9 @@ const routes: Routes = [
     component: DetailComponent
   },
   {
-    path: "profilemanagement",
-    component: ProfileManagementComponent
+    path: 'profilemanagement',
+    loadChildren: () => ProfileManagementModule,
+    // canActivate: [AuthGuard] 
   },
   {
     path: "professional-info",

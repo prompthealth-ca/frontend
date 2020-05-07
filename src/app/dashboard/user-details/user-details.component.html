@@ -10,6 +10,12 @@
       <agm-marker [latitude]="userDetails.latitude" [longitude]="userDetails.longitude"></agm-marker>
     </agm-map>
     <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
+      <div class="col-md-12 text-center">
+        <div class="upload-img">
+          <img src="../../../assets/img/no-image.jpg" alt="User image">
+          <input name="imageUrl" type="file" accept="image/*" (change)="handleImageChange($event)" />
+        </div>
+      </div>
       <div class="col-md-6 mb-3">
         <label>First Name <span class="text-danger">*</span></label>
         <input autofocus type="text" id="firstName" name="firstName" class="form-control" placeholder="" minlength="3"
@@ -175,42 +181,6 @@
           </small>
         </div>
       </div>
-      <!-- <div class="col-md-4 mb-3">
-        <label>Upload provider (Image) <span class="text-danger">*</span></label>
-
-        <div class="avatar mt-3 mb-3">
-          <img class="profile-wdt rounded-0 w-100" *ngIf="!userDetails.image" src="assets/img/no-image.jpg" />
-          <img *ngIf="userDetails.image" class="w-100 profile-wdt"
-            src="{{ _host }}/images/users/{{ userDetails.image }}" />
-        </div>
-
-        <div class="d-inline-flex align-items-center">
-          <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-3">
-        <label>Upload provider (logo) <span class="text-danger">*</span></label>
-
-        <div class="avatar mt-3 mb-3">
-          <img class="profile-wdt rounded-0 w-100" *ngIf="!userDetails.logo_pic" src="assets/img/no-image.jpg" />
-          <img *ngIf="userDetails.logo_pic" class="w-100 profile-wdt"
-            src="{{ _host }}/images/logo/{{ userDetails.logo_pic }}" />
-        </div>
-
-        <div class="d-inline-flex align-items-center">
-          <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange1($event)" />
-        </div>
-      </div>
-      <div class="col-md-12 mb-3 d-flex align-items-start mk-checkbox">
-        <input type="checkbox" /><span class="">I am licensed in Canada and in good standing with my professional
-          college and/or association</span>
-        <div class="invalid-feedback">
-          <div>
-            Terms of service and privacy is required
-          </div>
-        </div>
-      </div> -->
       <div class="col-md-12 mb-2 text-right">
         <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
           Submit

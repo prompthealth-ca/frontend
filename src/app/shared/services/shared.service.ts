@@ -52,11 +52,6 @@ export class SharedService {
     return this.http.get(url, { headers });
   }
 
-  mockGet(url) {
-    console.log('url', url)
-    return this.http.get(url);
-  }
-
   post(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });
@@ -69,24 +64,25 @@ export class SharedService {
 
   login(body) {
     console.log('body', body)
-    return this.http.post(this.rootUrl + 'signinUser', body);
+    return this.http.post(this.rootUrl + 'user/signinUser', body);
   }
 
   register(body) {
-    return this.http.post(this.rootUrl + 'register', body);
+    console.log('this.rootUrl', this.rootUrl)
+    return this.http.post(this.rootUrl + 'user/register', body);
   }
 
-  addPromotion(body) {
-    let headers = this.getAuthorizationHeader();
-    return this.http.post(this.rootUrl + 'promotion', body, { headers });
-  }
+  // addPromotion(body) {
+  //   let headers = this.getAuthorizationHeader();
+  //   return this.http.post(this.rootUrl + 'promotion', body, { headers });
+  // }
 
-  changeStatus(id, model, status) {
-    let headers = this.getAuthorizationHeader();
-    let url = this.rootUrl + 'changestatus?id=' + id + '&model=' + model + '&status=' + status;
-    return this.http.put(url, { headers });
+  // changeStatus(id, model, status) {
+  //   let headers = this.getAuthorizationHeader();
+  //   let url = this.rootUrl + 'changestatus?id=' + id + '&model=' + model + '&status=' + status;
+  //   return this.http.put(url, { headers });
 
-  }
+  // }
 
   getSubscriptionPlan() {
     let date = new Date().getTime().toString();
@@ -125,12 +121,12 @@ export class SharedService {
   }
 
 
-  getView(userID) {
+  // getView(userID) {
 
-    const headers = this.getAuthorizationHeader();
-    return this.http.get(this.rootUrl + 'promotion' + '?id=' + userID, { headers });
+  //   const headers = this.getAuthorizationHeader();
+  //   return this.http.get(this.rootUrl + 'promotion' + '?id=' + userID, { headers });
 
-  }
+  // }
 
   addUserDetail(category) {
 
@@ -148,27 +144,27 @@ export class SharedService {
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
 
-  queryParams(path, options) {
-    let headers = this.getAuthorizationHeader();
-    let params = new URLSearchParams();
-    for (let key in options) {
-      params.set(key, options[key])
-    }
-    return this.http.get(this.rootUrl + path + '?' + params.toString(), { headers: headers });
-  }
+  // queryParams(path, options) {
+  //   let headers = this.getAuthorizationHeader();
+  //   let params = new URLSearchParams();
+  //   for (let key in options) {
+  //     params.set(key, options[key])
+  //   }
+  //   return this.http.get(this.rootUrl + path + '?' + params.toString(), { headers: headers });
+  // }
 
-  queryParamsDelete(path, options) {
-    let headers = this.getAuthorizationHeader();
-    let params = new URLSearchParams();
-    for (let key in options) {
-      params.set(key, options[key])
-    }
-    return this.http.delete(this.rootUrl + path + '?' + params.toString(), { headers: headers });
-  }
+  // queryParamsDelete(path, options) {
+  //   let headers = this.getAuthorizationHeader();
+  //   let params = new URLSearchParams();
+  //   for (let key in options) {
+  //     params.set(key, options[key])
+  //   }
+  //   return this.http.delete(this.rootUrl + path + '?' + params.toString(), { headers: headers });
+  // }
 
-  getRoles() {
-    return localStorage.getItem('roles');
-  }
+  // getRoles() {
+  //   return localStorage.getItem('roles');
+  // }
 
   sendTop() {
     window.scrollTo(500, 0);
@@ -209,15 +205,15 @@ export class SharedService {
     return headers;
   }
 
-  isLogin() {
-    let token = localStorage.getItem('token');
-    if (token) {
+  // isLogin() {
+  //   let token = localStorage.getItem('token');
+  //   if (token) {
       
-      this._router.navigate(['auth/login', 'u']);
-      return true;
-    } 
-    else return false;
-  }
+  //     this._router.navigate(['auth/login', 'u']);
+  //     return true;
+  //   } 
+  //   else return false;
+  // }
 
   addCookie(key, value) {
     localStorage.setItem(key, value);

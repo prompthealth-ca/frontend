@@ -28,17 +28,13 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     switch(this._router.url) {
       case "/auth/registration/sp": 
-        //some logic
         this.professionalSignup = true;
         this.userType = 'SP'
         break;
-      case "/auth/registration/c": 
-        //some logic
-        this.professionalSignup = true;
+      case "/auth/registration/c": ;
         this.userType = 'C'
         break;
-      case "/auth/registration/u": 
-        //some logic
+      case "/auth/registration/u":
         this.professionalSignup = false;
         this.userType = 'U'
         break;
@@ -69,7 +65,8 @@ export class RegistrationComponent implements OnInit {
 
     else {
       this.submitted = true;
-      let dataReg = JSON.stringify(this.registerForm.value);
+      const payload = this.registerForm.value;
+      let dataReg = JSON.stringify(payload);
 
       this._sharedService.loader('show');
       console.log('dataaaaa', dataReg);
@@ -81,7 +78,7 @@ export class RegistrationComponent implements OnInit {
           this.registerForm.reset();
           this.submitted = false;
 
-          this.userType === 'C' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+          this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
         } else {
           this.toastr.error(res.error.message);
         }

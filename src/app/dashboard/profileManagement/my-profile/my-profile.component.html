@@ -1,0 +1,80 @@
+<h4 class="mb-3">Personal Information
+    <button class="btn btn-primary pull-right" (click) = "editFields = !editFields">Edit Profile</button>
+</h4>
+<div class="form-row">
+    <div class="col-md-12 text-center">
+        <div class="d-inline-block profileeditbox">
+            <img src="assets/img/man-testimonial.jpg" />
+            <input type="file" *ngIf="editFields"/>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row mb-3">
+            <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label>
+            <input
+            [disabled] = "!editFields"
+            type="text"
+            placeholder="Enter Your First Name"
+            class="form-control col-md-9"
+            
+            />
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-3">Last Name <span class="text-danger" *ngIf="editFields">*</span></label>
+            <input
+            type="text"
+            [disabled] = "!editFields"
+            placeholder="Enter Your Last Name"
+            class="form-control col-md-9"
+            />
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-3"
+            >Email Address <span class="text-danger" *ngIf="editFields">*</span></label
+            >
+            <input
+            type="email"
+            [disabled] = "!editFields"
+            placeholder="Enter Your Email Address"
+            class="form-control col-md-9"
+            />
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
+            <input
+            [disabled] = "!editFields"
+            type="number"
+            placeholder="Enter Your Phone Number"
+            class="form-control col-md-9"
+            />
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-3">Designation <span class="text-danger" *ngIf="editFields">*</span></label>
+            <input
+            type="text"
+            [disabled] = "!editFields"
+            placeholder="Enter Your Designation"
+            class="form-control col-md-9"
+            />
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
+            <input
+            type="text"
+            [disabled] = "!editFields"
+            placeholder="Enter Your Address"
+            class="form-control col-md-9"
+            />
+        </div>
+    </div>
+
+    <div class="col-md-12 text-right"  *ngIf="editFields">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>

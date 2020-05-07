@@ -37,3 +37,12 @@ input[type="file"] {
     margin-left: 10px;
   }
 }
+.upload-img {
+  max-height: 200px;
+  max-width: 200px;
+  margin: 0 auto 25px;
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+}

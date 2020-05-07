@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/mixins";
+
+.profileeditbox {
+  @include profileImageInput(150px);
+  margin-bottom: 30px;
+}
+
+.form-control:disabled {
+  border-color: transparent;
+  background-color: transparent;
+}
+label.col-md-3 {
+  align-self: center;
+  font-weight: 700;
+  margin: 0;
+}

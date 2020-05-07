@@ -276,11 +276,11 @@
       </div>
       <div class="mb-3 text-center" *ngIf="professionalOption">
         <div class="radio mb-3">
-          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/registration', 'sp')"/>
+          <input type="radio" name="userType" (change) ="handleChange('/auth/registration', 'sp')"/>
           <span class="font-weight-bold">Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="Center"  (change) ="handleChange('/auth/registration', 'c')"/>
+          <input type="radio" name="userType"  (change) ="handleChange('/auth/registration', 'c')"/>
           <span class="font-weight-bold">Center</span>
         </div>
       </div>
@@ -348,11 +348,11 @@
       </div>
       <div class="mb-3" *ngIf="professionalOption">
         <div class="radio">
-          <input type="radio" name="serviceProvider" (change) ="handleChange('/auth/login', 'sp')"/>
+          <input type="radio" name="userTypeLogin" (change) ="handleChange('/auth/login', 'sp')"/>
           <span>Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="Center"  (change) ="handleChange('/auth/login', 'c')"/>
+          <input type="radio" name="userTypeLogin" (change) ="handleChange('/auth/login', 'c')"/>
           <span>Center</span>
         </div>
       </div>

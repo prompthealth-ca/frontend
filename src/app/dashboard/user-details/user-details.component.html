@@ -12,8 +12,8 @@
     <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
       <div class="col-md-12 text-center">
         <div class="upload-img">
-          <img src="../../../assets/img/no-image.jpg" alt="User image">
-          <input name="imageUrl" type="file" accept="image/*" (change)="handleImageChange($event)" />
+          <img [src]="defaultImage" alt="User image">
+          <input name="imageUrl" type="file" accept="image/*" (change)="handleImageChange($event)"/>
         </div>
       </div>
       <div class="col-md-6 mb-3">
@@ -49,32 +49,32 @@
 
       <div class="col-md-6 mb-3">
         <label>Phone <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="phone" name="phone" class="form-control" placeholder="" minlength="3"
-          maxlength="12" (keyup)="trim('phone')" #phone="ngModel" [ngModel]="userDetails.phone"
+        <input autofocus type="number" id="phone" name="phone" class="form-control" placeholder=""
+          maxlength="12" (keyup)="trim('phone')" #phone="ngModel" [ngModel]="userDetails.phone" number
           (ngModelChange)="userDetails.phone = $event" required />
 
         <div class="error-block">
           <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
             Phone number is required.
           </small>
-          <small *ngIf="phone.errors?.minlength && phone.touched" class="text-danger">
-            Minumum length should be 3.
-          </small>
+          <small *ngIf="phone.errors"  class="text-danger">  
+            Phone number not valid.  
+          </small> 
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label>Email <span class="text-danger">*</span></label>
         <input autofocus type="email" id="email" name="email" class="form-control" placeholder=""
           (keyup)="trim('email')" #email="ngModel" [ngModel]="userDetails.email"
-          (ngModelChange)="userDetails.email = $event" required />
+          (ngModelChange)="userDetails.email = $event" required email />
 
         <div class="error-block">
           <small *ngIf="email.errors?.required && email.touched" class="text-danger">
             Email is required.
           </small>
-          <!-- <small *ngIf="mobile.errors? && mobile.touched" class="text-danger">
-            Minumum length should be 3.
-          </small> -->
+          <small *ngIf="email.errors?.email && email.touched" class="text-danger">
+            Email is invalid.
+          </small>
         </div>
       </div>
 
@@ -84,12 +84,17 @@
             <label>Gender <span class="text-danger">*</span></label>
           </div>
           <div class="radio col-md-6 mb-3">
-            <input type="radio" value="female" name="gender" #gender="ngModel" [ngModel]="userDetails.gender"/>
+            <input type="radio" value="female" name="gender" #gender="ngModel"  [(ngModel)]="userDetails.gender" required/>
             <span>Female</span>
           </div>
           <div class="radio col-md-6 mb-3">
-            <input type="radio" value="male" name="gender" #gender="ngModel"  [ngModel]="userDetails.gender"/>
+            <input type="radio" value="male" name="gender" #gender="ngModel"  [(ngModel)]="userDetails.gender" required/>
             <span>Male</span>
+          </div>
+          <div class="error-block">
+            <small *ngIf="gender.errors?.required && gender.touched" class="text-danger">
+              Gender is required.
+            </small>
           </div>
         </div>
       </div>
@@ -99,12 +104,17 @@
             <label>Do you have a booking system <span class="text-danger">*</span></label>
           </div>
           <div class="radio col-md-6 mb-3">
-            <input type="radio" value="yes" name="booking" #booking="ngModel" [ngModel]="userDetails.booking"/>
+            <input type="radio" value="yes" name="booking" #booking="ngModel" [(ngModel)]="userDetails.booking" required/>
             <span>Yes</span>
           </div>
           <div class="radio col-md-6 mb-3">
-            <input type="radio" value="no" name="booking" #booking="ngModel"  [ngModel]="userDetails.booking"/>
+            <input type="radio" value="no" name="booking" #booking="ngModel"  [(ngModel)]="userDetails.booking" required/>
             <span>No</span>
+          </div>
+          <div class="error-block">
+            <small *ngIf="gender.errors?.required && gender.touched" class="text-danger">
+              Booking option is required.
+            </small>
           </div>
         </div>
       </div>
@@ -116,7 +126,7 @@
 
         <div class="error-block">
           <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
-            URL is required.
+            Booking URL is required.
           </small>
           <small *ngIf="URL.errors?.minlength && URL.touched" class="text-danger">
             Minumum length should be 3.
@@ -140,14 +150,11 @@
         <label>City <span class="text-danger">*</span></label>
         <input type="text" id="city" name="city" class="form-control" placeholder=""
           minlength="3" maxlength="50" (keyup)="trim('city')" #city="ngModel"
-          [ngModel]="userDetails.city" equired />
+          [ngModel]="userDetails.city" required />
 
         <div class="error-block">
           <small *ngIf="city.errors?.required && city.touched" class="text-danger">
             City is required.
-          </small>
-          <small *ngIf="city.errors?.minlength && city.touched" class="text-danger">
-            Minumum length should be 3.
           </small>
         </div>
       </div>

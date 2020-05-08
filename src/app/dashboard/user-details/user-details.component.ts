@@ -23,6 +23,7 @@ export class UserDetailsComponent {
   activeTab = 'questionnaire';
   zoom: number;
   private geoCoder;
+  defaultImage = '../../../assets/img/no-image.jpg';
   public userDetails = {
     firstName: '',
     lastName: '',
@@ -35,8 +36,7 @@ export class UserDetailsComponent {
     zipcode: '',
     booking: '',
     bookingURL: '',
-    image: [],
-    logo_pic: '',
+    profileImage: {},
     latitude: 0,
     longitude: 0,
   };
@@ -55,7 +55,7 @@ export class UserDetailsComponent {
     private toastr: ToastrService,
     private mapsAPILoader: MapsAPILoader, 
     private ngZone: NgZone ) {
-     }
+  }
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
@@ -82,11 +82,11 @@ export class UserDetailsComponent {
         });
       });
     });
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+     this.userDetails.email = userInfo.email
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       this.userDetails.city = '';
       this.userDetails.state = '';
       this.userDetails.zipcode = '';
@@ -94,7 +94,7 @@ export class UserDetailsComponent {
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
-          console.log(' esults[0]',  results[0])
+          console.log('results[0]',  results[0])
           this.userDetails.address = results[0].formatted_address;
           // find country name
           for (var i=0; i<results[0].address_components.length; i++) {
@@ -130,18 +130,12 @@ export class UserDetailsComponent {
             }
           }
         }
-        //city data
-        console.log('====', this.userDetails)
         } else {
           window.alert('No results found');
         }
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
-      
-    console.log(' this.userDetails.address',  this.userDetails.address)
-    console.log(' latitude',  latitude)
-    console.log(' longitude',  longitude)
     });
   }
   private setCurrentLocation() {
@@ -163,111 +157,39 @@ export class UserDetailsComponent {
     }
     reader.onload = this.handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      this.userDetails.profileImage = file;
+    }
   }
 
   handleReaderLoaded(e) {
     let reader = e.target;
-    this.userDetails.image = reader.result;
-    console.log('this.imageSrc', this.userDetails.image)
+    this.defaultImage = reader.result;
   }
   save() {
-    console.log('------', this.userDetails)
-    this.getAddress(this.userDetails.latitude, this.userDetails.longitude);
+
+    const formData = new FormData();
+    const payload = this.userDetails;
+    payload['_id'] = localStorage.getItem('loginID');
+    payload.phone.toString();
     this.ActiveNextTab.emit(this.activeTab);  // TODO: To be added to after form submission
     this._sharedService.loader('show');
     let data = JSON.parse(JSON.stringify(this.userDetails));
-    this._sharedService.addUserDetail(data).subscribe((res: any) => {
+    this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
       this._sharedService.loader('hide');
-      if (res.success) {
+      if (res.statusCode === 200) {
         this.response = res;
-        this.toastr.success(res.data.message);
+        this.toastr.success(res.message);
         // this._router.navigate(['/home']);
       } else {
-        this.toastr.error(res.error.message);
+        this.toastr.error(res.message);
 
       }
     }, err => {
       this._sharedService.loader('hide');
     });
   }
-
-  // handleInputChange(e) {
-  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-  //   var pattern = /image-*/;
-  //   var reader = new FileReader();
-  //   if (!file.type.match(pattern)) {
-  //     alert('invalid format');
-  //     return;
-  //   }
-  //   reader.onload = this._handleReaderLoaded.bind(this);
-  //   reader.readAsDataURL(file);
-
-  // }
-  // _handleReaderLoaded(e) {
-  //   let reader = e.target;
-  //   this.imageSrc = reader.result;
-  //   console.log(this.imageSrc)
-  //   this.uploadImage();
-  // }
-
-
-  // uploadImage() {
-  //   let object = {
-  //     data: this.imageSrc,
-  //     type: 'users'
-  //   }
-  //   this._sharedService.loader('show');
-  //   this._sharedService.uploadImage(object).subscribe((result: any) => {
-  //     this._sharedService.loader('hide');
-  //     if (result.success) {
-  //       this.userDetails.image = result.data.fullPath;
-  //       console.log('image', this.userDetails.image)
-  //     }
-  //     return true;
-  //   }, err => {
-  //     this._sharedService.loader('hide');
-  //     return false;
-  //   });
-  // }
-
-  // handleInputChange1(e) {
-  //   var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-  //   var pattern = /image-*/;
-  //   var reader = new FileReader();
-  //   if (!file.type.match(pattern)) {
-  //     alert('invalid format');
-  //     return;
-  //   }
-  //   reader.onload = this._handleReaderLoaded1.bind(this);
-  //   reader.readAsDataURL(file);
-
-  // }
-  // _handleReaderLoaded1(e) {
-  //   let reader = e.target;
-  //   this.imageSrc1 = reader.result;
-  //   console.log(this.imageSrc1)
-  //   this.uploadImage1();
-  // }
-
-
-  // uploadImage1() {
-  //   let object = {
-  //     data: this.imageSrc1,
-  //     type: 'logo'
-  //   }
-  //   this._sharedService.loader('show');
-  //   this._sharedService.uploadImage1(object).subscribe((result: any) => {
-  //     this._sharedService.loader('hide');
-  //     if (result.success) {
-  //       this.userDetails.logo_pic = result.data.fullPath;
-  //       console.log('image', this.userDetails.logo_pic)
-  //     }
-  //     return true;
-  //   }, err => {
-  //     this._sharedService.loader('hide');
-  //     return false;
-  //   });
-  // }
 
   trim(key) {
     if (this.userDetails[key] && this.userDetails[key][0] == ' ') this.userDetails[key] = this.userDetails[key].trim();

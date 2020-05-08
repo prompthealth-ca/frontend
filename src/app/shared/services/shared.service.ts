@@ -49,6 +49,7 @@ export class SharedService {
   get(path, setParams = {}) {
     const headers = this.getAuthorizationHeader();
     const url = this.rootUrl + path;
+    console.log('url', url)
     return this.http.get(url, { headers });
   }
 
@@ -63,13 +64,14 @@ export class SharedService {
   }
 
   login(body) {
-    console.log('body', body)
-    return this.http.post(this.rootUrl + 'user/signinUser', body);
+    let headers = this.getDefaultHeader();
+    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
   }
 
   register(body) {
+    let headers = this.getDefaultHeader();
     console.log('this.rootUrl', this.rootUrl)
-    return this.http.post(this.rootUrl + 'user/register', body);
+    return this.http.post(this.rootUrl + 'user/register', body, { headers });
   }
 
   // addPromotion(body) {
@@ -128,11 +130,19 @@ export class SharedService {
 
   // }
 
-  addUserDetail(category) {
-
-    const headers = this.getAuthorizationHeader();
-    return this.http.put(this.rootUrl + 'updateprofile', category, { headers });
-  }
+  // updateProfile(fileItem, extraData?:object, payload){
+    
+  //   const formData: FormData = new FormData();
+  //   formData.append('fileItem', fileItem, fileItem.name);
+  //   if (extraData) {
+  //     for(let key in extraData){
+  //         // iterate and set other form data
+  //       formData.append(key, extraData[key])
+  //     }
+  //   }
+  //   let headers = this.getAuthorizationHeader();
+  //   return this.http.post(this.rootUrl + 'upload', payload, { headers, formData });
+  // }
 
   uploadImage(object) {
     let headers = this.getAuthorizationHeader();
@@ -198,13 +208,19 @@ export class SharedService {
 
     if (access) {
       headers = new HttpHeaders()
-        .set('Authorization', token);
+        .set('Authorization', token)
+        .set('Content-Type','application/json');
     }
 
 
     return headers;
   }
-
+getDefaultHeader() {
+  
+  let headers = new HttpHeaders()
+  .set('Content-Type','application/json');
+  return headers
+}
   // isLogin() {
   //   let token = localStorage.getItem('token');
   //   if (token) {
@@ -251,13 +267,18 @@ export class SharedService {
 
 
 
-  loginUser(res) {
-
-    let route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/subscriptionplan';
+  loginUser(res, type) {
+    let route
+    if(type === 'reg') {
+      route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/professional-info';
+    }
+    else {
+      route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+    }
     this.showAlert(res.message, 'alert-success');
-    this.addCookie('token', res.data.access_token);
+    this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);
-    this.addCookie('loginID', res.data.id);
+    this.addCookie('loginID', res.data._id);
     this.addCookieObject('user', res.data);
     this._router.navigate([route]);
   }

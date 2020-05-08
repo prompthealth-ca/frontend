@@ -67,9 +67,9 @@ export class LoginComponent implements OnInit {
       this._sharedService.loader('show');
       this._sharedService.login(data).subscribe((res: any) => {
         this._sharedService.loader('hide');
-        if (res.success) {
+        if (res.statusCode === 200) {
           // this._bs.setUser(res.data);
-          this._sharedService.loginUser(res);
+          this._sharedService.loginUser(res, 'login');
           this.toastr.success(res.message, '', {
             // disableTimeOut: truex
             timeOut: 2000
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
 
         }
         else {
-          this.toastr.error(res.error.message, '', {
+          this.toastr.error(res.message, '', {
             // disableTimeOut: true
             timeOut: 2000
           });

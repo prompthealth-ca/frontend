@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
       this.token = localStorage.getItem("token");
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
-      console.log("sandeep", this.user)
       // if (this.token && this.user) {
       //   let roles = this.user.roles;
       //   this.dashboard = roles == "B" ? "dashboard/home" : "dashboard/welcome";

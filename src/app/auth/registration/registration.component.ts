@@ -72,15 +72,17 @@ export class RegistrationComponent implements OnInit {
       console.log('dataaaaa', dataReg);
       this._sharedService.register(dataReg).subscribe((res: any) => {
         this._sharedService.loader('hide');
-        if (res.success) {
+        if (res.statusCode === 200) {
 
           this.toastr.success('Thanks for the registeration we have sent a verification email to the address provided, please verfiy account through the email sent');
           this.registerForm.reset();
           this.submitted = false;
 
           this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+
+          this._sharedService.loginUser(res, 'reg');
         } else {
-          this.toastr.error(res.error.message);
+          this.toastr.error(res.message);
         }
       }, (error) => {
         this.toastr.error("There are some error please try after some time.")

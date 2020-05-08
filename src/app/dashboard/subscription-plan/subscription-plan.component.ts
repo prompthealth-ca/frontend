@@ -121,11 +121,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     const { token, error } = await this.stripe.createToken(this.card);
 
     if (error) {
-      console.log('Error:', error);
     } else {
-      console.log('Success!', token.id);
       this.token = token.id
-      console.log('Sandeep', this.token);
       this.checkout.token = this.token;
       let data = JSON.parse(JSON.stringify(this.checkout));
       this._sharedService.loader('Show');

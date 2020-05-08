@@ -16,6 +16,7 @@ const routes: Routes = [
   {
     path: '',
     component: WrapperComponent,
+    // redirectTo: '/dashboard/profilemanagement/my-profile', pathMatch: 'full' ,
     children: [
       {
         path: "my-profile",

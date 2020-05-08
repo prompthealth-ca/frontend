@@ -118,9 +118,7 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
     if (error) {
       console.log('Error:', error);
     } else {
-      console.log('Success!', token.id);
-      this.token = token.id
-      console.log('Sandeep', this.token);
+      this.token = token.id;
       this.checkout.token = this.token;
       let data = JSON.parse(JSON.stringify(this.checkout));
       this._sharedService.loader('Show');

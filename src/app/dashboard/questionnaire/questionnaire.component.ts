@@ -12,169 +12,17 @@ export class QuestionnaireComponent implements OnInit {
   public type = window.localStorage.getItem('roles');
   public itemsTotal = 0;
   public selectedItems = [];
-  treatment: any;
-  public dropdownSettings = {};
-  match = false;
-  subMatch = false
-  public subRes;
-  // public subRes1 = {
-  //   questionare: 'Option 2',
-  //   answer: [
-  //     {
-  //       id : 1,
-  //       text: "Option 1",
-  //       subans: false,
-  //     },
-  //     {
-  //       id : 2,
-  //       text: "Option 2",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 3,
-  //       text: "Option 3",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 4,
-  //       text: "Option 4",
-  //       subans: true
-  //     },
-  //   ],
-  //   choiceType: "multiple",
-  //   questionType: "Age"
-  // } 
-  // public subRes2 = {
-  //   questionare: 'Option 1',
-  //   answer: [
-  //     {
-  //       id : 1,
-  //       text: "Option 1",
-  //       subans: false,
-  //     },
-  //     {
-  //       id : 2,
-  //       text: "Option 2",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 3,
-  //       text: "Option 3",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 4,
-  //       text: "Option 4",
-  //       subans: true
-  //     },
-  //   ],
-  //   choiceType: "multiple",
-  //   questionType: "Age"
-  // }
-  // public subRes3 = {
-  //   questionare: 'Option 3',
-  //   answer: [
-  //     {
-  //       id : 1,
-  //       text: "Option 1",
-  //       subans: false,
-  //     },
-  //     {
-  //       id : 2,
-  //       text: "Option 2",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 3,
-  //       text: "Option 3",
-  //       subans: false
-  //     },
-  //     {
-  //       id : 4,
-  //       text: "Option 4",
-  //       subans: true
-  //     },
-  //   ],
-  //   choiceType: "multiple",
-  //   questionType: "Age"
-  // }
-  public res = {
-    success: true,
-    questionare: [{
-      questions:"Question 1",
-      answer: [
-          {
-            id : 1,
-            text: "Option 1",
-            subans: false,
-          },
-          {
-            id : 2,
-            text: "Option 2",
-            subans: true
-          },
-          {
-            id : 3,
-            text: "Option 3",
-            subans: false
-          },
-          {
-            id : 4,
-            text: "Option 4",
-            subans: false
-          },
-      ],
-      choiceType: "multiple",
-      questionType: "Age"
-    },
-    {
-      questions:"Question 2",
-      answer:[
-        {
-          id : 1,
-          text: "Option 1",
-          subans: true,
-        },
-        {
-          id : 2,
-          text: "Option 2",
-          subans: false,
-        },
-        {
-            id : 3,
-            text: "Option 3",
-            subans: false,
-        },
+  subRes = {
+    question: '',
+    quesId: '',
+    options: []
+  };
 
-      ],
-      choiceType: "multiple",
-      questionType: "Age"
-    },
-
-    {
-      questions:"Question 3",
-      answer:[
-        {
-          id : 1,
-          text: "Option 1",
-          subans: false,
-        },
-        {
-          id : 2,
-          text: "Option 2",
-          subans: false,
-        },
-        {
-            id : 3,
-            text: "Option 3",
-            subans: true,
-        },
-
-      ],
-      choiceType: "multiple",
-      questionType: "Age"
-    }
-  ]
+  showlevel2SubAns = false
+  sublevel2Res = {
+    question: '',
+    quesId: '',
+    options: []
   };
 
   @Output() ActiveNextTab = new EventEmitter<string>();
@@ -188,31 +36,14 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getSelectedSkill() {
-
-     this.type = localStorage.getItem('roles');
-    // this._sharedService.loader('show');
-    // console.log('This.type', this._router.url)
-    // if(this._router.url.includes('SP')) {
-    //   this.type = 'SP';
-    // }
-    // else if(this._router.url.includes('C')) {
-    //   this.type = 'C';
-    // }
-    // else {
-    //   this.type = 'U';
-    // }
-
-    console.log('this.type-------', this.type);
-    let path = `questionare?type=${this.type}`;
+    this.type = localStorage.getItem('roles');
+    let path = `questionare/get-questions?type=${this.type}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      // this._sharedService.loader('hide');
-
-      console.log('this.questionnaire-------', res.questionare);
-      if (res.success) {
-        this.questionnaire = res.questionare;
+      if (res.statusCode = 200) {
+        this.questionnaire = res.data;
         
       } else {
-        this._sharedService.checkAccessToken(res.error);
+        this._sharedService.checkAccessToken(res.message);
       }
     }, err => {
 
@@ -229,68 +60,52 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   getSubAns(evt) {
-  //   setTimeout(()=>{
-  //     if(evt.target.name === 'Option 1') {
-  //       this.subRes = this.subRes2
-  //     }
-  //     if(evt.target.name === 'Option 2') {
-  //       this.subRes = this.subRes1
-  //     }
-  //     if(evt.target.name === 'Option 3') {
-  //       this.subRes = this.subRes3
-  //     }
-  //     this.subRes = {
-  //       questions: "Option 2",
-  //       answer:[{
-  //         id: 1,
-  //         text: "Sub Option 1",
-  //         subans: {
-  //           questions: "Sub Option 1",
-  //           answer:[
-  //               {
-  //                   id: 1,
-  //                   text: "Sub Option Level Two A",
-  //               },
-  //               {
-  //                   id: 2,
-  //                   text: "Sub Option Level Two B",
-  //               },
-  //               {
-  //                 id: 3,
-  //                 text: "Sub Option Level Two C",
-  //               },
-  //               {
-  //                   id: 4,
-  //                   text: "Sub Option Level Two D",
-  //               },
-  //               {
-  //                 id: 5,
-  //                 text: "Sub Option Level Two E",
-  //             },
-  //             {
-  //                 id: 6,
-  //                 text: "Sub Option Level Two F",
-  //             }
-  //           ],
-  //           choiceType: "multiple",
-  //         },
-  //       }, 
-  //       {
-  //         id: 2,
-  //         text: "Sub Option 2",
-  //         subans: false,
-  //       },
-  //       {
-  //         id: 3,
-  //         text: "Sub Option 3",
-  //         subans: false,
-  //       }],
-  //       choiceType: "multiple",
-  //     }
-  //   }, 3000);
+    if(evt.target.checked) {
+      const parentId = evt.target.id;
+      this.subRes.question = evt.target.name
+      this.subRes.quesId =  parentId;
+      const path = `questionare/get-answer/${evt.target.id}`;
+      this._sharedService.get(path).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+            this.subRes.options =  res.data;
+        } else {
+          this._sharedService.checkAccessToken(res.message);
+        }
+      }, err => {
 
+        this._sharedService.checkAccessToken(err);
+      });
+    }
+    else {
 
-  //   console.log('subRes......', this.subRes)
+      this.subRes.question = '';
+      this.subRes.quesId = '';
+      this.subRes.options = [];
+    }
 
+  }
+  getSubSubAns(evt) {
+    if(evt.target.checked) {
+      const parentId = evt.target.id;
+      this.sublevel2Res.question = evt.target.name
+      this.sublevel2Res.quesId =  parentId;
+      const path  = `questionare/get-sub-answer/${parentId}`;
+      this._sharedService.get(path).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+          this.sublevel2Res.options =  res.data;
+        } else {
+          this._sharedService.checkAccessToken(res.message);
+        }
+      }, err => {
+
+        this._sharedService.checkAccessToken(err);
+      });
+    }
+    else {
+      this.sublevel2Res.question = '';
+      this.sublevel2Res.quesId = '';
+      this.sublevel2Res.options = [];
+
+    }
   }
 }

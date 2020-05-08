@@ -4,13 +4,16 @@ $fileInputH: 40px;
 $fileInputW: 200px;
 input[type="file"] {
   display: inline-block;
-  position: relative;
+  position: absolute;
   border-radius: 4px;
   overflow: hidden;
   height: $fileInputH !important;
   width: 100%;
   max-width: $fileInputW !important;
   padding: 0 !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
   cursor: pointer;
   &:after {
     font-weight: bold;
@@ -38,11 +41,18 @@ input[type="file"] {
   }
 }
 .upload-img {
+  height: 200px;
+  width: 200px;
   max-height: 200px;
   max-width: 200px;
   margin: 0 auto 25px;
+  position: relative;
+  overflow: hidden;
   img {
     height: auto;
     max-width: 100%;
   }
+}
+.btn-primary.disabled, .btn-primary:disabled {
+  cursor: not-allowed;
 }

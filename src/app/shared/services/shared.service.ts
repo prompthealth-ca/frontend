@@ -40,6 +40,7 @@ export class SharedService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('loginID');
+    localStorage.removeItem('isPayment');
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
     this.showAlert("Logout Sucessfully", "alert-success");

@@ -80,6 +80,11 @@ export class SharedService {
     return this.http.delete(this.rootUrl + 'user/logout', { headers });
   }
 
+  editProfile(body) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + '', body, { headers });
+  }
+
   // addPromotion(body) {
   //   let headers = this.getAuthorizationHeader();
   //   return this.http.post(this.rootUrl + 'promotion', body, { headers });

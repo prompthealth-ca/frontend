@@ -78,7 +78,7 @@ export class RegistrationComponent implements OnInit {
           this.registerForm.reset();
           this.submitted = false;
 
-          this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+          // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
 
           this._sharedService.loginUser(res, 'reg');
         } else {

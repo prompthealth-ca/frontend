@@ -83,7 +83,7 @@ export class UserDetailsComponent {
       });
     });
     const userInfo = JSON.parse(localStorage.getItem('user'));
-     this.userDetails.email = userInfo.email
+     this.userDetails.email = userInfo ? userInfo.email : '';
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {

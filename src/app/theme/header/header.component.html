@@ -25,83 +25,23 @@
           <li class="nav-item dropdown"> 
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">Goal</a>
-                <!-- Level-->
+              <li class="dropdown-submenu" *ngFor="let cat of categoryList">
+                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Preventative Health</a></li>
-                  <li><a class="dropdown-item" href="#">Mood and Cognition</a></li>
-                  <li><a class="dropdown-item" href="#">Nutrition</a></li>
-                  <li><a class="dropdown-item" href="#">Sleep</a></li>
-                  <li><a class="dropdown-item" href="#">Delay Aging</a></li>
-                  <li><a class="dropdown-item" href="#">Immune System and Energy</a></li>
-                  <li><a class="dropdown-item" href="#">Pain management</a></li>
-                  <li><a class="dropdown-item" href="#">Women/Men’s health</a></li>
-                </ul>
-              </li>
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">Services</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Medical services</a></li>
-                  <li><a class="dropdown-item" href="#">Medication review</a></li>
-                  <li><a class="dropdown-item" href="#">Immunization</a></li>
-                  <li><a class="dropdown-item" href="#">Health Clinics</a></li>
-                  <li><a class="dropdown-item" href="#">Sleep Clinic</a></li>
-                  <li><a class="dropdown-item" href="#">Hearing care services</a></li>
-                  <li><a class="dropdown-item" href="#">Vision care services</a></li>
-                  <li><a class="dropdown-item" href="#">Dental care services</a></li>
-                  <li><a class="dropdown-item" href="#">Medical Aesthetics</a></li>
-                  <li><a class="dropdown-item" href="#">Restorative services</a></li>
-                  <li><a class="dropdown-item" href="#">Mental Health services</a></li>
-                  <li><a class="dropdown-item" href="#">Somatic therapy</a></li>
-                  <li><a class="dropdown-item" href="#">Consultation</a></li>
-                  <li><a class="dropdown-item" href="#">Coaching/Support</a></li>
-                  <li><a class="dropdown-item" href="#">Diet Based Therapies</a></li>
-                  <li><a class="dropdown-item" href="#">Exercise Training</a></li>
-                  <li><a class="dropdown-item" href="#">Rehabilitation services</a></li>
-                  <li><a class="dropdown-item" href="#">Holistic health services</a></li>
-                  <li><a class="dropdown-item" href="#">Reproductive health services</a></li>
-                  <li><a class="dropdown-item" href="#">Home care services</a></li>
-                  <li><a class="dropdown-item" href="#">Foot care services</a></li>
-                </ul>
-                
-              </li>
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">Delivery</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Individually</a></li>
-                  <li><a class="dropdown-item" href="#">Groups</a></li>
-                  <li><a class="dropdown-item" href="#">In Center</a></li>
-                  <li><a class="dropdown-item" href="#">Mobile (On-demand)</a></li>
-                  <li><a class="dropdown-item" href="#">Virtual/online</a></li>
-                  <li><a class="dropdown-item" href="#">Delivery option</a></li>
-                  <li><a class="dropdown-item" href="#">Direct billing</a></li>
-                </ul>
-                
-              </li>
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">Treatment Modalities</a>
-                <!-- Level-->
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Genetic testing</a></li>
-                  <li><a class="dropdown-item" href="#">Food sensitivity testing</a></li>
-                  <li><a class="dropdown-item" href="#">TMJ therapy</a></li>
-                  <li><a class="dropdown-item" href="#">Acupuncture</a> </li>
-                  <li><a class="dropdown-item" href="#">Dry needling</a> </li>
-                  <li><a class="dropdown-item" href="#">Laser therapy</a> </li>
-                  <li><a class="dropdown-item" href="#">Shockwave</a> </li>
-                  <li><a class="dropdown-item" href="#">IMS</a> </li>
-                  <li><a class="dropdown-item" href="#">Cupping</a> </li>
-                  <li><a class="dropdown-item" href="#">Manual Therapy</a> </li>
-                  <li><a class="dropdown-item" href="#">Active release therapy</a> </li>
-                  <li><a class="dropdown-item" href="#">Myofascial release</a> </li>
-                  <li><a class="dropdown-item" href="#">Ultrasound</a> </li>
-                  <li><a class="dropdown-item" href="#">Traction</a> </li>
-                  <li><a class="dropdown-item" href="#">Home safety &amp; health</a> </li>
-                  <li><a class="dropdown-item" href="#">Functional capacity &amp; return to work</a> </li>
-                  <li><a class="dropdown-item" href="#">Reiki</a> </li>
-                  <li><a class="dropdown-item" href="#">Ayurveda</a> </li>
-                  <li><a class="dropdown-item" href="#">Biofeedback</a> </li>
+                  <li *ngIf="cat.Ans.length === 0">
+                    <div  *ngFor="let answers of cat.answers">
+                      <a class="dropdown-item"  *ngIf="cat.Ans.length === 0" [routerLink]="answers._id" data-toggle="dropdown">
+                        {{answers.item_text}}
+                      </a>
+                    </div>
+                  </li>
+                  <li  *ngIf="cat.Ans.length">
+                    <div  *ngFor="let answers of cat.Ans">
+                      <a class="dropdown-item" [routerLink]="answers._id">
+                        {{answers.item_text}}
+                      </a>
+                    </div>
+                  </li>
                 </ul>
               </li>
             </ul>

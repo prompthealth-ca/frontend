@@ -21,7 +21,8 @@
     <ul *ngIf = "type === 'U'" class="nav nav-pills mb-4" id="pills-tab" role="tablist">
       <li class="nav-item">
         <a
-          class="nav-link active btn-circle"
+          class="nav-link btn-circle"
+          [ngClass]="{'active': questionType === 'age'}"
           id="tab1"
           data-toggle="pill"
           href="#pill1"
@@ -34,6 +35,7 @@
       <li class="nav-item">
         <a
           class="nav-link btn-circle"
+          [ngClass]="{'active': questionType === 'health'}"
           id="tap2"
           data-toggle="pill"
           href="#pill2"
@@ -46,6 +48,7 @@
       <li class="nav-item">
         <a
           class="nav-link btn-circle"
+          [ngClass]="{'active': questionType === 'goal'}"
           id="tap3"
           data-toggle="pill"
           href="#pill3"
@@ -58,6 +61,7 @@
       <li class="nav-item">
         <a
           class="nav-link btn-circle"
+          [ngClass]="{'active': questionType === 'availability'}"
           id="tap3"
           data-toggle="pill"
           href="#pill3"
@@ -123,13 +127,19 @@
               </div>
             </div>
             <hr  class="col-12">
-            <div class="col-12"  *ngIf = "type === 'c'; else subBtn"  >
+            <div class="col-12"  *ngIf = "type === 'U' && questionType !== 'availability'; else subBtn"  >
               <div class="text-right">
-                <button type="button" class="pull-left btn btn-default prev-step">
+                <!-- <button type="button"
+                [disabled]="questionType === 'age'" class="pull-left btn btn-default prev-step" (click)="previousTabEvent()">=
                   <i class="fa fa-chevron-left"></i> Back
-                </button>
+                </button> -->
 
-                <button type="button" class="btn btn-primary next-step">
+                <button
+                  type="button"
+                  [disabled]="questionType === 'availability'"
+                  class="btn btn-primary next-step"
+                  (click)="nextTabEvent()"
+                >
                   Next <i class="fa fa-chevron-right"></i>
                 </button>
               </div>

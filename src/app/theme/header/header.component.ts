@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 // import { CookieService } from 'ngx-cookie';
 // import { CookieService } from "ngx-cookie-service";
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   _host = environment.config.BASE_URL;
   public token = "";
   user: any = {};
+  categoryList = [];
   cities = [];
   Items = [];
   showCities: boolean = false;
@@ -36,6 +38,7 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _activateRouter: ActivatedRoute,
     private _sharedService: SharedService,
+    private toastr: ToastrService,
     // public _bs: BehaviorService
   ) {
     //this.fetchUser();
@@ -43,6 +46,7 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
+      this.getCategoryServices();
       this.token = localStorage.getItem("token");
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       // if (this.token && this.user) {
@@ -83,6 +87,19 @@ export class HeaderComponent implements OnInit {
 
     console.log('Comes here logout')
     this._sharedService.logout();
+  }
+
+  getCategoryServices() {
+    this._sharedService.get('/questionare/get-service').subscribe((res: any) => {
+      this._sharedService.loader('hide');
+      if (res.statusCode === 200) {
+        this.categoryList = res.data;
+      } else {
+      }
+    }, (error) => {
+      this.toastr.error("There are some error please try after some time.")
+      this._sharedService.loader('hide');
+    });
   }
 
   // fetchUser() {

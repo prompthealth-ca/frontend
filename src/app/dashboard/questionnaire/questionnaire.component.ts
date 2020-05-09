@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-questionnaire',
@@ -8,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class QuestionnaireComponent implements OnInit {
   activeTab = 'payment';
+  questionType="age";
   myForm: any;
   public questionnaire: any;
   public type = window.localStorage.getItem('roles');
@@ -30,17 +32,38 @@ export class QuestionnaireComponent implements OnInit {
   constructor
     (
       private toastr: ToastrService,
+      private _router: Router,
       private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
-    this.getSelectedSkill();
+    this.type = localStorage.getItem('roles');
+    if(this.type === 'U') {
+      this.getUserQuestionnaire();
+     } else {
+      this.getSelectedSkill();
+     }
   }
 
   getSelectedSkill() {
-    this.type = localStorage.getItem('roles');
-    let path = `questionare/get-questions?type=${this.type}`;
+    let path = this.type === `questionare/get-questions?type=${this.type}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
+        this.questionnaire = res.data;
+        
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this._sharedService.checkAccessToken(err);
+    });
+  }
+  getUserQuestionnaire() {
+    console.log('this.type', this.type)
+    let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
+    this._sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        console.log('res', res.data[0])
         this.questionnaire = res.data;
         
       } else {
@@ -73,7 +96,7 @@ export class QuestionnaireComponent implements OnInit {
     });
 
     this.ActiveNextTab.emit(this.activeTab); 
-    // this.type === 'U' ? this._router.navigate(['/dashboard/listing']) : this._router.navigate(['/dashboard/professional']);
+    if(this.type === 'U') this._router.navigate(['/dashboard/listing']);
 
   }
   getSubAns(evt, subOption) {
@@ -131,4 +154,37 @@ export class QuestionnaireComponent implements OnInit {
 
     }
   }
+  nextTabEvent() {
+    console.log('questionType', this.questionType)
+    switch(this.questionType) {
+      case 'age': {
+        this.questionType = 'health';
+        console.log('questionType', this.questionType)
+        break;
+      }
+      case 'health': {
+        this.questionType = 'goal';
+        console.log('questionType', this.questionType)
+        break;
+      }
+      case 'goal': {
+        this.questionType = 'availability';
+        console.log('questionType', this.questionType)
+        break;
+      }
+    }
+    this.getUserQuestionnaire();
+
+  }
+  // previousTabEvent() {
+  //   if (this.questionType === 'availability') {
+  //     this.questionType = 'goal'
+  //   }
+  //   if (this.questionType === 'goal') {
+  //     this.questionType = 'health'
+  //   }
+  //   if (this.questionType === 'health') {
+  //     this.questionType = 'age'
+  //   }
+  // }
 }

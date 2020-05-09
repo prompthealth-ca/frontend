@@ -74,7 +74,7 @@ export class RegistrationComponent implements OnInit {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
 
-          this.toastr.success('Thanks for the registeration we have sent a verification email to the address provided, please verfiy account through the email sent');
+          this.toastr.success('Thanks for the registeration we have sent a welcome email to the address provided');
           this.registerForm.reset();
           this.submitted = false;
 

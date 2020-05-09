@@ -219,7 +219,10 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       this.signin.nativeElement.click();
     }
   }
-
+  payment() {
+    localStorage.setItem('isPayment', 'true');
+    this._router.navigate(['/dashboard/profilemanagement', this.roles]);
+  }
 }
 
 // end section

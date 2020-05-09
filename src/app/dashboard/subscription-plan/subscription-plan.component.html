@@ -221,7 +221,7 @@
         <tr>
           <td></td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/profilemanagement', roles]" data-dismiss="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" (click) = "payment()" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a>
@@ -231,7 +231,7 @@
             <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a> -->
           </td>
           <td>
-            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/profilemanagement', roles]" data-dismiss="modal"
+            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2"  (click) = "payment()" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a>

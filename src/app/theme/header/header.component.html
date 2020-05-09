@@ -79,10 +79,7 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/subscriptionplan']">Pricing</a>
           </li>
-          <!-- <li *ngIf="(token) && (role === 'U') || (role === 'SP' || role === 'C' && payment === true)" class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
-          </li> -->
-          <li *ngIf="token && ( role === 'U' || (( role === 'C' || role === 'SP') && payment))" class="nav-item">
+          <li *ngIf="showDashboard || (token && role === 'U')" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
           </li>
         

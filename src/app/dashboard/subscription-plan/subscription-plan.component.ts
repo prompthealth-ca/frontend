@@ -22,6 +22,7 @@ declare var jQuery: any;
 export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   subData: [];
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
+  @ViewChild('signin') signin:ElementRef;
 
   stripe;
   loading = false;
@@ -33,6 +34,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   token: any;
   roles: string;
   isLoggedIn = false;
+  professionalOption =false;
 
   public checkout = {
     email: "this.userEmail.email",
@@ -209,6 +211,13 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
   goToContactPage() {
     this._router.navigate(['/contact-us']);
+  }
+
+  handleChange(url, type){
+    this._router.navigate([url, type]);
+    if(url === '/auth/login') {
+      this.signin.nativeElement.click();
+    }
   }
 
 }

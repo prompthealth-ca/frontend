@@ -11,6 +11,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
+
+  token = "";
   days: any;
   hours: any;
   minutes: any;
@@ -34,6 +36,8 @@ export class HomeComponent implements OnInit {
     return this.homeForm.controls;
   }
   ngOnInit() {
+    this.token = localStorage.getItem("token");
+
     this.homeForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]]
     });
@@ -42,6 +46,15 @@ export class HomeComponent implements OnInit {
     this.id = setInterval(() => {
       this.timer();
     }, 1000);
+  }
+
+  questionnaire() {
+    if (this.token) {
+      this.router.navigate(['dashboard/questionnaire/u']);
+    } else {
+      this.router.navigate(['auth/login/u']);
+      this.toastr.warning("Please login first.")
+    } 
   }
 
   submit() {

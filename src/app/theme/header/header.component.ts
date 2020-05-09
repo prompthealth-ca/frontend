@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
-
+import { ToastrService } from 'ngx-toastr';
 // import { CookieService } from 'ngx-cookie';
 // import { CookieService } from "ngx-cookie-service";
 import { SharedService } from "../../shared/services/shared.service";
@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _activateRouter: ActivatedRoute,
     private _sharedService: SharedService,
+    private toastr: ToastrService,
     // public _bs: BehaviorService
   ) {
     //this.fetchUser();
@@ -80,10 +81,23 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.token = "";
     this.user = {};
-
-    console.log('Comes here logout')
     this._sharedService.logout();
   }
+
+  // logout() { 
+  //   this._sharedService.loader('show');
+  //   this._sharedService.logingOut().subscribe((res: any) => {
+  //     this._sharedService.loader('hide');
+  //     if (res.statusCode === 200) {
+  //       this.toastr.success('LogOut Successfully.');
+  //     } else {
+  //       this.toastr.error(res.message);
+  //     }
+  //   }, (error) => {
+  //     this.toastr.error("There are some errors, please try after some time !")
+  //     this._sharedService.loader('hide');
+  //   });
+  // }
 
   // fetchUser() {
   //   this._sharedService.get("getuserdetail").subscribe(

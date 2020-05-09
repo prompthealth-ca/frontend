@@ -16,6 +16,9 @@ export class HeaderComponent implements OnInit {
 @ViewChild('signin') signin:ElementRef;
   _host = environment.config.BASE_URL;
   public token = "";
+  public role = "";
+  public payment: boolean = false;
+
   user: any = {};
   categoryList = [];
   cities = [];
@@ -42,6 +45,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
       this.getCategoryServices();
       this.token = localStorage.getItem("token");
+      this.role = localStorage.getItem("roles");
+      // this.payment = localStorage.getItem(isPayment);
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       // if (this.token && this.user) {
       //   let roles = this.user.roles;
@@ -65,6 +70,8 @@ export class HeaderComponent implements OnInit {
     // });
 
     this.token = localStorage.getItem("token");
+    this.role = localStorage.getItem("roles");
+    // this.payment = localStorage.getItem('isPayment');
     this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
   }

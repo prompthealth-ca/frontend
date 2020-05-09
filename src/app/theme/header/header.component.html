@@ -17,11 +17,11 @@
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
+                <a [routerLink]="['/dashboard/listing', cat._id]" class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
                 <ul class="dropdown-menu">
                   <li *ngIf="cat.Ans.length === 0">
                     <div *ngFor="let answers of cat.answers">
-                      <a class="dropdown-item" *ngIf="cat.Ans.length === 0" [routerLink]="answers._id"
+                      <a class="dropdown-item" [routerLink]="['/dashboard/listing', answers._id]" *ngIf="cat.Ans.length === 0"
                         data-toggle="dropdown">
                         {{answers.item_text}}
                       </a>
@@ -29,7 +29,7 @@
                   </li>
                   <li *ngIf="cat.Ans.length">
                     <div *ngFor="let answers of cat.Ans">
-                      <a class="dropdown-item" [routerLink]="answers._id">
+                      <a class="dropdown-item" [routerLink]="['/dashboard/listing', answers._id]">
                         {{answers.item_text}}
                       </a>
                     </div>

@@ -76,38 +76,40 @@
         aria-labelledby="tap1"
       >
         <div class="row">
-          <div *ngFor="let question of questionnaire" class="col-md-12 question">
-            <h5 *ngIf="type === 'C'" class="text-primary text-uppercase">{{ question.center_question }}</h5>
+          <form id="myForm">
+            <div *ngFor="let question of questionnaire" class="col-md-12 question">
+              <h5 *ngIf="type === 'C'" class="text-primary text-uppercase">{{ question.center_question }}</h5>
 
-            <h5  *ngIf="type === 'U'" class="text-primary text-uppercase">{{ question.c_question }}</h5>
+              <h5  *ngIf="type === 'U'" class="text-primary text-uppercase">{{ question.c_question }}</h5>
 
-            <h5 *ngIf="type === 'SP'" class="text-primary text-uppercase">{{ question.sp_question }}</h5>
-            <div class="mb-12">
-              <div class="form-row" *ngIf="question.choice_type === 'single'">
-                <div class="col-md-3"  *ngFor="let options of question.answers" >
-                  <div class="radio"><input type="radio" name="options" [id]="options._id" class="mr-3" /> <span>{{ options.item_text }}</span></div>
-                </div>
-              </div>
-              <div class="form-row" *ngIf="question.choice_type === 'multiple'">
-                <div class="col-md-3"  [ngClass]="{'col-md-12' : options.subans === true}" *ngFor="let options of question.answers" >
-                  <div class="radio">
-                    <input type="checkbox" [name]="options.item_text" [id]="options._id" class="mr-3" (change)="getSubAns($event)"/>
-                    <span>{{ options.item_text }}</span>
+              <h5 *ngIf="type === 'SP'" class="text-primary text-uppercase">{{ question.sp_question }}</h5>
+              <div class="mb-12">
+                <div class="form-row" *ngIf="question.choice_type === 'single'">
+                  <div class="col-md-3"  *ngFor="let options of question.answers; let i = index" >
+                    <div class="radio"><input type="radio" name="{{question._id}}" [id]="options._id" class="mr-3" /> <span>{{ options.item_text }}</span></div>
                   </div>
-                  
-                  <div class="showSubans" *ngIf="subRes.quesId === options._id ">
-                    <h5 class="text-primary text-uppercase">{{ subRes.question }}</h5>
-                    <div class="mb-12">
-                      <div class="form-row">
-                        <div class="col-md-12" *ngFor="let ques of subRes.options" >
-                          <div class="radio"><input type="checkbox" [name]="ques.item_text" [id]="ques._id" class="mr-3" (change)="getSubSubAns($event)"/> <span>{{ ques.item_text }}</span></div>
-                          
-                          <div class="showSubans" *ngIf="options.subans && sublevel2Res.quesId === ques._id ">
-                            <h5 class="text-primary text-uppercase">{{ sublevel2Res.question }}</h5>
-                            <div class="mb-12">
-                              <div class="form-row">
-                                <div class="col-md-3" *ngFor="let ques of sublevel2Res.options" >
-                                  <div class="radio"><input type="checkbox" [name]="ques.item_text" [id]="ques._id" class="mr-3"/> <span>{{ ques.item_text }}</span></div>
+                </div>
+                <div class="form-row" *ngIf="question.choice_type === 'multiple'">
+                  <div class="col-md-3"  [ngClass]="{'col-md-12' : options.subans === true}" *ngFor="let options of question.answers; let i = index" >
+                    <div class="radio">
+                      <input type="checkbox" name="answers" [id]="options._id" class="mr-3" (change)="getSubAns($event, options.subans)"/>
+                      <span>{{ options.item_text }}</span>
+                    </div>
+                    
+                    <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">
+                      <h5 class="text-primary text-uppercase">{{options.item_text }}</h5>
+                      <div class="mb-12">
+                        <div class="form-row">
+                          <div class="col-md-12" *ngFor="let ques of subRes.options; let i = index" >
+                            <div class="radio"><input type="checkbox" name="subRes" [id]="ques._id" class="mr-3" (change)="getSubSubAns($event, ques.subans)"/> <span>{{ ques.item_text }}</span></div>
+                            
+                            <div class="showSubans" *ngIf="ques.subans && sublevel2Res.options.length">
+                              <h5 class="text-primary text-uppercase">{{  ques.item_tex }}</h5>
+                              <div class="mb-12">
+                                <div class="form-row">
+                                  <div class="col-md-6" *ngFor="let ques2 of sublevel2Res.options; let i = index" >
+                                    <div class="radio"><input type="checkbox"  name="sublevel2Res" [id]="ques2._id" class="mr-3"/> <span>{{ ques2.item_text }}</span></div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -115,29 +117,29 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  </div>
-                
+                    </div>
+                  
+                </div>
               </div>
             </div>
-          </div>
-          <hr  class="col-12">
-          <div class="col-12"  *ngIf = "type === 'c'; else subBtn"  >
-            <div class="text-right">
-              <button type="button" class="pull-left btn btn-default prev-step">
-                <i class="fa fa-chevron-left"></i> Back
-              </button>
+            <hr  class="col-12">
+            <div class="col-12"  *ngIf = "type === 'c'; else subBtn"  >
+              <div class="text-right">
+                <button type="button" class="pull-left btn btn-default prev-step">
+                  <i class="fa fa-chevron-left"></i> Back
+                </button>
 
-              <button type="button" class="btn btn-primary next-step">
-                Next <i class="fa fa-chevron-right"></i>
-              </button>
+                <button type="button" class="btn btn-primary next-step">
+                  Next <i class="fa fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
-          </div>
-          <ng-template #subBtn>
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary" (click)="saveQuestionnaire()">Submit</button>
-            </div>
-          </ng-template>
+            <ng-template #subBtn>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary" (click)="saveQuestionnaire()" value ="submit">Submit</button>
+              </div>
+            </ng-template>
+          </form>
         </div>
       </div>
     </div>

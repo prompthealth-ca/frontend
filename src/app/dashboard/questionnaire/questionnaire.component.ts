@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
-import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-questionnaire',
   templateUrl: './questionnaire.component.html',
@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class QuestionnaireComponent implements OnInit {
   activeTab = 'payment';
-  public questionnaire = [];
+  myForm: any;
+  public questionnaire: any;
   public type = window.localStorage.getItem('roles');
   public itemsTotal = 0;
   public selectedItems = [];
@@ -28,7 +29,7 @@ export class QuestionnaireComponent implements OnInit {
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
     (
-      private _router: Router,
+      private toastr: ToastrService,
       private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
@@ -52,16 +53,35 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   saveQuestionnaire() {
+    this._sharedService.loader('show');
+    console.log('this.selectedItems', this.selectedItems);
+    const payload = {
+      _id: localStorage.getItem('loginID'),
+      services: this.selectedItems,
+    }
+    let path = 'user/updateServices';
+    this._sharedService.post(payload, path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        
+        this.toastr.success(res.message);
+      } else {
+        this.toastr.error(res.message);
 
-    this.ActiveNextTab.emit(this.activeTab);  // TODO: To be added to after form submission
-    // TODO: Call the API to save questions
-    console.log('type comes here', this.type);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+    });
+
+    this.ActiveNextTab.emit(this.activeTab); 
     // this.type === 'U' ? this._router.navigate(['/dashboard/listing']) : this._router.navigate(['/dashboard/professional']);
 
   }
-  getSubAns(evt) {
-    if(evt.target.checked) {
-      const parentId = evt.target.id;
+  getSubAns(evt, subOption) {
+    const parentId = evt.target.id;
+    if(this.selectedItems.indexOf(parentId) === -1) {
+      this.selectedItems.push(parentId);
+    }
+    if(evt.target.checked && subOption) {
       this.subRes.question = evt.target.name
       this.subRes.quesId =  parentId;
       const path = `questionare/get-answer/${evt.target.id}`;
@@ -84,9 +104,12 @@ export class QuestionnaireComponent implements OnInit {
     }
 
   }
-  getSubSubAns(evt) {
-    if(evt.target.checked) {
-      const parentId = evt.target.id;
+  getSubSubAns(evt, subans) {
+    const parentId = evt.target.id;
+    if(this.selectedItems.indexOf(parentId) === -1) {
+      this.selectedItems.push(parentId);
+    }
+    if(evt.target.checked && subans) {
       this.sublevel2Res.question = evt.target.name
       this.sublevel2Res.quesId =  parentId;
       const path  = `questionare/get-sub-answer/${parentId}`;

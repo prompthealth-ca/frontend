@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -34,6 +34,6 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
     }),
-    CommonModule, DashboardRoutingModule, NgxSpinnerModule, GooglePlaceModule, FormsModule, NgMultiSelectDropDownModule.forRoot()]
+    CommonModule, DashboardRoutingModule, NgxSpinnerModule, GooglePlaceModule, FormsModule, ReactiveFormsModule, NgMultiSelectDropDownModule.forRoot()]
 })
 export class DashboardModule {}

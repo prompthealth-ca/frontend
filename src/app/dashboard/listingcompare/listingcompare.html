@@ -29,17 +29,17 @@
             <td *ngFor="let user of data">Email: {{user.userData.email}}, Phone: {{user.userData.phone}}</td>
           </tr>
 
-          <!-- <tr>
-            <th class="table-active">Standard fee</th>
-            <td>
-              $155
+          <tr>
+            <th class="table-active">Standard fee per hour</th>
+            <td *ngFor="let user of data">
+              {{user.userData.price_per_hours}}
             </td>
-          </tr> -->
+          </tr>
 
           <tr>
             <th class="table-active">Languages</th>
             <td *ngFor="let user of data">
-              English
+              {{user.userData.languages}}
             </td>
           </tr>
 
@@ -69,23 +69,23 @@
           </tr>
 
           <tr>
-            <th class="table-active">Problem / Issue specialties</th>
+            <th class="table-active">Working Hours</th>
             <td *ngFor="let user of data">
-              Obsessive compulsive disorder, Panic attacks, Agoraphobia
+              {{user.userData.typical_hours}}
             </td>
           </tr>
 
           <tr>
-            <th class="table-active">Practice / Cultural Specialtiesdeo</th>
+            <th class="table-active">Total Experience</th>
             <td *ngFor="let user of data">
-              I specialize in the treatment of OCD and the spectrum of disorders
-              associated with it, but I work with severe anxiety disorders of
-              many kinds. These disorders include panic, agoraphobia,
-              generalized anxiety, social anxiety, and a multitude of phobic
-              disorders. I utilize cognitive-behavioral therapy and other
-              evidence-based treatments for these conditions. I am particularly
-              fond to work with adolescents who are experiencing behavioral
-              difficulties at school or at home.
+              {{user.userData.years_of_experience}}
+            </td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Description</th>
+            <td *ngFor="let user of data">
+              {{user.userData.product_description}}
             </td>
           </tr>
         </tbody>

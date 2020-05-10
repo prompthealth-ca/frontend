@@ -17,9 +17,7 @@ export class MyProfileComponent implements OnInit {
   roles = ''
   zoom: number;
   private geoCoder;
-<<<<<<< HEAD
   formData = new FormData();
-=======
 
   languageList = [
     { id: 'language1', name: 'English' },
@@ -83,7 +81,6 @@ export class MyProfileComponent implements OnInit {
     { id: 'amenities9', name: 'Towel service'},
   ];
 
->>>>>>> 4bfeab3d6a73750b10c23e5b4fe934de1614592b
   public profile = {
     firstName: '',
     lastName: '',

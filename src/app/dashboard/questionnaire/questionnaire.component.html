@@ -106,8 +106,8 @@
                         <div class="form-row">
                           <div class="col-md-12" *ngFor="let ques of subRes.options; let i = index" >
                             <div class="radio"><input type="checkbox" name="subRes" [id]="ques._id" class="mr-3" (change)="getSubSubAns($event, ques.subans)"/> <span>{{ ques.item_text }}</span></div>
-                            
-                            <div class="showSubans" *ngIf="ques.subans && sublevel2Res.options.length">
+                      
+                            <div class="showSubans" *ngIf="ques.subans && sublevel2Res.options.length && (sublevel2Res.quesId === ques._id) " >
                               <h5 class="text-primary text-uppercase">{{  ques.item_tex }}</h5>
                               <div class="mb-12">
                                 <div class="form-row">

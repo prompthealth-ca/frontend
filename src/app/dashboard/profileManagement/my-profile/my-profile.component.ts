@@ -12,6 +12,9 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 export class MyProfileComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
+
+  defaultImage = 'assets/img/man-testimonial.jpg';
+  
   editFields = false;
   userInfo;
   roles = ''
@@ -157,6 +160,7 @@ export class MyProfileComponent implements OnInit {
       });
     }
   }
+  
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       this.profile.city = '';
@@ -215,6 +219,7 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
+        console.log('this.profile', this.profile)
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -262,7 +267,7 @@ export class MyProfileComponent implements OnInit {
 
       this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
-          this.response = res;
+          this.profile = res;
           this.toastr.success(res.message);
           this.editFields = false;
         } else {
@@ -287,7 +292,8 @@ export class MyProfileComponent implements OnInit {
 
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.response = res;
+        this.profile = res;
+        console.log('this.response', this.profile)
       } else {
         this.toastr.error(res.message);
       }

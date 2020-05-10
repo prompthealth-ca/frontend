@@ -4,9 +4,10 @@
 <div class="form-row">
     <div class="col-md-12 text-center">
         <div class="d-inline-block profileeditbox">
-            <img src="assets/img/man-testimonial.jpg" />
+            <!-- <img [src]="profile.profileImage ? profile.profileImage : defaultImage" /> -->
+            <img [src]="defaultImage" />
             <!-- <input type="file" *ngIf="editFields"/> -->
-            <input type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"/>
+            <input type="file" name="profile"  (change)="onFileSelect($event)" *ngIf="editFields"/>
         </div>
     </div>
 

@@ -57,13 +57,18 @@ export class ListingComponent implements OnInit {
     });
 
   }
-  compareFields(doc) {
-    const index = this.compareList.findIndex((e) => e.userId === doc.userId);
+  compareFields(doc, evt) {
+    if(evt.target.checked) {
+      const index = this.compareList.findIndex((e) => e.userId === doc.userId);
 
-    if (index === -1) {
-        this.compareList.push(doc);
-    } 
-    this.behaviorService
+      if (index === -1) {
+          this.compareList.push(doc);
+      } 
+      this.behaviorService
+    }
+    else {
+      this.removefromCopare( doc.userId)
+    }
   }
   clearCompareList() {
     this.compareList = [];

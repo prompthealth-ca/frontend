@@ -183,7 +183,7 @@
                 <div class="mb-2 font-weight-normal">{{doc.userData.email}}</div>
               </div>
               <div class="checkboxBtn ml-0 ml-md-3 mb-2">
-                <input type="checkbox" [id]="doc.userId" value="{{doc.userId}}" (change)="compareFields(doc)"/>
+                <input type="checkbox" [id]="doc.userId" value="{{doc.userId}}" (change)="compareFields(doc, $event)"/>
                 <span class="btn btn-outline-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

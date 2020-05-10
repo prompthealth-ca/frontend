@@ -176,6 +176,7 @@
               <div class="text-primary">
                 <a
                   href="/dashboard/detail"
+                  [routerLink]="['/dashboard/detail', doc.userId]"
                   class="d-block h5 text-uppercase mb-0"
                   >{{ doc.userData.firstName }}</a
                 >
@@ -218,7 +219,7 @@
             <div class="desciption text-truncate">
               {{doc.userData.address}}
               <a
-                href="/dashboard/detail"
+                [routerLink]="['/dashboard/detail', doc.userId]"
                 class="text-primary font-weight-normal pull-right"
                 >Go to Profile <i class="fa fa-chevron-right"></i
               ></a>

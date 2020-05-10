@@ -1,11 +1,8 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { environment } from '../../../environments/environment';
-// import { BehaviorService } from '../../shared/services/behavior.service';
-import { Title, Meta } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
-// import { NgxCarousel } from 'ngx-carousel';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var jQuery: any;
 import { ToastrService } from 'ngx-toastr';
@@ -30,12 +27,7 @@ export class ContactUspageComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    private meta: Meta,
     private _router: Router,
-    // public _bs: BehaviorService,
-    private _titleService: Title,
-    private elementRef: ElementRef,
-    private _route: ActivatedRoute,
     private _sharedService: SharedService) {
     if (localStorage.getItem('token')) this.isLogin = true;
 

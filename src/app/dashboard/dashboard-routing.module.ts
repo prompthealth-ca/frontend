@@ -42,7 +42,7 @@ const routes: Routes = [
     component: ListingcompareComponent
   },
   {
-    path: "detail",
+    path: "detail/:id",
     component: DetailComponent
   },
   {

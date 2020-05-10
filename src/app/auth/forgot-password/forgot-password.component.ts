@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { SharedService } from '../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
@@ -19,7 +19,6 @@ export class ForgotPasswordComponent implements OnInit {
         private formBuilder: FormBuilder,
         private toastr: ToastrService,
         private _router: Router,
-        private _route: ActivatedRoute,
         private _sharedService: SharedService) { }
     get ff() { return this.forgotForm.controls; }
 

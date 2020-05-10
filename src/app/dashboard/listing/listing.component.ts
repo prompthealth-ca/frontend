@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastrService } from 'ngx-toastr';
-import * as Rx from "rxjs";
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 @Component({

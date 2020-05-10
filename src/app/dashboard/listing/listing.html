@@ -143,7 +143,7 @@
 
         <div class="p-3 bg-light mb-3 text-right"  *ngIf="compareList.length">
           <div class="d-inline-flex bg-white compareprofilebox" *ngFor="let doc of compareList">
-            <a (click)="removefromCopare(doc.userId)"><i class="fa fa-times"></i></a>
+            <a (click)="removefromCopare(doc.userId)" class="fa fa-times"></a>
             <img
               src="assets/img/man-testimonial.jpg"
               class="compareprofileimg"

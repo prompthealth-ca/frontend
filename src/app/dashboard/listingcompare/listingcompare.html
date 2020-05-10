@@ -15,7 +15,7 @@
           </tr>
           <tr class="bg-primary text-light">
             <th class="table-active">Feature</th>
-            <th *ngFor="let user of data">ANITA GERBER, LCSW</th>
+            <th *ngFor="let user of data">{{user.userData.firstName}}</th>
           </tr>
         </thead>
         <tbody>
@@ -61,11 +61,11 @@
 
           <tr>
             <th class="table-active">Service Types</th>
-            <div *ngFor="let user of data"> 
-            <td *ngFor="let serv of user.ans">
+            <td *ngFor="let user of data"> 
+            <span class="d-inline-block mr-2" *ngFor="let serv of user.ans">
               {{serv.item_text}},
-            </td>
-          </div>
+            </span>
+          </td>
           </tr>
 
           <tr>

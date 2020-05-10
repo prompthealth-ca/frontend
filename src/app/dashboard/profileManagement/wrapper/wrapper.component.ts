@@ -66,6 +66,10 @@ export class WrapperComponent implements OnInit {
     {
       title: 'My Payment',
       link: 'my-payment'
+    },
+    {
+      title: 'My Videos',
+      link: 'videos-blogs'
     }
   ];
   cListing = [
@@ -78,7 +82,7 @@ export class WrapperComponent implements OnInit {
       link: 'my-payment'
     },
     {
-      title: 'Add Professional',
+      title: 'Favourite Providers',
       link: 'add-professionals'
     },
     {

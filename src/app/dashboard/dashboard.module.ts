@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { UserDetailsComponent } from "./user-details/user-details.component";
 import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
@@ -37,7 +36,6 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     DashboardRoutingModule,
     NgxSpinnerModule,
-    // GooglePlaceModule,
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot()]

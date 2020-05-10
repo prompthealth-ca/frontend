@@ -22,16 +22,11 @@ export class DetailComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
    });
-   const payload = {
-    ids: [this.id],
-  }
-   const path = 'user/filter';
-   console.log('payload', payload,path );
-   this.sharedService.post(payload, path).subscribe((res: any) => {
+  let path = `user/get-profile/${this.id }`;
+   this.sharedService.get(path).subscribe((res: any) => {
      if (res.statusCode = 200) {
-       console.log('res', res.data);
-      this.userInfo = res.data;
-       this.toastr.success(res.message);
+      this.userInfo = res.data[0];
+      console.log('res', this.userInfo);
      } else {
        this.toastr.error(res.message);
 

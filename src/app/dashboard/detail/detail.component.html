@@ -2,7 +2,6 @@
   class="bg-cover detailbanner"
   style="background-image: url(assets/img/professional-banner.png);"
 ></section>
-
 <div class="container pb-4">
   <div class="shadow bg-white">
     <div class="p-3">
@@ -15,27 +14,27 @@
             />
             <div class="p-2">
               <div class="text-uppercase font-weight-bold text-primary">
-                Robert Kauffman, Lcsw
+                {{userInfo?.firstName}} {{userInfo?.lastName}}
               </div>
-              <div class="text-primary">SOCIAL WORKER</div>
+              <div class="text-primary">({{userInfo?.gender}})</div>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <ul class="check_ul font-weight-normal">
             <li class="fa-map-marker">
-              3080 West Lake Ave., Glenview, Illinois, 60026
+              {{userInfo?.address}}
             </li>
             <a
-              href="mailto:anita.gerber@ymail.com"
+              href="mailto:{{userInfo?.email}}"
               class="fa-envelope text-primary d-inline-block mr-2"
             >
-              robert.kauff@ymail.com
+            {{userInfo?.email}}
             </a>
             <a
-              href="tel:(847) 440-4707"
+              href="tel:{{userInfo?.phone}}"
               class="fa-phone text-primary d-inline-block"
-              >(847) 440-4707</a
+              >{{userInfo?.phone}}</a
             >
           </ul>
         </div>

@@ -66,7 +66,15 @@ export class WrapperComponent implements OnInit {
     {
       title: 'My Payment',
       link: 'my-payment'
-    }
+    },
+    {
+      title: 'My Videos',
+      link: 'videos-blogs'
+    },
+    {
+      title: 'Review and Rating',
+      link: 'reviews-ratings'
+    },
   ];
   cListing = [
     {
@@ -78,13 +86,17 @@ export class WrapperComponent implements OnInit {
       link: 'my-payment'
     },
     {
-      title: 'Add Professional',
+      title: 'Favourite Providers',
       link: 'add-professionals'
     },
     {
       title: 'My Videos',
       link: 'videos-blogs'
-    }
+    },
+    {
+      title: 'Review and Rating',
+      link: 'reviews-ratings'
+    },
   ];
   uListing = [
     {
@@ -94,11 +106,7 @@ export class WrapperComponent implements OnInit {
     {
       title: 'My Favourite',
       link: 'my-favourites'
-    },
-    {
-      title: 'Review and Rating',
-      link: 'reviews-ratings'
-    },
+    }
   ];
   constructor() { }
 

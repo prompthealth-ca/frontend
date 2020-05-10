@@ -53,6 +53,9 @@ input[type="file"] {
     max-width: 100%;
   }
 }
+input {
+  margin-right: 10px;
+}
 .btn-primary.disabled, .btn-primary:disabled {
   cursor: not-allowed;
 }

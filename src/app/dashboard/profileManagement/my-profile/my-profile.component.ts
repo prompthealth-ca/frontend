@@ -14,9 +14,76 @@ export class MyProfileComponent implements OnInit {
   public searchElementRef: ElementRef;
   editFields = false;
   userInfo;
+  roles = ''
   zoom: number;
   private geoCoder;
+<<<<<<< HEAD
   formData = new FormData();
+=======
+
+  languageList = [
+    { id: 'language1', name: 'English' },
+    { id: 'language2', name: 'French' },
+    { id: 'language3', name: 'Spanish' },
+    { id: 'language4', name: 'Italian' },
+    { id: 'language5', name: 'Mandarin' },
+    { id: 'language6', name: 'Cantonese' },
+    { id: 'language7', name: 'Punjabi' },
+    { id: 'language8', name: 'Farsi' }
+  ];
+  hoursList = [
+    { id: 'hours1', name: 'Early mornings (Before 9 am)' },
+    { id: 'hours2', name: 'Between 9- 5pm' },
+    { id: 'hours3', name: 'Evenings (After 5 pm)' },
+    { id: 'hours4', name: 'Saturday' },
+    { id: 'hours5', name: 'Sunday' },
+  ];
+  ageRangeList  = [
+    { id: 'age1', name: '<12' },
+    { id: 'age2', name: '12-17' },
+    { id: 'age3', name: '18-24' },
+    { id: 'age4', name: '25-35' },
+    { id: 'age5', name: '35-45' },
+    { id: 'age6', name: '45-55' },
+    { id: 'age7', name: '55-65' },
+    { id: 'age8', name: '65-75' },
+    { id: 'age9', name: '>75' },
+  ];
+  experienceList  = [
+    { id: 'exp1', name: '<5 Years'},
+    { id: 'exp2', name: '5-10 Years'},
+    { id: 'exp3', name: '10-20 Years'},
+    { id: 'exp4', name: '>20 Years'},
+  ];
+  priceList = [
+    { id: 'price1', name: '< $50'},
+    { id: 'price2', name: '$50-100'},
+    { id: 'price3', name: '$100-200'},
+    { id: 'price4', name: '$200-500'},
+    { id: 'price5', name: '$500-1000'},
+    { id: 'price6', name: '> $1000'},
+  ];
+  businessList = [
+    { id: 'business1', name: 'Clinic'},
+    { id: 'business2', name: 'Health Center'},
+    { id: 'business3', name: 'Health Club'},
+    { id: 'business4', name: 'Gym'},
+    { id: 'business5', name: 'Studio'},
+    { id: 'business6', name: 'Pharmacy'},
+  ];
+  amenitiesList = [
+    { id: 'amenities1', name: 'Lounge'},
+    { id: 'amenities2', name: 'Beverage/snack Bar'},
+    { id: 'amenities3', name: 'Café'},
+    { id: 'amenities4', name: 'Spa'},
+    { id: 'amenities5', name: 'Locker'},
+    { id: 'amenities6', name: 'Shower'},
+    { id: 'amenities7', name: 'Private training area'},
+    { id: 'amenities8', name: 'Ladies only area'},
+    { id: 'amenities9', name: 'Towel service'},
+  ];
+
+>>>>>>> 4bfeab3d6a73750b10c23e5b4fe934de1614592b
   public profile = {
     firstName: '',
     lastName: '',
@@ -32,8 +99,19 @@ export class MyProfileComponent implements OnInit {
     profileImage: {},
     latitude: 0,
     longitude: 0,
+    languages: '',
+    typical_hours: '',
+    age_range: '',
+    years_of_experience: '',
+    price_per_hours: '',
+    business_kind: '',
+    special_amenities: '',
+    product_description: '',
   };
-
+  languagesSelected = [];
+  hoursSelected = [];
+  amenitiesSelected = [];
+  
   public response: any;
 
   constructor(
@@ -70,6 +148,8 @@ export class MyProfileComponent implements OnInit {
       });
     });
     this.userInfo = JSON.parse(localStorage.getItem('user'));
+
+    this.roles = localStorage.getItem('roles');
     this.getProfileDetails();
   }
   private setCurrentLocation() {
@@ -146,13 +226,41 @@ export class MyProfileComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
-
-
+  checkBoxChanged(e, fieldUpdated) {
+    if(fieldUpdated === 'languages') {
+      this.languagesSelected.push(e.target.value);
+      this.profile.languages = this.languagesSelected.toString();
+    }
+    if(fieldUpdated === 'typical_hours') {
+      this.hoursSelected.push(e.target.value);
+      this.profile.typical_hours = this.hoursSelected.toString();
+    }
+    if(fieldUpdated === 'special_amenities') {
+      this.amenitiesSelected.push(e.target.value);
+      this.profile.special_amenities = this.amenitiesSelected.toString();
+    }
+  }
+  radioChanged(e, fieldUpdated){
+    if(fieldUpdated === 'age_range') {
+      this.profile.age_range = e.target.value;
+    }
+    if(fieldUpdated === 'years_of_experience') {
+      this.profile.years_of_experience = e.target.value;
+    }
+    if(fieldUpdated === 'price_per_hours') {
+      this.profile.price_per_hours = e.target.value;
+    }
+    if(fieldUpdated === 'business_kind') {
+      this.profile.business_kind = e.target.value;
+    }
+  }
+ 
   save() {
     const payload = this.profile;
     payload['_id'] = localStorage.getItem('loginID');
     payload.phone.toString();
-
+    console.log('payload', payload);
+    console.log('his.profile;', this.profile);
     let data = JSON.parse(JSON.stringify(this.profile));
 
       this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {

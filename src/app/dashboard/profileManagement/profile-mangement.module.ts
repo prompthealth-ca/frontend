@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ProfileManagementRoutingModule } from './profile-mangement-routing.module'
 
 import { WrapperComponent } from './wrapper/wrapper.component';
@@ -32,6 +32,6 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
     }),
-    CommonModule, ProfileManagementRoutingModule, FormsModule]
+    CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, ]
 })
 export class ProfileManagementModule {}

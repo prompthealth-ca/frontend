@@ -111,6 +111,8 @@ export class QuestionnaireComponent implements OnInit {
       const path = `questionare/get-answer/${evt.target.id}`;
       this._sharedService.get(path).subscribe((res: any) => {
         if (res.statusCode = 200) {
+
+          console.log('res.data', res.data)
             this.subRes.options =  res.data;
         } else {
           this._sharedService.checkAccessToken(res.message);
@@ -129,6 +131,8 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   getSubSubAns(evt, subans) {
+
+    console.log('sublevel2Res', this.sublevel2Res, evt, subans)
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
@@ -139,7 +143,10 @@ export class QuestionnaireComponent implements OnInit {
       const path  = `questionare/get-sub-answer/${parentId}`;
       this._sharedService.get(path).subscribe((res: any) => {
         if (res.statusCode = 200) {
+
+          console.log('res.data', res.data)
           this.sublevel2Res.options =  res.data;
+          console.log('sublevel2Res', this.sublevel2Res)
         } else {
           this._sharedService.checkAccessToken(res.message);
         }

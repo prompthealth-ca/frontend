@@ -190,7 +190,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>What languages are you fluent in ?<span class="text-danger">*</span></label>
         <div class="row">
         <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
@@ -207,46 +207,48 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
-        <div class="radio col-md-2">
+        <div class="row">
+        <div class="radio col-md-4">
           <input type="radio" value="49" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>
             < $50</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="50" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$50-100</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="100" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$100-200</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="200" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$200-500</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="500" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$500-1000</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="1001" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>> $1000</span>
         </div>
+      </div>
         <!-- <div class="error-block">
           <small *ngIf="price_per_hours.errors?.required && price_per_hours.touched" class="text-danger">
             Price is required.
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>What are your typical hours ?<span class="text-danger">*</span></label>
         <div class="row">
           <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
@@ -263,90 +265,93 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
-        <div class="radio col-md-1 mb-3">
+        <div class="row">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="76" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>
             > 75</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="65" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>65-75</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="55" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>55-65</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="45" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>45-55</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="35" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>35-45</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="25" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>25-35</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="18" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>18-24</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="12" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>12-17</span>
         </div>
-        <div class="radio col-md-1 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="11" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>
             < 12</span>
         </div>
+      </div>
         <!-- <div class="error-block">
           <small *ngIf="age_range.errors?.required && age_range.touched" class="text-danger">
             Age range is required.
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>What kind of business are you ? <span class="text-danger">*</span></label>
-        <div class="radio col-md-2 mb-3">
+        <div class="row">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="clinic" name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>
             Clinic</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="health_center" name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>Health Center</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="health_club" name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>Health Club</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="gym" name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>Gym</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="studio" name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>Studio</span>
         </div>
-        <div class="radio col-md-2 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="pharmacy " name="business_kind" #business_kind="ngModel"
             [(ngModel)]="userDetails.business_kind" required />
           <span>Pharmacy </span>
@@ -357,7 +362,8 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+    </div>
+      <div class="col-md-12 mb-3">
         <label>Do you offer any special amenities ? <span class="text-danger">*</span></label>
         <div class="row">
           <div  class="col-md-4" *ngFor="let item of amenitiesList; let i = index"> 
@@ -374,28 +380,30 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-12 mb-3">
         <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
-        <div class="radio col-md-3 mb-3">
+        <div class="row">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="4" name="years_of_experience" #years_of_experience="ngModel"
             [(ngModel)]="userDetails.years_of_experience" required />
           <span>
             < 5 years</span>
         </div>
-        <div class="radio col-md-3 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="5" name="years_of_experience" #years_of_experience="ngModel"
             [(ngModel)]="userDetails.years_of_experience" required />
           <span>5-10 years</span>
         </div>
-        <div class="radio col-md-3 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="10" name="years_of_experience" #years_of_experience="ngModel"
             [(ngModel)]="userDetails.years_of_experience" required />
           <span>10-20 years</span>
         </div>
-        <div class="radio col-md-3 mb-3">
+        <div class="radio col-md-4 mb-3">
           <input type="radio" value="21" name="years_of_experience" #years_of_experience="ngModel"
             [(ngModel)]="userDetails.years_of_experience" required />
           <span>> 20 years </span>
+        </div>
         </div>
         <!-- <div class="error-block">
           <small *ngIf="years_of_experience.errors?.required && years_of_experience.touched" class="text-danger">
@@ -403,8 +411,8 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
-        <label>Product Description <span class="text-danger">*</span></label>
+      <div class="col-md-12 mb-3">
+        <label>Description <span class="text-danger">*</span></label>
         <div class="radio col-md-12 mb-4">
           <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"
             class="form-control" (keyup)="trim('product_description')" #product_description="ngModel"

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { environment } from '../../../environments/environment';
 @Injectable()
@@ -11,9 +11,18 @@ export class BehaviorService {
 
     rootUrl: string =   environment.config.BASE_URL;
 
+    private compareIDs = new BehaviorSubject([]);
+    currentCompareIDs = this.compareIDs.asObservable();
 
     constructor() {}
 
+    changeCompareIds(compareIds) {
+        this.compareIDs.next(compareIds)
+    }
+
+    getCopmareIds() {
+        return this.compareIDs;
+    }
 
     setCity( value ) {
         let city: object;
@@ -53,5 +62,7 @@ export class BehaviorService {
         this.user.next({});
         return {};     
     }
+
+    set
 
 }

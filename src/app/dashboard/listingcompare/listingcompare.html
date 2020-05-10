@@ -6,6 +6,104 @@
         <thead>
           <tr>
             <th class="border-0"></th>
+            <th *ngFor="let user of data" class="border-0">
+              <div class="avatartable">
+                <i class="fa fa-times"></i>
+                <img src="assets/img/man-testimonial.jpg" class="w-100" />
+              </div>
+            </th>
+          </tr>
+          <tr class="bg-primary text-light">
+            <th class="table-active">Feature</th>
+            <th *ngFor="let user of data">ANITA GERBER, LCSW</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="table-active">Location</th>
+            <td *ngFor="let user of data">{{user.userData.address}}</td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Contact Information</th>
+            <td *ngFor="let user of data">Email: {{user.userData.email}}, Phone: {{user.userData.phone}}</td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Standard fee</th>
+            <td>
+              $155
+            </td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Languages</th>
+            <td *ngFor="let user of data">
+              English
+            </td>
+          </tr>
+
+          <tr class="bg-primary text-light">
+            <th class="table-active">Treatment services</th>
+            <td *ngFor="let user of data"></td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Practice Description</th>
+            <td *ngFor="let user of data">
+              I truly believe that each of us, no matter what we have
+              experienced or where we come from, have the power within us to
+              live the life we want to live. This potential can be unlocked if
+              we have the strategies to walk through the anxiety of overcoming
+              them and facing our fears.
+            </td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Service Types</th>
+            <div *ngFor="let user of data"> 
+            <td *ngFor="let serv of user.ans">
+              {{serv.item_text}},
+            </td>
+          </div>
+          </tr>
+
+          <tr>
+            <th class="table-active">Problem / Issue specialties</th>
+            <td *ngFor="let user of data">
+              Obsessive compulsive disorder, Panic attacks, Agoraphobia
+            </td>
+          </tr>
+
+          <tr>
+            <th class="table-active">Practice / Cultural Specialtiesdeo</th>
+            <td *ngFor="let user of data">
+              I specialize in the treatment of OCD and the spectrum of disorders
+              associated with it, but I work with severe anxiety disorders of
+              many kinds. These disorders include panic, agoraphobia,
+              generalized anxiety, social anxiety, and a multitude of phobic
+              disorders. I utilize cognitive-behavioral therapy and other
+              evidence-based treatments for these conditions. I am particularly
+              fond to work with adolescents who are experiencing behavioral
+              difficulties at school or at home.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="pt-5 pb-5">
+  <div class="container">
+    <h3 class="text-primary mb-3">Compare Therapists</h3>
+    <div class="tableoverflow overflow-auto">
+      <table class="table table-hover comparetable">
+        <thead>
+          <tr>
+            <th class="border-0"></th>
             <th class="border-0">
               <div class="avatartable">
                 <i class="fa fa-times"></i>
@@ -179,4 +277,4 @@
       </table>
     </div>
   </div>
-</section>
+</section> -->

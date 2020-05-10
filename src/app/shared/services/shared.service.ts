@@ -40,6 +40,7 @@ export class SharedService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('loginID');
+    localStorage.removeItem('isPayment');
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
     this.showAlert("Logout Sucessfully", "alert-success");
@@ -77,6 +78,11 @@ export class SharedService {
   logingOut() {
     let headers = this.getAuthorizationHeader();
     return this.http.delete(this.rootUrl + 'user/logout', { headers });
+  }
+
+  editProfile(body) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + '', body, { headers });
   }
 
   // addPromotion(body) {

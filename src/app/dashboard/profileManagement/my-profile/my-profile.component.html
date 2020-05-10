@@ -15,17 +15,24 @@
             <input
             [disabled] = "!editFields"
             type="text"
+            autocomplete="off"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="profile.firstName"
             placeholder="Enter Your First Name"
             class="form-control col-md-9"
-            
             />
         </div>
 
         <div class="row mb-3">
             <label class="col-md-3">Last Name <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
-            type="text"
             [disabled] = "!editFields"
+            type="text"
+            autocomplete="off"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="profile.lastName"
             placeholder="Enter Your Last Name"
             class="form-control col-md-9"
             />
@@ -38,6 +45,10 @@
             <input
             type="email"
             [disabled] = "!editFields"
+            autocomplete="off"
+            id="email"
+            name="email"
+            [(ngModel)]="profile.email"
             placeholder="Enter Your Email Address"
             class="form-control col-md-9"
             />
@@ -48,12 +59,16 @@
             <input
             [disabled] = "!editFields"
             type="number"
+            autocomplete="off"
+            id="mobile"
+            name="mobile"
+            [(ngModel)]="profile.mobile"
             placeholder="Enter Your Phone Number"
             class="form-control col-md-9"
             />
         </div>
 
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
             <label class="col-md-3">Designation <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             type="text"
@@ -61,13 +76,17 @@
             placeholder="Enter Your Designation"
             class="form-control col-md-9"
             />
-        </div>
+        </div> -->
 
         <div class="row mb-3">
             <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             type="text"
             [disabled] = "!editFields"
+            autocomplete="off"
+            id="location"
+            name="location"
+            [(ngModel)]="profile.location"
             placeholder="Enter Your Address"
             class="form-control col-md-9"
             />
@@ -75,6 +94,6 @@
     </div>
 
     <div class="col-md-12 text-right"  *ngIf="editFields">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" (click)="save()"class="btn btn-primary">Submit</button>
     </div>
 </div>

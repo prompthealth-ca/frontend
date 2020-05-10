@@ -39,7 +39,7 @@
           </ul>
         </div>
         <div class="col-md-4 text-right">
-          <a
+          <!-- <a
             href=""
             data-toggle="modal"
             data-target="#messagemodal"
@@ -47,12 +47,17 @@
           >
             <i class="fa fa-comment"></i>
             Message
-          </a>
+          </a> -->
 
           <div class="font-weight-bold mb-2">
             Standard Hourly Fees: <span class="text-primary">{{userInfo?.price_per_hours}}</span>
           </div>
-          <a href="" class="btn btn-outline-primary">Book Now</a>
+            <div *ngIf="userInfo?.booking === 'no'">
+              <a class="btn btn-outline-primary">Raise Booking Request</a>  
+            </div> 
+            <div *ngIf="userInfo?.booking === 'yes'">
+              <a href="{{userInfo?.bookingURL}}" target="_blank" class="btn btn-outline-primary">Book Now</a> 
+            </div> 
         </div>
       </div>
     </div>

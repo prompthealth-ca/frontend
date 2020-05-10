@@ -15,13 +15,21 @@ export class MyProfileComponent implements OnInit {
   public profile = {
     firstName: '',
     lastName: '',
+    gender: '',
     email: '',
-    designation: '',
-    mobile: null,
-    lat: null,
-    lng: null,
-    location: '',
+    phone: '',
+    address: '',
+    state: '',
+    city: '',
+    zipcode: '',
+    booking: '',
+    bookingURL: '',
+    profileImage: {},
+    latitude: 0,
+    longitude: 0,
   };
+
+  public response: any;
 
   constructor(
     private toastr: ToastrService,
@@ -52,13 +60,19 @@ export class MyProfileComponent implements OnInit {
 
 
   save() {
+    const payload = this.profile;
+    payload['_id'] = localStorage.getItem('loginID');
+    payload.phone.toString();
+
     let data = JSON.parse(JSON.stringify(this.profile));
 
-      this._sharedService.editProfile(data).subscribe((res: any) => {
-        if (res.success) {
-          this.toastr.success(res.data.message);
+      this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.response = res;
+          this.toastr.success(res.message);
         } else {
-          this.toastr.error(res.error.message, 'Error');
+          this.toastr.error(res.message);
+  
         }
       }, err => {
         this.toastr.error('There are some errors, please try again after some time !', 'Error');

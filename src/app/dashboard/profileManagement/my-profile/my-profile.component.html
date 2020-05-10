@@ -5,7 +5,8 @@
     <div class="col-md-12 text-center">
         <div class="d-inline-block profileeditbox">
             <img src="assets/img/man-testimonial.jpg" />
-            <input type="file" *ngIf="editFields"/>
+            <!-- <input type="file" *ngIf="editFields"/> -->
+            <input type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"/>
         </div>
     </div>
 

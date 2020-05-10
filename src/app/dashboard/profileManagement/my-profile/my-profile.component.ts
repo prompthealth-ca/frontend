@@ -16,7 +16,7 @@ export class MyProfileComponent implements OnInit {
   userInfo;
   zoom: number;
   private geoCoder;
-
+  formData = new FormData();
   public profile = {
     firstName: '',
     lastName: '',
@@ -168,6 +168,27 @@ export class MyProfileComponent implements OnInit {
         this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });
 
+  }
+
+  onFileSelect(event) {    
+    const formData: FormData = new FormData();
+    formData.append('profileImage', event.target.files[0])
+
+        let input = new FormData();
+      // Add your values in here
+      input.append('_id', this.userInfo._id);
+      input.append('profileImage', event.target.files[0]);
+      // etc, etc
+
+    this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.response = res;
+      } else {
+        this.toastr.error(res.message);
+      }
+    }, err => {
+      this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    });
   }
 
 

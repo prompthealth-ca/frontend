@@ -58,6 +58,11 @@ export class SharedService {
     return this.http.post(this.rootUrl + path, body, { headers });
   }
 
+  imgUpload(body, path) {
+    // let headers = this.getAuthorizationHeader();
+    return this.http.post(this.rootUrl + path, body);
+  }
+
   put(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.put(this.rootUrl + path, body, { headers });

@@ -13,6 +13,8 @@ export class ListingComponent implements OnInit {
 
   id: number;
   private sub: any;
+  doctorsListing = [];
+  compareList = [];
   constructor(
     private route: ActivatedRoute,
     private _sharedService:SharedService,
@@ -37,6 +39,7 @@ export class ListingComponent implements OnInit {
       if (res.statusCode = 200) {
         
        console.log('res', res);
+       this.doctorsListing = res.data;
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
@@ -46,5 +49,20 @@ export class ListingComponent implements OnInit {
       this._sharedService.loader('hide');
     });
 
+  }
+  compareFields(doc) {
+    const index = this.compareList.findIndex((e) => e.userId === doc.userId);
+
+    if (index === -1) {
+        this.compareList.push(doc);
+    } 
+  }
+  clearCompareList() {
+    this.compareList = [];
+  }
+  removefromCopare(userId) {
+    this.compareList.forEach((ele, index) => {
+      if(ele.userId === userId) this.compareList.splice(index, 1);
+    });
   }
 }

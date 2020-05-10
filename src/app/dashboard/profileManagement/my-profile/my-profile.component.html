@@ -89,6 +89,7 @@
             name="address"
             [(ngModel)]="profile.address"
             placeholder="Enter Your Address"
+            (onFocus)="profile.address = ''"
             class="form-control col-md-9"
             />
         </div>

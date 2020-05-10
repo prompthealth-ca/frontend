@@ -89,7 +89,6 @@ export class UserDetailsComponent {
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
-          console.log('results[0]',  results[0])
           this.userDetails.address = results[0].formatted_address;
           // find country name
           for (var i=0; i<results[0].address_components.length; i++) {

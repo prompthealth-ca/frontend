@@ -43,16 +43,12 @@ export class MyProfileComponent implements OnInit {
     private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
-    console.log('First cones here 3')
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
  
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
-
-        console.log(' this.profile before',  this.profile.latitude, this.profile.longitude)
-        console.log('First cones here 4')
         if(this.editFields) {
           this.profile.latitude = 0;
           this.profile.longitude = 0;
@@ -69,8 +65,6 @@ export class MyProfileComponent implements OnInit {
           //set latitude, longitude and zoom
           this.profile.latitude = place.geometry.location.lat();
           this.profile.longitude = place.geometry.location.lng();
-          
-          console.log(' this.profile',  this.profile.latitude, this.profile.longitude)
           this.getAddress(this.profile.latitude, this.profile.longitude);
         });
       });
@@ -79,7 +73,6 @@ export class MyProfileComponent implements OnInit {
     this.getProfileDetails();
   }
   private setCurrentLocation() {
-    console.log('First cones here 2')
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.profile.latitude = position.coords.latitude;
@@ -88,7 +81,6 @@ export class MyProfileComponent implements OnInit {
     }
   }
   getAddress(latitude, longitude) {
-    console.log('First cones here', this.profile.address)
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       this.profile.city = '';
       this.profile.state = '';
@@ -98,9 +90,7 @@ export class MyProfileComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
-          console.log('results[0]',  results[0])
           this.profile.address = results[0].formatted_address;
-          console.log('results[0] ::::::::::',  results[0])
           // find country name
           for (var i=0; i<results[0].address_components.length; i++) {
             for (var b=0;b<results[0].address_components[i].types.length;b++) {
@@ -147,7 +137,6 @@ export class MyProfileComponent implements OnInit {
     let path = `user/get-profile/${this.userInfo._id }`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        console.log('res', res.data);
         this.profile = res.data[0];
       } else {
         this._sharedService.checkAccessToken(res.message);

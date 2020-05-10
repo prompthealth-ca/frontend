@@ -59,6 +59,8 @@ export class HeaderComponent implements OnInit {
       }
       this.currentUrl = evt.url;
       this.token = localStorage.getItem("token");
+      this.role = localStorage.getItem("roles");
+      this.payment = localStorage.getItem('isPayment');
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       if (this.token && this.user) {
         let roles = this.user.roles;
@@ -75,12 +77,19 @@ export class HeaderComponent implements OnInit {
     this.payment = localStorage.getItem('isPayment');
     this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
-    if(this.token) {
-      if(this.role === 'U') {
-        this.showDashboard = true;
-      }
-      if(this.payment === 'true') {
+
+    // if(this.token) {
+    //   if(this.role === 'U') {
+    //     this.showDashboard = true;
+    //   }
+    //   if(this.payment === 'true') {
         
+    //     this.showDashboard = true;
+    //   }
+    // }
+
+    if(this.token) {
+      if(this.payment === 'true') {
         this.showDashboard = true;
       }
     }

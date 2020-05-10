@@ -30,6 +30,10 @@ const routes: Routes = [
     component: QuestionnaireComponent
   },
   {
+    path: "listing/:id",
+    component: ListingComponent
+  },
+  {
     path: "listing",
     component: ListingComponent
   },

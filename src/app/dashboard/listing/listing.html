@@ -135,45 +135,34 @@
           <h3 class="mb-3">Your Experts</h3>
           <div class="text-primary h6 mb-3">
             Number of professionals that meet all your criteria
-            <span class="badge badge-secondary">3</span>
+            <span class="badge badge-secondary">{{ doctorsListing.length }}</span>
           </div>
         </div>
 
         <hr class="mt-0" />
 
-        <div class="p-3 bg-light mb-3 text-right">
-          <div class="d-inline-flex bg-white compareprofilebox">
-            <i class="fa fa-times"></i>
+        <div class="p-3 bg-light mb-3 text-right"  *ngIf="compareList.length">
+          <div class="d-inline-flex bg-white compareprofilebox" *ngFor="let doc of compareList">
+            <a (click)="removefromCopare(doc.userId)"><i class="fa fa-times"></i></a>
             <img
               src="assets/img/man-testimonial.jpg"
               class="compareprofileimg"
             />
             <div class="p-2">
-              <div class="font-weight-bold mb-2">ROBERT KAUFFMAN, LCSW</div>
-              <div class="mb-2 font-weight-normal">Social Worker</div>
-            </div>
-          </div>
-          <div class="d-inline-flex bg-white compareprofilebox">
-            <i class="fa fa-times"></i>
-            <img
-              src="assets/img/man-testimonial.jpg"
-              class="compareprofileimg"
-            />
-            <div class="p-2">
-              <div class="font-weight-bold mb-2">ROBERT KAUFFMAN, LCSW</div>
-              <div class="mb-2 font-weight-normal">Social Worker</div>
+              <div class="font-weight-bold mb-2">{{ doc.userData.firstName }}</div>
+              <div class="mb-2 font-weight-normal">{{ doc.userData.email }}</div>
             </div>
           </div>
 
           <div class="d-inline-block text-center">
             <div class="mb-2">
-              <a href="" class="text-primary">Clear All</a>
+              <a class="text-primary" (click)="clearCompareList()">Clear All</a>
             </div>
-            <a href="/dashboard/listingCompare" class="btn btn-outline-primary">Compare</a>
+            <a [routerLink]="['/dashboard/listingCompare']" class="btn btn-outline-primary">Compare</a>
           </div>
         </div>
 
-        <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4">
+        <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" *ngFor="let doc of doctorsListing">
           <div class="col-12 col-lg-3 p-0">
             <div
               class="bg-cover w-100 h-100 profileimg"
@@ -188,12 +177,12 @@
                 <a
                   href="/dashboard/detail"
                   class="d-block h5 text-uppercase mb-0"
-                  >ROBERT KAUFFMAN, LCSW</a
+                  >{{ doc.userData.firstName }}</a
                 >
-                <div class="mb-2 font-weight-normal">Social Worker</div>
+                <div class="mb-2 font-weight-normal">{{doc.userData.email}}</div>
               </div>
               <div class="checkboxBtn ml-0 ml-md-3 mb-2">
-                <input type="checkbox" />
+                <input type="checkbox" [id]="doc.userId" value="{{doc.userId}}" (change)="compareFields(doc)"/>
                 <span class="btn btn-outline-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -220,154 +209,14 @@
               </a>
               <a
                 class="fa-envelope text-secondary d-inline-block mr-2"
-                href="mailto:rkauffman43@yahoo.com"
+                href="mailto:{{doc.userData.address}}"
               >
-                rkauffman43@yahoo.com
+                {{doc.userData.email}}
               </a>
             </ul>
-            <div class="mb-2">Practice Philosophy</div>
+            <div class="mb-2" *ngIf="doc.userData.address">Address</div>
             <div class="desciption text-truncate">
-              I truly believe that each of us, no matter what we have
-              experienced or where we rdfgdgdf ddcome from, have the power
-              within us to live the life we want to live. This potential can be
-              unlocked if werategies to walk through the anxiety of overcoming
-              them and facing our f...
-              <a
-                href="/dashboard/detail"
-                class="text-primary font-weight-normal pull-right"
-                >Go to Profile <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4">
-          <div class="col-12 col-lg-3 p-0">
-            <div
-              class="bg-cover w-100 h-100 profileimg"
-              style="background-image: url(assets/img/man-testimonial.jpg);"
-            ></div>
-          </div>
-          <div class="col-12 col-lg-9 p-3">
-            <div
-              class="d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap"
-            >
-              <div class="text-primary">
-                <a
-                  href="/dashboard/detail"
-                  class="d-block h5 text-uppercase mb-0"
-                  >ROBERT KAUFFMAN, LCSW</a
-                >
-                <div class="mb-2 font-weight-normal">Social Worker</div>
-              </div>
-              <div class="checkboxBtn ml-0 ml-md-3 mb-2">
-                <input type="checkbox" />
-                <span class="btn btn-outline-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    class="fa fa-square-full"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M0 0v512h512V0H0zm464 464H48V48h416v416z"
-                    ></path>
-                  </svg>
-                  <i class="fa fa-check-square"></i>
-                  Compare
-                </span>
-              </div>
-            </div>
-
-            <ul class="check_ul font-weight-normal">
-              <a
-                class="fa-phone-square text-secondary d-inline-block mr-2"
-                href="tel:(847) 845-0422"
-              >
-                (847) 845-0422
-              </a>
-              <a
-                class="fa-envelope text-secondary d-inline-block mr-2"
-                href="mailto:rkauffman43@yahoo.com"
-              >
-                rkauffman43@yahoo.com
-              </a>
-            </ul>
-            <div class="mb-2">Practice Philosophy</div>
-            <div class="desciption text-truncate">
-              I truly believe that each of us, no matter what we have
-              experienced or where we rdfgdgdf ddcome from, have the power
-              within us to live the life we want to live. This potential can be
-              unlocked if werategies to walk through the anxiety of overcoming
-              them and facing our f...
-              <a
-                href="/dashboard/detail"
-                class="text-primary font-weight-normal pull-right"
-                >Go to Profile <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4">
-          <div class="col-12 col-lg-3 p-0">
-            <div
-              class="bg-cover w-100 h-100 profileimg"
-              style="background-image: url(assets/img/man-testimonial.jpg);"
-            ></div>
-          </div>
-          <div class="col-12 col-lg-9 p-3">
-            <div
-              class="d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap"
-            >
-              <div class="text-primary">
-                <a
-                  href="/dashboard/detail"
-                  class="d-block h5 text-uppercase mb-0"
-                  >ROBERT KAUFFMAN, LCSW</a
-                >
-                <div class="mb-2 font-weight-normal">Social Worker</div>
-              </div>
-              <div class="checkboxBtn ml-0 ml-md-3 mb-2">
-                <input type="checkbox" />
-                <span class="btn btn-outline-primary">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    class="fa fa-square-full"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M0 0v512h512V0H0zm464 464H48V48h416v416z"
-                    ></path>
-                  </svg>
-                  <i class="fa fa-check-square"></i>
-                  Compare
-                </span>
-              </div>
-            </div>
-
-            <ul class="check_ul font-weight-normal">
-              <a
-                class="fa-phone-square text-secondary d-inline-block mr-2"
-                href="tel:(847) 845-0422"
-              >
-                (847) 845-0422
-              </a>
-              <a
-                class="fa-envelope text-secondary d-inline-block mr-2"
-                href="mailto:rkauffman43@yahoo.com"
-              >
-                rkauffman43@yahoo.com
-              </a>
-            </ul>
-            <div class="mb-2">Practice Philosophy</div>
-            <div class="desciption text-truncate">
-              I truly believe that each of us, no matter what we have
-              experienced or where we rdfgdgdf ddcome from, have the power
-              within us to live the life we want to live. This potential can be
-              unlocked if werategies to walk through the anxiety of overcoming
-              them and facing our f...
+              {{doc.userData.address}}
               <a
                 href="/dashboard/detail"
                 class="text-primary font-weight-normal pull-right"

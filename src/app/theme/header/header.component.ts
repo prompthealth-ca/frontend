@@ -75,8 +75,6 @@ export class HeaderComponent implements OnInit {
     this.payment = localStorage.getItem('isPayment');
     this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
-
-
     if(this.token) {
       if(this.role === 'U') {
         this.showDashboard = true;
@@ -101,10 +99,11 @@ export class HeaderComponent implements OnInit {
   }
 
   getCategoryServices() {
-    this._sharedService.get('/questionare/get-service').subscribe((res: any) => {
+    this._sharedService.get('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
+        console.log('this.categoryList ', this.categoryList )
       } else {
       }
     }, (error) => {

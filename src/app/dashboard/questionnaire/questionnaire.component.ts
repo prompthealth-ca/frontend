@@ -45,9 +45,11 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getSelectedSkill() {
-    let path = this.type === `questionare/get-questions?type=${this.type}`;
+    let path = `questionare/get-questions?type=${this.type}`;
+    console.log('this.path', path);
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
+        console.log('getSelectedSkill', res.data)
         this.questionnaire = res.data;
         
       } else {
@@ -63,7 +65,7 @@ export class QuestionnaireComponent implements OnInit {
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        console.log('res', res.data[0])
+        console.log('getSelectedSkill', res.data)
         this.questionnaire = res.data;
         
       } else {
@@ -77,7 +79,6 @@ export class QuestionnaireComponent implements OnInit {
 
   saveQuestionnaire() {
     this._sharedService.loader('show');
-    console.log('this.selectedItems', this.selectedItems);
     const payload = {
       _id: localStorage.getItem('loginID'),
       services: this.selectedItems,

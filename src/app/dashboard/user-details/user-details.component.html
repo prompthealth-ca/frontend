@@ -192,28 +192,20 @@
 
       <div class="col-md-6 mb-3">
         <label>What languages are you fluent in ?<span class="text-danger">*</span></label>
-        <br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="english">English<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="french">French<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="spanish">Spanish<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="italian">Italian<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="mandarin">Mandarin<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="cantonese">Cantonese<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="punjabi">Punjabi<br>
-        <input type="checkbox" name="languages" #languages="ngModel" [(ngModel)]="userDetails.languages"
-          value="farsi">Farsi
+        <div class="row">
+        <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
+          <label for="{{item.id}}">
+              <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'languages')"/>
+              <span class="text-body">{{item.name}}</span>
+          </label>
+      </div>
+        </div>
+        <!-- 
         <div class="error-block">
           <small *ngIf="languages.errors?.required && languages.touched" class="text-danger">
             Language is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
@@ -248,30 +240,28 @@
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>> $1000</span>
         </div>
-        <div class="error-block">
+        <!-- <div class="error-block">
           <small *ngIf="price_per_hours.errors?.required && price_per_hours.touched" class="text-danger">
             Price is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>What are your typical hours ?<span class="text-danger">*</span></label>
-        <br>
-        <input type="checkbox" name="typical_hours" #typical_hours="ngModel" [(ngModel)]="userDetails.typical_hours"
-          value="08:00">Early mornings (Before 9 am)<br>
-        <input type="checkbox" name="typical_hours" #typical_hours="ngModel" [(ngModel)]="userDetails.typical_hours"
-          value="09:00 - 17:00">Between 9-5 pm<br>
-        <input type="checkbox" name="typical_hours" #typical_hours="ngModel" [(ngModel)]="userDetails.typical_hours"
-          value="18:00">Evenings (After 5 pm)<br>
-        <input type="checkbox" name="typical_hours" #typical_hours="ngModel" [(ngModel)]="userDetails.typical_hours"
-          value="saturday">Saturday<br>
-        <input type="checkbox" name="typical_hours" #typical_hours="ngModel" [(ngModel)]="userDetails.typical_hours"
-          value="sunday">Sunday
+        <div class="row">
+          <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
+              <label for="{{item.id}}">
+                  <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'typical_hours')"/>
+                  <span class="text-body">{{item.name}}</span>
+              </label>
+          </div>
+      </div>
+        <!-- 
         <div class="error-block">
           <small *ngIf="typical_hours.errors?.required && typical_hours.touched" class="text-danger">
             Hours range is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
@@ -322,11 +312,11 @@
           <span>
             < 12</span>
         </div>
-        <div class="error-block">
+        <!-- <div class="error-block">
           <small *ngIf="age_range.errors?.required && age_range.touched" class="text-danger">
             Age range is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>What kind of business are you ? <span class="text-danger">*</span></label>
@@ -361,38 +351,28 @@
             [(ngModel)]="userDetails.business_kind" required />
           <span>Pharmacy </span>
         </div>
-        <div class="error-block">
+        <!-- <div class="error-block">
           <small *ngIf="business_kind.errors?.required && business_kind.touched" class="text-danger">
             Business is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>Do you offer any special amenities ? <span class="text-danger">*</span></label>
-        <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="lounge ">Lounge <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="beverage ">Beverage/ Snack Bar <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="cafe ">Cafe <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="spa ">Spa <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="locker ">Locker <br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="shower">Shower<br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="private_training_area">Private training area<br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="ladies_area">Ladies only area<br>
-        <input type="checkbox" name="special_amenities" #special_amenities="ngModel"
-          [(ngModel)]="userDetails.special_amenities" value="towel">Towel Service
+        <div class="row">
+          <div  class="col-md-4" *ngFor="let item of amenitiesList; let i = index"> 
+              <label for="{{item.id}}">
+                  <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'special_amenities')"/>
+                  <span class="text-body">{{item.name}}</span>
+              </label>
+          </div>
+      </div>
+        <!--
         <div class="error-block">
           <small *ngIf="special_amenities.errors?.required && special_amenities.touched" class="text-danger">
             Amenities is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
@@ -417,11 +397,11 @@
             [(ngModel)]="userDetails.years_of_experience" required />
           <span>> 20 years </span>
         </div>
-        <div class="error-block">
+        <!-- <div class="error-block">
           <small *ngIf="years_of_experience.errors?.required && years_of_experience.touched" class="text-danger">
             Experience is required.
           </small>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-6 mb-3">
         <label>Product Description <span class="text-danger">*</span></label>
@@ -432,14 +412,14 @@
             required>
             Product Description...</textarea>
         </div>
-          <div class="error-block">
+          <!-- <div class="error-block">
             <small *ngIf="product_description.errors?.required && product_description.touched" class="text-danger">
               Description is required.
             </small>
             <small *ngIf="product_description.errors?.minlength && product_description.touched" class="text-danger">
               Minumum length should be 3.
             </small>
-          </div>
+          </div> -->
       </div>
       <div class="col-md-12 mb-2 text-right">
         <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">

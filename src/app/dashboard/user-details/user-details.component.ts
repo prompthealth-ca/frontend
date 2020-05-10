@@ -22,6 +22,38 @@ export class UserDetailsComponent {
   zoom: number;
   private geoCoder;
   defaultImage = '../../../assets/img/no-image.jpg';
+
+  languageList = [
+    { id: 'language1', name: 'English' },
+    { id: 'language2', name: 'French' },
+    { id: 'language3', name: 'Spanish' },
+    { id: 'language4', name: 'Italian' },
+    { id: 'language5', name: 'Mandarin' },
+    { id: 'language6', name: 'Cantonese' },
+    { id: 'language7', name: 'Punjabi' },
+    { id: 'language8', name: 'Farsi' }
+  ];
+
+  hoursList = [
+    { id: 'hours1', name: 'Early mornings (Before 9 am)' },
+    { id: 'hours2', name: 'Between 9- 5pm' },
+    { id: 'hours3', name: 'Evenings (After 5 pm)' },
+    { id: 'hours4', name: 'Saturday' },
+    { id: 'hours5', name: 'Sunday' },
+  ];
+
+  amenitiesList = [
+    { id: 'amenities1', name: 'Lounge'},
+    { id: 'amenities2', name: 'Beverage/snack Bar'},
+    { id: 'amenities3', name: 'Café'},
+    { id: 'amenities4', name: 'Spa'},
+    { id: 'amenities5', name: 'Locker'},
+    { id: 'amenities6', name: 'Shower'},
+    { id: 'amenities7', name: 'Private training area'},
+    { id: 'amenities8', name: 'Ladies only area'},
+    { id: 'amenities9', name: 'Towel service'},
+  ];
+
   public userDetails = {
     firstName: '',
     lastName: '',
@@ -46,6 +78,11 @@ export class UserDetailsComponent {
     latitude: 0,
     longitude: 0,
   };
+
+  languagesSelected = [];
+  hoursSelected = [];
+  amenitiesSelected = [];
+
   public _host = environment.config.BASE_URL;
   public response: any;
   private imageSrc: string = '';
@@ -162,6 +199,21 @@ export class UserDetailsComponent {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
       this.userDetails.profileImage = file;
+    }
+  }
+
+  checkBoxChanged(e, fieldUpdated) {
+    if(fieldUpdated === 'languages') {
+      this.languagesSelected.push(e.target.value);
+      this.userDetails.languages = this.languagesSelected.toString();
+    }
+    if(fieldUpdated === 'typical_hours') {
+      this.hoursSelected.push(e.target.value);
+      this.userDetails.typical_hours = this.hoursSelected.toString();
+    }
+    if(fieldUpdated === 'special_amenities') {
+      this.amenitiesSelected.push(e.target.value);
+      this.userDetails.special_amenities = this.amenitiesSelected.toString();
     }
   }
 

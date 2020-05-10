@@ -3,8 +3,8 @@ import { SharedService } from '../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { MapsAPILoader } from '@agm/core';
- 
-import {} from 'googlemaps';
+
+import { } from 'googlemaps';
 
 @Component({
   selector: 'app-user-details',
@@ -13,7 +13,7 @@ import {} from 'googlemaps';
 })
 export class UserDetailsComponent {
   // @ViewChild('myInput', { static: false })
- 
+
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
@@ -32,6 +32,14 @@ export class UserDetailsComponent {
     state: '',
     city: '',
     zipcode: '',
+    age_range: '',
+    languages: '',
+    typical_hours: '',
+    price_per_hours: '',
+    product_description: '',
+    years_of_experience: '',
+    special_amenities: '',
+    business_kind: '',
     booking: '',
     bookingURL: '',
     profileImage: {},
@@ -48,26 +56,26 @@ export class UserDetailsComponent {
   constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone ) {
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) {
   }
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
- 
+
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
+
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
- 
+
           //set latitude, longitude and zoom
           this.userDetails.latitude = place.geometry.location.lat();
           this.userDetails.longitude = place.geometry.location.lng();
@@ -78,7 +86,7 @@ export class UserDetailsComponent {
       });
     });
     const userInfo = JSON.parse(localStorage.getItem('user'));
-     this.userDetails.email = userInfo ? userInfo.email : '';
+    this.userDetails.email = userInfo ? userInfo.email : '';
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
@@ -91,39 +99,39 @@ export class UserDetailsComponent {
           this.zoom = 12;
           this.userDetails.address = results[0].formatted_address;
           // find country name
-          for (var i=0; i<results[0].address_components.length; i++) {
-            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+          for (var i = 0; i < results[0].address_components.length; i++) {
+            for (var b = 0; b < results[0].address_components[i].types.length; b++) {
 
-            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-            if (results[0].address_components[i].types[b] == "locality") {
-              //this is the object you are looking for
-              this.userDetails.city= results[0].address_components[i].long_name;
-              break;
-            }
-            if(this.userDetails.city.length === 0) {
+              //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+              if (results[0].address_components[i].types[b] == "locality") {
+                //this is the object you are looking for
+                this.userDetails.city = results[0].address_components[i].long_name;
+                break;
+              }
+              if (this.userDetails.city.length === 0) {
+                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                  //this is the object you are looking for
+                  this.userDetails.city = results[0].address_components[i].long_name;
+                  break;
+                }
+                if (results[0].address_components[i].types[b] == "administrative_area_level_2") {
+                  //this is the object you are looking for
+                  this.userDetails.state = results[0].address_components[i].long_name;
+                  break;
+                }
+              }
               if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
                 //this is the object you are looking for
-                this.userDetails.city= results[0].address_components[i].long_name;
+                this.userDetails.state = results[0].address_components[i].long_name;
                 break;
               }
-              if (results[0].address_components[i].types[b] =="administrative_area_level_2") {
+              if (results[0].address_components[i].types[b] == "postal_code") {
                 //this is the object you are looking for
-                this.userDetails.state= results[0].address_components[i].long_name;
+                this.userDetails.zipcode = results[0].address_components[i].long_name;
                 break;
               }
-            }
-            if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
-              //this is the object you are looking for
-              this.userDetails.state= results[0].address_components[i].long_name;
-              break;
-            }
-            if (results[0].address_components[i].types[b] == "postal_code") {
-              //this is the object you are looking for
-              this.userDetails.zipcode= results[0].address_components[i].long_name;
-              break;
             }
           }
-        }
         } else {
           window.alert('No results found');
         }

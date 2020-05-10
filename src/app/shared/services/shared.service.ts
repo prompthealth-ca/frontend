@@ -275,6 +275,8 @@ getDefaultHeader() {
     if (res.data.roles === 'U') {
       this._router.navigate(['home']);
     } else {
+      
+      localStorage.setItem('isPayment', 'true');
       this._router.navigate(['dashboard/professional-info']);
     }
 

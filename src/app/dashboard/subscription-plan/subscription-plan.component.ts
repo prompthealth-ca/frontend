@@ -70,7 +70,6 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
       this.roles = localStorage.getItem("roles");
-    console.log('sandepppppppppp', this.userEmail.email)
     this.checkout.email = this.userEmail.email;
     this.getSubscriptionPlan();
     // this.getUserDetails();
@@ -84,7 +83,6 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
       if (res.success) {
         this.subData = res.data.subscribepackage;
-        console.log(">>>>>>>>sandy>>", this.subData)
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -219,6 +217,7 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       this.signin.nativeElement.click();
     }
   }
+
   payment() {
     localStorage.setItem('isPayment', 'true');
     this._router.navigate(['/dashboard/profilemanagement', this.roles]);

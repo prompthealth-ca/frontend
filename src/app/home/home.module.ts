@@ -15,6 +15,7 @@ import { EnterpriceComponent } from "./enterprice/enterprice.component";
 import { PricingComponent } from './pricing/pricing.component';
 // import { ProfessionalRegisterComponent } from '../dashboard/professional-register/professional-register.component';
 
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -31,6 +32,10 @@ import { PricingComponent } from './pricing/pricing.component';
   ],
   imports: [
     NgxSpinnerModule,
+    AgmCoreModule.forRoot(  {
+      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      libraries: ['places']
+    }),
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule

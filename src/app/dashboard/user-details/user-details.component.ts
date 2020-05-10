@@ -1,10 +1,8 @@
-import { Component, ChangeDetectorRef, ViewChild, Output, EventEmitter, NgZone, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FlashMessagesService } from 'ngx-flash-messages';
+import { Component, ViewChild, Output, EventEmitter, NgZone, ElementRef } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
  
 import {} from 'googlemaps';
 
@@ -47,10 +45,7 @@ export class UserDetailsComponent {
 
   @Output() ActiveNextTab = new EventEmitter<string>();
 
-  constructor(private _router: Router,
-    private _activateRouter: ActivatedRoute,
-    private _flashMessagesService: FlashMessagesService,
-    private changeDetectorRef: ChangeDetectorRef,
+  constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
     private mapsAPILoader: MapsAPILoader, 

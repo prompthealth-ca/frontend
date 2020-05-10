@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { AgmCoreModule } from '@agm/core';
 import { ThemeRoutingModule } from './theme-routing.module';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +31,11 @@ import { RoleGuardService } from '../auth/role-guard.service';
     RoleGuardService,
   ],
   imports: [
+    AgmCoreModule.forRoot(  {
+      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      libraries: ['places']
+    }),
+    GooglePlaceModule,
     CommonModule,
     ThemeRoutingModule,
     ReactiveFormsModule,

@@ -50,7 +50,6 @@ export class SharedService {
   get(path, setParams = {}) {
     const headers = this.getAuthorizationHeader();
     const url = this.rootUrl + path;
-    console.log('url', url)
     return this.http.get(url, { headers });
   }
 
@@ -71,7 +70,6 @@ export class SharedService {
 
   register(body) {
     let headers = this.getDefaultHeader();
-    console.log('this.rootUrl', this.rootUrl)
     return this.http.post(this.rootUrl + 'user/register', body, { headers });
   }
 

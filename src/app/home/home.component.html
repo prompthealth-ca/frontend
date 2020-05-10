@@ -2,6 +2,9 @@
   class="bg-cover text-light"
   style="background-image: url(assets/img/bannerbg1.jpg);"
 >
+  <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
+    <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+  </agm-map>
   <div class="container">
     <div class="row heightH-100 pt-3">
       <div class="col-lg-5 col-md-12 order-2 order-lg-0 align-self-end">
@@ -33,10 +36,13 @@
                 <a class="btn btn-light w-100" (click)="questionnaire()">Personal Match</a>
               </div>
               <div class="col-md-6 mb-3">
-                <input
+                <input 
+                  id="address"
+                  name="address" 
                   type="text"
                   class="form-control w-100 text-center"
                   placeholder="Search by address"
+                  #searchGlobal
                 />
               </div>
             </div>

@@ -34,6 +34,12 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
     }),
-    CommonModule, DashboardRoutingModule, NgxSpinnerModule, GooglePlaceModule, FormsModule, ReactiveFormsModule, NgMultiSelectDropDownModule.forRoot()]
+    CommonModule,
+    DashboardRoutingModule,
+    NgxSpinnerModule,
+    // GooglePlaceModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot()]
 })
 export class DashboardModule {}

@@ -1,16 +1,17 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { environment } from "../../environments/environment";
-import { SharedService } from "../shared/services/shared.service";
+import { Component, OnInit, ElementRef, ViewChild, NgZone } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from "@angular/router";
-
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { SharedService } from "../shared/services/shared.service";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('searchGlobal')
+  public searchGlobalElementRef: ElementRef;
 
   token = "";
   days: any;
@@ -20,8 +21,12 @@ export class HomeComponent implements OnInit {
   private future: Date;
   private futureString: string;
   private message: string;
+  private geoCoder;
   homeForm: FormGroup;
   submitted = false;
+  zipCodeSearched;
+  lat;
+  long;
   // _host = environment.config.BASE_URL;
   id: any;
 
@@ -29,13 +34,36 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _sharedService: SharedService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
   ) {}
 
   get f() {
     return this.homeForm.controls;
   }
   ngOnInit() {
+
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder;
+ 
+      let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+ 
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          this.lat = place.geometry.location.lat()
+          this.long = place.geometry.location.lng()
+          this.getAddress(this.lat, this.long);
+        });
+      });
+    });
+    
     this.token = localStorage.getItem("token");
 
     this.homeForm = this.formBuilder.group({
@@ -48,6 +76,34 @@ export class HomeComponent implements OnInit {
     }, 1000);
   }
 
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      this.zipCodeSearched = '';
+      if (status === 'OK') {
+        if (results[0]) {
+          console.log('results[0]', results, results[0])
+          // find country name
+          for (var i=0; i<results[0].address_components.length; i++) {
+            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+            if (results[0].address_components[i].types[b] === "postal_code") {
+              this.zipCodeSearched = results[0].address_components[i].long_name;
+              break;
+            }
+
+          }
+
+        }
+        } else {
+          window.alert('No results found');
+        }
+
+        console.log('zipCodeSearched[0]',  this.zipCodeSearched)
+        this.router.navigate(['dashboard/listing'], { queryParams: {zipcode: this.zipCodeSearched }})
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
   questionnaire() {
     if (this.token) {
       this.router.navigate(['dashboard/questionnaire/u']);

@@ -10,7 +10,8 @@ import { BehaviorService } from '../../shared/services/behavior.service';
   styleUrls: ["./listing.scss"]
 })
 export class ListingComponent implements OnInit {
-  id: number;
+  id;
+  zipcode;
   private sub: any;
   doctorsListing = [];
   compareList = [];
@@ -20,26 +21,32 @@ export class ListingComponent implements OnInit {
     private router: Router,
     private _sharedService:SharedService,
     private toastr: ToastrService,
-  ) {}
+  ) {
+    this.zipcode = this.route.snapshot.queryParams['zipcode'];
+    this.id = this.route.snapshot.queryParams['id'] ? [this.route.snapshot.queryParams['id']] : [] ;
+  }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params.id;
-   });
    this.listing();
   }
 
   listing() {
     this._sharedService.loader('show');
-    const payload = {
-      ids: [this.id],
-      // ids: [],
+    let payload;
+    if (this.zipcode) {
+      payload = {
+        ids: [],
+        zipcode: this.zipcode
+      }
+    } else {
+
+      payload = {
+        ids: this.id,
+      }
     }
     let path = 'user/filter';
     this._sharedService.post(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        
-       console.log('res', res);
        this.doctorsListing = res.data;
         this.toastr.success(res.message);
       } else {

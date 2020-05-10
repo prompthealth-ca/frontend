@@ -29,10 +29,10 @@ const routes: Routes = [
     path: "questionnaire/:type",
     component: QuestionnaireComponent
   },
-  {
-    path: "listing/:id",
-    component: ListingComponent
-  },
+  // {
+  //   path: "listing/:id",
+  //   component: ListingComponent
+  // },
   {
     path: "listing",
     component: ListingComponent

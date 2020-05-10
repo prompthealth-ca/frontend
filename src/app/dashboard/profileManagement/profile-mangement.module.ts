@@ -13,6 +13,7 @@ import { AddProfessionalComponent } from './add-professional/add-professional.co
 import { MyFavouriteComponent } from './my-favourite/my-favourite.component';
 import { ReviewsRatingsComponent } from './reviews-ratings/reviews-ratings.component';
 import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -27,6 +28,10 @@ import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
     VideosBlogsComponent,
   ],
   imports: [
+    AgmCoreModule.forRoot(  {
+      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      libraries: ['places']
+    }),
     CommonModule, ProfileManagementRoutingModule, FormsModule]
 })
 export class ProfileManagementModule {}

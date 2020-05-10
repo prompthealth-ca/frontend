@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
+import {} from 'googlemaps';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 
 @Component({
   selector: 'app-my-profile',
@@ -8,9 +10,12 @@ import { SharedService } from '../../../shared/services/shared.service';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
-
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
   editFields = false;
   userInfo;
+  zoom: number;
+  private geoCoder;
 
   public profile = {
     firstName: '',
@@ -32,19 +37,114 @@ export class MyProfileComponent implements OnInit {
   public response: any;
 
   constructor(
+    private mapsAPILoader: MapsAPILoader, 
+    private ngZone: NgZone,
     private toastr: ToastrService,
     private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
+    console.log('First cones here 3')
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+ 
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener("place_changed", () => {
+
+        console.log(' this.profile before',  this.profile.latitude, this.profile.longitude)
+        console.log('First cones here 4')
+        if(this.editFields) {
+          this.profile.latitude = 0;
+          this.profile.longitude = 0;
+        }
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+ 
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+ 
+          //set latitude, longitude and zoom
+          this.profile.latitude = place.geometry.location.lat();
+          this.profile.longitude = place.geometry.location.lng();
+          
+          console.log(' this.profile',  this.profile.latitude, this.profile.longitude)
+          this.getAddress(this.profile.latitude, this.profile.longitude);
+        });
+      });
+    });
     this.userInfo = JSON.parse(localStorage.getItem('user'));
     this.getProfileDetails();
   }
+  private setCurrentLocation() {
+    console.log('First cones here 2')
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.profile.latitude = position.coords.latitude;
+        this.profile.longitude = position.coords.longitude;
+      });
+    }
+  }
+  getAddress(latitude, longitude) {
+    console.log('First cones here', this.profile.address)
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      this.profile.city = '';
+      this.profile.state = '';
+      this.profile.zipcode = '';
+      this.profile.address = '';
 
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          console.log('results[0]',  results[0])
+          this.profile.address = results[0].formatted_address;
+          console.log('results[0] ::::::::::',  results[0])
+          // find country name
+          for (var i=0; i<results[0].address_components.length; i++) {
+            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+            if (results[0].address_components[i].types[b] == "locality") {
+              //this is the object you are looking for
+              this.profile.city= results[0].address_components[i].long_name;
+              break;
+            }
+            if(this.profile.city.length === 0) {
+              if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+                //this is the object you are looking for
+                this.profile.city= results[0].address_components[i].long_name;
+                break;
+              }
+              if (results[0].address_components[i].types[b] =="administrative_area_level_2") {
+                //this is the object you are looking for
+                this.profile.state= results[0].address_components[i].long_name;
+                break;
+              }
+            }
+            if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+              //this is the object you are looking for
+              this.profile.state= results[0].address_components[i].long_name;
+              break;
+            }
+            if (results[0].address_components[i].types[b] == "postal_code") {
+              //this is the object you are looking for
+              this.profile.zipcode= results[0].address_components[i].long_name;
+              break;
+            }
+          }
+        }
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
   getProfileDetails() {
     let path = `user/get-profile/${this.userInfo._id }`;
-
-    console.log('path', path);
-
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         console.log('res', res.data);
@@ -70,6 +170,7 @@ export class MyProfileComponent implements OnInit {
         if (res.statusCode === 200) {
           this.response = res;
           this.toastr.success(res.message);
+          this.editFields = false;
         } else {
           this.toastr.error(res.message);
   

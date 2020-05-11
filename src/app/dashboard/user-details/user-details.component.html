@@ -190,7 +190,7 @@
         </div>
       </div>
 
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What languages are you fluent in ?<span class="text-danger">*</span></label>
         <div class="row">
         <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
@@ -207,7 +207,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4">
@@ -248,7 +248,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What are your typical hours ?<span class="text-danger">*</span></label>
         <div class="row">
           <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
@@ -265,7 +265,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
@@ -322,7 +322,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C'">
         <label>What kind of business are you ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
@@ -363,7 +363,7 @@
         </div> -->
       </div>
     </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C'">
         <label>Do you offer any special amenities ? <span class="text-danger">*</span></label>
         <div class="row">
           <div  class="col-md-4" *ngFor="let item of amenitiesList; let i = index"> 
@@ -380,7 +380,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
@@ -411,7 +411,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-12 mb-3">
+      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>Description <span class="text-danger">*</span></label>
         <div class="radio col-md-12 mb-4">
           <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"

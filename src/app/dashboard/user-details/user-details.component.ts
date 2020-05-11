@@ -20,6 +20,7 @@ export class UserDetailsComponent {
   myInputVariable: any;
   activeTab = 'questionnaire';
   zoom: number;
+  roles = ''
   private geoCoder;
   defaultImage = '../../../assets/img/no-image.jpg';
 
@@ -98,6 +99,9 @@ export class UserDetailsComponent {
   }
 
   ngOnInit() {
+    
+
+    this.roles = localStorage.getItem('roles');
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;

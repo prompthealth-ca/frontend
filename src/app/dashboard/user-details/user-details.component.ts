@@ -22,7 +22,8 @@ export class UserDetailsComponent {
   zoom: number;
   roles = ''
   private geoCoder;
-  defaultImage = '../../../assets/img/no-image.jpg';
+  defaultImage = '';
+  imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
 
   languageList = [
     { id: 'language1', name: 'English' },
@@ -79,6 +80,7 @@ export class UserDetailsComponent {
     latitude: 0,
     longitude: 0,
   };
+  userId = ''
 
   languagesSelected = [];
   hoursSelected = [];
@@ -102,6 +104,7 @@ export class UserDetailsComponent {
     
 
     this.roles = localStorage.getItem('roles');
+    this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -190,20 +193,29 @@ export class UserDetailsComponent {
       });
     }
   }
-  handleImageChange(e) {
-    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
-    var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onload = this.handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
-    if (e.target.files.length > 0) {
-      const file = e.target.files[0];
-      this.userDetails.profileImage = file;
-    }
+  handleImageChange(event) {
+    const formData: FormData = new FormData();
+    formData.append('profileImage', event.target.files[0])
+
+    let input = new FormData();
+    input.append('_id', this.userId);
+    input.append('profileImage', event.target.files[0]);
+    // Add your values in here
+    this._sharedService.loader('show');
+    this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.userDetails = res.data;
+
+        console.log('onFileSelect',res, this.userDetails);
+        this._sharedService.loader('hide');
+      } else {
+        this.toastr.error(res.message);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+      this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    });
+    
   }
 
   checkBoxChanged(e, fieldUpdated) {

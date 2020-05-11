@@ -282,7 +282,7 @@ getDefaultHeader() {
     } else {
       
       localStorage.setItem('isPayment', 'true');
-      this._router.navigate(['dashboard/professional-info']);
+      this._router.navigate(['dashboard/profilemanagement/my-profile']);
     }
 
     // let route

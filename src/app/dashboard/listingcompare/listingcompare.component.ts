@@ -10,7 +10,7 @@ import { BehaviorService } from '../../shared/services/behavior.service'
 export class ListingcompareComponent implements OnInit {
  
   compareIds;
-  public data         = [];
+  public data = [];
 
   constructor(
     private behaviorService: BehaviorService,

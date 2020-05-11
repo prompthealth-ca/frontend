@@ -14,6 +14,7 @@ export class MyProfileComponent implements OnInit {
   public searchElementRef: ElementRef;
 
   defaultImage = 'assets/img/man-testimonial.jpg';
+  imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
   
   editFields = false;
   userInfo;
@@ -219,7 +220,7 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
-        console.log('this.profile', this.profile)
+        console.log('getProfileDetails',res.data[0], this.profile, '====', this.profile.profileImage)
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -261,13 +262,11 @@ export class MyProfileComponent implements OnInit {
     const payload = this.profile;
     payload['_id'] = localStorage.getItem('loginID');
     payload.phone.toString();
-    console.log('payload', payload);
-    console.log('his.profile;', this.profile);
     let data = JSON.parse(JSON.stringify(this.profile));
 
       this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
-          this.profile = res;
+          this.profile = res.data;
           this.toastr.success(res.message);
           this.editFields = false;
         } else {
@@ -284,20 +283,22 @@ export class MyProfileComponent implements OnInit {
     const formData: FormData = new FormData();
     formData.append('profileImage', event.target.files[0])
 
-        let input = new FormData();
-      // Add your values in here
-      input.append('_id', this.userInfo._id);
-      input.append('profileImage', event.target.files[0]);
-      // etc, etc
-
+    let input = new FormData();
+    // Add your values in here
+    input.append('_id', this.userInfo._id);
+    input.append('profileImage', event.target.files[0]);
+    this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.profile = res;
-        console.log('this.response', this.profile)
+        this.profile = res.data;
+
+        this._sharedService.loader('hide');
+        console.log('onFileSelect',res.data, this.profile);
       } else {
         this.toastr.error(res.message);
       }
     }, err => {
+      this._sharedService.loader('hide');
       this.toastr.error('There are some errors, please try again after some time !', 'Error');
     });
   }

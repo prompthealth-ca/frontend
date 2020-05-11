@@ -8,14 +8,17 @@
             <th class="border-0"></th>
             <th *ngFor="let user of data" class="border-0">
               <div class="avatartable">
-                <i class="fa fa-times"></i>
                 <img src="assets/img/man-testimonial.jpg" class="w-100" />
               </div>
             </th>
           </tr>
           <tr class="bg-primary text-light">
             <th class="table-active">Feature</th>
-            <th *ngFor="let user of data">{{user.userData.firstName}}</th>
+            <th *ngFor="let user of data">
+              
+              <a 
+                [routerLink]="['/dashboard/detail', user.userData.userId]"
+              >{{user.userData.firstName}}</a></th>
           </tr>
         </thead>
         <tbody>

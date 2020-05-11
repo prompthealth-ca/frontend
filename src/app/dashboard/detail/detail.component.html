@@ -9,7 +9,7 @@
         <div class="col-md-4">
           <div class="d-inline-flex">
             <img
-              src="assets/img/man-testimonial.jpg"
+              [src]="'http://3.12.81.245:3000/public/images/users/'+userInfo?.profileImage"
               class="rounded-circle border detailprofileimg"
             />
             <div class="p-2">
@@ -50,7 +50,7 @@
           </a> -->
 
           <div class="font-weight-bold mb-2">
-            Standard Hourly Fees: <span class="text-primary">{{userInfo?.price_per_hours}}</span>
+            Standard Hourly Fees: <span class="text-primary">$ {{userInfo?.price_per_hours}}</span>
           </div>
             <div *ngIf="userInfo?.booking === 'no'">
               <a class="btn btn-outline-primary">Raise Booking Request</a>  
@@ -85,6 +85,7 @@
           role="tab"
           aria-controls="pills-service"
           aria-selected="false"
+          (click) = "getUserServices()"
           >Service Information</a
         >
       </li>
@@ -195,27 +196,25 @@
         role="tabpanel"
         aria-labelledby="service-tab"
       >
-      <h4>Work in progress...</h4>
-        <!-- <table class="table table-borderless informationtable">
+        <table class="table table-borderless informationtable">
           <tbody>
-            <tr>
-              <th>Problem Specialties:</th>
+            <tr *ngIf="serviceData">
+              <th>Services:</th>
               <td>
-                Anxiety / stress, Couples / family issues, Depression - general
+                <div class="row">
+                <div *ngFor="let special of serviceData?.ans" class="col-sm-4 services">
+                  {{special.item_text}}
+                </div>
+                </div>
               </td>
             </tr>
-            <tr>
-              <th>Problems Treated:</th>
+            <tr *ngIf="roles === 'C'">
+              <th>Amenities</th>
               <td>
-                Anxiety / stress, Bereavement / grief and loss, Coping with
-                health / medical problems, Couples / family issues, Depression -
-                general, Issues of adolescence (>16 years old), Parenting,
-                Health anxiety, Aging and geriatric issues, Assertiveness
-                problems, Career issues, Divorce-related issues, Domestic
-                abuse-violence, Social anxiety, Women's issues
+                {{userInfo?.special_amenities}}
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Treatment Approaches:</th>
               <td>
                 Behavioral , Cognitive Behavioral Therapy (CBT), Cognitive
@@ -226,25 +225,22 @@
             <tr>
               <th>Insurance Accepted:</th>
               <td>BlueCross and BlueShield, Medicare</td>
-            </tr>
+            </tr> -->
             <tr>
               <th>Standard Hourly Price:</th>
               <td>
-                $150
-                <a href="" class="btn btn-outline-secondary"
-                  >Display Calendar</a
-                >
+                ${{userInfo?.price_per_hours}}
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Service Types:</th>
               <td>
                 Individual therapy, Couples therapy, Family therapy,
                 Consultation only (single visit)
               </td>
-            </tr>
+            </tr> -->
           </tbody>
-        </table> -->
+        </table>
       </div>
       <div
         class="tab-pane"
@@ -252,10 +248,10 @@
         role="tabpanel"
         aria-labelledby="professional-tab"
       >
-      <h3>Work in progress...</h3>
-        <!-- <table class="table table-borderless informationtable">
+      <!-- <h3>Work in progress...</h3> -->
+        <table class="table table-borderless informationtable">
           <tbody>
-            <tr>
+            <!-- <tr>
               <th>Education:</th>
               <td>
                 University of Wisconsin School of Social Work (Madison,
@@ -269,33 +265,29 @@
             <tr>
               <th>State of Licensure:</th>
               <td>Illinois</td>
-            </tr>
+            </tr> -->
             <tr>
               <th>License Number:</th>
-              <td>149-001665</td>
+              <td>{{ userInfo?.licence_type_degree }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Years of Experience:</th>
               <td>42 years</td>
+            </tr> -->
+            <tr>
+              <th>Booking URL:</th>
+              <td>{{ userInfo?.bookingURL}}</td>
             </tr>
             <tr>
-              <th>Hospital Affiliation:</th>
-              <td></td>
+              <th>Professional Organzation:</th>
+              <td>{{ userInfo?.professional_organization  }}</td>
             </tr>
-            <tr>
-              <th>Teaching Experience:</th>
-              <td>NO</td>
-            </tr>
-            <tr>
-              <th>Professional</th>
-              <td>National Association of Social Workers</td>
-            </tr>
-            <tr>
+            <!-- <tr>
               <th>Organzation Affiliations:</th>
               <td></td>
-            </tr>
+            </tr> -->
           </tbody>
-        </table> -->
+        </table>
       </div>
       <div
         class="tab-pane"

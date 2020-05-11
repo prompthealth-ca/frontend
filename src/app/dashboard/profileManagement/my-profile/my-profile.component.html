@@ -4,8 +4,8 @@
 <div class="form-row">
     <div class="col-md-12 text-center">
         <div class="d-inline-block profileeditbox">
-            <!-- <img [src]="profile.profileImage ? profile.profileImage : defaultImage" /> -->
-            <img [src]="defaultImage" />
+            <img [src]="profile.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" />
+            <!-- <img [src]="defaultImage" /> -->
             <!-- <input type="file" *ngIf="editFields"/> -->
             <input type="file" name="profile"  (change)="onFileSelect($event)" *ngIf="editFields"/>
         </div>
@@ -199,7 +199,7 @@
         </div>
         <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Description</label>
-             {{ profile.product_description }}
+             <p class="col-md-9" *ngIf="!editFields">{{ profile.product_description }}</p>
             <div *ngIf="editFields" class="col-sm-9">
                 <textarea
                 [disabled] = "!editFields"

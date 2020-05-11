@@ -50,7 +50,6 @@ export class ListingComponent implements OnInit {
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
-
       }
     }, err => {
       this._sharedService.loader('hide');

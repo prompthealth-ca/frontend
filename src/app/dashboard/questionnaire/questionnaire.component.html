@@ -99,7 +99,6 @@
                       <input type="checkbox" name="answers" [id]="options._id" class="mr-3" (change)="getSubAns($event, options.subans)"/>
                       <span>{{ options.item_text }}</span>
                     </div>
-                    
                     <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">
                       <h5 class="text-primary text-uppercase">{{options.item_text }}</h5>
                       <div class="mb-12">

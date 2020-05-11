@@ -89,7 +89,7 @@
               <h5 *ngIf="type === 'SP'" class="text-primary text-uppercase">{{ question.sp_question }}</h5>
               <div class="mb-12">
                 <div class="form-row" *ngIf="question.choice_type === 'single'">
-                  <div class="col-md-3"  *ngFor="let options of question.answers; let i = index" >
+                  <div class="col-md-4"  *ngFor="let options of question.answers; let i = index" >
                     <div class="radio"><input type="radio" name="{{question._id}}" [id]="options._id" class="mr-3" /> <span>{{ options.item_text }}</span></div>
                   </div>
                 </div>

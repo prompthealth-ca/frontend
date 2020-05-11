@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home.component";
 import { FAQComponent } from "./faq/faq.component";
+import { MapComponent } from "./map/map.component";
 // import { ProfessionalRegisterComponent } from '../dashboard/professional-register/professional-register.component';
 import { PricvacyPolicyComponent } from "./pricvacy-policy/pricvacy-policy.component";
 import { TermsConditionsComponent } from "./terms-conditions/terms-conditions.component";
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: "faq",
     component: FAQComponent
+  },
+  {
+    path: "map",
+    component: MapComponent
   },
   {
     path: "policy",

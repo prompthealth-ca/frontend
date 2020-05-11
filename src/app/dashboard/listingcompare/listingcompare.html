@@ -15,9 +15,8 @@
           <tr class="bg-primary text-light">
             <th class="table-active">Feature</th>
             <th *ngFor="let user of data">
-              
               <a 
-                [routerLink]="['/dashboard/detail', user.userData.userId]"
+                [routerLink]="['/dashboard/detail', user.userId]"
               >{{user.userData.firstName}}</a></th>
           </tr>
         </thead>

@@ -21,10 +21,24 @@
 .comparetable {
   th.table-active {
     min-width: 288px;
+    ~ td{
+      border-right:1px solid #cecece;
+    }
   }
   thead {
     th {
       min-width: 300px;
+      &.table-active {
+        min-width: 288px;
+        ~ *{
+          border-right:1px solid #cecece;
+        }
+      }
     }
   }
+}
+
+a {
+  display: block;
+  color: #fff;
 }

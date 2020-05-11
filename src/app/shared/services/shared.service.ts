@@ -282,22 +282,21 @@ getDefaultHeader() {
     } else {
       
       localStorage.setItem('isPayment', 'true');
-      this._router.navigate(['dashboard/profilemanagement/my-profile']);
     }
 
-    // let route
-    // if(type === 'reg') {
-    //   route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/professional-info';
-    // }
-    // else {
-    //   route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
-    // }
+    let route
+    if(type === 'reg') {
+      route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/professional-info';
+    }
+    else {
+      route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+    }
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);
     this.addCookie('loginID', res.data._id);
     this.addCookieObject('user', res.data);
-    // this._router.navigate([route]);
+    this._router.navigate([route]);
   }
 
   removeDuplicates(originalArray, prop) {

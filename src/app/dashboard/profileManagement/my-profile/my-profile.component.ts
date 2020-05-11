@@ -220,7 +220,6 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
-        console.log('getProfileDetails',res.data[0], this.profile, '====', this.profile.profileImage)
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

@@ -61,7 +61,6 @@ export class HeaderComponent implements OnInit {
       this.token = localStorage.getItem("token");
       this.role = localStorage.getItem("roles");
       this.payment = localStorage.getItem('isPayment');
-      console.log('this.payment', this.payment)
       this.user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {};
       if (this.token && this.user) {
         let roles = this.user.roles;

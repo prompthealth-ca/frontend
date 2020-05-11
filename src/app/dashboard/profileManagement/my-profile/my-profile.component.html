@@ -188,7 +188,7 @@
             <p class="col-md-9" *ngIf="!editFields">{{profile.business_kind}}</p>
             <div *ngIf="editFields" class="col-sm-9">
                 <div class="row">
-                    <div  class="col-md-4" *ngFor="let item of priceList; let i = index"> 
+                    <div  class="col-md-4" *ngFor="let item of businessList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="radio" name="business_kind" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'business_kind')"/>
                             <span class="text-body">{{item.name}}</span>

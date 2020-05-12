@@ -1,6 +1,10 @@
 @import "variables";
 @import "mixins";
 
+.pull-right{
+  float: right;
+}
+
 a {
   color: $primaryColor;
   &:hover {
@@ -9,6 +13,15 @@ a {
   &:not([href]) {
     color: initial;
     text-decoration: none;
+  }
+}
+
+.fa, .far, .fab {
+  >span{
+    font-family: $themeFont;
+    margin-left: 8px;
+    font-weight: 400;
+    display: inline-block;
   }
 }
 
@@ -297,6 +310,23 @@ textarea.form-control {
   > .fa-circle:before {
     font-size: 8px;
     margin-top: 5px;
+  }
+}
+
+.check_ul1{
+  padding: 0;
+  margin: 0;
+  > * {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 8px;
+    &::before {
+      left: 0;
+      top:4px;
+      font-size: 9px;
+      position: absolute;
+    }
   }
 }
 

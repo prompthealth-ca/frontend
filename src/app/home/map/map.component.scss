@@ -66,14 +66,6 @@
   }
 }
 
-
-.fa {
-  >span{
-    font-family: $themeFont;
-    margin-left: 8px;
-  }
-}
-
 .map-height{
   min-height: 500px;
 }
@@ -106,4 +98,22 @@
 
 div#filterModal>div {
   max-width: 740px;
+}
+
+.termheading{
+  .fa-plus-circle{
+    display: none;
+  }
+  &.collapsed{
+  .fa-minus-circle{
+    display: none;
+  }
+  .fa-plus-circle{
+    display: inline-block;
+  }
+}
+}
+
+#appointmentModal >div{
+max-width: 600px;
 }

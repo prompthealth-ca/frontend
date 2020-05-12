@@ -79,6 +79,8 @@ export class UserDetailsComponent {
     profileImage: {},
     latitude: 0,
     longitude: 0,
+    licence_type_degree: '',
+    professional_organization: '',
   };
   userId = ''
 

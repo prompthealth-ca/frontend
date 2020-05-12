@@ -145,7 +145,8 @@
           <div class="d-inline-flex bg-white compareprofilebox" *ngFor="let doc of compareList">
             <a (click)="removefromCopare(doc.userId)" class="fa fa-times"></a>
             <img
-              src="assets/img/man-testimonial.jpg"
+              
+              [src]="'http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage"
               class="compareprofileimg"
             />
             <div class="p-2">
@@ -164,10 +165,13 @@
 
         <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" *ngFor="let doc of doctorsListing">
           <div class="col-12 col-lg-3 p-0">
-            <div
-              class="bg-cover w-100 h-100 profileimg"
-              style="background-image: url(assets/img/man-testimonial.jpg);"
-            ></div>
+            <!-- <img
+              [src]="'http://3.12.81.245:3000/public/images/users/'+doc?.userData?.profileImage"
+              class="profileimg" /> -->
+              <div
+                class="bg-cover w-100 h-100 profileimg"
+                [ngStyle]="{'background-image': 'url(http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage +')'}"
+              ></div>
           </div>
           <div class="col-12 col-lg-9 p-3">
             <div

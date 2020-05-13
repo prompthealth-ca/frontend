@@ -101,19 +101,19 @@
           >Professional Background</a
         >
       </li>
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a
           class="nav-link"
           id="Activity-tab"
           data-toggle="pill"
-          href="#pills-Activity"
+          href="#pills-videos"
           role="tab"
           aria-controls="pills-Activity"
           aria-selected="false"
-          >My Activity</a
+          >My Videos</a
         >
       </li>
-      <li class="nav-item">
+     <!-- < <li class="nav-item">
         <a
           class="nav-link"
           id="blog-tab"
@@ -291,104 +291,29 @@
       </div>
       <div
         class="tab-pane"
-        id="pills-Activity"
+        id="pills-videos"
         role="tabpanel"
         aria-labelledby="Activity-tab"
       >
         <h5 class="mb-0">Videos</h5>
         <hr />
-
-        <div class="d-flex mb-4">
-          <video width="100%" height="100%" class="activityvideo" controls>
-            <source src="assets/video/video2.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <!-- <iframe width="266" height="343" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        <div class="d-flex mb-4" *ngFor="let video of userInfo?.videos">
+          <div class="col-sm-4">
           <div class="p-2">
-            <h6 class="text-primary text-uppercase">Robert Kauffman, Lcsw</h6>
-            A video interview with Michael Blumberg, LCPC: Click on the video to
-            watch here, or if you want to jump ahead to listen to answers to
-            specific questions, then <a href="">watch here.</a>
+            <h6 class="text-primary text-uppercase">{{ video.title }}</h6>
+            <!-- {{ video.url | embededUrl}} -->
+            <iframe
+            width="100%" height="100%" [src]="video.url | embededUrl" 
+            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- <video width="100%" height="100%" controls>
+              <source src="assets/video/video2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video> -->
           </div>
         </div>
 
-        <h5 class="mb-0">Forms</h5>
-        <hr />
-
-        <div class="mb-4 formsoverflow">
-          <div class="font-weight-bold mb-2 text-primary">
-            Release of Information
-          </div>
-          <div class="d-flex mb-4">
-            <div class="faviconbox"></div>
-            <div class="p-2">
-              Fill out this form to allow Dr. Steingraber to communicate with
-              someone else on your team, such as family members, previous
-              therapists, teachers, psychiatrists or anyone else you deem
-              appropriate.<br />
-              <a href="" class="btn btn-primary mt-2">Download PDF</a>
-            </div>
-          </div>
-
-          <div class="font-weight-bold mb-2 text-primary">
-            Contract
-          </div>
-          <div class="d-flex mb-4">
-            <div class="faviconbox"></div>
-            <div class="p-2">
-              This form outlines the parameters of therapy.<br />
-              <a href="" class="btn btn-primary mt-2">Download PDF</a>
-            </div>
-          </div>
-
-          <div class="font-weight-bold mb-2 text-primary">
-            Electronic Communications Policy
-          </div>
-          <div class="d-flex mb-4">
-            <div class="faviconbox"></div>
-            <div class="p-2">
-              This paper outlines the limitations, per APA guidelines, on
-              electronic communications between patient and therapist.<br />
-              <a href="" class="btn btn-primary mt-2">Download PDF</a>
-            </div>
-          </div>
-
-          <div class="font-weight-bold mb-2 text-primary">
-            HIPAA
-          </div>
-          <div class="d-flex mb-4">
-            <div class="faviconbox"></div>
-            <div class="p-2">
-              This form outlines the HIPAA Law and guidelines.<br />
-              <a href="" class="btn btn-primary mt-2">Download PDF</a>
-            </div>
-          </div>
         </div>
-
-        <h5 class="mb-0">Groups and Seminars</h5>
-        <hr />
-
-<div>
- <p>90-Minutes-to-Improve-Your-Life Workshops - Offered periodically</p>
-
-<p>Art of Effective Communication: Learn the keys to effective listening, negotiating conflicts, and speaking your mind so that “the other” guy really understands you.</p>
-
-<p>Understanding and Managing Your Stress: Take yourself out of the bullseye and design your personal plan to keep your cool.</p>
-
-<p>Increasing Emotional Intelligence: Accurately reading and understanding emotions helps get you what you want from yourself and others.</p>
-
-<p>Take Charge of Your Life: Setting and Completing Achievable Goals: Pleasantly surprise yourself with acquiring the few skills that will keep you on track to achieving your goals.</p>
-
-<p>Before The Wedding: Skills for Marriage Success: How to identify and then successfully weather the storms that all marriage / long term relationships encounter.</p>
-
-<p>Balancing Work and Family Life: Learn the skills to simplify and regain balance in your life.</p>
-
-<p>Family Life Directions: Learn how to use this simple half-hour process that puts reassuring order and optimistic expectations into your family’s daily life.</p>
-
-<p>Managing Conflict at Work And Home: Learn the Two Skills that will get you through quarrels and disagreements: preventing conflict and resolving conflict.</p>
-
-<p>Recovering From A Career Crash: It’s not the crash that will do you in, rather it’s how you handle it.</p>
-</div>
-
         <!-- <div class="text-center">
           <div
             class="px-3 py-2 bg-primary rounded d-inline-block h4 text-light"

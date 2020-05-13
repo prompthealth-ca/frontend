@@ -14,6 +14,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 
+import { EmbededURLPipe } from '../shared/pipes/embeded-url';
+
 
 import { AgmCoreModule } from '@agm/core';
 @NgModule({
@@ -27,6 +29,7 @@ import { AgmCoreModule } from '@agm/core';
     DetailComponent,
     ProfessionalHomeComponent,
     ProfessionalRegisterComponent,
+    EmbededURLPipe,
   ],
   imports: [
     AgmCoreModule.forRoot(  {

@@ -1,14 +1,68 @@
-<h4 class="mb-3">Personal Information</h4>
-<div class="form-row form-group">
-    <label class="col-md-11">Videos<span class="text-danger">*</span></label>
-    <input
-    type="text"
-    placeholder="Enter live URL"
-    class="form-control col-md-12"
-    
-    />
+<h4 class="mb-3">Video Listing 
+    <button *ngIf="videosList && videosList.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
+</h4>
 
-</div>
-<div class="col-md-12 text-right">
-    <button type="submit" class="btn btn-primary">Save</button>
-</div>
+<table class="table table-hover comparetable">
+    <thead>
+        <tr>
+            <th>
+                <h5>Title</h5>
+            </th>
+            <th>
+                <h5>URL</h5>
+            </th>
+            <th>
+                <h5>Delete</h5>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let video of videosList; let i=index">
+            <td>
+                {{ video.title }}
+            </td>
+            <td>
+                {{ video.url }}
+            </td>
+            <td>
+                <button (click)="deleteVideo(video._id)" class="btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<hr *ngIf="addMore && videosList && videosList.length">
+
+<form *ngIf="addMore && videosList && videosList.length" (ngSubmit)="saveVideos()" [formGroup]="videosForm">
+    <!-- {{ url.errors?.required }} -->
+    <div formArrayName="data">
+      <div *ngFor="let itemrow of formArr.controls; let i=index" [formGroupName]="i" class="row">
+        <div class="form-group col-sm-5">
+          <label>Video Title</label>
+          <input formControlName="title" class="form-control" placeholder="Enter Video Title">
+          <small *ngIf="formArr.controls[i].get('title').touched && formArr.controls[i].get('title').errors?.required"  class="text-danger">
+            Video Title is required.
+          </small>
+        </div>
+        <div class="form-group col-sm-5">
+          <label>Url</label>
+          <input formControlName="url" class="form-control" placeholder="Enter YouTube URL">
+          <div class="error-block" *ngIf="formArr.controls[i].get('url').touched">
+            <small  *ngIf="formArr.controls[i].get('url').errors?.required"  class="text-danger">
+                Video URL is required.
+            </small>
+            <small *ngIf="formArr.controls[i].get('url').errors?.pattern"  class="text-danger">
+                YouTube URL is invalid.
+            </small>
+          </div>
+        </div>
+        <div class="form-group col-sm-2">
+            <button type="button" (click)="addNewRow()" class="btn btn-primary"><i class="fa fa-plus-square" aria-hidden="true"></i></button>
+            <button *ngIf="i >= 1" (click)="deleteRow(i)" class="btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 text-right">
+        <button type="submit" class="btn btn-primary" [disabled]="!videosForm.valid">Save</button>
+    </div>
+</form>

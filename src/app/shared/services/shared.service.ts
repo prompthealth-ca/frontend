@@ -115,6 +115,11 @@ export class SharedService {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'createcustomer', body, { headers });
   }
+  deleteContent(path) {
+    let headers = this.getAuthorizationHeader();
+    return this.http.delete(this.rootUrl + path, { headers });
+
+  }
   // delete(Id) {
 
   //   let headers = this.getAuthorizationHeader();

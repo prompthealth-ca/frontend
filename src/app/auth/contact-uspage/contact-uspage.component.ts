@@ -54,9 +54,6 @@ export class ContactUspageComponent implements OnInit {
       website: ['', [Validators.required, Validators.pattern(reg)]],
       company: ['', [Validators.required]],
       description: ['', [Validators.required]],
-
-
-
     });
 
   }
@@ -71,8 +68,6 @@ export class ContactUspageComponent implements OnInit {
 
 
   pressMe() {
-
-
     this.submitted = true;
     if (this.homeForm.invalid) {
       return;

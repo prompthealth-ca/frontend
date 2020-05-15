@@ -125,21 +125,6 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C'">
-            <label class="col-md-3">Any Special Amenities</label>
-            <p class="col-md-9" *ngIf="!editFields">{{profile.special_amenities}}</p>
-
-            <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
-                    <div  class="col-md-4" *ngFor="let item of amenitiesList; let i = index"> 
-                        <label for="{{item.id}}">
-                            <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'special_amenities')"/>
-                            <span class="text-body">{{item.name}}</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Age range of you client</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p>

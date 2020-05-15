@@ -44,18 +44,6 @@ export class UserDetailsComponent {
     { id: 'hours5', name: 'Sunday' },
   ];
 
-  amenitiesList = [
-    { id: 'amenities1', name: 'Lounge'},
-    { id: 'amenities2', name: 'Beverage/snack Bar'},
-    { id: 'amenities3', name: 'Café'},
-    { id: 'amenities4', name: 'Spa'},
-    { id: 'amenities5', name: 'Locker'},
-    { id: 'amenities6', name: 'Shower'},
-    { id: 'amenities7', name: 'Private training area'},
-    { id: 'amenities8', name: 'Ladies only area'},
-    { id: 'amenities9', name: 'Towel service'},
-  ];
-
   public userDetails = {
     firstName: '',
     lastName: '',
@@ -72,7 +60,6 @@ export class UserDetailsComponent {
     price_per_hours: '',
     product_description: '',
     years_of_experience: '',
-    special_amenities: '',
     business_kind: '',
     booking: '',
     bookingURL: '',
@@ -86,7 +73,6 @@ export class UserDetailsComponent {
 
   languagesSelected = [];
   hoursSelected = [];
-  amenitiesSelected = [];
 
   public _host = environment.config.BASE_URL;
   public response: any;
@@ -228,10 +214,6 @@ export class UserDetailsComponent {
     if(fieldUpdated === 'typical_hours') {
       this.hoursSelected.push(e.target.value);
       this.userDetails.typical_hours = this.hoursSelected.toString();
-    }
-    if(fieldUpdated === 'special_amenities') {
-      this.amenitiesSelected.push(e.target.value);
-      this.userDetails.special_amenities = this.amenitiesSelected.toString();
     }
   }
 

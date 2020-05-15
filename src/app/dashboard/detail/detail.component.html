@@ -297,19 +297,12 @@
       >
         <h5 class="mb-0">Videos</h5>
         <hr />
-        <!-- <iframe width="266" height="343" src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
         <div class="d-flex mb-4" *ngFor="let video of userInfo?.videos">
           <div class="col-sm-4">
           <div class="p-2">
             <h6 class="text-primary text-uppercase">{{ video.title }}</h6>
-            <!-- {{ video.url | embededUrl}} -->
-            <iframe
-            width="100%" height="100%" [src]="video.url | embededUrl" 
-            frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!-- <video width="100%" height="100%" controls>
-              <source src="assets/video/video2.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> -->
+            <iframe width="266" height="343" [src]="video.url | embededUrl" frameborder="0" allowfullscreen></iframe>
+           
           </div>
         </div>
 

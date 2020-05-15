@@ -13,7 +13,9 @@ import { AddProfessionalComponent } from './add-professional/add-professional.co
 import { MyFavouriteComponent } from './my-favourite/my-favourite.component';
 import { ReviewsRatingsComponent } from './reviews-ratings/reviews-ratings.component';
 import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
+import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -26,12 +28,14 @@ import { AgmCoreModule } from '@agm/core';
     MyFavouriteComponent,
     ReviewsRatingsComponent,
     VideosBlogsComponent,
+    MyAmenitiesComponent,
   ],
   imports: [
     AgmCoreModule.forRoot(  {
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
     }),
+    NgxPaginationModule,
     CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, ]
 })
 export class ProfileManagementModule {}

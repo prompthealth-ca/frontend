@@ -11,6 +11,7 @@ import { AddProfessionalComponent } from './add-professional/add-professional.co
 import { MyFavouriteComponent } from './my-favourite/my-favourite.component';
 import { ReviewsRatingsComponent } from './reviews-ratings/reviews-ratings.component';
 import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
+import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'videos-blogs',
         component: VideosBlogsComponent,
+      },
+      {
+        path: 'my-amenities',
+        component: MyAmenitiesComponent,
       }
     ]
   }

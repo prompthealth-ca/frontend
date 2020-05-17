@@ -53,7 +53,7 @@
             Standard Hourly Fees: <span class="text-primary">$ {{userInfo?.price_per_hours}}</span>
           </div>
             <div *ngIf="userInfo?.booking === 'no'">
-              <a class="btn btn-outline-primary">Raise Booking Request</a>  
+              <a class="btn btn-outline-primary" data-toggle="modal" data-target="#bookingmodal">Raise Booking Request</a>  
             </div> 
             <div *ngIf="userInfo?.booking === 'yes'">
               <a href="{{userInfo?.bookingURL}}" target="_blank" class="btn btn-outline-primary">Book Now</a> 
@@ -101,54 +101,44 @@
           >Professional Background</a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="roles === 'C'">
         <a
           class="nav-link"
           id="Activity-tab"
           data-toggle="pill"
           href="#pills-videos"
           role="tab"
-          aria-controls="pills-Activity"
+          aria-controls="pills-Videos"
           aria-selected="false"
           >My Videos</a
         >
       </li>
-     <!-- < <li class="nav-item">
+      <li class="nav-item" *ngIf="roles === 'C'">
         <a
           class="nav-link"
-          id="blog-tab"
+          id="Activity-tab"
           data-toggle="pill"
-          href="#pills-blog"
+          href="#pills-products"
           role="tab"
-          aria-controls="pills-blog"
+          aria-controls="pills-product"
           aria-selected="false"
-          >Blogs</a
+          (click) ="getProductList()"
+          >My Product</a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="roles === 'C'">
         <a
           class="nav-link"
-          id="Videos-tab"
+          id="Activity-tab"
           data-toggle="pill"
-          href="#pills-Videos"
+          href="#pills-amenity"
           role="tab"
-          aria-controls="pills-Videos"
+          aria-controls="pills-product"
           aria-selected="false"
-          >Videos</a
+          (click) ="getSavedAmenties()"
+          >My Amenities</a
         >
       </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          id="Announcement-tab"
-          data-toggle="pill"
-          href="#pills-Announcement"
-          role="tab"
-          aria-controls="pills-Announcement"
-          aria-selected="false"
-          >Announcement</a
-        >
-      </li> -->
     </ul>
     <!-- Tab panes -->
     <div class="tab-content p-3">
@@ -206,12 +196,6 @@
                   {{special.item_text}}
                 </div>
                 </div>
-              </td>
-            </tr>
-            <tr *ngIf="roles === 'C'">
-              <th>Amenities</th>
-              <td>
-                {{userInfo?.special_amenities}}
               </td>
             </tr>
             <!-- <tr>
@@ -317,130 +301,71 @@
         </div> -->
       </div>
       <div
-        class="tab-pane"
-        id="pills-blog"
+        class="tab-pane product-list"
+        id="pills-products"
         role="tabpanel"
         aria-labelledby="blog-tab"
       >
-        <div class="text-right font-weight-bold mb-3">
-          Archive:
-          <select class="form-control w-auto mx-2">
-            <option>Select Year</option>
-            <option>2017(2)</option>
-            <option>2016(9)</option>
-            <option>2015(2)</option>
-          </select>
 
-          <select class="form-control w-auto">
-            <option>Select Month</option>
-            <option>Jan</option>
-            <option>Feb</option>
-            <option>Mar</option>
-            <option>Apr</option>
-          </select>
-        </div>
-
-        <div class="mb-4">
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <img src="assets/img/blog3.jpg" class="blogimg w-100 rounded" />
-            </div>
-            <div class="col-md-9">
-              <h5>Dynamic Pricing and the Business of Psychotherapy</h5>
-              <div class="mb-2 font-weight-normal">
-                <i class="fa fa-edit"></i> Posted By
-                <span class="text-primary"> Robert Kauffman, Lcsw </span>
-                <i class="fa fa-calendar ml-2"></i> March 10th, 2020
-              </div>
-              It is said that no one becomes a psychotherapist for the money.
-              And indeed, psychotherapists as a group earn far less than many
-              others with similar levels of professional training and
-              experience. As a psychiatrist who worked as a psychotherapist for
-              over thirty years, I was keenly aware of how my income was a
-              fraction of that of most of my medical colleagues. But being
-              committ
-              <a href="" class="font-weight-normal pull-right"
-                >Read More <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <img src="assets/img/blog3.jpg" class="blogimg w-100 rounded" />
-            </div>
-            <div class="col-md-9">
-              <h5>Dynamic Pricing and the Business of Psychotherapy</h5>
-              <div class="mb-2 font-weight-normal">
-                <i class="fa fa-edit"></i> Posted By
-                <span class="text-primary"> Robert Kauffman, Lcsw </span>
-                <i class="fa fa-calendar ml-2"></i> March 10th, 2020
-              </div>
-              It is said that no one becomes a psychotherapist for the money.
-              And indeed, psychotherapists as a group earn far less than many
-              others with similar levels of professional training and
-              experience. As a psychiatrist who worked as a psychotherapist for
-              over thirty years, I was keenly aware of how my income was a
-              fraction of that of most of my medical colleagues. But being
-              committ
-              <a href="" class="font-weight-normal pull-right"
-                >Read More <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <img src="assets/img/blog3.jpg" class="blogimg w-100 rounded" />
-            </div>
-            <div class="col-md-9">
-              <h5>Dynamic Pricing and the Business of Psychotherapy</h5>
-              <div class="mb-2 font-weight-normal">
-                <i class="fa fa-edit"></i> Posted By
-                <span class="text-primary"> Robert Kauffman, Lcsw </span>
-                <i class="fa fa-calendar ml-2"></i> March 10th, 2020
-              </div>
-              It is said that no one becomes a psychotherapist for the money.
-              And indeed, psychotherapists as a group earn far less than many
-              others with similar levels of professional training and
-              experience. As a psychiatrist who worked as a psychotherapist for
-              over thirty years, I was keenly aware of how my income was a
-              fraction of that of most of my medical colleagues. But being
-              committ
-              <a href="" class="font-weight-normal pull-right"
-                >Read More <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-        </div>
+        <input  *ngIf="productList && productList.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
+        <table class="table table-hover comparetable" *ngIf="productList && productList.length; else noProduct">
+        <thead>
+            <tr>
+                <th>
+                    <h5>Title</h5>
+                </th>
+                <th>
+                    <h5>Description</h5>
+                </th>
+                <th>
+                    <h5>Price</h5>
+                </th>
+                <th>
+                    <h5>Images</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prod of productList | customFilter:productSearch;let i = index">
+                <td>
+                    {{ prod.slug }}
+                </td>
+                <td>
+                    {{ prod.description }}
+                </td>
+                <td>
+                    {{ prod.price }}
+                </td>
+                <td>
+                    <div class="img-list" *ngFor="let img of prod.images; let i=index">
+                        <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        <ng-template #noProduct>
+          <h5>No product listed...</h5>
+        </ng-template>
       </div>
       <div
         class="tab-pane"
-        id="pills-Videos"
+        id="pills-amenity"
         role="tabpanel"
-        aria-labelledby="Videos-tab"
+        aria-labelledby="Activity-tab"
       >
-        <h5 class="text-primary text-uppercase">Robert Kauffman, Lcsw</h5>
-        <video width="100%" height="100%" class="video" controls>
-          <source src="assets/video/video2.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <div
-        class="tab-pane"
-        id="pills-Announcement"
-        role="tabpanel"
-        aria-labelledby="Announcement-tab"
-      >
-        I am the founder of the Glenview Counseling Group, which consists of a
-        team of clinicians working with individuals and couples as well as
-        children, adolescents and their families in an individual and family
-        counseling setting.
-        <br />
-        <a href="" class="text-primary d-inline-block mt-3 font-weight-normal">View my professional website here
-        <br/>
-        <img src="assets/img/logo.png" class="announcementlogo mt-2">
-        </a>
+        <h5 class="mb-0">My Amenities</h5>
+        <hr />
+        <div class="d-flex mb-4" *ngFor="let amenity of savedAminities">
+          <div class="col-sm-4">
+            <h6 class="text-primary text-uppercase">{{ amenity.defaultamenityId.item_text }}</h6>
+          </div>
+          <div class="col-sm-8">
+              <span *ngFor="let uimg of amenity.images">
+                <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + uimg" />
+              </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -504,6 +429,132 @@
             <button type="submit" class="btn btn-primary px-4">Login</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Booking -->
+<div
+  class="modal fade"
+  id="bookingmodal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="bookingmodal"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="margin: auto !important;width:100%"
+  >
+    <div class="modal-content mk-border position-relative">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center">
+          Booking
+        </h5>
+        <button
+          type="button"
+          #closebutton
+          class="close position-absolute"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-4">
+        <form role="form" [formGroup]="bookingForm" (ngSubmit)="bookApointment()">
+          <div class="form-row">
+
+            <div class="col-md-12 mb-3">
+              <label>Name <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                placeholder="Enter Your Name"
+              />
+              <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.name.errors"  class="text-danger">
+                    Name is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Email Address <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                placeholder="Enter Your Email Address"
+              />
+              <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.email.errors"  class="text-danger">
+                    Email is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Phone <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                formControlName="phone"
+                class="form-control"
+                placeholder="Enter Your Phone Number"
+              />
+              <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.phone.errors"  class="text-danger">
+                    Phone is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Timing <span class="text-danger">*</span></label>
+              <div class="row">
+                <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
+                  <label for="{{item.id}}">
+                      <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="timingSelected($event)"
+                      formControlName="timing"/>
+                      <span class="text-body">{{item.name}}</span>
+                      
+                  </label>
+                </div>
+                <div class="col-sm-12">
+                  <div *ngIf="submitted" class="error-msg">
+                    <small *ngIf="f.timing.errors"  class="text-danger">
+                        Booking timing is required
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <input 
+              class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+              formControlName="bookingDateTime">
+              <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
+              <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
+                  Booking Date is required
+                </small>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Notes</label>
+              <textarea
+                class="form-control"
+                type="text"
+                formControlName="note"></textarea>
+              
+            </div>
+
+            <div class="col-md-12 text-right">
+              <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

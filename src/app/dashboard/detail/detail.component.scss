@@ -4,7 +4,6 @@ button.close.position-absolute {
   right: 16px;
   top: 16px;
 }
-
 .modal.fade.show {
   display: -webkit-box !important;
   display: flex !important;
@@ -100,4 +99,20 @@ select.form-control.w-auto {
 }
 .services {
   margin-bottom: 10px;
+}
+
+table td img {
+  max-width: 30px;
+  max-height: 30px;
+}
+.img-list {
+  max-width: 30px;
+  margin-right: 2px;;
+  max-height: 30px;
+  float: left;
+
+}
+
+.radio {
+  margin-right: 5px;
 }

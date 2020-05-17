@@ -39,3 +39,18 @@
     float: right;
     margin-top: -5px;
 }
+
+table td {
+    text-transform: capitalize;;
+    .img-list {
+        max-width: 30px;
+        margin-right: 2px;;
+        max-height: 30px;
+        float: left;
+
+        img {
+            max-width: 30px;
+            max-height: 30px;
+        }
+    }
+}

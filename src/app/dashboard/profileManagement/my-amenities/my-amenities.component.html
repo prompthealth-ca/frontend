@@ -1,1 +1,244 @@
-<p>my-amenities works!</p>
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+    <p style="font-size: 20px; color: white" class="loaderbg">
+      <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+    </p>
+  </ngx-spinner>
+<h3>My Amenities
+    <button *ngIf="savedAminities && savedAminities.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
+</h3>
+<table class="table table-hover comparetable" *ngIf="savedAminities && savedAminities.length">
+    <thead>
+        <tr>
+            <th>
+                <h5>Title</h5>
+            </th>
+            <th>
+                <h5>Images</h5>
+            </th>
+            <th>
+                <h5>Delete</h5>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aminity of savedAminities">
+            <td>
+                {{ aminity.defaultamenityId.item_text }}
+            </td>
+            <td>
+                <div class="img-list" *ngFor="let img of aminity.images; let i=index">
+                    <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" />
+                </div>
+            </td>
+            <td>
+                <button (click)="deleteAmenity(aminity._id)" class="btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="row" *ngIf="savedAminities && savedAminities.length == 0 || addMore">
+    <div class="col-md-6 amenity-options" *ngFor="let amenity of defaultAmenities; let i = index" >
+        <div class="radio">
+
+        <h5>{{ amenity.item_text }}</h5>
+        <input type="checkbox" name="answers" [id]="amenity._id" class="mr-3" (change)="getSelectedAmenties($event, amenity)"/>
+        <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + amenity.icon"/>
+        <div class="form-group col-sm-12" *ngIf="selectedAmenityId === amenity._id">
+            <div>
+                <div *ngFor='let url of imagesList' class="multipleImage">
+                    <img [src]="'http://3.12.81.245:3000/public/images/' + url" height="200"> <br/>
+                     <!-- <a (click)="removefromList(url)" class="fa fa-times"></a>  -->
+                </div>
+            </div>
+            <label class="col-md-12">Upload Images</label>
+            <input type="file" name="profile"  [id]="amenity._id"
+            class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- <table class="table table-hover comparetable" *ngIf="product && product.length">
+    <thead>
+        <tr>
+            <th>
+                <h5>Title</h5>
+            </th>
+            <th>
+                <h5>Description</h5>
+            </th>
+            <th>
+                <h5>Price</h5>
+            </th>
+            <th>
+                <h5>Images</h5>
+            </th>
+            <th>
+                <h5>Delete</h5>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prod of product | customFilter:productSearch;let i = index">
+            <td>
+                {{ prod.slug }}
+            </td>
+            <td>
+                {{ prod.description }}
+            </td>
+            <td>
+                {{ prod.price }}
+            </td>
+            <td>
+                <div class="img-list" *ngFor="let img of prod.images; let i=index">
+                    <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
+                </div>
+            </td>
+            <td>
+                <button (click)="deleteProduct(prod._id)" class="btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+                <button (click)="editProduct(prod)" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr *ngIf="addMore && product && product.length == 0">
+<form  *ngIf="addMore || product && product.length == 0" role="form"  [formGroup]="addProductForm" (ngSubmit)="save()">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-md-3">Title<span class="text-danger">*</span></label>
+            <input
+            type="text"
+            id="productTitle"
+            name="productTitle"
+            formControlName="title"
+            placeholder="Enter Title"
+            class="form-control"
+            />
+            <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.title.errors"  class="text-danger">
+                    Title is required
+                </small>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="col-md-3">Price<span class="text-danger">*</span></label>
+            <input
+            type="number"
+            autocomplete="off"
+            id="productPrice"
+            name="productPrice"
+            formControlName="price"
+            placeholder="Enter Price"
+            class="form-control"
+            />
+            <div *ngIf="submitted">
+                <small *ngIf="f.price.errors?.required"   class="text-danger">
+                    Price is required
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <div *ngIf="imagesList?.length">
+                <div *ngFor='let url of imagesList' class="multipleImage">
+                    <img [src]="'http://3.12.81.245:3000/public/images/products/' + url" height="200"> <br/>
+                    <a (click)="removefromList(url)" class="fa fa-times"></a>
+                </div>
+            </div>
+            <label class="col-md-3">Upload Images</label>
+            <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
+            <!-- <input type="file" name="profile" 
+            class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-md-3">Description<span class="text-danger">*</span></label>
+            <textarea
+            type="text"
+            autocomplete="off"
+            id="productDesc"
+            name="productDesc"
+            formControlName="description"
+            placeholder="Enter Description"
+            class="form-control col-md-12"
+            ></textarea>
+            <div *ngIf="submitted">
+                <small *ngIf="f.description?.errors?.required" class="text-danger">
+                    Description is required
+                </small>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+<form  *ngIf="editProductCheck" role="form"  [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label class="col-md-3">Title<span class="text-danger">*</span></label>
+            <input
+            type="text"
+            id="productTitle"
+            name="productTitle"
+            formControlName="title"
+            placeholder="Enter Title"
+            class="form-control"
+            />
+            <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="ef.title.errors"  class="text-danger">
+                    Title is required
+                </small>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="col-md-3">Price<span class="text-danger">*</span></label>
+            <input
+            type="number"
+            autocomplete="off"
+            id="productPrice"
+            name="productPrice"
+            formControlName="price"
+            placeholder="Enter Price"
+            class="form-control"
+            />
+            <div *ngIf="submitted">
+                <small *ngIf="ef.price.errors?.required"   class="text-danger">
+                    Price is required
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12">
+            <div *ngIf="imagesList?.length">
+                <div *ngFor='let url of imagesList' class="multipleImage">
+                    <img [src]="'http://3.12.81.245:3000/public/images/products/' + url" height="200"> <br/>
+                    <a (click)="removefromList(url)" class="fa fa-times"></a>
+                </div>
+            </div>
+            <label class="col-md-3">Upload Images</label>
+            <input type="file" name="profile" 
+            class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
+        </div>
+        <div class="form-group col-sm-12">
+            <label class="col-md-3">Description<span class="text-danger">*</span></label>
+            <textarea
+            type="text"
+            autocomplete="off"
+            id="productDesc"
+            name="productDesc"
+            formControlName="description"
+            placeholder="Enter Description"
+            class="form-control col-md-12"
+            ></textarea>
+            <div *ngIf="submitted">
+                <small *ngIf="ef.description?.errors?.required" class="text-danger">
+                    Description is required
+                </small>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </div>
+    </div>
+</form> --> 

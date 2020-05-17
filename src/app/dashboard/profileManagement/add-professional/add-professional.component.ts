@@ -13,9 +13,13 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class AddProfessionalComponent implements OnInit {
   addProductForm: FormGroup;
+  editProductForm: FormGroup;
+  editProductCheck = false;
   submitted = false;
   addMore = false;
   product =[];
+  editProductId = '';
+  productSearch: '';
   imagesList = [];
   p: number = 1;
   totalProducts = 1
@@ -33,16 +37,21 @@ export class AddProfessionalComponent implements OnInit {
       price: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
+    this.editProductForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+    });
     this.getProductList();
   }
 
   get f() { return this.addProductForm.controls; }
+  get ef() { return this.editProductForm.controls; }
   getProductList() {
     let path = `product/get-all?userId=${this.userId}&count=10&page=1&frontend=0/`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.product = res.data.data;
-        console.log('product', this.product)
         if(this.product.length > 0) this.addMore = false
 
       } else {
@@ -57,36 +66,45 @@ export class AddProfessionalComponent implements OnInit {
     console.log('pageChanged', event);
   }
   onFileSelect(event) {
-    console.log(event.target.files);
-
     const formData: FormData = new FormData();
     let input = new FormData();
-    // Add your values in here
-    input.append('imageLocation', "products");
-    for (var i = 0; i < event.target.files.length; i++) { 
-      console.log('event.target.files[i]===', event.target.files[i]);
-      input.append('images', event.target.files[i]);
-    }
+    // if(event.target.files.length === 1) {
+    //   // Add your values in here
+    //   input.append('_id', this.userId);
+    //   input.append('images/amenities', event.target.files[0]);
+    //   this._sharedService.loader('show');
+    //   this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
+    //     if (res.statusCode === 200) {
+    //       this.imagesList.push(res.data);
+  
+    //       this._sharedService.loader('hide');
+    //     } else {
+    //       this.toastr.error(res.message);
+    //     }
+    //   }, err => {
+    //     this._sharedService.loader('hide');
+    //     this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    //   });
 
-    console.log('input', input);
-    this._sharedService.loader('show');
-    
-      
-    this._sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
-      console.log('RES', res);
-      if (res.statusCode === 200) {
-        this.imagesList = res.data;
-        this._sharedService.loader('hide');
-        console.log('onFileSelect',res.data, this.imagesList);
-        this.toastr.success(res.message);
-      } else {
-        this.toastr.error(res.message);
+    // }
+    // else {
+      for (var i = 0; i < event.target.files.length; i++) {
+        input.append('images/amenities', event.target.files[i]);
       }
-    }, err => {
-    this._sharedService.loader('hide');
-      this.toastr.error('There are some errors, please try again after some time !', 'Error');
-    });
-
+      this._sharedService.loader('show');
+      this._sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.imagesList = res.data;
+          this._sharedService.loader('hide');
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+      this._sharedService.loader('hide');
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+    // }
   }
   removefromList(url) {
     this.imagesList.forEach((ele, index) => {
@@ -115,7 +133,6 @@ export class AddProfessionalComponent implements OnInit {
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.getProductList();
-        console.log('this.product', this.product)
         this.addMore = !this.addMore;
         this.addProductForm.reset();
         this.submitted = false;
@@ -133,7 +150,6 @@ export class AddProfessionalComponent implements OnInit {
   deleteProduct(i) {
     this._sharedService.loader('show');
     const path = `product/delete/${i}`;
-    console.log('DeleteVideo', path);
     this._sharedService.deleteContent(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
@@ -151,7 +167,47 @@ export class AddProfessionalComponent implements OnInit {
     });
   }
   editProduct(prod) {
-    console.log('prod', prod);
-    console.log('this.addProductForm', this.addProductForm);
+    this.editProductCheck = true
+    this.editProductForm.controls.title.setValue(prod.slug);
+    this.editProductForm.controls.description.setValue(prod.description);
+    this.editProductForm.controls.price.setValue(prod.price);
+    this.imagesList =  prod.images;
+    this.editProductId = prod._id;
+    
   }
+  updateProduct() {
+    if (this.editProductForm.invalid) {
+      return;
+    }
+    else {
+      const formData = {
+        ...this.editProductForm.value,
+        'images': this.imagesList ? this.imagesList : [],
+      }
+    let body = {
+      'userId':  this.userId,
+      ...formData,
+    };
+    body['userId'] = this.userId;
+    const path = `product/update/${this.editProductId}`
+    this._sharedService.put(body, path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+      if (res.statusCode === 200) {
+        this.toastr.success(res.message);
+        this.getProductList();
+        this.editProductCheck = !this.editProductCheck;
+        this.addMore = !this.addMore;
+        this.addProductForm.reset();
+        this.submitted = false;
+
+      }
+
+      else {
+        this._sharedService.showAlert(res.message, 'alert-danger');
+      }
+    }, (error) => {
+      this._sharedService.loader('hide');
+    });
+  }
+}
 }

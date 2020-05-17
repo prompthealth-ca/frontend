@@ -1,2 +1,159 @@
-<h3>Work Under Progress</h3>
-<p>Soon you can manange your booking here !!</p>
+<h3>Booking</h3>
+<div class="table-responsive"  *ngIf="bookingList && bookingList.length">
+    <table class="table table-hover comparetable" *ngIf="this.roles === 'U'">
+        <thead>
+            <tr>
+                <th>
+                    <h5>Name</h5>
+                </th>
+                <th>
+                    <h5>Contact Info</h5>
+                </th>
+                <th>
+                    <h5>Date/Slot</h5>
+                </th>
+                <th>
+                    <h5>Notes</h5>
+                </th>
+                <th>
+                    <h5>Status</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of bookingList">
+                <td>
+                    {{ book.drId.firstName }} - {{ book.drId.lastName }}
+                </td>
+                <td>
+                    {{ book.drId.email }}
+                </td>
+                <td>
+                    {{ book.bookingDateTime }} - {{ book.timing }}
+                </td>
+                <td>
+                    {{ book.note }}
+                </td>
+                <td>
+                    <div class='row' [ngSwitch]="book.status">  
+                        <div *ngSwitchCase="0">Pending</div>  
+                        <div *ngSwitchCase="1">Approved</div>  
+                        <div *ngSwitchCase="2">Rejected</div>  
+                        <div *ngSwitchCase="3">Canceled</div> 
+                        <div *ngSwitchCase="4">Completed</div> 
+                        <div *ngSwitchDefault></div>  
+                    </div>  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover comparetable" *ngIf="this.roles === 'C' || this.roles === 'SP'">
+        <thead>
+            <tr>
+                <th>
+                    <h5>Patient's Info</h5>
+                </th>
+                <th>
+                    <h5>Date/Slot</h5>
+                </th>
+                <th>
+                    <h5>Doctor's Info</h5>
+                </th>
+                <th>
+                    <h5>Reschedule</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of bookingList">
+                <td>
+                    <p>{{ book.name }}</p>
+                    {{ book.phone }} / {{ book.email }}
+                </td>
+                <td>
+                    {{ book.bookingDateTime }} - {{ book.timing }}
+                </td>
+                <td>
+                    {{ book.drId.firstName }} - {{ book.drId.lastName }}
+                    {{ book.drId.email }}
+                </td>
+                <td>
+                    <button (click)="updateBooking(book._id, 1)" class="btn btn-primary">Accept</button>
+                    <button (click)="updateBooking(book._id, 2)" class="btn btn-danger">Reject</button>
+                    <button (click)="rescheduleBooking(book._id)"  data-toggle="modal" data-target="#editbookingmodal" class="btn btn-success">Reschedule</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div
+  class="modal fade"
+  id="editbookingmodal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editbookingmodal"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog"
+    role="document"
+    style="margin: auto !important;width:100%"
+  >
+    <div class="modal-content mk-border position-relative">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center">
+          Booking
+        </h5>
+        <button
+          type="button"
+          #closebutton
+          class="close position-absolute"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-4">
+
+        <form role="form" [formGroup]="bookingForm" (ngSubmit)="rescheduleBookingApi()">
+          <div class="form-row">
+            <div class="col-md-12 mb-3">
+              <label>Timing <span class="text-danger">*</span></label>
+              <div class="row">
+                <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
+                  <label for="{{item.id}}">
+                      <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" formControlName="timing" (change)="timingSelected($event)"/>
+                      <span class="text-body">{{item.name}}</span>
+                      
+                  </label>
+                </div>
+
+                <div *ngIf="submitted" class="error-msg">
+                    <small *ngIf="f.timing.errors"  class="text-danger">
+                      Timing is required
+                    </small>
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Date</label>
+                <input 
+                class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
+                formControlName="bookingDateTime">
+                <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
+                <div *ngIf="submitted" class="error-msg">
+                  <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
+                    Booking Date is required
+                  </small>
+                </div>
+              </div>
+            <div class="col-md-12 text-right">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

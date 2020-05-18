@@ -124,6 +124,27 @@ textarea.form-control {
   height: 120px !important;
 }
 
+
+// Image Slider 
+#imagesliderModal{
+  >.modal-dialog{
+    max-width: 850px;
+    .carousel-indicators{
+      li{
+        width:100px;
+        height: auto !important;
+      }
+    }
+
+    .carousel-control-next, .carousel-control-prev{
+      width: 64px;
+    }
+  }
+}
+// Image slider 
+
+
+
 // title heading
 .ttle-bott-bor {
   position: relative;
@@ -198,13 +219,13 @@ textarea.form-control {
 
 .btn-primary {
   color: #fff !important;
-  background-color: $primaryColor;
-  border-color: $primaryColor;
+  background-color: $primaryColor !important;
+  border-color: $primaryColor !important;
   &:hover,
   &:focus {
     color: #fff !important;
-    background-color: $primaryColorhover;
-    border-color: $primaryColorhover;
+    background-color: $primaryColorhover !important;
+    border-color: $primaryColorhover !important;
   }
 }
 
@@ -302,9 +323,12 @@ textarea.form-control {
     margin-bottom: 8px;
     &::before {
       left: 0;
-      content: "\f00c";
       position: absolute;
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
+    }
+    >span{
+      font-weight: normal;
+    font-family: $themeFont;
     }
   }
   > .fa-circle:before {

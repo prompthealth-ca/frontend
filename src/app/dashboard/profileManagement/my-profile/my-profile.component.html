@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-md-12">
-        <div class="row mb-3">
+        <div class="form-row mb-3">
             <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label>
             <input
             [disabled] = "!editFields"
@@ -26,7 +26,7 @@
             />
         </div>
 
-        <div class="row mb-3">
+        <div class="form-row mb-3">
             <label class="col-md-3">Last Name <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             [disabled] = "!editFields"
@@ -40,7 +40,7 @@
             />
         </div>
 
-        <div class="row mb-3">
+        <div class="form-row mb-3">
             <label class="col-md-3"
             >Email Address <span class="text-danger" *ngIf="editFields">*</span></label
             >
@@ -56,7 +56,7 @@
             />
         </div>
 
-        <div class="row mb-3">
+        <div class="form-row mb-3">
             <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             [disabled] = "!editFields"
@@ -80,7 +80,7 @@
             />
         </div> -->
 
-        <div class="row mb-3">
+        <div class="form-row mb-3">
             <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             #search
@@ -95,12 +95,12 @@
             class="form-control col-md-9"
             />
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Fluent Languages</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.languages}}</p>
 
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'languages')"/>
@@ -110,12 +110,12 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">YOUR TYPICAL HOURS</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.typical_hours}}</p>
 
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'typical_hours')"/>
@@ -125,12 +125,12 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Age range of you client</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p>
 
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="radio" name="age_range" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'age_range')"/>
@@ -140,11 +140,11 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Total year of experience</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.years_of_experience}}</p>
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of experienceList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="radio" name="years_of_experience" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'years_of_experience')"/>
@@ -154,11 +154,11 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Price range per hour</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.price_per_hours}}</p>
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of priceList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="radio" name="price_per_hours" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'price_per_hours')"/>
@@ -168,11 +168,11 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C'">
             <label class="col-md-3">Kind of Business</label>
             <p class="col-md-9" *ngIf="!editFields">{{profile.business_kind}}</p>
             <div *ngIf="editFields" class="col-sm-9">
-                <div class="row">
+                <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of businessList; let i = index"> 
                         <label for="{{item.id}}">
                             <input class="radio" type="radio" name="business_kind" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'business_kind')"/>
@@ -182,7 +182,7 @@
                 </div>
             </div>
         </div>
-        <div class="radio row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Description</label>
              <p class="col-md-9" *ngIf="!editFields">{{ profile.product_description }}</p>
             <div *ngIf="editFields" class="col-sm-9">
@@ -192,7 +192,7 @@
                 name="product_description"
                 [(ngModel)]="profile.product_description"
                 placeholder="Enter Description"
-                class="form-control col-md-9"
+                class="form-control"
                 ></textarea>
             </div>
         </div>

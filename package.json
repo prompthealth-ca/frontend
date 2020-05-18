@@ -42,7 +42,7 @@
     "google-libphonenumber": "^3.2.7",
     "google-maps-ng2": "^1.0.10",
     "intl-tel-input": "^16.0.11",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "ng-multiselect-dropdown": "^0.2.10",
     "ng-pick-datetime": "^7.0.0",

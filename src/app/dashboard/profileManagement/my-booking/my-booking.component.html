@@ -1,4 +1,4 @@
-<h3>Booking</h3>
+<h3 class="mb-3">Booking</h3>
 <div class="table-responsive"  *ngIf="bookingList && bookingList.length">
     <table class="table table-hover comparetable" *ngIf="this.roles === 'U'">
         <thead>
@@ -47,20 +47,20 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-hover comparetable" *ngIf="this.roles === 'C' || this.roles === 'SP'">
+    <table class="table table-hover bookingtable w-100" *ngIf="this.roles === 'C' || this.roles === 'SP'">
         <thead>
             <tr>
                 <th>
-                    <h5>Patient's Info</h5>
+                    Patient's Info
                 </th>
                 <th>
-                    <h5>Date/Slot</h5>
+                    Date/Slot
                 </th>
                 <th>
-                    <h5>Doctor's Info</h5>
+                    Doctor's Info
                 </th>
-                <th>
-                    <h5>Reschedule</h5>
+                <th class="Reschedule">
+                    Reschedule
                 </th>
             </tr>
         </thead>
@@ -78,8 +78,8 @@
                     {{ book.drId.email }}
                 </td>
                 <td>
-                    <button (click)="updateBooking(book._id, 1)" class="btn btn-primary">Accept</button>
-                    <button (click)="updateBooking(book._id, 2)" class="btn btn-danger">Reject</button>
+                    <button (click)="updateBooking(book._id, 1)" class="btn btn-primary mr-1">Accept</button>
+                    <button (click)="updateBooking(book._id, 2)" class="btn btn-danger mr-1">Reject</button>
                     <button (click)="rescheduleBooking(book._id)"  data-toggle="modal" data-target="#editbookingmodal" class="btn btn-success">Reschedule</button>
                 </td>
             </tr>
@@ -107,7 +107,7 @@
         <button
           type="button"
           #closebutton
-          class="close position-absolute"
+          class="close"
           data-dismiss="modal"
           aria-label="Close"
         >
@@ -123,7 +123,7 @@
               <div class="row">
                 <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
                   <label for="{{item.id}}">
-                      <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" formControlName="timing" (change)="timingSelected($event)"/>
+                      <input class="radio mr-2" type="checkbox" value="{{item.name}}" required id="{{item.id}}" formControlName="timing" (change)="timingSelected($event)"/>
                       <span class="text-body">{{item.name}}</span>
                       
                   </label>

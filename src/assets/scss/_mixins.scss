@@ -99,8 +99,9 @@ $radius: 0.25rem;
     &::before {
       content: "\f044";
       position: absolute;
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
       font-size: 13px;
+      font-weight: bold;
       background-color: #4274ba;
       color: #fff;
       padding: 4px 7px 4px 8px;

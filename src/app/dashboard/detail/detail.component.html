@@ -22,20 +22,21 @@
         </div>
         <div class="col-md-4">
           <ul class="check_ul font-weight-normal">
-            <li class="fa-map-marker">
-              {{userInfo?.address}}
+            <li class="fas fa-map-marker">
+              <span>{{userInfo?.address}}</span>
             </li>
             <a
               href="mailto:{{userInfo?.email}}"
-              class="fa-envelope text-primary d-inline-block mr-2"
+              class="fas fa-envelope text-primary d-inline-block mr-2"
             >
-            {{userInfo?.email}}
+            <span>{{userInfo?.email}}</span>
             </a>
             <a
               href="tel:{{userInfo?.phone}}"
-              class="fa-phone text-primary d-inline-block"
-              >{{userInfo?.phone}}</a
-            >
+              class="fas fa-phone text-primary d-inline-block"
+              >
+              <span>{{userInfo?.phone}}</span>
+              </a>
           </ul>
         </div>
         <div class="col-md-4 text-right">

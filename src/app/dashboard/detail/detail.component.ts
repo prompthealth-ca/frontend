@@ -13,7 +13,9 @@ export class DetailComponent implements OnInit {
   
   @ViewChild('closebutton') closebutton;
   bookingForm: FormGroup;
+  isLoggedIn =''
   id: number;
+  myId = ''
   private sub: any;
   productList = [];
   
@@ -50,9 +52,11 @@ export class DetailComponent implements OnInit {
       note: new FormControl('')
     });
     this.roles = localStorage.getItem('roles');
+    this.isLoggedIn = localStorage.getItem('token')
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
    });
+   this.myId = localStorage.getItem('loginID');
    this.getUserProfile();
   }
   getUserProfile() {
@@ -135,7 +139,7 @@ export class DetailComponent implements OnInit {
       console.log('this.bookingForm.value', formData, this.bookingForm.controls);
       let data = {
         'drId': this.userInfo._id,
-        'customerId':  this.id,
+        'customerId': this.myId,
         ...formData,
       };
       data.timing = this.timingSelectedValue;
@@ -147,6 +151,7 @@ export class DetailComponent implements OnInit {
       this.sharedService.post(data, path).subscribe((res: any) => {
         this.sharedService.loader('hide');
         if (res.statusCode === 200) {
+          console.log('res', res);
           this.toastr.success(res.message);
 
           this.closebutton.nativeElement.click();

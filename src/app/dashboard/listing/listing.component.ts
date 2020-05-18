@@ -44,7 +44,9 @@ export class ListingComponent implements OnInit {
       }
     }
     let path = 'user/filter';
-    this._sharedService.post(payload, path).subscribe((res: any) => {
+    console.log('comes, here==')
+    this._sharedService.postNoAuth(payload, path).subscribe((res: any) => {
+      console.log('comes, here', res)
       if (res.statusCode = 200) {
        this.doctorsListing = res.data;
         this.toastr.success(res.message);

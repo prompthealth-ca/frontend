@@ -77,10 +77,7 @@ export class LoginComponent implements OnInit {
 
         }
         else {
-          this.toastr.error(res.message, '', {
-            // disableTimeOut: true
-            timeOut: 2000
-          });
+          this.toastr.error(res.message);
 
 
         }

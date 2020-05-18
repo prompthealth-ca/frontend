@@ -48,7 +48,7 @@ export class WrapperComponent implements OnInit {
       link: 'my-amenities'
     },
     {
-      title: 'Favourite Providers',
+      title: 'My Products',
       link: 'add-professionals'
     },
     {

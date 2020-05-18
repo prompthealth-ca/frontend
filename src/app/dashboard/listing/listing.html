@@ -205,20 +205,20 @@
               </div>
             </div>
 
-            <ul class="check_ul font-weight-normal">
+            <div class="mb-2">
               <a
-                class="fa-phone-square text-secondary d-inline-block mr-2"
+                class="fa fa-phone text-secondary d-inline-block mr-2"
                 href="tel:{{doc.userData.phone}}"
               >
-              {{doc.userData.phone}}
+              <span>{{doc.userData.phone}}</span>
               </a>
               <a
-                class="fa-envelope text-secondary d-inline-block mr-2"
+                class="fa fa-envelope text-secondary d-inline-block mr-2"
                 href="mailto:{{doc.userData.address}}"
               >
-                {{doc.userData.email}}
+                <span>{{doc.userData.email}}</span>
               </a>
-            </ul>
+            </div>
             <div class="mb-2" *ngIf="doc.userData.address">Address</div>
             <div class="desciption text-truncate">
               {{doc.userData.address}}

@@ -52,12 +52,17 @@ export class SharedService {
     const url = this.rootUrl + path;
     return this.http.get(url, { headers });
   }
-
+getNoAuth(path, setParams = {}) {
+  const url = this.rootUrl + path;
+  return this.http.get(url );
+}
   post(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });
   }
-
+  postNoAuth(body, path) {
+    return this.http.post(this.rootUrl + path, body);
+  }
   imgUpload(body, path) {
     // let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body);

@@ -80,7 +80,7 @@
         aria-labelledby="tap1"
       >
         <div class="row">
-          <form id="myForm">
+          <form id="myForm" class="w-100">
             <div *ngFor="let question of questionnaire" class="col-md-12 question">
               <h5 *ngIf="type === 'C'" class="text-primary text-uppercase">{{ question.center_question }}</h5>
 
@@ -125,7 +125,7 @@
                 </div>
               </div>
             </div>
-            <hr  class="col-12">
+            <div class="col-12"><hr /></div>
             <div class="col-12"  *ngIf = "type === 'U' && questionType !== 'availability'; else subBtn"  >
               <div class="text-right">
                 <!-- <button type="button"
@@ -144,7 +144,7 @@
               </div>
             </div>
             <ng-template #subBtn>
-              <div class="col-12">
+              <div class="col-12 text-right">
                 <button type="submit" class="btn btn-primary" (click)="saveQuestionnaire()" value ="submit">Submit</button>
               </div>
             </ng-template>

@@ -1,6 +1,10 @@
 @import "variables";
 @import "mixins";
 
+.pull-right{
+  float: right;
+}
+
 a {
   color: $primaryColor;
   &:hover {
@@ -9,6 +13,15 @@ a {
   &:not([href]) {
     color: initial;
     text-decoration: none;
+  }
+}
+
+.fa, .far, .fab {
+  >span{
+    font-family: $themeFont;
+    margin-left: 8px;
+    font-weight: 400;
+    display: inline-block;
   }
 }
 
@@ -111,6 +124,27 @@ textarea.form-control {
   height: 120px !important;
 }
 
+
+// Image Slider 
+#imagesliderModal{
+  >.modal-dialog{
+    max-width: 850px;
+    .carousel-indicators{
+      li{
+        width:100px;
+        height: auto !important;
+      }
+    }
+
+    .carousel-control-next, .carousel-control-prev{
+      width: 64px;
+    }
+  }
+}
+// Image slider 
+
+
+
 // title heading
 .ttle-bott-bor {
   position: relative;
@@ -185,13 +219,13 @@ textarea.form-control {
 
 .btn-primary {
   color: #fff !important;
-  background-color: $primaryColor;
-  border-color: $primaryColor;
+  background-color: $primaryColor !important;
+  border-color: $primaryColor !important;
   &:hover,
   &:focus {
     color: #fff !important;
-    background-color: $primaryColorhover;
-    border-color: $primaryColorhover;
+    background-color: $primaryColorhover !important;
+    border-color: $primaryColorhover !important;
   }
 }
 
@@ -289,14 +323,34 @@ textarea.form-control {
     margin-bottom: 8px;
     &::before {
       left: 0;
-      content: "\f00c";
       position: absolute;
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
+    }
+    >span{
+      font-weight: normal;
+    font-family: $themeFont;
     }
   }
   > .fa-circle:before {
     font-size: 8px;
     margin-top: 5px;
+  }
+}
+
+.check_ul1{
+  padding: 0;
+  margin: 0;
+  > * {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 8px;
+    &::before {
+      left: 0;
+      top:4px;
+      font-size: 9px;
+      position: absolute;
+    }
   }
 }
 

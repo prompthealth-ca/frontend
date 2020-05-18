@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCategoryServices() {
-    this._sharedService.get('questionare/get-service').subscribe((res: any) => {
+    this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;

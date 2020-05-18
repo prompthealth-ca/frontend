@@ -100,25 +100,25 @@ select.form-control.w-auto {
 .services {
   margin-bottom: 10px;
 }
+.list-wrap {
 
-table td img {
-  max-width: 30px;
-  max-height: 30px;
-}
-.img-list {
-  max-width: 50px;
-  border: 1px solid #bbb;
-  margin-right: 5px;
-  max-height: 50px;
-  display: inline-block;
-  min-height: 50px;
-  text-align: center;
+  display: block;
+  width: 100%;
+  .img-list {
+    max-width: 50px;
+    border: 1px solid #bbb;
+    margin-right: 5px;
+    max-height: 50px;
+    display: inline-block;
+    min-height: 50px;
+    text-align: center;
 
-  min-width: 50px;
-  background-color: #dededd;
-  img {
-      max-width: 100%;
-      height: auto;
+    min-width: 50px;
+    background-color: #dededd;
+     > img {
+        max-width: 100%;
+        height: auto;
+    }
   }
 }
 
@@ -140,3 +140,4 @@ table td img {
   }
 
 }
+

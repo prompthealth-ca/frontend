@@ -18,6 +18,8 @@ export class MyAmenitiesComponent implements OnInit {
   addAmenity = [];
   selectedAmenityId;
   uploadAmenity = {};
+
+  updateAmenity = {};
   imagePushed = ''
   savedAminities = [];
   aminityObject
@@ -51,7 +53,6 @@ export class MyAmenitiesComponent implements OnInit {
 
   }
   getSelectedAmenties(event, amenity) {
-    console.log('event', event, amenity);
       if(event.target.checked) {
       this.selectedAmenityId = amenity._id;
       this.imagesList = [];
@@ -71,26 +72,48 @@ export class MyAmenitiesComponent implements OnInit {
   onFileSelect(event) {
     const formData: FormData = new FormData();
     let input = new FormData();
-    for (var i = 0; i < event.target.files.length; i++) {
-      input.append('images', event.target.files[i]);
-    }
-    this.spinner.show();
-    this.sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
-      if (res.statusCode === 200) {
-        this.imagesList = res.data;
-        this.uploadAmenity['images'] = res.data;
-        this.saveAmenities();
-        this.spinner.hide();
-        this.toastr.success(res.message);
-      }
-      else {
-        this.toastr.error(res.message);
-      }
-    }, err => {
-      this.spinner.hide();
-      this.toastr.error('There are some errors, please try again after some time !', 'Error');
-    });
+    input.append('imgLocation', 'amenities');
+    if(event.target.files.length === 1) {
 
+      input.append('images', event.target.files[0]);
+      this.sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.uploadAmenity['images'] = [res.data];
+          this.updateAmenity['images'] = [res.data];
+          this.updateAmenities();
+          this.spinner.hide();
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this.sharedService.loader('hide');
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+    }
+    else {
+      if (event.target.files.length > 3)  event.target.files.pop();
+      for (var i = 0; i < event.target.files.length; i++) {
+        input.append('images', event.target.files[i]);
+      }
+      this.spinner.show();
+      this.sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.imagesList = res.data;
+          this.uploadAmenity['images'] = res.data;
+          this.updateAmenity['images'] = res.data;
+          this.updateAmenities();
+          this.spinner.hide();
+          this.toastr.success(res.message);
+        }
+        else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this.spinner.hide();
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+    }
   }
   getSavedAmenties() {
     const path = `amenity/get-all/?userId=${this.userId}&count=10&page=1&frontend=0`;
@@ -98,7 +121,8 @@ export class MyAmenitiesComponent implements OnInit {
       this.spinner.show();
       if (res.statusCode === 200) {
         this.savedAminities = res.data.data;
-        console.log('this.savedAminities-------', res, this.savedAminities);
+        this.addMore = false;
+        this.spinner.hide();
       }
 
       else {
@@ -111,15 +135,37 @@ export class MyAmenitiesComponent implements OnInit {
   }
   
   saveAmenities() {
-    console.log('Data', this.uploadAmenity);
     this.spinner.show();
     const path = `amenity/create`;
     this.sharedService.post(this.uploadAmenity, path).subscribe((res: any) => {
       this.spinner.show();
       if (res.statusCode === 200) {
-        this.toastr.success(res.message);
-        console.log('this.defaultAmenities ===', res, this.defaultAmenities)
+
+        this.updateAmenity = {
+          id: res.data._id,
+        }
+        // this.getSavedAmenties();
         this.spinner.hide();
+      }
+
+      else {
+        // this.sharedService.showAlert(res.message, 'alert-danger');
+        this.spinner.hide();
+      }
+    }, (error) => {
+      this.spinner.hide();
+    });
+  }
+  updateAmenities() {
+    this.spinner.show();
+    const path = `amenity/update`;
+    const body = this.updateAmenity;
+    this.sharedService.put(body, path).subscribe((res: any) => {
+      this.spinner.show();
+      if (res.statusCode === 200) {
+        // this.toastr.success(res.message);
+        this.spinner.hide();
+        // this.getSavedAmenties();
       }
 
       else {
@@ -131,11 +177,9 @@ export class MyAmenitiesComponent implements OnInit {
     });
   }
   deleteAmenity(id) {
-    console.log('delete id', id);
 
     this.spinner.show();
     const path = `amenity/delete/${id}`;
-    console.log('DeleteVideo', path);
     this.sharedService.deleteContent(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.toastr.success(res.message);

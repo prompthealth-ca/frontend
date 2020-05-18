@@ -68,12 +68,14 @@ export class VideosBlogsComponent implements OnInit {
   saveVideos() {
     const path = `user/addVideo`;
     const payload = { user_id: this.userId, data: this.videosForm.value.data };
+    payload.data[0].url = `https://www.youtube.com/embed/${this.getEmbededURL(payload.data[0].url)}`;
     this.sharedService.loader('show');
     this.sharedService.post(payload, path).subscribe((res: any) => {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.getProfileDetails();
         this.toastrService.success(res.message);
+        this.addMore = false;
         // this._router.navigate(['/home']);
       } else {
         this.toastrService.error(res.message);
@@ -84,10 +86,18 @@ export class VideosBlogsComponent implements OnInit {
     });
     
   }
+  getEmbededURL(url) {
+    console.log('getEmbededURL', url)
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+
+      return (match && match[2].length === 11)
+        ? match[2]
+        : null;
+  }
   deleteVideo(i) {
     this.sharedService.loader('show');
     const path = `user/removeVideo/${this.userId}/${i}`;
-    console.log('DeleteVideo', path);
     this.sharedService.deleteContent(path).subscribe((res: any) => {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {

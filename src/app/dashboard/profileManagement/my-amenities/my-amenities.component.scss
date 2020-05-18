@@ -4,6 +4,24 @@ savedAminities.amenity-options {
         max-width: 60px;
     }
 }
+.img-list {
+    max-width: 50px;
+    border: 1px solid #bbb;
+    margin-right: 5px;
+    max-height: 50px;
+    display: inline-block;
+
+    min-width: 50px;
+    text-align: center;
+    min-height: 50px;
+    float: left;
+    background-color: #dededd;
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+}
 
 .multipleImage {
     max-width: 50px;
@@ -16,6 +34,7 @@ savedAminities.amenity-options {
     float: left;
     text-align: center;
     position: relative;
+    text-align: center;
 
     img {
         max-width: 100%;

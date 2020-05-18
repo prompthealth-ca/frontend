@@ -22,15 +22,15 @@
     </thead>
     <tbody>
         <tr *ngFor="let aminity of savedAminities">
-            <td>
+            <td width="30%">
                 {{ aminity.defaultamenityId.item_text }}
             </td>
-            <td>
+            <td width="60%">
                 <div class="img-list" *ngFor="let img of aminity.images; let i=index">
                     <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" />
                 </div>
             </td>
-            <td>
+            <td  width="10%">
                 <button (click)="deleteAmenity(aminity._id)" class="btn btn-danger"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
             </td>
         </tr>
@@ -46,7 +46,7 @@
         <div class="form-group col-sm-12" *ngIf="selectedAmenityId === amenity._id">
             <div>
                 <div *ngFor='let url of imagesList' class="multipleImage">
-                    <img [src]="'http://3.12.81.245:3000/public/images/' + url" height="200"> <br/>
+                    <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + url" height="200"> <br/>
                      <!-- <a (click)="removefromList(url)" class="fa fa-times"></a>  -->
                 </div>
             </div>
@@ -55,6 +55,10 @@
             class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
         </div>
         </div>
+    </div>
+    <hr class="col-sm-12">
+    <div class="col-sm-12">
+        <button class="btn btn-primary" (click)="getSavedAmenties()">Save</button>
     </div>
 </div>
 <!-- <table class="table table-hover comparetable" *ngIf="product && product.length">
@@ -146,7 +150,7 @@
                 </div>
             </div>
             <label class="col-md-3">Upload Images</label>
-            <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
+            <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
             <!-- <input type="file" name="profile" 
             class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
         </div>

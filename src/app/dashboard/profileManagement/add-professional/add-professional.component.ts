@@ -68,28 +68,30 @@ export class AddProfessionalComponent implements OnInit {
   onFileSelect(event) {
     const formData: FormData = new FormData();
     let input = new FormData();
-    // if(event.target.files.length === 1) {
-    //   // Add your values in here
-    //   input.append('_id', this.userId);
-    //   input.append('images/amenities', event.target.files[0]);
-    //   this._sharedService.loader('show');
-    //   this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
-    //     if (res.statusCode === 200) {
-    //       this.imagesList.push(res.data);
-  
-    //       this._sharedService.loader('hide');
-    //     } else {
-    //       this.toastr.error(res.message);
-    //     }
-    //   }, err => {
-    //     this._sharedService.loader('hide');
-    //     this.toastr.error('There are some errors, please try again after some time !', 'Error');
-    //   });
 
-    // }
-    // else {
+
+    input.append('imgLocation', 'products');
+    if(event.target.files.length === 1) {
+
+      input.append('images', event.target.files[0]);
+      this._sharedService.loader('show');
+      this._sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.imagesList.push(res.data);
+  
+          this._sharedService.loader('hide');
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this._sharedService.loader('hide');
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+
+    }
+    else {
       for (var i = 0; i < event.target.files.length; i++) {
-        input.append('images/amenities', event.target.files[i]);
+        input.append('images', event.target.files[i]);
       }
       this._sharedService.loader('show');
       this._sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
@@ -104,7 +106,7 @@ export class AddProfessionalComponent implements OnInit {
       this._sharedService.loader('hide');
         this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });
-    // }
+    }
   }
   removefromList(url) {
     this.imagesList.forEach((ele, index) => {

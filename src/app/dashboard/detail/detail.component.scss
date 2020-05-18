@@ -106,13 +106,37 @@ table td img {
   max-height: 30px;
 }
 .img-list {
-  max-width: 30px;
-  margin-right: 2px;;
-  max-height: 30px;
-  float: left;
+  max-width: 50px;
+  border: 1px solid #bbb;
+  margin-right: 5px;
+  max-height: 50px;
+  display: inline-block;
+  min-height: 50px;
+  text-align: center;
 
+  min-width: 50px;
+  background-color: #dededd;
+  img {
+      max-width: 100%;
+      height: auto;
+  }
 }
 
 .radio {
   margin-right: 5px;
+}
+.amenityList {
+  max-width: 50px;
+  border: 1px solid #bbb;
+  margin-right: 5px;
+  max-height: 50px;
+  display: inline-block;
+  min-height: 50px;
+  float: left;
+  background-color: #dededd;
+  img {
+      max-width: 100%;
+      height: auto;
+  }
+
 }

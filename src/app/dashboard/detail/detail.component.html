@@ -361,7 +361,7 @@
             <h6 class="text-primary text-uppercase">{{ amenity.defaultamenityId.item_text }}</h6>
           </div>
           <div class="col-sm-8">
-              <span *ngFor="let uimg of amenity.images">
+              <span *ngFor="let uimg of amenity.images" class="amenityList">
                 <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + uimg" />
               </span>
           </div>

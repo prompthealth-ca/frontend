@@ -43,14 +43,21 @@
 table td {
     text-transform: capitalize;;
     .img-list {
-        max-width: 30px;
-        margin-right: 2px;;
-        max-height: 30px;
+        max-width: 50px;
+        border: 1px solid #bbb;
+        margin-right: 5px;
+        max-height: 50px;
+
+        min-width: 50px;
+        text-align: center;
+
+        min-height: 50px;
         float: left;
+        background-color: #dededd;
 
         img {
-            max-width: 30px;
-            max-height: 30px;
+            max-width: 50px;
+            max-height: 50px;
         }
     }
 }

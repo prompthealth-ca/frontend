@@ -12,6 +12,8 @@ import { CanonicalLinkService } from "./shared/services/link.service";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ModalModule } from "ngx-bootstrap/modal";
+
+import {NgxPaginationModule} from 'ngx-pagination';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -38,6 +40,7 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    NgxPaginationModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

@@ -393,77 +393,61 @@
         </div> -->
       </div>
     </div>
-      <div class="col-md-12 mb-3" *ngIf="roles === 'C'">
-        <label>Do you offer any special amenities ? <span class="text-danger">*</span></label>
-        <div class="row">
-          <div  class="col-md-4" *ngFor="let item of amenitiesList; let i = index"> 
-              <label for="{{item.id}}">
-                  <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'special_amenities')"/>
-                  <span class="text-body">{{item.name}}</span>
-              </label>
-          </div>
+      
+    <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+      <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
+      <div class="row">
+      <div class="radio col-md-4 mb-3">
+        <input type="radio" value="4" name="years_of_experience" #years_of_experience="ngModel"
+          [(ngModel)]="userDetails.years_of_experience" required />
+        <span>
+          < 5 years</span>
       </div>
-        <!--
-        <div class="error-block">
-          <small *ngIf="special_amenities.errors?.required && special_amenities.touched" class="text-danger">
-            Amenities is required.
-          </small>
-        </div> -->
+      <div class="radio col-md-4 mb-3">
+        <input type="radio" value="5" name="years_of_experience" #years_of_experience="ngModel"
+          [(ngModel)]="userDetails.years_of_experience" required />
+        <span>5-10 years</span>
       </div>
-      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-        <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
-        <div class="row">
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="4" name="years_of_experience" #years_of_experience="ngModel"
-            [(ngModel)]="userDetails.years_of_experience" required />
-          <span>
-            < 5 years</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="5" name="years_of_experience" #years_of_experience="ngModel"
-            [(ngModel)]="userDetails.years_of_experience" required />
-          <span>5-10 years</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="10" name="years_of_experience" #years_of_experience="ngModel"
-            [(ngModel)]="userDetails.years_of_experience" required />
-          <span>10-20 years</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="21" name="years_of_experience" #years_of_experience="ngModel"
-            [(ngModel)]="userDetails.years_of_experience" required />
-          <span>> 20 years </span>
-        </div>
-        </div>
+      <div class="radio col-md-4 mb-3">
+        <input type="radio" value="10" name="years_of_experience" #years_of_experience="ngModel"
+          [(ngModel)]="userDetails.years_of_experience" required />
+        <span>10-20 years</span>
+      </div>
+      <div class="radio col-md-4 mb-3">
+        <input type="radio" value="21" name="years_of_experience" #years_of_experience="ngModel"
+          [(ngModel)]="userDetails.years_of_experience" required />
+        <span>> 20 years </span>
+      </div>
+      </div>
+      <!-- <div class="error-block">
+        <small *ngIf="years_of_experience.errors?.required && years_of_experience.touched" class="text-danger">
+          Experience is required.
+        </small>
+      </div> -->
+    </div>
+    <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+      <label>Description <span class="text-danger">*</span></label>
+      <div class="radio col-md-12 mb-4">
+        <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"
+          class="form-control" (keyup)="trim('product_description')" #product_description="ngModel"
+          [ngModel]="userDetails.product_description" (ngModelChange)="userDetails.product_description = $event"
+          required>
+          Product Description...</textarea>
+      </div>
         <!-- <div class="error-block">
-          <small *ngIf="years_of_experience.errors?.required && years_of_experience.touched" class="text-danger">
-            Experience is required.
+          <small *ngIf="product_description.errors?.required && product_description.touched" class="text-danger">
+            Description is required.
+          </small>
+          <small *ngIf="product_description.errors?.minlength && product_description.touched" class="text-danger">
+            Minumum length should be 3.
           </small>
         </div> -->
-      </div>
-      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-        <label>Description <span class="text-danger">*</span></label>
-        <div class="radio col-md-12 mb-4">
-          <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"
-            class="form-control" (keyup)="trim('product_description')" #product_description="ngModel"
-            [ngModel]="userDetails.product_description" (ngModelChange)="userDetails.product_description = $event"
-            required>
-            Product Description...</textarea>
-        </div>
-          <!-- <div class="error-block">
-            <small *ngIf="product_description.errors?.required && product_description.touched" class="text-danger">
-              Description is required.
-            </small>
-            <small *ngIf="product_description.errors?.minlength && product_description.touched" class="text-danger">
-              Minumum length should be 3.
-            </small>
-          </div> -->
-      </div>
-      <div class="col-md-12 mb-2 text-right">
-        <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
-          Submit
-        </button>
-      </div>
-    </form>
+    </div>
+    <div class="col-md-12 mb-2 text-right">
+      <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">
+        Submit
+      </button>
+    </div>
+  </form>
   </div>
 </section>

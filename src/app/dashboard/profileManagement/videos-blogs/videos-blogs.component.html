@@ -1,8 +1,7 @@
 <h4 class="mb-3">Video Listing 
     <button *ngIf="videosList && videosList.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
 </h4>
-
-<table class="table table-hover comparetable">
+<table class="table table-hover comparetable" *ngIf="videosList && videosList.length">
     <thead>
         <tr>
             <th>
@@ -30,10 +29,8 @@
         </tr>
     </tbody>
 </table>
-
-<hr *ngIf="addMore && videosList && videosList.length">
-
-<form *ngIf="addMore && videosList && videosList.length" (ngSubmit)="saveVideos()" [formGroup]="videosForm">
+<hr *ngIf="addMore && videosList && videosList.length == 0">
+<form *ngIf="addMore || videosList && videosList.length == 0" (ngSubmit)="saveVideos()" [formGroup]="videosForm">
     <!-- {{ url.errors?.required }} -->
     <div formArrayName="data">
       <div *ngFor="let itemrow of formArr.controls; let i=index" [formGroupName]="i" class="row">

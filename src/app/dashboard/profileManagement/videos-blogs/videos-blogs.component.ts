@@ -72,6 +72,7 @@ export class VideosBlogsComponent implements OnInit {
     this.sharedService.post(payload, path).subscribe((res: any) => {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {
+        this.getProfileDetails();
         this.toastrService.success(res.message);
         // this._router.navigate(['/home']);
       } else {
@@ -84,8 +85,6 @@ export class VideosBlogsComponent implements OnInit {
     
   }
   deleteVideo(i) {
-    console.log('DeleteVideo', i);
-
     this.sharedService.loader('show');
     const path = `user/removeVideo/${this.userId}/${i}`;
     console.log('DeleteVideo', path);

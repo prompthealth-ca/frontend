@@ -73,17 +73,6 @@ export class MyProfileComponent implements OnInit {
     { id: 'business5', name: 'Studio'},
     { id: 'business6', name: 'Pharmacy'},
   ];
-  amenitiesList = [
-    { id: 'amenities1', name: 'Lounge'},
-    { id: 'amenities2', name: 'Beverage/snack Bar'},
-    { id: 'amenities3', name: 'Café'},
-    { id: 'amenities4', name: 'Spa'},
-    { id: 'amenities5', name: 'Locker'},
-    { id: 'amenities6', name: 'Shower'},
-    { id: 'amenities7', name: 'Private training area'},
-    { id: 'amenities8', name: 'Ladies only area'},
-    { id: 'amenities9', name: 'Towel service'},
-  ];
 
   public profile = {
     firstName: '',
@@ -106,12 +95,10 @@ export class MyProfileComponent implements OnInit {
     years_of_experience: '',
     price_per_hours: '',
     business_kind: '',
-    special_amenities: '',
     product_description: '',
   };
   languagesSelected = [];
   hoursSelected = [];
-  amenitiesSelected = [];
   
   public response: any;
 
@@ -128,7 +115,7 @@ export class MyProfileComponent implements OnInit {
  
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
-        if(this.editFields) {
+        if (this.editFields) {
           this.profile.latitude = 0;
           this.profile.longitude = 0;
         }
@@ -237,10 +224,6 @@ export class MyProfileComponent implements OnInit {
       this.hoursSelected.push(e.target.value);
       this.profile.typical_hours = this.hoursSelected.toString();
     }
-    if(fieldUpdated === 'special_amenities') {
-      this.amenitiesSelected.push(e.target.value);
-      this.profile.special_amenities = this.amenitiesSelected.toString();
-    }
   }
   radioChanged(e, fieldUpdated){
     if(fieldUpdated === 'age_range') {
@@ -278,14 +261,12 @@ export class MyProfileComponent implements OnInit {
 
   }
 
-  onFileSelect(event) {    
-    const formData: FormData = new FormData();
-    formData.append('profileImage', event.target.files[0])
-
+  onFileSelect(event) {
     let input = new FormData();
     // Add your values in here
     input.append('_id', this.userInfo._id);
     input.append('profileImage', event.target.files[0]);
+    console.log('input', input);
     this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {

@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProfileManagementRoutingModule } from './profile-mangement-routing.module'
 
 import { WrapperComponent } from './wrapper/wrapper.component';
@@ -13,7 +14,12 @@ import { AddProfessionalComponent } from './add-professional/add-professional.co
 import { MyFavouriteComponent } from './my-favourite/my-favourite.component';
 import { ReviewsRatingsComponent } from './reviews-ratings/reviews-ratings.component';
 import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
+
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
+import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -26,12 +32,16 @@ import { AgmCoreModule } from '@agm/core';
     MyFavouriteComponent,
     ReviewsRatingsComponent,
     VideosBlogsComponent,
+    MyAmenitiesComponent,
   ],
   imports: [
     AgmCoreModule.forRoot(  {
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
     }),
+    NgxPaginationModule,NgxSpinnerModule,
+    SharedModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule,
     CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, ]
 })
 export class ProfileManagementModule {}

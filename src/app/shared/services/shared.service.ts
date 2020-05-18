@@ -213,7 +213,7 @@ export class SharedService {
   /*This function is use to get access token from cookie. */
   getAccessToken(): string {
     let token = localStorage.getItem('token');
-    return 'Bearer ' + token;
+    return token;
   }
 
   /*This function is use to get header with Authorization or without Authorization. */

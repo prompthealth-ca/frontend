@@ -69,19 +69,17 @@ export class WrapperComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.listing.push(...this.cListing);
-    
-    // switch(localStorage.getItem("roles")) {
-    //   case 'SP':
-    //     this.listing.push(...this.spListing);
-    //   break;
-    //   case 'C':
-    //     this.listing.push(...this.cListing);
-    //   break;
-    //   case 'U':
-    //     this.listing.push(...this.uListing);
-    //   break;
-    // }
+    switch(localStorage.getItem("roles")) {
+      case 'SP':
+        this.listing.push(...this.spListing);
+      break;
+      case 'C':
+        this.listing.push(...this.cListing);
+      break;
+      case 'U':
+        this.listing.push(...this.uListing);
+      break;
+    }
   }
 
 }

@@ -46,7 +46,7 @@ export class MyBookingComponent implements OnInit {
   getBookingList() {
     this.roles = localStorage.getItem('roles');
     // this.roles = 'U';
-    this.userId = JSON.parse(localStorage.getItem('user'))._id;
+    this.userId = localStorage.getItem('loginID');
     let path = `booking/get-all?userId=${this.userId}&count=10&page=1&frontend=0/`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {

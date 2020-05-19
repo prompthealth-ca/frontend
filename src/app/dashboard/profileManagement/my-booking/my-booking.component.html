@@ -15,7 +15,7 @@
                 <th>
                     <h5>Notes</h5>
                 </th>
-                <th>
+                <th class="status">
                     <h5>Status</h5>
                 </th>
             </tr>
@@ -35,12 +35,12 @@
                     {{ book.note }}
                 </td>
                 <td>
-                    <div class='row' [ngSwitch]="book.status">  
-                        <div *ngSwitchCase="0"><i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>Pending</div>  
-                        <div *ngSwitchCase="1"><i class="fa fa-check-circle-o" aria-hidden="true"></i>Approved</div>  
-                        <div *ngSwitchCase="2"><i class="fa fa-times-circle-o" aria-hidden="true"></i>Rejected</div>  
-                        <div *ngSwitchCase="3"><i class="fa fa-ban fa-2x" aria-hidden="true"></i>Canceled</div> 
-                        <div *ngSwitchCase="4"><i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>Completed</div> 
+                    <div class='d-block' [ngSwitch]="book.status">  
+                        <div *ngSwitchCase="0" class="text-success"><i class="fa fa-clock"></i> Pending</div>  
+                        <div *ngSwitchCase="1" class="text-success"><i class="fa fa-check"></i> Approved</div>  
+                        <div *ngSwitchCase="2" class="text-danger"><i class="fa fa-times"></i> Rejected</div>  
+                        <div *ngSwitchCase="3" class="text-danger"><i class="fa fa-ban"></i> Canceled</div> 
+                        <div *ngSwitchCase="4" class="text-success"><i class="fa fa-check-square"></i> Completed</div> 
                         <div *ngSwitchDefault></div>  
                     </div>  
                 </td>
@@ -78,18 +78,18 @@
                     {{ book.drId.email }}
                 </td>
                 <td>
-                  <div class='row' [ngSwitch]="book.status">  
+                  <div class='d-block' [ngSwitch]="book.status">  
                     <div *ngSwitchCase="0">
                       <button (click)="updateBooking(book._id, 1)" class="btn btn-primary mr-1">Accept</button>
                       <button (click)="updateBooking(book._id, 2)" class="btn btn-danger mr-1">Reject</button>
                       <button (click)="rescheduleBooking(book._id)"  data-toggle="modal" data-target="#editbookingmodal" class="btn btn-success">Reschedule</button>
                     </div>  
                     <div *ngSwitchCase="1">
-                      <span>Approved</span> <!--TODO: add green tick icon-->
+                      <span class="text-success"><i class="fa fa-check"></i> Approved</span>
                     </div>  
                     <div *ngSwitchCase="2">Rejected</div>  
-                    <div *ngSwitchCase="3"><i class="fa fa-ban fa-2x" aria-hidden="true"></i>Canceled</div> <!--TODO: add red cross icon-->
-                    <div *ngSwitchCase="4">Completed</div>  <!--TODO: add green tick icon different from approved-->
+                    <div *ngSwitchCase="3" class="text-danger"><i class="fa fa-times"></i> Canceled</div>
+                    <div *ngSwitchCase="4" class="text-primary"><i class="fa fa-check"></i> Completed</div>  
                     <div *ngSwitchDefault></div>  
                 </div>  
                 </td>

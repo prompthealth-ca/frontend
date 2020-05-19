@@ -1,16 +1,26 @@
-th.Reschedule{
-    min-width: 270px;
+th.Reschedule {
+  min-width: 270px;
 }
 
-.bookingtable{
-    td,th{
-        padding-left: 5px;
-        padding-right: 5px;
+th.status {
+  min-width: 120px;
+}
+
+.bookingtable {
+  td,
+  th {
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+  thead {
+    th {
+      font-size: 18px;
+      font-weight: 500;
     }
-    thead{
-    th{
-        font-size: 18px;
-        font-weight: 500;
-    }
-    }
+  }
+  tr.disabled {
+    color: #fff;
+    background-color: rgb(220, 53, 69);
+  }
 }

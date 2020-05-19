@@ -125,8 +125,7 @@
       </div>
       <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes'">
         <label>Booking Url <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" minlength="3"
-          maxlength="50" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
+        <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
           (ngModelChange)="userDetails.bookingURL = $event" required />
 
         <div class="error-block">

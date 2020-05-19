@@ -36,7 +36,10 @@
                 </td>
                 <td>
                     <div class='d-block' [ngSwitch]="book.status">  
-                        <div *ngSwitchCase="0" class="text-success"><i class="fa fa-clock"></i> Pending</div>  
+                        <div *ngSwitchCase="0" class="text-success">
+                          <button (click)="updateBooking(book._id, 1)" class="btn btn-primary mr-1">Accept</button>
+                          <button (click)="updateBooking(book._id, 2)" class="btn btn-danger mr-1">Reject</button>
+                        </div>  
                         <div *ngSwitchCase="1" class="text-success"><i class="fa fa-check"></i> Approved</div>  
                         <div *ngSwitchCase="2" class="text-danger"><i class="fa fa-times"></i> Rejected</div>  
                         <div *ngSwitchCase="3" class="text-danger"><i class="fa fa-ban"></i> Canceled</div> 

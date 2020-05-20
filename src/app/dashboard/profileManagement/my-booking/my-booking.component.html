@@ -1,104 +1,152 @@
 <h3 class="mb-3">My Bookings</h3>
-<div class="table-responsive"  *ngIf="bookingList && bookingList.length">
-    <table class="table table-hover comparetable" *ngIf="this.roles === 'U'">
-        <thead>
-            <tr>
-                <th>
-                    <h5>Name</h5>
-                </th>
-                <th>
-                    <h5>Contact Info</h5>
-                </th>
-                <th>
-                    <h5>Date/Slot</h5>
-                </th>
-                <th>
-                    <h5>Notes</h5>
-                </th>
-                <th class="status">
-                    <h5>Status</h5>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of bookingList">
-                <td>
-                    {{ book.drId.firstName }} - {{ book.drId.lastName }}
-                </td>
-                <td>
-                    {{ book.drId.email }}
-                </td>
-                <td>
-                    {{ book.bookingDateTime }} - {{ book.timing }}
-                </td>
-                <td>
-                    {{ book.note }}
-                </td>
-                <td>
-                    <div class='d-block' [ngSwitch]="book.status">  
-                        <div *ngSwitchCase="0" class="text-success">
-                          <button (click)="updateBooking(book._id, 1)" class="btn btn-primary mr-1">Accept</button>
-                          <button (click)="updateBooking(book._id, 2)" class="btn btn-danger mr-1">Reject</button>
-                        </div>  
-                        <div *ngSwitchCase="1" class="text-success"><i class="fa fa-check"></i> Approved</div>  
-                        <div *ngSwitchCase="2" class="text-danger"><i class="fa fa-times"></i> Rejected</div>  
-                        <div *ngSwitchCase="3" class="text-danger"><i class="fa fa-ban"></i> Canceled</div> 
-                        <div *ngSwitchCase="4" class="text-success"><i class="fa fa-check-square"></i> Completed</div> 
-                        <div *ngSwitchDefault></div>  
-                    </div>  
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-hover bookingtable w-100" *ngIf="this.roles === 'C' || this.roles === 'SP'">
-        <thead>
-            <tr>
-                <th>
-                    Patient's Info
-                </th>
-                <th>
-                    Date/Slot
-                </th>
-                <th>
-                    Doctor's Info
-                </th>
-                <th class="Reschedule">
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of bookingList" [ngClass]="{'disabled': book.status === 2}" >
-                <td>
-                    <p>{{ book.name }}</p>
-                    {{ book.phone }} / {{ book.email }}
-                </td>
-                <td>
-                    {{ book.bookingDateTime }} - {{ book.timing }}
-                </td>
-                <td>
-                    {{ book.drId.firstName }} - {{ book.drId.lastName }}
-                    {{ book.drId.email }}
-                </td>
-                <td>
-                  <div class='d-block' [ngSwitch]="book.status">  
-                    <div *ngSwitchCase="0">
-                      <button (click)="updateBooking(book._id, 1)" class="btn btn-primary mr-1">Accept</button>
-                      <button (click)="updateBooking(book._id, 2)" class="btn btn-danger mr-1">Reject</button>
-                      <button (click)="rescheduleBooking(book._id)"  data-toggle="modal" data-target="#editbookingmodal" class="btn btn-success">Reschedule</button>
-                    </div>  
-                    <div *ngSwitchCase="1">
-                      <span class="text-success"><i class="fa fa-check"></i> Approved</span>
-                    </div>  
-                    <div *ngSwitchCase="2">Rejected</div>  
-                    <div *ngSwitchCase="3" class="text-danger"><i class="fa fa-times"></i> Canceled</div>
-                    <div *ngSwitchCase="4" class="text-primary"><i class="fa fa-check"></i> Completed</div>  
-                    <div *ngSwitchDefault></div>  
-                </div>  
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="table-responsive" *ngIf="bookingList && bookingList.length">
+  <table class="table table-hover bookingtable" *ngIf="this.roles === 'U'">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Contact Info
+        </th>
+        <th>
+          Date/Slot
+        </th>
+        <th>
+          Notes
+        </th>
+        <th class="status">
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of bookingList">
+        <td>{{ book.drId.firstName }} - {{ book.drId.lastName }}</td>
+        <td>
+          {{ book.drId.email }}
+        </td>
+        <td>{{ book.bookingDateTime }} - {{ book.timing }}</td>
+        <td>
+          {{ book.note }}
+        </td>
+        <td>
+          <div class="d-block" [ngSwitch]="book.status">
+            <div *ngSwitchCase="0" class="text-success">
+              <button
+                (click)="updateBooking(book._id, 1)"
+                class="btn btn-primary mr-1"
+              >
+                Accept
+              </button>
+              <button
+                (click)="updateBooking(book._id, 2)"
+                class="btn btn-danger mr-1"
+              >
+                Reject
+              </button>
+              <button
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#reviewModal"
+              >
+                Completed
+              </button>
+            </div>
+            <div *ngSwitchCase="1" class="text-success">
+              <i class="fa fa-check"></i> Approved
+            </div>
+            <div *ngSwitchCase="2" class="text-danger">
+              <i class="fa fa-times"></i> Rejected
+            </div>
+            <div *ngSwitchCase="3" class="text-danger">
+              <i class="fa fa-ban"></i> Canceled
+            </div>
+            <div *ngSwitchCase="4" class="text-success">
+              <i class="fa fa-check-square"></i> Completed
+            </div>
+            <div *ngSwitchDefault></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table
+    class="table table-hover bookingtable w-100"
+    *ngIf="this.roles === 'C' || this.roles === 'SP'"
+  >
+    <thead>
+      <tr>
+        <th>
+          Patient's Info
+        </th>
+        <th>
+          Date/Slot
+        </th>
+        <th>
+          Doctor's Info
+        </th>
+        <th class="Reschedule">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let book of bookingList"
+        [ngClass]="{ disabled: book.status === 2 }"
+      >
+        <td>
+          <p>{{ book.name }}</p>
+          {{ book.phone }} / {{ book.email }}
+        </td>
+        <td>{{ book.bookingDateTime }} - {{ book.timing }}</td>
+        <td>
+          {{ book.drId.firstName }} - {{ book.drId.lastName }}
+          {{ book.drId.email }}
+        </td>
+        <td>
+          <div class="d-block" [ngSwitch]="book.status">
+            <div *ngSwitchCase="0">
+              <button
+                (click)="updateBooking(book._id, 1)"
+                class="btn btn-primary mr-1"
+              >
+                Accept
+              </button>
+              <button
+                (click)="updateBooking(book._id, 2)"
+                class="btn btn-danger mr-1"
+              >
+                Reject
+              </button>
+              <button
+                (click)="rescheduleBooking(book._id)"
+                data-toggle="modal"
+                data-target="#editbookingmodal"
+                class="btn btn-success"
+              >
+                Reschedule
+              </button>
+            </div>
+            <div *ngSwitchCase="1">
+              <span class="text-success"
+                ><i class="fa fa-check"></i> Approved</span
+              >
+            </div>
+            <div *ngSwitchCase="2">Rejected</div>
+            <div *ngSwitchCase="3" class="text-danger">
+              <i class="fa fa-times"></i> Canceled
+            </div>
+            <div *ngSwitchCase="4" class="text-primary">
+              <i class="fa fa-check"></i> Completed
+            </div>
+            <div *ngSwitchDefault></div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <div
   class="modal fade"
@@ -129,39 +177,57 @@
         </button>
       </div>
       <div class="modal-body pb-4">
-
-        <form role="form" [formGroup]="bookingForm" (ngSubmit)="rescheduleBookingApi()">
+        <form
+          role="form"
+          [formGroup]="bookingForm"
+          (ngSubmit)="rescheduleBookingApi()"
+        >
           <div class="form-row">
             <div class="col-md-12 mb-3">
               <label>Timing <span class="text-danger">*</span></label>
               <div class="row">
-                <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
-                  <label for="{{item.id}}">
-                      <input class="radio mr-2" type="checkbox" value="{{item.name}}" required id="{{item.id}}" formControlName="timing" (change)="timingSelected($event)"/>
-                      <span class="text-body">{{item.name}}</span>
-                      
+                <div
+                  class="col-md-6"
+                  *ngFor="let item of timingList; let i = index"
+                >
+                  <label for="{{ item.id }}">
+                    <input
+                      class="radio mr-2"
+                      type="checkbox"
+                      value="{{ item.name }}"
+                      required
+                      id="{{ item.id }}"
+                      formControlName="timing"
+                      (change)="timingSelected($event)"
+                    />
+                    <span class="text-body">{{ item.name }}</span>
                   </label>
                 </div>
 
                 <div *ngIf="submitted" class="error-msg">
-                    <small *ngIf="f.timing.errors"  class="text-danger">
-                      Timing is required
-                    </small>
-                  </div>
-              </div>
-            </div>
-            <div class="col-md-12 mb-3">
-                <label>Date</label>
-                <input 
-                class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
-                formControlName="bookingDateTime">
-                <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
-                <div *ngIf="submitted" class="error-msg">
-                  <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
-                    Booking Date is required
+                  <small *ngIf="f.timing.errors" class="text-danger">
+                    Timing is required
                   </small>
                 </div>
               </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label>Date</label>
+              <input
+                class="form-control"
+                [owlDateTime]="dt1"
+                [min]="minDate"
+                [owlDateTimeTrigger]="dt1"
+                placeholder="Date Time"
+                formControlName="bookingDateTime"
+              />
+              <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
+              <div *ngIf="submitted" class="error-msg">
+                <small *ngIf="f.bookingDateTime.errors" class="text-danger">
+                  Booking Date is required
+                </small>
+              </div>
+            </div>
             <div class="col-md-12 text-right">
               <button type="submit" class="btn btn-primary">Save</button>
             </div>
@@ -171,3 +237,48 @@
     </div>
   </div>
 </div>
+
+<!-- Review Modal -->
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#exampleModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="reviewModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="reviewModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Modal End -->

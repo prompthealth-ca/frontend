@@ -55,7 +55,7 @@
 </section>
 
 <!-- map section  -->
-<section class="pt-6 pb-6 position-relative bg-light">
+<!-- <section class="pt-6 pb-6 position-relative bg-light">
   <div
     class="bg-cover leftbgimage d-none d-md-block"
     style="background-image: url(assets/img/map.png);height: 300px;"
@@ -77,6 +77,50 @@
           nearest curated list of health and wellness practitioners based on
           your needs, with an easy to use interactive map.
         </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- clients and professionals boxes -->
+<section class="pt-5 pb-5">
+  <div class="container max-900">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <a
+          href=""
+          [routerLink]="['/auth/registration', 'u']"
+          class="shadow rounded h-100 mk-boxes bg-cover text-center bg-overlay scaleup"
+          style="background-image: url(assets/img/bg1.jpg);"
+        >
+          <div class="card-body">
+            <h3 class="text-light mb-5">Client</h3>
+            <a
+              href=""
+              [routerLink]="['/auth/registration', 'u']"
+              class="btn btn-outline-light"
+              >Sign up for Free</a
+            >
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 mb-3">
+        <a
+          href=""
+          [routerLink]="['/dashboard/subscriptionplan']"
+          class="shadow rounded h-100 mk-boxes bg-cover text-center bg-overlay scaleup"
+          style="background-image: url(assets/img/professional.jpg);"
+        >
+          <div class="card-body">
+            <h3 class="text-light mb-5">Professionals</h3>
+            <a
+              href=""
+              [routerLink]="['/dashboard/subscriptionplan']"
+              class="btn btn-outline-light"
+              >Learn More
+            </a>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -205,7 +249,7 @@
     style="border-radius: 15px 0px 0px 0px;"
   ></div>
   <div class="spacer-top"></div>
-  <div class="position-relative pt-4 pb-4" style="background-color: #4274bade;">
+  <div class="position-relative pt-4 pb-4" style="background-color: #4a86abd1;">
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-lg-5 mb-3 mb-lg-0">
@@ -297,50 +341,6 @@
             src="assets/img/question4.jpg"
             class="w-100 shadow-lg rounded-lg scaleup"
         /></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- clients and professionals boxes -->
-<section class="pt-5 pb-5">
-  <div class="container max-900">
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <a
-          href=""
-          [routerLink]="['/auth/registration', 'u']"
-          class="shadow rounded h-100 mk-boxes bg-cover text-center bg-overlay scaleup"
-          style="background-image: url(assets/img/bg1.jpg);"
-        >
-          <div class="card-body">
-            <h3 class="text-light mb-5">Client</h3>
-            <a
-              href=""
-              [routerLink]="['/auth/registration', 'u']"
-              class="btn btn-outline-light"
-              >Sign up for Free</a
-            >
-          </div>
-        </a>
-      </div>
-      <div class="col-md-6 mb-3">
-        <a
-          href=""
-          [routerLink]="['/dashboard/subscriptionplan']"
-          class="shadow rounded h-100 mk-boxes bg-cover text-center bg-overlay scaleup"
-          style="background-image: url(assets/img/professional.jpg);"
-        >
-          <div class="card-body">
-            <h3 class="text-light mb-5">Professionals</h3>
-            <a
-              href=""
-              [routerLink]="['/dashboard/subscriptionplan']"
-              class="btn btn-outline-light"
-              >Learn More
-            </a>
-          </div>
-        </a>
       </div>
     </div>
   </div>

@@ -135,23 +135,38 @@
           <h3 class="mb-3">Your Experts</h3>
           <div class="text-primary h6 mb-3">
             Number of professionals that meet all your criteria
-            <span class="badge badge-secondary">{{ doctorsListing.length }}</span>
+            <span class="badge badge-secondary"
+              >{{ doctorsListing.length }}</span
+            >
           </div>
         </div>
 
         <hr class="mt-0" />
 
-        <div class="p-3 bg-light mb-3 text-right"  *ngIf="compareList.length">
-          <div class="d-inline-flex bg-white compareprofilebox" *ngFor="let doc of compareList">
+        <div class="p-3 bg-light mb-3 text-right" *ngIf="compareList.length">
+          <div
+            class="d-inline-flex bg-white compareprofilebox"
+            *ngFor="let doc of compareList"
+          >
             <a (click)="removefromCopare(doc.userId)" class="fa fa-times"></a>
             <img
-              
               [src]="'http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage"
               class="compareprofileimg"
             />
             <div class="p-2">
-              <div class="font-weight-bold mb-2">{{ doc.userData.firstName }}</div>
-              <div class="mb-2 font-weight-normal">{{ doc.userData.email }}</div>
+              <div class="font-weight-bold mb-2">
+                {{ doc.userData.firstName }}
+              </div>
+              <div class="mb-2 font-weight-normal">
+                {{ doc.userData.email }}
+              </div>
+              <div class="text-review mb-2">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
             </div>
           </div>
 
@@ -159,19 +174,24 @@
             <div class="mb-2">
               <a class="text-primary" (click)="clearCompareList()">Clear All</a>
             </div>
-            <a (click)="compareDoc()" class="btn btn-outline-primary">Compare</a>
+            <a (click)="compareDoc()" class="btn btn-outline-primary"
+              >Compare</a
+            >
           </div>
         </div>
 
-        <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" *ngFor="let doc of doctorsListing">
+        <div
+          class="row m-0 shadow-sm overflow-hidden profileBox mb-4"
+          *ngFor="let doc of doctorsListing"
+        >
           <div class="col-12 col-lg-3 p-0">
             <!-- <img
               [src]="'http://3.12.81.245:3000/public/images/users/'+doc?.userData?.profileImage"
               class="profileimg" /> -->
-              <div
-                class="bg-cover w-100 h-100 profileimg"
-                [ngStyle]="{'background-image': 'url(http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage +')'}"
-              ></div>
+            <div
+              class="bg-cover w-100 h-100 profileimg"
+              [ngStyle]="{'background-image': 'url(http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage +')'}"
+            ></div>
           </div>
           <div class="col-12 col-lg-9 p-3">
             <div
@@ -184,10 +204,24 @@
                   class="d-block h5 text-uppercase mb-0"
                   >{{ doc.userData.firstName }}</a
                 >
-                <div class="mb-2 font-weight-normal">{{doc.userData.email}}</div>
+                <div class="mb-2 font-weight-normal">
+                  {{doc.userData.email}}
+                </div>
+                <div class="text-review mb-2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
               </div>
               <div class="checkboxBtn ml-0 ml-md-3 mb-2">
-                <input type="checkbox" [id]="doc.userId" value="{{doc.userId}}" (change)="compareFields(doc, $event)"/>
+                <input
+                  type="checkbox"
+                  [id]="doc.userId"
+                  value="{{doc.userId}}"
+                  (change)="compareFields(doc, $event)"
+                />
                 <span class="btn btn-outline-primary">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +244,7 @@
                 class="fa fa-phone text-secondary d-inline-block mr-2"
                 href="tel:{{doc.userData.phone}}"
               >
-              <span>{{doc.userData.phone}}</span>
+                <span>{{doc.userData.phone}}</span>
               </a>
               <a
                 class="fa fa-envelope text-secondary d-inline-block mr-2"

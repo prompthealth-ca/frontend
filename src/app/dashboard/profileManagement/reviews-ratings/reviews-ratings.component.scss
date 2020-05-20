@@ -1,0 +1,40 @@
+@import "../../../../assets/scss/mixins";
+
+.Reviewsbox {
+  border-right: 3px solid $primaryColor;
+  position: relative;
+  &::before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    transform: rotate(134deg);
+    left: -13px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid $primaryColor;
+  }
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -3px;
+    transform: rotate(44deg);
+    left: -13px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid $primaryColor;
+  }
+  > img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+.text-rating {
+  color: #ffc91d;
+}

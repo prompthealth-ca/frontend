@@ -64,6 +64,70 @@
             </div>
             <div *ngSwitchCase="4" class="text-success">
               <i class="fa fa-check-square"></i> Completed
+              <button
+
+                (click)="showReviewModal(book)"
+                id ="reviewButton"
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#reviewModal"
+              >Rate Now</button>
+
+              <!-- Review Modal -->
+              <div
+                class="modal fade"
+                id="reviewModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="reviewModalLabel"
+                aria-hidden="true"
+              >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">Review</h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="bg-gray p-3">
+                      <div class="p-2 text-center bg-white">
+                        <h4>Write A Reivew</h4>
+                        <div class="font-weight-bold">Select a rating</div>
+                        <div class="mt-3">
+                          <label class="mx-2">Overall Experience</label>
+                          <app-ratings [rating]='0'  (ratingClick)='ratingComponentClick($event)'></app-ratings>
+                        </div>
+
+                        <small *ngIf="ratingSubmited && !ratingClicked" class="text-danger col-sm-12">
+                          Rating is required
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="text-primary text-center font-weight-bold my-3">
+                      Your Review
+                    </div>
+                    <textarea
+                      class="form-control"
+                      [(ngModel)] = "review"
+                      placeholder="Write a review..."
+                    ></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="submitRating()">Post Your Review</button>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+              <!-- Review Modal End -->
             </div>
             <div *ngSwitchDefault></div>
           </div>
@@ -86,7 +150,7 @@
         <th>
           Doctor's Info
         </th>
-        <th class="Reschedule">
+        <th class="Reschedule"  style="text-align: center;">
           Actions
         </th>
       </tr>
@@ -105,7 +169,7 @@
           {{ book.drId.firstName }} - {{ book.drId.lastName }}
           {{ book.drId.email }}
         </td>
-        <td>
+        <td style="text-align: center;">
           <div class="d-block" [ngSwitch]="book.status">
             <div *ngSwitchCase="0">
               <button
@@ -133,6 +197,14 @@
               <span class="text-success"
                 ><i class="fa fa-check"></i> Approved</span
               >
+              <button
+                (click)="updateBooking(book._id, 4)"
+                class="btn btn-primary mr-1"
+              >
+                Completed
+              </button>
+              
+
             </div>
             <div *ngSwitchCase="2">Rejected</div>
             <div *ngSwitchCase="3" class="text-danger">
@@ -237,60 +309,3 @@
     </div>
   </div>
 </div>
-
-<!-- Review Modal -->
-<div
-  class="modal fade"
-  id="reviewModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="reviewModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="reviewModalLabel">Review</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="bg-gray p-3">
-          <div class="p-2 text-center bg-white">
-            <h4>Write A Reivew</h4>
-            <div class="font-weight-bold">Select a rating</div>
-            <div class="mt-3">
-              <label class="mx-2">Overall Experience</label>
-              <span class="text-rating mx-2">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-primary text-center font-weight-bold my-3">
-          Your Review
-        </div>
-        <textarea
-          class="form-control"
-          placeholder="Write a review..."
-        ></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Post Your Review</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Review Modal End -->

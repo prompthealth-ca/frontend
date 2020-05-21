@@ -18,7 +18,10 @@
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label>First Name <span class="text-danger">*</span></label>
+        <label *ngIf="roles === 'C'; else firstNameLabel">Name <span class="text-danger">*</span></label>
+        <ng-template #firstNameLabel>
+          <label>First Name <span class="text-danger">*</span></label>
+        </ng-template>
         <input autofocus type="text" id="firstName" name="firstName" class="form-control" placeholder="" minlength="3"
           maxlength="50" (keyup)="trim('firstName')" #firstName="ngModel" [ngModel]="userDetails.firstName"
           (ngModelChange)="userDetails.firstName = $event" required />
@@ -32,7 +35,7 @@
           </small>
         </div>
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-3" *ngIf="roles !== 'C'">
         <label>Last Name <span class="text-danger">*</span></label>
         <input autofocus type="text" id="lastName" name="lastName" class="form-control" placeholder="" minlength="3"
           maxlength="50" (keyup)="trim('lastName')" #lastName="ngModel" [ngModel]="userDetails.lastName"
@@ -79,7 +82,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-3"  *ngIf="roles !== 'C'">
         <div class="row">
           <div class="col-md-12">
             <label>Gender <span class="text-danger">*</span></label>
@@ -101,6 +104,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-6 mb-3">
         <div class="row">
           <div class="col-md-12">
@@ -117,13 +121,13 @@
             <span>No</span>
           </div>
           <div class="error-block">
-            <small *ngIf="gender.errors?.required && gender.touched" class="text-danger">
+            <small *ngIf="booking.errors?.required && booking.touched" class="text-danger">
               Booking option is required.
             </small>
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes'">
+      <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes' && roles !== 'C'">
         <label>Booking Url <span class="text-danger">*</span></label>
         <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
           (ngModelChange)="userDetails.bookingURL = $event" required />
@@ -206,7 +210,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-3" *ngIf="roles !== 'C'">
         <label>License Number <span class="text-danger">*</span></label>
         <input autofocus type="text" id="License" name="License" class="form-control" placeholder="" minlength="3"
           maxlength="50" (keyup)="trim('License')" #License="ngModel" [ngModel]="userDetails.licence_type_degree"
@@ -221,7 +225,7 @@
           </small>
         </div> -->
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6 mb-3"  *ngIf="roles !== 'C'">
         <label>Professional Organzation <span class="text-danger">*</span></label>
         <input autofocus type="text" id="org" name="org" class="form-control" placeholder="" minlength="3"
           maxlength="50" (keyup)="trim('org')" #org="ngModel" [ngModel]="userDetails.professional_organization"

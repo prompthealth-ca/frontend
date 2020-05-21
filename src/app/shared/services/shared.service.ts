@@ -57,6 +57,7 @@ getNoAuth(path, setParams = {}) {
   return this.http.get(url );
 }
   post(body, path) {
+    console.log('post---', this.rootUrl + path);
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });
   }

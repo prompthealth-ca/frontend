@@ -102,7 +102,7 @@
         >
       </li>
       <li class="nav-item" 
-      *ngIf="roles === 'U'">
+      *ngIf="userInfo?.roles === 'U'">
         <a
           class="nav-link"
           id="professional-tab"
@@ -114,7 +114,7 @@
           >Professional Background</a
         >
       </li>
-      <li class="nav-item" *ngIf="roles === 'C'">
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
         <a
           class="nav-link"
           id="Activity-tab"
@@ -123,10 +123,10 @@
           role="tab"
           aria-controls="pills-Videos"
           aria-selected="false"
-          >My Videos</a
+          >Videos</a
         >
       </li>
-      <li class="nav-item" *ngIf="roles === 'C'">
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
         <a
           class="nav-link"
           id="Activity-tab"
@@ -136,20 +136,20 @@
           aria-controls="pills-product"
           aria-selected="false"
           (click) ="getProductList()"
-          >My Product</a
+          >Product</a
         >
       </li>
-      <li class="nav-item" *ngIf="roles === 'C'">
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
         <a
           class="nav-link"
           id="Activity-tab"
           data-toggle="pill"
           href="#pills-amenity"
           role="tab"
-          aria-controls="pills-product"
+          aria-controls="pills-amenity"
           aria-selected="false"
           (click) ="getSavedAmenties()"
-          >My Amenities</a
+          >Amenities</a
         >
       </li>
     </ul>
@@ -240,7 +240,7 @@
         </table>
       </div>
       <div
-        *ngIf="roles === 'U'"
+        *ngIf="userInfo?.roles === 'U'"
         class="tab-pane"
         id="pills-professional"
         role="tabpanel"
@@ -356,9 +356,6 @@
                   </a>
                     <!-- Image slider modal -->
                   <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
-
-
-                  <!-- ==>>>= {{ prod | json}} -->
                     <div class="modal-dialog w-100">
                       <div class="modal-content bg-transparent border-0">
                         <div class="modal-header border-0 p-0">
@@ -413,7 +410,7 @@
         role="tabpanel"
         aria-labelledby="Activity-tab"
       >
-        <h5 class="mb-0">My Amenities</h5>
+        <h5 class="mb-0">Amenities</h5>
         <hr />
         <div class="d-flex mb-4">
           <div class="col-sm-4">
@@ -428,9 +425,50 @@
             <h6 class="text-primary text-uppercase">{{ amenity.defaultamenityId.item_text }}</h6>
           </div>
           <div class="col-sm-8">
+            <button data-toggle="modal" [attr.data-target]="'#' + amenity._id" class="list-wrap">
               <span *ngFor="let uimg of amenity.images" class="amenityList">
                 <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + uimg" />
               </span>
+            </button>
+            <!-- Image slider modal -->
+            <div class="modal fade imageslidermodal" [id]="amenity._id" tabindex="-1" role="dialog" [attr.aria-labelledby]="amenity._id" aria-hidden="true">
+              <div class="modal-dialog w-100">
+                <div class="modal-content bg-transparent border-0">
+                  <div class="modal-header border-0 p-0">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body pt-0 px-4">
+                    <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+
+                            <li data-target="#carouselExampleControls2" [attr.data-slide-to]="i" *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
+                                <img  [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" alt="...">
+                            </li>
+                          </ol>
+
+                        <div class="carousel-inner">
+                          <div class="carousel-item"  *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
+                            <img  [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" class="d-block w-100" alt="...">
+                          </div>
+                        </div>
+
+                        <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
           </div>
         </div>
       </div>

@@ -1,46 +1,39 @@
-<h3 class="mb-3">My Products
-    <button *ngIf="product && product.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
+<h3 class="mb-3"  *ngIf="doctors && doctors.length">My Professionals
+    <button *ngIf="doctors && doctors.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
 </h3>
-<input  *ngIf="product && product.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
-<table class="table table-hover addprofessionaltable w-100" *ngIf="product && product.length">
+<input  *ngIf="doctors && doctors.length" type="text" [(ngModel)]="doctorSearch" placeholder="Serach.." class="form-control searchBar"/>
+<table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length">
     <thead>
         <tr>
             <th>
-                <h5>Title</h5>
+                <h5>Images</h5>
+            </th>
+            <th>
+                <h5>Name</h5>
             </th>
             <th>
                 <h5>Description</h5>
             </th>
             <th>
-                <h5>Price</h5>
-            </th>
-            <th>
-                <h5>Images</h5>
-            </th>
-            <th>
-                <h5>Delete</h5>
+                <h5>Action</h5>
             </th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let prod of product | customFilter:productSearch;let i = index">
+        <tr *ngFor="let prod of doctors | customFilter: doctorSearch;  let i = index">
+            
             <td>
-                {{ prod.slug }}
+                <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+            </td>
+            <td>
+                {{ prod.fname }} {{ prod.lname }}
             </td>
             <td>
                 {{ prod.description }}
             </td>
             <td>
-                {{ prod.price }}
-            </td>
-            <td>
-                <div class="img-list" *ngFor="let img of prod.images; let i=index">
-                    <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
-                </div>
-            </td>
-            <td>
-                <button (click)="deleteProduct(prod._id)" class="btn btn-danger mr-1 p-2"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
-                <button (click)="editProduct(prod)" class="btn btn-primary p-2"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                <button (click)="deleteStaff(prod._id)" class="btn btn-danger mr-1 p-2"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
+                <button (click)="editStaff(prod)" class="btn btn-primary p-2"><i class="fa fa-edit" aria-hidden="true"></i></button>
             </td>
         </tr>
     </tbody>
@@ -49,56 +42,51 @@
     *ngIf="product && product.length"
     id="productListing" (pageChange)="p = $event"
 ></pagination-controls> -->
-<hr *ngIf="addMore && product && product.length == 0">
-<form  *ngIf="addMore || product && product.length == 0" role="form"  [formGroup]="addProductForm" (ngSubmit)="save()">
-    <h3>Add Product</h3>
+<hr *ngIf="addMore && doctors && doctors.length == 0">
+<form  *ngIf="addMore || doctors && doctors.length == 0" role="form"  [formGroup]="addDoctorForm" (ngSubmit)="save()">
+    <h3>Add Professional</h3>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="col-md-3">Title<span class="text-danger">*</span></label>
+            <label class="col-md-12">First Name<span class="text-danger">*</span></label>
             <input
             type="text"
-            id="productTitle"
-            name="productTitle"
-            formControlName="title"
-            placeholder="Enter Title"
+            id="docFname"
+            name="docFname"
+            formControlName="fname"
+            placeholder="Enter First Name"
             class="form-control"
             />
             <div *ngIf="submitted" class="error-msg">
-                <small *ngIf="f.title.errors"  class="text-danger">
-                    Title is required
+                <small *ngIf="f.fname.errors"  class="text-danger">
+                    First Name is required
                 </small>
             </div>
         </div>
         <div class="form-group col-sm-6">
-            <label class="col-md-3">Price<span class="text-danger">*</span></label>
+            <label class="col-md-12">Last Name<span class="text-danger">*</span></label>
             <input
-            type="number"
+            type="text"
             autocomplete="off"
-            id="productPrice"
-            name="productPrice"
-            formControlName="price"
-            placeholder="Enter Price"
+            id="docLname"
+            name="docLname"
+            formControlName="lname"
+            placeholder="Enter Last Name"
             class="form-control"
             />
-            <div *ngIf="submitted">
-                <small *ngIf="f.price.errors?.required"   class="text-danger">
-                    Price is required
-                </small>
-            </div>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
             
-            <div *ngFor='let url of imagesList' class="multipleImage">
-                <img [src]="'http://3.12.81.245:3000/public/images/products/' + url" height="200"> <br/>
-                <a (click)="removefromList(url)" class="fa fa-times"></a>
+            <div class="multipleImage" *ngIf="imagesList.length">
+                <img [src]="'http://3.12.81.245:3000/public/images/users/' + imagesList" height="200"> <br/>
+                <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
                 <label class="col-md-12">Upload Images</label>
                 <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
-                class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
+                class="form-control col-md-12" (change)="onFileSelect($event)"/>
             
             </div>
         </div>
@@ -124,54 +112,52 @@
         </div>
     </div>
 </form>
-<form  *ngIf="editProductCheck" role="form"  [formGroup]="editProductForm" (ngSubmit)="updateProduct()">
+<form  *ngIf="editDoctorCheck" role="form"  [formGroup]="editDoctorForm" (ngSubmit)="updateStaff()">
     <h3>Edit Product</h3>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label class="col-md-3">Title<span class="text-danger">*</span></label>
+            <label class="col-md-12">First Name<span class="text-danger">*</span></label>
             <input
             type="text"
-            id="productTitle"
-            name="productTitle"
-            formControlName="title"
-            placeholder="Enter Title"
+            id="docFname"
+            name="docFname"
+            formControlName="fname"
+            placeholder="Enter First Name"
             class="form-control"
             />
             <div *ngIf="submitted" class="error-msg">
-                <small *ngIf="ef.title.errors"  class="text-danger">
-                    Title is required
+                <small *ngIf="f.fname.errors"  class="text-danger">
+                    First Name is required
                 </small>
             </div>
         </div>
         <div class="form-group col-sm-6">
-            <label class="col-md-3">Price<span class="text-danger">*</span></label>
+            <label class="col-md-12">Last Name<span class="text-danger">*</span></label>
             <input
-            type="number"
+            type="text"
             autocomplete="off"
-            id="productPrice"
-            name="productPrice"
-            formControlName="price"
-            placeholder="Enter Price"
+            id="docLname"
+            name="docLname"
+            formControlName="lname"
+            placeholder="Enter Last Name"
             class="form-control"
             />
-            <div *ngIf="submitted">
-                <small *ngIf="ef.price.errors?.required"   class="text-danger">
-                    Price is required
-                </small>
-            </div>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <div *ngIf="imagesList?.length">
-                <div *ngFor='let url of imagesList' class="multipleImage">
-                    <img [src]="'http://3.12.81.245:3000/public/images/products/' + url" height="200"> <br/>
-                    <a (click)="removefromList(url)" class="fa fa-times"></a>
-                </div>
+            
+            <div class="multipleImage" *ngIf="imagesList.length">
+                <img [src]="'http://3.12.81.245:3000/public/images/users/' + imagesList" height="200"> <br/>
+                <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
-            <label class="col-md-3">Upload Images</label>
-            <input type="file" name="profile" 
-            class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>
+            <div>
+                <label class="col-md-12">Upload Images</label>
+                <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
+                <input type="file" name="profile" 
+                class="form-control col-md-12" (change)="onFileSelect($event)"/>
+            
+            </div>
         </div>
         <div class="form-group col-sm-12">
             <label class="col-md-3">Description<span class="text-danger">*</span></label>
@@ -185,11 +171,13 @@
             class="form-control col-md-12"
             ></textarea>
             <div *ngIf="submitted">
-                <small *ngIf="ef.description?.errors?.required" class="text-danger">
+                <small *ngIf="f.description?.errors?.required" class="text-danger">
                     Description is required
                 </small>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-primary">Edit</button>
         </div>

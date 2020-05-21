@@ -13,6 +13,7 @@ import { ReviewsRatingsComponent } from './reviews-ratings/reviews-ratings.compo
 import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
 import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 
+import { MyProductComponent } from './my-product/my-product.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: "my-profile",
         component: MyProfileComponent
+      },
+      {
+        path: "my-product",
+        component: MyProductComponent
       },
       {
         path: "my-subscription",

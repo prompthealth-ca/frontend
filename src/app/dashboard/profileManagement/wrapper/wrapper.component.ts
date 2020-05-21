@@ -49,6 +49,10 @@ export class WrapperComponent implements OnInit {
     },
     {
       title: 'My Products',
+      link: 'my-product'
+    },
+    {
+      title: 'My Doctors',
       link: 'add-professionals'
     },
     {

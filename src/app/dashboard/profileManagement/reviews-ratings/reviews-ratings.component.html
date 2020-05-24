@@ -1,64 +1,50 @@
 <h3 class="mb-3">Reviews and Ratings</h3>
 
-<div class="p-3 shadow mb-3 d-flex Reviewsbox">
-  <img src="/assets/img/man-testimonial.jpg" class="shadow" />
+<div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
+  <img [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
+  <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
   <div class="pl-3 w-100">
     <div class="d-flex justify-content-between mb-2">
-      <b class="font-weight-bold">Mohit</b>
-      <span>20/05/20</span>
+      <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
     </div>
-    <div class="text-rating mb-2">
+    <div class="text-rating mb-2" *ngIf="rate.rating===5">
       <i class="fa fa-star"></i>
       <i class="fa fa-star"></i>
       <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+    </div>
+    <div class="text-rating mb-2" *ngIf="rate.rating===4">
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="far fa-star"></i>
+    </div>
+    <div class="text-rating mb-2" *ngIf="rate.rating===3">
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i>
+    </div>
+    <div class="text-rating mb-2" *ngIf="rate.rating===2">
+      <i class="fa fa-star"></i>
+      <i class="fa fa-star"></i>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i>
+    </div>
+    <div class="text-rating mb-2" *ngIf="rate.rating===1">
+      <i class="fa fa-star"></i>
+      <i class="far fa-star"></i>
+      <i class="far fa-star"></i>
       <i class="far fa-star"></i>
       <i class="far fa-star"></i>
     </div>
 
     <div class="review">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-    </div>
-  </div>
-</div>
-
-<div class="p-3 shadow mb-3 d-flex Reviewsbox">
-  <img src="/assets/img/man-testimonial.jpg" class="shadow" />
-  <div class="pl-3 w-100">
-    <div class="d-flex justify-content-between mb-2">
-      <b class="font-weight-bold">Mohit</b>
-      <span>20/05/20</span>
-    </div>
-    <div class="text-rating mb-2">
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-    </div>
-
-    <div class="review">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-    </div>
-  </div>
-</div>
-
-<div class="p-3 shadow mb-3 d-flex Reviewsbox">
-  <img src="/assets/img/man-testimonial.jpg" class="shadow" />
-  <div class="pl-3 w-100">
-    <div class="d-flex justify-content-between mb-2">
-      <b class="font-weight-bold">Mohit</b>
-      <span>20/05/20</span>
-    </div>
-    <div class="text-rating mb-2">
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="fa fa-star"></i>
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-    </div>
-
-    <div class="review">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+      {{ rate.review }}
     </div>
   </div>
 </div>

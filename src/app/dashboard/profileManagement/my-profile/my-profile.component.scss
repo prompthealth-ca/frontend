@@ -3,6 +3,9 @@
 .profileeditbox {
   @include profileImageInput(150px);
   margin-bottom: 30px;
+  height: 10px;
+  width: 20px;
+  background-color: red;
 }
 
 .form-control:disabled {

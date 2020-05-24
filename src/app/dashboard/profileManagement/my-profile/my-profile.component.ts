@@ -13,7 +13,7 @@ export class MyProfileComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  defaultImage = 'assets/img/man-testimonial.jpg';
+  defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
   
   editFields = false;

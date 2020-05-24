@@ -9,6 +9,8 @@ import { SharedService } from '../../../shared/services/shared.service';
 export class ReviewsRatingsComponent implements OnInit {
   userInfo;
   rating;
+  defaultImage = 'assets/img/man-testimonial.jpg';
+  imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
   constructor(
     private _sharedService: SharedService,
   ) { }
@@ -21,10 +23,10 @@ export class ReviewsRatingsComponent implements OnInit {
   this.getProfileDetails();
   }
   getProfileDetails() {
-    let path = `user/get-profile/${this.userInfo._id }`;
+    let path = `booking/get-all-review?userId=${this.userInfo._id }&count=10&page=1&search=/`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        this.rating = res.data[0];
+        this.rating = res.data.data;
         console.log('this.rating', this.rating);
       } else {
         this._sharedService.checkAccessToken(res.message);

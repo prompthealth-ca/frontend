@@ -32,7 +32,7 @@
     color: #f70;
 }
 
-.rating:not(:checked) > label:hover,
+.rating:not(:checked):not([disabled]) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
     color: gold;
 }

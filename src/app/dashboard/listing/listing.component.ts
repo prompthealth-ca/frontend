@@ -56,7 +56,6 @@ export class ListingComponent implements OnInit {
     }, err => {
       this._sharedService.loader('hide');
     });
-
   }
   compareFields(doc, evt) {
     if(evt.target.checked) {

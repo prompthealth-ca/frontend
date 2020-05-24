@@ -43,10 +43,8 @@ export class HomeComponent implements OnInit {
     return this.homeForm.controls;
   }
   ngOnInit() {
-
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
- 
       let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -98,7 +96,9 @@ export class HomeComponent implements OnInit {
         }
 
         console.log('zipCodeSearched[0]',  this.zipCodeSearched)
-        this.router.navigate(['dashboard/listing'], { queryParams: {zipcode: this.zipCodeSearched }})
+
+        this.router.navigate(['/doctor-filter'], { queryParams: {zipcode: this.zipCodeSearched }})
+        // this.router.navigate(['dashboard/listing'], { queryParams: {zipcode: this.zipCodeSearched }})
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }

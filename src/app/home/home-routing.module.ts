@@ -12,6 +12,7 @@ import { ClientComponent } from './client/client.component';
 import { ProffesionalComponent } from './proffesional/proffesional.component';
 import { EnterpriceComponent } from './enterprice/enterprice.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: "pricing",
     component: PricingComponent
+  },
+  {
+    path:'doctor-filter',
+    component: DoctorFilterComponent
   }
 ];
 

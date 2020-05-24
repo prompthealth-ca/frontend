@@ -1,5 +1,6 @@
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { HomeRoutingModule } from "./home-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from "../home/home.component";
@@ -13,9 +14,11 @@ import { ClientComponent } from "./client/client.component";
 import { ProffesionalComponent } from "./proffesional/proffesional.component";
 import { EnterpriceComponent } from "./enterprice/enterprice.component";
 import { PricingComponent } from './pricing/pricing.component';
+import { MapComponent } from "./map/map.component";
 // import { ProfessionalRegisterComponent } from '../dashboard/professional-register/professional-register.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -28,10 +31,13 @@ import { AgmCoreModule } from '@agm/core';
     ProffesionalComponent,
     EnterpriceComponent,
     PricingComponent,
+    MapComponent,
+    DoctorFilterComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [
     NgxSpinnerModule,
+    AutocompleteLibModule,
     AgmCoreModule.forRoot(  {
       apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
       libraries: ['places']
@@ -39,6 +45,10 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule
-  ]
+  ],
+
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class HomeModule {}

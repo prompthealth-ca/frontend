@@ -137,3 +137,12 @@ agm-map {
   display: table;
   margin: 0 auto;
 }
+
+.service-list {
+  margin: 15px 5px !important;
+  cursor: pointer;
+  color: #6d6e71;
+}
+.service-list:hover {
+  color: #000;
+}

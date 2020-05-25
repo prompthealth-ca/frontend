@@ -43,6 +43,8 @@ export class MyAmenitiesComponent implements OnInit {
       if (res.statusCode = 200) {
         this.defaultAmenities = res.data;
 
+        console.log('defaultAmenities', this.defaultAmenities)
+
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

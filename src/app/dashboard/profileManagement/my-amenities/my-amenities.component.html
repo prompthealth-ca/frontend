@@ -42,7 +42,7 @@
 
         <h5>{{ amenity.item_text }}</h5>
         <input type="checkbox" name="answers" [id]="amenity._id" class="mr-3" (change)="getSelectedAmenties($event, amenity)"/>
-        <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + amenity.icon"/>
+        <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + amenity.icon" class="am-icons"/>
         <div class="form-group col-sm-12" *ngIf="selectedAmenityId === amenity._id">
             <div>
                 <div *ngFor='let url of imagesList' class="multipleImage">

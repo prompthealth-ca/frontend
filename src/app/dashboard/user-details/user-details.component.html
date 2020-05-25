@@ -106,43 +106,6 @@
       </div>
 
       <div class="col-md-6 mb-3">
-        <div class="row">
-          <div class="col-md-12">
-            <label>Do you have a booking system <span class="text-danger">*</span></label>
-          </div>
-          <div class="radio col-md-6 mb-3">
-            <input type="radio" value="yes" name="booking" #booking="ngModel" [(ngModel)]="userDetails.booking"
-              required />
-            <span>Yes</span>
-          </div>
-          <div class="radio col-md-6 mb-3">
-            <input type="radio" value="no" name="booking" #booking="ngModel" [(ngModel)]="userDetails.booking"
-              required />
-            <span>No</span>
-          </div>
-          <div class="error-block">
-            <small *ngIf="booking.errors?.required && booking.touched" class="text-danger">
-              Booking option is required.
-            </small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes' && roles !== 'C'">
-        <label>Booking Url <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
-          (ngModelChange)="userDetails.bookingURL = $event" required />
-
-        <div class="error-block">
-          <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
-            Booking URL is required.
-          </small>
-          <small *ngIf="URL.errors?.minlength && URL.touched" class="text-danger">
-            Minumum length should be 3.
-          </small>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-3">
         <label>Address <span class="text-danger">*</span></label>
         <input type="text" id="address" name="address" class="form-control" placeholder="" (keyup)="trim('address')"
           #address="ngModel" #search [ngModel]="userDetails.address" required />
@@ -192,24 +155,6 @@
           </small>
         </div>
       </div>
-
-      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-        <label>What languages are you fluent in ?<span class="text-danger">*</span></label>
-        <div class="row">
-        <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
-          <label for="{{item.id}}">
-              <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'languages')"/>
-              <span class="text-body">{{item.name}}</span>
-          </label>
-      </div>
-        </div>
-        <!-- 
-        <div class="error-block">
-          <small *ngIf="languages.errors?.required && languages.touched" class="text-danger">
-            Language is required.
-          </small>
-        </div> -->
-      </div>
       <div class="col-md-6 mb-3" *ngIf="roles !== 'C'">
         <label>License Number <span class="text-danger">*</span></label>
         <input autofocus type="text" id="License" name="License" class="form-control" placeholder="" minlength="3"
@@ -239,6 +184,42 @@
             Organzation length should be 3.
           </small>
         </div> -->
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Do you have a booking system <span class="text-danger">*</span></label>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="yes" name="booking" #booking="ngModel" [(ngModel)]="userDetails.booking"
+              required />
+            <span>Yes</span>
+          </div>
+          <div class="radio col-md-6 mb-3">
+            <input type="radio" value="no" name="booking" #booking="ngModel" [(ngModel)]="userDetails.booking"
+              required />
+            <span>No</span>
+          </div>
+          <div class="error-block">
+            <small *ngIf="booking.errors?.required && booking.touched" class="text-danger">
+              Booking option is required.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes'">
+        <label>Booking Url <span class="text-danger">*</span></label>
+        <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
+          (ngModelChange)="userDetails.bookingURL = $event" required />
+
+        <div class="error-block">
+          <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
+            Booking URL is required.
+          </small>
+          <small *ngIf="URL.errors?.minlength && URL.touched" class="text-danger">
+            Minumum length should be 3.
+          </small>
+        </div>
       </div>
       <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
@@ -278,23 +259,6 @@
         <!-- <div class="error-block">
           <small *ngIf="price_per_hours.errors?.required && price_per_hours.touched" class="text-danger">
             Price is required.
-          </small>
-        </div> -->
-      </div>
-      <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-        <label>What are your typical hours ?<span class="text-danger">*</span></label>
-        <div class="row">
-          <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
-              <label for="{{item.id}}">
-                  <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'typical_hours')"/>
-                  <span class="text-body">{{item.name}}</span>
-              </label>
-          </div>
-      </div>
-        <!-- 
-        <div class="error-block">
-          <small *ngIf="typical_hours.errors?.required && typical_hours.touched" class="text-danger">
-            Hours range is required.
           </small>
         </div> -->
       </div>
@@ -427,6 +391,19 @@
           Experience is required.
         </small>
       </div> -->
+    </div>
+    <div *ngIf="roles === 'C' || roles === 'SP'">
+      <div class="" *ngFor="let ques of profileQuestions">
+        <label>{{ ques.center_question }}</label>
+        <div class="row">
+          <div  class="col-md-4" *ngFor="let item of ques.answers; let i = index"> 
+            <label for="{{item._id}}">
+                <input class="radio" type="checkbox" value="{{item.item_text}}" required id="{{item._id}}" (change)="checkBoxChanged($event, ques.question_type)"/>
+                <span class="text-body">{{item.item_text}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>Description <span class="text-danger">*</span></label>

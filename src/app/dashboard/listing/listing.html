@@ -160,12 +160,42 @@
               <div class="mb-2 font-weight-normal">
                 {{ doc.userData.email }}
               </div>
-              <div class="text-review mb-2">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="far fa-star"></i>
-                <i class="far fa-star"></i>
+              <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
+                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 5">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 4">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 3">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 1">
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
               </div>
             </div>
           </div>
@@ -207,12 +237,42 @@
                 <div class="mb-2 font-weight-normal">
                   {{doc.userData.email}}
                 </div>
-                <div class="text-review mb-2">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
+                <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
+                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 5">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 4">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
+                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 3">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
+                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 2">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
+                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 1">
+                    <i class="fa fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
                 </div>
               </div>
               <div class="checkboxBtn ml-0 ml-md-3 mb-2">

@@ -25,25 +25,6 @@ export class UserDetailsComponent {
   defaultImage = '';
   imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
 
-  languageList = [
-    { id: 'language1', name: 'English' },
-    { id: 'language2', name: 'French' },
-    { id: 'language3', name: 'Spanish' },
-    { id: 'language4', name: 'Italian' },
-    { id: 'language5', name: 'Mandarin' },
-    { id: 'language6', name: 'Cantonese' },
-    { id: 'language7', name: 'Punjabi' },
-    { id: 'language8', name: 'Farsi' }
-  ];
-
-  hoursList = [
-    { id: 'hours1', name: 'Early mornings (Before 9 am)' },
-    { id: 'hours2', name: 'Between 9- 5pm' },
-    { id: 'hours3', name: 'Evenings (After 5 pm)' },
-    { id: 'hours4', name: 'Saturday' },
-    { id: 'hours5', name: 'Sunday' },
-  ];
-
   public userDetails = {
     firstName: '',
     lastName: '',
@@ -55,8 +36,8 @@ export class UserDetailsComponent {
     city: '',
     zipcode: '',
     age_range: '',
-    languages: '',
-    typical_hours: '',
+    languages: [],
+    typical_hours: [],
     price_per_hours: '',
     product_description: '',
     years_of_experience: '',
@@ -73,6 +54,7 @@ export class UserDetailsComponent {
 
   languagesSelected = [];
   hoursSelected = [];
+  profileQuestions = [];
 
   public _host = environment.config.BASE_URL;
   public response: any;
@@ -89,8 +71,6 @@ export class UserDetailsComponent {
   }
 
   ngOnInit() {
-    
-
     this.roles = localStorage.getItem('roles');
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.mapsAPILoader.load().then(() => {
@@ -119,6 +99,7 @@ export class UserDetailsComponent {
     });
     const userInfo = JSON.parse(localStorage.getItem('user'));
     this.userDetails.email = userInfo ? userInfo.email : '';
+    this.getProfileQuestion();
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
@@ -172,6 +153,20 @@ export class UserDetailsComponent {
       }
     });
   }
+  getProfileQuestion() {
+    let path = `questionare/get-profile-questions`;
+    this._sharedService.get(path).subscribe((res: any) => {
+       if (res.statusCode = 200) {
+        this.profileQuestions = res.data;
+        console.log('this.getProfileQuestion', res.data)
+       } else {
+         this.toastr.error(res.message);
+  
+       }
+     }, err => {
+       this._sharedService.loader('hide');
+     });
+  }
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -207,22 +202,21 @@ export class UserDetailsComponent {
   }
 
   checkBoxChanged(e, fieldUpdated) {
-    if(fieldUpdated === 'languages') {
-      this.languagesSelected.push(e.target.value);
-      this.userDetails.languages = this.languagesSelected.toString();
+    console.log('checkBoxChanged', e, fieldUpdated);
+    if(fieldUpdated === 'availability') {
+      this.languagesSelected.push(e.target.id);
+      this.userDetails.languages = this.languagesSelected;
     }
-    if(fieldUpdated === 'typical_hours') {
-      this.hoursSelected.push(e.target.value);
-      this.userDetails.typical_hours = this.hoursSelected.toString();
+    if(fieldUpdated === 'service') {
+      this.hoursSelected.push(e.target.id);
+      this.userDetails.typical_hours = this.hoursSelected;
     }
   }
-
   handleReaderLoaded(e) {
     let reader = e.target;
     this.defaultImage = reader.result;
   }
   save() {
-
     const formData = new FormData();
     const payload = this.userDetails;
     payload['_id'] = localStorage.getItem('loginID');
@@ -244,7 +238,6 @@ export class UserDetailsComponent {
       this._sharedService.loader('hide');
     });
   }
-
   trim(key) {
     if (this.userDetails[key] && this.userDetails[key][0] == ' ') this.userDetails[key] = this.userDetails[key].trim();
   }

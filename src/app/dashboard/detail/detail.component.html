@@ -17,13 +17,44 @@
                 {{userInfo?.firstName}} {{userInfo?.lastName}}
               </div>
               <div class="text-primary">({{userInfo?.gender}})</div>
-              <div class="text-review mt-2">
+              
+              <div class="text-review mb-2" *ngIf="userInfo.ratingAvg">
+                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 5">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 4">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 3">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
                 </div>
+                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 1">
+                  <i class="fa fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
             </div>
           </div>
         </div>

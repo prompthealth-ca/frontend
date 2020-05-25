@@ -11,10 +11,14 @@ import { SharedService } from "../../shared/services/shared.service";
 })
 export class DoctorFilterComponent implements OnInit {
   @ViewChild('searchGlobal')
+  
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
   categoryList = [];
+  profileQuestions = []
+  selectedHours = '';
+  selectedLang = '';
   doctorList = [];
   allDoctorList = [];
   public countries = [
@@ -73,14 +77,13 @@ export class DoctorFilterComponent implements OnInit {
   lat;
   long;
 
-
-
-  // google maps zoom level
-  zoom: number = 8;
-  
-  // initial center position for the map
-  lati: number = 51.673858;
-  lng: number = 7.815982;
+  location = {
+  markers:  [
+  ],
+  zoom: 16,
+  lati:51.673858,
+  lng: 7.815982,
+  }
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -108,6 +111,8 @@ export class DoctorFilterComponent implements OnInit {
             return;
           }
           this.lat = place.geometry.location.lat()
+          this.location.lati = place.geometry.location.lng()
+          this.location.lng = place.geometry.location.lat()
           this.long = place.geometry.location.lng()
           const payload = {
             latLong: `${this.lat}, ${this.long}`
@@ -117,8 +122,11 @@ export class DoctorFilterComponent implements OnInit {
         });
       });
     });
+
+
     this.getDoctorList({ zipcode: this.zipcode });
     this.getAllDoctorList();
+    this.getProfileQuestion();
   }
 
   // getAddress(latitude, longitude) {
@@ -149,13 +157,27 @@ export class DoctorFilterComponent implements OnInit {
   //     }
   //   });
   // }
+  getProfileQuestion() {
+    let path = `questionare/get-profile-questions`;
+    this.sharedService.get(path).subscribe((res: any) => {
+       if (res.statusCode = 200) {
+        this.profileQuestions = res.data;
+        console.log('this.getProfileQuestion', res.data)
+       } else {
+         this.toastr.error(res.message);
+  
+       }
+     }, err => {
+       this.sharedService.loader('hide');
+     });
+  }
   getAllDoctorList() {
     let path = 'user/get-all-dr';
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-       this.allDoctorList = res.data;
-
-      console.log('comes, here allDoctorList', this.allDoctorList)
+        const result = res.data;
+       this.createNameList(result)
+       
       } else {
         this.toastr.error(res.message);
       }
@@ -168,6 +190,7 @@ export class DoctorFilterComponent implements OnInit {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
+        // console.log('categoryList', this.categoryList)
       } else {
       }
     }, (error) => {
@@ -177,20 +200,21 @@ export class DoctorFilterComponent implements OnInit {
   }
 
   getDoctorList(filter) {
-    console.log('zipcode', filter);
     this.sharedService.loader('show');
     let payload;
     payload = {
       ids: [],
       ...filter,
     }
-    console.log('payload', payload)
-    let path = 'user/filter';
+    let path = 'user/filter-map';
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
-
-      console.log('comes, here', this.doctorList)
+       const self = this
+        setTimeout(()=>{
+          self.createMapMarker(this.doctorList)
+        }, 500)
+      // console.log('comes, doctorList', this.doctorList)
       } else {
         this.toastr.error(res.message);
       }
@@ -199,40 +223,72 @@ export class DoctorFilterComponent implements OnInit {
     });
   }
   handleRatingChange(event) {
-    // console.log('----', this.ratingFilter, event.target.value);
-    // if (event.target.value !== 'all') {
-    //   this.ratingFilter = { rating: event.target.value }
-    // }
     if (event.target.value !== 'all') {
-      this.getDoctorList({ zipcode: this.zipcode });
+      this.ratingFilter = { rating: event.target.value }
+    }
+  }
+  onOptionsSelected(value:string, type){
+    console.log("the selected value is " + value, type);
+    if(type === 'language') {
+      this.selectedLang = value;
     }
     else {
-      this.getDoctorList({ rating: event.target.value })
+        this.selectedHours = value;
+    }
+  }
+  applyFilter() {
+    const payload = {
+      rating:this.ratingFilter ?  this.ratingFilter : null,
+      languageId:this.selectedLang,
+      typicalHoursId:this.selectedHours,
+    }
+
+    this.getDoctorList(payload);
+  }
+  createMapMarker(data) {
+    this.location.lati = data[data.length-1].location[1];
+
+    this.location.lng = data[data.length-1].location[0];
+    for (let element of data) {
+      if(element.location) {
+        this.location.markers.push({
+          lat: element.location[1],
+          lng: element.location[0],
+          label: element.roles,
+          draggable: false,
+          infoContent: element.firstName
+        })
+      }
+    }
+
+  }
+  createNameList(data) {
+    for (let element of data) {
+      if(element.firstName) {
+        this.allDoctorList.push({
+          id: element._id,
+          name: element.firstName,
+        })
+      }
     }
   }
   serviceFilter(event) {
-    console.log('----', event);
-    // if (event.target.value !== 'all') {
-    //   this.getDoctorList({ zipcode: this.zipcode });
-    // }
-    // else {
-    //   this.getDoctorList({ rating: event.target.value })
-    // }
+    this.getDoctorList({ serviceId: event.target.id })
   }
 
 
   selectEvent(item) {
-    // do something with selected item
+    this.getDoctorList({ name: item.name })
   }
  
-  onChangeSearch(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
+  // onChangeSearch(val: string) {
+  //   // fetch remote data from here
+  //   // And reassign the 'data' which is binded to 'data' property.
+  // }
   
-  onFocused(e){
-    // do something when input is focused
-  }
+  // onFocused(e){
+  //   // do something when input is focused
+  // }
 
 
 
@@ -252,29 +308,7 @@ export class DoctorFilterComponent implements OnInit {
   //   console.log('dragEnd', m, $event);
   // }
   
-  markers: marker[] = [
-	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  label: 'C',
-      draggable: false,
-      infoContent: 'Center Test 123'
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  label: 'SP',
-		  draggable: false,
-      infoContent: 'Center has no info'
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  label: 'SP',
-		  draggable: false,
-      infoContent: 'SP Tithi'
-	  }
-  ]
+  
 }
 // just an interface for type safety.
 interface marker {

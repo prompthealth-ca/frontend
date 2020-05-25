@@ -15,6 +15,7 @@ export class QuestionnaireComponent implements OnInit {
   public type = window.localStorage.getItem('roles');
   public itemsTotal = 0;
   public selectedItems = [];
+  typical_hours = [];
   subRes = {
     question: '',
     quesId: '',
@@ -37,6 +38,8 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     this.type = localStorage.getItem('roles');
+    
+    localStorage.removeItem('typical_hours');
     if(this.type === 'U') {
       this.getUserQuestionnaire();
      } else {
@@ -82,11 +85,13 @@ export class QuestionnaireComponent implements OnInit {
     const payload = {
       _id: localStorage.getItem('loginID'),
       services: this.selectedItems,
+      typical_hours: this.typical_hours,
     }
+    console.log('data', payload);
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        
+        localStorage.setItem('typical_hours', this.typical_hours.toString());
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
@@ -100,10 +105,19 @@ export class QuestionnaireComponent implements OnInit {
     if(this.type === 'U') this._router.navigate(['/dashboard/listing']);
 
   }
-  getSubAns(evt, subOption) {
+  getSubAns(evt, subOption, questType) {
+    console.log('getSubAns', evt, questType);
     const parentId = evt.target.id;
+    
     if(this.selectedItems.indexOf(parentId) === -1) {
-      this.selectedItems.push(parentId);
+      if(questType === 'availability') {
+        this.typical_hours.push(parentId);
+
+    console.log('typical_hours', this.typical_hours);
+      }
+      else {
+        this.selectedItems.push(parentId);
+      }
     }
     if(evt.target.checked && subOption) {
       this.subRes.question = evt.target.name
@@ -129,6 +143,7 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   getSubSubAns(evt, subans) {
+    console.log('getSubSubAns', evt);
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);

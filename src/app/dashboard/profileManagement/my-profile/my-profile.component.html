@@ -30,7 +30,7 @@
             />
         </div>
 
-        <div class="form-row mb-3" *ngIf="roles === 'C'">
+        <div class="form-row mb-3" *ngIf="roles !== 'C'">
             <label class="col-md-3">Last Name <span class="text-danger" *ngIf="editFields">*</span></label>
             <input
             [disabled] = "!editFields"
@@ -99,35 +99,52 @@
             class="form-control col-md-9"
             />
         </div>
-        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-            <label class="col-md-3">Fluent Languages</label>
-            <p class="col-md-9" *ngIf="!editFields">{{profile.languages}}</p>
-
-            <div *ngIf="editFields" class="col-sm-9">
-                <div class="form-row">
-                    <div  class="col-md-4" *ngFor="let item of languageList; let i = index"> 
-                        <label for="{{item.id}}">
-                            <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'languages')"/>
-                            <span class="text-body">{{item.name}}</span>
-                        </label>
+        <div  *ngIf="roles === 'C' || roles === 'SP'">
+            <div class="radio form-row mb-3">
+                <label  class="col-md-3" *ngIf="profileQuestions[0]?.question_type === 'availability'">Available Time</label>
+                <div  class="col-md-4" *ngFor="let profileItem of profile.languages; let i = index"> 
+                <div *ngFor="let item of profileQuestions[0]?.answers; let i = index">
+                    <!-- profileItem === {{ profileItem | json}}
+                    item === {{ item | json}} -->
+                <p class="col-md-9" *ngIf="!editFields && item._id === profileItem">{{item.item_text}}</p>
+                <div  *ngIf="editFields" class="col-sm-9">
+                            <label for="{{item._id}}">
+                                <input class="radio" type="checkbox" [checked]="item._id === profileItem" required id="{{item._id}}" (change)="checkBoxChanged($event, profileQuestions[0].question_type)"/>
+                                <span class="text-body">{{item.item_text}}</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-            <label class="col-md-3">YOUR TYPICAL HOURS</label>
-            <p class="col-md-9" *ngIf="!editFields">{{profile.typical_hours}}</p>
-
-            <div *ngIf="editFields" class="col-sm-9">
-                <div class="form-row">
-                    <div  class="col-md-4" *ngFor="let item of hoursList; let i = index"> 
-                        <label for="{{item.id}}">
-                            <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="checkBoxChanged($event, 'typical_hours')"/>
-                            <span class="text-body">{{item.name}}</span>
-                        </label>
+            <div class="radio form-row mb-3">
+                <label  class="col-md-3" *ngIf="profileQuestions[1]?.question_type === 'service'">Fluent Language</label>
+                <div  class="col-md-4" *ngFor="let profileItem of profile.typical_hours; let i = index"> 
+                <div *ngFor="let item of profileQuestions[1]?.answers; let i = index">
+                <p class="col-md-9" *ngIf="!editFields && item._id === profileItem">{{item.item_text}}</p>
+                <div  *ngIf="editFields" class="col-sm-9">
+                            <label for="{{item._id}}">
+                                <input class="radio" type="checkbox" [checked]="item._id === profileItem" required id="{{item._id}}" (change)="checkBoxChanged($event, profileQuestions[1].question_type)"/>
+                                <span class="text-body">{{item.item_text}}</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- <div class="radio form-row mb-3">
+                <label  class="col-md-3" *ngIf="profileQuestions[1].question_type === 'service'">Fluent Languages</label>
+
+                <div  class="col-md-4" *ngFor="let profileItem of profile.languages; let i = index"> 
+                <div *ngFor="let item of profileQuestions[1].answers; let i = index">
+                <p class="col-md-9" *ngIf="!editFields && item._id === profileItem">{{item.item_text}}</p>
+                <div  *ngIf="editFields" class="col-sm-9">
+                            <label for="{{item._id}}">
+                                <input class="radio" type="checkbox" [checked]="item._id === profileItem" required id="{{item._id}}" (change)="checkBoxChanged($event, profileQuestions[1].question_type)"/>
+                                <span class="text-body">{{item.item_text}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
         <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Age range of you client</label>

@@ -96,7 +96,7 @@
                 <div class="form-row" *ngIf="question.choice_type === 'multiple'">
                   <div class="col-md-3"  [ngClass]="{'col-md-12' : options.subans === true}" *ngFor="let options of question.answers; let i = index" >
                     <div class="radio">
-                      <input type="checkbox" name="answers" [id]="options._id" class="mr-3" (change)="getSubAns($event, options.subans)"/>
+                      <input type="checkbox" name="answers" [id]="options._id" class="mr-3" (change)="getSubAns($event, options.subans, question.question_type)"/>
                       <span>{{ options.item_text }}</span>
                     </div>
                     <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">

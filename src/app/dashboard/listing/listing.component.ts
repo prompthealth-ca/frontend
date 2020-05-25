@@ -14,6 +14,7 @@ export class ListingComponent implements OnInit {
   private sub: any;
   doctorsListing = [];
   compareList = [];
+  typical_hours = []
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
@@ -26,29 +27,44 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.typical_hours = localStorage.getItem('typical_hours').split(',');
+    console.log('typical_hours', this.typical_hours)
    this.listing();
   }
 
   listing() {
     this._sharedService.loader('show');
-    let payload;
+    let setParams;
     if (this.zipcode) {
-      payload = {
+      setParams = {
         ids: [],
-        zipcode: this.zipcode
+        zipcode: this.zipcode,
       }
-    } else {
+    } else if(this.typical_hours.length) {
+      setParams = {
+        ids: [],
+        zipcode: this.zipcode,
+        typical_hours: this.typical_hours,
+      }
+    }
+    else {
 
-      payload = {
+      setParams = {
         ids: this.id,
       }
     }
     let path = 'user/filter';
     console.log('comes, here==')
-    this._sharedService.postNoAuth(payload, path).subscribe((res: any) => {
+    this._sharedService.postNoAuth(setParams, path).subscribe((res: any) => {
       console.log('comes, here', res)
       if (res.statusCode = 200) {
        this.doctorsListing = res.data;
+
+        for(let i =0; i<this.doctorsListing.length; i++) {
+          if(this.doctorsListing[i].userData.ratingAvg) {
+          this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg)
+          }
+        }
         this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);

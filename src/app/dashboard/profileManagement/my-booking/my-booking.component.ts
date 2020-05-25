@@ -57,6 +57,7 @@ export class MyBookingComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.bookingList = res.data.data;
+        console.log('this.bookingList ', this.bookingList );
 
       } else {
         this._sharedService.checkAccessToken(res.message);

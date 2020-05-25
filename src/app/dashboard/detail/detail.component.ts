@@ -64,6 +64,7 @@ export class DetailComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.userInfo = res.data[0];
+        this.userInfo.ratingAvg = Math.floor(this.userInfo.ratingAvg);
         console.log('this.userInfo', this.userInfo)
        } else {
          this.toastr.error(res.message);

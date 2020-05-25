@@ -33,25 +33,8 @@
         <td>
           <div class="d-block" [ngSwitch]="book.status">
             <div *ngSwitchCase="0" class="text-success">
-              <button
-                (click)="updateBooking(book._id, 1)"
-                class="btn btn-primary mr-1"
-              >
-                Accept
-              </button>
-              <button
-                (click)="updateBooking(book._id, 2)"
-                class="btn btn-danger mr-1"
-              >
-                Reject
-              </button>
-              <button
-                class="btn btn-success"
-                data-toggle="modal"
-                data-target="#reviewModal"
-              >
-                Completed
-              </button>
+              <h6>Pending</h6>
+              
             </div>
             <div *ngSwitchCase="1" class="text-success">
               <i class="fa fa-check"></i> Approved
@@ -65,7 +48,7 @@
             <div *ngSwitchCase="4" class="text-success">
               <i class="fa fa-check-square"></i> Completed
               <button
-
+                *ngIf="!book.rating"
                 (click)="showReviewModal(book)"
                 id ="reviewButton"
                 class="btn btn-success"
@@ -128,6 +111,32 @@
               </div>
 
               <!-- Review Modal End -->
+            </div>
+
+            <div *ngSwitchCase="5" class="text-success">
+              <button
+                (click)="updateBooking(book._id, 1)"
+                class="btn btn-primary mr-1"
+              >
+                Accept
+              </button>
+              <button
+                (click)="updateBooking(book._id, 2)"
+                class="btn btn-danger mr-1"
+              >
+                Reject
+              </button>
+              <!-- <button
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#reviewModal"
+              >
+                Completed
+              </button> -->
+            </div>
+            <div *ngSwitchCase="6" class="text-success">
+              
+              <i class="fa fa-check"></i> Accepted
             </div>
             <div *ngSwitchDefault></div>
           </div>
@@ -212,6 +221,9 @@
             </div>
             <div *ngSwitchCase="4" class="text-primary">
               <i class="fa fa-check"></i> Completed
+            </div>
+            <div *ngSwitchCase="5" class="text-primary">
+              Waiting for Acceptance
             </div>
             <div *ngSwitchDefault></div>
           </div>

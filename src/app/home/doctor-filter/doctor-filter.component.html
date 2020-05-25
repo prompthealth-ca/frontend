@@ -17,7 +17,7 @@
     <div class="container">
       <div class="pt-4 pb-2">
         <div class="row">
-          <div class="col-md-6 mb-3">
+          <div class="col-md-4 mb-3">
           <label class="font-weight-bold text-light">Near</label>
           <input 
             id="address"
@@ -29,15 +29,14 @@
           />
           </div>
   
-          <!-- <div class="col-md-4 mb-3">
-           === <label class="font-weight-bold text-light">Search for a provider:</label>
+          <div class="col-md-4 mb-3">
+           <label class="font-weight-bold text-light">Search for a provider:</label>
             <div class="ng-autocomplete">
                 <ng-autocomplete 
-                  [data]="countries"
+                  [data]="allDoctorList"
+                  placeHolder="Enter the Service Provider Name"
                   [searchKeyword]="keyword"
                   (selected)='selectEvent($event)'
-                  (inputChanged)='onChangeSearch($event)'
-                  (inputFocused)='onFocused($event)'
                   [itemTemplate]="itemTemplate"
                   [notFoundTemplate]="notFoundTemplate">                                 
                 </ng-autocomplete>
@@ -50,30 +49,13 @@
                 <div [innerHTML]="notFound"></div>
                 </ng-template>
                 </div>
-          </div> -->
-          <div class="col-md-6 mb-3">
+          </div>
+          <div class="col-md-4 mb-3">
             <label class="font-weight-bold text-light"></label>
             <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">By Srevice <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
-              <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a  [id] = "cat._id" class="dropdown-toggle dropdown-item" data-toggle="dropdown" (click)="serviceFilter($event)">{{ cat.category_type }}</a>
-                <ul class="dropdown-menu">
-                  <li *ngIf="cat.Ans.length === 0">
-                    <div *ngFor="let answers of cat.answers">
-                      <a class="dropdown-item" [id]=" answers._id" *ngIf="cat.Ans.length === 0" (click)="serviceFilter($event)"
-                        data-toggle="dropdown">
-                        {{answers.item_text}}
-                      </a>
-                    </div>
-                  </li>
-                  <li *ngIf="cat.Ans.length">
-                    <div *ngFor="let answers of cat.Ans">
-                      <a class="dropdown-item" [id]="answers._id" (click)="serviceFilter($event)">
-                        {{answers.item_text}}
-                      </a>
-                    </div>
-                  </li>
-                </ul>
+              <li class="dropdown-submenu" *ngFor="let cat of categoryList[0]?.Ans">
+                <a  class="service-list" [id] = "cat._id" (click)="serviceFilter($event)">{{ cat.item_text }}</a>
               </li>
             </ul>
           </div>
@@ -95,7 +77,7 @@
                 <div class="col-12 col-lg-3 p-0">
                 <div
                     class="bg-cover w-100 h-100 profileimg"
-                    [ngStyle]="{'background-image': 'url(http://3.12.81.245:3000/public/images/users/'+ doc.userData.profileImage +')'}"
+                    [ngStyle]="{'background-image': 'url(http://3.12.81.245:3000/public/images/users/'+doc?.profileImage+')'}"
                 ></div>
                 </div>
                 <div class="col-12 col-lg-9 p-3">
@@ -107,9 +89,9 @@
                         href="/dashboard/detail"
                         [routerLink]="['/dashboard/detail', doc.userId]"
                         class="d-block h5 text-uppercase mb-0"
-                        >{{ doc.userData.firstName }}</a
+                        >{{ doc?.firstName }}</a
                     >
-                    <div class="mb-2 font-weight-normal">{{doc.userData.email}}</div>
+                    <div class="mb-2 font-weight-normal">{{doc?.email}}</div>
                     </div>
                     <a
                     [routerLink]="['/dashboard/detail', doc.userId]"
@@ -121,20 +103,20 @@
                 <div class="font-weight-normal mb-2">
                     <a
                     class="fa fa-phone-square text-secondary d-inline-block mr-2"
-                    href="tel:{{doc.userData.phone}}"
+                    href="tel:{{doc?.phone}}"
                     >
-                    <span>{{doc.userData.phone}}</span>
+                    <span>{{doc?.phone}}</span>
                     </a>
                     <a
                     class="fa fa-envelope text-secondary d-inline-block mr-2"
-                    href="mailto:{{doc.userData.address}}"
+                    href="mailto:{{doc?.address}}"
                     >
-                    <span>{{doc.userData.email}}</span>
+                    <span>{{doc?.email}}</span>
                     </a>
                 </div>
                 <div class="mb-2">Address</div>
                 <div class="desciption text-truncate">
-                    {{doc.userData.address}}
+                    {{doc?.address}}
                 </div>
                 <!-- <div class="text-right">
                     <a 
@@ -151,14 +133,14 @@
     <div class="col-md-5 map-height">
         <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d66133.8256631544!2d76.73696339304699!3d30.36712905788227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb62a421e6f11%3A0xebd28a29f7258d14!2sAmbala%2C%20Haryana!5e0!3m2!1sen!2sin!4v1589202336650!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>   -->
         <agm-map 
-        [latitude]="lati"
-        [longitude]="lng"
-        [zoom]="zoom"
+        [latitude]="location.lati"
+        [longitude]="location.lng"
+        [zoom]="location.zoom"
         [disableDefaultUI]="false"
         [zoomControl]="false">
 
         <agm-marker 
-            *ngFor="let m of markers; let i = index"
+            *ngFor="let m of location.markers; let i = index"
             [latitude]="m.lat"
             [longitude]="m.lng"
             [label]="m.label">
@@ -243,26 +225,22 @@
               <input type="checkbox" class="mr-2"><i class="fas fa-notes-medical mr-2"></i> Online appointments
           </div> -->
           <div class="row">
-            <div class="col-md-6 mb-3">
-              <label>Hours of availability</label>
-              <select class="form-control">
-                <option>Any</option>
+            <div class="col-md-6 mb-3" >
+              <label>Hours of Availability</label>
+              <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
+                <option *ngFor="let opt of profileQuestions[0]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
               </select>
             </div>
             <div class="col-md-6 mb-3">
                 <label>Provider language</label>
-                <select class="form-control">
-                  <option>English</option>
-                  <option>French</option>
-                  <option>Punjabi</option>
-                  <option>Hindi</option>
+                <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
+                  <option *ngFor="let opt of profileQuestions[1]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
                 </select>
             </div>
           </div>    
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Reset</button>
-          <button type="button" class="btn btn-primary">Apply</button>
+          <button type="button" class="btn btn-primary" (click) = "applyFilter()">Apply</button>
         </div>
       </div>
     </div>

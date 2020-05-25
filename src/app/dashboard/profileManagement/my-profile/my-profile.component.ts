@@ -21,25 +21,9 @@ export class MyProfileComponent implements OnInit {
   roles = ''
   zoom: number;
   private geoCoder;
+  profileQuestions = [];
   formData = new FormData();
 
-  languageList = [
-    { id: 'language1', name: 'English' },
-    { id: 'language2', name: 'French' },
-    { id: 'language3', name: 'Spanish' },
-    { id: 'language4', name: 'Italian' },
-    { id: 'language5', name: 'Mandarin' },
-    { id: 'language6', name: 'Cantonese' },
-    { id: 'language7', name: 'Punjabi' },
-    { id: 'language8', name: 'Farsi' }
-  ];
-  hoursList = [
-    { id: 'hours1', name: 'Early mornings (Before 9 am)' },
-    { id: 'hours2', name: 'Between 9- 5pm' },
-    { id: 'hours3', name: 'Evenings (After 5 pm)' },
-    { id: 'hours4', name: 'Saturday' },
-    { id: 'hours5', name: 'Sunday' },
-  ];
   ageRangeList  = [
     { id: 'age1', name: '<12' },
     { id: 'age2', name: '12-17' },
@@ -89,8 +73,8 @@ export class MyProfileComponent implements OnInit {
     profileImage: {},
     latitude: 0,
     longitude: 0,
-    languages: '',
-    typical_hours: '',
+    languages: [],
+    typical_hours: [],
     age_range: '',
     years_of_experience: '',
     price_per_hours: '',
@@ -139,6 +123,8 @@ export class MyProfileComponent implements OnInit {
 
     this.roles = localStorage.getItem('roles');
     this.getProfileDetails();
+
+    this.getProfileQuestion();
   }
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -202,11 +188,26 @@ export class MyProfileComponent implements OnInit {
       }
     });
   }
+  getProfileQuestion() {
+    let path = `questionare/get-profile-questions`;
+    this._sharedService.get(path).subscribe((res: any) => {
+       if (res.statusCode = 200) {
+        this.profileQuestions = res.data;
+        console.log('this.getProfileQuestion', res.data)
+       } else {
+         this.toastr.error(res.message);
+  
+       }
+     }, err => {
+       this._sharedService.loader('hide');
+     });
+  }
   getProfileDetails() {
     let path = `user/get-profile/${this.userInfo._id }`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
+        console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -216,13 +217,13 @@ export class MyProfileComponent implements OnInit {
     });
   }
   checkBoxChanged(e, fieldUpdated) {
-    if(fieldUpdated === 'languages') {
+    if(fieldUpdated === 'availability') {
       this.languagesSelected.push(e.target.value);
-      this.profile.languages = this.languagesSelected.toString();
+      this.profile.languages = this.languagesSelected;
     }
-    if(fieldUpdated === 'typical_hours') {
+    if(fieldUpdated === 'service') {
       this.hoursSelected.push(e.target.value);
-      this.profile.typical_hours = this.hoursSelected.toString();
+      this.profile.typical_hours = this.hoursSelected;
     }
   }
   radioChanged(e, fieldUpdated){

@@ -154,17 +154,18 @@
               <img height="50" width="50" [src]="'http://3.12.81.245:3000/public/images/users/'+m.infoContent?.profileImage" />
               <div class="pl-2">
               <strong>{{ m.infoContent.name }}</strong>
-              <div class="text-rating my-1">
+              <!-- <div class="text-rating my-1">
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="far fa-star"></i>
-              </div>
+              </div> -->
               <p class="mb-2">{{ m.infoContent.address }}</p>
             </div>
             </div>
-            <a href="" class="btn btn-primary w-100">View Details</a>
+            <a 
+            [routerLink]="['/dashboard/detail', m.infoContent._id]" class="btn btn-primary w-100">View Details</a>
             </div>
             </agm-info-window>
             

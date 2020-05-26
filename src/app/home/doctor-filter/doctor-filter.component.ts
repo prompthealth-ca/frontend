@@ -230,7 +230,8 @@ export class DoctorFilterComponent implements OnInit {
           infoContent: {
             name: element.firstName,
             address: element.address,
-            profileImage: element.profileImage
+            profileImage: element.profileImage,
+            _id: element._id,
           }
         })
       }

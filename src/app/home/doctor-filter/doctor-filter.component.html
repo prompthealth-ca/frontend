@@ -52,12 +52,14 @@
           </div>
           <div class="col-md-4 mb-3">
             <label class="font-weight-bold text-light"></label>
+            <div class="dropdown">
             <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">By Srevice <b class="caret"></b></a>
-            <ul class="dropdown-menu multi-level">
+            <ul class="dropdown-menu shadow rounded-0 border-0 multi-level service-lists">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList[0]?.Ans">
-                <a  class="service-list" [id] = "cat._id" (click)="serviceFilter($event)">{{ cat.item_text }}</a>
+                <a  class="service-list nav-link" [id] = "cat._id" (click)="serviceFilter($event)">{{ cat.item_text }}</a>
               </li>
             </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -70,9 +72,9 @@
     </button>
 </div>
 <div class="row" *ngIf="doctorList.length; else noRecord">
-    <div class="col-md-7 mapfilteroverflow">
-        <div class="row">
-            <div class="m-0 shadow-sm overflow-hidden profileBox mb-4" 
+    <div class="col-md-7 mapfilteroverflow pr-2">
+        <div class="">
+            <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" 
             *ngFor="let doc of doctorList">
                 <div class="col-12 col-lg-3 p-0">
                 <div

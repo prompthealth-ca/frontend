@@ -1,17 +1,5 @@
 @import "variables";
 
-// bootstarp classes
-$radius: 0.25rem;
-.rounded-right {
-  border-top-right-radius: $radius !important;
-  border-bottom-right-radius: $radius !important;
-}
-.rounded-left {
-  border-top-left-radius: $radius !important;
-  border-bottom-left-radius: $radius !important;
-}
-// bootstarp classes end
-
 @mixin bgOverlay($color: #0000007a) {
   position: relative;
   overflow: hidden;
@@ -51,7 +39,7 @@ $radius: 0.25rem;
     > .position-absolute {
       height: 100%;
       overflow: hidden;
-      background-color: #4274baed !important;
+      background-color: #4a86abd9 !important;
       text-overflow: ellipsis;
       display: flex;
       justify-content: center;
@@ -102,7 +90,7 @@ $radius: 0.25rem;
       font-family: "Font Awesome 5 Free";
       font-size: 13px;
       font-weight: bold;
-      background-color: #4274ba;
+      background-color: $primaryColor;
       color: #fff;
       padding: 4px 7px 4px 8px;
       bottom: 14px;

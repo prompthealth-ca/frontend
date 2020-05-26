@@ -146,3 +146,19 @@ agm-map {
 .service-list:hover {
   color: #000;
 }
+
+.service-lists{
+width:100%;
+overflow: auto;
+max-height: 300px;
+>li{
+  a{
+    font-size: 14px;
+    margin:0 !important;
+    padding: 10px 15px;
+    &:hover{
+      background-color: rgba(158,158,158,.18);
+    }
+  }
+}
+}

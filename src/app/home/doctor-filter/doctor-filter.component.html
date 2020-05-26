@@ -10,14 +10,14 @@
     </p>
   </div>
 </section>
-<section class="bg-secondary mb-3">
+<section class="bg-secondary">
     <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
     <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
     </agm-map>
     <div class="container">
       <div class="pt-4 pb-2">
         <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
           <label class="font-weight-bold text-light">Near</label>
           <input 
             id="address"
@@ -29,7 +29,7 @@
           />
           </div>
   
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
            <label class="font-weight-bold text-light">Search for a provider:</label>
             <div class="ng-autocomplete">
                 <ng-autocomplete 
@@ -50,9 +50,10 @@
                 </ng-template>
                 </div>
           </div>
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
+            
             <label class="font-weight-bold text-light"></label>
-            <div class="dropdown">
+            <div class="dropdown ">
             <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">By Srevice <b class="caret"></b></a>
             <ul class="dropdown-menu shadow rounded-0 border-0 multi-level service-lists">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList[0]?.Ans">
@@ -61,18 +62,20 @@
             </ul>
             </div>
           </div>
+
+          <div class="col-md-3 mb-3">
+              <label class="font-weight-bold text-light"></label>
+                <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#filterModal">
+                    <i class="fa fa-sliders-h mr-2"></i> Filters
+                    </button>
+                    </div>
         </div>
       </div>
     </div>
 </section>
-<div class="container">
-<div class="mb-3">
-    <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#filterModal">
-    <i class="fa fa-sliders-h mr-2"></i> Filters
-    </button>
-</div>
+<div class="container-fluid">
 <div class="row" *ngIf="doctorList.length; else noRecord">
-    <div class="col-md-7 mapfilteroverflow pr-2">
+    <div class="col-md-6 mapfilteroverflow pr-2">
         <div class="">
             <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" 
             *ngFor="let doc of doctorList">
@@ -130,7 +133,7 @@
         </div>
     </div>
     <!-- Map start -->
-    <div class="col-md-5 map-height">
+    <div class="col-md-6 map-height p-0">
         <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d66133.8256631544!2d76.73696339304699!3d30.36712905788227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fb62a421e6f11%3A0xebd28a29f7258d14!2sAmbala%2C%20Haryana!5e0!3m2!1sen!2sin!4v1589202336650!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>   -->
         <agm-map 
         [latitude]="location.lati"
@@ -146,9 +149,23 @@
             [label]="m.label">
             
             <agm-info-window>
-              <img [src]="'http://3.12.81.245:3000/public/images/users/'+m.infoContent?.profileImage" />
+              <div class="map-marker-popup">
+                <div class="d-flex mb-2">
+              <img height="50" width="50" [src]="'http://3.12.81.245:3000/public/images/users/'+m.infoContent?.profileImage" />
+              <div class="pl-2">
               <strong>{{ m.infoContent.name }}</strong>
-              <p>{{ m.infoContent.address }}</p>
+              <div class="text-rating my-1">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+              <p class="mb-2">{{ m.infoContent.address }}</p>
+            </div>
+            </div>
+            <a href="" class="btn btn-primary w-100">View Details</a>
+            </div>
             </agm-info-window>
             
         </agm-marker>

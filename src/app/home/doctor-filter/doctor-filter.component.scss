@@ -128,7 +128,7 @@ max-width: 600px;
   float: right;
 }
 agm-map {
-  height: 90%;
+  height: 100%;
 }
 
 .ng-autocomplete {
@@ -160,5 +160,27 @@ max-height: 300px;
       background-color: rgba(158,158,158,.18);
     }
   }
+}
+}
+
+.map-marker-popup{
+  font-size: 14px;
+  line-height: normal;
+  max-width: 350px;
+.d-flex{
+  >img{
+    height: 50px;
+    width:50px;
+    border:1px solid $secondaryColor;
+    object-fit: contain;
+  }
+}
+strong{
+font-weight: bold;
+margin-bottom: 10px;
+}
+.btn{
+  padding: 9px 10px;
+  font-size: 12px;
 }
 }

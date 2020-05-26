@@ -43,6 +43,8 @@ export class HomeComponent implements OnInit {
     return this.homeForm.controls;
   }
   ngOnInit() {
+
+    localStorage.removeItem('searchedAddress');
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
@@ -79,7 +81,10 @@ export class HomeComponent implements OnInit {
       this.zipCodeSearched = '';
       if (status === 'OK') {
         if (results[0]) {
-          console.log('results[0]', results, results[0])
+          console.log('results[0]', results[0].formatted_address)
+
+          localStorage.setItem('searchedAddress', results[0].formatted_address)
+
           // find country name
           for (var i=0; i<results[0].address_components.length; i++) {
             for (var b=0;b<results[0].address_components[i].types.length;b++) {

@@ -99,4 +99,7 @@ export class ListingComponent implements OnInit {
     this.behaviorService.changeCompareIds(this.compareList);
     this.router.navigate(['/dashboard/listingCompare']);
   }
+  ngOnDestroy() {
+    localStorage.removeItem('typical_hours');
+  }
 }

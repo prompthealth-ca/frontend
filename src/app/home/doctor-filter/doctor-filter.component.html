@@ -11,7 +11,7 @@
   </div>
 </section>
 <section class="bg-secondary mb-3">
-    <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"        [mapTypeId]="'hybrid'" >
+    <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
     <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
     </agm-map>
     <div class="container">
@@ -24,7 +24,7 @@
             name="address" 
             type="text"
             class="form-control w-100 text-center"
-            placeholder="Search by address"
+            [value]="searchedAddress"
             #searchGlobal
           />
           </div>
@@ -88,15 +88,13 @@
                 >
                     <div class="text-primary">
                     <a
-                        href="/dashboard/detail"
-                        [routerLink]="['/dashboard/detail', doc.userId]"
                         class="d-block h5 text-uppercase mb-0"
                         >{{ doc?.firstName }}</a
                     >
                     <div class="mb-2 font-weight-normal">{{doc?.email}}</div>
                     </div>
                     <a
-                    [routerLink]="['/dashboard/detail', doc.userId]"
+                    [routerLink]="['/dashboard/detail', doc._id]"
                     class="btn btn-primary pull-right"
                     >Request Appointment</a>
                     <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#appointmentModal">Request Appointment</button> -->
@@ -148,7 +146,9 @@
             [label]="m.label">
             
             <agm-info-window>
-            <strong>{{ m.infoContent }}</strong>
+              <img [src]="'http://3.12.81.245:3000/public/images/users/'+m.infoContent?.profileImage" />
+              <strong>{{ m.infoContent.name }}</strong>
+              <p>{{ m.infoContent.address }}</p>
             </agm-info-window>
             
         </agm-marker>
@@ -227,13 +227,21 @@
               <input type="checkbox" class="mr-2"><i class="fas fa-notes-medical mr-2"></i> Online appointments
           </div> -->
           <div class="row">
-            <div class="col-md-6 mb-3" >
+            <div class="col-md-4 mb-3" >
+              <label>Center or Service Provide</label>
+              <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'userType')">
+                <option value="all">All</option>
+                <option value="sp">Service Provider</option>
+                <option value="c">Center</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3" >
               <label>Hours of Availability</label>
               <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
                 <option *ngFor="let opt of profileQuestions[0]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
               </select>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
                 <label>Provider language</label>
                 <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
                   <option *ngFor="let opt of profileQuestions[1]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
@@ -242,6 +250,7 @@
           </div>    
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click) = "resetFilter()">Reset</button>
           <button type="button" class="btn btn-primary" (click) = "applyFilter()">Apply</button>
         </div>
       </div>

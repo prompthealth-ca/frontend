@@ -16,38 +16,38 @@
               <div class="text-uppercase font-weight-bold text-primary">
                 {{userInfo?.firstName}} {{userInfo?.lastName}}
               </div>
-              <div class="text-primary">({{userInfo?.gender}})</div>
+              <div class="text-primary" *ngIf="userInfo?.gender">({{userInfo?.gender}})</div>
               
-              <div class="text-review mb-2" *ngIf="userInfo.ratingAvg">
-                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 5">
+              <div class="text-review mb-2" *ngIf="userInfo?.ratingAvg">
+                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 5">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                 </div>
-                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 4">
+                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 4">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="far fa-star"></i>
                 </div>
-                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 3">
+                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 3">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
                 </div>
-                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 2">
+                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 2">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
                 </div>
-                <div class="text-rating mb-2" *ngIf="userInfo.ratingAvg === 1">
+                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 1">
                   <i class="fa fa-star"></i>
                   <i class="far fa-star"></i>
                   <i class="far fa-star"></i>
@@ -456,13 +456,14 @@
             <h6 class="text-primary text-uppercase">{{ amenity.defaultamenityId.item_text }}</h6>
           </div>
           <div class="col-sm-8">
-            <button data-toggle="modal" [attr.data-target]="'#' + amenity._id" class="list-wrap">
+            <a data-toggle="modal" [attr.data-target]="'#' + amenity.defaultamenityId.item_text" class="list-wrap" *ngIf="amenity.images.length">
               <span *ngFor="let uimg of amenity.images" class="amenityList">
                 <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + uimg" />
               </span>
-            </button>
+            </a>
+            <span *ngIf="!amenity.images.length">No Images added</span>
             <!-- Image slider modal -->
-            <div class="modal fade imageslidermodal" [id]="amenity._id" tabindex="-1" role="dialog" [attr.aria-labelledby]="amenity._id" aria-hidden="true">
+            <div class="modal fade imageslidermodal" [id]="amenity.defaultamenityId.item_text" tabindex="-1" role="dialog" [attr.aria-labelledby]="amenity._id" aria-hidden="true">
               <div class="modal-dialog w-100">
                 <div class="modal-content bg-transparent border-0">
                   <div class="modal-header border-0 p-0">

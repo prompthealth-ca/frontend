@@ -46,7 +46,6 @@
               <i class="fa fa-ban"></i> Canceled
             </div>
             <div *ngSwitchCase="4" class="text-success">
-              <i class="fa fa-check-square"></i> Completed
               <button
                 *ngIf="!book.rating"
                 (click)="showReviewModal(book)"

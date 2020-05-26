@@ -15,64 +15,16 @@ export class DoctorFilterComponent implements OnInit {
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
+  userTypeFilter ='';
   categoryList = [];
   profileQuestions = []
   selectedHours = '';
   selectedLang = '';
   doctorList = [];
   allDoctorList = [];
-  public countries = [
-    {
-      id: 1,
-      name: 'Albania',
-    },
-    {
-      id: 2,
-      name: 'Belgium',
-    },
-    {
-      id: 3,
-      name: 'Denmark',
-    },
-    {
-      id: 4,
-      name: 'Montenegro',
-    },
-    {
-      id: 5,
-      name: 'Turkey',
-    },
-    {
-      id: 6,
-      name: 'Ukraine',
-    },
-    {
-      id: 7,
-      name: 'Macedonia',
-    },
-    {
-      id: 8,
-      name: 'Slovenia',
-    },
-    {
-      id: 9,
-      name: 'Georgia',
-    },
-    {
-      id: 10,
-      name: 'India',
-    },
-    {
-      id: 11,
-      name: 'Russia',
-    },
-    {
-      id: 12,
-      name: 'Switzerland',
-    }
-  ];
   ratingFilter ;
   zipCodeSearched;
+  searchedAddress = ''
   zipcode = '';
   lat;
   long;
@@ -80,7 +32,7 @@ export class DoctorFilterComponent implements OnInit {
   location = {
   markers:  [
   ],
-  zoom: 16,
+  zoom: 2,
   lati:51.673858,
   lng: 7.815982,
   }
@@ -115,7 +67,7 @@ export class DoctorFilterComponent implements OnInit {
           this.location.lng = place.geometry.location.lat()
           this.long = place.geometry.location.lng()
           const payload = {
-            latLong: `${this.lat}, ${this.long}`
+            latLong: `${this.long}, ${this.lat}`
           }
           console.log('payload', payload)
           this.getDoctorList(payload);
@@ -124,6 +76,8 @@ export class DoctorFilterComponent implements OnInit {
     });
 
 
+
+    this.searchedAddress = localStorage.getItem('searchedAddress')
     this.getDoctorList({ zipcode: this.zipcode });
     this.getAllDoctorList();
     this.getProfileQuestion();
@@ -159,7 +113,7 @@ export class DoctorFilterComponent implements OnInit {
   // }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
         console.log('this.getProfileQuestion', res.data)
@@ -203,7 +157,6 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.loader('show');
     let payload;
     payload = {
-      ids: [],
       ...filter,
     }
     let path = 'user/filter-map';
@@ -232,20 +185,38 @@ export class DoctorFilterComponent implements OnInit {
     if(type === 'language') {
       this.selectedLang = value;
     }
+    else if(type="userType") {
+      if(value === 'all') {
+        this.userTypeFilter = '';
+      }
+      else {
+        this.userTypeFilter = value;
+      }
+      console.log('this.userTypeFilter = value;', this.userTypeFilter)
+    }
     else {
         this.selectedHours = value;
     }
+  }
+  resetFilter() {
+    this.ratingFilter = null;
+    this.selectedLang = null;
+    this.selectedHours = null;
+
+    this.getDoctorList({ zipcode: this.zipcode });
   }
   applyFilter() {
     const payload = {
       rating:this.ratingFilter ?  this.ratingFilter : null,
       languageId:this.selectedLang,
+      userType: this.userTypeFilter,
       typicalHoursId:this.selectedHours,
     }
 
     this.getDoctorList(payload);
   }
   createMapMarker(data) {
+    console.log('DATA', data)
     this.location.lati = data[data.length-1].location[1];
 
     this.location.lng = data[data.length-1].location[0];
@@ -256,7 +227,11 @@ export class DoctorFilterComponent implements OnInit {
           lng: element.location[0],
           label: element.roles,
           draggable: false,
-          infoContent: element.firstName
+          infoContent: {
+            name: element.firstName,
+            address: element.address,
+            profileImage: element.profileImage
+          }
         })
       }
     }
@@ -308,7 +283,9 @@ export class DoctorFilterComponent implements OnInit {
   //   console.log('dragEnd', m, $event);
   // }
   
-  
+  ngOnDestroy() {
+    localStorage.removeItem('searchedAddress');
+  }
 }
 // just an interface for type safety.
 interface marker {

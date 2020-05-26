@@ -57,14 +57,17 @@ export class DetailComponent implements OnInit {
       this.id = params['id'];
    });
    this.myId = localStorage.getItem('loginID');
+   console.log('------', this.id)
    this.getUserProfile();
   }
   getUserProfile() {
     let path = `user/get-profile/${this.id}`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.userInfo = res.data[0];
-        this.userInfo.ratingAvg = Math.floor(this.userInfo.ratingAvg);
+        if (this.userInfo) {
+          this.userInfo.ratingAvg =  Math.floor(this.userInfo.ratingAvg);
+        }
         console.log('this.userInfo', this.userInfo)
        } else {
          this.toastr.error(res.message);
@@ -95,6 +98,7 @@ export class DetailComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.productList = res.data.data;
+        console.log('productList', this.productList);
         this.sharedService.loader('hide');
 
       } else {

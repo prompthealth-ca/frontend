@@ -28,3 +28,21 @@
     }
   }
 }
+
+
+.map-marker-popup{
+  font-size: 12px;
+  line-height: normal;
+.d-flex{
+  >img{
+    height: 60px;
+    width:60px;
+    border:1px solid;
+    object-fit: cover;
+  }
+}
+.btn{
+  padding: 9px 10px;
+  font-size: 12px;
+}
+}

@@ -122,9 +122,9 @@ export class MyProfileComponent implements OnInit {
     this.userInfo = JSON.parse(localStorage.getItem('user'));
 
     this.roles = localStorage.getItem('roles');
-    this.getProfileDetails();
 
     this.getProfileQuestion();
+    this.getProfileDetails();
   }
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -193,6 +193,7 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
+        
         console.log('this.getProfileQuestion', res.data)
        } else {
          this.toastr.error(res.message);
@@ -207,6 +208,9 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
+        console.log('this.profile.typical_hours===', this.profile.typical_hours)
+        this.getDefaultValues(this.profile.typical_hours, 'typical_hours')
+        this.getDefaultValues(this.profile.languages, 'languages')
         console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -216,13 +220,27 @@ export class MyProfileComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
+  getDefaultValues(data, key) {
+    console.log('this.profileQuestions', this.profileQuestions)
+    console.log('data', data)
+    if(key === 'typical_hours') {
+      this.profile.typical_hours = this.profileQuestions[0].answers.filter(x => data.includes(x._id));
+
+      console.log('result----', this.profile.typical_hours);
+    }
+    if(key === 'languages') {
+      this.profile.languages = this.profileQuestions[1].answers.filter(x => data.includes(x._id));
+
+      console.log('languages----', this.profile.languages);
+    }
+  }
   checkBoxChanged(e, fieldUpdated) {
     if(fieldUpdated === 'availability') {
-      this.languagesSelected.push(e.target.value);
+      this.languagesSelected.push(e.target.id);
       this.profile.languages = this.languagesSelected;
     }
     if(fieldUpdated === 'service') {
-      this.hoursSelected.push(e.target.value);
+      this.hoursSelected.push(e.target.id);
       this.profile.typical_hours = this.hoursSelected;
     }
   }

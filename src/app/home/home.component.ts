@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
 
         console.log('zipCodeSearched[0]',  this.zipCodeSearched)
 
-        this.router.navigate(['/doctor-filter'], { queryParams: {zipcode: this.zipCodeSearched }})
+        this.router.navigate(['/doctor-filter'], { queryParams: {lat: this.lat, long: this.long}})
         // this.router.navigate(['dashboard/listing'], { queryParams: {zipcode: this.zipCodeSearched }})
       } else {
         window.alert('Geocoder failed due to: ' + status);

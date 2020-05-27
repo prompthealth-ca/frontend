@@ -82,10 +82,18 @@ export class QuestionnaireComponent implements OnInit {
 
   saveQuestionnaire() {
     this._sharedService.loader('show');
-    const payload = {
-      _id: localStorage.getItem('loginID'),
-      services: this.selectedItems,
-      typical_hours: this.typical_hours,
+    let payload;
+    if(this.type === 'U') {
+      payload = {
+        _id: localStorage.getItem('loginID'),
+        services: this.selectedItems,
+        typical_hours: this.typical_hours,
+      }
+    } else {
+      payload = {
+        _id: localStorage.getItem('loginID'),
+        services: this.selectedItems,
+      }
     }
     console.log('data', payload);
     let path = 'user/updateServices';

@@ -125,7 +125,7 @@
                         <p class="col-md-9" *ngIf="!editFields && item._id === profileItem">{{item.item_text}}</p>
                     </div>
                 </div>
-                <div *ngFor="let item of profileQuestions[1]?.answers; let i = index">
+                <div class="col-md-6" *ngFor="let item of profileQuestions[1]?.answers; let i = index">
                     <div  *ngIf="editFields" class="col-sm-9">
                         <label for="{{item._id}}">
                             <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, profileQuestions[1].question_type)"/>

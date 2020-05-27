@@ -40,7 +40,7 @@ export class ListingComponent implements OnInit {
         ids: [],
         zipcode: this.zipcode,
       }
-    } else if(this.typical_hours.length) {
+    } else if(this.typical_hours.length && this.typical_hours[0] !== '') {
       setParams = {
         ids: [],
         zipcode: this.zipcode,
@@ -48,15 +48,12 @@ export class ListingComponent implements OnInit {
       }
     }
     else {
-
       setParams = {
         ids: this.id,
       }
     }
     let path = 'user/filter';
-    console.log('comes, here==')
     this._sharedService.postNoAuth(setParams, path).subscribe((res: any) => {
-      console.log('comes, here', res)
       if (res.statusCode = 200) {
        this.doctorsListing = res.data;
 

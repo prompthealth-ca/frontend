@@ -27,7 +27,9 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.typical_hours = localStorage.getItem('typical_hours').split(',');
+    if(localStorage.getItem('typical_hours')) {
+      this.typical_hours = localStorage.getItem('typical_hours').split(',');
+    }
     console.log('typical_hours', this.typical_hours)
    this.listing();
   }

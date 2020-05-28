@@ -118,7 +118,6 @@
           >Basic Information</a
         >
       </li>
-
       <li class="nav-item">
         <a
           class="nav-link"
@@ -148,7 +147,7 @@
       <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
         <a
           class="nav-link"
-          id="Activity-tab"
+          id="videos-tab"
           data-toggle="pill"
           href="#pills-videos"
           role="tab"
@@ -160,7 +159,7 @@
       <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
         <a
           class="nav-link"
-          id="Activity-tab"
+          id="products-tab"
           data-toggle="pill"
           href="#pills-products"
           role="tab"
@@ -182,6 +181,32 @@
           (click) ="getSavedAmenties()"
           >Amenities</a
         >
+      </li>
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
+        <a
+        class="nav-link"
+        id="doctors-tab"
+        data-toggle="pill"
+        href="#pills-doctors"
+        role="tab"
+        aria-controls="pills-doctors"
+        aria-selected="false"
+        (click) ="getSaveddoctors()"
+        >Doctors</a
+      >
+      </li>
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
+        <a
+        class="nav-link"
+        id="rating-tab"
+        data-toggle="pill"
+        href="#pills-rating"
+        role="tab"
+        aria-controls="pills-rating"
+        aria-selected="false"
+        (click) ="getSavedRating()"
+        >Reviews</a
+      >
       </li>
     </ul>
     <!-- Tab panes -->
@@ -280,41 +305,10 @@
       <!-- <h3>Work in progress...</h3> -->
         <table class="table table-borderless informationtable">
           <tbody>
-            <!-- <tr>
-              <th>Education:</th>
-              <td>
-                University of Wisconsin School of Social Work (Madison,
-                Wisconsin)
-              </td>
-            </tr>
-            <tr>
-              <th>Degree:</th>
-              <td>M.S.W. (1975)</td>
-            </tr>
-            <tr>
-              <th>State of Licensure:</th>
-              <td>Illinois</td>
-            </tr> -->
-            <tr>
-              <th>License Number:</th>
-              <td>{{ userInfo?.licence_type_degree }}</td>
-            </tr>
-            <!-- <tr>
-              <th>Years of Experience:</th>
-              <td>42 years</td>
-            </tr> -->
             <tr>
               <th>Booking URL:</th>
               <td>{{ userInfo?.bookingURL}}</td>
             </tr>
-            <tr>
-              <th>Professional Organzation:</th>
-              <td>{{ userInfo?.professional_organization  }}</td>
-            </tr>
-            <!-- <tr>
-              <th>Organzation Affiliations:</th>
-              <td></td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -322,7 +316,7 @@
         class="tab-pane"
         id="pills-videos"
         role="tabpanel"
-        aria-labelledby="Activity-tab"
+        aria-labelledby="videos-tab"
       >
         <h5 class="mb-0">Videos</h5>
         <hr />
@@ -346,7 +340,7 @@
         class="tab-pane product-list"
         id="pills-products"
         role="tabpanel"
-        aria-labelledby="blog-tab"
+        aria-labelledby="products-tab"
       >
 
         <input  *ngIf="productList && productList.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
@@ -504,7 +498,101 @@
           </div>
         </div>
       </div>
-    </div>
+      <div class="tab-pane product-list"
+      id="pills-doctors"
+      role="tabpanel"
+      aria-labelledby="doctors-tab"
+    >
+      <h5 class="mb-0" *ngIf="doctors && doctors.length">Doctors Listed</h5>
+      <hr *ngIf="doctors && doctors.length"/>
+      <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length; else noDoctor">
+        <thead>
+            <tr>
+                <th>
+                    <h5>Images</h5>
+                </th>
+                <th>
+                    <h5>Name</h5>
+                </th>
+                <th>
+                    <h5>Description</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let prod of doctors; let i = index">
+                
+                <td>
+                    <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+                </td>
+                <td>
+                    {{ prod.fname }} {{ prod.lname }}
+                </td>
+                <td>
+                    {{ prod.description }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      <ng-template #noDoctor>
+        <h5>No doctor listed...</h5>
+      </ng-template>
+      </div>
+      <div class="tab-pane product-list"
+      id="pills-rating"
+      role="tabpanel"
+      aria-labelledby="rating-tab"
+    >
+      <h5 class="mb-0">Reviews</h5>
+      <hr />
+      <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
+        <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
+        <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
+        <div class="pl-3 w-100">
+          <div class="d-flex justify-content-between mb-2">
+            <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
+          </div>
+          <div class="text-rating mb-2" *ngIf="rate.rating===5">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <div class="text-rating mb-2" *ngIf="rate.rating===4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="text-rating mb-2" *ngIf="rate.rating===3">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="text-rating mb-2" *ngIf="rate.rating===2">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <div class="text-rating mb-2" *ngIf="rate.rating===1">
+            <i class="fa fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+
+          <div class="review">
+            {{ rate.review }}
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 

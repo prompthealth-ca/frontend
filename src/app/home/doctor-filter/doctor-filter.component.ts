@@ -10,6 +10,7 @@ import { SharedService } from "../../shared/services/shared.service";
   styleUrls: ['./doctor-filter.component.scss']
 })
 export class DoctorFilterComponent implements OnInit {
+  @ViewChild('closebutton') closebutton;
   @ViewChild('searchGlobal')
   
   public searchGlobalElementRef: ElementRef;
@@ -79,7 +80,6 @@ export class DoctorFilterComponent implements OnInit {
 
     this.searchedAddress = localStorage.getItem('searchedAddress')
     this.getDoctorList({ zipcode: this.zipcode });
-    this.getAllDoctorList();
     this.getProfileQuestion();
   }
 
@@ -176,12 +176,21 @@ export class DoctorFilterComponent implements OnInit {
     });
   }
   handleRatingChange(event) {
+    this.ratingFilter = {};
     if (event.target.value !== 'all') {
-      this.ratingFilter = { rating: event.target.value }
+      this.ratingFilter = { rating: parseInt(event.target.value) }
+      console.log('ratingFilter', this.ratingFilter, event.target.value)
+    }
+    else {
+
     }
   }
   onOptionsSelected(value:string, type){
     console.log("the selected value is " + value, type);
+    this.selectedLang ='';
+    this.userTypeFilter = '';
+    this.selectedHours = '';
+
     if(type === 'language') {
       this.selectedLang = value;
     }
@@ -204,16 +213,20 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedHours = null;
 
     this.getDoctorList({ zipcode: this.zipcode });
+
+    this.closebutton.nativeElement.click();
   }
   applyFilter() {
     const payload = {
-      rating:this.ratingFilter ?  this.ratingFilter : null,
+      ...this.ratingFilter,
       languageId:this.selectedLang,
       userType: this.userTypeFilter,
       typicalHoursId:this.selectedHours,
     }
 
     this.getDoctorList(payload);
+
+    this.closebutton.nativeElement.click();
   }
   createMapMarker(data) {
     console.log('DATA', data)

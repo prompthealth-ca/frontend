@@ -209,8 +209,8 @@ export class MyProfileComponent implements OnInit {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
         console.log('this.profile.typical_hours===', this.profile.typical_hours)
-        this.getDefaultValues(this.profile.typical_hours, 'typical_hours')
-        this.getDefaultValues(this.profile.languages, 'languages')
+        // this.getDefaultValues(this.profile.typical_hours, 'typical_hours')
+        // this.getDefaultValues(this.profile.languages, 'languages')
         console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -220,20 +220,20 @@ export class MyProfileComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
-  getDefaultValues(data, key) {
-    console.log('this.profileQuestions', this.profileQuestions)
-    console.log('data', data)
-    if(key === 'typical_hours') {
-      this.profile.typical_hours = this.profileQuestions[0].answers.filter(x => data.includes(x._id));
+  // getDefaultValues(data, key) {
+  //   console.log('this.profileQuestions', this.profileQuestions)
+  //   console.log('data', data)
+  //   if(key === 'typical_hours') {
+  //     this.profile.typical_hours = this.profileQuestions[0].answers.filter(x => data.includes(x._id));
 
-      console.log('result----', this.profile.typical_hours);
-    }
-    if(key === 'languages') {
-      this.profile.languages = this.profileQuestions[1].answers.filter(x => data.includes(x._id));
+  //     console.log('result----', this.profile.typical_hours);
+  //   }
+  //   if(key === 'languages') {
+  //     this.profile.languages = this.profileQuestions[1].answers.filter(x => data.includes(x._id));
 
-      console.log('languages----', this.profile.languages);
-    }
-  }
+  //     console.log('languages----', this.profile.languages);
+  //   }
+  // }
   checkBoxChanged(e, fieldUpdated) {
     if(fieldUpdated === 'availability') {
       this.languagesSelected.push(e.target.id);

@@ -194,7 +194,7 @@
       <div class="modal-content">
         <div class="modal-header bg-primary text-light border-primary">
           <h5 class="modal-title" id="filterModalLabel">Filter your search results</h5>
-          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close text-light" data-dismiss="modal" #closebutton aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -249,8 +249,8 @@
               <label>Center or Service Provide</label>
               <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'userType')">
                 <option value="all">All</option>
-                <option value="sp">Service Provider</option>
-                <option value="c">Center</option>
+                <option value="SP">Service Provider</option>
+                <option value="C">Center</option>
               </select>
             </div>
             <div class="col-md-4 mb-3" >

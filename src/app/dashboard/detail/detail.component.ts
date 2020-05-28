@@ -12,12 +12,16 @@ import { SharedService } from '../../shared/services/shared.service';
 export class DetailComponent implements OnInit {
   
   @ViewChild('closebutton') closebutton;
+
+  defaultImage = 'assets/img/no-image.jpg';
   bookingForm: FormGroup;
+  doctors = [];
   isLoggedIn =''
   id: number;
   myId = ''
   private sub: any;
   productList = [];
+  rating = [];
   
   savedAminities = [];
   timingList = [
@@ -169,5 +173,34 @@ export class DetailComponent implements OnInit {
       this.sharedService.loader('hide');
     });
     }
+  }
+  getSavedRating() {
+    console.log('this.getSavedRating');
+    let path = `booking/get-all-review?userId=${this.id }&count=10&page=1&search=/`;
+    this.sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        this.rating = res.data.data;
+        console.log('this.rating', this.rating);
+      } else {
+        this.sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this.sharedService.checkAccessToken(err);
+    });
+  }
+  getSaveddoctors() {
+    let path = `staff/get-all?userId=${this.id}&count=10&page=1&frontend=0/`;
+    this.sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        this.doctors = res.data.data;
+
+      } else {
+        this.sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this.sharedService.checkAccessToken(err);
+    });
   }
 }

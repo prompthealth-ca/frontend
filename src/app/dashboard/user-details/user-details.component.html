@@ -155,36 +155,6 @@
           </small>
         </div>
       </div>
-      <div class="col-md-6 mb-3" *ngIf="roles !== 'C'">
-        <label>License Number <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="License" name="License" class="form-control" placeholder="" minlength="3"
-          maxlength="50" (keyup)="trim('License')" #License="ngModel" [ngModel]="userDetails.licence_type_degree"
-          (ngModelChange)="userDetails.licence_type_degree = $event" required />
-
-        <!-- <div class="error-block">
-          <small *ngIf="firstName.errors?.required && firstName.touched" class="text-danger">
-            First name is required.
-          </small>
-          <small *ngIf="firstName.errors?.minlength && firstName.touched" class="text-danger">
-            Minumum length should be 3.
-          </small>
-        </div> -->
-      </div>
-      <div class="col-md-6 mb-3"  *ngIf="roles !== 'C'">
-        <label>Professional Organzation <span class="text-danger">*</span></label>
-        <input autofocus type="text" id="org" name="org" class="form-control" placeholder="" minlength="3"
-          maxlength="50" (keyup)="trim('org')" #org="ngModel" [ngModel]="userDetails.professional_organization"
-          (ngModelChange)="userDetails.professional_organization = $event" required />
-
-        <!-- <div class="error-block">
-          <small *ngIf="professional_organization.errors?.required && professional_organization.touched" class="text-danger">
-            Organzation is required.
-          </small>
-          <small *ngIf="professional_organization.errors?.minlength && professional_organization.touched" class="text-danger">
-            Organzation length should be 3.
-          </small>
-        </div> -->
-      </div>
       <div class="col-md-6 mb-3">
         <div class="row">
           <div class="col-md-12">

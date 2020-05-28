@@ -16,6 +16,8 @@ export class DetailComponent implements OnInit {
   defaultImage = 'assets/img/no-image.jpg';
   bookingForm: FormGroup;
   doctors = [];
+
+  profileQuestions = [];
   isLoggedIn =''
   id: number;
   myId = ''
@@ -55,14 +57,14 @@ export class DetailComponent implements OnInit {
       bookingDateTime: new FormControl('', [Validators.required]),
       note: new FormControl('')
     });
-    this.roles = localStorage.getItem('roles');
-    this.isLoggedIn = localStorage.getItem('token')
+    this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : ''
+    this.isLoggedIn = localStorage.getItem('token') ? localStorage.getItem('token') : ''
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
    });
-   this.myId = localStorage.getItem('loginID');
-   console.log('------', this.id)
+   this.myId = localStorage.getItem('loginID') ? localStorage.getItem('loginID') : '';
    this.getUserProfile();
+   this.getProfileQuestion();
   }
   getUserProfile() {
     let path = `user/get-profile/${this.id}`;
@@ -81,12 +83,29 @@ export class DetailComponent implements OnInit {
        this.sharedService.loader('hide');
      });
   }
+  getProfileQuestion() {
+    let path = `questionare/get-profile-questions`;
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
+
+    console.log('this.getProfileQuestion', res)
+       if (res.statusCode = 200) {
+        this.profileQuestions = res.data;
+        
+        console.log('this.getProfileQuestion', res.data)
+       } else {
+         this.toastr.error(res.message);
+  
+       }
+     }, err => {
+       this.sharedService.loader('hide');
+     });
+  }
   getUserServices() {
     const payload = {
       user_id: this.userInfo._id,
     }
     let path = 'user/filter';
-      this.sharedService.post(payload, path).subscribe((res: any) => {
+      this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
         if (res.statusCode = 200) {
           this.serviceData = res.data[0];
         } else {
@@ -99,7 +118,7 @@ export class DetailComponent implements OnInit {
   getProductList() {
     this.sharedService.loader('show');
     let path = `product/get-all?userId=${this.id}&count=10&page=1&frontend=0/`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.productList = res.data.data;
         console.log('productList', this.productList);
@@ -116,9 +135,12 @@ export class DetailComponent implements OnInit {
   }
 
   getSavedAmenties() {
+    console.log('comes here')
     const path = `amenity/get-all/?userId=${this.id}&count=10&page=1&frontend=0`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
       this.sharedService.loader('hide');
+
+    console.log('comes here', res)
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.savedAminities = res.data.data;
@@ -175,9 +197,9 @@ export class DetailComponent implements OnInit {
     }
   }
   getSavedRating() {
-    console.log('this.getSavedRating');
+    console.log('this.getSavedRating', this.id);
     let path = `booking/get-all-review?userId=${this.id }&count=10&page=1&search=/`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.rating = res.data.data;
         console.log('this.rating', this.rating);
@@ -191,7 +213,7 @@ export class DetailComponent implements OnInit {
   }
   getSaveddoctors() {
     let path = `staff/get-all?userId=${this.id}&count=10&page=1&frontend=0/`;
-    this.sharedService.get(path).subscribe((res: any) => {
+    this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctors = res.data.data;
 

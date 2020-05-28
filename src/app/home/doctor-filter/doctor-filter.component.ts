@@ -160,13 +160,15 @@ export class DoctorFilterComponent implements OnInit {
       ...filter,
     }
     let path = 'user/filter-map';
+    console.log('Comes here payload', payload);
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
+       console.log('Comes here', this.doctorList);
        const self = this
         setTimeout(()=>{
           self.createMapMarker(this.doctorList)
-        }, 500)
+        }, 100)
       // console.log('comes, doctorList', this.doctorList)
       } else {
         this.toastr.error(res.message);
@@ -230,6 +232,7 @@ export class DoctorFilterComponent implements OnInit {
   }
   createMapMarker(data) {
     console.log('DATA', data)
+    this.location.markers = [];
     this.location.lati = data[data.length-1].location[1];
 
     this.location.lng = data[data.length-1].location[0];

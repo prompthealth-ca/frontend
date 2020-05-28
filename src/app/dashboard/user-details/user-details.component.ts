@@ -155,7 +155,7 @@ export class UserDetailsComponent {
   }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
-    this._sharedService.get(path).subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
         console.log('this.getProfileQuestion', res.data)

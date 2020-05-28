@@ -190,7 +190,7 @@ export class MyProfileComponent implements OnInit {
   }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
-    this._sharedService.get(path).subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
         
@@ -208,9 +208,10 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
+        this.getDefaultCheckedValues(this.profile.languages, 'languages');
+        this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
         console.log('this.profile.typical_hours===', this.profile.typical_hours)
-        // this.getDefaultValues(this.profile.typical_hours, 'typical_hours')
-        // this.getDefaultValues(this.profile.languages, 'languages')
+        console.log('this.profile.languages===', this.profile.languages)
         console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -220,28 +221,28 @@ export class MyProfileComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
-  // getDefaultValues(data, key) {
-  //   console.log('this.profileQuestions', this.profileQuestions)
-  //   console.log('data', data)
-  //   if(key === 'typical_hours') {
-  //     this.profile.typical_hours = this.profileQuestions[0].answers.filter(x => data.includes(x._id));
-
-  //     console.log('result----', this.profile.typical_hours);
-  //   }
-  //   if(key === 'languages') {
-  //     this.profile.languages = this.profileQuestions[1].answers.filter(x => data.includes(x._id));
-
-  //     console.log('languages----', this.profile.languages);
-  //   }
-  // }
-  checkBoxChanged(e, fieldUpdated) {
-    if(fieldUpdated === 'availability') {
-      this.languagesSelected.push(e.target.id);
-      this.profile.languages = this.languagesSelected;
+  getDefaultCheckedValues(data, key) {
+    if(key === 'typical_hours') {
+      this.profileQuestions[0].answers.forEach(checkbox => {
+        checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
+      });
     }
-    if(fieldUpdated === 'service') {
+    if(key === 'languages') {
+      this.profileQuestions[1].answers.forEach(checkbox => {
+        checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
+      });
+    }
+  }
+  checkBoxChanged(e, fieldUpdated) {
+
+    console.log('result----', fieldUpdated);
+    if(fieldUpdated === 'availability') {
       this.hoursSelected.push(e.target.id);
       this.profile.typical_hours = this.hoursSelected;
+    }
+    if(fieldUpdated === 'service') {
+      this.languagesSelected.push(e.target.id);
+      this.profile.languages = this.languagesSelected;
     }
   }
   radioChanged(e, fieldUpdated){

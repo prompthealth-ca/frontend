@@ -192,7 +192,7 @@
         aria-controls="pills-doctors"
         aria-selected="false"
         (click) ="getSaveddoctors()"
-        >Doctors</a
+        >Professionals</a
       >
       </li>
       <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
@@ -231,10 +231,15 @@
                 {{userInfo?.age_range}}
               </td>
             </tr>
-            <tr>
-              <th>Language Fluency:</th>
+            <tr *ngIf="userInfo?.languages.length">
+              <th>Language:</th>
               <td>
-                {{userInfo?.languages}}</td>
+                <span *ngFor="let profileItem of userInfo?.languages; let i = index">
+                  <span *ngFor="let item of profileQuestions[1]?.answers">
+                      <span *ngIf="item._id === profileItem">{{item.item_text}}</span>
+                  </span>,
+                </span>
+              </td>
             </tr>
             <tr>
               <th>Year Of Experience:</th>
@@ -242,10 +247,10 @@
                   {{userInfo?.years_of_experience}}
             </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Description:</th>
               <td>{{userInfo?.product_description}}</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -503,8 +508,7 @@
       role="tabpanel"
       aria-labelledby="doctors-tab"
     >
-      <h5 class="mb-0" *ngIf="doctors && doctors.length">Doctors Listed</h5>
-      <hr *ngIf="doctors && doctors.length"/>
+      <h5 class="mb-0" *ngIf="doctors && doctors.length">Professional Listed</h5>
       <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length; else noDoctor">
         <thead>
             <tr>

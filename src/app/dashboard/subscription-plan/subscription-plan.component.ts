@@ -114,47 +114,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
     });
   }
-  // updateSubscriptionPlan(data) {
-  //   let picked;
-  //   data.forEach(element => {
-  //   picked = (({ 
-  //     professionalProfile,
-  //     addressURLLogoPicture,
-  //     videoUpload,
-  //     socialMediaSharing,
-  //     performanceDashboard,
-  //     reviewsAndFeedback,
-  //     receiveMessagesForBooking,
-  //     sendMessagesForRecalls,
-  //     promotionsAndDiscountsOption,
-  //     ListProductsOption,
-  //     ListAmenities,
-  //     ListOfProviders,
-  //     ListYourTypeOfCenterAndDifferentLocations,
-
-  //   }) => ({ 
-  //     professionalProfile,
-  //     addressURLLogoPicture,
-  //     videoUpload,
-  //     socialMediaSharing,
-  //     performanceDashboard,
-  //     reviewsAndFeedback,
-  //     receiveMessagesForBooking,
-  //     sendMessagesForRecalls,
-  //     promotionsAndDiscountsOption,
-  //     ListProductsOption,
-  //     ListAmenities,
-  //     ListOfProviders,
-  //     ListYourTypeOfCenterAndDifferentLocations,
-  //   }))(element);
-  //   console.log('picked', picked)
-  //   data[0].userType === 'SP' ?  this.spPlans.push(picked) : this.cPlans.push(picked)
-  //   console.log('spPlans', this.spPlans)
-  //   console.log('cPlans', this.cPlans)
-  //   });
-  // }
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
+    this.stripeService.setPublishableKey('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU').then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();
@@ -165,8 +126,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.card.removeEventListener('change', this.cardHandler);
-    // this.card.destroy();
+    this.card.removeEventListener('change', this.cardHandler);
+    this.card.destroy();
   }
 
   onChange({ error }) {
@@ -280,8 +241,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   payment() {
-    localStorage.setItem('isPayment', 'true');
-    this._router.navigate(['/dashboard/profilemanagement', this.roles]);
+    // localStorage.setItem('isPayment', 'true');
+    // this._router.navigate(['/dashboard/profilemanagement', this.roles]);
   }
 }
 

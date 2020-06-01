@@ -367,7 +367,9 @@
           
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" (click) = "payment()" data-dismiss="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            data-toggle="modal"
+            data-target="#subscribe"
           style="max-width: 175px;" aria-label="Close">Buy</a>
           <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
           style="max-width: 175px;" aria-label="Close">Buy</a>
@@ -378,7 +380,9 @@
             <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']">Register</a>
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" (click) = "payment()" data-dismiss="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
+            data-toggle="modal"
+            data-target="#subscribe"
             style="max-width: 175px;" aria-label="Close">Buy</a>
             <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
             style="max-width: 175px;" aria-label="Close">Buy</a>

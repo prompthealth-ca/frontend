@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
@@ -33,8 +34,9 @@ import { AgmCoreModule } from '@agm/core';
     EmbededURLPipe,
   ],
   imports: [
+    AutocompleteLibModule,
     AgmCoreModule.forRoot(  {
-      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      apiKey: 'AIzaSyDtIw6iEt9H0fIV-5KloJorfbDy-zudhGk',
       libraries: ['places']
     }),
     OwlDateTimeModule,

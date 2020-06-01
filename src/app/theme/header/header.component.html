@@ -17,13 +17,13 @@
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a [routerLink]="['/dashboard/listing']"  [queryParams] = "{id: cat._id }" class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
+                <a [routerLink]="['/dashboard/listing']"  [queryParams] = "{id: cat._id }" class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{cat._id}} -- {{ cat.category_type }}</a>
                 <ul class="dropdown-menu">
                   <li *ngIf="cat.Ans.length === 0">
                     <div *ngFor="let answers of cat.answers">
                       <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id }" *ngIf="cat.Ans.length === 0"
                         data-toggle="dropdown">
-                        {{answers.item_text}}
+                        {{answers._id}} == {{answers.item_text}}
                       </a>
                     </div>
                   </li>

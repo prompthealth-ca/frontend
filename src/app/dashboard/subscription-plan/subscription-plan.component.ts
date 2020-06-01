@@ -28,6 +28,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   loading = false;
   confirmation;
   plan: any;
+  spPlans = []
+  cPlans = []
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
@@ -71,18 +73,21 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       : {};
       this.roles = localStorage.getItem("roles");
     this.checkout.email = this.userEmail.email;
-    this.getSubscriptionPlan();
+    this.getSPSubscriptionPlan('user/get-plans?userType=SP');
+    this.getCSubscriptionPlan('user/get-plans?userType=C');
     // this.getUserDetails();
   }
-
-  /*Get all Users */
-  getSubscriptionPlan() {
+  getSPSubscriptionPlan(path) {
     this._sharedService.loader('show');
-    this._sharedService.getSubscriptionPlan().subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
 
-      if (res.success) {
-        this.subData = res.data.subscribepackage;
+      if (res.statusCode === 200) {
+        this.spPlans = res.data;
+
+
+        console.log('spSubscriptionPlan', this.spPlans)
+      // this.updateSubscriptionPlan(res.data)
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -92,6 +97,62 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  getCSubscriptionPlan(path) {
+    this._sharedService.loader('show');
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+
+      if (res.statusCode === 200) {
+        this.cPlans = res.data;
+        console.log('cPlans', this.cPlans);
+      // this.updateSubscriptionPlan(res.data)
+      } else {
+        // this._commanService.checkAccessToken(res.error);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+
+    });
+  }
+  // updateSubscriptionPlan(data) {
+  //   let picked;
+  //   data.forEach(element => {
+  //   picked = (({ 
+  //     professionalProfile,
+  //     addressURLLogoPicture,
+  //     videoUpload,
+  //     socialMediaSharing,
+  //     performanceDashboard,
+  //     reviewsAndFeedback,
+  //     receiveMessagesForBooking,
+  //     sendMessagesForRecalls,
+  //     promotionsAndDiscountsOption,
+  //     ListProductsOption,
+  //     ListAmenities,
+  //     ListOfProviders,
+  //     ListYourTypeOfCenterAndDifferentLocations,
+
+  //   }) => ({ 
+  //     professionalProfile,
+  //     addressURLLogoPicture,
+  //     videoUpload,
+  //     socialMediaSharing,
+  //     performanceDashboard,
+  //     reviewsAndFeedback,
+  //     receiveMessagesForBooking,
+  //     sendMessagesForRecalls,
+  //     promotionsAndDiscountsOption,
+  //     ListProductsOption,
+  //     ListAmenities,
+  //     ListOfProviders,
+  //     ListYourTypeOfCenterAndDifferentLocations,
+  //   }))(element);
+  //   console.log('picked', picked)
+  //   data[0].userType === 'SP' ?  this.spPlans.push(picked) : this.cPlans.push(picked)
+  //   console.log('spPlans', this.spPlans)
+  //   console.log('cPlans', this.cPlans)
+  //   });
+  // }
   ngAfterViewInit() {
     this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
       stripe => {

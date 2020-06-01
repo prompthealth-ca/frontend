@@ -1,0 +1,162 @@
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+    <p style="font-size: 20px; color: white" class="loaderbg">
+      <img src="assets/img/logo1.png" class="loader-logo" width="100" />
+    </p>
+  </ngx-spinner>
+  <section
+    class="pt-6 pb-6 text-center bg-cover bg-overlay text-light"
+    style="background-image: url(assets/img/background3.jpg);"
+  >
+    <div class="container">
+      <h2 class="text-uppercase mb-3">Get in Touch</h2>
+      <p class="h4 font-weight-normal">
+        Please complete and submit the form below to contact us with your requests.
+      </p>
+    </div>
+  </section>
+  
+  <div class="bg-light">
+  <div class="container pt-3 pb-3">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-md-10">
+        <div class="form-card">
+          <h2 class="dis-dash-title text-center">
+            Contact us
+            <div class="triangle"></div>
+          </h2>
+          <div class="card-body">
+            <form role="form" class="labeledform row contactform" (ngSubmit)="pressMe()" [formGroup]="homeForm">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>First name <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{
+                        'is-invalid': submitted && f.firstName.errors
+                      }" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                      <div *ngIf="f.firstName.errors.required">
+                        First name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Last name <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <input type="text" formControlName="lastName" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                      <div *ngIf="f.lastName.errors.required">
+                        Last name is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Email Address <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <input type="text" formControlName="email" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">Email is required</div>
+                      <div *ngIf="f.email.errors.email">
+                        Email must be a valid email address
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Phone Number <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <input type="text" formControlName="phone" class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                      <div *ngIf="f.phone.errors.required">
+                        Phone is required & must be at least 10 characters
+                      </div>
+                      <div *ngIf="f.phone.errors.minLength">
+                        Phone number must be 10 characters
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>User Type <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <label>
+                        <input type="radio" value="SP" formControlName="userType" 
+                        [ngClass]="{ 'is-invalid': submitted && f.userType.errors }" required>
+                          <span class="radio-lable">Service Provider</span>
+                      </label>
+                      <label>
+                        <input type="radio" value="C" formControlName="userType"
+                        [ngClass]="{ 'is-invalid': submitted && f.userType.errors }" required >
+                          <span class="radio-lable">Centre</span>
+                      </label>
+                    <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                      <div *ngIf="f.userType.errors.required">
+                        User Type is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="descl">Description <span class="text-danger">*</span></label>
+                  <div class="w-100">
+                    <textarea class="form-control ng-untouched ng-pristine ng-valid" id="description" name="description"
+                      placeholder="Please leave us your questions or comments" formControlName="description" rows="5"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.description.errors
+                      }" required>
+                    </textarea>
+  
+                    <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                      <div *ngIf="f.description.errors.required">
+                        Description is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 d-flex justify-content-end">
+                <button class="btn btn-primary f-left" (click)="pressMe()">
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade product-modal in" id="registerDialog" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="">
+            <div class="model-review-title">
+              Thank you for registering, we have sent a verification email to the
+              address provided. Welcome to the GAARRI community!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

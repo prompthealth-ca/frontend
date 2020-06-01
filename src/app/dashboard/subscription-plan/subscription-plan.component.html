@@ -109,133 +109,282 @@
 </section> -->
 
 <!-- Pricing table -->
-<div class="container">
+<div class="container-fluid">
   <div class="overflow-auto">
     <table class="subscriptionTable w-100 table table-striped text-center">
       <thead>
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <span class="text-primary">Center</span>
+            <span class="text-primary">Center Basic</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">120</b>/Monthly
+              <b class="h5 mb-4">Free</b>
             </div>
           </th>
+          <th class="paid border-0">
+            <span class="text-primary">Center Premium</span>
+            <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">$</b><b class="h5">{{cPlans[1]?.price}}</b>/Monthly
+            </div>
+          </th>
+          <th class="enterprice border-0">
+            <span class="text-primary">Service Provider Basic</span>
+            <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">Free</b>
+            </div>
+          </th>
+
           <th class="free border-0">
-            <span class="text-primary">Enterprise</span>
+            <span class="text-primary">Service Provider Basic</span>
+            <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">$</b><b class="h5">{{spPlans[0]?.price}}</b>/Yearly
+            </div>
             <!-- <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly
             </div> -->
           </th>
-          <th class="enterprice border-0">
-            <span class="text-primary">Service Provider</span>
+          <th class="free border-0">
+            <span class="text-primary">Enterprise</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">100</b>/Yearly
+              <b class="h5 mb-4">Personalized</b>
             </div>
+            <!-- <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly
+            </div> -->
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th class="text-left">Professional Profile</th>
-          <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
+          <th class="text-left" width="15%">Professional Profile</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.professionalProfile"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.professionalProfile"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.professionalProfile"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.professionalProfile"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
         <tr>
           <th class="text-left">Address URL Logo Picture</th>
-          <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.addressURLLogoPicture"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.addressURLLogoPicture"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.addressURLLogoPicture"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.addressURLLogoPicture"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
         <tr>
           <th class="text-left">Video Upload</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.videoUpload"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.videoUpload"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.videoUpload"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.videoUpload"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
-        </tr>
-        <tr>
-          <th class="text-left">Social Media Sharing</th>
-          <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">Performance Dashboard</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.performanceDashboard"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.performanceDashboard"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.performanceDashboard"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.performanceDashboard"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">Real Reviews And Feedback</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.reviewsAndFeedback"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.reviewsAndFeedback"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.reviewsAndFeedback"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.reviewsAndFeedback"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">Receive Messages For Booking</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.receiveMessagesForBooking"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.receiveMessagesForBooking"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.receiveMessagesForBooking"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.receiveMessagesForBooking"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
-          <th class="text-left">Send Messages For Recalls</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <th class="text-left">List Products</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.ListProductsOption"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.ListProductsOption"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.ListProductsOption"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.ListProductsOption"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
-          <th class="text-left">Promotions And Discounts Option</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <th class="text-left">List Special Amenities</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.ListAmenities"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.ListAmenities"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.ListAmenities"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.ListAmenities"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
-        </tr>
-        <tr>
-          <th class="text-left">List Products Option</th>
-          <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
-        </tr>
-        <tr>
-          <th class="text-left">List Any Special Amenities</th>
-          <td><i class="fa fa-times text-danger"></i></td>
-          <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">List Of Providers</th>
-          <td><i class="fa fa-times text-danger"></i></td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.ListOfProviders"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.ListOfProviders"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.ListOfProviders"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.ListOfProviders"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
         <tr>
           <th class="text-left">
             List Your Type Of Center And Different Locations
           </th>
-          <td><i class="fa fa-times text-danger"></i></td>
+
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[0]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[0]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlans[1]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlans[1]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[1]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[1]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlans[0]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlans[0]?.ListYourTypeOfCenterAndDifferentLocations"></i>
+          </td>
           <td><i class="fa fa-check text-success"></i></td>
-          <td><i class="fa fa-times text-danger"></i></td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td></td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2" (click) = "payment()" data-dismiss="modal"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
-            data-target="#loginmodal">Buy</a>
+            <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']">Register</a>
+          
           </td>
           <td>
-            <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/contact-us']">Get In Touch</a>
-            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal" data-target="#questionnaire">Buy</a> -->
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" (click) = "payment()" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">Buy</a>
+          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
+          style="max-width: 175px;" aria-label="Close">Buy</a>
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
+            data-target="#loginmodal">Buy</a> -->
           </td>
           <td>
-            <a  *ngIf="isLoggedIn" class="btn btn-secondary w-100 ml-2"  (click) = "payment()" data-dismiss="modal"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
-            data-target="#loginmodal">Buy</a>
+            <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']">Register</a>
           </td>
+          <td>
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" (click) = "payment()" data-dismiss="modal"
+            style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
+            style="max-width: 175px;" aria-label="Close">Buy</a>
+          </td>
+
+          <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
         </tr>
       </tfoot>
     </table>
@@ -256,11 +405,6 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <!-- <div *ngFor="let obj of user['paymentMethod']; let i = index"
-          class="d-inline-flex p-2 border border-secondary rounded mb-3">
-          <input type="radio" class="mr-2" (click)="selectedCard = obj; errMessage = ''" id="defaultcard{{ i }}" />
-          <div class="text-secondary">xxxx-xxxx-xxxx-{{ obj.last4 }}</div>
-        </div> -->
         <div class="text-center">
           <a class="btn btn-primary" (click)="save()">Pay Now</a>
         </div>

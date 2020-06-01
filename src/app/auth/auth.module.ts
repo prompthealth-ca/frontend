@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { EnterpriseContactComponent } from './enterprise-contact/enterprise-contact.component';
 
 
 
@@ -30,6 +31,7 @@ import { LoginComponent } from '../auth/login/login.component';
     ForgotPasswordComponent,
     LoginComponent,
     RegistrationComponent,
+    EnterpriseContactComponent,
   ]
 })
 export class AuthModule { }

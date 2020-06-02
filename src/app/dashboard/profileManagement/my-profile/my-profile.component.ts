@@ -210,8 +210,6 @@ export class MyProfileComponent implements OnInit {
         this.profile = res.data[0];
         this.getDefaultCheckedValues(this.profile.languages, 'languages');
         this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
-        console.log('this.profile.typical_hours===', this.profile.typical_hours)
-        console.log('this.profile.languages===', this.profile.languages)
         console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);

@@ -87,12 +87,6 @@ export class HeaderComponent implements OnInit {
     //     this.showDashboard = true;
     //   }
     // }
-
-    if(this.token) {
-      if(this.payment === 'true') {
-        this.showDashboard = true;
-      }
-    }
   }
   // End Ngoninit
 
@@ -119,36 +113,6 @@ export class HeaderComponent implements OnInit {
       this._sharedService.loader('hide');
     });
   }
-  // logout() { 
-  //   this._sharedService.loader('show');
-  //   this._sharedService.logingOut().subscribe((res: any) => {
-  //     this._sharedService.loader('hide');
-  //     if (res.statusCode === 200) {
-  //       this.toastr.success('LogOut Successfully.');
-  //     } else {
-  //       this.toastr.error(res.message);
-  //     }
-  //   }, (error) => {
-  //     this.toastr.error("There are some errors, please try after some time !")
-  //     this._sharedService.loader('hide');
-  //   });
-  // }
-
-  // fetchUser() {
-  //   this._sharedService.get("getuserdetail").subscribe(
-  //     (res: any) => {
-  //       console.log("response is", res)
-  //       if (res.success) {
-  //         // this._bs.setUser(res.data.user);
-  //         this.uname = res.data.user.email;
-  //       } else {
-  //         this._sharedService.checkAccessToken(res.error);
-  //       }
-  //     },
-  //     error => { }
-  //   );
-  // }
-
   isSelectedURL(path) {
     if ((this.currentUrl == "/" || this.currentUrl == "") && path == "/")
       return true;

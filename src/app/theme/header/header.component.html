@@ -76,15 +76,15 @@
           <!-- <li *ngIf="showDashboard || (token && role === 'U')" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
           </li> -->
-          <li *ngIf="token && role === 'U'" class="nav-item">
+          <li *ngIf="toke" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
           </li>
-          token == {{ token }}
+          <!-- token == {{ token }}
           showDashboard == {{ showDashboard }}
-          role == {{ role }}
-          <li *ngIf="token && showDashboard && (role === 'SP' || role === 'C')" class="nav-item">
+          role == {{ role }} -->
+          <!-- <li *ngIf="token && (role === 'SP' || role === 'C')" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a *ngIf="!token" class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
 

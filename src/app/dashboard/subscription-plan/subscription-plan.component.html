@@ -124,7 +124,7 @@
           <th class="paid border-0">
             <span class="text-primary">Center Premium</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">{{cPlans[1]?.price}}</b>/Monthly
+              <b class="h5 mb-4">$</b><b class="h5">{{cPlans[1]?.price}}</b>/Yearly
             </div>
           </th>
           <th class="enterprice border-0">
@@ -363,28 +363,34 @@
         <tr>
           <td></td>
           <td>
-            <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']">Register</a>
-          
+            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }">Register</a>
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
             data-toggle="modal"
-            data-target="#subscribe"
+            data-target="#addcard"
+            (click)="setSelectedPlan(cPlans[1])"
           style="max-width: 175px;" aria-label="Close">Buy</a>
-          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
+          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
           </td>
           <td>
-            <a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']">Register</a>
+            
+            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }">Register</a>
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
             data-toggle="modal"
-            data-target="#subscribe"
+            data-target="#addcard"
+            (click)="setSelectedPlan(spPlans[0])"
             style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
+            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']" [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }"
             style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 
@@ -396,7 +402,7 @@
 </div>
 <!-- Pricing table end -->
 
-<div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="subscribe" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header d-flex justify-content-between align-items-center">
@@ -415,21 +421,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="addcard" aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
         <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
-          Add New Card
+          Add Card Details
         </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" 
+        #closebutton aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
-        <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout card-from">
+        <!-- <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout card-from">
           <label for="card-info" class="font-weight-bold">Card Info</label>
           <div id="card-info" #cardInfo class="mt-3"></div>
 
@@ -441,6 +448,12 @@
             </button>
             <button type="submit" class="btn btn-primary">Add</button>
           </div>
+        </form> -->
+        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
+          <div id="card-element" class="field"></div>
+          <button type="submit">
+            BUY
+          </button>
         </form>
       </div>
     </div>

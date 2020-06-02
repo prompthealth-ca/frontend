@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { SharedService } from './services/shared.service';
+import { PreviousRouteService } from './services/previousUrl.service';
 import { SearchPipe } from '../shared/pipes/search-pipe';
 import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 
@@ -14,6 +15,7 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
     // FlashMessagesModule
   ],
   providers: [
+    PreviousRouteService,
     SharedService
   ],
   declarations: [

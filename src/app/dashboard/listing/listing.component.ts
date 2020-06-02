@@ -188,7 +188,7 @@ export class ListingComponent implements OnInit {
     }
     if (type === 'hours') {
       this.selectedHours = value;
-      this.listing({typicalhoursId: this.selectedHours})
+      this.listing({typicalHoursId: this.selectedHours})
     }
     if (type === 'rating') {
       this.selectedRating = value;

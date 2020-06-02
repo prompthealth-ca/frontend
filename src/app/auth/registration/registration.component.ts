@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+
+import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '../../_helpers/must-match.validator';
@@ -16,8 +18,12 @@ export class RegistrationComponent implements OnInit {
   submitted = false;
   professionalSignup = false
   userType = 'U';
+  returnUrl = '';
 
-  constructor(private _router: Router,
+  constructor(
+    private route: ActivatedRoute,
+    private previousRouteService: PreviousRouteService,
+    private _router: Router,
     public _bs: BehaviorService,
     private _sharedService: SharedService,
     private formBuilder: FormBuilder,
@@ -26,6 +32,13 @@ export class RegistrationComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit() {
+    this.route.queryParamMap
+      .subscribe(params => { 
+        const routeParams = +params.get('previousPath');
+        console.log('Query params ',routeParams) 
+    });
+    // const routeParams = this.route.snapshot.params;
+    // console.log('routeParams', routeParams);
     switch(this._router.url) {
       case "/auth/registration/sp": 
         this.professionalSignup = true;
@@ -51,10 +64,9 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required]
     },
-      {
-        validator: MustMatch('password', 'confirm_password')
-      });
-
+    {
+      validator: MustMatch('password', 'confirm_password')
+    });
   }
 
   registerUser() {

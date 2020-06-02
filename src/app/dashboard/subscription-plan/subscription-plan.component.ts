@@ -1,14 +1,15 @@
 import {
   Component,
-  AfterViewInit,
-  OnDestroy,
   ViewChild,
   ElementRef,
   ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
 import { SharedService } from '../../shared/services/shared.service';
-import { NgForm } from "@angular/forms";
+
+import { PreviousRouteService } from '../../shared/services/previousUrl.service';
+import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
@@ -19,24 +20,26 @@ declare var jQuery: any;
   templateUrl: './subscription-plan.component.html',
   styleUrls: ['./subscription-plan.component.scss']
 })
-export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
+export class SubscriptionPlanComponent {
+  elements: Elements;
+  card: StripeElement;
   subData: [];
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
   @ViewChild('signin') signin:ElementRef;
 
+  @ViewChild('closebutton') closebutton;
   stripe;
   loading = false;
   confirmation;
   plan: any;
   spPlans = []
   cPlans = []
-  card: any;
-  cardHandler = this.onChange.bind(this);
   error: string;
   token: any;
   roles: string;
   isLoggedIn = false;
   professionalOption =false;
+  stripeTest: FormGroup;
 
   public checkout = {
     email: "this.userEmail.email",
@@ -52,27 +55,63 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   user = {
     paymentMethod: []
   };
-
+  elementsOptions: ElementsOptions = {
+    locale: 'es'
+  };
+ 
   userEmail: any;
   cardNumber: [];
   selectedCard: any;
   errMessage: any;
   selectedPlan: any;
 
-  constructor(private _router: Router,
+  constructor(
+    private previousRouteService: PreviousRouteService,
+    private _router: Router,
     private _route: ActivatedRoute,
     private _sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private stripeService: AngularStripeService,
-    private toastr: ToastrService, ) { }
+    private toastr: ToastrService,
+    private fb: FormBuilder,
+    private stripeService: StripeService ) { }
 
   ngOnInit() {
     console.log('this.isLoggedIn', this.isLoggedIn);
+    console.log('this.previousRouteService', this.previousRouteService.getPreviousUrl());
     if (localStorage.getItem('token')) this.isLoggedIn = true;
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
-      this.roles = localStorage.getItem("roles");
+    this.roles = localStorage.getItem("roles");
     this.checkout.email = this.userEmail.email;
+
+    this.stripeTest = this.fb.group({
+      name: ['', [Validators.required]]
+    });
+
+    this.stripeService.elements(this.elementsOptions)
+      .subscribe(elements => {
+        this.elements = elements;
+        // Only mount the element the first time
+        if (!this.card) {
+          this.card = this.elements.create('card', {
+            style: {
+              base: {
+                iconColor: '#666EE8',
+                color: '#31325F',
+                lineHeight: '40px',
+                fontWeight: 300,
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSize: '18px',
+                '::placeholder': {
+                  color: '#CFD7E0'
+                }
+              }
+            }
+          });
+          this.card.mount('#card-element');
+        }
+      });
+
     this.getSPSubscriptionPlan('user/get-plans?userType=SP');
     this.getCSubscriptionPlan('user/get-plans?userType=C');
     // this.getUserDetails();
@@ -84,9 +123,6 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
       if (res.statusCode === 200) {
         this.spPlans = res.data;
-
-
-        console.log('spSubscriptionPlan', this.spPlans)
       // this.updateSubscriptionPlan(res.data)
       } else {
         // this._commanService.checkAccessToken(res.error);
@@ -97,6 +133,10 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  setSelectedPlan(plan) {
+    console.log('plan', plan)
+    this.selectedPlan = plan
+  }
   getCSubscriptionPlan(path) {
     this._sharedService.loader('show');
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
@@ -104,7 +144,6 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
       if (res.statusCode === 200) {
         this.cPlans = res.data;
-        console.log('cPlans', this.cPlans);
       // this.updateSubscriptionPlan(res.data)
       } else {
         // this._commanService.checkAccessToken(res.error);
@@ -114,66 +153,13 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
 
     });
   }
-  ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU').then(
-      stripe => {
-        this.stripe = stripe;
-        const elements = stripe.elements();
-        this.card = elements.create('card');
-        this.card.mount(this.cardInfo.nativeElement);
-        this.card.addEventListener('change', this.cardHandler);
-      });
-  }
-
-  ngOnDestroy() {
-    this.card.removeEventListener('change', this.cardHandler);
-    this.card.destroy();
-  }
-
-  onChange({ error }) {
-    if (error) {
-      this.error = error.message;
-    } else {
-      this.error = null;
-    }
-    this.cd.detectChanges();
-  }
-
-  async onSubmit(form: NgForm) {
-    const { token, error } = await this.stripe.createToken(this.card);
-
-    if (error) {
-    } else {
-      this.token = token.id
-      this.checkout.token = this.token;
-      let data = JSON.parse(JSON.stringify(this.checkout));
-      this._sharedService.loader('Show');
-      this._sharedService.token(data).subscribe((res: any) => {
-        this._sharedService.loader('hide');
-        if (res.success) {
-
-          this.toastr.success('Your card has been add successfully');
-          jQuery('.modal').click()
-        } else {
-          this.toastr.error(res.error.message);
-        }
-      }, (error) => {
-        this.toastr.error("There are some error please try after some time.")
-        this._sharedService.loader('hide');
-      });
-
-    }
-  }
   getUserDetails() {
     this._sharedService.loader('show');
     this._sharedService.getUserDetails().subscribe((res: any) => {
       this._sharedService.loader('hide');
-      console.log("res", res)
 
       if (res.success) {
         this.user = res.data.roles;
-        console.log("card num", this.user)
-
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -194,41 +180,6 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     // }
   }
 
-  save() {
-    this.errMessage = '';
-
-    if (!this.selectedCard) {
-      this.errMessage = "Please Select Card."
-      return
-    }
-
-    let body = {
-      customer_id: this.selectedCard['customer_id'],
-      token: this.selectedCard['card_id'],
-      subscription_id: this.selectedPlan['id']
-    }
-    this._sharedService.loader('show');
-    this._sharedService.post(body, 'chargePayment').subscribe((res: any) => {
-      if (res.success) {
-        // this.fetchPlan();
-        jQuery('#closeModal').click()
-        // this.openModal()
-        this.toastr.success('Your payment has been successfully done');
-        this._router.navigate(['/dashboard/userdetails']);
-        jQuery('.modal').click()
-        this._sharedService.loader('hide');
-        jQuery('.modal').click()
-      } else {
-        this.toastr.error("There are some error please try after some time.")
-        this._sharedService.loader('hide');
-      }
-    }, err => {
-      let body = JSON.parse(err._body)
-      this._sharedService.loader('hide');
-      this.errMessage = body.err.message
-    });
-  }
-
   goToContactPage() {
     this._router.navigate(['/contact-us']);
   }
@@ -244,8 +195,50 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     // localStorage.setItem('isPayment', 'true');
     // this._router.navigate(['/dashboard/profilemanagement', this.roles]);
   }
-}
+  buy() {
+    const name = this.stripeTest.get('name').value;
+    this.stripeService
+      .createToken(this.card, { name })
+      .subscribe(result => {
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
 
+
+        const payload = {
+          userId: localStorage.getItem('loginID'),
+          userType: localStorage.getItem('roles'),
+          email: JSON.parse(localStorage.getItem("user")).email,
+          cardId: result.token.card.id,
+          token: result.token.id,
+          planId: this.selectedPlan._id,
+          amount: this.selectedPlan.price
+        }
+
+        this._sharedService.loader('show');
+        const path = `user/buyPlan`;
+        this._sharedService.post(payload, path).subscribe((res: any) => {
+          this._sharedService.loader('hide');
+            if (res.statusCode === 200) {
+              this.toastr.success(res.message);
+              this.closebutton.nativeElement.click();
+              this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+            }
+      
+            else {
+              this._sharedService.showAlert(res.message, 'alert-danger');
+            }
+          }, (error) => {
+            this._sharedService.loader('hide');
+          });
+        } else if (result.error) {
+          // Error creating the token
+          this._sharedService.showAlert(result.error.message, 'alert-danger');
+          console.log(result.error.message);
+        }
+      });
+  }
+}
 // end section
 
 

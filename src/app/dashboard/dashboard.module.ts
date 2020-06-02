@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgxStripeModule } from 'ngx-stripe';
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -17,7 +18,6 @@ import { ProfessionalRegisterComponent } from "./professional-register/professio
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SharedModule } from '../shared/shared.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
-
 
 import { AgmCoreModule } from '@agm/core';
 @NgModule({
@@ -47,6 +47,7 @@ import { AgmCoreModule } from '@agm/core';
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),
     NgMultiSelectDropDownModule.forRoot()]
 })
 export class DashboardModule {}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { PreviousRouteService } from './previousUrl.service'
 
 import { Observable } from 'rxjs';
 
@@ -31,6 +32,7 @@ export class SharedService {
     private rendererFactory: RendererFactory2,
     private _flashMessagesService: FlashMessagesService,
     private spinner: NgxSpinnerService,
+    private previousRouteService: PreviousRouteService,
 
     @Inject(DOCUMENT) private document,
     private http: HttpClient) { }
@@ -288,6 +290,7 @@ getDefaultHeader() {
 
 
   loginUser(res, type) {
+    console.log('this.previousRouteService', this.previousRouteService.getPreviousUrl());
     if (res.data.roles === 'U') {
       this._router.navigate(['home']);
     } else {
@@ -300,7 +303,11 @@ getDefaultHeader() {
       route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/professional-info';
     }
     else {
-      route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+      if(this.previousRouteService.getPreviousUrl() === '') {
+
+      } else {
+        route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+      }
     }
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.loginToken);

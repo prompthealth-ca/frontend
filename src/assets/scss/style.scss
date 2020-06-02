@@ -354,6 +354,13 @@ textarea.form-control {
 .check_ul1 {
   padding: 0;
   margin: 0;
+  &.h6{
+    >*{
+      &::before{
+        font-size: 12px;
+      }
+    }
+  }
   > * {
     display: block;
     position: relative;

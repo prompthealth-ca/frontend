@@ -24,20 +24,8 @@ export class WrapperComponent implements OnInit {
   ];
   spListing = [
     {
-      title: 'My Subscription',
-      link: 'my-subscription'
-    },
-    {
-      title: 'Professional Background',
-      link: 'my-professional-info'
-    },
-    {
       title: 'My Videos',
       link: 'videos-blogs'
-    },
-    {
-      title: 'Review and Rating',
-      link: 'reviews-ratings'
     },
   ];
   uListing = [
@@ -76,10 +64,14 @@ export class WrapperComponent implements OnInit {
         title: 'My Payment',
         link: 'my-payment'
       });
-      if(profile.plan_id.ListAmenities) {
+      this.listing.push({
+        title: 'My Subscription',
+        link: 'my-subscription'
+      });
+      if(profile.plan_id.professionalProfile) {
         this.listing.push({
-          title: 'My Amenities',
-          link: 'my-amenities'
+          title: 'Professional Background',
+          link: 'my-professional-info'
         });
       }
     }

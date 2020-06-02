@@ -76,9 +76,8 @@ export class SubscriptionPlanComponent {
     private stripeService: StripeService ) { }
 
   ngOnInit() {
-    console.log('this.isLoggedIn', this.isLoggedIn);
-    console.log('this.previousRouteService', this.previousRouteService.getPreviousUrl());
     if (localStorage.getItem('token')) this.isLoggedIn = true;
+    console.log('this.isLoggedIn ---', this.isLoggedIn);
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
     this.roles = localStorage.getItem("roles");

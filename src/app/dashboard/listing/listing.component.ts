@@ -15,12 +15,8 @@ export class ListingComponent implements OnInit {
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
-  selectedRating = '';
-  selectedLang= '';
-  selectedHours= ''
   profileQuestions = []
   id;
-  zipCodeSearched = '';
   lat;
   long;
   private sub: any;
@@ -42,6 +38,18 @@ export class ListingComponent implements OnInit {
       item_text: '3 Stars'
     }
   ]
+
+  listingPayload = {
+    ids: [],
+    zipcode: '',
+    languageId: '',
+    typicalHoursId: '',
+    rating: '',
+    miles: '',
+    latLong: '',
+    age_range: '',
+    name: ''
+  }
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
@@ -83,12 +91,11 @@ export class ListingComponent implements OnInit {
     this.getProfileQuestion();
     this.route.queryParams.subscribe(queryParams => {
       console.log('queryParams', queryParams)
-      const id = queryParams.id;
-      console.log('queryParams id', id)
+       this.id = queryParams.id;
+      console.log('queryParams id', this.id)
       this.listing({
-        ids: [id],
+        ids: this.id ? [this.id] : [],
       });
-      // do something with the query params
     });
   }
 
@@ -108,17 +115,17 @@ export class ListingComponent implements OnInit {
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      this.zipCodeSearched = '';
+      this.listingPayload.zipcode = '';
       if (status === 'OK') {
         if (results[0]) {
           // find country name
           for (var i=0; i<results[0].address_components.length; i++) {
             for (var b=0;b<results[0].address_components[i].types.length;b++) {
             if (results[0].address_components[i].types[b] === "postal_code") {
-              this.zipCodeSearched = results[0].address_components[i].long_name;
+              this.listingPayload.zipcode = results[0].address_components[i].long_name;
 
-              console.log('zipCodeSearched[0]',  this.zipCodeSearched);
-              this.listing({zipcode: this.zipCodeSearched})
+              console.log('zipCodeSearched[0]',  this.listingPayload);
+              this.listing(this.listingPayload)
               break;
             }
 
@@ -127,8 +134,6 @@ export class ListingComponent implements OnInit {
         } else {
           window.alert('No results found');
         }
-
-        console.log('zipCodeSearched[0]',  this.zipCodeSearched)
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
@@ -136,30 +141,9 @@ export class ListingComponent implements OnInit {
   }
   listing(filter) {
     this._sharedService.loader('show');
-    let setParams;
-    setParams = {
-      ...filter,
-    }
-    // if (this.zipcode) {
-    //   setParams = {
-    //     ids: [],
-    //     zipcode: this.zipcode,
-    //   }
-    // } else if(this.typical_hours.length && this.typical_hours[0] !== '') {
-    //   setParams = {
-    //     ids: [],
-    //     zipcode: this.zipcode,
-    //     typical_hours: this.typical_hours,
-    //   }
-    // }
-    // else {
-    //   setParams = {
-    //     ids: this.id,
-    //   }
-    // }
     let path = 'user/filter';
-    console.log('setParams', setParams);
-    this._sharedService.postNoAuth(setParams, path).subscribe((res: any) => {
+    console.log('setParams', filter);
+    this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctorsListing = res.data;
       
@@ -179,25 +163,39 @@ export class ListingComponent implements OnInit {
       this._sharedService.loader('hide');
     });
   }
-
+  removeFilter() {
+    this.listingPayload = {
+      ids: [],
+      zipcode: '',
+      languageId: '',
+      typicalHoursId: '',
+      rating: '',
+      miles: '',
+      latLong: '',
+      age_range: '',
+      name: ''
+    }
+    this.listing({
+      ids: [this.id],
+    });
+  }
   onOptionsSelected(value:string, type){
     console.log("the selected value is " + value, type);
-    this.selectedLang ='';
-    this.selectedHours = '';
+    this.listingPayload.languageId ='';
+    this.listingPayload.typicalHoursId = '';
+    this.listingPayload.rating = '';
 
     if (type === 'language') {
-      this.selectedLang = value;
-      this.listing({languageId: this.selectedLang})
+      this.listingPayload.languageId= value;
     }
     if (type === 'hours') {
-      this.selectedHours = value;
-      this.listing({typicalHoursId: this.selectedHours})
+      this.listingPayload.typicalHoursId = value;
     }
     if (type === 'rating') {
-      this.selectedRating = value;
-      console.log('selectedRating', this.selectedRating)
-      this.listing({rating: this.selectedRating})
+      this.listingPayload.rating = value;
     }
+
+    this.listing(this.listingPayload);
   }
   createNameList(data) {
     for (let element of data) {
@@ -211,16 +209,20 @@ export class ListingComponent implements OnInit {
   }
   changeMiles(evt) {
     if(evt.target.value !== 'exactZipCode') {
-      this.listing({ miles: evt.target.value, latLong: `${this.long}, ${this.lat}` });
+      this.listingPayload.miles = evt.target.value;
+      this.listingPayload.latLong = `${this.long}, ${this.lat}`;
+      this.listing(this.listingPayload);
     } else {
-      this.listing({zipcode: this.zipCodeSearched})
+      this.listing(this.listingPayload)
     }
   }
   changeAge(evt) {
-    this.listing({age_range: evt.target.value})
+    this.listingPayload.age_range = evt.target.value;
+    this.listing(this.listingPayload)
   }
   selectEvent(item) {
-    this.listing({ name: item.name });
+    this.listingPayload.name = item.name;
+    this.listing(this.listingPayload);
   }
   compareFields(doc, evt) {
     if(evt.target.checked) {

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./professional-register.component.scss']
 })
 export class ProfessionalRegisterComponent implements OnInit {
-  activeTab = 'questionnaire';
+  activeTab = 'basicInfo';
 
   constructor(private router: Router) { 
   }

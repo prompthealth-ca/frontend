@@ -54,7 +54,7 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const routeParams = this.route.snapshot.params;
+    // const routeParams = this.route.snapshot.params;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.mapsAPILoader.load().then(() => {
@@ -77,15 +77,18 @@ export class ListingComponent implements OnInit {
       });
       
     });
-    this.id = this.route.snapshot.queryParams['id'] ? [this.route.snapshot.queryParams['id']] : [] ;
     if(localStorage.getItem('typical_hours')) {
       this.typical_hours = localStorage.getItem('typical_hours').split(',');
     }
     this.getProfileQuestion();
-    console.log('typical_hours', this.typical_hours)
-    console.log('id', this.id, routeParams)
-   this.listing({
-        ids: this.id,
+    this.route.queryParams.subscribe(queryParams => {
+      console.log('queryParams', queryParams)
+      const id = queryParams.id;
+      console.log('queryParams id', id)
+      this.listing({
+        ids: [id],
+      });
+      // do something with the query params
     });
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnInit {
+  public profile = {}
   listing = [
     {
       title: 'My Profile',
@@ -14,7 +16,11 @@ export class WrapperComponent implements OnInit {
     {
       title: 'My Booking',
       link: 'my-booking'
-    }
+    },
+    {
+      title: 'Review and Rating',
+      link: 'reviews-ratings'
+    },
   ];
   spListing = [
     {
@@ -24,36 +30,6 @@ export class WrapperComponent implements OnInit {
     {
       title: 'Professional Background',
       link: 'my-professional-info'
-    },
-    {
-      title: 'My Payment',
-      link: 'my-payment'
-    },
-    {
-      title: 'My Videos',
-      link: 'videos-blogs'
-    },
-    {
-      title: 'Review and Rating',
-      link: 'reviews-ratings'
-    },
-  ];
-  cListing = [
-    {
-      title: 'My Payment',
-      link: 'my-payment'
-    },
-    {
-      title: 'My Amenities',
-      link: 'my-amenities'
-    },
-    {
-      title: 'My Products',
-      link: 'my-product'
-    },
-    {
-      title: 'My Doctors',
-      link: 'add-professionals'
     },
     {
       title: 'My Videos',
@@ -70,20 +46,77 @@ export class WrapperComponent implements OnInit {
       link: 'my-favourites'
     }
   ];
-  constructor() { }
+  constructor(
+    private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
-    switch(localStorage.getItem("roles")) {
-      case 'SP':
-        this.listing.push(...this.spListing);
-      break;
-      case 'C':
-        this.listing.push(...this.cListing);
-      break;
-      case 'U':
-        this.listing.push(...this.uListing);
-      break;
+    this.getProfileDetails();
+    
+  }
+  getProfileDetails() {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    let path = `user/get-profile/${userInfo._id }`;
+    this._sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        this.profile = res.data[0];
+        console.log('profile', this.profile);
+        this.setListing(this.profile);
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this._sharedService.checkAccessToken(err);
+    });
+  }
+  setListing(profile){
+    if (profile.roles === 'SP') {
+      // this.listing.push(...this.spListing);
+      this.listing.push({
+        title: 'My Payment',
+        link: 'my-payment'
+      });
+      if(profile.plan_id.ListAmenities) {
+        this.listing.push({
+          title: 'My Amenities',
+          link: 'my-amenities'
+        });
+      }
+    }
+    if(profile.roles === 'C') {
+      console.log('profile.roles', profile.roles)
+      if(profile.plan_id.ListAmenities) {
+        this.listing.push({
+          title: 'My Amenities',
+          link: 'my-amenities'
+        });
+      }
+      if(profile.plan_id.ListOfProviders) {
+        this.listing.push({
+          title: 'My Doctors',
+          link: 'add-professionals'
+        });
+      }
+      if(profile.plan_id.ListProductsOption) {
+        this.listing.push({
+          title: 'My Products',
+          link: 'my-product'
+        });
+      }
+      if(profile.plan_id.videoUpload) {
+        this.listing.push({
+          title: 'My Videos',
+          link: 'videos-blogs'
+        });
+      }
+      this.listing.push({
+        title: 'My Payment',
+        link: 'my-payment'
+      });
+    }
+    if(profile.roles === 'U') {
+      this.listing.push(...this.uListing);
     }
   }
-
+  
 }

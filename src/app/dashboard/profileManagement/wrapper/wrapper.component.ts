@@ -17,10 +17,6 @@ export class WrapperComponent implements OnInit {
       title: 'My Booking',
       link: 'my-booking'
     },
-    {
-      title: 'Review and Rating',
-      link: 'reviews-ratings'
-    },
   ];
   spListing = [
     {
@@ -109,6 +105,11 @@ export class WrapperComponent implements OnInit {
     if(profile.roles === 'U') {
       this.listing.push(...this.uListing);
     }
+    this.listing.push(
+      {
+        title: 'Review and Rating',
+        link: 'reviews-ratings'
+      })
   }
   
 }

@@ -11,6 +11,13 @@
 }
 // bootstarp classes end
 
+input.InputElement{
+  &::placeholder{
+    
+    opacity: 1 !important;
+  }
+}
+
 .pull-right {
   float: right;
 }

@@ -40,7 +40,7 @@ export class SharedService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('loginID');
-    localStorage.removeItem('isPayment');
+    // localStorage.removeItem('isPayment');
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
     this.showAlert("Logout Sucessfully", "alert-success");
@@ -292,7 +292,7 @@ getDefaultHeader() {
       this._router.navigate(['home']);
     } else {
       
-      localStorage.setItem('isPayment', 'true');
+      // localStorage.setItem('isPayment', 'true');
     }
 
     let route

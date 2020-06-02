@@ -70,7 +70,6 @@ export class DoctorFilterComponent implements OnInit {
           const payload = {
             latLong: `${this.long}, ${this.lat}`
           }
-          console.log('payload', payload)
           this.getDoctorList(payload);
         });
       });

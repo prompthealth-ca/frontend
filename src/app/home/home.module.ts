@@ -13,7 +13,6 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { ClientComponent } from "./client/client.component";
 import { ProffesionalComponent } from "./proffesional/proffesional.component";
 import { EnterpriceComponent } from "./enterprice/enterprice.component";
-import { PricingComponent } from './pricing/pricing.component';
 import { MapComponent } from "./map/map.component";
 // import { ProfessionalRegisterComponent } from '../dashboard/professional-register/professional-register.component';
 
@@ -30,7 +29,6 @@ import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
     ClientComponent,
     ProffesionalComponent,
     EnterpriceComponent,
-    PricingComponent,
     MapComponent,
     DoctorFilterComponent,
     // ProfessionalRegisterComponent
@@ -39,7 +37,7 @@ import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
     NgxSpinnerModule,
     AutocompleteLibModule,
     AgmCoreModule.forRoot(  {
-      apiKey: 'AIzaSyB2RgWanHLf385ziPuRTY2d19hZAWVHbYs',
+      apiKey: 'AIzaSyDtIw6iEt9H0fIV-5KloJorfbDy-zudhGk',
       libraries: ['places']
     }),
     CommonModule,

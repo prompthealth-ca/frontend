@@ -5,11 +5,16 @@ import { ContactUspageComponent } from './contact-uspage/contact-uspage.componen
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { EnterpriseContactComponent } from './enterprise-contact/enterprise-contact.component';
 
 const routes: Routes = [
 	{
 		path: 'contact-us',
 		component: ContactUspageComponent
+	},
+	{
+		path: 'get-in-touch',
+		component: EnterpriseContactComponent
 	},
 	{
 		path: 'forgot-password',

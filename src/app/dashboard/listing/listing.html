@@ -1,33 +1,41 @@
 <section class="pt-5 pb-5">
+  <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
+  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+  </agm-map>
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-3">
         <h6 class="mb-3 text-primary">Travel Distance from Zip Code</h6>
 
         <div class="d-flex mb-3">
-          <input
+          <input 
+            id="address"
+            name="address" 
             type="text"
-            class="rounded-0 form-control rounded-left"
-            placeholder="Enter Your Zip Code"
+            class="form-control w-100 text-center"
+            #searchGlobal
           />
-          <button class="btn btn-primary rounded-right rounded-0 ">Add</button>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="zipCodeSearched.length">
           <div class="radio">
-            <input type="radio" name="zipcode" />
+            <input type="radio" name="zipcode" value="exactZipCode"
+            (change)="changeMiles($event)"/>
             <span>Exact Zip Code</span>
           </div>
           <div class="radio">
-            <input type="radio" name="zipcode" />
+            <input type="radio" name="zipcode" value="10"
+            (change)="changeMiles($event)"/>
             <span>Less than 10 miles</span>
           </div>
           <div class="radio">
-            <input type="radio" name="zipcode" />
+            <input type="radio" name="zipcode" value="20"
+            (change)="changeMiles($event)"/>
             <span>Less than 20 miles</span>
           </div>
           <div class="radio">
-            <input type="radio" name="zipcode" />
+            <input type="radio" name="zipcode"  value="30"
+            (change)="changeMiles($event)"/>
             <span>Less than 30 miles</span>
           </div>
         </div>
@@ -37,38 +45,91 @@
         <h6 class="mb-3 text-primary">Therapist Name</h6>
 
         <div class="d-flex mb-3">
-          <input
-            type="text"
-            class="rounded-0 form-control rounded-left"
-            placeholder="Enter Your Therapist Name"
-          />
-          <button class="btn btn-primary rounded-right rounded-0 ">Add</button>
+          <div class="ng-autocomplete">
+            <ng-autocomplete 
+              [data]="allDoctorList"
+              placeHolder="Enter the Service Provider Name"
+              [searchKeyword]="keyword"
+              (selected)='selectEvent($event)'
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate">                                 
+            </ng-autocomplete>
+             
+            <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+            </ng-template>
+             
+            <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+            </ng-template>
+           </div>
         </div>
-
         <hr />
 
+        <h6 class="mb-3 text-primary">Ratings</h6>
+       
+        <div class="mb-3">
+          <select class="form-control"  #ratings (change)="onOptionsSelected(ratings.value, 'rating')">
+            <option *ngFor="let opt of ratingsOption" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+          </select>
+        </div>
+        <hr />
+
+        <h6 class="mb-3 text-primary">Hours of Availability</h6>
+       
+        <div class="mb-3">
+          <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
+          <option *ngFor="let opt of profileQuestions[0]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+        </select>
+        </div>
+        <hr />
+
+        <h6 class="mb-3 text-primary">Provider language</h6>
+       
+        <div class="mb-3">
+          <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
+            <option *ngFor="let opt of profileQuestions[1]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+          </select>
+        </div>
+        <hr/>
         <h6 class="mb-3 text-primary">Age Group</h6>
 
         <div class="mb-3">
           <div class="radio">
-            <input type="radio" name="age" />
-            <span>Not critical</span>
+            <input type="radio" (change)="changeAge($event)" name="age" value="76"/>
+            <span>> 75</span>
           </div>
           <div class="radio">
-            <input type="radio" name="age" />
-            <span>Child</span>
+            <input type="radio" (change)="changeAge($event)" name="age" value="65"/>
+            <span>65-75</span>
           </div>
           <div class="radio">
-            <input type="radio" name="age" />
-            <span>Adolescent</span>
+            <input type="radio" (change)="changeAge($event)" name="age" value="55"/>
+            <span>55-65</span>
           </div>
           <div class="radio">
-            <input type="radio" name="age" />
-            <span>Adult</span>
+            <input type="radio" (change)="changeAge($event)" name="age"  value="45"/>
+            <span>45-55</span>
           </div>
           <div class="radio">
-            <input type="radio" name="age" />
-            <span>Senior</span>
+            <input type="radio" (change)="changeAge($event)" name="age"  value="35"/>
+            <span>35-45</span>
+          </div>
+          <div class="radio">
+            <input type="radio" (change)="changeAge($event)" name="age"  value="25"/>
+            <span>25-35</span>
+          </div>
+          <div class="radio">
+            <input type="radio" (change)="changeAge($event)" name="age"  value="18"/>
+            <span>18-24</span>
+          </div>
+          <div class="radio">
+            <input type="radio" name="age"  value="12"/>
+            <span>12-17</span>
+          </div>
+          <div class="radio">
+            <input type="radio" name="age"  value="11"/>
+            <span>< 12</span>
           </div>
         </div>
 

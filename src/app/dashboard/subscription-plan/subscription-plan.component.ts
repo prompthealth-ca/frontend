@@ -28,6 +28,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   loading = false;
   confirmation;
   plan: any;
+  spPlans = []
+  cPlans = []
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
@@ -71,18 +73,21 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
       : {};
       this.roles = localStorage.getItem("roles");
     this.checkout.email = this.userEmail.email;
-    this.getSubscriptionPlan();
+    this.getSPSubscriptionPlan('user/get-plans?userType=SP');
+    this.getCSubscriptionPlan('user/get-plans?userType=C');
     // this.getUserDetails();
   }
-
-  /*Get all Users */
-  getSubscriptionPlan() {
+  getSPSubscriptionPlan(path) {
     this._sharedService.loader('show');
-    this._sharedService.getSubscriptionPlan().subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
 
-      if (res.success) {
-        this.subData = res.data.subscribepackage;
+      if (res.statusCode === 200) {
+        this.spPlans = res.data;
+
+
+        console.log('spSubscriptionPlan', this.spPlans)
+      // this.updateSubscriptionPlan(res.data)
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -92,8 +97,25 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  getCSubscriptionPlan(path) {
+    this._sharedService.loader('show');
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+
+      if (res.statusCode === 200) {
+        this.cPlans = res.data;
+        console.log('cPlans', this.cPlans);
+      // this.updateSubscriptionPlan(res.data)
+      } else {
+        // this._commanService.checkAccessToken(res.error);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+
+    });
+  }
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
+    this.stripeService.setPublishableKey('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU').then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();
@@ -104,8 +126,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.card.removeEventListener('change', this.cardHandler);
-    // this.card.destroy();
+    this.card.removeEventListener('change', this.cardHandler);
+    this.card.destroy();
   }
 
   onChange({ error }) {
@@ -219,8 +241,8 @@ export class SubscriptionPlanComponent implements AfterViewInit, OnDestroy {
   }
 
   payment() {
-    localStorage.setItem('isPayment', 'true');
-    this._router.navigate(['/dashboard/profilemanagement', this.roles]);
+    // localStorage.setItem('isPayment', 'true');
+    // this._router.navigate(['/dashboard/profilemanagement', this.roles]);
   }
 }
 

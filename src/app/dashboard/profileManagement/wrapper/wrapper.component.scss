@@ -4,7 +4,17 @@ button.close.position-absolute {
   right: 16px;
   top: 16px;
 }
-
+.upgrade-header {
+  padding: 10px 0;
+  border-bottom: 1px solid #f8f9fa;
+  p {
+    font-weight: 900;
+    margin: 0;
+    a {
+      margin-top: -5px;
+    }
+  }
+}
 .modal.fade.show {
   display: -webkit-box !important;
   display: flex !important;
@@ -37,7 +47,10 @@ ul#pills-tab {
     position: relative;
     color: $secondaryColor;
     padding: 12px 13px;
+    border: 0;
+    text-align: left;
     border-bottom: 3px solid transparent;
+    width: 100%;
     &.active {
       border-color: $primaryColor;
       background-color: $secondaryColor;

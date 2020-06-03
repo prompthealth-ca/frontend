@@ -158,7 +158,7 @@ export class UserDetailsComponent {
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
-        console.log('this.getProfileQuestion', res.data)
+        console.log('this.profileQuestions ---', res.data)
        } else {
          this.toastr.error(res.message);
   
@@ -204,12 +204,12 @@ export class UserDetailsComponent {
   checkBoxChanged(e, fieldUpdated) {
     console.log('checkBoxChanged', e, fieldUpdated);
     if(fieldUpdated === 'availability') {
-      this.languagesSelected.push(e.target.id);
-      this.userDetails.languages = this.languagesSelected;
-    }
-    if(fieldUpdated === 'service') {
       this.hoursSelected.push(e.target.id);
       this.userDetails.typical_hours = this.hoursSelected;
+    }
+    if(fieldUpdated === 'service') {
+      this.languagesSelected.push(e.target.id);
+      this.userDetails.languages = this.languagesSelected;
     }
   }
   handleReaderLoaded(e) {

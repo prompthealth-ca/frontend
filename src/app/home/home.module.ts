@@ -37,7 +37,7 @@ import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
     NgxSpinnerModule,
     AutocompleteLibModule,
     AgmCoreModule.forRoot(  {
-      apiKey: 'AIzaSyDtIw6iEt9H0fIV-5KloJorfbDy-zudhGk',
+      apiKey: 'AIzaSyCbRhC6h9Pp43-5t_Knyrd_ewAdLMIJtCg',
       libraries: ['places']
     }),
     CommonModule,

@@ -7,27 +7,24 @@ import { SharedService } from '../../../shared/services/shared.service';
   styleUrls: ['./wrapper.component.scss']
 })
 export class WrapperComponent implements OnInit {
-  public profile = {}
+  public profile;
   listing = [
     {
       title: 'My Profile',
-      link: 'my-profile'
+      link: 'my-profile',
+      active: true,
     },
     {
       title: 'My Booking',
-      link: 'my-booking'
-    },
-  ];
-  spListing = [
-    {
-      title: 'My Videos',
-      link: 'videos-blogs'
+      link: 'my-booking',
+      active: true,
     },
   ];
   uListing = [
     {
       title: 'My Favourite',
-      link: 'my-favourites'
+      link: 'my-favourites',
+      active: true,
     }
   ];
   constructor(
@@ -35,7 +32,6 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileDetails();
-    
   }
   getProfileDetails() {
     const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -55,61 +51,145 @@ export class WrapperComponent implements OnInit {
   }
   setListing(profile){
     if (profile.roles === 'SP') {
-      // this.listing.push(...this.spListing);
-      this.listing.push({
-        title: 'My Payment',
-        link: 'my-payment'
-      });
-      this.listing.push({
-        title: 'My Subscription',
-        link: 'my-subscription'
-      });
-      if(profile.plan_id.professionalProfile) {
+      if (profile.plan) {
+        this.listing.push({
+          title: 'My Payment',
+          link: 'my-payment',
+          active: true,
+        });
+        this.listing.push({
+          title: 'My Subscription',
+          link: 'my-subscription',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Payment',
+          link: 'my-payment',
+          active: false,
+        });
+        this.listing.push({
+          title: 'My Subscription',
+          link: 'my-subscription',
+          active: false,
+        });
+      }
+      if (profile.plan.professionalProfile === true) {
         this.listing.push({
           title: 'Professional Background',
-          link: 'my-professional-info'
+          link: 'my-professional-info',
+          active: true,
         });
-      }
-    }
-    if(profile.roles === 'C') {
-      console.log('profile.roles', profile.roles)
-      if(profile.plan_id.ListAmenities) {
+      } else {
         this.listing.push({
-          title: 'My Amenities',
-          link: 'my-amenities'
+          title: 'Professional Background',
+          link: 'my-professional-info',
+          active: false,
         });
       }
-      if(profile.plan_id.ListOfProviders) {
-        this.listing.push({
-          title: 'My Doctors',
-          link: 'add-professionals'
-        });
-      }
-      if(profile.plan_id.ListProductsOption) {
-        this.listing.push({
-          title: 'My Products',
-          link: 'my-product'
-        });
-      }
-      if(profile.plan_id.videoUpload) {
-        this.listing.push({
-          title: 'My Videos',
-          link: 'videos-blogs'
-        });
-      }
-      this.listing.push({
-        title: 'My Payment',
-        link: 'my-payment'
-      });
     }
     if(profile.roles === 'U') {
       this.listing.push(...this.uListing);
     }
-    this.listing.push(
-      {
-        title: 'Review and Rating',
-        link: 'reviews-ratings'
-      })
+    if (profile.roles === 'C') {
+      if (profile.plan.professionalProfile === true) {
+        this.listing.push({
+          title: 'Professional Background',
+          link: 'my-professional-info',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'Professional Background',
+          link: 'my-professional-info',
+          active: false,
+        });
+      }
+      if (profile.plan.ListAmenities === true) {
+        this.listing.push({
+          title: 'My Amenities',
+          link: 'my-amenities',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Amenities',
+          link: 'my-amenities',
+          active: false,
+        });
+      }
+
+      if (profile.plan.ListOfProviders === true) {
+        this.listing.push({
+          title: 'My Doctors',
+          link: 'add-professionals',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Doctors',
+          link: 'add-professionals',
+          active: false,
+        });
+      }
+
+      if (profile.plan.ListProductsOption === true) {
+        this.listing.push({
+          title: 'My Products',
+          link: 'my-product',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Products',
+          link: 'my-product',
+          active: false,
+        });
+      }
+
+      if (profile.plan.videoUpload === true) {
+        this.listing.push({
+          title: 'My Videos',
+          link: 'videos-blogs',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Videos',
+          link: 'videos-blogs',
+          active: false,
+        });
+      }
+
+      if (profile.plan._id) {
+        this.listing.push({
+          title: 'My Payment',
+          link: 'my-payment',
+          active: true,
+        });
+        this.listing.push({
+          title: 'My Subscription',
+          link: 'my-subscription',
+          active: true,
+        });
+      } else {
+        this.listing.push({
+          title: 'My Payment',
+          link: 'my-payment',
+          active: false,
+        });
+        this.listing.push({
+          title: 'My Subscription',
+          link: 'my-subscription',
+          active: false,
+        });
+      }
+    }
+    this.listing.push({
+      title: 'Review and Rating',
+      link: 'reviews-ratings',
+      active: true,
+    });
   }
   
 }

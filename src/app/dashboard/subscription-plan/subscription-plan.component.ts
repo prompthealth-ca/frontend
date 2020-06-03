@@ -10,7 +10,6 @@ import { SharedService } from '../../shared/services/shared.service';
 
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
-import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 
@@ -77,7 +76,6 @@ export class SubscriptionPlanComponent {
 
   ngOnInit() {
     if (localStorage.getItem('token')) this.isLoggedIn = true;
-    console.log('this.isLoggedIn ---', this.isLoggedIn);
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
     this.roles = localStorage.getItem("roles");
@@ -133,8 +131,28 @@ export class SubscriptionPlanComponent {
   }
 
   setSelectedPlan(plan) {
-    console.log('plan', plan)
     this.selectedPlan = plan
+  }
+  setSelectedFreePlan(plan) {
+
+    const payload = {
+      _id: localStorage.getItem('loginID'),
+      plan
+    }
+
+      this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.toastr.success(res.message);
+
+        this._router.navigate(['/']);
+        } else {
+          this.toastr.error(res.message);
+  
+        }
+      }, err => {
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+
   }
   getCSubscriptionPlan(path) {
     this._sharedService.loader('show');
@@ -170,13 +188,6 @@ export class SubscriptionPlanComponent {
 
   checkLogin(data) {
     this.selectedPlan = data;
-    // if(!this.isLogedIn) {
-    // this._sharedService.showAlert("Please Login to purchase this plan",'alert-danger')
-    // } else {
-    // this.checkPlan();
-    // let ID = this.isLogedIn ? 'productPayment' : 'buyPlan';
-    // this.openModal(ID);
-    // }
   }
 
   goToContactPage() {
@@ -208,9 +219,9 @@ export class SubscriptionPlanComponent {
           userId: localStorage.getItem('loginID'),
           userType: localStorage.getItem('roles'),
           email: JSON.parse(localStorage.getItem("user")).email,
+          plan: this.selectedPlan,
           cardId: result.token.card.id,
           token: result.token.id,
-          planId: this.selectedPlan._id,
           amount: this.selectedPlan.price
         }
 
@@ -233,7 +244,6 @@ export class SubscriptionPlanComponent {
         } else if (result.error) {
           // Error creating the token
           this._sharedService.showAlert(result.error.message, 'alert-danger');
-          console.log(result.error.message);
         }
       });
   }

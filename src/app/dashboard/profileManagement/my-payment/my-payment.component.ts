@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
   selector: 'app-my-payment',
@@ -6,10 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-payment.component.scss']
 })
 export class MyPaymentComponent implements OnInit {
-
-  constructor() { }
+  transactionList = []
+  constructor(
+    private sharedService: SharedService,) { }
 
   ngOnInit(): void {
+    this.getMyTransactions();
   }
+  getMyTransactions() {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    let path = `user/get-payment-details/${userInfo._id }`;
+    this.sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        this.transactionList =res.data;
+        console.log('transactionList---',res.data, this.transactionList);
+      } else {
+        this.sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
 
+      this.sharedService.checkAccessToken(err);
+    });
+
+  }
 }

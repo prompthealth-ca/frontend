@@ -1,2 +1,37 @@
-<h3>Work Under Progress</h3>
-<p>Soon you can manange your payment here !!</p>
+<h3>My Transactions</h3>
+<table
+  class="table table-hover comparetable"
+  *ngIf="transactionList && transactionList.length; else noData"
+>
+  <thead>
+    <tr>
+      <th>
+        <h5>Transaction ID</h5>
+      </th>
+      <th>
+        <h5>Amount</h5>
+      </th>
+      <th>
+        <h5>Date</h5>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactionList">
+      <td width="40%">
+        {{transaction.stripeChargeId}}
+      </td>
+      <td width="30%">
+        
+        {{transaction.amount}}
+      </td>
+      <td width="30%">
+        {{transaction.createdAt | date: 'dd/MM/yyyy'}}
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #noData>
+  <h5>No transaction listed...</h5>
+</ng-template>

@@ -36,7 +36,7 @@ import { AgmCoreModule } from '@agm/core';
   imports: [
     AutocompleteLibModule,
     AgmCoreModule.forRoot(  {
-      apiKey: 'AIzaSyDtIw6iEt9H0fIV-5KloJorfbDy-zudhGk',
+      apiKey: 'AIzaSyCbRhC6h9Pp43-5t_Knyrd_ewAdLMIJtCg',
       libraries: ['places']
     }),
     OwlDateTimeModule,

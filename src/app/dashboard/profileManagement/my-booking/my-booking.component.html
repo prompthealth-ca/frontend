@@ -1,5 +1,6 @@
-<h3 class="mb-3">My Bookings</h3>
-<div class="table-responsive" *ngIf="bookingList && bookingList.length">
+
+<div class="table-responsive" *ngIf="bookingList && bookingList.length; else noData">
+  <h3 class="mb-3">My Bookings</h3>
   <table class="table table-hover bookingtable" *ngIf="this.roles === 'U'">
     <thead>
       <tr>
@@ -231,6 +232,11 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #noData>
+  <h5>No Booking done...</h5>
+  <button *ngIf="this.roles === 'U'"  type="button" class="btn btn-primary" [routerLink]="['/dashboard/listing']">Book Now</button>
+</ng-template>
 <div
   class="modal fade"
   id="editbookingmodal"

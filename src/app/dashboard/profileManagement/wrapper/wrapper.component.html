@@ -10,6 +10,13 @@
 <div class="container pb-4 position-relative">
   <div class="shadow bg-white">
     <div class="container-fluid">
+      <div class="row upgrade-header" *ngIf="profile  && profile?.plan?.price === 0">
+        <div class="col-sm-12">
+          <p>To get all exlusive features upgrade your plan 
+            <a class="btn btn-primary pull-right" [routerLink]="['/dashboard/subscriptionplan']">Upgrade Plan</a>
+          </p>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-3 px-3 px-sm-0">
           <!-- Nav tabs -->
@@ -19,17 +26,17 @@
             role="tablist"
           >
             <li class="nav-item" *ngFor = "let list of listing">
-              <a
+              <button
                 class="nav-link"
                 id="personal-information-tab"
+                [disabled]=!list.active
                 data-toggle="pill"
                 [routerLink]="list.link"
                 [routerLinkActive]="['active']"
                 role="tab"
                 aria-controls="pills-personal-information"
                 aria-selected="true"
-                >{{ list.title }}</a
-              >
+                >{{ list.title }}</button>
             </li>
           </ul>
         </div>

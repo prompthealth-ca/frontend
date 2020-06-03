@@ -1,2 +1,35 @@
-<h3>Work Under Progress</h3>
-<p>Soon you can manange your plans here !!</p>
+<h3>My Active Plan</h3>
+<hr>
+<div *ngIf="profile; else noPlan">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <label  class="col-md-4"><b>Plan Name:</b></label>
+                <p class="col-md-8">{{ profile?.name }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <label  class="col-md-3"><b>Price:</b></label>
+                <p class="col-md-9">{{ profile?.price }}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h6>Features:</h6>
+
+    <div class="row">
+        <label *ngIf="profile?.professionalProfile" class="col-md-6">Professional Profile</label>
+        <label *ngIf="profile?.addressURLLogoPicture" class="col-md-6">Address, URL, Logo Picture</label>
+        <label  *ngIf="profile?.videoUpload" class="col-md-6">Video Upload</label>
+        <label  *ngIf="profile?.performanceDashboard" class="col-md-6">Performance Dashboard</label>
+        <label *ngIf="profile?.reviewsAndFeedback" class="col-md-6">Reviews And Feedback</label>
+        <label  *ngIf="profile?.ListProductsOption" class="col-md-6">List Of Products</label>
+        <label  *ngIf="profile?.ListAmenities" class="col-md-6">List Of Amenities </label>
+        <label  *ngIf="profile?.ListOfProviders" class="col-md-6">List Of Providers</label>
+    </div>
+</div>
+
+<ng-template #noPlan>
+    <h5>No Plans listed...</h5>
+  </ng-template>

@@ -341,7 +341,8 @@
           <td></td>
           <td>
             <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }">Register</a>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
+            (click)="setSelectedFreePlan(cPlans[0])" 
             style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
@@ -358,7 +359,7 @@
           <td>
             
             <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }">Register</a>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  (click)="setSelectedFreePlan(spPlans[1])"
             style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
@@ -604,7 +605,7 @@
         <tr>
           <td></td>
           <td  *ngIf="roles === 'C'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  (click)="setSelectedFreePlan(cPlans[0])" 
             style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td *ngIf="roles === 'C'">
@@ -617,7 +618,7 @@
             data-target="#loginmodal">Buy</a> -->
           </td>
           <td  *ngIf="roles === 'SP'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  [routerLink]="['/']"  
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"   (click)="setSelectedFreePlan(spPlans[1])"
             style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td *ngIf="roles === 'SP'">

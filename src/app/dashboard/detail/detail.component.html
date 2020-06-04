@@ -231,8 +231,6 @@
                 {{userInfo?.age_range}}
               </td>
             </tr>
-            == {{ userInfo?.languages }}
-            == {{ profileQuestions[0]?.answers | json }}
             <tr *ngIf="userInfo?.languages.length">
               <th>Language:</th>
               <td>

@@ -98,8 +98,8 @@
           />
         </div>
         <div class="form-row" method="post">
-          <div class="col-md-12 mb-3">
-            <label>Name <span class="text-danger">*</span></label>
+          <div class="col-md-6 mb-3">
+            <label>First Name <span class="text-danger">*</span></label>
             <input
               type="text"
               class="form-control"
@@ -110,6 +110,20 @@
               Please Enter Name
             </div>
           </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Last Name <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Your Name"
+              required
+            />
+            <div class="invalid-feedback">
+              Please Enter Name
+            </div>
+          </div>
+          
           <div class="col-md-12 mb-3">
             <label>Email <span class="text-danger">*</span></label>
             <input
@@ -122,6 +136,29 @@
               Please Valid Emial Address
             </div>
           </div>
+
+          <div class="col-md-12 mb-3">
+            <label>Phone Number <span class="text-danger">*</span></label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Your Phone"
+              required
+            />
+            <div class="invalid-feedback">
+              Please Valid Emial Address
+            </div>
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label>Type</label>
+            <div>
+            <span class="mr-2"><input type="radio" name="type" class="mr-2"> Service Provider</span>
+            <span class="mr-2"><input type="radio" name="type" class="mr-2"> Center</span>
+            </div>
+
+          </div>
+
           <div class="col-md-12 mb-3">
             <label>Message <span class="text-danger">*</span></label>
             <textarea

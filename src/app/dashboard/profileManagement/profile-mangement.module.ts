@@ -22,6 +22,7 @@ import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MyProductComponent } from './my-product/my-product.component';
 import { RatingsComponent } from '../../shared/ratings/ratings.component';
+import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -35,6 +36,7 @@ import { RatingsComponent } from '../../shared/ratings/ratings.component';
     ReviewsRatingsComponent,
     VideosBlogsComponent,
     MyAmenitiesComponent,
+    MyAffiliateComponent,
     MyProductComponent,
     RatingsComponent,
   ],

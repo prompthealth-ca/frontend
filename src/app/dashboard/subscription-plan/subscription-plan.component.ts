@@ -27,29 +27,27 @@ export class SubscriptionPlanComponent {
   @ViewChild('signin') signin:ElementRef;
 
   @ViewChild('closebutton') closebutton;
+  centreYearly = true;
+  spYearly = true;
   stripe;
   loading = false;
   confirmation;
-  plan: any;
-  spPlans = []
-  cPlans = []
+  spPlan;
+  cPlan;
+  basicPlan;
   error: string;
   token: any;
   roles: string;
   isLoggedIn = false;
   professionalOption =false;
   stripeTest: FormGroup;
+  centreMonth=false;
+  spMonth=false;
 
   public checkout = {
     email: "this.userEmail.email",
     token: "this.token"
   }
-
-  // public buyPlan = {
-  //   customer_id: "this.userEmail.email",
-  //   token: "this.token",
-  //   subscription_id: ""
-  // }
 
   user = {
     paymentMethod: []
@@ -109,18 +107,27 @@ export class SubscriptionPlanComponent {
         }
       });
 
-    this.getSPSubscriptionPlan('user/get-plans?userType=SP');
-    this.getCSubscriptionPlan('user/get-plans?userType=C');
+    this.getSubscriptionPlan('user/get-plans');
     // this.getUserDetails();
   }
-  getSPSubscriptionPlan(path) {
+  getSubscriptionPlan(path) {
     this._sharedService.loader('show');
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-        this.spPlans = res.data;
-      // this.updateSubscriptionPlan(res.data)
+        console.log('res.data', res.data);
+        res.data.forEach(element => {         
+          if (element.userType.length > 1 && element.name === 'Basic') {
+            this.basicPlan = element;
+          }
+          if (element.userType.length == 1 && element.userType[0] === 'C') {
+            this.cPlan = element;
+          }
+          if (element.userType.length == 1 && element.userType[0] === 'SP') {
+            this.spPlan = element;
+          }
+        });
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -153,22 +160,6 @@ export class SubscriptionPlanComponent {
         this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });
 
-  }
-  getCSubscriptionPlan(path) {
-    this._sharedService.loader('show');
-    this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      this._sharedService.loader('hide');
-
-      if (res.statusCode === 200) {
-        this.cPlans = res.data;
-      // this.updateSubscriptionPlan(res.data)
-      } else {
-        // this._commanService.checkAccessToken(res.error);
-      }
-    }, err => {
-      this._sharedService.loader('hide');
-
-    });
   }
   getUserDetails() {
     this._sharedService.loader('show');

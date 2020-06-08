@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxStripeModule } from 'ngx-stripe';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -48,6 +49,8 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),
-    NgMultiSelectDropDownModule.forRoot()]
+    NgMultiSelectDropDownModule.forRoot(),
+    UiSwitchModule,
+  ]
 })
 export class DashboardModule {}

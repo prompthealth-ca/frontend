@@ -58,6 +58,7 @@
     "ngx-spinner": "^8.1.0",
     "ngx-stripe": "^9.0.2",
     "ngx-toastr": "^12.0.0",
+    "ngx-toggle-switch": "^2.0.5",
     "npm": "^6.14.5",
     "pipe-transform": "0.0.13",
     "rxjs": "~6.5.4",

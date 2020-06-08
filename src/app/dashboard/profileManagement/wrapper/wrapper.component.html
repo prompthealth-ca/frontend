@@ -28,15 +28,18 @@
             <li class="nav-item" *ngFor = "let list of listing">
               <button
                 class="nav-link"
-                id="personal-information-tab"
                 [disabled]=!list.active
-                data-toggle="pill"
                 [routerLink]="list.link"
                 [routerLinkActive]="['active']"
-                role="tab"
-                aria-controls="pills-personal-information"
-                aria-selected="true"
                 >{{ list.title }}</button>
+            </li>
+
+            <li class="nav-item">
+              <button
+                class="nav-link"
+               [routerLink]="['/dashboard/profilemanagement/my-affiliate']"
+               [routerLinkActive]="['active']"
+                >My Affiliate</button>
             </li>
           </ul>
         </div>

@@ -14,6 +14,7 @@ import { VideosBlogsComponent } from './videos-blogs/videos-blogs.component';
 import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 
 import { MyProductComponent } from './my-product/my-product.component';
+import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
 const routes: Routes = [
   {
     path: '',
@@ -63,6 +64,11 @@ const routes: Routes = [
       {
         path: 'my-amenities',
         component: MyAmenitiesComponent,
+      }
+      ,
+      {
+        path: 'my-affiliate',
+        component: MyAffiliateComponent,
       }
     ]
   }

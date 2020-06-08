@@ -45,7 +45,7 @@ hr {
 .checkboxBtn {
   display: inline-block;
   position: relative;
-  svg.fa {
+  .fa-square {
     height: 12px;
   }
   .fa-check-square {
@@ -61,7 +61,7 @@ hr {
     cursor: pointer;
     &:checked {
       + * {
-        svg.fa {
+        .fa-square {
           display: none;
         }
         .fa-check-square {
@@ -116,4 +116,36 @@ hr {
 
 .text-review {
   color: #ffc91d;
+}
+
+
+.like-input{
+  position: relative;
+  display: inline-block;
+  font-size: 26px;
+  padding: 6px;
+
+  &:hover{
+    transform: scale(1.2,1.2);
+  }
+
+  .fa{
+    color: #4a86abd9;
+  }
+
+  >input{
+    position: absolute;
+    left: 0;
+    top:0;
+    height: 100%;
+    width:100%;
+    cursor: pointer;
+    opacity: 0;
+
+    &:checked ~ {
+      .fa{
+        color:#db4437db;
+      }
+    }
+  }
 }

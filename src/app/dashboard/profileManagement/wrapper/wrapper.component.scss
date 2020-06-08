@@ -51,6 +51,7 @@ ul#pills-tab {
     text-align: left;
     border-bottom: 3px solid transparent;
     width: 100%;
+    outline: none !important;
     &.active {
       border-color: $primaryColor;
       background-color: $secondaryColor;

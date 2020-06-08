@@ -9,6 +9,8 @@ export class MyFavouriteComponent implements OnInit {
 
   constructor() { }
 
+  doctorsListing= [1,2,3];
+
   ngOnInit(): void {
   }
 

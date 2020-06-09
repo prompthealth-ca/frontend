@@ -64,12 +64,11 @@ const routes: Routes = [
       {
         path: 'my-amenities',
         component: MyAmenitiesComponent,
-      }
-      ,
+      },
       {
         path: 'my-affiliate',
         component: MyAffiliateComponent,
-      }
+      },
     ]
   }
   

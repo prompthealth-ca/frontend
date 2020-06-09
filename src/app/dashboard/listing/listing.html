@@ -294,10 +294,10 @@
               </div>
 
               <div class="ml-0 ml-md-3 mb-2 d-flex justify-content-center">
-                  <span class="like-input mr-2">
-                      <input type="checkbox" />
-                      <i class="fa fa-heart"></i>
-                    </span>
+                <span class="like-input mr-2" *ngIf="loggedInUser && loggedInRole === 'U'">
+                  <input type="checkbox" (change)="likeProfile($event, doc.userId)"/>
+                  <i class="fa fa-heart"></i>
+                </span>
 
               <div class="checkboxBtn">
                 <input

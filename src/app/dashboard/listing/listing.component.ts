@@ -15,7 +15,9 @@ export class ListingComponent implements OnInit {
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
-  profileQuestions = []
+  profileQuestions = [];
+  loggedInUser;
+  loggedInRole;
   id;
   lat;
   long;
@@ -85,6 +87,10 @@ export class ListingComponent implements OnInit {
       });
       
     });
+    localStorage
+
+    this.loggedInUser = localStorage.getItem('loginID');
+    this.loggedInRole = localStorage.getItem('roles');
     if(localStorage.getItem('typical_hours')) {
       this.typical_hours = localStorage.getItem('typical_hours').split(',');
     }
@@ -245,10 +251,37 @@ export class ListingComponent implements OnInit {
       if(ele.userId === userId) this.compareList.splice(index, 1);
     });
   }
-
   compareDoc() {
     this.behaviorService.changeCompareIds(this.compareList);
     this.router.navigate(['/dashboard/listingCompare']);
+  }
+  likeProfile(evt, drId) {
+    console.log('evt', evt.target.checked, drId);
+    if(evt.target.checked) {
+      this._sharedService.loader('show');
+      let path = 'user/add-favorite';
+      this._sharedService.post({ drId: drId }, path).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this._sharedService.loader('hide');
+      });
+    }
+    else {
+      this._sharedService.loader('show');
+      this._sharedService.removeFav(drId,).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+          this.toastr.success(res.message);
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this._sharedService.loader('hide');
+      });
+    }
   }
   ngOnDestroy() {
     localStorage.removeItem('typical_hours');

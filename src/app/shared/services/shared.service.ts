@@ -141,32 +141,15 @@ getNoAuth(path, setParams = {}) {
     return this.http.delete(url, { headers });
   }
 
+  removeFav(id) {
+    let headers = this.getAuthorizationHeader();
+    let url = this.rootUrl + `user/remove-favorite/${id}`;
+    return this.http.delete(url, { headers });
+  }
+
   contactus(body) {
     return this.http.post(this.rootUrl + 'subscribe', body);
   }
-
-
-  // getView(userID) {
-
-  //   const headers = this.getAuthorizationHeader();
-  //   return this.http.get(this.rootUrl + 'promotion' + '?id=' + userID, { headers });
-
-  // }
-
-  // updateProfile(fileItem, extraData?:object, payload){
-    
-  //   const formData: FormData = new FormData();
-  //   formData.append('fileItem', fileItem, fileItem.name);
-  //   if (extraData) {
-  //     for(let key in extraData){
-  //         // iterate and set other form data
-  //       formData.append(key, extraData[key])
-  //     }
-  //   }
-  //   let headers = this.getAuthorizationHeader();
-  //   return this.http.post(this.rootUrl + 'upload', payload, { headers, formData });
-  // }
-
   uploadImage(object) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
@@ -176,28 +159,6 @@ getNoAuth(path, setParams = {}) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
-
-  // queryParams(path, options) {
-  //   let headers = this.getAuthorizationHeader();
-  //   let params = new URLSearchParams();
-  //   for (let key in options) {
-  //     params.set(key, options[key])
-  //   }
-  //   return this.http.get(this.rootUrl + path + '?' + params.toString(), { headers: headers });
-  // }
-
-  // queryParamsDelete(path, options) {
-  //   let headers = this.getAuthorizationHeader();
-  //   let params = new URLSearchParams();
-  //   for (let key in options) {
-  //     params.set(key, options[key])
-  //   }
-  //   return this.http.delete(this.rootUrl + path + '?' + params.toString(), { headers: headers });
-  // }
-
-  // getRoles() {
-  //   return localStorage.getItem('roles');
-  // }
 
   sendTop() {
     window.scrollTo(500, 0);

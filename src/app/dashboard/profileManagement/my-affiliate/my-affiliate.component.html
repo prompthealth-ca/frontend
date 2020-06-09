@@ -9,7 +9,8 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active pt-2" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <table class="table w-100 table-striped table-hover">
+        <table class="table w-100 table-striped table-hover"
+        *ngIf="affiliatedList && affiliatedList.length; else noData">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -19,65 +20,74 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Dr. Jay</td>
-                    <td>jay@gmail.com</td>
-                    <td>0987654321</td>
-                    <td>Service Povider</td>
-                </tr>
-
-                <tr>
-                    <td>Dr. Jay</td>
-                    <td>jay@gmail.com</td>
-                    <td>0987654321</td>
-                    <td>Service Povider</td>
+                <tr *ngFor="let doc of affiliatedList">
+                    <td>{{ doc.firstName }} {{ doc.lastName }} </td>
+                    <td>{{ doc.email }}</td>
+                    <td>{{ doc.phone }}</td>
+                    <td>
+                      <span *ngIf="doc.role === 'C'">Centre</span>
+                      <span *ngIf="doc.role === 'SP'">Service Proivder</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
+
+        <ng-template #noData>
+          <h5>No Affiliated user found...</h5>
+        </ng-template>
     </div>
     <div class="tab-pane fade pt-2" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <form role="form" class="labeledform" (ngSubmit)="addAffiliateUser()" [formGroup]="affiliateRequestForm">
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label>First Name <span class="text-danger">*</span></label>
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Enter Your Name"
+                  placeholder="Enter Your First Name"
+                  formControlName="firstName" class="form-control" [ngClass]="{
+                    'is-invalid': submitted && f.firstName.errors
+                  }"
                   required
                 />
-                <div class="invalid-feedback">
-                  Please Enter Name
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstName.errors.required">
+                    First name is required
+                  </div>
                 </div>
               </div>
     
               <div class="col-md-6 mb-3">
-                <label>Last Name <span class="text-danger">*</span></label>
+                <label>Last Name</label>
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Enter Your Name"
-                  required
+                  type="text" formControlName="lastName" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" 
                 />
-                <div class="invalid-feedback">
-                  Please Enter Name
-                </div>
               </div>
 
             <div class="col-md-12 mb-3">
                 <label>Email <span class="text-danger">*</span></label>
-                <input type="text" placeholder="Enter Email" class="form-control"/>
+                <input
+                type="text" formControlName="email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" 
+              />
             </div>
-
-            <div class="col-md-12 mb-3">
-                <label>Phone <span class="text-danger">*</span></label>
-                <input type="number" placeholder="Enter Phone Number" class="form-control"/>
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">
+                Email must be a valid email address
+              </div>
             </div>
-
             <div class="col-md-12 mb-3">
                 <label>Type <span class="text-danger">*</span></label>
                 <div>
-                <span class="mr-2"><input type="radio" name="type" class="mr-2"> Service Provider</span>
-                <span class="mr-2"><input type="radio" name="type" class="mr-2"> Center</span>
+                <span class="mr-2"><input type="radio" formControlName="role" value="SP" class="mr-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required class="mr-2"> Service Provider</span>
+                <span class="mr-2"><input type="radio" formControlName="role" value="C" class="mr-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required class="mr-2"> Center</span>
                 </div>
               </div>
 
@@ -85,7 +95,7 @@
                 <button class="btn btn-primary">Send Invite</button>
               </div>
         </div>
-
+      </form>
     </div>
     
   </div>

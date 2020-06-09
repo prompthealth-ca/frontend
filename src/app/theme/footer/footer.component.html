@@ -84,6 +84,7 @@
           type="button"
           class="close"
           data-dismiss="modal"
+          #closebutton
           aria-label="Close"
         >
           <span aria-hidden="true">&times;</span>
@@ -98,88 +99,98 @@
           />
         </div>
         <div class="form-row" method="post">
-          <div class="col-md-6 mb-3">
-            <label>First Name <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Your Name"
-              required
-            />
-            <div class="invalid-feedback">
-              Please Enter Name
-            </div>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label>Last Name <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Your Name"
-              required
-            />
-            <div class="invalid-feedback">
-              Please Enter Name
-            </div>
-          </div>
-          
-          <div class="col-md-12 mb-3">
-            <label>Email <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Your Email"
-              required
-            />
-            <div class="invalid-feedback">
-              Please Valid Emial Address
-            </div>
-          </div>
-
-          <div class="col-md-12 mb-3">
-            <label>Phone Number <span class="text-danger">*</span></label>
-            <input
-              type="number"
-              class="form-control"
-              placeholder="Enter Your Phone"
-              required
-            />
-            <div class="invalid-feedback">
-              Please Valid Emial Address
-            </div>
-          </div>
-
-          <div class="col-md-12 mb-3">
-            <label>Type</label>
-            <div>
-            <span class="mr-2"><input type="radio" name="type" class="mr-2"> Service Provider</span>
-            <span class="mr-2"><input type="radio" name="type" class="mr-2"> Center</span>
+          <form role="form" class="labeledform row contactform" (ngSubmit)="affiliateMe()" [formGroup]="affiliateRequestForm">
+            <div class="col-md-6 mb-3">
+              <label>First Name <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Your First Name"
+                formControlName="firstName" class="form-control" [ngClass]="{
+                  'is-invalid': submitted && f.firstName.errors
+                }"
+                required
+              />
+              <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">
+                  First name is required
+                </div>
+              </div>
             </div>
 
-          </div>
-
-          <div class="col-md-12 mb-3">
-            <label>Message <span class="text-danger">*</span></label>
-            <textarea
-              class="form-control"
-              placeholder="Enter Message here"
-              required
-            ></textarea>
-            <div class="invalid-feedback">
-              Please Enter Message
+            <div class="col-md-6 mb-3">
+              <label>Last Name</label>
+              <input
+                placeholder="Enter Your Last Name"
+                type="text" formControlName="lastName" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" 
+              />
             </div>
-          </div>
-          <div class="col-md-12 mb-3 text-right">
-            <button
-              type="button"
-              class="btn btn-secondary mr-2"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-            <button class="btn btn-primary">Submit</button>
-          </div>
+            
+            <div class="col-md-12 mb-3">
+              <label>Email <span class="text-danger">*</span></label>
+              <input
+                type="text" formControlName="email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" 
+              />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">
+                  Email must be a valid email address
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label>Total Users <span class="text-danger">*</span></label>
+              <input
+                type="number" formControlName="numberOfUser" class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.numberOfUser.errors
+                }"
+                required
+                placeholder="Enter User Count" 
+              />
+              <div *ngIf="submitted && f.numberOfUser.errors" class="invalid-feedback">
+                <div *ngIf="f.numberOfUser.errors.required">
+                  User Count is required
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label>Type</label>
+              <div>
+                <span class="mr-2">
+                  <input type="radio" formControlName="role" value="SP" class="mr-2"
+                  [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required> Service Provider</span>
+                <span class="mr-2"><input type="radio" 
+                  [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required formControlName="role"  value="C" class="mr-2"> Center</span>
+              </div>
+
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label>Message</label>
+              <textarea
+                formControlName="message" class="form-control"
+                placeholder="Enter Message here"
+              ></textarea>
+              <div class="invalid-feedback">
+                Please Enter Message
+              </div>
+            </div>
+            <div class="col-md-12 mb-3 text-right">
+              <button
+                type="button"
+                class="btn btn-secondary mr-2"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

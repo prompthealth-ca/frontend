@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SharedService } from '../../../shared/services/shared.service';
 @Component({
   selector: 'app-reviews-ratings',

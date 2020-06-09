@@ -87,6 +87,12 @@ export class WrapperComponent implements OnInit {
           active: false,
         });
       }
+
+      this.listing.push({
+        title: 'My Affiliate',
+        link: 'my-affiliate',
+        active: true,
+      });
     }
     if(profile.roles === 'U') {
       this.listing.push(...this.uListing);
@@ -184,6 +190,13 @@ export class WrapperComponent implements OnInit {
           active: false,
         });
       }
+
+
+      this.listing.push({
+        title: 'My Affiliate',
+        link: 'my-affiliate',
+        active: true,
+      });
     }
     this.listing.push({
       title: 'Review and Rating',

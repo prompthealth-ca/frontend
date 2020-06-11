@@ -45,6 +45,7 @@ export class SharedService {
     // localStorage.removeItem('isPayment');
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
+    localStorage.removeItem('isVipAffiliateUser');
     this.showAlert("Logout Sucessfully", "alert-success");
     this._router.navigate(["/auth/login", "u"]);
   }
@@ -274,6 +275,7 @@ getDefaultHeader() {
     this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);
     this.addCookie('loginID', res.data._id);
+    this.addCookie('isVipAffiliateUser', res.data.isVipAffiliateUser);
     this.addCookieObject('user', res.data);
     this._router.navigate([route]);
   }

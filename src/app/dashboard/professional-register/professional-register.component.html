@@ -41,7 +41,7 @@
                 >Questionnaire</a
                 >
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!isVipAffiliateUser">
                 <a
                 class="nav-link btn-circle"
                 [ngClass]="{'active': activeTab === 'payment'}"

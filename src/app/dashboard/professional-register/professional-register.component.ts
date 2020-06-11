@@ -8,11 +8,13 @@ import { Router } from '@angular/router';
 })
 export class ProfessionalRegisterComponent implements OnInit {
   activeTab = 'basicInfo';
+  isVipAffiliateUser;
 
   constructor(private router: Router) { 
   }
 
   ngOnInit(): void {
+    this.isVipAffiliateUser = localStorage.getItem('isVipAffiliateUser')
   }
 
   activeNextTabHandler($event: any) {

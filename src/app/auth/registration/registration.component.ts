@@ -51,6 +51,17 @@ export class RegistrationComponent implements OnInit {
         this.professionalSignup = false;
         this.userType = 'U'
         break;
+        case "/auth/registration/SP": 
+        this.professionalSignup = true;
+        this.userType = 'SP'
+        break;
+      case "/auth/registration/C": ;
+        this.userType = 'C'
+        break;
+      case "/auth/registration/U":
+        this.professionalSignup = false;
+        this.userType = 'U'
+        break;
 
       default:
         break;

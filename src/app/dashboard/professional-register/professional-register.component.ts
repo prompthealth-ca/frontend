@@ -14,7 +14,12 @@ export class ProfessionalRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isVipAffiliateUser = localStorage.getItem('isVipAffiliateUser');
+    if(localStorage.getItem('isVipAffiliateUser')) {
+      this.isVipAffiliateUser = false
+    }
+    else {
+      this.isVipAffiliateUser = true
+    }
   }
 
   activeNextTabHandler($event: any) {

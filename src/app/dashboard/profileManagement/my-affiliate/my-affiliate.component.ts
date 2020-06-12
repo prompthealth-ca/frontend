@@ -39,6 +39,7 @@ export class MyAffiliateComponent implements OnInit {
       this.submitted = true;
       let data = this.affiliateRequestForm.value;
       data.isVipAffiliateUser = false;
+      data.addedBy = localStorage.getItem('loginID') 
       console.log('data', data);
       this._sharedService.loader('show');
       let path = 'user/request'

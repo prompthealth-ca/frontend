@@ -8,17 +8,14 @@ import { Router } from '@angular/router';
 })
 export class ProfessionalRegisterComponent implements OnInit {
   activeTab = 'basicInfo';
-  isVipAffiliateUser;
+  isVipAffiliateUser = true;
 
   constructor(private router: Router) { 
   }
 
   ngOnInit(): void {
-    if(localStorage.getItem('isVipAffiliateUser')) {
+    if(JSON.parse(localStorage.getItem('isVipAffiliateUser')) == true) {
       this.isVipAffiliateUser = false
-    }
-    else {
-      this.isVipAffiliateUser = true
     }
   }
 

@@ -65,14 +65,18 @@
             <div
               *ngIf="activeTab === 'questionnaire'"
             >
-                <div class="row">
-                    <app-questionnaire
-                    (ActiveNextTab)="activeNextTabHandler($event)"></app-questionnaire>
+                <div class="row" *ngIf="isVipAffiliateUser; else next">
+                    <app-questionnaire></app-questionnaire>
                 </div>
+                <ng-template #next>
+                    <app-questionnaire 
+                    (ActiveNextTab)="activeNextTabHandler($event)"></app-questionnaire>
+
+                </ng-template>
             </div>
             <div
               class=""
-              *ngIf="activeTab === 'payment'"
+              *ngIf="isVipAffiliateUser && activeTab === 'payment'"
             >
                 <div class="row">
                     <!-- <app-subscription-professional></app-subscription-professional> -->

@@ -16,6 +16,7 @@ export class QuestionnaireComponent implements OnInit {
   public itemsTotal = 0;
   public selectedItems = [];
   typical_hours = [];
+  isVipAffiliateUser;
   subRes = {
     question: '',
     quesId: '',
@@ -38,6 +39,12 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     this.type = localStorage.getItem('roles');
+    if(localStorage.getItem('isVipAffiliateUser')) {
+      this.isVipAffiliateUser = false
+    }
+    else {
+      this.isVipAffiliateUser = true
+    }
     
     localStorage.removeItem('typical_hours');
     if(this.type === 'U') {
@@ -109,9 +116,13 @@ export class QuestionnaireComponent implements OnInit {
       this._sharedService.loader('hide');
     });
 
-    this.ActiveNextTab.emit(this.activeTab); 
-    if(this.type === 'U') this._router.navigate(['/dashboard/listing']);
+    if(this.isVipAffiliateUser) {
+      this.ActiveNextTab.emit(this.activeTab); 
+      if(this.type === 'U') this._router.navigate(['/dashboard/listing']);
+    } else {
 
+      this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+    }
   }
   getSubAns(evt, subOption, questType) {
     console.log('getSubAns', evt, questType);

@@ -39,20 +39,21 @@ export class ForgotPasswordComponent implements OnInit {
         }
         else {
             this.submitted = true;
-            let data = JSON.stringify(this.forgotForm.value);
+            let data = JSON.parse(JSON.stringify(this.forgotForm.value));
 
             this._sharedService.loader('show');
-            this._sharedService.post(data, 'forgotpassword').subscribe((res: any) => {
+            this._sharedService.postNoAuth(data, 'user/forgotpassword').subscribe((res: any) => {
                 this._sharedService.loader('hide');
-                if (res.success) {
+                console.log(">>>>>>>", res)
+                if (res.statusCode === 200) {
                     console.log(">>>>>>>", res)
-                    this.toastr.success(res.data.message);
-                    this._router.navigate(['/auth/loginu']);
+                    this.toastr.success(res.message);
+                    this._router.navigate(['/auth/login/u']);
 
                 } else {
                     this._sharedService.loader('hide');
                     if (res.success == false)
-                        this.toastr.error(res.error.message);
+                        this.toastr.error(res.message);
 
                 }
 

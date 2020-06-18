@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
@@ -10,7 +14,7 @@ import { SharedService } from '../../shared/services/shared.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  user: SocialUser;
   loginForm: FormGroup;
 
   public professionalLogin = false;
@@ -18,12 +22,17 @@ export class LoginComponent implements OnInit {
   
 
   constructor(
+    private authService: SocialAuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _sharedService: SharedService,
     private toastr: ToastrService,
   ) { }
   ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
     switch(this.router.url) {
       case "/auth/login/sp": 
         //some logic
@@ -51,6 +60,13 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       termsCondition: [false, [Validators.required]]
     });
+  }
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => console.log(x));
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log(x));
   }
 
   loginUser(form: FormGroup) {
@@ -88,5 +104,6 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
 
 }

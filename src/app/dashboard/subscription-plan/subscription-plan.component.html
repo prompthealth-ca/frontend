@@ -30,19 +30,6 @@
               <b class="h5 mb-4">Free</b>
             </div>
           </th>
-          <th class="paid border-0">
-            <span class="text-primary">Center Premium</span>
-            <div class="">
-              <label>Monthly</label>
-              <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
-              <label>Yearly</label>
-            </div>
-            <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b>
-              <span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
-              <span *ngIf="centreYearly"><b class="h5">{{cPlan?.yearlyPrice}}</b>/Yearly</span>
-            </div>
-          </th>
           <th class="free border-0">
             <span class="text-primary">Service Provider Premium</span>
             <div class="">
@@ -54,6 +41,20 @@
               <b class="h5 mb-4">$</b>
               <span *ngIf="!spYearly"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
               <span *ngIf="spYearly"><b class="h5">{{spPlan?.yearlyPrice}}</b>/Yearly</span>
+            </div>
+          </th>
+
+          <th class="paid border-0">
+            <span class="text-primary">Center Premium</span>
+            <div class="">
+              <label>Monthly</label>
+              <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
+              <label>Yearly</label>
+            </div>
+            <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">$</b>
+              <span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
+              <span *ngIf="centreYearly"><b class="h5">{{cPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
           </th>
           <th class="free border-0">
@@ -75,12 +76,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.professionalProfile"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.professionalProfile"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.professionalProfile"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.professionalProfile"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.professionalProfile"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.professionalProfile"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -91,12 +92,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.addressURLLogoPicture"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.addressURLLogoPicture"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.addressURLLogoPicture"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.addressURLLogoPicture"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.addressURLLogoPicture"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.addressURLLogoPicture"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -107,12 +108,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.videoUpload"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.videoUpload"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.videoUpload"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.videoUpload"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.videoUpload"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.videoUpload"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -123,12 +124,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.performanceDashboard"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.performanceDashboard"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.performanceDashboard"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.performanceDashboard"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.performanceDashboard"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.performanceDashboard"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -139,12 +140,13 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.reviewsAndFeedback"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.reviewsAndFeedback"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.reviewsAndFeedback"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.reviewsAndFeedback"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.reviewsAndFeedback"></i>
+          </td>
+
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.reviewsAndFeedback"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -155,12 +157,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.receiveMessagesForBooking"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.receiveMessagesForBooking"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.receiveMessagesForBooking"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.receiveMessagesForBooking"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.receiveMessagesForBooking"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.receiveMessagesForBooking"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -171,12 +173,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListProductsOption"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListProductsOption"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListProductsOption"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListProductsOption"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListProductsOption"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListProductsOption"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -187,12 +189,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListAmenities"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListAmenities"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListAmenities"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListAmenities"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListAmenities"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListAmenities"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -203,12 +205,12 @@
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListOfProviders"></i>
           </td>
           <td>
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListOfProviders"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListOfProviders"></i>
-          </td>
-          <td>
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListOfProviders"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListOfProviders"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListOfProviders"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -257,20 +259,6 @@
               <b class="h5 mb-4">Free</b>
             </div>
           </th>
-          <th class="paid border-0" *ngIf="roles === 'C'">
-            <span class="text-primary">Center Premium</span>
-            <div>
-              Monthly
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Yearly
-            </div>
-            <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">{{cPlan?.price}}</b>/Monthly
-            </div>
-          </th>
 
           <th class="free border-0" *ngIf="roles === 'SP'">
             <div>
@@ -290,6 +278,20 @@
               <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly
             </div> -->
           </th>
+          <th class="paid border-0" *ngIf="roles === 'C'">
+            <span class="text-primary">Center Premium</span>
+            <div>
+              Monthly
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
+              Yearly
+            </div>
+            <div class="text-center d-flex justify-content-center align-items-center">
+              <b class="h5 mb-4">$</b><b class="h5">{{cPlan?.price}}</b>/Monthly
+            </div>
+          </th>
           <th class="free border-0">
             <span class="text-primary">Enterprise</span>
             <div class="text-center d-flex justify-content-center align-items-center">
@@ -308,13 +310,14 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.professionalProfile"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.professionalProfile"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.professionalProfile"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.professionalProfile"></i>
-          </td>
+
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.professionalProfile"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.professionalProfile"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.professionalProfile"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.professionalProfile"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -324,13 +327,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.addressURLLogoPicture"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.addressURLLogoPicture"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.addressURLLogoPicture"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.addressURLLogoPicture"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.addressURLLogoPicture"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.addressURLLogoPicture"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.addressURLLogoPicture"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.addressURLLogoPicture"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -340,13 +343,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.videoUpload"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.videoUpload"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.videoUpload"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.videoUpload"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.videoUpload"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.videoUpload"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.videoUpload"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.videoUpload"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -356,13 +359,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.performanceDashboard"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.performanceDashboard"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.performanceDashboard"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.performanceDashboard"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.performanceDashboard"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.performanceDashboard"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.performanceDashboard"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.performanceDashboard"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -372,13 +375,14 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.reviewsAndFeedback"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.reviewsAndFeedback"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.reviewsAndFeedback"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.reviewsAndFeedback"></i>
-          </td>
+
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.reviewsAndFeedback"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.reviewsAndFeedback"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.reviewsAndFeedback"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.reviewsAndFeedback"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -388,13 +392,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.receiveMessagesForBooking"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.receiveMessagesForBooking"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.receiveMessagesForBooking"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.receiveMessagesForBooking"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.receiveMessagesForBooking"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.receiveMessagesForBooking"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.receiveMessagesForBooking"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.receiveMessagesForBooking"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -404,13 +408,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.ListProductsOption"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListProductsOption"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListProductsOption"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListProductsOption"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListProductsOption"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListProductsOption"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListProductsOption"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListProductsOption"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -420,13 +424,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.ListAmenities"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListAmenities"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListAmenities"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListAmenities"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListAmenities"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListAmenities"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListAmenities"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListAmenities"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -436,13 +440,13 @@
             <i class="fa fa-check text-success" *ngIf="basicPlan?.ListOfProviders"></i>
             <i class="fa fa-times text-danger" *ngIf="!basicPlan?.ListOfProviders"></i>
           </td>
-          <td *ngIf="roles === 'C'">
-            <i class="fa fa-check text-success" *ngIf="cPlan?.ListOfProviders"></i>
-            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListOfProviders"></i>
-          </td>
           <td *ngIf="roles === 'SP'">
             <i class="fa fa-check text-success" *ngIf="spPlan?.ListOfProviders"></i>
             <i class="fa fa-times text-danger" *ngIf="!spPlan?.ListOfProviders"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.ListOfProviders"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.ListOfProviders"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
@@ -454,6 +458,13 @@
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  (click)="setSelectedFreePlan(basicPlan)" 
             style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
+          <td *ngIf="roles === 'SP'">
+            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
+            data-toggle="modal"
+            data-target="#addcard"
+            (click)="setSelectedPlan(spPlan)"
+            style="max-width: 175px;" aria-label="Close">Buy</a>
+          </td>
           <td *ngIf="roles === 'C'">
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
             data-toggle="modal"
@@ -462,13 +473,6 @@
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
-          </td>
-          <td *ngIf="roles === 'SP'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
-            data-toggle="modal"
-            data-target="#addcard"
-            (click)="setSelectedPlan(spPlan)"
-            style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 
           <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>

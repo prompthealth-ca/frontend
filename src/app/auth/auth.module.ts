@@ -4,6 +4,15 @@ import { NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 // import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  AmazonLoginProvider,
+} from 'angularx-social-login';
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { ModalModule } from "ngx-bootstrap/modal";
+
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -25,6 +34,8 @@ import { EnterpriseContactComponent } from './enterprise-contact/enterprise-cont
     NgxSpinnerModule,
     // NgxIntlTelInputModule,
     ReactiveFormsModule,
+
+    SocialLoginModule,
   ],
   declarations: [
     ContactUspageComponent,
@@ -32,6 +43,24 @@ import { EnterpriseContactComponent } from './enterprise-contact/enterprise-cont
     LoginComponent,
     RegistrationComponent,
     EnterpriseContactComponent,
-  ]
+  ],
+  providers: [{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com'
+          ),
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('561602290896109'),
+        },
+      ],
+    } as SocialAuthServiceConfig,
+  }]
 })
 export class AuthModule { }

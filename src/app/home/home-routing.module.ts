@@ -12,6 +12,7 @@ import { ClientComponent } from './client/client.component';
 import { ProffesionalComponent } from './proffesional/proffesional.component';
 import { EnterpriceComponent } from './enterprice/enterprice.component';
 import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
+import { AffiliateComponent } from './affiliate/affiliate.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path:'doctor-filter',
     component: DoctorFilterComponent
+  },
+  {
+    path:'affiliate',
+    component: AffiliateComponent
   }
 ];
 

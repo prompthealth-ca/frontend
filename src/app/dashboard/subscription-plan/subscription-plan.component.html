@@ -37,6 +37,7 @@
               <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
               <label>Yearly</label>
             </div>
+
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">$</b>
               <span *ngIf="!spYearly"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>

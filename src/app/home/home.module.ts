@@ -19,6 +19,8 @@ import { MapComponent } from "./map/map.component";
 import { AgmCoreModule } from '@agm/core';
 import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 import { AffiliateComponent } from './affiliate/affiliate.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -33,6 +35,8 @@ import { AffiliateComponent } from './affiliate/affiliate.component';
     MapComponent,
     DoctorFilterComponent,
     AffiliateComponent,
+    BlogComponent,
+    BlogDetailComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

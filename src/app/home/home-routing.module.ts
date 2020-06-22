@@ -13,6 +13,8 @@ import { ProffesionalComponent } from './proffesional/proffesional.component';
 import { EnterpriceComponent } from './enterprice/enterprice.component';
 import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 import { AffiliateComponent } from './affiliate/affiliate.component';
+import { BlogComponent } from './blog/blog.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 const routes: Routes = [
   {
@@ -38,6 +40,14 @@ const routes: Routes = [
   {
     path: "loyalty",
     component: LoyalityProgramsComponent
+  },
+  {
+    path: "blogs",
+    component: BlogComponent
+  },
+  {
+    path: "blog-detail",
+    component: BlogDetailComponent
   },
   {
     path: "contact-us",

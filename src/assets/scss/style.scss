@@ -219,7 +219,7 @@ textarea.form-control {
 .btn-facebook {
   background-color: $facebookColor !important;
   border-color: $facebookColor !important;
-  color: #fff;
+  color: #fff !important;
   &:hover {
     color: #fff !important;
     background-color: $facebookColorH !important;

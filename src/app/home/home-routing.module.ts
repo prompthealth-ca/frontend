@@ -15,7 +15,7 @@ import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 import { AffiliateComponent } from './affiliate/affiliate.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
-
+import { BlogCategoryComponent } from './blog-category/blog-category.component';
 const routes: Routes = [
   {
     path: "home",
@@ -46,8 +46,12 @@ const routes: Routes = [
     component: BlogComponent
   },
   {
-    path: "blog-detail",
+    path: "blog-detail/:id",
     component: BlogDetailComponent
+  },
+  {
+    path: "blog-category/:id",
+    component: BlogCategoryComponent
   },
   {
     path: "contact-us",

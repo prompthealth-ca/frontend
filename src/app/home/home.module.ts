@@ -21,6 +21,7 @@ import { DoctorFilterComponent } from './doctor-filter/doctor-filter.component';
 import { AffiliateComponent } from './affiliate/affiliate.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { BlogCategoryComponent } from './blog-category/blog-category.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -37,6 +38,7 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     AffiliateComponent,
     BlogComponent,
     BlogDetailComponent,
+    BlogCategoryComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

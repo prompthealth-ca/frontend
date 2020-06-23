@@ -3,38 +3,40 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 
+
 @Component({
-  selector: 'app-blog-detail',
-  templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.scss']
+  selector: 'app-blog-category',
+  templateUrl: './blog-category.component.html',
+  styleUrls: ['./blog-category.component.scss']
 })
-export class BlogDetailComponent implements OnInit {
+export class BlogCategoryComponent implements OnInit {
   blogList = [];
   categoryList = [];
   private sub: any;
   id='';
 
+
+
   constructor(
     private activeRoute: ActivatedRoute,
     private _sharedService: SharedService,
-    private toastr: ToastrService,) { 
-    }
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.activeRoute.params.subscribe(params => {
       this.id = params['id'];
    });
-    console.log('categoryList',this.id)
-    this.getBlog()
+    this.getBlogList();
     this.getAllCategories();
   }
 
-  getBlog() {
-    let path = `blog/get-by-slug/${this.id}`
+  getBlogList() {
+    let path = `blog/get-all?count=10&page=1&frontend=1&categoryId=${this.id}`
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.blogList = res.data;
+        this.blogList = res.data.data;
       }
 
       else {
@@ -51,6 +53,7 @@ export class BlogDetailComponent implements OnInit {
       if (res.statusCode === 200) {
         this.categoryList = res.data.data;
       }
+
       else {
         this.toastr.error(res.message);
       }

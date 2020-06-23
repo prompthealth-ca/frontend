@@ -1,83 +1,31 @@
 <div class="py-3" style="background-color:#f2f2f2;">
-        <div class="container row mx-auto p-0 align-items-center">
-            <h2 class="col-md-2 text-uppercase text-center text-md-left mb-0">Blog</h2>
-            <div class="col-md-10 text-center text-md-right top-links">
-                <a href="" class="">Home</a> / <a href="/blogs">Blog</a> /
-                <a href="/blog-detail">Fusce condimentum nunc ac nisi vulputate fringilla. Donec</a>
-            </div>
-        </div>
-    </div>
+  <div class="container row mx-auto p-0 align-items-center">
+      <h2 class="col-md-2 text-uppercase text-center text-md-left mb-0">Blog</h2>
+      <div class="col-md-10 text-center text-md-right top-links">
+          <a href="" class="">Home</a> / <a href="/blogs">Blog</a> /
+          <a>{{ blogList.title }}</a>
+      </div>
+  </div>
+</div>
     
-    <div class="container main-content py-5">
-        <div class="row">
-            <div class="col-md-9 content">
-                <a href="" class="blog-link">
-                <img src="/assets/img/professional.jpg" class="w-100 mb-3" alt="...">
-                <h4 class="text-uppercase">Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</h4>
-                </a>
-                <div class="meta mb-3">
-                        <span class="mr-1"><i class="fas fa-calendar-alt"></i> 19th June 2020</span> /
-                        <span class="ml-1"><i class="fa fa-comment"></i> 2</span> /
-                        <span class="ml-1">Category</span>
-                    </div>
+<div class="container main-content py-5">
+  <div class="row">
+    <div class="col-md-9 content">
+      <a class="blog-link">
+        <img [src]="blogList.img" class="w-100 mb-3" alt="No image">
+        <h4 class="text-uppercase">{{ blogList.title }}</h4>
+      </a>
 
-
+      <p [innerHTML] = "blogList.description"></p>
         
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam ipsum risus, nec porta magna suscipit at. Cras fermentum purus nec purus maximus malesuada.</p>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam ipsum risus, nec porta magna suscipit at. Cras fermentum purus nec purus maximus malesuada.</p>
-
-                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce aliquam ipsum risus, nec</h4>
-
-                <h5 class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h5>
-                <p> Fusce aliquam ipsum risus, nec porta magna suscipit at. Cras fermentum purus nec purus maximus malesuada. ipsum risus, nec porta magna suscipit at. Cras fermentum purus nec purus maximus malesuada. </p>
-
-
-                <hr class="mt-4 mb-2" />
-
-                <h4 class="mb-3">Comments</h4>
-
-                
-                <input type="text" placeholder="Name" class="form-control mb-3" />
-                <input type="text" placeholder="Email" class="form-control mb-3" />
-                <textarea class="form-control mb-3" placeholder="Comments"></textarea>
-                <button type="submit" class="btn btn-primary rounded-0">Submit</button>
-               
-            </div>
-    
-            <div class="col-md-3">
-                <h4 class="sidebar-title mb-0">Categories</h4>
-            
-                <div class="sidebar-link mb-3">
-                    <a href="">Fusce condimentum nunc</a>
-                    <a href="">Fusce condimentum nunc</a>
-                    <a href="">Fusce condimentum nunc</a>
-                </div>
-    
-                <h4 class="sidebar-title mb-0">Recent Posts</h4>
-                <ul class="list-unstyled">
-                        <a href="" class="media py-3">
-                          <img src="/assets/img/professional.jpg" class="mr-3" alt="...">
-                          <div class="media-body">
-                           
-                           Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                          </div>
-                        </a>
-                        <a class="media py-3">
-                          <img src="/assets/img/professional.jpg" class="mr-3" alt="...">
-                          <div class="media-body">
-                           
-                            turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                          </div>
-                        </a>
-                        <a class="media py-3">
-                          <img src="/assets/img/professional.jpg" class="mr-3" alt="...">
-                          <div class="media-body">
-                            
-                             Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                          </div>
-                        </a>
-                      </ul>
-            </div>
-        </div>
     </div>
+
+    <div class="col-md-3">
+      <h4 class="sidebar-title mb-0">Categories</h4>
+  
+      <div class="sidebar-link mb-3">
+          <span *ngFor="let list of categoryList"><a [routerLink]="['/blog-category', list.slug]">{{list.title}}</a></span>
+      </div>
+  </div>
+  </div>
+</div>

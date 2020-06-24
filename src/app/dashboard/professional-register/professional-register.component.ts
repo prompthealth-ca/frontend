@@ -17,10 +17,13 @@ export class ProfessionalRegisterComponent implements OnInit {
     if(JSON.parse(localStorage.getItem('isVipAffiliateUser')) == true) {
       this.isVipAffiliateUser = false
     }
+    else {
+      
+    }
   }
 
   activeNextTabHandler($event: any) {
-    console.log('activeNextTabHandler', $event);
+    console.log('activeNextTabHandler>>>>>', $event);
     this.activeTab = $event;
   }
 

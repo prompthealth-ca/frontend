@@ -9,7 +9,7 @@ import { SharedService } from '../../shared/services/shared.service';
   styleUrls: ['./blog-detail.component.scss']
 })
 export class BlogDetailComponent implements OnInit {
-  blogList = [];
+  blogList;
   categoryList = [];
   private sub: any;
   id='';

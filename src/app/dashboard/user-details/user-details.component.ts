@@ -200,7 +200,6 @@ export class UserDetailsComponent {
     });
     
   }
-
   checkBoxChanged(e, fieldUpdated) {
     console.log('checkBoxChanged', e, fieldUpdated);
     if(fieldUpdated === 'availability') {

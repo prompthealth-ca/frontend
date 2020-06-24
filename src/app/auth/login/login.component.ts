@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
+      console.log('user====', user);
     });
     switch(this.router.url) {
       case "/auth/login/sp": 
@@ -104,6 +104,5 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-
 
 }

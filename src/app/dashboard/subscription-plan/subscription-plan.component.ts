@@ -198,14 +198,11 @@ export class SubscriptionPlanComponent {
   }
   buy() {
     const name = this.stripeTest.get('name').value;
+    const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
       .subscribe(result => {
         if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-
-
         const payload = {
           userId: localStorage.getItem('loginID'),
           userType: localStorage.getItem('roles'),

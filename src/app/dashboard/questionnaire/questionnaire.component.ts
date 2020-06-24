@@ -16,7 +16,7 @@ export class QuestionnaireComponent implements OnInit {
   public itemsTotal = 0;
   public selectedItems = [];
   typical_hours = [];
-  isVipAffiliateUser = true;
+  isVipAffiliateUser = false;
   subRes = {
     question: '',
     quesId: '',
@@ -40,7 +40,7 @@ export class QuestionnaireComponent implements OnInit {
   ngOnInit(): void {
     this.type = localStorage.getItem('roles');
     if(JSON.parse(localStorage.getItem('isVipAffiliateUser')) === true) {
-      this.isVipAffiliateUser = false
+      this.isVipAffiliateUser = true
     }
     
     localStorage.removeItem('typical_hours');
@@ -56,7 +56,7 @@ export class QuestionnaireComponent implements OnInit {
     console.log('this.path', path);
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        console.log('getSelectedSkill', res.data)
+        // console.log('getSelectedSkill', res.data)
         this.questionnaire = res.data;
         
       } else {
@@ -68,7 +68,7 @@ export class QuestionnaireComponent implements OnInit {
     });
   }
   getUserQuestionnaire() {
-    console.log('this.type', this.type)
+    // console.log('this.type', this.type)
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -99,7 +99,6 @@ export class QuestionnaireComponent implements OnInit {
         services: this.selectedItems,
       }
     }
-    console.log('data', payload);
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -114,25 +113,24 @@ export class QuestionnaireComponent implements OnInit {
     });
     
     if(this.isVipAffiliateUser) {
-      this.ActiveNextTab.emit(this.activeTab); 
       if(this.type === 'U') {
         this._router.navigate(['/dashboard/listing']);
       } else {
         this._router.navigate(['/dashboard/profilemanagement/my-profile']);
       }
     } else {
-      this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+      this.ActiveNextTab.emit(this.activeTab); 
     }
   }
   getSubAns(evt, subOption, questType) {
-    console.log('getSubAns', evt, questType);
+    // console.log('getSubAns', evt, questType);
     const parentId = evt.target.id;
     
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
         this.typical_hours.push(parentId);
 
-    console.log('typical_hours', this.typical_hours);
+    // console.log('typical_hours', this.typical_hours);
       }
       else {
         this.selectedItems.push(parentId);
@@ -162,7 +160,7 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   getSubSubAns(evt, subans) {
-    console.log('getSubSubAns', evt);
+    // console.log('getSubSubAns', evt);
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
@@ -174,9 +172,9 @@ export class QuestionnaireComponent implements OnInit {
       this._sharedService.get(path).subscribe((res: any) => {
         if (res.statusCode = 200) {
 
-          console.log('res.data', res.data)
+          // console.log('res.data', res.data)
           this.sublevel2Res.options =  res.data;
-          console.log('sublevel2Res', this.sublevel2Res)
+          // console.log('sublevel2Res', this.sublevel2Res)
         } else {
           this._sharedService.checkAccessToken(res.message);
         }
@@ -196,17 +194,17 @@ export class QuestionnaireComponent implements OnInit {
     switch(this.questionType) {
       case 'age': {
         this.questionType = 'health';
-        console.log('questionType', this.questionType)
+        // console.log('questionType', this.questionType)
         break;
       }
       case 'health': {
         this.questionType = 'goal';
-        console.log('questionType', this.questionType)
+        // console.log('questionType', this.questionType)
         break;
       }
       case 'goal': {
         this.questionType = 'availability';
-        console.log('questionType', this.questionType)
+        // console.log('questionType', this.questionType)
         break;
       }
     }

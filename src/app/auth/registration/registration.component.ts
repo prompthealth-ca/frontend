@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 
+
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,12 +19,14 @@ import { MustMatch } from '../../_helpers/must-match.validator';
 })
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
+  user: SocialUser;
   submitted = false;
   professionalSignup = false
   userType = 'U';
   returnUrl = '';
 
   constructor(
+    private authService: SocialAuthService,
     private route: ActivatedRoute,
     private previousRouteService: PreviousRouteService,
     private _router: Router,
@@ -32,6 +38,10 @@ export class RegistrationComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log('user====', user);
+    });
     this.route.queryParamMap
       .subscribe(params => { 
         const routeParams = +params.get('previousPath');
@@ -80,6 +90,47 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  signInWithGoogle(): void {
+    console.log('signInWithGoogle',  this.user)
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
+      console.log('x-----', x)
+    
+      const payload = {
+        socialToken: x.idToken,
+        email: x.email,
+        roles: this.userType,
+        loginType: x.provider.toLowerCase(),
+        termsCondition: true
+  
+      }
+
+      console.log('payload-----', payload)
+      this._sharedService.socialRegister(payload).subscribe((res: any) => {
+        console.log('res-----', res)
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+
+          this.toastr.success('Thanks for the registeration we have sent a welcome email to the address provided');
+          this.registerForm.reset();
+          this.submitted = false;
+
+          // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+
+          this._sharedService.loginUser(res, 'reg');
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      });
+    });
+  }
+
+  signInWithFB(): void {
+    console.log('signInWithFB',  this.user)
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log('x-----', x));
+  }
   registerUser() {
     this.submitted = true;
     if (this.registerForm.invalid) {
@@ -114,4 +165,6 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  loginSocial() {
+  }
 }

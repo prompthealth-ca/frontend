@@ -31,7 +31,7 @@
             </div>
           </th>
           <th class="free border-0">
-            <span class="text-primary">Service Provider Premium</span>
+            <span class="text-primary">Service Provider</span>
             <div class="">
               <label>Monthly</label>
               <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
@@ -46,7 +46,7 @@
           </th>
 
           <th class="paid border-0">
-            <span class="text-primary">Center Premium</span>
+            <span class="text-primary">Center</span>
             <div class="">
               <label>Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
@@ -255,7 +255,7 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <span class="text-primary">Center Basic</span>
+            <span class="text-primary">Basic</span>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Free</b>
             </div>
@@ -271,7 +271,7 @@
               Yearly
             </div>
             
-            <span class="text-primary">Service Provider Premium</span>
+            <span class="text-primary">Premium</span>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">$</b><b class="h5">{{spPlan?.price}}</b>/Monthly
             </div>
@@ -280,7 +280,7 @@
             </div> -->
           </th>
           <th class="paid border-0" *ngIf="roles === 'C'">
-            <span class="text-primary">Center Premium</span>
+            <span class="text-primary">Premium</span>
             <div>
               Monthly
               <label class="switch">
@@ -482,6 +482,8 @@
     </table>
   </div>
 </div>
+<hr>
+<p class="text-center">Fees are in $CAD and are subject to 5% GST.</p>
 <div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="addcard" aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">

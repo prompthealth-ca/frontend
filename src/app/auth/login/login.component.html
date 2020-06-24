@@ -16,11 +16,9 @@
             Login
           </h5>
           <a class="btn btn-google w-100 mb-2 font-weight-bold"  (click)="signInWithGoogle()"
-            ><i class="fab fa-google"></i> Sign in with Google</a
-          >
+            ><i class="fab fa-google"></i> Sign in with Google</a>
           <a class="btn btn-facebook w-100 mb-2 font-weight-bold" (click)="signInWithFB()"
-            ><i class="fab fa-facebook-square"></i> Sign in with Facebook</a
-          >
+            ><i class="fab fa-facebook-square"></i> Sign in with Facebook</a>
           <hr />
           <div class="form-row">
             <form class="form-row"
@@ -112,11 +110,14 @@
           class="bg-cover bg-overlay h-100 d-flex align-items-end login-user"
           [ngClass]="{ 'professional': professionalLogin }"
         >
-          <div class="w-100 p-4 text-light">
-            <h3>Welcome to Prompthealth</h3>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard
+          <div class="w-100 p-4 text-light" *ngIf="professionalLogin">
+            <h3>Join Our Canadian Network </h3>
+            <p>Get listed with us to attract more clients and generate more bookings
+            </p>
+          </div>
+          <div class="w-100 p-4 text-light" *ngIf="!professionalLogin">
+            <h3>Find The Right Care For You </h3>
+            <p>See what your options are based on your need and decide what’s right for you 
             </p>
           </div>
         </div>

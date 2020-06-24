@@ -5,6 +5,8 @@ import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PreviousRouteService } from './previousUrl.service'
 
+// import { SocialAuthService } from 'angularx-social-login';
+
 import { Observable } from 'rxjs';
 
 // import 'rxjs/add/operator/toPromise';
@@ -28,6 +30,7 @@ export class SharedService {
   //baseUrl: string = environment.config.API_URL;
 
   constructor(
+    // private authService: SocialAuthService,
     private _router: Router,
     private rendererFactory: RendererFactory2,
     private _flashMessagesService: FlashMessagesService,
@@ -46,7 +49,9 @@ export class SharedService {
     localStorage.removeItem('user');
     localStorage.removeItem('roles');
     localStorage.removeItem('isVipAffiliateUser');
+    // this.authService.signOut();
     this.showAlert("Logout Sucessfully", "alert-success");
+
     this._router.navigate(["/auth/login", "u"]);
   }
 
@@ -87,23 +92,17 @@ getNoAuth(path, setParams = {}) {
     return this.http.post(this.rootUrl + 'user/register', body, { headers });
   }
 
+  socialRegister(body) {
+    
+    let headers = this.getDefaultHeader();
+    return this.http.post(this.rootUrl + 'user/social-login', body, { headers });
+  }
+
   logingOut() {
     let headers = this.getAuthorizationHeader();
     return this.http.delete(this.rootUrl + 'user/logout', { headers });
   }
 
-
-  // addPromotion(body) {
-  //   let headers = this.getAuthorizationHeader();
-  //   return this.http.post(this.rootUrl + 'promotion', body, { headers });
-  // }
-
-  // changeStatus(id, model, status) {
-  //   let headers = this.getAuthorizationHeader();
-  //   let url = this.rootUrl + 'changestatus?id=' + id + '&model=' + model + '&status=' + status;
-  //   return this.http.put(url, { headers });
-
-  // }
 
   getSubscriptionPlan() {
     let date = new Date().getTime().toString();
@@ -129,11 +128,6 @@ getNoAuth(path, setParams = {}) {
     return this.http.delete(this.rootUrl + path, { headers });
 
   }
-  // delete(Id) {
-
-  //   let headers = this.getAuthorizationHeader();
-  //   return this.http.delete(this.rootUrl + 'delete/' + Id ++ '&model=' + model, { headers });
-  // }
 
   delete(id, model) {
 

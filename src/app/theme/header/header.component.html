@@ -17,19 +17,32 @@
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
                 <a  class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
                 <ul class="dropdown-menu">
-                  <li *ngIf="cat.Ans.length === 0">
-                    <div *ngFor="let answers of cat.answers">
-                      <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id }" *ngIf="cat.Ans.length === 0"
-                        data-toggle="dropdown">
-                        {{answers.item_text}}
-                      </a>
-                    </div>
-                  </li>
-                  <li *ngIf="cat.Ans.length">
-                    <div *ngFor="let answers of cat.Ans">
-                      <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id }">
-                        {{answers.item_text}}
-                      </a>
+                  <li>
+                    <div *ngFor="let answers of cat.category">
+                      <div *ngIf="answers.subCategory.length"> 
+                        <h6>{{answers.item_text}}</h6>
+                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: subanswers._id }">
+                          {{subanswers.item_text}}
+                        </a>
+                      </div>
+                      <div *ngIf="answers.subCategory.length === 0">
+                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id }"
+                          data-toggle="dropdown">
+                          {{answers.item_text}}
+                        </a>
+
+                        <ul class="dropdown-menu" *ngIf="answers.subCategory.length">
+                          <li>                           
+                            <div *ngFor="let sub of answers.subCategory">
+                              <hr>
+                              <h6>{{sub.item_text}}</h6>
+                              <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: sub._id }">
+                                {{sub.item_text}}
+                              </a>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </li>
                 </ul>

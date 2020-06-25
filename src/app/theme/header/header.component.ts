@@ -106,6 +106,7 @@ export class HeaderComponent implements OnInit {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
+        console.log('RES', this.categoryList);
       } else {
       }
     }, (error) => {

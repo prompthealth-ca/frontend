@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ProfessionalRegisterComponent implements OnInit {
   activeTab = 'basicInfo';
   isVipAffiliateUser = true;
+  public type = window.localStorage.getItem('roles');
 
   constructor(private router: Router) { 
   }

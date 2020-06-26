@@ -21,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 
 import { AgmCoreModule } from '@agm/core';
+import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 @NgModule({
   declarations: [
     SubscriptionPlanComponent,
@@ -33,6 +34,7 @@ import { AgmCoreModule } from '@agm/core';
     ProfessionalHomeComponent,
     ProfessionalRegisterComponent,
     EmbededURLPipe,
+    UserQuestionaireComponent,
   ],
   imports: [
     AutocompleteLibModule,

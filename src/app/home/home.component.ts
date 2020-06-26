@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
   }
   questionnaire() {
     if (this.token) {
-      this.router.navigate(['dashboard/questionnaire/u']);
+      this.router.navigate(['dashboard/questions/User']);
     } else {
       this.router.navigate(['auth/login/u']);
       this.toastr.warning("Please login first.")

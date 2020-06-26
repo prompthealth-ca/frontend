@@ -5,6 +5,7 @@ import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan
 import { UserDetailsComponent } from "./user-details/user-details.component";
 import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
+import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
@@ -32,10 +33,17 @@ const routes: Routes = [
     component: QuestionnaireComponent,
     canActivate: [AuthGuard] 
   },
-  // {
-  //   path: "listing/:id",
-  //   component: ListingComponent
-  // },
+  {
+    path: "questionnaire/u",
+    component: UserQuestionaireComponent,
+    canActivate: [AuthGuard],
+    redirectTo: 'questions/User'
+  },
+  {
+    path: "questions/User",
+    component: UserQuestionaireComponent,
+    canActivate: [AuthGuard] 
+  },
   {
     path: "listing",
     component: ListingComponent

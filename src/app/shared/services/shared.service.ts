@@ -256,7 +256,7 @@ getDefaultHeader() {
 
     let route
     if(type === 'reg') {
-      route =  res.data.roles === 'U' ? '/dashboard/questionnaire/u' : '/dashboard/professional-info';
+      route =  res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
     }
     else {
       if(this.previousRouteService.getPreviousUrl() === '') {

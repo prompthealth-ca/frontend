@@ -17,6 +17,7 @@ export class QuestionnaireComponent implements OnInit {
   public selectedItems = [];
   typical_hours = [];
   isVipAffiliateUser = false;
+  userSavePayload;
   subRes = {
     question: '',
     quesId: '',
@@ -38,6 +39,12 @@ export class QuestionnaireComponent implements OnInit {
       private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
+
+    this.userSavePayload = {
+      _id: localStorage.getItem('loginID'),
+      answers: [],
+      
+    }
     this.type = localStorage.getItem('roles');
     if(JSON.parse(localStorage.getItem('isVipAffiliateUser')) === true) {
       this.isVipAffiliateUser = true
@@ -198,22 +205,39 @@ export class QuestionnaireComponent implements OnInit {
     switch(this.questionType) {
       case 'age': {
         this.questionType = 'health';
-        // console.log('questionType', this.questionType)
         break;
       }
       case 'health': {
         this.questionType = 'goal';
-        // console.log('questionType', this.questionType)
         break;
       }
       case 'goal': {
         this.questionType = 'availability';
-        // console.log('questionType', this.questionType)
         break;
       }
     }
     this.getUserQuestionnaire();
 
+  }
+  addQuestion(question_id, ansID) {
+    console.log('questID', question_id);
+    console.log('ansID', ansID);
+    this.userSavePayload.answers.push({
+      question_id,
+      ans_id: [ansID],
+    });
+    console.log('userSavePayload', this.userSavePayload);
+  }
+  getMultiAns(question_id, ansID) {
+    console.log('questID', question_id);
+    console.log('ansID', ansID);
+    const ansId = []
+    ansId.push(ansID)
+    this.userSavePayload.answers.push({
+      question_id,
+      ans_id: [ansID],
+    });
+    console.log('userSavePayload', this.userSavePayload);
   }
   // previousTabEvent() {
   //   if (this.questionType === 'availability') {

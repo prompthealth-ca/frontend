@@ -11,6 +11,8 @@ import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementModule } from "./profileManagement/profile-mangement.module";
 import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
+import { 
+  AuthGuardService as AuthGuard  } from '../auth/auth-gaurd.service';
 
 const routes: Routes = [
   {
@@ -27,7 +29,8 @@ const routes: Routes = [
   },
   {
     path: "questionnaire/:type",
-    component: QuestionnaireComponent
+    component: QuestionnaireComponent,
+    canActivate: [AuthGuard] 
   },
   // {
   //   path: "listing/:id",
@@ -48,7 +51,8 @@ const routes: Routes = [
   {
     path: 'profilemanagement',
     loadChildren: () => ProfileManagementModule,
-    // canActivate: [AuthGuard] 
+    canActivate: [AuthGuard],
+    // redirectTo: 'profilemanagement/my-profile'
   },
   {
     path: "professional-info",

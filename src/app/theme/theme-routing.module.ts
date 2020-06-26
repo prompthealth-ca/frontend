@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CanActivate, Routes, RouterModule } from '@angular/router';
+import { CanActivate, Routes, RouterModule, CanActivateChild } from '@angular/router';
 import { HomeModule } from '../home/home.module';
 import { AuthModule } from '../auth/auth.module';
 import { LayoutComponent } from './layout/layout.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => DashboardModule,
-        // canActivate: [AuthGuard] 
+        // CanActivate: [AuthGuard] 
       },
     ]
   },

@@ -19,8 +19,13 @@ const routes: Routes = [
   {
     path: '',
     component: WrapperComponent,
-    // redirectTo: '/dashboard/profilemanagement/my-profile', pathMatch: 'full' ,
+    // redirectTo: '/my-profile',
     children: [
+      {
+        path: "",
+        redirectTo: 'my-profile',
+        component: MyProfileComponent
+      },
       {
         path: "my-profile",
         component: MyProfileComponent
@@ -70,9 +75,7 @@ const routes: Routes = [
         component: MyAffiliateComponent,
       },
     ]
-  }
-  
-  
+  },
 ];
 
 @NgModule({

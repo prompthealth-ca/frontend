@@ -84,7 +84,9 @@
             <div *ngFor="let question of questionnaire" class="col-md-12 question">
               <h5 *ngIf="type === 'C'" class="text-primary text-uppercase">{{ question.center_question }}</h5>
 
-              <h5  *ngIf="type === 'U'" class="text-primary text-uppercase">{{ question.c_question }}</h5>
+              <h5  *ngIf="type === 'U'" class="text-primary text-uppercase">
+                {{ question.c_question }}
+              </h5>
 
               <h5 *ngIf="type === 'SP'" class="text-primary text-uppercase">{{ question.sp_question }}</h5>
               <div class="mb-12">

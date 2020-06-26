@@ -111,7 +111,7 @@ export class QuestionnaireComponent implements OnInit {
     }, err => {
       this._sharedService.loader('hide');
     });
-    
+    console.log('isVipAffiliateUser', this.isVipAffiliateUser, this.activeTab)
     if(this.isVipAffiliateUser) {
       if(this.type === 'U') {
         this._router.navigate(['/dashboard/listing']);
@@ -119,7 +119,11 @@ export class QuestionnaireComponent implements OnInit {
         this._router.navigate(['/dashboard/profilemanagement/my-profile']);
       }
     } else {
+      if(this.type === 'U') {
+      this._router.navigate(['/dashboard/listing']);
+      } else {
       this.ActiveNextTab.emit(this.activeTab); 
+      }
     }
   }
   getSubAns(evt, subOption, questType) {

@@ -8,8 +8,10 @@ import { SharedService } from '../../../shared/services/shared.service';
 export class ReviewsRatingsComponent implements OnInit {
   userInfo;
   rating;
+  ru
   defaultImage = 'assets/img/man-testimonial.jpg';
   imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
+  earnedPoint = 0
   constructor(
     private _sharedService: SharedService,
   ) { }
@@ -27,6 +29,7 @@ export class ReviewsRatingsComponent implements OnInit {
       if (res.statusCode = 200) {
         this.rating = res.data.data;
         console.log('this.rating', this.rating);
+        this.earnedPoint = Math.max.apply(Math, this.rating.map(function(o) { return o.rating; }))
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

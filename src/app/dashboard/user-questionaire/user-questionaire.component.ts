@@ -186,9 +186,10 @@ ansIDs = [];
     console.log('data', data)
     const payload = {
       _id:  localStorage.getItem('loginID'),
-      data,
+      ...data,
     }
 
+    console.log('data', payload)
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.profile = res.data;

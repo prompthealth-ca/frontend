@@ -51,7 +51,6 @@ export class WrapperComponent implements OnInit {
   }
   setListing(profile){
     if(profile.isVipAffiliateUser) {
-
       if(profile.roles === 'SP') {
         this.listing.push({
           title: 'Professional Background',

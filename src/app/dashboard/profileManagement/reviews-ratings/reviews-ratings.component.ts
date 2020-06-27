@@ -29,7 +29,7 @@ export class ReviewsRatingsComponent implements OnInit {
       if (res.statusCode = 200) {
         this.rating = res.data.data;
         console.log('this.rating', this.rating);
-        this.earnedPoint = Math.max.apply(Math, this.rating.map(function(o) { return o.rating; }))
+        this.earnedPoint = this.rating.length ? Math.max.apply(Math, this.rating.map(function(o) { return o.rating; })) : 0
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

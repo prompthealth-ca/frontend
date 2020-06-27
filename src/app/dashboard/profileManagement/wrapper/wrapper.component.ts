@@ -27,11 +27,14 @@ export class WrapperComponent implements OnInit {
       active: true,
     }
   ];
+  cPlan: [];
+  spPlan: []
   constructor(
     private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
     this.getProfileDetails();
+    this.getSubscriptionPlan('user/get-plans');
   }
   getProfileDetails() {
     const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -47,6 +50,31 @@ export class WrapperComponent implements OnInit {
     }, err => {
 
       this._sharedService.checkAccessToken(err);
+    });
+  }
+  getSubscriptionPlan(path) {
+    this._sharedService.loader('show');
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+
+      if (res.statusCode === 200) {
+        console.log('res.data', res.data);
+        res.data.forEach(element => {
+          if (element.userType.length == 1 && element.userType[0] === 'C') {
+            this.cPlan = element;
+            console.log('cPlan', this.cPlan)
+          }
+          if (element.userType.length == 1 && element.userType[0] === 'SP') {
+            this.spPlan = element;
+            console.log('spPlan', this.spPlan)
+          }
+        });
+      } else {
+        // this._commanService.checkAccessToken(res.error);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+
     });
   }
   setListing(profile){

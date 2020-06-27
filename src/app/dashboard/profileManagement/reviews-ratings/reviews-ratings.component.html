@@ -1,6 +1,6 @@
 <h3 class="mb-3">Reviews and Ratings</h3>
 <p *ngIf="earnedPoint && userInfo.roles=='U'">Point Earned: {{earnedPoint}}</p>
-<div class="" *ngIf = "rating.length; else noData">
+<div class="" *ngIf = "rating; else noData">
   <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
     <img [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
     <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->

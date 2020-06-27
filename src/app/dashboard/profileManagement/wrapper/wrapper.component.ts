@@ -34,7 +34,7 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileDetails();
-    this.getSubscriptionPlan('user/get-plans');
+    // this.getSubscriptionPlan('user/get-plans');
   }
   getProfileDetails() {
     const userInfo = JSON.parse(localStorage.getItem('user'));

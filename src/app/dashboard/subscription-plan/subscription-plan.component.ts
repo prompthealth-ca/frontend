@@ -53,7 +53,7 @@ export class SubscriptionPlanComponent {
     paymentMethod: []
   };
   elementsOptions: ElementsOptions = {
-    locale: 'es'
+    locale: 'en'
   };
  
   userEmail: any;

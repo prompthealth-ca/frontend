@@ -21,7 +21,7 @@ export class MyProfileComponent implements OnInit {
   roles = ''
   zoom: number;
   private geoCoder;
-  profileQuestions = [];
+  profileQuestions;
   formData = new FormData();
 
   ageRangeList  = [
@@ -58,6 +58,11 @@ export class MyProfileComponent implements OnInit {
     { id: 'business6', name: 'Pharmacy'},
   ];
 
+  avalibilityQuestion
+  languageQuestion
+  serviceQuestion
+
+
   public profile = {
     firstName: '',
     lastName: '',
@@ -75,6 +80,7 @@ export class MyProfileComponent implements OnInit {
     longitude: 0,
     languages: [],
     typical_hours: [],
+    serviceOfferIds: [],
     age_range: '',
     years_of_experience: '',
     price_per_hours: '',
@@ -83,6 +89,7 @@ export class MyProfileComponent implements OnInit {
   };
   languagesSelected = [];
   hoursSelected = [];
+  serviceOfferSelected = []; 
   
   public response: any;
 
@@ -192,7 +199,19 @@ export class MyProfileComponent implements OnInit {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-        this.profileQuestions = res.data;
+        // this.profileQuestions = res.data;
+
+        res.data.forEach(element => {
+          if(element.question_type ==='service' && element.category_type==="Delivery") {
+            this.serviceQuestion = element
+          }
+          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+            this.languageQuestion = element
+          }
+          if(element.question_type ==='availability') {
+            this.avalibilityQuestion = element
+          }
+        });
         
         console.log('this.getProfileQuestion', res.data)
        } else {
@@ -220,13 +239,18 @@ export class MyProfileComponent implements OnInit {
     });
   }
   getDefaultCheckedValues(data, key) {
+    if(key === 'serviceType') {
+      this.serviceQuestion.answers.forEach(checkbox => {
+        checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
+      });
+    }
     if(key === 'typical_hours') {
-      this.profileQuestions[0].answers.forEach(checkbox => {
+      this.avalibilityQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
     }
     if(key === 'languages') {
-      this.profileQuestions[1].answers.forEach(checkbox => {
+      this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
     }
@@ -241,6 +265,10 @@ export class MyProfileComponent implements OnInit {
     if(fieldUpdated === 'service') {
       this.languagesSelected.push(e.target.id);
       this.profile.languages = this.languagesSelected;
+    }
+    if(fieldUpdated === 'serviceType') {
+      this.serviceOfferSelected.push(e.target.id);
+      this.profile.serviceOfferIds = this.serviceOfferSelected;
     }
   }
   radioChanged(e, fieldUpdated){
@@ -288,7 +316,7 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.profile = res.data;
+        // this.profile = res.data;
 
         this._sharedService.loader('hide');
         console.log('onFileSelect',res.data, this.profile);

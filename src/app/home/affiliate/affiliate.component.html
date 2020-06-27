@@ -50,6 +50,19 @@
                 </div>
               </div>
               <div class="col-md-12 mb-3">
+                <label>Type</label>
+                <div>
+                  <span class="mr-2">
+                    <input type="radio" formControlName="role" class="mr-2" required value="SP" 
+                    [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required/> Service Provider
+                  </span>
+                  <span class="mr-2">
+                    <input type="radio" formControlName="role" required  value="C" class="mr-2" 
+                    [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required/> Center
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3" *ngIf="affiliateRequestForm.get('role').value == 'C'">
                 <label>Total Users <span class="text-danger">*</span></label>
                 <input
                   type="number" class="form-control"
@@ -66,21 +79,8 @@
                 </div>
               </div>
               <div class="col-md-12 mb-3">
-                <label>Type</label>
-                <div>
-                  <span class="mr-2">
-                    <input type="radio" class="mr-2" required 
-                    [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required/> Service Provider
-                  </span>
-                  <span class="mr-2">
-                    <input type="radio" required  value="C" class="mr-2" 
-                    [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required/> Center
-                  </span>
-                </div>
-              </div>
-              <div class="col-md-12 mb-3">
                 <label>Message</label>
-                <textarea class="form-control" placeholder="Enter Message here"></textarea>
+                <textarea class="form-control"  formControlName="message" placeholder="Enter Message here"></textarea>
                 <div class="invalid-feedback">
                   Please Enter Message
                 </div>

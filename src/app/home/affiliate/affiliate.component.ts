@@ -25,14 +25,13 @@ export class AffiliateComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', []],
       email: ['', [Validators.required, Validators.email]],
-      numberOfUser: ['', [Validators.required]],
+      numberOfUser: [0, [Validators.required]],
       role: ['SP', [Validators.required]],
       message: ['',],
     });
   }
   
   affiliateMe() {
-    console.log('affiliateMe', this.affiliateRequestForm)
     this.submitted = true;
     if (this.affiliateRequestForm.invalid) {
       return;
@@ -41,7 +40,6 @@ export class AffiliateComponent implements OnInit {
       this.submitted = true;
       let data = this.affiliateRequestForm.value;
       data.isVipAffiliateUser = true;
-      console.log('data', data);
       this._sharedService.loader('show');
       let path = 'user/request'
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {

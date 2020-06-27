@@ -21,12 +21,12 @@
                     <div *ngFor="let answers of cat.category">
                       <div *ngIf="answers.subCategory.length"> 
                         <h6>{{answers.item_text}}</h6>
-                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: subanswers._id }">
+                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: subanswers._id, type:  cat.category_type }">
                           {{subanswers.item_text}}
                         </a>
                       </div>
                       <div *ngIf="answers.subCategory.length === 0">
-                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id }"
+                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id, type:  cat.category_type }"
                           data-toggle="dropdown">
                           {{answers.item_text}}
                         </a>
@@ -81,7 +81,7 @@
               <a class="dropdown-item" [routerLink]="['/enterprise']"><i class="fa fa-building"></i> Enterprise</a>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="token && role !== 'U'" >
             <a class="nav-link" [routerLink]="['/dashboard/subscriptionplan']">Pricing</a>
           </li>
           <li class="nav-item">
@@ -90,18 +90,9 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/blogs']">Blogs</a>
           </li>
-          <!-- <li *ngIf="showDashboard || (token && role === 'U')" class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
-          </li> -->
           <li *ngIf="token" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
           </li>
-          <!-- token == {{ token }}
-          showDashboard == {{ showDashboard }}
-          role == {{ role }} -->
-          <!-- <li *ngIf="token && (role === 'SP' || role === 'C')" class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My-Dashboard</a>
-          </li> -->
           <li class="nav-item">
             <a *ngIf="!token" class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
 

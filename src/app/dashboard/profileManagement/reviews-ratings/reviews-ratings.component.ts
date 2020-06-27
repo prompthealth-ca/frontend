@@ -9,7 +9,7 @@ export class ReviewsRatingsComponent implements OnInit {
   userInfo;
   rating;
   ru
-  defaultImage = 'assets/img/man-testimonial.jpg';
+  defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
   earnedPoint = 0
   constructor(
@@ -28,8 +28,12 @@ export class ReviewsRatingsComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.rating = res.data.data;
-        console.log('this.rating', this.rating);
-        this.earnedPoint = this.rating.length ? Math.max.apply(Math, this.rating.map(function(o) { return o.rating; })) : 0
+        this.rating = this.rating.filter((el) => {
+          return el.rating > 0
+        })
+        this.earnedPoint = this.rating.length ? Math.max.apply(Math, this.rating.map(function(o) { 
+          return o.customerId.pointEarned; 
+        })) : 0
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

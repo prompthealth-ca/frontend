@@ -1,3 +1,8 @@
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+    <p style="font-size: 20px; color: white" class="loaderbg">
+      <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+    </p>
+  </ngx-spinner>
 <h3 class="mb-3"  *ngIf="doctors && doctors.length">My Professionals
     <button *ngIf="doctors && doctors.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
 </h3>
@@ -20,13 +25,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let prod of doctors | customFilter: doctorSearch;  let i = index">
+        <tr *ngFor="let prod of doctors | customFilter: doctorSearch: 'fname';  let i = index">
             
             <td>
                 <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
             </td>
             <td>
-                {{ prod.fname }} {{ prod.lname }}
+                {{ prod.fname }} - {{ prod.lname }}
             </td>
             <td>
                 {{ prod.description }}

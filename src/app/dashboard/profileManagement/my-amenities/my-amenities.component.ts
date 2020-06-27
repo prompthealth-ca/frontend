@@ -75,16 +75,18 @@ export class MyAmenitiesComponent implements OnInit {
     const formData: FormData = new FormData();
     let input = new FormData();
     input.append('imgLocation', 'amenities');
+    this.spinner.show();
     if(event.target.files.length === 1) {
 
       input.append('images', event.target.files[0]);
       this.sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
         if (res.statusCode === 200) {
+          this.imagesList.push(res.data);
           this.uploadAmenity['images'] = [res.data];
           this.updateAmenity['images'] = [res.data];
           this.updateAmenities();
           this.spinner.hide();
-          this.toastr.success(res.message);
+          // this.toastr.success(res.message);
         } else {
           this.toastr.error(res.message);
         }
@@ -102,11 +104,12 @@ export class MyAmenitiesComponent implements OnInit {
       this.sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.imagesList = res.data;
+          console.log('imagesList', this.imagesList)
           this.uploadAmenity['images'] = res.data;
           this.updateAmenity['images'] = res.data;
           this.updateAmenities();
           this.spinner.hide();
-          this.toastr.success(res.message);
+          // this.toastr.success(res.message);
         }
         else {
           this.toastr.error(res.message);
@@ -125,10 +128,12 @@ export class MyAmenitiesComponent implements OnInit {
         this.savedAminities = res.data.data;
         this.addMore = false;
         this.spinner.hide();
+        this.toastr.success(res.message);
       }
 
       else {
-        this.sharedService.showAlert(res.message, 'alert-danger');
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+        // this.sharedService.showAlert(res.message, 'alert-danger');
         this.spinner.hide();
       }
     }, (error) => {
@@ -141,6 +146,7 @@ export class MyAmenitiesComponent implements OnInit {
     const path = `amenity/create`;
     this.sharedService.post(this.uploadAmenity, path).subscribe((res: any) => {
       this.spinner.show();
+      console.log('res', res)
       if (res.statusCode === 200) {
 
         this.updateAmenity = {
@@ -162,6 +168,7 @@ export class MyAmenitiesComponent implements OnInit {
     this.spinner.show();
     const path = `amenity/update`;
     const body = this.updateAmenity;
+    console.log('body', body);
     this.sharedService.put(body, path).subscribe((res: any) => {
       this.spinner.show();
       if (res.statusCode === 200) {

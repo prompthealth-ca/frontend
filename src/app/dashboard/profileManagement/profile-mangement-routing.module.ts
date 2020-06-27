@@ -38,10 +38,10 @@ const routes: Routes = [
         path: "my-subscription",
         component: MySubscriptionComponent
       },
-      {
-        path: "my-professional-info",
-        component: MyProfessionalInfoComponent
-      },
+      // {
+      //   path: "my-professional-info",
+      //   component: MyProfessionalInfoComponent
+      // },
       {
         path: "my-booking",
         component: MyBookingComponent

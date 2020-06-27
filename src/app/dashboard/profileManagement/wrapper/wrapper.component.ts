@@ -81,22 +81,12 @@ export class WrapperComponent implements OnInit {
     if(profile.isVipAffiliateUser) {
       if(profile.roles === 'SP') {
         this.listing.push({
-          title: 'Professional Background',
-          link: 'my-professional-info',
-          active: true,
-        });
-        this.listing.push({
           title: 'My Affiliate',
           link: 'my-affiliate',
           active: true,
         });
       }
       if(profile.roles === 'C') {
-        this.listing.push({
-          title: 'Professional Background',
-          link: 'my-professional-info',
-          active: true,
-        });
         this.listing.push({
           title: 'My Amenities',
           link: 'my-amenities',
@@ -155,17 +145,6 @@ export class WrapperComponent implements OnInit {
           });
         }
         if (profile.plan.professionalProfile === true) {
-          this.listing.push({
-            title: 'Professional Background',
-            link: 'my-professional-info',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'Professional Background',
-            link: 'my-professional-info',
-            active: false,
-          });
         }
 
         this.listing.push({
@@ -179,17 +158,6 @@ export class WrapperComponent implements OnInit {
       }
       if (profile.roles === 'C') {
         if (profile.plan.professionalProfile === true) {
-          this.listing.push({
-            title: 'Professional Background',
-            link: 'my-professional-info',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'Professional Background',
-            link: 'my-professional-info',
-            active: false,
-          });
         }
         if (profile.plan.ListAmenities === true) {
           this.listing.push({

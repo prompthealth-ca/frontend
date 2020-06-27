@@ -78,16 +78,6 @@
           </ul>
         </div>
         <div class="col-md-4 text-right">
-          <!-- <a
-            href=""
-            data-toggle="modal"
-            data-target="#messagemodal"
-            class="btn btn-primary mb-3"
-          >
-            <i class="fa fa-comment"></i>
-            Message
-          </a> -->
-
           <div class="font-weight-bold mb-2">
             Standard Hourly Fees: <span class="text-primary">{{userInfo?.price_per_hours}}</span>
           </div>
@@ -247,10 +237,6 @@
                   {{userInfo?.years_of_experience}}
             </td>
             </tr>
-            <!-- <tr>
-              <th>Description:</th>
-              <td>{{userInfo?.product_description}}</td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -272,31 +258,12 @@
                 </div>
               </td>
             </tr>
-            <!-- <tr>
-              <th>Treatment Approaches:</th>
-              <td>
-                Behavioral , Cognitive Behavioral Therapy (CBT), Cognitive
-                Therapy (CT), Family Systems, Positive Psychology,
-                Psychoeducational, Supportive
-              </td>
-            </tr>
-            <tr>
-              <th>Insurance Accepted:</th>
-              <td>BlueCross and BlueShield, Medicare</td>
-            </tr> -->
             <tr>
               <th>Standard Hourly Price:</th>
               <td>
-                ${{userInfo?.price_per_hours}}
+                {{userInfo?.price_per_hours}}
               </td>
             </tr>
-            <!-- <tr>
-              <th>Service Types:</th>
-              <td>
-                Individual therapy, Couples therapy, Family therapy,
-                Consultation only (single visit)
-              </td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -350,85 +317,85 @@
 
         <input  *ngIf="productList && productList.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
         <table class="table table-hover comparetable" *ngIf="productList && productList.length; else noProduct">
-        <thead>
-            <tr>
-                <th>
-                    <h5>Title</h5>
-                </th>
-                <th>
-                    <h5>Description</h5>
-                </th>
-                <th>
-                    <h5>Price</h5>
-                </th>
-                <th>
-                    <h5>Images</h5>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let prod of productList | customFilter:productSearch;let i = index">
-                <td>
-                    {{ prod.slug }}
-                </td>
-                <td>
-                    {{ prod.description }}
-                </td>
-                <td>
-                    {{ prod.price }}
-                </td>
-                <td>
-                  <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
-                    <div class="img-list" *ngFor="let img of prod.images; let i=index" >
-                        <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
-                        
-                    </div>
-                  </a>
-                    <!-- Image slider modal -->
-                  <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
-                    <div class="modal-dialog w-100">
-                      <div class="modal-content bg-transparent border-0">
-                        <div class="modal-header border-0 p-0">
-                          <h5 class="modal-title"></h5>
-                          <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body pt-0 px-4">
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
+          <thead>
+              <tr>
+                  <th>
+                      <h5>Title</h5>
+                  </th>
+                  <th>
+                      <h5>Description</h5>
+                  </th>
+                  <th>
+                      <h5>Price</h5>
+                  </th>
+                  <th>
+                      <h5>Images</h5>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let prod of productList | customFilter:productSearch: 'slug';let i = index">
+                  <td>
+                      {{ prod.slug }}
+                  </td>
+                  <td>
+                      {{ prod.description }}
+                  </td>
+                  <td>
+                      {{ prod.price }}
+                  </td>
+                  <td>
+                    <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
+                      <div class="img-list" *ngFor="let img of prod.images; let i=index" >
+                          <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
+                          
+                      </div>
+                    </a>
+                      <!-- Image slider modal -->
+                    <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
+                      <div class="modal-dialog w-100">
+                        <div class="modal-content bg-transparent border-0">
+                          <div class="modal-header border-0 p-0">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body pt-0 px-4">
+                              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                  <ol class="carousel-indicators">
 
-                                    <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                        <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" alt="...">
-                                    </li>
-                                  </ol>
+                                      <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
+                                          <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" alt="...">
+                                      </li>
+                                    </ol>
 
-                                <div class="carousel-inner">
-                                  <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                                    <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" class="d-block w-100" alt="...">
+                                  <div class="carousel-inner">
+                                    <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
+                                      <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" class="d-block w-100" alt="...">
+                                    </div>
                                   </div>
+
+                                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                  </a>
+
                                 </div>
 
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-
-                              </div>
 
 
-
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div> 
-                </td>
-            </tr>
-        </tbody>
+                    </div> 
+                  </td>
+              </tr>
+          </tbody>
         </table>
         <ng-template #noProduct>
           <h5>No product listed...</h5>
@@ -527,7 +494,7 @@
             <tr *ngFor="let prod of doctors; let i = index">
                 
                 <td>
-                    <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+                    <img class="pro-img" [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
                 </td>
                 <td>
                     {{ prod.fname }} {{ prod.lname }}
@@ -714,7 +681,7 @@
             <div class="col-md-12 mb-3">
               <label>Email Address <span class="text-danger">*</span></label>
               <input
-                type="text"
+                type="email"
                 class="form-control"
                 formControlName="email"
                 placeholder="Enter Your Email Address"

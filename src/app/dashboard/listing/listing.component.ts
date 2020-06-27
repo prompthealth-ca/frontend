@@ -46,11 +46,12 @@ export class ListingComponent implements OnInit {
     zipcode: '',
     languageId: '',
     typicalHoursId: '',
-    rating: '',
+    rating: null,
     miles: '',
     latLong: '',
     age_range: '',
-    name: ''
+    name: '',
+    type: 'service'
   }
   constructor(
     private behaviorService: BehaviorService,
@@ -175,11 +176,12 @@ export class ListingComponent implements OnInit {
       zipcode: '',
       languageId: '',
       typicalHoursId: '',
-      rating: '',
+      rating: null,
       miles: '',
       latLong: '',
       age_range: '',
-      name: ''
+      name: '',
+      type: 'service'
     }
     this.listing({
       ids: [this.id],
@@ -198,7 +200,7 @@ export class ListingComponent implements OnInit {
       this.listingPayload.typicalHoursId = value;
     }
     if (type === 'rating') {
-      this.listingPayload.rating = value;
+      this.listingPayload.rating = parseInt(value);
     }
 
     this.listing(this.listingPayload);

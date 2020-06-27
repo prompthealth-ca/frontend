@@ -31,7 +31,6 @@ export class VideosBlogsComponent implements OnInit {
         data: this._fb.array([this.initItemRows()])
     });
     this.getProfileDetails();
-    console.log('>>>>',this.formArr.controls[0]);
   }
   get url(): FormArray {
     return this.videosForm.get('url') as FormArray;
@@ -76,6 +75,9 @@ export class VideosBlogsComponent implements OnInit {
         this.getProfileDetails();
         this.toastrService.success(res.message);
         this.addMore = false;
+        this.videosForm = this._fb.group({
+          data: this._fb.array([this.initItemRows()])
+      });
         // this._router.navigate(['/home']);
       } else {
         this.toastrService.error(res.message);
@@ -87,7 +89,6 @@ export class VideosBlogsComponent implements OnInit {
     
   }
   getEmbededURL(url) {
-    console.log('getEmbededURL', url)
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
       const match = url.match(regExp);
 

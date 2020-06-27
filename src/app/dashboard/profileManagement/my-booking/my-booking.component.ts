@@ -11,6 +11,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class MyBookingComponent implements OnInit {
   @ViewChild('closebutton') closebutton;
+  @ViewChild('closeRatingbutton') closeRatingbutton;
   @ViewChild('reviewModal') reviewModal:ElementRef;
   bookingForm: FormGroup;
   ratingSubmited = false;
@@ -57,8 +58,6 @@ export class MyBookingComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.bookingList = res.data.data;
-        console.log('this.bookingList ', res.data, this.bookingList );
-
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -156,10 +155,8 @@ export class MyBookingComponent implements OnInit {
     this.ratingClicked = clickObj.rating
   }
   showReviewModal(bookid) {
-    console.log('bookid', bookid);
     this.ratingPayload['drId'] = bookid.drId._id;
     this.ratingPayload['bookingId'] = bookid._id;
-    console.log('ratingPayload', this.ratingPayload);
   }
   submitRating() {
     this.ratingSubmited = true;
@@ -169,22 +166,16 @@ export class MyBookingComponent implements OnInit {
       rating: this.ratingClicked,
       review: this.review
     }
-
-    console.log('payload', payload);
     this._sharedService.loader('show');
-    // http://3.12.81.245:3000/api/v1/user/addRating
     const path = decodeURI('user/add-rating/');
-    console.log('path', path);
     this._sharedService.post(payload, path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
-        console.log('re ====', res);
-        // this.bookingList.forEach((ele, index) => {
-        //   if(ele._id === id) this.bookingList.splice(index, 1);
-        // });
 
         this.getBookingList();
+
+        this.closeRatingbutton.nativeElement.click();
       } else {
         this.toastr.error(res.message);
 

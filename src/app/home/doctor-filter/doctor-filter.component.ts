@@ -18,8 +18,12 @@ export class DoctorFilterComponent implements OnInit {
   keyword = 'name';
   userTypeFilter ='';
   categoryList = [];
-  profileQuestions = []
+  serviceQuestion;
+  profileQuestions
+  languageQuestion;
+  avalibilityQuestion;
   selectedHours = '';
+  selectedServiceType = '';
   selectedLang = '';
   doctorList = [];
   allDoctorList = [];
@@ -33,7 +37,7 @@ export class DoctorFilterComponent implements OnInit {
   location = {
   markers:  [
   ],
-  zoom: 2,
+  zoom: 10,
   lati:51.673858,
   lng: 7.815982,
   }
@@ -82,40 +86,21 @@ export class DoctorFilterComponent implements OnInit {
     this.getProfileQuestion();
   }
 
-  // getAddress(latitude, longitude) {
-  //   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-  //     this.zipCodeSearched = '';
-  //     if (status === 'OK') {
-  //       if (results[0]) {
-  //         console.log('results[0]', results, results[0])
-  //         // find country name
-  //         for (var i=0; i<results[0].address_components.length; i++) {
-  //           for (var b=0;b<results[0].address_components[i].types.length;b++) {
-  //           if (results[0].address_components[i].types[b] === "postal_code") {
-  //             this.zipCodeSearched = results[0].address_components[i].long_name;
-  //             break;
-  //           }
-
-  //         }
-
-  //       }
-  //       } else {
-  //         window.alert('No results found');
-  //       }
-
-  //       console.log('zipCodeSearched[0]',  this.zipCodeSearched)
-  //       // this.router.navigate(['dashboard/listing'], { queryParams: {zipcode: this.zipCodeSearched }})
-  //     } else {
-  //       window.alert('Geocoder failed due to: ' + status);
-  //     }
-  //   });
-  // }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-        this.profileQuestions = res.data;
-        console.log('this.getProfileQuestion', res.data)
+        res.data.forEach(element => {
+          if(element.question_type ==='service' && element.category_type==="Delivery") {
+            this.serviceQuestion = element
+          }
+          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+            this.languageQuestion = element
+          }
+          if(element.question_type ==='availability') {
+            this.avalibilityQuestion = element
+          }
+        });
        } else {
          this.toastr.error(res.message);
   
@@ -139,11 +124,20 @@ export class DoctorFilterComponent implements OnInit {
     });
   }
   getCategoryServices() {
+    this.sharedService.loader('show');
     this.sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
-        // console.log('categoryList', this.categoryList)
+        this.categoryList.forEach(el => {
+          if(el.category_type === 'Service') {
+            el.category.forEach(element => {
+              if(element.item_text === 'Service') {
+                this.categoryList = element.subCategory
+              }
+            });
+          }
+        });
       } else {
       }
     }, (error) => {
@@ -159,16 +153,14 @@ export class DoctorFilterComponent implements OnInit {
       ...filter,
     }
     let path = 'user/filter-map';
-    console.log('Comes here payload', payload);
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
-       console.log('Comes here', this.doctorList);
        const self = this
         setTimeout(()=>{
           self.createMapMarker(this.doctorList)
         }, 100)
-      // console.log('comes, doctorList', this.doctorList)
+        this.sharedService.loader('hide');
       } else {
         this.toastr.error(res.message);
       }
@@ -180,17 +172,13 @@ export class DoctorFilterComponent implements OnInit {
     this.ratingFilter = {};
     if (event.target.value !== 'all') {
       this.ratingFilter = { rating: parseInt(event.target.value) }
-      console.log('ratingFilter', this.ratingFilter, event.target.value)
-    }
-    else {
-
     }
   }
   onOptionsSelected(value:string, type){
-    console.log("the selected value is " + value, type);
     this.selectedLang ='';
     this.userTypeFilter = '';
     this.selectedHours = '';
+    this.selectedServiceType = '';
 
     if(type === 'language') {
       this.selectedLang = value;
@@ -202,16 +190,18 @@ export class DoctorFilterComponent implements OnInit {
       else {
         this.userTypeFilter = value;
       }
-      console.log('this.userTypeFilter = value;', this.userTypeFilter)
     }
-    else {
+    else if(type="hours"){
         this.selectedHours = value;
-    }
+    }else if(type="serviceType"){
+      this.selectedServiceType = value;
+  }
   }
   resetFilter() {
     this.ratingFilter = null;
     this.selectedLang = null;
     this.selectedHours = null;
+    this.selectedServiceType = null;
 
     this.getDoctorList({ zipcode: this.zipcode });
 
@@ -223,6 +213,7 @@ export class DoctorFilterComponent implements OnInit {
       languageId:this.selectedLang,
       userType: this.userTypeFilter,
       typicalHoursId:this.selectedHours,
+      serviceOfferId:this.selectedServiceType
     }
 
     this.getDoctorList(payload);
@@ -230,7 +221,6 @@ export class DoctorFilterComponent implements OnInit {
     this.closebutton.nativeElement.click();
   }
   createMapMarker(data) {
-    console.log('DATA', data)
     this.location.markers = [];
     this.location.lati = data[data.length-1].location[1];
 
@@ -271,33 +261,6 @@ export class DoctorFilterComponent implements OnInit {
   selectEvent(item) {
     this.getDoctorList({ name: item.name })
   }
- 
-  // onChangeSearch(val: string) {
-  //   // fetch remote data from here
-  //   // And reassign the 'data' which is binded to 'data' property.
-  // }
-  
-  // onFocused(e){
-  //   // do something when input is focused
-  // }
-
-
-
-  // clickedMarker(label: string, index: number) {
-  //   console.log(`clicked the marker: ${label || index}`)
-  // }
-  
-  // mapClicked($event: MouseEvent) {
-  //   this.markers.push({
-  //     lat: $event.coords.lat,
-  //     lng: $event.coords.lng,
-  //     draggable: true
-  //   });
-  // }
-  
-  // markerDragEnd(m: marker, $event: MouseEvent) {
-  //   console.log('dragEnd', m, $event);
-  // }
   
   ngOnDestroy() {
     localStorage.removeItem('searchedAddress');

@@ -1,3 +1,8 @@
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+  <p style="font-size: 20px; color: white" class="loaderbg">
+    <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+  </p>
+</ngx-spinner>
 <section
   class="pt-5 pb-5 text-center bg-cover bg-overlay bg-border text-light"
   style="background-image: url(assets/img/question3.png);"
@@ -56,7 +61,7 @@
             <div class="dropdown ">
             <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">By Service <b class="caret"></b></a>
             <ul class="dropdown-menu shadow rounded-0 border-0 multi-level service-lists">
-              <li class="dropdown-submenu" *ngFor="let cat of categoryList[0]?.Ans">
+              <li class="dropdown-submenu" *ngFor="let cat of categoryList">
                 <a  class="service-list nav-link" [id] = "cat._id" (click)="serviceFilter($event)">{{ cat.item_text }}</a>
               </li>
             </ul>
@@ -241,11 +246,8 @@
                 </span>
             </div>
           </div>
-          <!-- <div class="mb-3 font-weight-bold">
-              <input type="checkbox" class="mr-2"><i class="fas fa-notes-medical mr-2"></i> Online appointments
-          </div> -->
           <div class="row">
-            <div class="col-md-4 mb-3" >
+            <div class="col-md-6">
               <label>Center or Service Provide</label>
               <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'userType')">
                 <option value="all">All</option>
@@ -253,18 +255,24 @@
                 <option value="C">Center</option>
               </select>
             </div>
-            <div class="col-md-4 mb-3" >
+            <div class="col-md-6" >
               <label>Hours of Availability</label>
               <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
-                <option *ngFor="let opt of profileQuestions[0]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+                <option *ngFor="let opt of avalibilityQuestion.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
               </select>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-6">
                 <label>Provider language</label>
                 <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
-                  <option *ngFor="let opt of profileQuestions[1]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+                  <option *ngFor="let opt of languageQuestion.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
                 </select>
             </div>
+            <div class="col-md-6">
+              <label>Service Type</label>
+              <select class="form-control"  #serviceType (change)="onOptionsSelected(serviceType.value, 'serviceType')">
+                <option *ngFor="let opt of serviceQuestion.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+              </select>
+          </div>
           </div>    
         </div>
         <div class="modal-footer">

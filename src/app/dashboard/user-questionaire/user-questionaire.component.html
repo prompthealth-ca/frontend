@@ -10,10 +10,10 @@
     <div class="container" style="max-width: 700px !important">
       <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questionnaire
       </h2>
-      <p class="h4 font-weight-normal">
+      <!-- <p class="h4 font-weight-normal">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
         sagittis diam. Aliquam feugiat efficitur velit
-      </p>
+      </p> -->
     </div>
   </section>
   <section>
@@ -96,12 +96,38 @@
                   </div>
                   <div class="form-row" *ngIf="question.choice_type === 'multiple'">
                     <div class="col-md-3" *ngFor="let options of question.answers; let i = index" >
-                      <div class="radio">
+                      <!-- <div class="radio" *ngIf="questionType === 'age'; else noAgeMulti">
                         <input type="checkbox" name="answers" [id]="options._id"  class="mr-3" (change)="getMultiAns(question._id, $event)"/>
                         <span>{{ options.item_text }}</span>
+                      </div> -->
+                      <!-- <ng-template #noAgeMulti> -->
+                        <div class="radio">
+                          <input type="checkbox" name="answers" [id]="options._id"  class="mr-3" (change)="getSubAns($event, options.subans, question.question_type)"/>
+                        <span>{{ options.item_text }}</span>
+                        </div>
+                    <!-- </ng-template> -->
+                      <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">
+                        <h5 class="text-primary text-uppercase">{{options.item_text }}</h5>
+                        <div class="mb-12">
+                          <div class="form-row">
+                            <div class="col-md-12" *ngFor="let ques of subRes.options; let i = index" >
+                              <div class="radio"><input type="checkbox" name="subRes" [id]="ques._id" class="mr-3" (change)="getSubSubAns($event, ques.subans)"/> <span>{{ ques.item_text }}</span></div>
+                        
+                              <div class="showSubans" *ngIf="ques.subans && sublevel2Res.options.length && (sublevel2Res.quesId === ques._id) " >
+                                <h5 class="text-primary text-uppercase">{{  ques.item_tex }}</h5>
+                                <div class="mb-12">
+                                  <div class="form-row">
+                                    <div class="col-md-6" *ngFor="let ques2 of sublevel2Res.options; let i = index" >
+                                      <div class="radio"><input type="checkbox"  name="sublevel2Res" [id]="ques2._id" class="mr-3"/> <span>{{ ques2.item_text }}</span></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      </div>
-                    
+                    </div>                    
                   </div>
                 </div>
               </div>

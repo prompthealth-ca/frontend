@@ -51,11 +51,7 @@ export class QuestionnaireComponent implements OnInit {
     }
     
     localStorage.removeItem('typical_hours');
-    if(this.type === 'U') {
-      this.getUserQuestionnaire();
-     } else {
-      this.getSelectedSkill();
-     }
+    this.getSelectedSkill();
   }
 
   getSelectedSkill() {
@@ -94,18 +90,11 @@ export class QuestionnaireComponent implements OnInit {
   saveQuestionnaire() {
     this._sharedService.loader('show');
     let payload;
-    if(this.type === 'U') {
-      payload = {
-        _id: localStorage.getItem('loginID'),
-        services: this.selectedItems,
-        typical_hours: this.typical_hours,
-      }
-    } else {
       payload = {
         _id: localStorage.getItem('loginID'),
         services: this.selectedItems,
       }
-    }
+    
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {

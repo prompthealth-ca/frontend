@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let prod of product | customFilter:productSearch;let i = index">
+        <tr *ngFor="let prod of product | customFilter:productSearch: 'slug';let i = index">
             <td>
                 {{ prod.slug }}
             </td>

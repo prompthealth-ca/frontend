@@ -14,9 +14,23 @@ ansIDs = [];
   public questionnaire: any;
   public type = window.localStorage.getItem('roles');
   typical_hours = [];
+  public selectedItems = [];
   userSavePayload;
+  subRes = {
+    question: '',
+    quesId: '',
+    options: []
+  };
+
+  showlevel2SubAns = false
   ageQuestion
   profile
+
+  sublevel2Res = {
+    question: '',
+    quesId: '',
+    options: []
+  };
 
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
@@ -38,10 +52,7 @@ ansIDs = [];
     this.getUserQuestionnaire();
   }
   setAnsChecked(){
-
-    console.log( '---', this.profile)
     this.questionnaire.forEach(element => {
-      console.log( 'element--->>>', element)
       if(element.c_question === "What is your age range?" && this.profile.customer_age_group) {
         element.answers.forEach(ele => {
           if(ele._id === this.profile.customer_age_group) {
@@ -71,12 +82,50 @@ ansIDs = [];
       }
     });
   }
+  
+  getSubAns(evt, subOption, questType) {
+    console.log('getSubAns', evt, questType);
+    const parentId = evt.target.id;
+    
+    if(this.selectedItems.indexOf(parentId) === -1) {
+      if(questType === 'availability') {
+        this.typical_hours.push(parentId);
+
+    // console.log('typical_hours', this.typical_hours);
+      }
+      else {
+        this.selectedItems.push(parentId);
+      }
+    }
+    if(evt.target.checked && subOption) {
+      this.subRes.question = evt.target.name
+      this.subRes.quesId =  parentId;
+      const path = `questionare/get-answer/${evt.target.id}`;
+      this._sharedService.get(path).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+            this.subRes.options =  res.data;
+        } else {
+          this._sharedService.checkAccessToken(res.message);
+        }
+      }, err => {
+
+        this._sharedService.checkAccessToken(err);
+      });
+    }
+    else {
+
+      this.subRes.question = '';
+      this.subRes.quesId = '';
+      this.subRes.options = [];
+    }
+
+  }
   getUserQuestionnaire() {
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.questionnaire = res.data;
-        console.log('ageQuestion', this.questionnaire)
+        console.log('questionnaire', this.questionnaire)
         for(var i in this.questionnaire) {
           this.questionnaire[i].answers.forEach(obj=> { obj['active'] = false })
         }
@@ -94,7 +143,6 @@ ansIDs = [];
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
-        console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -107,12 +155,6 @@ ansIDs = [];
   saveQuestionnaire() {
     this._sharedService.loader('show');
     let payload;
-      // payload = {
-      //   _id: localStorage.getItem('loginID'),
-      //   services: this.selectedItems,
-      //   typical_hours: this.typical_hours,
-      // }
-    
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -158,6 +200,9 @@ ansIDs = [];
         customer_loved: ansID
       }
     }
+    else {
+      
+    }
     this.updateProfile(data);
   }
   getMultiAns(question_id,event) {
@@ -194,13 +239,11 @@ ansIDs = [];
         if (res.statusCode === 200) {
           this.profile = res.data;
           console.log('profile', this.profile)
-          this.toastr.success(res.message);
         } else {
           this.toastr.error(res.message);
   
         }
       }, err => {
-        this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });
 
   }
@@ -215,4 +258,36 @@ ansIDs = [];
   //     this.questionType = 'age'
   //   }
   // }
+
+  getSubSubAns(evt, subans) {
+    // console.log('getSubSubAns', evt);
+    const parentId = evt.target.id;
+    if(this.selectedItems.indexOf(parentId) === -1) {
+      this.selectedItems.push(parentId);
+    }
+    if(evt.target.checked && subans) {
+      this.sublevel2Res.question = evt.target.name
+      this.sublevel2Res.quesId =  parentId;
+      const path  = `questionare/get-sub-answer/${parentId}`;
+      this._sharedService.get(path).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+
+          // console.log('res.data', res.data)
+          this.sublevel2Res.options =  res.data;
+          // console.log('sublevel2Res', this.sublevel2Res)
+        } else {
+          this._sharedService.checkAccessToken(res.message);
+        }
+      }, err => {
+
+        this._sharedService.checkAccessToken(err);
+      });
+    }
+    else {
+      this.sublevel2Res.question = '';
+      this.sublevel2Res.quesId = '';
+      this.sublevel2Res.options = [];
+
+    }
+  }
 }

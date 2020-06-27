@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log('user====', user);
     });
     switch(this.router.url) {
       case "/auth/login/sp": 
@@ -78,24 +77,18 @@ export class LoginComponent implements OnInit {
     else {
       this.submitted = true;
       let data = JSON.stringify(this.loginForm.value);
-      // this.store.dispatch(new LogIn(data));
-      console.log('data', data, this.loginForm);
       this._sharedService.loader('show');
       this._sharedService.login(data).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
-          // this._bs.setUser(res.data);
           this._sharedService.loginUser(res, 'login');
           this.toastr.success(res.message, '', {
-            // disableTimeOut: truex
             timeOut: 2000
           });
 
         }
         else {
           this.toastr.error(res.message);
-
-
         }
 
       }, (error) => {

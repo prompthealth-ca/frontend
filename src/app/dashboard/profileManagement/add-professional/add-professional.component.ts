@@ -102,6 +102,7 @@ export class AddProfessionalComponent implements OnInit {
     this._sharedService.post(data, path).subscribe((res: any) => {
     this._sharedService.loader('hide');
       if (res.statusCode === 200) {
+        this.imagesList = '';
         this.toastr.success(res.message);
         this.getStaffList();
         this.addMore = !this.addMore;

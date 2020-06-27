@@ -10,10 +10,10 @@
   <div class="container" style="max-width: 700px !important">
     <h2 class="mb-4 ttle-bott-bor text-center text-uppercase">Questionnaire
     </h2>
-    <p class="h4 font-weight-normal">
+    <!-- <p class="h4 font-weight-normal">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at
       sagittis diam. Aliquam feugiat efficitur velit
-    </p>
+    </p> -->
   </div>
 </section>
 <section>
@@ -22,10 +22,6 @@
         <div *ngFor="let question of questionnaire" class="col-md-12 question">
           <h5 *ngIf="type === 'C'" class="text-primary text-uppercase">{{ question.center_question }}</h5>
 
-          <h5  *ngIf="type === 'U'" class="text-primary text-uppercase">
-            {{ question.c_question }}
-          </h5>
-
           <h5 *ngIf="type === 'SP'" class="text-primary text-uppercase">{{ question.sp_question }}</h5>
           <div class="mb-12">
             <div class="form-row" *ngIf="question.choice_type === 'single'">
@@ -33,9 +29,9 @@
                 <div class="radio" *ngIf="type === 'C' || type === 'SP' " >
                   <input type="radio" name="{{question._id}}" [id]="options._id" class="mr-3" /> <span>{{ options.item_text }}</span>
                 </div>
-                <div class="radio" *ngIf="type === 'U' " >
+                <!-- <div class="radio" *ngIf="type === 'U' " >
                   <input type="radio" name="{{question._id}}" [id]="options._id" class="mr-3" (change)="addQuestion(question._id, options._id)"/> <span>{{ options.item_text }}</span>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="form-row" *ngIf="question.choice_type === 'multiple'">
@@ -44,10 +40,10 @@
                   <input type="checkbox" name="answers" [id]="options._id" class="mr-3" (change)="getSubAns($event, options.subans, question.question_type)"/>
                   <span>{{ options.item_text }}</span>
                 </div>
-                <div class="radio"  *ngIf="type === 'U'" >
+                <!-- <div class="radio"  *ngIf="type === 'U'" >
                   <input type="checkbox" name="answers" [id]="options._id"  class="mr-3" (change)="getMultiAns(question._id, options._id)"/>
                   <span>{{ options.item_text }}</span>
-                </div>
+                </div> -->
                 <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">
                   <h5 class="text-primary text-uppercase">{{options.item_text }}</h5>
                   <div class="mb-12">
@@ -75,12 +71,8 @@
           </div>
         </div>
         <div class="col-12"><hr /></div>
-        <div class="col-12"  *ngIf = "type === 'U' && questionType !== 'availability'; else subBtn"  >
+        <!-- <div class="col-12"  *ngIf = "type === 'U' && questionType !== 'availability'; else subBtn"  >
           <div class="text-right">
-            <!-- <button type="button"
-            [disabled]="questionType === 'age'" class="pull-left btn btn-default prev-step" (click)="previousTabEvent()">=
-              <i class="fa fa-chevron-left"></i> Back
-            </button> -->
 
             <button
               type="button"
@@ -91,12 +83,10 @@
               Next <i class="fa fa-chevron-right"></i>
             </button>
           </div>
+        </div> -->
+        <div class="col-12 text-right">
+          <button type="submit" class="btn btn-primary" (click)="saveQuestionnaire()" value ="submit">Submit</button>
         </div>
-        <ng-template #subBtn>
-          <div class="col-12 text-right">
-            <button type="submit" class="btn btn-primary" (click)="saveQuestionnaire()" value ="submit">Submit</button>
-          </div>
-        </ng-template>
       </form>
     </div>
 </section>

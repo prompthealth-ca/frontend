@@ -51,7 +51,7 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
     this.bookingForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required] ),
-      email: new FormControl('', [Validators.required] ),
+      email: new FormControl('', [Validators.required, Validators.email] ),
       phone: new FormControl('', [Validators.required] ),
       timing: new FormControl('', [Validators.required] ),
       bookingDateTime: new FormControl('', [Validators.required]),
@@ -74,7 +74,6 @@ export class DetailComponent implements OnInit {
         if (this.userInfo) {
           this.userInfo.ratingAvg =  Math.floor(this.userInfo.ratingAvg);
         }
-        console.log('this.userInfo', this.userInfo)
        } else {
          this.toastr.error(res.message);
   
@@ -86,12 +85,8 @@ export class DetailComponent implements OnInit {
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
-
-    console.log('this.getProfileQuestion', res)
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
-        
-        console.log('this.getProfileQuestion', res.data)
        } else {
          this.toastr.error(res.message);
   
@@ -121,7 +116,6 @@ export class DetailComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.productList = res.data.data;
-        console.log('productList', this.productList);
         this.sharedService.loader('hide');
 
       } else {
@@ -135,16 +129,12 @@ export class DetailComponent implements OnInit {
   }
 
   getSavedAmenties() {
-    console.log('comes here')
     const path = `amenity/get-all/?userId=${this.id}&count=10&page=1&frontend=0`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       this.sharedService.loader('hide');
-
-    console.log('comes here', res)
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.savedAminities = res.data.data;
-        console.log('this.savedAminities-------', res, this.savedAminities);
       }
 
       else {
@@ -155,7 +145,6 @@ export class DetailComponent implements OnInit {
     });
   }
   timingSelected(evt) {
-    console.log('EVT', evt.target.value);
     this.timingSelectedValue =  evt.target.value;
   }
   bookApointment() {

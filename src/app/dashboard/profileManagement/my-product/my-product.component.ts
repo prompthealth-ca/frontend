@@ -129,6 +129,7 @@ export class MyProductComponent implements OnInit {
       this._sharedService.post(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
+          this.imagesList = [];
           this.toastr.success(res.message);
           this.getProductList();
           this.addMore = !this.addMore;

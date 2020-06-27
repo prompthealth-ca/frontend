@@ -246,7 +246,7 @@ getDefaultHeader() {
 
 
   loginUser(res, type) {
-    console.log('this.previousRouteService', this.previousRouteService.getPreviousUrl());
+    console.log('this.previousRouteService',res.data.roles, res, type);
     if (res.data.roles === 'U') {
       this._router.navigate(['home']);
     } else {

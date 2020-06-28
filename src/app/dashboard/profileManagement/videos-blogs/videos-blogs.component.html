@@ -16,7 +16,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let video of videosList; let i=index">
+        <tr *ngFor="let video of videosList  | paginate: { id: 'video',
+        itemsPerPage: 5,
+        currentPage: currentPage,
+        totalItems: totalItems 
+        }; let i=index">
             <td>
                 {{ video.title }}
             </td>
@@ -28,6 +32,15 @@
             </td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" *ngIf="totalItems > 5">
+                <pagination-controls
+                    id="video" 
+                    (pageChange)="currentPage = $event"></pagination-controls>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 <hr *ngIf="addMore && videosList && videosList.length == 0">
 <form *ngIf="addMore || videosList && videosList.length == 0" (ngSubmit)="saveVideos()" [formGroup]="videosForm">

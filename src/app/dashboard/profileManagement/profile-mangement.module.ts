@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AgmCoreModule } from '@agm/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -39,6 +40,7 @@ import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
     MyAffiliateComponent,
     MyProductComponent,
     RatingsComponent,
+    
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -49,7 +51,7 @@ import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
       libraries: ['places']
     }),
     NgxPaginationModule,NgxSpinnerModule,
-    SharedModule,
+    SharedModule,NgxDatatableModule,
     OwlDateTimeModule, OwlNativeDateTimeModule,
     CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, ]
     

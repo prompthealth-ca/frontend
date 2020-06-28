@@ -10,6 +10,7 @@ import { SharedService } from '../../shared/services/shared.service';
 })
 export class BlogDetailComponent implements OnInit {
   blogList;
+  defaultImage = 'assets/img/no-image.jpg';
   categoryList = [];
   private sub: any;
   id='';

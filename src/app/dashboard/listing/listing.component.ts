@@ -15,7 +15,9 @@ export class ListingComponent implements OnInit {
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
-  profileQuestions = [];
+  serviceQuestion;
+  languageQuestion;
+  avalibilityQuestion;
   loggedInUser;
   loggedInRole;
   id;
@@ -51,8 +53,13 @@ export class ListingComponent implements OnInit {
     latLong: '',
     age_range: '',
     name: '',
-    type: 'service'
+    type: 'service',
+    serviceOfferId: '',
   }
+
+  currentPage;
+  totalItems;
+  itemsPerPage = 10
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
@@ -88,7 +95,6 @@ export class ListingComponent implements OnInit {
       });
       
     });
-    localStorage
 
     this.loggedInUser = localStorage.getItem('loginID');
     this.loggedInRole = localStorage.getItem('roles');
@@ -97,9 +103,7 @@ export class ListingComponent implements OnInit {
     }
     this.getProfileQuestion();
     this.route.queryParams.subscribe(queryParams => {
-      console.log('queryParams', queryParams)
        this.id = queryParams.id;
-      console.log('queryParams id', this.id)
       this.listing({
         ids: this.id ? [this.id] : [],
       });
@@ -110,8 +114,17 @@ export class ListingComponent implements OnInit {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-        this.profileQuestions = res.data;
-        console.log('this.getProfileQuestion', res.data)
+        res.data.forEach(element => {
+          if(element.question_type ==='service' && element.category_type==="Delivery") {
+            this.serviceQuestion = element
+          }
+          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+            this.languageQuestion = element
+          }
+          if(element.question_type ==='availability') {
+            this.avalibilityQuestion = element
+          }
+        });
        } else {
          this.toastr.error(res.message);
   
@@ -153,8 +166,7 @@ export class ListingComponent implements OnInit {
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctorsListing = res.data;
-      
-        console.log('doctorsListing ====', this.doctorsListing);
+        this.totalItems =  this.doctorsListing.length;
         for(let i = 0; i < this.doctorsListing.length; i++) {
           if(this.doctorsListing[i].userData.ratingAvg) {
             this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg)
@@ -181,7 +193,8 @@ export class ListingComponent implements OnInit {
       latLong: '',
       age_range: '',
       name: '',
-      type: 'service'
+      type: 'service',
+      serviceOfferId: '',
     }
     this.listing({
       ids: [this.id],
@@ -192,6 +205,7 @@ export class ListingComponent implements OnInit {
     this.listingPayload.languageId ='';
     this.listingPayload.typicalHoursId = '';
     this.listingPayload.rating = '';
+    this.listingPayload.serviceOfferId = '';
 
     if (type === 'language') {
       this.listingPayload.languageId= value;
@@ -202,7 +216,9 @@ export class ListingComponent implements OnInit {
     if (type === 'rating') {
       this.listingPayload.rating = parseInt(value);
     }
-
+    if(type="serviceType"){
+      this.listingPayload.serviceOfferId = value;
+    }
     this.listing(this.listingPayload);
   }
   createNameList(data) {

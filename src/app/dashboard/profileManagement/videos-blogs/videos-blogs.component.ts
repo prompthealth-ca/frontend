@@ -13,6 +13,9 @@ export class VideosBlogsComponent implements OnInit {
   videosForm: FormGroup;
   videosList;
   addMore = false;
+  currentPage;
+  totalItems
+  pageSize: 10
 
   reg = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/
 
@@ -40,6 +43,7 @@ export class VideosBlogsComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.videosList = res.data[0].videos;
+        this.totalItems = this.videosList.length
 
       } else {
         this.sharedService.checkAccessToken(res.message);

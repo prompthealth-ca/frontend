@@ -19,6 +19,7 @@ import { ProfessionalRegisterComponent } from "./professional-register/professio
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SharedModule } from '../shared/shared.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AgmCoreModule } from '@agm/core';
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
@@ -48,6 +49,7 @@ import { UserQuestionaireComponent } from './user-questionaire/user-questionaire
     SharedModule,
     DashboardRoutingModule,
     NgxSpinnerModule,
+    NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
     NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),

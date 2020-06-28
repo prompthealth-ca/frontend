@@ -7,7 +7,10 @@ import { SharedService } from '../../../shared/services/shared.service';
   styleUrls: ['./my-payment.component.scss']
 })
 export class MyPaymentComponent implements OnInit {
-  transactionList = []
+  transactionList = [];
+  currentPage;
+  totalItems
+  pageSize: 10
   constructor(
     private sharedService: SharedService,) { }
 
@@ -20,6 +23,7 @@ export class MyPaymentComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.transactionList =res.data;
+        this.totalItems =  this.transactionList;
         console.log('transactionList---',res.data, this.transactionList);
       } else {
         this.sharedService.checkAccessToken(res.message);

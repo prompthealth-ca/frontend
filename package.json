@@ -34,6 +34,7 @@
     "@ngrx/effects": "^9.1.0",
     "@ngrx/store": "^9.1.0",
     "@nguniversal/express-engine": "^9.0.0",
+    "@swimlane/ngx-datatable": "^17.0.0",
     "@types/googlemaps": "^3.39.4",
     "angular": "^1.7.9",
     "angular-ng-autocomplete": "^2.0.1",

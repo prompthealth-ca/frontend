@@ -23,7 +23,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let prod of product | customFilter:productSearch: 'slug';let i = index">
+        <tr *ngFor="let prod of (product  | paginate: { id: 'video',
+        itemsPerPage: 5,
+        currentPage: currentPage,
+        totalItems: totalItems 
+        }
+        |  customFilter:productSearch: 'slug'); let i=index">
             <td>
                 {{ prod.slug }}
             </td>
@@ -44,6 +49,16 @@
             </td>
         </tr>
     </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="5" *ngIf="totalItems > 5">
+                <pagination-controls
+                    id="product" 
+                    (pageChange)="currentPage = $event"></pagination-controls>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 <!-- <pagination-controls
     *ngIf="product && product.length"

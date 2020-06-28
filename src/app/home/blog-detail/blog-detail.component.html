@@ -12,7 +12,8 @@
   <div class="row">
     <div class="col-md-9 content">
       <a class="blog-link">
-        <img [src]="blogList.img" class="w-100 mb-3" alt="No image">
+        
+        <img [src]="blogList.image ? 'http://3.12.81.245:3000/public/images/blogs/' + blogList.image :  defaultImage">
         <h4 class="text-uppercase">{{ blogList.title }}</h4>
       </a>
 

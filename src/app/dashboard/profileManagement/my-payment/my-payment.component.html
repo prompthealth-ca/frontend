@@ -17,7 +17,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let transaction of transactionList">
+    <tr *ngFor="let transaction of transactionList | paginate: { id: 'payment',
+    itemsPerPage: 5,
+    currentPage: currentPage,
+    totalItems: totalItems 
+    }; ">
       <td width="40%">
         {{transaction.stripeChargeId}}
       </td>
@@ -30,7 +34,15 @@
         
       </td>
     </tr>
-  </tbody>
+  </tbody><tfoot>
+    <tr>
+        <td colspan="3" *ngIf="totalItems > 5">
+            <pagination-controls
+                id="payment" 
+                (pageChange)="currentPage = $event"></pagination-controls>
+        </td>
+    </tr>
+</tfoot>
 </table>
 <ng-template #noData>
   <h5>No transaction listed...</h5>

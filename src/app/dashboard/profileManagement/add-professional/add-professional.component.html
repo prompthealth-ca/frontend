@@ -25,7 +25,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let prod of doctors | customFilter: doctorSearch: 'fname';  let i = index">
+        <tr *ngFor="let prod of (doctors  | paginate: { id: 'video',
+        itemsPerPage: 5,
+        currentPage: currentPage,
+        totalItems: totalItems 
+        }
+        | customFilter: doctorSearch: 'fname');  let i = index">
             
             <td>
                 <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
@@ -42,6 +47,15 @@
             </td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" *ngIf="totalItems > 5">
+                <pagination-controls
+                    id="video" 
+                    (pageChange)="currentPage = $event"></pagination-controls>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 <!-- <pagination-controls
     *ngIf="product && product.length"

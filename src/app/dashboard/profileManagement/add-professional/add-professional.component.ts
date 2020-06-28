@@ -18,8 +18,9 @@ export class AddProfessionalComponent implements OnInit {
   editDoctorId = '';
   doctorSearch: '';
   imagesList = '';
-  p: number = 1;
-  totalDoctors = 1
+  currentPage: 1;
+  totalItems
+  pageSize: 10
   userId: '';
   constructor(
     private _sharedService: SharedService,
@@ -49,6 +50,7 @@ export class AddProfessionalComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctors = res.data.data;
+        this.totalItems = this.doctors.length;
         if(this.doctors.length > 0) this.addMore = false
 
       } else {

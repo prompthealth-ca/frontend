@@ -11,6 +11,7 @@ import { SharedService } from '../../shared/services/shared.service';
 })
 export class BlogCategoryComponent implements OnInit {
   blogList = [];
+  defaultImage = 'assets/img/no-image.jpg';
   categoryList = [];
   private sub: any;
   id='';
@@ -32,6 +33,7 @@ export class BlogCategoryComponent implements OnInit {
   }
 
   getBlogList() {
+    console.log('this.id', this.id)
     let path = `blog/get-all?count=10&page=1&frontend=1&categoryId=${this.id}`
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');

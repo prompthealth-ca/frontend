@@ -10,6 +10,7 @@ import { SharedService } from '../../shared/services/shared.service';
 export class BlogComponent implements OnInit {
   blogList = [];
   categoryList = [];
+  defaultImage = 'assets/img/no-image.jpg';
 
   constructor(
     private _sharedService: SharedService,
@@ -27,6 +28,7 @@ export class BlogComponent implements OnInit {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.blogList = res.data.data;
+        console.log('this.blogList', this.blogList);
       }
 
       else {

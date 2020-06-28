@@ -12,6 +12,9 @@ export class ReviewsRatingsComponent implements OnInit {
   defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
   earnedPoint = 0
+  currentPage;
+  totalItems
+  pageSize: 10
   constructor(
     private _sharedService: SharedService,
   ) { }
@@ -31,6 +34,7 @@ export class ReviewsRatingsComponent implements OnInit {
         this.rating = this.rating.filter((el) => {
           return el.rating > 0
         })
+        this.totalItems = this.rating.length
         this.earnedPoint = this.rating.length ? Math.max.apply(Math, this.rating.map(function(o) { 
           return o.customerId.pointEarned; 
         })) : 0

@@ -28,6 +28,7 @@ export class SubscriptionPlanComponent {
 
   @ViewChild('closebutton') closebutton;
   centreYearly = true;
+  finalPrice ;
   spYearly = true;
   stripe;
   loading = false;
@@ -61,6 +62,7 @@ export class SubscriptionPlanComponent {
   selectedCard: any;
   errMessage: any;
   selectedPlan: any;
+  profile
 
   constructor(
     private previousRouteService: PreviousRouteService,
@@ -109,6 +111,7 @@ export class SubscriptionPlanComponent {
 
     this.getSubscriptionPlan('user/get-plans');
     // this.getUserDetails();
+    this.getProfileDetails();
   }
   getSubscriptionPlan(path) {
     this._sharedService.loader('show');
@@ -136,9 +139,30 @@ export class SubscriptionPlanComponent {
 
     });
   }
+  getProfileDetails() {
+    let path = `user/get-profile/${this.userEmail._id }`;
+    this._sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode = 200) {
+        this.profile = res.data[0];
+        console.log('profile', this.profile);
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
 
+      this._sharedService.checkAccessToken(err);
+    });
+  }
   setSelectedPlan(plan) {
-    this.selectedPlan = plan
+    this.selectedPlan = plan;
+    if(this.profile.refererencePointEarned) {
+      const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned/100));
+      this.finalPrice = discountedPrice + (discountedPrice * (5/100)); 
+    } else {
+      this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
+    }
+    this.finalPrice = this.finalPrice.toFixed(2)
+    console.log(' this.finalPrice',  this.finalPrice)
   }
   setSelectedFreePlan(plan) {
 
@@ -168,6 +192,7 @@ export class SubscriptionPlanComponent {
 
       if (res.success) {
         this.user = res.data.roles;
+        console.log('this.user ', this.user )
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -198,7 +223,9 @@ export class SubscriptionPlanComponent {
   }
   buy() {
     const name = this.stripeTest.get('name').value;
-    const price = this.selectedPlan.price * (5/100) // Tax added
+  
+    console.log('this.finalPrice ', this.finalPrice )
+    // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
       .subscribe(result => {
@@ -210,7 +237,8 @@ export class SubscriptionPlanComponent {
           plan: this.selectedPlan,
           cardId: result.token.card.id,
           token: result.token.id,
-          amount: this.selectedPlan.price
+          amount: this.finalPrice,
+          discount: this.profile.refererencePointEarned,
         }
 
         this._sharedService.loader('show');

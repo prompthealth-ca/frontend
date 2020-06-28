@@ -1,6 +1,10 @@
 <h3 class="mb-3">Reviews and Ratings 
   <span class="pull-right" *ngIf="earnedPoint && userInfo.roles=='U'">Point Earned: {{earnedPoint}}</span></h3> 
-<div class="" *ngIf = "rating; else noData">
+<div class="" *ngIf = "rating | paginate: { id: 'review',
+itemsPerPage: 5,
+currentPage: currentPage,
+totalItems: totalItems 
+}; else noData">
   <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
     <img *ngIf="userInfo.roles!=='U'" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
     <img *ngIf="userInfo.roles === 'U'" [src]="rate.drId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.drId.profileImage : defaultImage" />
@@ -50,6 +54,11 @@
         {{ rate.review }}
       </div>
     </div>
+
+    <hr>
+    <pagination-controls
+      id="review" 
+      (pageChange)="currentPage = $event"></pagination-controls>
   </div>
 </div>
 

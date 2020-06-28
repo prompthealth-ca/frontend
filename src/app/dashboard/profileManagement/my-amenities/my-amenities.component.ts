@@ -24,6 +24,9 @@ export class MyAmenitiesComponent implements OnInit {
   savedAminities = [];
   aminityObject
   submitted = false;
+  currentPage;
+  totalItems
+  pageSize: 10
   constructor(
     private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
@@ -42,8 +45,6 @@ export class MyAmenitiesComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.defaultAmenities = res.data;
-
-        console.log('defaultAmenities', this.defaultAmenities)
 
       } else {
         this.sharedService.checkAccessToken(res.message);
@@ -126,6 +127,7 @@ export class MyAmenitiesComponent implements OnInit {
       this.spinner.show();
       if (res.statusCode === 200) {
         this.savedAminities = res.data.data;
+        this.totalItems =  this.savedAminities.length;
         this.addMore = false;
         this.spinner.hide();
         this.toastr.success(res.message);

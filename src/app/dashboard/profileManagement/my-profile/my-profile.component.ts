@@ -86,6 +86,7 @@ export class MyProfileComponent implements OnInit {
     price_per_hours: '',
     business_kind: '',
     product_description: '',
+    isPlanExpired: false
   };
   languagesSelected = [];
   hoursSelected = [];

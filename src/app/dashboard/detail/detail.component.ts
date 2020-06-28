@@ -40,6 +40,11 @@ export class DetailComponent implements OnInit {
   minDate = new Date();
   timingSelectedValue = ''
   submitted = false;
+
+  currentPage;
+  totalItems;
+  itemsPerPage = 5
+
   constructor(
     private route: ActivatedRoute,
     private sharedService:SharedService,

@@ -18,7 +18,9 @@ export class MyBookingComponent implements OnInit {
   ratingPayload = {}
   ratingClicked: number;
   review = '';
-  // $: any;
+  currentPage;
+  totalItems;
+  itemsPerPage = 5
 
   timingList = [
     { id: 'timing1', name: 'Morning' },
@@ -58,6 +60,7 @@ export class MyBookingComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.bookingList = res.data.data;
+        this.totalItems = this.bookingList.length;
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

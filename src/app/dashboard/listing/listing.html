@@ -81,7 +81,7 @@
        
         <div class="mb-3">
           <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
-          <option *ngFor="let opt of profileQuestions[0]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+          <option *ngFor="let opt of avalibilityQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
         </select>
         </div>
         <hr />
@@ -90,7 +90,16 @@
        
         <div class="mb-3">
           <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
-            <option *ngFor="let opt of profileQuestions[1]?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+            <option *ngFor="let opt of languageQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
+          </select>
+        </div>
+        <hr/>
+
+        <h6 class="mb-3 text-primary">Service Type</h6>
+       
+        <div class="mb-3">
+          <select class="form-control"  #serviceType (change)="onOptionsSelected(serviceType.value, 'serviceType')">
+            <option *ngFor="let opt of serviceQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
           </select>
         </div>
         <hr/>
@@ -136,10 +145,6 @@
         </div>
 
         <hr />
-
-        <!-- <div class="text-right">
-          <button class="btn btn-primary">Apply Filter</button>
-        </div> -->
 
       </div>
       <div class="col-12 col-lg-9">

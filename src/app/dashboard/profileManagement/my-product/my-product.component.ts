@@ -18,8 +18,9 @@ export class MyProductComponent implements OnInit {
   editProductId = '';
   productSearch: '';
   imagesList = [];
-  p: number = 1;
-  totalProducts = 1
+  currentPage;
+  totalItems
+  pageSize: 10
   userId: '';
 
   constructor(
@@ -50,6 +51,7 @@ export class MyProductComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.product = res.data.data;
+        this.totalItems = this.product.length
         if(this.product.length > 0) this.addMore = false
 
       } else {

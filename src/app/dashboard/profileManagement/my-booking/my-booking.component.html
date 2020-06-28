@@ -1,6 +1,7 @@
 
 <div class="table-responsive" *ngIf="bookingList && bookingList.length; else noData">
   <h3 class="mb-3">My Bookings</h3>
+
   <table class="table table-hover bookingtable" *ngIf="this.roles === 'U'">
     <thead>
       <tr>
@@ -22,7 +23,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let book of bookingList">
+      <tr *ngFor="let book of bookingList | paginate: { id: 'booking',
+      itemsPerPage: itemsPerPage,
+      currentPage: currentPage,
+      totalItems: totalItems 
+      }">
         <td>{{ book.drId.firstName }} - {{ book.drId.lastName }}</td>
         <td>
           {{ book.drId.email }}
@@ -185,6 +190,16 @@
         </td>
       </tr>
     </tbody>
+
+    <tfoot>
+      <tr>
+          <td colspan="4" *ngIf="totalItems > 5">
+              <pagination-controls
+                  id="booking" 
+                  (pageChange)="currentPage = $event"></pagination-controls>
+          </td>
+      </tr>
+  </tfoot>
   </table>
   <table
     class="table table-hover bookingtable w-100"
@@ -208,7 +223,11 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let book of bookingList"
+        *ngFor="let book of bookingList | paginate: { id: 'booking2',
+        itemsPerPage: itemsPerPage,
+        currentPage: currentPage,
+        totalItems: totalItems 
+        }"
         [ngClass]="{ disabled: book.status === 2 }"
       >
         <td>
@@ -272,6 +291,13 @@
         </td>
       </tr>
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" *ngIf="totalItems > 5">
+          <pagination-controls id="booking2" (pageChange)="currentPage = $event"></pagination-controls>
+        </td>
+      </tr>
+  </tfoot>
   </table>
 </div>
 

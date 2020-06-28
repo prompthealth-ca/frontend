@@ -9,13 +9,13 @@
 
 <div class="container main-content py-5">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="row" *ngIf="blogList.length; else nodata">
-                <div class="col-md-6 mb-3" *ngFor="let list of blogList  | slice:0:6">
+                <div class="col-md-4 mb-3" *ngFor="let list of blogList  | slice:0:6">
                     <a
                     [routerLink]="['/blog-detail', list.slug]"
                     class="blog-post">
-                        <img [src]="list.img">
+                    <img [src]="list.image ? 'http://3.12.81.245:3000/public/images/blogs/' + list.image :  defaultImage">
                         <h4 class="mb-3">{{ list.title }}</h4>
                         <p [innerHTML] = "list.description"></p>
                     </a>
@@ -26,7 +26,7 @@
             </ng-template>
         </div>
 
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
             <h4 class="sidebar-title mb-0">Categories</h4>
         
             <div class="sidebar-link mb-3">
@@ -45,6 +45,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

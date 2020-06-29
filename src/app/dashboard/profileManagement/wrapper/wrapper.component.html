@@ -10,12 +10,14 @@
 <div class="container pb-4 position-relative">
   <div class="shadow bg-white">
     <div class="container-fluid">
-      <div class="row upgrade-header" *ngIf="profile  && !profile.isVipAffiliateUser">
+      <div class="row upgrade-header" *ngIf="profile  && !profile.isVipAffiliateUser && !profile.plan">
         <div class="col-sm-12">
           <p>To get all exlusive features upgrade your plan 
             <a class="btn btn-primary pull-right" [routerLink]="['/dashboard/subscriptionplan']">Upgrade Plan</a>
           </p>
         </div>
+
+        <hr>
       </div>
       <div class="row">
         <div class="col-md-3 px-3 px-sm-0">

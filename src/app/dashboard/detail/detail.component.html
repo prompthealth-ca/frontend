@@ -224,8 +224,8 @@
             <tr *ngIf="userInfo?.languages.length">
               <th>Language:</th>
               <td>
-                <span *ngFor="let profileItem of userInfo?.languages; let i = index">
-                  <span *ngFor="let item of profileQuestions[1]?.answers">
+                <span *ngFor="let item of languageQuestion?.answers">
+                  <span *ngFor="let profileItem of userInfo?.languages; let i = index">
                       <span *ngIf="item._id === profileItem">{{item.item_text}}</span>
                   </span>,
                 </span>

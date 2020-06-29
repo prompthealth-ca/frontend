@@ -257,8 +257,6 @@ export class MyProfileComponent implements OnInit {
     }
   }
   checkBoxChanged(e, fieldUpdated) {
-
-    console.log('result----', fieldUpdated);
     if(fieldUpdated === 'availability') {
       this.hoursSelected.push(e.target.id);
       this.profile.typical_hours = this.hoursSelected;
@@ -318,9 +316,9 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
         // this.profile = res.data;
-
+        this.profile.profileImage = res.data.profileImage;
         this._sharedService.loader('hide');
-        console.log('onFileSelect',res.data, this.profile);
+        console.log('onFileSelect', this.profile.profileImage, this.profile);
       } else {
         this.toastr.error(res.message);
       }

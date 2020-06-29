@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
@@ -17,6 +18,7 @@ export class MyAffiliateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _sharedService: SharedService,
     private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   get f() { return this.affiliateRequestForm.controls; }
@@ -49,6 +51,9 @@ export class MyAffiliateComponent implements OnInit {
           this.toastr.success(res.message);
           this.affiliateRequestForm.reset();
           this.submitted = false;
+          this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/dashboard/profilemanagement/my-affiliate']);
+        });
 
         }
 

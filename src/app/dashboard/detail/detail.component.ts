@@ -44,6 +44,9 @@ export class DetailComponent implements OnInit {
   currentPage;
   totalItems;
   itemsPerPage = 5
+  avalibilityQuestion
+  languageQuestion
+  serviceQuestion
 
   constructor(
     private route: ActivatedRoute,
@@ -92,6 +95,17 @@ export class DetailComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
+          res.data.forEach(element => {
+          if(element.question_type ==='service' && element.category_type==="Delivery") {
+            this.serviceQuestion = element
+          }
+          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+            this.languageQuestion = element
+          }
+          if(element.question_type ==='availability') {
+            this.avalibilityQuestion = element
+          }
+        });
        } else {
          this.toastr.error(res.message);
   

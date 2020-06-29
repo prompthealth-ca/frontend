@@ -25,6 +25,7 @@
                 <label  class="col-md-3">First Name <span class="text-danger">*</span></label>
             </ng-template>
             <!-- <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label> -->
+
             <input
             [disabled] = "!editFields"
             type="text"
@@ -101,7 +102,7 @@
                 <label  class="col-md-3">Available Time</label>
                 <div  class="col-md-9">
                     <div *ngIf="!editFields">
-                        <span *ngFor="let profileItem of profile.typical_hours; let i = index"> 
+                        <span *ngFor="let profileItem of profile?.typical_hours; let i = index"> 
                             <span *ngFor="let item of avalibilityQuestion?.answers; let i = index">
                                 <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
                             </span>
@@ -122,7 +123,7 @@
                 <div  class="col-md-9">
                     <div *ngIf="!editFields">
                         <span *ngFor="let item of languageQuestion?.answers; let i = index">
-                            <span *ngFor="let profileItem of profile.languages; let i = index"> 
+                            <span *ngFor="let profileItem of profile?.languages; let i = index"> 
                                 <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
                             </span>
                         </span>
@@ -143,7 +144,7 @@
                 <div  class="col-md-9">
                     <div *ngIf="!editFields">
                         <span *ngFor="let item of serviceQuestion?.answers; let i = index">
-                            <span *ngFor="let profileItem of profile.serviceOfferIds; let i = index"> 
+                            <span *ngFor="let profileItem of profile?.serviceOfferIds; let i = index"> 
                                 <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
                             </span>
                         </span>

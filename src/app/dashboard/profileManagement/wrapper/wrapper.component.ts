@@ -8,6 +8,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class WrapperComponent implements OnInit {
   public profile;
+  userInfo
   listing = [
     {
       title: 'My Profile',
@@ -37,13 +38,13 @@ export class WrapperComponent implements OnInit {
     // this.getSubscriptionPlan('user/get-plans');
   }
   getProfileDetails() {
-    const userInfo = JSON.parse(localStorage.getItem('user'));
-    let path = `user/get-profile/${userInfo._id }`;
+    this.userInfo  = JSON.parse(localStorage.getItem('user'));
+    let path = `user/get-profile/${this.userInfo._id }`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
         console.log('profile', this.profile);
-        this.setListing(this.profile);
+        if(this.profile) this.setListing(this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -78,62 +79,143 @@ export class WrapperComponent implements OnInit {
     });
   }
   setListing(profile){
-    if(profile.isVipAffiliateUser) {
-      if(profile.roles === 'SP') {
-        this.listing.push({
-          title: 'My Affiliate',
-          link: 'my-affiliate',
-          active: true,
-        });
-      }
-      if(profile.roles === 'C') {
-        this.listing.push({
-          title: 'My Amenities',
-          link: 'my-amenities',
-          active: true,
-        });
-        this.listing.push({
-          title: 'My Doctors',
-          link: 'add-professionals',
-          active: true,
-        });
-        this.listing.push({
-          title: 'My Products',
-          link: 'my-product',
-          active: true,
-        });
-        this.listing.push({
-          title: 'My Videos',
-          link: 'videos-blogs',
-          active: true,
-        });
-        this.listing.push({
-          title: 'My Payment',
-          link: 'my-payment',
-          active: true,
-        });
-        this.listing.push({
-          title: 'My Affiliate',
-          link: 'my-affiliate',
-          active: true,
-        });
-      }
-    }
-    else {
-      console.log('profile.roles', profile.roles);
-      console.log('profile.plan', profile.plan);
-      if (profile.roles === 'SP') {
-        if (profile.plan) {
+    if(profile) {
+      if( profile.isVipAffiliateUser) {
+        if(profile.roles === 'SP') {
+          this.listing.push({
+            title: 'My Affiliate',
+            link: 'my-affiliate',
+            active: true,
+          });
+        }
+        if(profile.roles === 'C') {
+          this.listing.push({
+            title: 'My Amenities',
+            link: 'my-amenities',
+            active: true,
+          });
+          this.listing.push({
+            title: 'My Doctors',
+            link: 'add-professionals',
+            active: true,
+          });
+          this.listing.push({
+            title: 'My Products',
+            link: 'my-product',
+            active: true,
+          });
+          this.listing.push({
+            title: 'My Videos',
+            link: 'videos-blogs',
+            active: true,
+          });
           this.listing.push({
             title: 'My Payment',
             link: 'my-payment',
             active: true,
           });
           this.listing.push({
-            title: 'My Subscription',
-            link: 'my-subscription',
+            title: 'My Affiliate',
+            link: 'my-affiliate',
             active: true,
           });
+        }
+      }
+      else {
+        if (profile.roles === 'SP') {
+          if (profile.plan) {
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: true,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: true,
+            });
+
+            if (profile.plan.videoUpload === true) {
+              this.listing.push({
+                title: 'My Videos',
+                link: 'videos-blogs',
+                active: true,
+              });
+            } 
+            else {
+              this.listing.push({
+                title: 'My Videos',
+                link: 'videos-blogs',
+                active: false,
+              });
+            }
+          } else {
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: false,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: false,
+            });
+          }
+          if (profile.plan && profile.plan.professionalProfile === true) {
+          }
+          this.listing.push({
+            title: 'My Affiliate',
+            link: 'my-affiliate',
+            active: true,
+          });
+        }
+        if(profile.roles === 'U') {
+          this.listing.push(...this.uListing);
+        }
+        if (profile.roles === 'C') {
+          if (profile.plan.professionalProfile === true) {
+          }
+          if (profile.plan.ListAmenities === true) {
+            this.listing.push({
+              title: 'My Amenities',
+              link: 'my-amenities',
+              active: true,
+            });
+          } else {
+            this.listing.push({
+              title: 'My Amenities',
+              link: 'my-amenities',
+              active: false,
+            });
+          }
+
+          if (profile.plan.ListOfProviders === true) {
+            this.listing.push({
+              title: 'My Doctors',
+              link: 'add-professionals',
+              active: true,
+            });
+          } else {
+            this.listing.push({
+              title: 'My Doctors',
+              link: 'add-professionals',
+              active: false,
+            });
+          }
+
+          if (profile.plan.ListProductsOption === true) {
+            this.listing.push({
+              title: 'My Products',
+              link: 'my-product',
+              active: true,
+            });
+          } else {
+            this.listing.push({
+              title: 'My Products',
+              link: 'my-product',
+              active: false,
+            });
+          }
 
           if (profile.plan.videoUpload === true) {
             this.listing.push({
@@ -141,126 +223,45 @@ export class WrapperComponent implements OnInit {
               link: 'videos-blogs',
               active: true,
             });
-          } 
-          else {
+          } else {
             this.listing.push({
               title: 'My Videos',
               link: 'videos-blogs',
               active: false,
             });
           }
-        } else {
-          this.listing.push({
-            title: 'My Payment',
-            link: 'my-payment',
-            active: false,
-          });
-          this.listing.push({
-            title: 'My Subscription',
-            link: 'my-subscription',
-            active: false,
-          });
-        }
-        if (profile.plan && profile.plan.professionalProfile === true) {
-        }
-        this.listing.push({
-          title: 'My Affiliate',
-          link: 'my-affiliate',
-          active: true,
-        });
-      }
-      if(profile.roles === 'U') {
-        this.listing.push(...this.uListing);
-      }
-      if (profile.roles === 'C') {
-        if (profile.plan.professionalProfile === true) {
-        }
-        if (profile.plan.ListAmenities === true) {
-          this.listing.push({
-            title: 'My Amenities',
-            link: 'my-amenities',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'My Amenities',
-            link: 'my-amenities',
-            active: false,
-          });
-        }
 
-        if (profile.plan.ListOfProviders === true) {
-          this.listing.push({
-            title: 'My Doctors',
-            link: 'add-professionals',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'My Doctors',
-            link: 'add-professionals',
-            active: false,
-          });
-        }
-
-        if (profile.plan.ListProductsOption === true) {
-          this.listing.push({
-            title: 'My Products',
-            link: 'my-product',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'My Products',
-            link: 'my-product',
-            active: false,
-          });
-        }
-
-        if (profile.plan.videoUpload === true) {
-          this.listing.push({
-            title: 'My Videos',
-            link: 'videos-blogs',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'My Videos',
-            link: 'videos-blogs',
-            active: false,
-          });
-        }
-
-        if (profile.plan._id) {
-          this.listing.push({
-            title: 'My Payment',
-            link: 'my-payment',
-            active: true,
-          });
-          this.listing.push({
-            title: 'My Subscription',
-            link: 'my-subscription',
-            active: true,
-          });
-        } else {
-          this.listing.push({
-            title: 'My Payment',
-            link: 'my-payment',
-            active: false,
-          });
-          this.listing.push({
-            title: 'My Subscription',
-            link: 'my-subscription',
-            active: false,
-          });
-        }
+          if (profile.plan._id) {
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: true,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: true,
+            });
+          } else {
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: false,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: false,
+            });
+          }
 
 
-        this.listing.push({
-          title: 'My Affiliate',
-          link: 'my-affiliate',
-          active: true,
-        });
+          this.listing.push({
+            title: 'My Affiliate',
+            link: 'my-affiliate',
+            active: true,
+          });
+        }
       }
     }
     this.listing.push({

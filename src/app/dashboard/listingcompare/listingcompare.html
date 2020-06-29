@@ -45,7 +45,11 @@
           <tr>
             <th class="table-active">Languages</th>
             <td *ngFor="let user of data">
-              {{user.userData.languages}}
+              <span *ngFor="let item of languageQuestion?.answers">
+                <span *ngFor="let profileItem of user.userData.languages; let i = index">
+                  <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
+                </span>
+              </span>
             </td>
           </tr>
 
@@ -53,17 +57,6 @@
             <th class="table-active">Treatment services</th>
             <td *ngFor="let user of data"></td>
           </tr>
-
-          <!-- <tr>
-            <th class="table-active">Practice Description</th>
-            <td *ngFor="let user of data">
-              I truly believe that each of us, no matter what we have
-              experienced or where we come from, have the power within us to
-              live the life we want to live. This potential can be unlocked if
-              we have the strategies to walk through the anxiety of overcoming
-              them and facing our fears.
-            </td>
-          </tr> -->
 
           <tr>
             <th class="table-active">Service Types</th>
@@ -77,7 +70,11 @@
           <tr>
             <th class="table-active">Working Hours</th>
             <td *ngFor="let user of data">
-              {{user.userData.typical_hours}}
+              <span *ngFor="let item of avalibilityQuestion?.answers">
+                <span *ngFor="let profileItem of user.userData.typical_hours; let i = index">
+                  <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
+                </span>
+              </span>
             </td>
           </tr>
 
@@ -100,187 +97,3 @@
   </div>
 </section>
 
-
-
-<!-- <section class="pt-5 pb-5">
-  <div class="container">
-    <h3 class="text-primary mb-3">Compare Therapists</h3>
-    <div class="tableoverflow overflow-auto">
-      <table class="table table-hover comparetable">
-        <thead>
-          <tr>
-            <th class="border-0"></th>
-            <th class="border-0">
-              <div class="avatartable">
-                <i class="fa fa-times"></i>
-                <img src="assets/img/man-testimonial.jpg" class="w-100" />
-              </div>
-            </th>
-            <th class="border-0 ">
-              <div class="avatartable">
-                <i class="fa fa-times"></i>
-                <img src="assets/img/man-testimonial.jpg" class="w-100" />
-              </div>
-            </th>
-          </tr>
-          <tr class="bg-primary text-light">
-            <th class="table-active">Feature</th>
-            <th>ANITA GERBER, LCSW</th>
-            <th>ROBERT KAUFFMAN, LCSW</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="table-active">Location</th>
-            <td>1121 Lake Cook Road, Suite P, Deerfield, Illinois, 60015</td>
-            <td>3633 W. Lake Ave #105, Glenview, Illinois, 60025</td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Contact Information</th>
-            <td>
-              <a href="" class="text-primary"
-                >Click Here to view contact info</a
-              >
-            </td>
-            <td>
-              <a href="" class="text-primary"
-                >Click Here to view contact info</a
-              >
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Office Hours</th>
-            <td>
-              <a href="" class="text-primary">Click here to view Calendar</a>
-            </td>
-            <td>
-              <a href="" class="text-primary">Click here to view Calendar</a>
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Video</th>
-            <td>
-              <a href="" class="text-primary">Click here to view Video</a>
-            </td>
-            <td>
-              <a href="" class="text-primary"
-                >Click Here to view contact info</a
-              >
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Profession</th>
-            <td>
-              Professional Counselor
-            </td>
-            <td>
-              Professional Counselor
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Standard fee</th>
-            <td>
-              $155
-            </td>
-            <td>
-              $200
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Insurance Accepted</th>
-            <td>
-              BlueCross and BlueShield
-            </td>
-            <td>
-              BlueCross and BlueShield
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Additional languages</th>
-            <td>
-              English
-            </td>
-            <td>
-              English
-            </td>
-          </tr>
-
-          <tr class="bg-primary text-light">
-            <th class="table-active">Treatment services</th>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Practice Description</th>
-            <td>
-              I truly believe that each of us, no matter what we have
-              experienced or where we come from, have the power within us to
-              live the life we want to live. This potential can be unlocked if
-              we have the strategies to walk through the anxiety of overcoming
-              them and facing our fears.
-            </td>
-            <td>
-              I truly believe that each of us, no matter what we have
-              experienced or where we come from, have the power within us to
-              live the life we want to live. This potential can be unlocked if
-              we have the strategies to walk through the anxiety of overcoming
-              them and facing our fears.
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Service Types</th>
-            <td>
-              Individual therapy, Group therapy, Family therapy
-            </td>
-            <td>
-              Individual therapy, Group therapy, Family therapy
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Problem / Issue specialties</th>
-            <td>
-              Obsessive compulsive disorder, Panic attacks, Agoraphobia
-            </td>
-            <td>
-              Obsessive compulsive disorder, Panic attacks, Agoraphobia
-            </td>
-          </tr>
-
-          <tr>
-            <th class="table-active">Practice / Cultural Specialtiesdeo</th>
-            <td>
-              I specialize in the treatment of OCD and the spectrum of disorders
-              associated with it, but I work with severe anxiety disorders of
-              many kinds. These disorders include panic, agoraphobia,
-              generalized anxiety, social anxiety, and a multitude of phobic
-              disorders. I utilize cognitive-behavioral therapy and other
-              evidence-based treatments for these conditions. I am particularly
-              fond to work with adolescents who are experiencing behavioral
-              difficulties at school or at home.
-            </td>
-            <td>
-              I specialize in the treatment of OCD and the spectrum of disorders
-              associated with it, but I work with severe anxiety disorders of
-              many kinds. These disorders include panic, agoraphobia,
-              generalized anxiety, social anxiety, and a multitude of phobic
-              disorders. I utilize cognitive-behavioral therapy and other
-              evidence-based treatments for these conditions. I am particularly
-              fond to work with adolescents who are experiencing behavioral
-              difficulties at school or at home.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section> -->

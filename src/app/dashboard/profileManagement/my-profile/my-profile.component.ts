@@ -227,12 +227,14 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
-        this.getDefaultCheckedValues(this.profile.languages, 'languages');
-        this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
-        this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
-        this.languagesSelected = this.profile.languages;
-        this.serviceOfferSelected = this.profile.serviceOfferIds;
-        this.hoursSelected = this.profile.typical_hours;
+        if(this.profile) {
+          this.getDefaultCheckedValues(this.profile.languages, 'languages');
+          this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
+          this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
+          this.languagesSelected = this.profile.languages;
+          this.serviceOfferSelected = this.profile.serviceOfferIds;
+          this.hoursSelected = this.profile.typical_hours;
+        }
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

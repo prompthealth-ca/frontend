@@ -120,6 +120,8 @@ export class WrapperComponent implements OnInit {
       }
     }
     else {
+      console.log('profile.roles', profile.roles);
+      console.log('profile.plan', profile.plan);
       if (profile.roles === 'SP') {
         if (profile.plan) {
           this.listing.push({
@@ -132,6 +134,21 @@ export class WrapperComponent implements OnInit {
             link: 'my-subscription',
             active: true,
           });
+
+          if (profile.plan.videoUpload === true) {
+            this.listing.push({
+              title: 'My Videos',
+              link: 'videos-blogs',
+              active: true,
+            });
+          } 
+          else {
+            this.listing.push({
+              title: 'My Videos',
+              link: 'videos-blogs',
+              active: false,
+            });
+          }
         } else {
           this.listing.push({
             title: 'My Payment',
@@ -146,7 +163,6 @@ export class WrapperComponent implements OnInit {
         }
         if (profile.plan && profile.plan.professionalProfile === true) {
         }
-
         this.listing.push({
           title: 'My Affiliate',
           link: 'my-affiliate',
@@ -252,6 +268,6 @@ export class WrapperComponent implements OnInit {
       link: 'reviews-ratings',
       active: true,
     });
+    console.log('his.listin', this.listing);
   }
-  
 }

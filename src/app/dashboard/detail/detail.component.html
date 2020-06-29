@@ -185,7 +185,7 @@
         >Professionals</a
       >
       </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C' || userInfo?.roles === 'SP' ">
         <a
         class="nav-link"
         id="rating-tab"
@@ -226,8 +226,8 @@
               <td>
                 <span *ngFor="let item of languageQuestion?.answers">
                   <span *ngFor="let profileItem of userInfo?.languages; let i = index">
-                      <span *ngIf="item._id === profileItem">{{item.item_text}}</span>
-                  </span>,
+                      <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
+                  </span>
                 </span>
               </td>
             </tr>
@@ -256,6 +256,16 @@
                   {{special.item_text}}
                 </div>
                 </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Serices Type:</th>
+              <td>
+                <span *ngFor="let item of serviceQuestion?.answers">
+                  <span *ngFor="let profileItem of userInfo?.serviceOfferIds; let i = index">
+                      <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
+                  </span>
+                </span>
               </td>
             </tr>
             <tr>

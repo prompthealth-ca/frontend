@@ -144,7 +144,7 @@ export class WrapperComponent implements OnInit {
             active: false,
           });
         }
-        if (profile.plan.professionalProfile === true) {
+        if (profile.plan && profile.plan.professionalProfile === true) {
         }
 
         this.listing.push({

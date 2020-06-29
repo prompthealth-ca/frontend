@@ -34,7 +34,7 @@ const routes: Routes = [
     component: PricvacyPolicyComponent
   },
   {
-    path: "term&conditions",
+    path: "termConditions",
     component: TermsConditionsComponent
   },
   {

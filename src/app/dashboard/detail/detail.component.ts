@@ -175,7 +175,6 @@ export class DetailComponent implements OnInit {
       const formData = {
         ...this.bookingForm.value,
       }
-      console.log('this.bookingForm.value', formData, this.bookingForm.controls);
       let data = {
         'drId': this.userInfo._id,
         'customerId': this.myId,
@@ -185,12 +184,10 @@ export class DetailComponent implements OnInit {
       data.phone = data.phone.toString();
       data.bookingDateTime = data.bookingDateTime.toString();
       this.sharedService.loader('show');
-      console.log('Data', data);
       const path = `booking/create`
       this.sharedService.post(data, path).subscribe((res: any) => {
         this.sharedService.loader('hide');
         if (res.statusCode === 200) {
-          console.log('res', res);
           this.toastr.success(res.message);
 
           this.closebutton.nativeElement.click();
@@ -205,12 +202,10 @@ export class DetailComponent implements OnInit {
     }
   }
   getSavedRating() {
-    console.log('this.getSavedRating', this.id);
     let path = `booking/get-all-review?userId=${this.id }&count=10&page=1&search=/`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.rating = res.data.data;
-        console.log('this.rating', this.rating);
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

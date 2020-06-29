@@ -129,6 +129,7 @@
                     </div>
                     <div *ngIf="editFields" class="row">
                         <div  class="col-md-4" *ngFor="let item of languageQuestion?.answers; let i = index">
+
                             <label for="{{item._id}}">
                                 <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, languageQuestion.question_type)"/>
                                 <span class="text-body">{{item.item_text}}</span>
@@ -149,7 +150,9 @@
                     </div>
                     <div *ngIf="editFields" class="row">
                         <div  class="col-md-4" *ngFor="let item of serviceQuestion?.answers; let i = index">
+                          
                             <label for="{{item._id}}">
+
                                 <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, 'serviceType')"/>
                                 <span class="text-body">{{item.item_text}}</span>
                             </label>
@@ -165,9 +168,9 @@
             <div *ngIf="editFields" class="col-sm-9">
                 <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
-                        <!-- == {{ item | json}} -->
+           
                         <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="age_range" [value]="item.name" [(ngModel)] = "profile.age_range" required id="{{item.id}}" (change)="radioChanged($event, 'age_range')"/>
+                            <input class="radio" type="radio" name="age_range" [value]="item.name" [(ngModel)] = "profile.age_range" required id="{{item.id}}"/>
                             <span class="text-body">{{item.name}}</span>
                         </label>
                     </div>
@@ -181,7 +184,7 @@
                 <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of experienceList; let i = index"> 
                         <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="years_of_experience" [(ngModel)] = "profile.years_of_experience" value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'years_of_experience')"/>
+                            <input class="radio" type="radio" name="years_of_experience" [(ngModel)] = "profile.years_of_experience" value="{{item.name}}" required id="{{item.id}}"/>
                             <span class="text-body">{{item.name}}</span>
                         </label>
                     </div>
@@ -195,7 +198,7 @@
                 <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of priceList; let i = index"> 
                         <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="price_per_hours" [(ngModel)] = "profile.price_per_hours"  value="{{item.name}}" required id="{{item.id}}" (change)="radioChanged($event, 'price_per_hours')"/>
+                            <input class="radio" type="radio" name="price_per_hours" [(ngModel)] = "profile.price_per_hours"  value="{{item.name}}" required id="{{item.id}}"/>
                             <span class="text-body">{{item.name}}</span>
                         </label>
                     </div>
@@ -209,7 +212,7 @@
                 <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of businessList; let i = index"> 
                         <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="business_kind" value="{{item.name}}" [(ngModel)] = "profile.business_kind" required id="{{item.id}}" (change)="radioChanged($event, 'business_kind')"/>
+                            <input class="radio" type="radio" name="business_kind" value="{{item.name}}" [(ngModel)] = "profile.business_kind" required id="{{item.id}}"/>
                             <span class="text-body">{{item.name}}</span>
                         </label>
                     </div>

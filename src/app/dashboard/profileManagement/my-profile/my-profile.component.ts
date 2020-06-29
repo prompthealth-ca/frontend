@@ -214,7 +214,6 @@ export class MyProfileComponent implements OnInit {
           }
         });
         
-        console.log('this.getProfileQuestion', res.data)
        } else {
          this.toastr.error(res.message);
   
@@ -230,7 +229,10 @@ export class MyProfileComponent implements OnInit {
         this.profile = res.data[0];
         this.getDefaultCheckedValues(this.profile.languages, 'languages');
         this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
-        console.log('profile', this.profile);
+        this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
+        this.languagesSelected = this.profile.languages;
+        this.serviceOfferSelected = this.profile.serviceOfferIds;
+        this.hoursSelected = this.profile.typical_hours;
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -258,37 +260,54 @@ export class MyProfileComponent implements OnInit {
   }
   checkBoxChanged(e, fieldUpdated) {
     if(fieldUpdated === 'availability') {
-      this.hoursSelected.push(e.target.id);
+      if(e.target.checked) {
+        if(this.hoursSelected.indexOf(e.target.id) === -1) {
+          this.hoursSelected.push(e.target.id);
+        }
+      }
+      else {
+        const find = this.hoursSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.hoursSelected.splice(find, 1);
+        }
+      }
       this.profile.typical_hours = this.hoursSelected;
     }
     if(fieldUpdated === 'service') {
-      this.languagesSelected.push(e.target.id);
+        if(e.target.checked) {
+          if(this.languagesSelected.indexOf(e.target.id) === -1) {
+            this.languagesSelected.push(e.target.id);
+          }
+        }
+        else {
+          const find = this.languagesSelected.indexOf(e.target.id)
+          if(find > -1) {
+            this.languagesSelected.splice(find, 1);
+          }
+        }
       this.profile.languages = this.languagesSelected;
     }
     if(fieldUpdated === 'serviceType') {
-      this.serviceOfferSelected.push(e.target.id);
+      if(e.target.checked) {
+        if(this.serviceOfferSelected.indexOf(e.target.id) === -1) {
+          this.serviceOfferSelected.push(e.target.id);
+        }
+      }
+      else {
+        const find = this.serviceOfferSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.serviceOfferSelected.splice(find, 1);
+        }
+      }
       this.profile.serviceOfferIds = this.serviceOfferSelected;
     }
-  }
-  radioChanged(e, fieldUpdated){
-    if(fieldUpdated === 'age_range') {
-      this.profile.age_range = e.target.value;
-    }
-    if(fieldUpdated === 'years_of_experience') {
-      this.profile.years_of_experience = e.target.value;
-    }
-    if(fieldUpdated === 'price_per_hours') {
-      this.profile.price_per_hours = e.target.value;
-    }
-    if(fieldUpdated === 'business_kind') {
-      this.profile.business_kind = e.target.value;
-    }
+
   }
  
   save() {
     const payload = this.profile;
     payload['_id'] = localStorage.getItem('loginID');
-    payload.phone.toString();
+    if(payload.phone) payload.phone.toString();
     let data = JSON.parse(JSON.stringify(this.profile));
 
       this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
@@ -311,14 +330,12 @@ export class MyProfileComponent implements OnInit {
     // Add your values in here
     input.append('_id', this.userInfo._id);
     input.append('profileImage', event.target.files[0]);
-    console.log('input', input);
     this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
         // this.profile = res.data;
         this.profile.profileImage = res.data.profileImage;
         this._sharedService.loader('hide');
-        console.log('onFileSelect', this.profile.profileImage, this.profile);
       } else {
         this.toastr.error(res.message);
       }

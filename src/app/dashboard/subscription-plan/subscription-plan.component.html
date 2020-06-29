@@ -219,7 +219,7 @@
         <tr>
           <td></td>
           <td>
-            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }">Register</a>
+            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']">Register</a>
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
             (click)="setSelectedFreePlan(basicPlan)" 
             style="max-width: 175px;" aria-label="Close">Explore</a>
@@ -230,7 +230,7 @@
             data-target="#addcard"
             (click)="setSelectedPlan(cPlan)"
           style="max-width: 175px;" aria-label="Close">Buy</a>
-          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"  [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }"
+          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
           style="max-width: 175px;" aria-label="Close">Buy</a>
             <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
@@ -241,7 +241,7 @@
             data-target="#addcard"
             (click)="setSelectedPlan(spPlan)"
             style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']" [queryParams]=" {previousPath: '/dashboard/subscriptionplan' }"
+            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
             style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 

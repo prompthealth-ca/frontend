@@ -242,17 +242,17 @@ export class MyProfileComponent implements OnInit {
     });
   }
   getDefaultCheckedValues(data, key) {
-    if(key === 'serviceType') {
+    if(key === 'serviceType' && this.serviceQuestion) {
       this.serviceQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
     }
-    if(key === 'typical_hours') {
+    if(key === 'typical_hours'&&this.avalibilityQuestion) {
       this.avalibilityQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
     }
-    if(key === 'languages') {
+    if(key === 'languages' && this.languageQuestion) {
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });

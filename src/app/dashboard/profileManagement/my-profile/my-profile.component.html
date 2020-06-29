@@ -11,7 +11,7 @@
 <div class="form-row">
     <div class="col-md-12 text-center">
         <div class="d-inline-block profileeditbox">
-            <img [src]="profile.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" />
+            <img [src]="profile?.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+profile?.profileImage : defaultImage" />
             <!-- <img [src]="defaultImage" /> -->
             <!-- <input type="file" *ngIf="editFields"/> -->
             <input type="file" name="profile"  (change)="onFileSelect($event)" *ngIf="editFields"/>

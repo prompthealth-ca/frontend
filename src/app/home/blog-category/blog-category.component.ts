@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 
 
@@ -20,6 +20,7 @@ export class BlogCategoryComponent implements OnInit {
 
   constructor(
     private activeRoute: ActivatedRoute,
+    public route: Router,
     private _sharedService: SharedService,
     private toastr: ToastrService,
   ) { }
@@ -27,9 +28,9 @@ export class BlogCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.sub = this.activeRoute.params.subscribe(params => {
       this.id = params['id'];
+      this.getBlogList();
+      this.getAllCategories();
    });
-    this.getBlogList();
-    this.getAllCategories();
   }
 
   getBlogList() {

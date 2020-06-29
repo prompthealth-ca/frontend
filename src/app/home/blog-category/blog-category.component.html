@@ -13,7 +13,7 @@
             <div class="row" *ngIf="blogList.length; else nodata">
                 <div class="col-md-4 mb-3" *ngFor="let list of blogList  | slice:0:6">
                     <a
-                    [routerLink]="['/blog-detail', list.slug]"
+                    [routerLink]="['/blog-detail', list._id]"
                     class="blog-post">
                     <img [src]="list.image ? 'http://3.12.81.245:3000/public/images/blogs/' + list.image :  defaultImage">
                         <h4 class="mb-3">{{ list.title }}</h4>
@@ -26,14 +26,14 @@
             </ng-template>
         </div>
 
-        <!-- <div class="col-md-3">
+        <div class="col-md-3">
             <h4 class="sidebar-title mb-0">Categories</h4>
         
             <div class="sidebar-link mb-3">
                 <span *ngFor="let list of categoryList">
-                    <a [routerLink]="['/blog-category', list.categorytypeId]">{{list.title}}</a></span>
+                    <a [routerLink]="['/blog-category', list._id]">{{list.title}}</a></span>
             </div>
-            <div *ngIf="blogList.length > 6">
+            <!-- <div *ngIf="blogList.length > 6">
                 <h4 class="sidebar-title mb-0">Recent Posts</h4>
                 <ul class="list-unstyled">
                     <li  *ngFor="let list of blogList  | slice:7:10">
@@ -44,7 +44,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
-        </div> -->
+            </div> -->
+        </div>
     </div>
 </div>

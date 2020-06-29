@@ -31,7 +31,7 @@
         
             <div class="sidebar-link mb-3">
                 <span *ngFor="let list of categoryList">
-                    <a [routerLink]="['/blog-category', list.categorytypeId]">{{list.title}}</a>
+                    <a [routerLink]="['/blog-category', list._id]">{{list.title}}</a>
                 </span>
             </div>
             <div *ngIf="blogList.length > 4">

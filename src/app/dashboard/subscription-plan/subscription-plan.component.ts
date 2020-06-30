@@ -119,7 +119,6 @@ export class SubscriptionPlanComponent {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-        console.log('res.data', res.data);
         res.data.forEach(element => {         
           if (element.userType.length > 1 && element.name === 'Basic') {
             this.basicPlan = element;
@@ -144,7 +143,6 @@ export class SubscriptionPlanComponent {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.profile = res.data[0];
-        console.log('profile', this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -162,7 +160,6 @@ export class SubscriptionPlanComponent {
       this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
     }
     this.finalPrice = this.finalPrice.toFixed(2)
-    console.log(' this.finalPrice',  this.finalPrice)
   }
   setSelectedFreePlan(plan) {
 
@@ -192,7 +189,6 @@ export class SubscriptionPlanComponent {
 
       if (res.success) {
         this.user = res.data.roles;
-        console.log('this.user ', this.user )
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -224,7 +220,6 @@ export class SubscriptionPlanComponent {
   buy() {
     const name = this.stripeTest.get('name').value;
   
-    console.log('this.finalPrice ', this.finalPrice )
     // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })

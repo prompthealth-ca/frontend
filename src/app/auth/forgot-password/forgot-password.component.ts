@@ -44,9 +44,7 @@ export class ForgotPasswordComponent implements OnInit {
             this._sharedService.loader('show');
             this._sharedService.postNoAuth(data, 'user/forgotpassword').subscribe((res: any) => {
                 this._sharedService.loader('hide');
-                console.log(">>>>>>>", res)
                 if (res.statusCode === 200) {
-                    console.log(">>>>>>>", res)
                     this.toastr.success(res.message);
                     this._router.navigate(['/auth/login/u']);
 

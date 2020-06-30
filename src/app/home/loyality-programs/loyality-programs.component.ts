@@ -22,7 +22,6 @@ export class LoyalityProgramsComponent implements OnInit {
         this.title = res.data.title
         this.description = res.data.description
 
-        console.log('this.resultLoyalty', this.result)
       }
     },
       (error) => { });

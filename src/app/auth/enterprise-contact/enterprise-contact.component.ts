@@ -67,10 +67,13 @@ export class EnterpriseContactComponent implements OnInit {
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.success) {
-          this.toastr.success(res.message);
+          this.toastr.success('Request sent');
 
           this.homeForm.reset();
           this.submitted = false;
+
+
+        this._router.navigate(['/home']);
 
         }
 

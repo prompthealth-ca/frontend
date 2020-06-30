@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         break;
 
     }
-    console.log('_route', this.router.url, this.professionalLogin);
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

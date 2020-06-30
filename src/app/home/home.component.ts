@@ -81,7 +81,6 @@ export class HomeComponent implements OnInit {
       this.zipCodeSearched = '';
       if (status === 'OK') {
         if (results[0]) {
-          console.log('results[0]', results[0].formatted_address)
 
           localStorage.setItem('searchedAddress', results[0].formatted_address)
 
@@ -99,8 +98,6 @@ export class HomeComponent implements OnInit {
         } else {
           window.alert('No results found');
         }
-
-        console.log('zipCodeSearched[0]',  this.zipCodeSearched)
 
         // this.router.navigate(['/doctor-filter'], { queryParams: {lat: this.lat, long: this.long}})
         this.router.navigate(['/doctor-filter'], { queryParams: {zipcode: this.zipCodeSearched }})

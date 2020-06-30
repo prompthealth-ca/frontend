@@ -262,17 +262,16 @@
 
           <th class="free border-0" *ngIf="roles === 'SP'">
             <div>
-              Monthly
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Yearly
+              <label>Monthly</label>
+              <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
+              <label>Yearly</label>
             </div>
             
             <span class="text-primary">Premium</span>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">{{spPlan?.price}}</b>/Monthly
+              <b class="h5 mb-4">$</b>
+              <span *ngIf="!spYearly"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
+              <span *ngIf="spYearly"><b class="h5">{{spPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
             <div *ngIf="profile?.refererencePointEarned > 0">
                 You have earned points you will get {{profile.refererencePointEarned}} % discount
@@ -284,15 +283,13 @@
           <th class="paid border-0" *ngIf="roles === 'C'">
             <span class="text-primary">Premium</span>
             <div>
-              Monthly
-              <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider round"></span>
-              </label>
-              Yearly
+              <label>Monthly</label>
+              <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
+              <label>Yearly</label>
             </div>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><b class="h5">{{cPlan?.price}}</b>/Monthly
+              <b class="h5 mb-4">$</b><span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
+              <span *ngIf="centreYearly"><b class="h5">{{cPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
 
             <div *ngIf="profile?.refererencePointEarned > 0">

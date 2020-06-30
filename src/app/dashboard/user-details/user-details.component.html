@@ -195,33 +195,33 @@
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4">
-          <input type="radio" value="49" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="< $50" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>
             < $50</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="50" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="50-100" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$50-100</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="100" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="100-200" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$100-200</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="200" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="200-500" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$200-500</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="500" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="500-1000" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>$500-1000</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="1001" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="1000" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours" required />
           <span>> $1000</span>
         </div>
@@ -236,23 +236,23 @@
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="76" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="> 75" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>
             > 75</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="65" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="65-75" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>65-75</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="55" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="55-65" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>55-65</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="45" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="45-55" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>45-55</span>
         </div>
@@ -262,22 +262,22 @@
           <span>35-45</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="25" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="25-35" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>25-35</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="18" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="18-24" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>18-24</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="12" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="12-17" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>12-17</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="11" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="<12>" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>
             < 12</span>
@@ -335,23 +335,23 @@
       <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
       <div class="row">
       <div class="radio col-md-4 mb-3">
-        <input type="radio" value="4" name="years_of_experience" #years_of_experience="ngModel"
+        <input type="radio" value="< 5" name="years_of_experience" #years_of_experience="ngModel"
           [(ngModel)]="userDetails.years_of_experience" required />
         <span>
           < 5 years</span>
       </div>
       <div class="radio col-md-4 mb-3">
-        <input type="radio" value="5" name="years_of_experience" #years_of_experience="ngModel"
+        <input type="radio" value="5-10" name="years_of_experience" #years_of_experience="ngModel"
           [(ngModel)]="userDetails.years_of_experience" required />
         <span>5-10 years</span>
       </div>
       <div class="radio col-md-4 mb-3">
-        <input type="radio" value="10" name="years_of_experience" #years_of_experience="ngModel"
+        <input type="radio" value="10-20" name="years_of_experience" #years_of_experience="ngModel"
           [(ngModel)]="userDetails.years_of_experience" required />
         <span>10-20 years</span>
       </div>
       <div class="radio col-md-4 mb-3">
-        <input type="radio" value="21" name="years_of_experience" #years_of_experience="ngModel"
+        <input type="radio" value="> 20" name="years_of_experience" #years_of_experience="ngModel"
           [(ngModel)]="userDetails.years_of_experience" required />
         <span>> 20 years </span>
       </div>
@@ -363,15 +363,41 @@
       </div> -->
     </div>
     <div *ngIf="roles === 'C' || roles === 'SP'">
-      <div class="" *ngFor="let ques of profileQuestions">
-        <label>{{ ques.center_question }}</label>
-        <div class="row">
-          <div  class="col-md-4" *ngFor="let item of ques.answers; let i = index"> 
-            <label for="{{item._id}}">
-                <input class="radio" type="checkbox" value="{{item.item_text}}" required id="{{item._id}}" (change)="checkBoxChanged($event, ques.question_type)"/>
-                <span class="text-body">{{item.item_text}}</span>
-            </label>
-          </div>
+      <label>What is prefered Language ?</label>
+      <div class="row">
+        <div  class="col-md-4" *ngFor="let item of languageQuestion?.answers; let i = index">
+                        
+          <label for="{{item._id}}">
+
+              <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'languageQuestion')"/>
+              <span class="text-body">{{item.item_text}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="roles === 'C' || roles === 'SP'">
+      <label>What is prefered time ?</label>
+      <div class="row">
+        <div  class="col-md-4" *ngFor="let item of avalibilityQuestion?.answers; let i = index">
+                        
+          <label for="{{item._id}}">
+
+              <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'avalibilityQuestion')"/>
+              <span class="text-body">{{item.item_text}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  <div *ngIf="roles === 'C' || roles === 'SP'">
+      <label>What is your Service Type ?</label>
+      <div class="row">
+        <div  class="col-md-4" *ngFor="let item of serviceQuestion?.answers; let i = index">
+                        
+          <label for="{{item._id}}">
+
+              <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'serviceType')"/>
+              <span class="text-body">{{item.item_text}}</span>
+          </label>
         </div>
       </div>
     </div>

@@ -28,7 +28,6 @@ export class BlogComponent implements OnInit {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.blogList = res.data.data;
-        console.log('this.blogList', this.blogList);
       }
 
       else {

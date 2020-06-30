@@ -40,15 +40,11 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log('user====', user);
     });
     this.route.queryParamMap
       .subscribe(params => { 
         const routeParams = +params.get('previousPath');
-        console.log('Query params ',routeParams) 
     });
-    // const routeParams = this.route.snapshot.params;
-    // console.log('routeParams', routeParams);
     switch(this._router.url) {
       case "/auth/registration/sp": 
         this.professionalSignup = true;
@@ -91,9 +87,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    console.log('signInWithGoogle',  this.user)
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
-      console.log('x-----', x)
     
       const payload = {
         socialToken: x.idToken,
@@ -104,9 +98,7 @@ export class RegistrationComponent implements OnInit {
   
       }
 
-      console.log('payload-----', payload)
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
-        console.log('res-----', res)
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
 
@@ -128,7 +120,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   signInWithFB(): void {
-    console.log('signInWithFB',  this.user)
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log('x-----', x));
   }
   registerUser() {
@@ -143,7 +134,6 @@ export class RegistrationComponent implements OnInit {
       let dataReg = JSON.stringify(payload);
 
       this._sharedService.loader('show');
-      console.log('dataaaaa', dataReg);
       this._sharedService.register(dataReg).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {

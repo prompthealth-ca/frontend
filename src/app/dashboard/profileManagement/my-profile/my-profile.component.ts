@@ -200,11 +200,9 @@ export class MyProfileComponent implements OnInit {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-        // this.profileQuestions = res.data;
-
         res.data.forEach(element => {
           if(element.question_type ==='service' && element.category_type==="Delivery") {
-            this.serviceQuestion = element
+            this.serviceQuestion = element;
           }
           if(element.question_type ==='service' && element.category_type!=="Delivery") {
             this.languageQuestion = element
@@ -261,7 +259,7 @@ export class MyProfileComponent implements OnInit {
     }
   }
   checkBoxChanged(e, fieldUpdated) {
-    if(fieldUpdated === 'availability') {
+    if(fieldUpdated === 'avalibilityQuestion') {
       if(e.target.checked) {
         if(this.hoursSelected.indexOf(e.target.id) === -1) {
           this.hoursSelected.push(e.target.id);
@@ -275,7 +273,7 @@ export class MyProfileComponent implements OnInit {
       }
       this.profile.typical_hours = this.hoursSelected;
     }
-    if(fieldUpdated === 'service') {
+    if(fieldUpdated === 'languageQuestion') {
         if(e.target.checked) {
           if(this.languagesSelected.indexOf(e.target.id) === -1) {
             this.languagesSelected.push(e.target.id);

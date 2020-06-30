@@ -24,7 +24,6 @@ export class ProfessionalRegisterComponent implements OnInit {
   }
 
   activeNextTabHandler($event: any) {
-    console.log('activeNextTabHandler>>>>>', $event);
     this.activeTab = $event;
   }
 

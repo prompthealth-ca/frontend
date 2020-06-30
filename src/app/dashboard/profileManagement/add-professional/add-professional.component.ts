@@ -62,7 +62,6 @@ export class AddProfessionalComponent implements OnInit {
     });
   }
   pageChanged(event) {
-    console.log('pageChanged', event);
   }
   onFileSelect(event) {
     const formData: FormData = new FormData();

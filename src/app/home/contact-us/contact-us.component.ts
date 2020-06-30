@@ -42,13 +42,12 @@ export class ContactUsComponent implements OnInit {
     }
     else {
       this.submitted = true;
-      let data = JSON.stringify(this.contactForm.value);
+      let data = this.contactForm.value;
 
       this._sharedService.loader('show');
-      this._sharedService.post(data, 'contactus').subscribe((res: any) => {
+      this._sharedService.postNoAuth(data, 'user/contactus').subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.success) {
-          console.log(">>>>>>>", res)
           this.toastr.success(res.data.message);
           this._router.navigate(['/home']);
 

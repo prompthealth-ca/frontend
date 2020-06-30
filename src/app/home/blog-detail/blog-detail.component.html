@@ -2,8 +2,7 @@
   <div class="container row mx-auto p-0 align-items-center">
       <h2 class="col-md-2 text-uppercase text-center text-md-left mb-0">Blog</h2>
       <div class="col-md-10 text-center text-md-right top-links">
-          <a href="" class="">Home</a> / <a href="/blogs">Blog</a> /
-          <a>{{ blogList?.title }}</a>
+          <a href="" class="">Home</a> / <a href="/blogs">Blog</a>
       </div>
   </div>
 </div>
@@ -13,7 +12,7 @@
     <div class="col-md-9 content">
       <a class="blog-link">
         
-        <img [src]="blogList.image ? 'http://3.12.81.245:3000/public/images/blogs/' + blogList.image :  defaultImage">
+        <img [src]="blogList?.image ? 'http://3.12.81.245:3000/public/images/blogs/' + blogList.image :  defaultImage">
         <h4 class="text-uppercase">{{ blogList.title }}</h4>
       </a>
 

@@ -65,7 +65,6 @@ getNoAuth(path, setParams = {}) {
   return this.http.get(url );
 }
   post(body, path) {
-    console.log('post---', this.rootUrl + path);
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });
   }
@@ -143,7 +142,7 @@ getNoAuth(path, setParams = {}) {
   }
 
   contactus(body) {
-    return this.http.post(this.rootUrl + 'subscribe', body);
+    return this.http.post(this.rootUrl + 'user/contactus', body);
   }
   uploadImage(object) {
     let headers = this.getAuthorizationHeader();
@@ -246,7 +245,6 @@ getDefaultHeader() {
 
 
   loginUser(res, type) {
-    console.log('this.previousRouteService',res.data.roles, res, type);
     if (res.data.roles === 'U') {
       this._router.navigate(['home']);
     } else {

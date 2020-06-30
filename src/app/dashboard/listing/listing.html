@@ -106,41 +106,11 @@
         <h6 class="mb-3 text-primary">Age Group</h6>
 
         <div class="mb-3">
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age" value="> 75"/>
-            <span>> 75</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age" value="65-75"/>
-            <span>65-75</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age" value="55-65"/>
-            <span>55-65</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age"  value="45-55"/>
-            <span>45-55</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age"  value="35-45"/>
-            <span>35-45</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age"  value="25-35"/>
-            <span>25-35</span>
-          </div>
-          <div class="radio">
-            <input type="radio" (change)="changeAge($event)" name="age"  value="18-24"/>
-            <span>18-24</span>
-          </div>
-          <div class="radio">
-            <input type="radio" name="age"  value="12-17"/>
-            <span>12-17</span>
-          </div>
-          <div class="radio">
-            <input type="radio" name="age"  value="<12"/>
-            <span>< 12</span>
+          <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index">       
+            <label for="{{item.id}}">
+                <input class="radio" type="radio" name="age_range" (change)="changeAge($event)"  [value]="item.name" required id="{{item.id}}"/>
+                <span class="text-body">{{item.name}}</span>
+            </label>
           </div>
         </div>
 

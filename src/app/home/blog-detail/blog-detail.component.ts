@@ -25,7 +25,6 @@ export class BlogDetailComponent implements OnInit {
     this.sub = this.activeRoute.params.subscribe(params => {
       this.id = params['id'];
    });
-    console.log('categoryList',this.id)
     this.getBlog()
     this.getAllCategories();
   }

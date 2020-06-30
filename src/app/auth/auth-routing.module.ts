@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AuthGuardService as AuthGuard  } from '../auth/auth-gaurd.service';
+import { RoleGuardService as RoleGuard } from '../auth/role-guard.service';
 import { ContactUspageComponent } from './contact-uspage/contact-uspage.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
 	},
 	{
 		path: 'registration/:type',
-		component: RegistrationComponent
+		component: RegistrationComponent,
+		canActivate: [RoleGuard] 
 	},
 	{
 		path: 'login/:type',

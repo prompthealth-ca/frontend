@@ -28,6 +28,17 @@ export class ListingComponent implements OnInit {
   allDoctorList = [];
   compareList = [];
   typical_hours = [];
+  ageRangeList  = [
+    { id: 'age1', name: '<12' },
+    { id: 'age2', name: '12-17' },
+    { id: 'age3', name: '18-24' },
+    { id: 'age4', name: '25-35' },
+    { id: 'age5', name: '35-45' },
+    { id: 'age6', name: '45-55' },
+    { id: 'age7', name: '55-65' },
+    { id: 'age8', name: '65-75' },
+    { id: 'age9', name: '>75' },
+  ];
   ratingsOption = [
     {
       _id: '5',
@@ -143,8 +154,6 @@ export class ListingComponent implements OnInit {
             for (var b=0;b<results[0].address_components[i].types.length;b++) {
             if (results[0].address_components[i].types[b] === "postal_code") {
               this.listingPayload.zipcode = results[0].address_components[i].long_name;
-
-              console.log('zipCodeSearched[0]',  this.listingPayload);
               this.listing(this.listingPayload)
               break;
             }
@@ -162,7 +171,6 @@ export class ListingComponent implements OnInit {
   listing(filter) {
     this._sharedService.loader('show');
     let path = 'user/filter';
-    console.log('setParams', filter);
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctorsListing = res.data;
@@ -174,7 +182,7 @@ export class ListingComponent implements OnInit {
         }
 
        this.createNameList(this.doctorsListing)
-        this.toastr.success(res.message);
+        // this.toastr.success(res.message);
       } else {
         this.toastr.error(res.message);
       }
@@ -201,7 +209,6 @@ export class ListingComponent implements OnInit {
     });
   }
   onOptionsSelected(value:string, type){
-    console.log("the selected value is " + value, type);
     this.listingPayload.languageId ='';
     this.listingPayload.typicalHoursId = '';
     this.listingPayload.rating = '';
@@ -274,7 +281,6 @@ export class ListingComponent implements OnInit {
     this.router.navigate(['/dashboard/listingCompare']);
   }
   likeProfile(evt, drId) {
-    console.log('evt', evt.target.checked, drId);
     if(evt.target.checked) {
       this._sharedService.loader('show');
       let path = 'user/add-favorite';

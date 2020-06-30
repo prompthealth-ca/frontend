@@ -105,7 +105,6 @@ export class MyAmenitiesComponent implements OnInit {
       this.sharedService.imgUpload(input, 'common/imgMultipleUpload').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.imagesList = res.data;
-          console.log('imagesList', this.imagesList)
           this.uploadAmenity['images'] = res.data;
           this.updateAmenity['images'] = res.data;
           this.updateAmenities();
@@ -148,7 +147,6 @@ export class MyAmenitiesComponent implements OnInit {
     const path = `amenity/create`;
     this.sharedService.post(this.uploadAmenity, path).subscribe((res: any) => {
       this.spinner.show();
-      console.log('res', res)
       if (res.statusCode === 200) {
 
         this.updateAmenity = {
@@ -170,7 +168,6 @@ export class MyAmenitiesComponent implements OnInit {
     this.spinner.show();
     const path = `amenity/update`;
     const body = this.updateAmenity;
-    console.log('body', body);
     this.sharedService.put(body, path).subscribe((res: any) => {
       this.spinner.show();
       if (res.statusCode === 200) {
@@ -208,6 +205,5 @@ export class MyAmenitiesComponent implements OnInit {
     });
   }
   editAmenity(amenity) {
-    console.log('editAmenity prod', amenity);
   }
 }

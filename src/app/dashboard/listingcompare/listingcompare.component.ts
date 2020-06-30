@@ -33,7 +33,6 @@ export class ListingcompareComponent implements OnInit {
        if (res.statusCode = 200) {
 
         this.compareIds = this.behaviorService.getCopmareIds().value;
-        console.log('compareIds', this.compareIds )
 
         for (var i = 0; i < this.compareIds.length; ++i) {
           if (this.compareIds[i]) this.data.push(this.compareIds[i]);

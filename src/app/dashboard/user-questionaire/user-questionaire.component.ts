@@ -73,7 +73,6 @@ ansIDs = [];
       if(element.c_question === "Check the status of your health" && this.profile.customer_health.length) {
         element.answers.forEach(el => {
           this.profile.customer_health.forEach(save => {
-            console.log('customer_loved', el._id, '---', save)
             if(el._id === save) {
               el.active = true;
             } 
@@ -84,14 +83,11 @@ ansIDs = [];
   }
   
   getSubAns(evt, subOption, questType) {
-    console.log('getSubAns', evt, questType);
     const parentId = evt.target.id;
     
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
         this.typical_hours.push(parentId);
-
-    // console.log('typical_hours', this.typical_hours);
       }
       else {
         this.selectedItems.push(parentId);
@@ -125,7 +121,6 @@ ansIDs = [];
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.questionnaire = res.data;
-        console.log('questionnaire', this.questionnaire)
         for(var i in this.questionnaire) {
           this.questionnaire[i].answers.forEach(obj=> { obj['active'] = false })
         }
@@ -206,7 +201,6 @@ ansIDs = [];
     this.updateProfile(data);
   }
   getMultiAns(question_id,event) {
-    console.log('event', event);
     let data;
     if(event.target.checked) {
       if(this.ansIDs.indexOf(event.target.id) === -1) {
@@ -219,7 +213,6 @@ ansIDs = [];
         this.ansIDs.splice(find, 1);
       }
     }
-    console.log('ansID', this.ansIDs);
     if(question_id == "CHECK THE STATUS OF YOUR HEALTH") {
       data = {
         customer_health: this.ansIDs
@@ -228,17 +221,14 @@ ansIDs = [];
     this.updateProfile(data);
   }
   updateProfile(data) {
-    console.log('data', data)
     const payload = {
       _id:  localStorage.getItem('loginID'),
       ...data,
     }
 
-    console.log('data', payload)
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.profile = res.data;
-          console.log('profile', this.profile)
         } else {
           this.toastr.error(res.message);
   
@@ -260,7 +250,6 @@ ansIDs = [];
   // }
 
   getSubSubAns(evt, subans) {
-    // console.log('getSubSubAns', evt);
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
@@ -271,10 +260,7 @@ ansIDs = [];
       const path  = `questionare/get-sub-answer/${parentId}`;
       this._sharedService.get(path).subscribe((res: any) => {
         if (res.statusCode = 200) {
-
-          // console.log('res.data', res.data)
           this.sublevel2Res.options =  res.data;
-          // console.log('sublevel2Res', this.sublevel2Res)
         } else {
           this._sharedService.checkAccessToken(res.message);
         }

@@ -33,11 +33,9 @@ LogIn: Observable<any> = this.actions
   .switchMap(data => {
     return this.sharedService.login(data.email, data.password)
       .map((user) => {
-        console.log(user);
         return new LogInSuccess({token: user.access_token, email: data.email});
       })
       .catch((error) => {
-        console.log(error);
         return Observable.of(new LogInFailure({ error: error }));
       });
   });

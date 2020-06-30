@@ -21,8 +21,6 @@ export class PricvacyPolicyComponent implements OnInit {
         this._sharedService.loader('hide');
         this.title = res.data.title
         this.description = res.data.description
-
-        console.log('this.resultLoyalty', this.result)
       }
     },
       (error) => { });

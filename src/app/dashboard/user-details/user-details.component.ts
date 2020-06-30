@@ -38,6 +38,7 @@ export class UserDetailsComponent {
     age_range: '',
     languages: [],
     typical_hours: [],
+    serviceOfferIds: [],
     price_per_hours: '',
     product_description: '',
     years_of_experience: '',
@@ -54,7 +55,12 @@ export class UserDetailsComponent {
 
   languagesSelected = [];
   hoursSelected = [];
+  serviceOfferSelected = []
   profileQuestions = [];
+
+  avalibilityQuestion
+  languageQuestion
+  serviceQuestion
 
   public _host = environment.config.BASE_URL;
   public response: any;
@@ -157,8 +163,17 @@ export class UserDetailsComponent {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-        this.profileQuestions = res.data;
-        console.log('this.profileQuestions ---', res.data)
+        res.data.forEach(element => {
+          if(element.question_type ==='service' && element.category_type==="Delivery") {
+            this.serviceQuestion = element;
+          }
+          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+            this.languageQuestion = element
+          }
+          if(element.question_type ==='availability') {
+            this.avalibilityQuestion = element
+          }
+        });
        } else {
          this.toastr.error(res.message);
   
@@ -189,7 +204,6 @@ export class UserDetailsComponent {
       if (res.statusCode === 200) {
         this.userDetails = res.data;
 
-        console.log('onFileSelect',res, this.userDetails);
         this._sharedService.loader('hide');
       } else {
         this.toastr.error(res.message);
@@ -201,15 +215,49 @@ export class UserDetailsComponent {
     
   }
   checkBoxChanged(e, fieldUpdated) {
-    console.log('checkBoxChanged', e, fieldUpdated);
-    if(fieldUpdated === 'availability') {
-      this.hoursSelected.push(e.target.id);
+    if(fieldUpdated === 'avalibilityQuestion') {
+      if(e.target.checked) {
+        this.hoursSelected.push(e.target.id);
+      }
+      else {
+        const find = this.hoursSelected.indexOf(e.target.id);
+        if(find > -1) {
+          this.hoursSelected.splice(find, 1);
+        }
+      }
+
       this.userDetails.typical_hours = this.hoursSelected;
     }
-    if(fieldUpdated === 'service') {
-      this.languagesSelected.push(e.target.id);
-      this.userDetails.languages = this.languagesSelected;
+    if(fieldUpdated === 'languageQuestion') {
+      if(e.target.checked) {
+        this.languagesSelected.push(e.target.id);
+      }
+      else {
+
+        const find = this.languagesSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.languagesSelected.splice(find, 1);
+        }
+      }
+        this.userDetails.languages = this.languagesSelected;
     }
+
+    if(fieldUpdated === 'serviceType') {
+      if(e.target.checked) {
+        if(this.serviceOfferSelected.indexOf(e.target.id) === -1) {
+          this.serviceOfferSelected.push(e.target.id);
+        }
+      }
+      else {
+        const find = this.serviceOfferSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.serviceOfferSelected.splice(find, 1);
+        }
+      }
+      
+      this.userDetails.serviceOfferIds = this.serviceOfferSelected;
+    }
+    
   }
   handleReaderLoaded(e) {
     let reader = e.target;

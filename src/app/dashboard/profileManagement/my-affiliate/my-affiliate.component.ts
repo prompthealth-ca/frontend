@@ -41,8 +41,7 @@ export class MyAffiliateComponent implements OnInit {
       this.submitted = true;
       let data = this.affiliateRequestForm.value;
       data.isVipAffiliateUser = false;
-      data.addedBy = localStorage.getItem('loginID') 
-      console.log('data', data);
+      data.addedBy = localStorage.getItem('loginID');
       this._sharedService.loader('show');
       let path = 'user/request'
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
@@ -72,7 +71,6 @@ export class MyAffiliateComponent implements OnInit {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
           this.affiliatedList = res.data.data;
-          console.log('affiliatedList', this.affiliatedList);
           this.toastr.success(res.message);
         }
 

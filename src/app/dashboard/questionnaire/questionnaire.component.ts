@@ -56,10 +56,8 @@ export class QuestionnaireComponent implements OnInit {
 
   getSelectedSkill() {
     let path = `questionare/get-questions?type=${this.type}`;
-    console.log('this.path', path);
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        // console.log('getSelectedSkill', res.data)
         this.questionnaire = res.data;
         
       } else {
@@ -71,11 +69,9 @@ export class QuestionnaireComponent implements OnInit {
     });
   }
   getUserQuestionnaire() {
-    // console.log('this.type', this.type)
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
-        console.log('getSelectedSkill', res.data)
         this.questionnaire = res.data;
         
       } else {
@@ -107,7 +103,6 @@ export class QuestionnaireComponent implements OnInit {
     }, err => {
       this._sharedService.loader('hide');
     });
-    console.log('isVipAffiliateUser', this.isVipAffiliateUser, this.activeTab)
     if(this.isVipAffiliateUser) {
       if(this.type === 'U') {
         this._router.navigate(['/dashboard/listing']);
@@ -123,14 +118,11 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
   getSubAns(evt, subOption, questType) {
-    // console.log('getSubAns', evt, questType);
     const parentId = evt.target.id;
     
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
         this.typical_hours.push(parentId);
-
-    // console.log('typical_hours', this.typical_hours);
       }
       else {
         this.selectedItems.push(parentId);
@@ -160,7 +152,6 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   getSubSubAns(evt, subans) {
-    // console.log('getSubSubAns', evt);
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
@@ -172,9 +163,7 @@ export class QuestionnaireComponent implements OnInit {
       this._sharedService.get(path).subscribe((res: any) => {
         if (res.statusCode = 200) {
 
-          // console.log('res.data', res.data)
           this.sublevel2Res.options =  res.data;
-          // console.log('sublevel2Res', this.sublevel2Res)
         } else {
           this._sharedService.checkAccessToken(res.message);
         }
@@ -209,24 +198,18 @@ export class QuestionnaireComponent implements OnInit {
 
   }
   addQuestion(question_id, ansID) {
-    console.log('questID', question_id);
-    console.log('ansID', ansID);
     this.userSavePayload.answers.push({
       question_id,
       ans_id: [ansID],
     });
-    console.log('userSavePayload', this.userSavePayload);
   }
   getMultiAns(question_id, ansID) {
-    console.log('questID', question_id);
-    console.log('ansID', ansID);
     const ansId = []
     ansId.push(ansID)
     this.userSavePayload.answers.push({
       question_id,
       ans_id: [ansID],
     });
-    console.log('userSavePayload', this.userSavePayload);
   }
   // previousTabEvent() {
   //   if (this.questionType === 'availability') {

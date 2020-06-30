@@ -24,7 +24,6 @@ export class MyPaymentComponent implements OnInit {
       if (res.statusCode = 200) {
         this.transactionList =res.data;
         this.totalItems =  this.transactionList;
-        console.log('transactionList---',res.data, this.transactionList);
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

@@ -23,7 +23,6 @@ export class MyFavouriteComponent implements OnInit {
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.favListing = res.data[0].favouriteBy;
-        console.log('this.favListing', this.favListing);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

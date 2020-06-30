@@ -63,7 +63,6 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
   ngOnInit() {
     this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
       : {};
-    console.log('sandepppppppppp', this.userEmail.email)
     this.checkout.email = this.userEmail.email;
     this.getSubscriptionPlan();
     this.getUserDetails();
@@ -77,7 +76,6 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
 
       if (res.success) {
         this.subData = res.data.subscribepackage;
-        console.log(">>>>>>>>sandy>>", this.subData)
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -116,7 +114,6 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
     const { token, error } = await this.stripe.createToken(this.card);
 
     if (error) {
-      console.log('Error:', error);
     } else {
       this.token = token.id;
       this.checkout.token = this.token;
@@ -145,7 +142,6 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
 
       if (res.success) {
         this.user1 = res.data.user;
-        console.log("card num", this.user1)
 
       } else {
         // this._commanService.checkAccessToken(res.error);

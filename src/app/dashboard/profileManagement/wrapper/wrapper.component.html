@@ -10,9 +10,11 @@
 <div class="container pb-4 position-relative">
   <div class="shadow bg-white">
     <div class="container-fluid">
-      <div class="row upgrade-header" *ngIf="userInfo.roles !== 'U' && profile  && !profile.isVipAffiliateUser && !profile.plan">
+      <!-- -- {{ userInfo }} -->
+      <!-- -- {{ profile | json }}  -->
+      <div class="row upgrade-header" *ngIf="userInfo.roles !== 'U' && profile  && !profile.isVipAffiliateUser && profile && profile.plan && (profile.plan.name ==='Basic' || profile.plan.name ==='basic')">
         <div class="col-sm-12">
-          <p>To get all exlusive features upgrade your plan 
+          <p style="color:#e74c3c"><i class="fas fa-star-of-life"></i>  To get all exlusive features upgrade your plan 
             <a class="btn btn-primary pull-right" [routerLink]="['/dashboard/subscriptionplan']">Upgrade Plan</a>
           </p>
         </div>
@@ -33,7 +35,9 @@
                 [disabled]=!list.active
                 [routerLink]="list.link"
                 [routerLinkActive]="['active']"
-                >{{ list.title }}</button>
+                >{{ list.title }}
+                <span style="color:#e74c3c; font-size: 10px;" class="pull-right" *ngIf="!list.active"><i class="fas fa-star-of-life"></i></span>
+              </button>
             </li>
           </ul>
         </div>

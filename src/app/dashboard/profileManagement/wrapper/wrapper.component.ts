@@ -86,32 +86,32 @@ export class WrapperComponent implements OnInit {
         }
         if(profile.roles === 'C') {
           this.listing.push({
-            title: 'My Amenities',
+            title: 'Amenities',
             link: 'my-amenities',
             active: true,
           });
           this.listing.push({
-            title: 'My Doctors',
+            title: 'Proffessionals',
             link: 'add-professionals',
             active: true,
           });
           this.listing.push({
-            title: 'My Products',
+            title: 'Products',
             link: 'my-product',
             active: true,
           });
           this.listing.push({
-            title: 'My Videos',
+            title: 'Videos',
             link: 'videos-blogs',
             active: true,
           });
           this.listing.push({
-            title: 'My Payment',
+            title: 'Payment',
             link: 'my-payment',
             active: true,
           });
           this.listing.push({
-            title: 'My Affiliate',
+            title: 'Affiliate',
             link: 'my-affiliate',
             active: true,
           });

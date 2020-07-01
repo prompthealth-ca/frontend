@@ -10,8 +10,7 @@
   <div class="container">
     <h2 class="text-uppercase mb-3">Get in Touch</h2>
     <p class="h4 font-weight-normal">
-      Please complete and submit the form below to contact us with your
-      questions, comments or requests.
+      Please complete and submit the form below to contact us" and under above the email say" Let us know your comments, questions or requests.
     </p>
   </div>
 </section>
@@ -27,22 +26,8 @@
         </h2>
         <div class="card-body">
           <form role="form" class="labeledform row contactform" (ngSubmit)="pressMe()" [formGroup]="homeForm">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>First name <span class="text-danger">*</span></label>
-                <div class="w-100">
-                  <input type="text" formControlName="firstname" class="form-control" [ngClass]="{
-                      'is-invalid': submitted && f.firstname.errors
-                    }" />
-                  <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstname.errors.required">
-                      First name is required
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
+            
+            <div class="col-sm-12">
               <div class="form-group">
                 <label>Last name <span class="text-danger">*</span></label>
                 <div class="w-100">

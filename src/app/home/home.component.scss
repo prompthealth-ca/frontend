@@ -16,10 +16,10 @@ $testimonialsAvtarSize: 73px;
 }
 
 .testimonials-text {
-  &::before,
-  &::after {
-    content: '"';
-  }
+  // &::before,
+  // &::after {
+  //   content: '"';
+  // }
   font-size: 22px;
   line-height: 32px;
   font-weight: 300;

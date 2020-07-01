@@ -68,18 +68,9 @@
       </div>
       <div class="col-md-6 mb-3">
         <label>Email <span class="text-danger">*</span></label>
-        <input autofocus type="email" id="email" name="email" class="form-control" placeholder=""
-          (keyup)="trim('email')" #email="ngModel" [ngModel]="userDetails.email"
-          (ngModelChange)="userDetails.email = $event" required email />
-
-        <div class="error-block">
-          <small *ngIf="email.errors?.required && email.touched" class="text-danger">
-            Email is required.
-          </small>
-          <small *ngIf="email.errors?.email && email.touched" class="text-danger">
-            Email is invalid.
-          </small>
-        </div>
+        <input autofocus type="email" id="email" 
+        [disabled] = "true" name="email" class="form-control" placeholder=""
+          (keyup)="trim('email')" #email="ngModel" [ngModel]="userDetails.email" />
       </div>
 
       <div class="col-md-6 mb-3"  *ngIf="roles !== 'C'">

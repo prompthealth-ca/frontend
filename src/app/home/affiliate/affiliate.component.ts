@@ -23,7 +23,6 @@ export class AffiliateComponent implements OnInit {
   ngOnInit(): void {
     this.affiliateRequestForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
-      lastName: ['', []],
       email: ['', [Validators.required, Validators.email]],
       numberOfUser: [0, [Validators.required]],
       role: ['SP', [Validators.required]],

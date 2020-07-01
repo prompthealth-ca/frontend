@@ -3,13 +3,13 @@
   style="background-image: url(assets/img/background3.jpg);"
 >
   <div class="container">
-    <h2 class="mb-3">Get Comped for VIP</h2>
+    <h2 class="mb-3">How are you planning to promote us?</h2>
     <p class="h3 font-weight-normal mb-3">
-        if you are a health professional or center with more than 5,000 followers/users. Help us raise awareness for Prompt Health and get  a free membership for 3 month. 
+      Join our Canadian Network of Health and Wellness proffesionals and help us raise awareness as an affiliate.
     </p>
 
     <p class="h4 font-weight-normal">
-        " Give another health provider 10% discount with this link" and "receive 20% off your subscription for each referral that signs up"
+      "Give another health provider 10% discount with this link" and "receive 20% off your subscription for each referral that signs up"
     </p>
   </div>
 </section>
@@ -20,27 +20,22 @@
         <div class="col-md-8">
           <div class="form-row">
             <form role="form" class="labeledform row contactform" (ngSubmit)="affiliateMe()" [formGroup]="affiliateRequestForm">
-              <div class="col-md-6 mb-3">
-                <label>First Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Enter Your First Name" 
+              <div class="col-md-12 mb-3">
+                <label>Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter Your Name" 
                 formControlName="firstName" class="form-control" [ngClass]="{
                   'is-invalid': submitted && f.firstName.errors
                 }"
                 required />
                 <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                   <div *ngIf="f.firstName.errors.required">
-                    First name is required
+                    Name is required
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label>Last Name</label>
-                <input placeholder="Enter Your Last Name" type="text" class="form-control" formControlName="lastName" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"  />
-              </div>
               <div class="col-md-12 mb-3">
                 <label>Email <span class="text-danger">*</span></label>
-                <input type="email"  class="form-control" formControlName="email" 
+                <input type="email"  class="form-control" placeholder="Enter Your Email" formControlName="email" 
                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required />
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                   <div *ngIf="f.email.errors.required">Email is required</div>
@@ -62,7 +57,7 @@
                   </span>
                 </div>
               </div>
-              <div class="col-md-12 mb-3" *ngIf="affiliateRequestForm.get('role').value == 'C'">
+              <div class="col-md-12 mb-3">
                 <label>Total Users <span class="text-danger">*</span></label>
                 <input
                   type="number" class="form-control"

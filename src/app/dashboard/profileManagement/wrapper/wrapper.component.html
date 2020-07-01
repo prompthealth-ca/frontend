@@ -13,8 +13,8 @@
       <!-- -- {{ userInfo }} -->
       <!-- -- {{ profile | json }}  -->
       <div class="row upgrade-header" *ngIf="userInfo.roles !== 'U' && profile  && !profile.isVipAffiliateUser && profile && profile.plan && (profile.plan.name ==='Basic' || profile.plan.name ==='basic')">
-        <div class="col-sm-12">
-          <p style="color:#e74c3c"><i class="fas fa-star-of-life"></i>  To get all exlusive features upgrade your plan 
+        <div class="col-sm-12 text-center">
+          <p style="color:#e74c3c"><i class="fas fa-star-of-life"></i>   Upgrade your plan to get all the exclusive features <span><i class="fas fa-long-arrow-alt-right"></i></span>
             <a class="btn btn-primary pull-right" [routerLink]="['/dashboard/subscriptionplan']">Upgrade Plan</a>
           </p>
         </div>

@@ -16,7 +16,7 @@ export class DoctorFilterComponent implements OnInit {
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
-  userTypeFilter ='';
+  gender ='';
   categoryList = [];
   serviceQuestion;
   profileQuestions
@@ -154,6 +154,7 @@ export class DoctorFilterComponent implements OnInit {
     }
     let path = 'user/filter-map';
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
+      console.log('this.doctorList', res)
       if (res.statusCode = 200) {
        this.doctorList = res.data;
        const self = this
@@ -176,7 +177,7 @@ export class DoctorFilterComponent implements OnInit {
   }
   onOptionsSelected(value:string, type){
     this.selectedLang ='';
-    this.userTypeFilter = '';
+    this.gender = '';
     this.selectedHours = '';
     this.selectedServiceType = '';
 
@@ -185,10 +186,10 @@ export class DoctorFilterComponent implements OnInit {
     }
     else if(type="userType") {
       if(value === 'all') {
-        this.userTypeFilter = '';
+        this.gender = '';
       }
       else {
-        this.userTypeFilter = value;
+        this.gender = value;
       }
     }
     else if(type="hours"){
@@ -211,7 +212,7 @@ export class DoctorFilterComponent implements OnInit {
     const payload = {
       ...this.ratingFilter,
       languageId:this.selectedLang,
-      userType: this.userTypeFilter,
+      gender: this.gender,
       typicalHoursId:this.selectedHours,
       serviceOfferId:this.selectedServiceType
     }

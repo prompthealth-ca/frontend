@@ -146,6 +146,15 @@
           </small>
         </div>
       </div>
+
+      <div class="col-md-6 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3">
+            <label>What is your proffesional association<span class="text-danger">*</span></label>
+            <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control" placeholder="" maxlength="12"
+              (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
+              (ngModelChange)="userDetails.professional_organization = $event" required />
+        </div>
+    </div>
       <div class="col-md-6 mb-3">
         <div class="row">
           <div class="col-md-12">
@@ -393,22 +402,13 @@
       </div>
     </div>
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-      <label>Description <span class="text-danger">*</span></label>
+      <label>Tell us more about you in a paragraph (optional) <span class="text-danger"></span></label>
       <div class="radio col-md-12 mb-4">
         <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"
           class="form-control" (keyup)="trim('product_description')" #product_description="ngModel"
-          [ngModel]="userDetails.product_description" (ngModelChange)="userDetails.product_description = $event"
-          required>
+          [ngModel]="userDetails.product_description" (ngModelChange)="userDetails.product_description = $event">
           Product Description...</textarea>
       </div>
-        <!-- <div class="error-block">
-          <small *ngIf="product_description.errors?.required && product_description.touched" class="text-danger">
-            Description is required.
-          </small>
-          <small *ngIf="product_description.errors?.minlength && product_description.touched" class="text-danger">
-            Minumum length should be 3.
-          </small>
-        </div> -->
     </div>
     <div class="col-md-12 mb-2 text-right">
       <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">

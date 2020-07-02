@@ -94,6 +94,21 @@
         </div>
         <div  *ngIf="roles === 'C' || roles === 'SP'">
             <div class="radio form-row mb-3">
+                <label class="col-md-3">Proffesional Association <span class="text-danger" *ngIf="editFields">*</span></label>
+                <input
+                type="text"
+                [disabled] = "!editFields"
+                autocomplete="off"
+                id="address"
+                name="address"
+                [(ngModel)]="profile.professional_organization"
+                (onFocus)="profile.professional_organization = ''"
+                class="form-control col-md-9"
+                />
+            </div>
+        </div>
+        <div  *ngIf="roles === 'C' || roles === 'SP'">
+            <div class="radio form-row mb-3">
                 <label  class="col-md-3">Available Time</label>
                 <div  class="col-md-9">
                     <div *ngIf="!editFields">
@@ -218,7 +233,7 @@
             </div>
         </div>
         <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-            <label class="col-md-3">Description</label>
+            <label class="col-md-3">About you</label>
              <p class="col-md-9" *ngIf="!editFields">{{ profile.product_description }}</p>
             <div *ngIf="editFields" class="col-sm-9">
                 <textarea
@@ -226,6 +241,7 @@
                 id="product_description"
                 name="product_description"
                 [(ngModel)]="profile.product_description"
+                placeholder="Tell us more about you in paragraph (optional)"
                 class="form-control"
                 ></textarea>
             </div>

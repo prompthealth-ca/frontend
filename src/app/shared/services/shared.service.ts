@@ -247,11 +247,7 @@ getDefaultHeader() {
   loginUser(res, type) {
     if (res.data.roles === 'U') {
       this._router.navigate(['home']);
-    } else {
-      
-      // localStorage.setItem('isPayment', 'true');
-    }
-
+    } 
     let route
     if(type === 'reg') {
       route =  res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';

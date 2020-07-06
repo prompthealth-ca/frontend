@@ -50,6 +50,30 @@
             />
         </div>
 
+        <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+            <label class="col-md-3">Role <span class="text-danger" *ngIf="editFields">*</span></label>
+            <input
+            *ngIf="roles === 'C'"
+            type="text"
+            [disabled] = "true"
+            autocomplete="off"
+            id="email"
+            name="email"
+            value="Center"
+            class="form-control col-md-9"
+            />
+            <input
+            *ngIf="roles === 'SP'"
+            type="text"
+            [disabled] = "true"
+            autocomplete="off"
+            id="email"
+            name="email"
+            value="Service Provider"
+            class="form-control col-md-9"
+            />
+        </div>
+
         <div class="form-row mb-3">
             <label class="col-md-3"
             >Email Address <span class="text-danger" *ngIf="editFields">*</span></label

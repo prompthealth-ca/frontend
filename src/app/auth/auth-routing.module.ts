@@ -24,6 +24,7 @@ const routes: Routes = [
 	{
 		path: 'registration/:type',
 		component: RegistrationComponent,
+		canActivate: [RoleGuard] 
 	},
 	{
 		path: 'login/:type',

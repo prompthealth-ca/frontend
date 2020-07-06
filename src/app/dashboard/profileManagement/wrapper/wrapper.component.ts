@@ -15,16 +15,21 @@ export class WrapperComponent implements OnInit {
       link: 'my-profile',
       active: true,
     },
+  ];
+  uListing = [
     {
       title: 'My Booking',
       link: 'my-booking',
       active: true,
     },
-  ];
-  uListing = [
     {
       title: 'My Favourite',
       link: 'my-favourites',
+      active: true,
+    },
+    {
+      title: 'Review and Rating',
+      link: 'reviews-ratings',
       active: true,
     }
   ];
@@ -75,6 +80,7 @@ export class WrapperComponent implements OnInit {
     });
   }
   setListing(profile){
+    console.log('profile.isVipAffiliateUser', profile)
     if(profile) {
       if( profile.isVipAffiliateUser) {
         if(profile.roles === 'SP') {
@@ -119,7 +125,40 @@ export class WrapperComponent implements OnInit {
       }
       else {
         if (profile.roles === 'SP') {
-          if (profile.plan) {
+          if (profile.plan.userType.length == 2 ) {
+            this.listing.push({
+              title: 'My Booking',
+              link: 'my-booking',
+              active: false,
+            }),
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: false,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: false,
+            });
+
+            this.listing.push({
+              title: 'My Videos',
+              link: 'videos-blogs',
+              active: false,
+            });
+            this.listing.push({
+              title: 'Review and Rating',
+              link: 'reviews-ratings',
+              active: false,
+            });
+          } 
+          else {
+            this.listing.push({
+              title: 'My Booking',
+              link: 'my-booking',
+              active: true,
+            }),
             this.listing.push({
               title: 'My Payment',
               link: 'my-payment',
@@ -128,48 +167,81 @@ export class WrapperComponent implements OnInit {
             this.listing.push({
               title: 'My Subscription',
               link: 'my-subscription',
+              active: true,
+            });
+            this.listing.push({
+              title: 'My Videos',
+              link: 'videos-blogs',
               active: true,
             });
 
-            if (profile.plan.videoUpload === true) {
-              this.listing.push({
-                title: 'My Videos',
-                link: 'videos-blogs',
-                active: true,
-              });
-            } 
-            else {
-              this.listing.push({
-                title: 'My Videos',
-                link: 'videos-blogs',
-                active: false,
-              });
+            this.listing.push({
+              title: 'Review and Rating',
+              link: 'reviews-ratings',
+              active: true,
+            });
             }
-          } else {
-            this.listing.push({
-              title: 'My Payment',
-              link: 'my-payment',
-              active: false,
-            });
-            this.listing.push({
-              title: 'My Subscription',
-              link: 'my-subscription',
-              active: false,
-            });
           }
-          if (profile.plan && profile.plan.professionalProfile === true) {
-          }
-          this.listing.push({
-            title: 'My Affiliate',
-            link: 'my-affiliate',
-            active: true,
-          });
         }
         if(profile.roles === 'U') {
           this.listing.push(...this.uListing);
         }
         if (profile.roles === 'C') {
-          if (profile.plan.professionalProfile === true) {
+          if (profile.plan.userType.length == 2 ) {
+            this.listing.push({
+              title: 'My Booking',
+              link: 'my-booking',
+              active: false,
+            }),
+
+            this.listing.push({
+              title: 'My Payment',
+              link: 'my-payment',
+              active: false,
+            });
+            this.listing.push({
+              title: 'My Subscription',
+              link: 'my-subscription',
+              active: false,
+            });this.listing.push({
+              title: 'My Affiliate',
+              link: 'my-affiliate',
+              active: false,
+            });
+
+            this.listing.push({
+              title: 'Review and Rating',
+              link: 'reviews-ratings',
+              active: false,
+            });
+          } 
+          else {
+              this.listing.push({
+                title: 'My Booking',
+                link: 'my-booking',
+                active: true,
+              })
+  
+              this.listing.push({
+                title: 'My Payment',
+                link: 'my-payment',
+                active: true,
+              });
+              this.listing.push({
+                title: 'My Subscription',
+                link: 'my-subscription',
+                active: true,
+              });
+              this.listing.push({
+                title: 'My Affiliate',
+                link: 'my-affiliate',
+                active: true,
+              });
+            this.listing.push({
+              title: 'Review and Rating',
+              link: 'reviews-ratings',
+              active: true,
+            });
           }
           if (profile.plan.ListAmenities === true) {
             this.listing.push({
@@ -177,6 +249,7 @@ export class WrapperComponent implements OnInit {
               link: 'my-amenities',
               active: true,
             });
+            
           } else {
             this.listing.push({
               title: 'My Amenities',
@@ -226,44 +299,7 @@ export class WrapperComponent implements OnInit {
               active: false,
             });
           }
-
-          if (profile.plan._id) {
-            this.listing.push({
-              title: 'My Payment',
-              link: 'my-payment',
-              active: true,
-            });
-            this.listing.push({
-              title: 'My Subscription',
-              link: 'my-subscription',
-              active: true,
-            });
-          } else {
-            this.listing.push({
-              title: 'My Payment',
-              link: 'my-payment',
-              active: false,
-            });
-            this.listing.push({
-              title: 'My Subscription',
-              link: 'my-subscription',
-              active: false,
-            });
-          }
-
-
-          this.listing.push({
-            title: 'My Affiliate',
-            link: 'my-affiliate',
-            active: true,
-          });
         }
-      }
     }
-    this.listing.push({
-      title: 'Review and Rating',
-      link: 'reviews-ratings',
-      active: true,
-    });
   }
 }

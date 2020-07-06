@@ -154,7 +154,6 @@ export class DoctorFilterComponent implements OnInit {
     }
     let path = 'user/filter-map';
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
-      console.log('this.doctorList', res)
       if (res.statusCode = 200) {
        this.doctorList = res.data;
        const self = this

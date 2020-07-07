@@ -117,7 +117,7 @@
           role="tab"
           aria-controls="pills-service"
           aria-selected="false"
-          (click) = "getUserServices()"
+          (click) = "getCategoryServices()"
           >Service Information</a
         >
       </li>
@@ -248,11 +248,21 @@
       >
         <table class="table table-borderless informationtable">
           <tbody>
-            <tr *ngIf="serviceData">
+            <tr *ngIf="serviceData.length">
               <th>Services:</th>
               <td>
                 <div class="row">
-                <div *ngFor="let special of serviceData?.ans" class="col-sm-4 services">
+                <div *ngFor="let special of serviceData" class="col-sm-4 services">
+                  {{special.item_text}}
+                </div>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="treatmentModalities.length">
+              <th>Treatment Modalities:</th>
+              <td>
+                <div class="row">
+                <div *ngFor="let special of treatmentModalities" class="col-sm-4 services">
                   {{special.item_text}}
                 </div>
                 </div>
@@ -261,11 +271,11 @@
             <tr>
               <th>Serices Type:</th>
               <td>
-                <span *ngFor="let item of serviceQuestion?.answers">
-                  <span *ngFor="let profileItem of userInfo?.serviceOfferIds; let i = index">
-                      <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
-                  </span>
-                </span>
+                <div class="row">
+                  <div *ngFor="let special of serviceType" class="col-sm-4 services">
+                    {{special.item_text}}
+                  </div>
+                </div>
               </td>
             </tr>
             <tr>

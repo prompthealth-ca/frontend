@@ -33,7 +33,10 @@ export class DetailComponent implements OnInit {
     { id: 'timing4', name: 'Anytime' },
   ];
   userInfo;
-  serviceData;
+  serviceData = [];
+  treatmentModalities = [];
+
+serviceType = [];
   roles;
   productSearch: '';
   startDate = new Date();
@@ -81,8 +84,6 @@ export class DetailComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         this.userInfo = res.data[0];
-        console.log('this.userInfo', this.userInfo.services);
-
         this.getCategoryServices();
         if (this.userInfo) {
           this.userInfo.ratingAvg =  Math.floor(this.userInfo.ratingAvg);
@@ -118,21 +119,6 @@ export class DetailComponent implements OnInit {
      }, err => {
        this.sharedService.loader('hide');
      });
-  }
-  getUserServices() {
-    const payload = {
-      user_id: this.userInfo._id,
-    }
-    let path = 'user/filter';
-      this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
-          this.serviceData = res.data[0];
-        } else {
-          this.toastr.error(res.message);
-        }
-      }, err => {
-        this.serviceData.loader('hide');
-      });
   }
   getProductList() {
     this.sharedService.loader('show');
@@ -232,38 +218,23 @@ export class DetailComponent implements OnInit {
       this.sharedService.checkAccessToken(err);
     });
   }
-
-  findTreatmentModality() {
-    const treatmentModalities =  
-    this.userInfo.services.forEach(element => {
-      this.categoryList.forEach(el => {
-        el.answers.forEach(ans => {
-
-          // console.log('element', element);
-          // console.log('el', el);
-          if(element === ans._id) {
-            if(el.c_question  === "What kind of service/product are you looking for?") {
-              console.log('service', element);
-
-            }
-            if(el.c_question === "Treatment modalities") {
-              console.log('"Treatment modalities"', element);
-
-            }
-            
-          }
-        });
-      });
-    });
-  }
   getCategoryServices() {
-    let path = `questionare/get-questions?type=${this.userInfo.roles}`;
+    let path = `user/getService/${this.userInfo._id}`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       this.sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
-        console.log('this.categoryList', this.categoryList)
-        this.findTreatmentModality();
+        this.categoryList.forEach(element => {
+          if(element.slug === 'providers-are-you') {
+            this.serviceData.push(element)
+          }
+          if(element.slug === 'treatment-modalities') {
+            this.treatmentModalities.push(element)
+          }
+          if(element.slug === "your-goal-specialties") {
+            this.serviceType.push(element)
+          }
+        });
       } else {
       }
     }, (error) => {

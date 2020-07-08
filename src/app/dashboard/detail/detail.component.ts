@@ -226,13 +226,19 @@ serviceType = [];
         this.categoryList = res.data;
         this.categoryList.forEach(element => {
           if(element.slug === 'providers-are-you') {
-            this.serviceData.push(element)
+            if(this.serviceData.indexOf(element.item_text) === -1) {
+              this.serviceData.push(element)
+            }
           }
           if(element.slug === 'treatment-modalities') {
-            this.treatmentModalities.push(element)
+            if(this.treatmentModalities.indexOf(element.item_text) === -1) {
+              this.treatmentModalities.push(element);
+            }
           }
           if(element.slug === "your-goal-specialties") {
-            this.serviceType.push(element)
+            if(this.serviceType.indexOf(element) === -1) {
+              this.serviceType.push(element.item_text);
+            }
           }
         });
       } else {

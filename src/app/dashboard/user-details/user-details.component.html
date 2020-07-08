@@ -362,7 +362,7 @@
         </small>
       </div> -->
     </div>
-    <div *ngIf="roles === 'C' || roles === 'SP'">
+    <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>What is prefered Language ?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of languageQuestion?.answers; let i = index">
@@ -375,7 +375,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="roles === 'C' || roles === 'SP'">
+    <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>What is prefered time ?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of avalibilityQuestion?.answers; let i = index">
@@ -388,7 +388,7 @@
         </div>
       </div>
     </div>
-  <div *ngIf="roles === 'C' || roles === 'SP'">
+  <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>What is your Service Type ?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of serviceQuestion?.answers; let i = index">

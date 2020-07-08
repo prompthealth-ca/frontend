@@ -150,7 +150,7 @@
       <div class="col-md-6 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <div class="radio form-row mb-3">
             <label>What is your proffesional association<span class="text-danger">*</span></label>
-            <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control" placeholder="" maxlength="12"
+            <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control" placeholder=""
               (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
               (ngModelChange)="userDetails.professional_organization = $event" required />
         </div>
@@ -236,51 +236,29 @@
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="> 75" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="notcritical" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
-          <span>
-            > 75</span>
+          <span>Not Critical</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="65-75" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="child" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
-          <span>65-75</span>
+          <span>Child</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="55-65" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="adolescent" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
-          <span>55-65</span>
+          <span>Adolescent</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="45-55" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="adult" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
-          <span>45-55</span>
+          <span>Adult</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="35" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="senior" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
-          <span>35-45</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="25-35" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
-            required />
-          <span>25-35</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="18-24" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
-            required />
-          <span>18-24</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="12-17" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
-            required />
-          <span>12-17</span>
-        </div>
-        <div class="radio col-md-4 mb-3">
-          <input type="radio" value="<12>" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
-            required />
-          <span>
-            < 12</span>
+          <span>Senior</span>
         </div>
       </div>
         <!-- <div class="error-block">
@@ -363,7 +341,8 @@
       </div> -->
     </div>
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-      <label>What is prefered Language ?</label>
+      <label *ngIf="roles === 'SP'">What languages are you fluent in?</label>
+      <label *ngIf="roles === 'C'">What languages do you offer?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of languageQuestion?.answers; let i = index">
                         
@@ -376,7 +355,7 @@
       </div>
     </div>
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-      <label>What is prefered time ?</label>
+      <label>What are your typical hours?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of avalibilityQuestion?.answers; let i = index">
                         

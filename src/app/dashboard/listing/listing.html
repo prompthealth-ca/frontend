@@ -108,7 +108,7 @@
         <div class="mb-3">
           <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index">       
             <label for="{{item.id}}">
-                <input class="radio" type="radio" name="age_range" (change)="changeAge($event)"  [value]="item.name" required id="{{item.id}}"/>
+                <input class="radio" type="radio" name="age_range" (change)="changeAge($event)"  [value]="item.val" required id="{{item.id}}"/>
                 <span class="text-body">{{item.name}}</span>
             </label>
           </div>

@@ -25,15 +25,11 @@ export class MyProfileComponent implements OnInit {
   formData = new FormData();
 
   ageRangeList  = [
-    { id: 'age1', name: '<12' },
-    { id: 'age2', name: '12-17' },
-    { id: 'age3', name: '18-24' },
-    { id: 'age4', name: '25-35' },
-    { id: 'age5', name: '35-45' },
-    { id: 'age6', name: '45-55' },
-    { id: 'age7', name: '55-65' },
-    { id: 'age8', name: '65-75' },
-    { id: 'age9', name: '>75' },
+    { id: 'age1', name: 'Not Critical', val: 'notcritical' },
+    { id: 'age2', name: 'Child', val: 'child' },
+    { id: 'age3', name: 'Adolescent', val: 'adolescent' },
+    { id: 'age4', name: 'Adult', val: 'adult' },
+    { id: 'age5', name: 'Senior', val: 'senior' },
   ];
   experienceList  = [
     { id: 'exp1', name: '<5 Years'},

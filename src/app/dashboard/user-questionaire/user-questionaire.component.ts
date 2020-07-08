@@ -121,6 +121,9 @@ ansIDs = [];
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.questionnaire = res.data;
+        
+
+        console.log('this.questionnaire', this.questionnaire)
         for(var i in this.questionnaire) {
           this.questionnaire[i].answers.forEach(obj=> { obj['active'] = false })
         }

@@ -120,7 +120,37 @@ export class RegistrationComponent implements OnInit {
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log('x-----', x));
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
+      console.log('x-----', x);
+      const payload = {
+        socialToken: x.idToken,
+        email: x.email,
+        roles: this.userType,
+        loginType: x.provider.toLowerCase(),
+        termsCondition: true
+  
+      }
+
+      this._sharedService.socialRegister(payload).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+
+          this.toastr.success('Thanks for the registeration we have sent a welcome email to the address provided');
+          this.registerForm.reset();
+          this.submitted = false;
+
+          // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+
+          this._sharedService.loginUser(res, 'reg');
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      });
+    
+    });
   }
   registerUser() {
     this.submitted = true;

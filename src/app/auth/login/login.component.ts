@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   public professionalLogin = false;
+  userType = 'U';
   public submitted = false;
   
 
@@ -36,17 +37,28 @@ export class LoginComponent implements OnInit {
       case "/auth/login/sp": 
         //some logic
         this.professionalLogin = true;
-        // this.userType = 'SP'
+        this.userType = 'SP'
         break;
       case "/auth/login/c": 
         //some logic
         this.professionalLogin = true;
-        // this.userType = 'C'
+        this.userType = 'C'
+        break;
+        case "/auth/login/C": 
+          //some logic
+          this.professionalLogin = true;
+          this.userType = 'C'
+          break;
+
+        case "/auth/login/u": 
+        //some logic
+        this.professionalLogin = true;
+        this.userType = 'U'
         break;
       case "/auth/login/u": 
         //some logic
         this.professionalLogin = false;
-        // this.userType = 'U'
+        this.userType = 'U'
         break;
 
       default:
@@ -60,11 +72,65 @@ export class LoginComponent implements OnInit {
     });
   }
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => console.log(x));
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
+      console.log(x);
+      const payload = {
+        socialToken: x.idToken,
+        email: x.email,
+        roles: this.userType,
+        loginType: x.provider.toLowerCase(),
+  
+      }
+      this._sharedService.socialRegister(payload).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+
+          this.toastr.success('Welcome');
+          this.submitted = false;
+
+          // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+
+          this._sharedService.loginUser(res, 'reg');
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      });
+    });
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => console.log(x));
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
+      console.log(x);
+      const payload = {
+        socialToken: x.idToken,
+        email: x.email,
+        roles: this.userType,
+        loginType: x.provider.toLowerCase(),
+        termsCondition: true
+  
+      }
+
+      this._sharedService.socialRegister(payload).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+
+          this.toastr.success('Welcome');
+          this.submitted = false;
+
+          // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
+
+          this._sharedService.loginUser(res, 'reg');
+        } else {
+          this.toastr.error(res.message);
+        }
+      }, (error) => {
+        this.toastr.error("There are some error please try after some time.")
+        this._sharedService.loader('hide');
+      });
+    });
   }
 
   loginUser(form: FormGroup) {

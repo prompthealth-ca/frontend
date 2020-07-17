@@ -25,11 +25,11 @@ export class MyProfileComponent implements OnInit {
   formData = new FormData();
 
   ageRangeList  = [
-    { id: 'age1', name: 'Not Critical', val: 'notcritical' },
-    { id: 'age2', name: 'Child', val: 'child' },
-    { id: 'age3', name: 'Adolescent', val: 'adolescent' },
-    { id: 'age4', name: 'Adult', val: 'adult' },
-    { id: 'age5', name: 'Senior', val: 'senior' },
+    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior' },
   ];
   experienceList  = [
     { id: 'exp1', name: '<5 Years'},
@@ -83,6 +83,7 @@ export class MyProfileComponent implements OnInit {
     business_kind: '',
     product_description: '',
     professional_organization: '',
+    certification: '',
     isPlanExpired: false
   };
   languagesSelected = [];

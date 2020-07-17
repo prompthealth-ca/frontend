@@ -34,12 +34,13 @@ export class DoctorFilterComponent implements OnInit {
   lat;
   long;
 
+  queryLatLong;
+
   location = {
-  markers:  [
-  ],
-  zoom: 10,
-  lati:51.673858,
-  lng: 7.815982,
+    markers:  [],
+    zoom: 10,
+    lati:51.673858,
+    lng: 7.815982,
   }
 
   constructor(
@@ -50,7 +51,7 @@ export class DoctorFilterComponent implements OnInit {
     private toastr: ToastrService,
   ) { 
 
-    this.zipcode = this.activeRoute.snapshot.queryParams['zipcode'];
+    this.queryLatLong = `${this.activeRoute.snapshot.queryParams['lat']}, ${this.activeRoute.snapshot.queryParams['long']}`;
   }
 
   ngOnInit(): void {
@@ -82,7 +83,7 @@ export class DoctorFilterComponent implements OnInit {
 
 
     this.searchedAddress = localStorage.getItem('searchedAddress')
-    this.getDoctorList({ zipcode: this.zipcode });
+    this.getDoctorList({ latLong: this.queryLatLong });
     this.getProfileQuestion();
   }
 
@@ -114,7 +115,8 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         const result = res.data;
-       this.createNameList(result)
+        console.log('Result----------------', result)
+        this.createNameList(result)
        
       } else {
         this.toastr.error(res.message);
@@ -145,7 +147,6 @@ export class DoctorFilterComponent implements OnInit {
       this.sharedService.loader('hide');
     });
   }
-
   getDoctorList(filter) {
     this.sharedService.loader('show');
     let payload;
@@ -156,6 +157,8 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
+
+       this.createNameList(res.data)
        const self = this
         setTimeout(()=>{
           self.createMapMarker(this.doctorList)
@@ -203,7 +206,7 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedHours = null;
     this.selectedServiceType = null;
 
-    this.getDoctorList({ zipcode: this.zipcode });
+    this.getDoctorList({ latLong: this.queryLatLong });
 
     this.closebutton.nativeElement.click();
   }
@@ -244,6 +247,7 @@ export class DoctorFilterComponent implements OnInit {
 
   }
   createNameList(data) {
+    console.log('----------------', data)
     for (let element of data) {
       if(element.firstName) {
         this.allDoctorList.push({

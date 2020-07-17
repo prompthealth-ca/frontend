@@ -31,7 +31,12 @@ ansIDs = [];
     quesId: '',
     options: []
   };
-
+  personalMatch = {
+    ids: [],
+    age_range: '',
+    type: 'service',
+    typicalHoursId: [],
+  }
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
     (
@@ -53,7 +58,7 @@ ansIDs = [];
   }
   setAnsChecked(){
     this.questionnaire.forEach(element => {
-      if(element.c_question === "What is your age range?" && this.profile.customer_age_group) {
+      if(element.c_question === "What is your age range?" && this.profile?.customer_age_group) {
         element.answers.forEach(ele => {
           if(ele._id === this.profile.customer_age_group) {
             ele.active = true;
@@ -62,17 +67,17 @@ ansIDs = [];
         });
       }
         
-      if(element.c_question === "Are you looking for your loved one?" && this.profile.customer_loved) {
+      if(element.c_question === "Are you looking for your loved one?" && this.profile?.customer_loved) {
         element.answers.forEach(el => {
-          if(el._id === this.profile.customer_loved) {
+          if(el._id === this.profile?.customer_loved) {
             el.active = true;
           }
         });
       }
 
-      if(element.c_question === "Check the status of your health" && this.profile.customer_health.length) {
+      if(element.c_question === "Check the status of your health" && this.profile?.customer_health.length) {
         element.answers.forEach(el => {
-          this.profile.customer_health.forEach(save => {
+          this.profile?.customer_health.forEach(save => {
             if(el._id === save) {
               el.active = true;
             } 
@@ -81,13 +86,13 @@ ansIDs = [];
       }
     });
   }
-  
   getSubAns(evt, subOption, questType) {
     const parentId = evt.target.id;
     
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
         this.typical_hours.push(parentId);
+        this.personalMatch.typicalHoursId = this.typical_hours;
       }
       else {
         this.selectedItems.push(parentId);
@@ -122,8 +127,6 @@ ansIDs = [];
       if (res.statusCode = 200) {
         this.questionnaire = res.data;
         
-
-        console.log('this.questionnaire', this.questionnaire)
         for(var i in this.questionnaire) {
           this.questionnaire[i].answers.forEach(obj=> { obj['active'] = false })
         }
@@ -165,6 +168,7 @@ ansIDs = [];
     }, err => {
       this._sharedService.loader('hide');
     });
+    this._sharedService.setPersonalMatch(this.personalMatch)
    
     this._router.navigate(['/dashboard/listing']);
   }
@@ -228,6 +232,7 @@ ansIDs = [];
       _id:  localStorage.getItem('loginID'),
       ...data,
     }
+    this.personalMatch.age_range = data.customer_age_group;
 
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
@@ -256,6 +261,7 @@ ansIDs = [];
     const parentId = evt.target.id;
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
+      this.personalMatch.ids = this.selectedItems;
     }
     if(evt.target.checked && subans) {
       this.sublevel2Res.question = evt.target.name

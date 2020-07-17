@@ -216,9 +216,22 @@
               </td>
             </tr>
             <tr>
-              <th>Age Group:</th>
+              <th>Specialty Age Group:</th>
               <td>
                 {{userInfo?.age_range}}
+              </td>
+            </tr>
+            <!-- -- {{ userInfo | json}} -->
+            <tr *ngIf="userInfo?.roles === 'SP'">
+              <th>Professional Organisation:</th>
+              <td>
+                <span>{{userInfo?.professional_organization}}  </span>
+              </td>
+            </tr>
+            <tr *ngIf="userInfo?.roles === 'SP'">
+              <th>Certification:</th>
+              <td>
+                <span>{{userInfo?.certification}}  </span>
               </td>
             </tr>
             <tr *ngIf="userInfo?.languages.length">
@@ -249,7 +262,7 @@
         <table class="table table-borderless informationtable">
           <tbody>
             <tr *ngIf="serviceData.length">
-              <th>Services:</th>
+              <th>Type of Provider:</th>
               <td>
                 <div class="row">
                 <div *ngFor="let special of serviceData" class="col-sm-4 services">
@@ -273,7 +286,7 @@
               <td>
                 <div class="row">
                   <div *ngFor="let special of serviceType" class="col-sm-4 services">
-                    {{special.item_text}}
+                    {{special}}
                   </div>
                 </div>
               </td>
@@ -284,6 +297,22 @@
                 {{userInfo?.price_per_hours}}
               </td>
             </tr>
+            <!-- <tr>
+              <th>Serices Type:</th>
+              <td>
+                <div class="row">
+                  <div *ngFor="let special of serviceType" class="col-sm-4 services">
+                    {{special}}
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Standard Hourly Price:</th>
+              <td>
+                {{userInfo?.price_per_hours}}
+              </td>
+            </tr> -->
           </tbody>
         </table>
       </div>
@@ -338,82 +367,75 @@
         <input  *ngIf="productList && productList.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
         <table class="table table-hover comparetable" *ngIf="productList && productList.length; else noProduct">
           <thead>
-              <tr>
-                  <th>
-                      <h5>Title</h5>
-                  </th>
-                  <th>
-                      <h5>Description</h5>
-                  </th>
-                  <th>
-                      <h5>Price</h5>
-                  </th>
-                  <th>
-                      <h5>Images</h5>
-                  </th>
-              </tr>
+            <tr>
+              <th>
+                  <h5>Title</h5>
+              </th>
+              <th>
+                  <h5>Description</h5>
+              </th>
+              <th>
+                  <h5>Price</h5>
+              </th>
+              <th>
+                  <h5>Images</h5>
+              </th>
+            </tr>
           </thead>
           <tbody>
               <tr *ngFor="let prod of productList | customFilter:productSearch: 'slug';let i = index">
-                  <td>
-                      {{ prod.slug }}
-                  </td>
-                  <td>
-                      {{ prod.description }}
-                  </td>
-                  <td>
-                      {{ prod.price }}
-                  </td>
-                  <td>
-                    <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
-                      <div class="img-list" *ngFor="let img of prod.images; let i=index" >
-                          <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
-                          
-                      </div>
-                    </a>
-                      <!-- Image slider modal -->
-                    <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
-                      <div class="modal-dialog w-100">
-                        <div class="modal-content bg-transparent border-0">
-                          <div class="modal-header border-0 p-0">
-                            <h5 class="modal-title"></h5>
-                            <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body pt-0 px-4">
-                              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                  <ol class="carousel-indicators">
-
-                                      <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                          <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" alt="...">
-                                      </li>
-                                    </ol>
-
-                                  <div class="carousel-inner">
-                                    <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                                      <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" class="d-block w-100" alt="...">
-                                    </div>
-                                  </div>
-
-                                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                  </a>
-                                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                  </a>
-
-                                </div>
-
-
-
+                <td>
+                    {{ prod.slug }}
+                </td>
+                <td>
+                    {{ prod.description }}
+                </td>
+                <td>
+                    {{ prod.price }}
+                </td>
+                <td>
+                  <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
+                    <div class="img-list" *ngFor="let img of prod.images; let i=index" >
+                        <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
+                        
+                    </div>
+                  </a>
+                    <!-- Image slider modal -->
+                  <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
+                    <div class="modal-dialog w-100">
+                      <div class="modal-content bg-transparent border-0">
+                        <div class="modal-header border-0 p-0">
+                          <h5 class="modal-title"></h5>
+                          <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body pt-0 px-4">
+                          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                              <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
+                                  <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" alt="...">
+                              </li>
+                            </ol>
+                            <div class="carousel-inner">
+                              <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
+                                <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" class="d-block w-100" alt="...">
+                              </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
                           </div>
                         </div>
                       </div>
-                    </div> 
-                  </td>
+                    </div>
+                  </div> 
+                </td>
               </tr>
           </tbody>
         </table>
@@ -491,101 +513,100 @@
         </div>
       </div>
       <div class="tab-pane product-list"
-      id="pills-doctors"
-      role="tabpanel"
-      aria-labelledby="doctors-tab"
-    >
-      <h5 class="mb-0" *ngIf="doctors && doctors.length">Professional Listed</h5>
-      <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length; else noDoctor">
-        <thead>
+        id="pills-doctors"
+        role="tabpanel"
+        aria-labelledby="doctors-tab"
+      >
+        <h5 class="mb-0" *ngIf="doctors && doctors.length">Professional Listed</h5>
+        <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length; else noDoctor">
+          <thead>
             <tr>
-                <th>
-                    <h5>Images</h5>
-                </th>
-                <th>
-                    <h5>Name</h5>
-                </th>
-                <th>
-                    <h5>Description</h5>
-                </th>
+              <th>
+                  <h5>Images</h5>
+              </th>
+              <th>
+                  <h5>Name</h5>
+              </th>
+              <th>
+                  <h5>Description</h5>
+              </th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <tr *ngFor="let prod of doctors; let i = index">
-                
-                <td>
-                    <img class="pro-img" [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
-                </td>
-                <td>
-                    {{ prod.fname }} {{ prod.lname }}
-                </td>
-                <td>
-                    {{ prod.description }}
-                </td>
+              <td>
+                <img class="pro-img" [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+              </td>
+              <td>
+                {{ prod.fname }} {{ prod.lname }}
+              </td>
+              <td>
+                {{ prod.description }}
+              </td>
             </tr>
-        </tbody>
-    </table>
-      <ng-template #noDoctor>
-        <h5>No doctor listed...</h5>
-      </ng-template>
+          </tbody>
+        </table>
+        <ng-template #noDoctor>
+          <h5>No doctor listed...</h5>
+        </ng-template>
       </div>
       <div class="tab-pane product-list"
-      id="pills-rating"
-      role="tabpanel"
-      aria-labelledby="rating-tab"
-    >
-      <h5 class="mb-0">Reviews</h5>
-      <hr />
-      <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
-        <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
-        <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
-        <div class="pl-3 w-100">
-          <div class="d-flex justify-content-between mb-2">
-            <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
-          </div>
-          <div class="text-rating mb-2" *ngIf="rate.rating===5">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-          </div>
-          <div class="text-rating mb-2" *ngIf="rate.rating===4">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-          </div>
-          <div class="text-rating mb-2" *ngIf="rate.rating===3">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-          </div>
-          <div class="text-rating mb-2" *ngIf="rate.rating===2">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-          </div>
-          <div class="text-rating mb-2" *ngIf="rate.rating===1">
-            <i class="fa fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-            <i class="far fa-star"></i>
-          </div>
+        id="pills-rating"
+        role="tabpanel"
+        aria-labelledby="rating-tab"
+      >
+        <h5 class="mb-0">Reviews</h5>
+        <hr />
+        <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
+          <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
+          <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
+          <div class="pl-3 w-100">
+            <div class="d-flex justify-content-between mb-2">
+              <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
+            </div>
+            <div class="text-rating mb-2" *ngIf="rate.rating===5">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </div>
+            <div class="text-rating mb-2" *ngIf="rate.rating===4">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="text-rating mb-2" *ngIf="rate.rating===3">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="text-rating mb-2" *ngIf="rate.rating===2">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="text-rating mb-2" *ngIf="rate.rating===1">
+              <i class="fa fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
 
-          <div class="review">
-            {{ rate.review }}
+            <div class="review">
+              {{ rate.review }}
+            </div>
           </div>
         </div>
       </div>
-  </div>
-</div>
+    </div>
 
 <!-- Modal login -->
 <div

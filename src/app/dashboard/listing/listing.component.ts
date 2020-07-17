@@ -30,11 +30,11 @@ export class ListingComponent implements OnInit {
   typical_hours = [];
   type = 'Goal';
   ageRangeList  = [
-    { id: 'age1', name: 'Not Critical', val: 'notcritical' },
-    { id: 'age2', name: 'Child', val: 'child' },
-    { id: 'age3', name: 'Adolescent', val: 'adolescent' },
-    { id: 'age4', name: 'Adult', val: 'adult' },
-    { id: 'age5', name: 'Senior', val: 'senior' },
+    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior' },
   ];
   ratingsOption = [
     {
@@ -80,46 +80,49 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const routeParams = this.route.snapshot.params;
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
+    const personalMatch = this._sharedService.getPersonalMatch();
+    console.log('personalMatch', personalMatch);
+    if(personalMatch) {
+      this.listing(personalMatch);
+    } else {
       this.mapsAPILoader.load().then(() => {
         this.geoCoder = new google.maps.Geocoder;
-        let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-        autocomplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-            //get the place result
-            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-   
-            //verify result
-            if (place.geometry === undefined || place.geometry === null) {
-              return;
-            }
-            this.lat = place.geometry.location.lat()
-            this.long = place.geometry.location.lng()
-            this.getAddress(this.lat, this.long);
+        this.mapsAPILoader.load().then(() => {
+          this.geoCoder = new google.maps.Geocoder;
+          let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+          autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+              //get the place result
+              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    
+              //verify result
+              if (place.geometry === undefined || place.geometry === null) {
+                return;
+              }
+              this.lat = place.geometry.location.lat()
+              this.long = place.geometry.location.lng()
+              this.getAddress(this.lat, this.long);
+            });
           });
         });
+        
       });
-      
-    });
 
-    this.loggedInUser = localStorage.getItem('loginID');
-    this.loggedInRole = localStorage.getItem('roles');
-    if(localStorage.getItem('typical_hours')) {
-      this.typical_hours = localStorage.getItem('typical_hours').split(',');
+      this.loggedInUser = localStorage.getItem('loginID');
+      this.loggedInRole = localStorage.getItem('roles');
+      if(localStorage.getItem('typical_hours')) {
+        this.typical_hours = localStorage.getItem('typical_hours').split(',');
+      }
+      this.getProfileQuestion();
+      this.route.queryParams.subscribe(queryParams => {
+        this.id = queryParams.id;
+        this.type = queryParams.type;
+        this.listing({
+          ids: this.id ? [this.id] : [],
+          type: this.type
+        });
+      });
     }
-    this.getProfileQuestion();
-    this.route.queryParams.subscribe(queryParams => {
-       this.id = queryParams.id;
-       this.type = queryParams.type;
-       console.log('type', this.type)
-      this.listing({
-        ids: this.id ? [this.id] : [],
-        type: this.type
-
-      });
-    });
   }
 
   getProfileQuestion() {

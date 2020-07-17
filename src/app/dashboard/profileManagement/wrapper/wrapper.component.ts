@@ -11,19 +11,19 @@ export class WrapperComponent implements OnInit {
   userInfo
   listing = [
     {
-      title: 'My Profile',
+      title: 'Profile',
       link: 'my-profile',
       active: true,
     },
   ];
   uListing = [
     {
-      title: 'My Booking',
+      title: 'Booking',
       link: 'my-booking',
       active: true,
     },
     {
-      title: 'My Favourite',
+      title: 'Favourite',
       link: 'my-favourites',
       active: true,
     },
@@ -85,7 +85,7 @@ export class WrapperComponent implements OnInit {
       if( profile.isVipAffiliateUser) {
         if(profile.roles === 'SP') {
           this.listing.push({
-            title: 'My Affiliate',
+            title: 'Affiliate',
             link: 'my-affiliate',
             active: true,
           });
@@ -127,23 +127,23 @@ export class WrapperComponent implements OnInit {
         if (profile.roles === 'SP') {
           if (profile.plan.userType.length == 2 ) {
             this.listing.push({
-              title: 'My Booking',
+              title: 'Booking',
               link: 'my-booking',
               active: false,
             }),
             this.listing.push({
-              title: 'My Payment',
+              title: 'Payment',
               link: 'my-payment',
               active: false,
             });
             this.listing.push({
-              title: 'My Subscription',
+              title: 'Subscription',
               link: 'my-subscription',
               active: false,
             });
 
             this.listing.push({
-              title: 'My Videos',
+              title: 'Videos',
               link: 'videos-blogs',
               active: false,
             });
@@ -155,22 +155,22 @@ export class WrapperComponent implements OnInit {
           } 
           else {
             this.listing.push({
-              title: 'My Booking',
+              title: 'Booking',
               link: 'my-booking',
               active: true,
             }),
             this.listing.push({
-              title: 'My Payment',
+              title: 'Payment',
               link: 'my-payment',
               active: true,
             });
             this.listing.push({
-              title: 'My Subscription',
+              title: 'Subscription',
               link: 'my-subscription',
               active: true,
             });
             this.listing.push({
-              title: 'My Videos',
+              title: 'Videos',
               link: 'videos-blogs',
               active: true,
             });
@@ -189,22 +189,22 @@ export class WrapperComponent implements OnInit {
         if (profile.roles === 'C') {
           if (profile.plan.userType.length == 2 ) {
             this.listing.push({
-              title: 'My Booking',
+              title: 'Booking',
               link: 'my-booking',
               active: false,
             }),
 
             this.listing.push({
-              title: 'My Payment',
+              title: 'Payment',
               link: 'my-payment',
               active: false,
             });
             this.listing.push({
-              title: 'My Subscription',
+              title: 'Subscription',
               link: 'my-subscription',
               active: false,
             });this.listing.push({
-              title: 'My Affiliate',
+              title: 'Affiliate',
               link: 'my-affiliate',
               active: false,
             });
@@ -217,23 +217,23 @@ export class WrapperComponent implements OnInit {
           } 
           else {
               this.listing.push({
-                title: 'My Booking',
+                title: 'Booking',
                 link: 'my-booking',
                 active: true,
               })
   
               this.listing.push({
-                title: 'My Payment',
+                title: 'Payment',
                 link: 'my-payment',
                 active: true,
               });
               this.listing.push({
-                title: 'My Subscription',
+                title: 'Subscription',
                 link: 'my-subscription',
                 active: true,
               });
               this.listing.push({
-                title: 'My Affiliate',
+                title: 'Affiliate',
                 link: 'my-affiliate',
                 active: true,
               });
@@ -245,14 +245,14 @@ export class WrapperComponent implements OnInit {
           }
           if (profile.plan.ListAmenities === true) {
             this.listing.push({
-              title: 'My Amenities',
+              title: 'Amenities',
               link: 'my-amenities',
               active: true,
             });
             
           } else {
             this.listing.push({
-              title: 'My Amenities',
+              title: 'Amenities',
               link: 'my-amenities',
               active: false,
             });
@@ -260,13 +260,13 @@ export class WrapperComponent implements OnInit {
 
           if (profile.plan.ListOfProviders === true) {
             this.listing.push({
-              title: 'My Doctors',
+              title: 'Proffessionals',
               link: 'add-professionals',
               active: true,
             });
           } else {
             this.listing.push({
-              title: 'My Doctors',
+              title: 'Proffessionals',
               link: 'add-professionals',
               active: false,
             });
@@ -274,13 +274,13 @@ export class WrapperComponent implements OnInit {
 
           if (profile.plan.ListProductsOption === true) {
             this.listing.push({
-              title: 'My Products',
+              title: 'Products',
               link: 'my-product',
               active: true,
             });
           } else {
             this.listing.push({
-              title: 'My Products',
+              title: 'Products',
               link: 'my-product',
               active: false,
             });
@@ -288,13 +288,13 @@ export class WrapperComponent implements OnInit {
 
           if (profile.plan.videoUpload === true) {
             this.listing.push({
-              title: 'My Videos',
+              title: 'Videos',
               link: 'videos-blogs',
               active: true,
             });
           } else {
             this.listing.push({
-              title: 'My Videos',
+              title: 'Videos',
               link: 'videos-blogs',
               active: false,
             });

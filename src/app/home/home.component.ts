@@ -43,29 +43,8 @@ export class HomeComponent implements OnInit {
     return this.homeForm.controls;
   }
   ngOnInit() {
-
     localStorage.removeItem('searchedAddress');
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-      let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          this.lat = place.geometry.location.lat()
-          this.long = place.geometry.location.lng()
-          this.getAddress(this.lat, this.long);
-        });
-      });
-    });
-    
     this.token = localStorage.getItem("token");
-
     this.homeForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]]
     });
@@ -76,35 +55,20 @@ export class HomeComponent implements OnInit {
     }, 1000);
   }
 
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      this.zipCodeSearched = '';
-      if (status === 'OK') {
-        if (results[0]) {
-
-          localStorage.setItem('searchedAddress', results[0].formatted_address)
-
-          // find country name
-          for (var i=0; i<results[0].address_components.length; i++) {
-            for (var b=0;b<results[0].address_components[i].types.length;b++) {
-            if (results[0].address_components[i].types[b] === "postal_code") {
-              this.zipCodeSearched = results[0].address_components[i].long_name;
-              break;
-            }
-
-          }
-
-        }
-        } else {
-          window.alert('No results found');
-        }
-
-        // this.router.navigate(['/doctor-filter'], { queryParams: {lat: this.lat, long: this.long}})
-        this.router.navigate(['/doctor-filter'], { queryParams: {zipcode: this.zipCodeSearched }})
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-    });
+  findDoctor() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.lat = position.coords.latitude;
+        this.long = position.coords.longitude;
+        console.log('position', this.lat, this.long)
+        this.router.navigate(['/doctor-filter'], { queryParams: {lat: this.lat, long: this.long}})
+      });
+    }
+    else {
+      console.log('comes in else', this.lat, this.long)
+      this.router.navigate(['/doctor-filter'], { queryParams: {lat: 0, long: 0}})
+    }
+   
   }
   questionnaire() {
     if (this.token) {

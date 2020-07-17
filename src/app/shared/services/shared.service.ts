@@ -29,6 +29,7 @@ export class SharedService {
   rootUrl: string = environment.config.BASE_URL;
   //baseUrl: string = environment.config.API_URL;
 
+  personalMatch
   constructor(
     // private authService: SocialAuthService,
     private _router: Router,
@@ -60,10 +61,10 @@ export class SharedService {
     const url = this.rootUrl + path;
     return this.http.get(url, { headers });
   }
-getNoAuth(path, setParams = {}) {
-  const url = this.rootUrl + path;
-  return this.http.get(url );
-}
+  getNoAuth(path, setParams = {}) {
+    const url = this.rootUrl + path;
+    return this.http.get(url );
+  }
   post(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers });
@@ -75,34 +76,27 @@ getNoAuth(path, setParams = {}) {
     // let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body);
   }
-
   put(body, path) {
     let headers = this.getAuthorizationHeader();
     return this.http.put(this.rootUrl + path, body, { headers });
   }
-
   login(body) {
     let headers = this.getDefaultHeader();
     return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
   }
-
   register(body) {
     let headers = this.getDefaultHeader();
     return this.http.post(this.rootUrl + 'user/register', body, { headers });
   }
-
   socialRegister(body) {
     
     let headers = this.getDefaultHeader();
     return this.http.post(this.rootUrl + 'user/social-login', body, { headers });
   }
-
   logingOut() {
     let headers = this.getAuthorizationHeader();
     return this.http.delete(this.rootUrl + 'user/logout', { headers });
   }
-
-
   getSubscriptionPlan() {
     let date = new Date().getTime().toString();
     let url = this.rootUrl + 'subscribepackage';
@@ -117,7 +111,6 @@ getNoAuth(path, setParams = {}) {
     let headers = this.getAuthorizationHeader();
     return this.http.get(url, { headers });
   }
-
   token(body) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'createcustomer', body, { headers });
@@ -127,20 +120,17 @@ getNoAuth(path, setParams = {}) {
     return this.http.delete(this.rootUrl + path, { headers });
 
   }
-
   delete(id, model) {
 
     let headers = this.getAuthorizationHeader();
     let url = this.rootUrl + 'delete?id=' + id + '&model=' + model;
     return this.http.delete(url, { headers });
   }
-
   removeFav(id) {
     let headers = this.getAuthorizationHeader();
     let url = this.rootUrl + `user/remove-favorite/${id}`;
     return this.http.delete(url, { headers });
   }
-
   contactus(body) {
     return this.http.post(this.rootUrl + 'user/contactus', body);
   }
@@ -148,17 +138,13 @@ getNoAuth(path, setParams = {}) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
-
   uploadImage1(object) {
     let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
-
   sendTop() {
     window.scrollTo(500, 0);
   }
-
-
   /*This function is use to remove user session if Access token expired. */
   checkAccessToken(err): void {
     let code = err.code;
@@ -173,6 +159,12 @@ getNoAuth(path, setParams = {}) {
     }
   }
 
+  setPersonalMatch(personalMatch) {
+    this.personalMatch = personalMatch;
+  }
+  getPersonalMatch() {
+    return this.personalMatch;
+  }
   /*This function is use to get access token from cookie. */
   getAccessToken(): string {
     let token = localStorage.getItem('token');
@@ -193,22 +185,12 @@ getNoAuth(path, setParams = {}) {
 
     return headers;
   }
-getDefaultHeader() {
-  
-  let headers = new HttpHeaders()
-  .set('Content-Type','application/json');
-  return headers
-}
-  // isLogin() {
-  //   let token = localStorage.getItem('token');
-  //   if (token) {
-      
-  //     this._router.navigate(['auth/login', 'u']);
-  //     return true;
-  //   } 
-  //   else return false;
-  // }
-
+  getDefaultHeader() {
+    
+    let headers = new HttpHeaders()
+    .set('Content-Type','application/json');
+    return headers
+  }
   addCookie(key, value) {
     localStorage.setItem(key, value);
   }

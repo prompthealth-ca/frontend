@@ -35,8 +35,8 @@ export class DetailComponent implements OnInit {
   userInfo;
   serviceData = [];
   treatmentModalities = [];
-
-serviceType = [];
+  serviceOffering = [];
+  serviceType = [];
   roles;
   productSearch: '';
   startDate = new Date();
@@ -219,6 +219,10 @@ serviceType = [];
     });
   }
   getCategoryServices() {
+    this.serviceData = [];
+    this.treatmentModalities = [];
+    this.serviceType = [];
+    this.serviceOffering = [];
     let path = `user/getService/${this.userInfo._id}`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       this.sharedService.loader('hide');
@@ -238,6 +242,11 @@ serviceType = [];
           if(element.slug === "your-goal-specialties") {
             if(this.serviceType.indexOf(element) === -1) {
               this.serviceType.push(element.item_text);
+            }
+          }
+          if(element.slug === "your-offerings") {
+            if(this.serviceOffering.indexOf(element) === -1) {
+              this.serviceOffering.push(element.item_text);
             }
           }
         });

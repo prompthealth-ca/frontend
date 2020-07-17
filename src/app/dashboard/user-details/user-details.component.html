@@ -147,14 +147,32 @@
         </div>
       </div>
 
-      <div class="col-md-6 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+      <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
             <label>What is your proffesional association<span class="text-danger">*</span></label>
-            <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control" placeholder=""
+            <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control"
               (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
               (ngModelChange)="userDetails.professional_organization = $event" required />
+            <div class="error-block">
+              <small *ngIf="professional_organization.errors?.required && professional_organization.touched" class="text-danger">
+                Professional is required.
+              </small>
+            </div>
         </div>
-    </div>
+      </div>
+      <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
+        <div class="radio form-row mb-3">
+          <label>Is there any certitification<span class="text-danger">*</span></label>
+          <input autofocus type="text" id="certification" name="certification" class="form-control"
+            (keyup)="trim('certification')" #certification="ngModel" [ngModel]="userDetails.certification" number
+            (ngModelChange)="userDetails.certification = $event" required />
+          <div class="error-block">
+            <small *ngIf="certification.errors?.required && certification.touched" class="text-danger">
+              Certitification is required.
+            </small>
+          </div>
+        </div>
+      </div>
       <div class="col-md-6 mb-3">
         <div class="row">
           <div class="col-md-12">
@@ -236,27 +254,27 @@
         <label>What is the range of your clients ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="notcritical" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="5eb1a4e199957471610e6cd7" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>Not Critical</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="child" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="5eb1a4e199957471610e6cd8" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>Child</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="adolescent" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="5eb1a4e199957471610e6cd9" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>Adolescent</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="adult" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="5eb1a4e199957471610e6cda" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>Adult</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="senior" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
+          <input type="radio" value="5eb1a4e199957471610e6cdb" name="age_range" #age_range="ngModel" [(ngModel)]="userDetails.age_range"
             required />
           <span>Senior</span>
         </div>

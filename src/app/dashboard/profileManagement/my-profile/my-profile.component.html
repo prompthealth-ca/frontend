@@ -116,7 +116,7 @@
             class="form-control col-md-9"
             />
         </div>
-        <div  *ngIf="roles === 'C' || roles === 'SP'">
+        <div *ngIf="roles === 'SP'">
             <div class="radio form-row mb-3">
                 <label class="col-md-3">Proffesional Association <span class="text-danger" *ngIf="editFields">*</span></label>
                 <input
@@ -127,6 +127,21 @@
                 name="address"
                 [(ngModel)]="profile.professional_organization"
                 (onFocus)="profile.professional_organization = ''"
+                class="form-control col-md-9"
+                />
+            </div>
+        </div>
+        <div *ngIf="roles === 'SP'">
+            <div class="radio form-row mb-3">
+                <label class="col-md-3">Certification <span class="text-danger" *ngIf="editFields">*</span></label>
+                <input
+                type="text"
+                [disabled] = "!editFields"
+                autocomplete="off"
+                id="certification"
+                name="certification"
+                [(ngModel)]="profile.certification"
+                (onFocus)="profile.certification = ''"
                 class="form-control col-md-9"
                 />
             </div>
@@ -203,9 +218,9 @@
             <div *ngIf="editFields" class="col-sm-9">
                 <div class="form-row">
                     <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
-           
+                        
                         <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="age_range" [value]="item.val" [(ngModel)] = "profile.age_range" required id="{{item.id}}"/>
+                            <input class="radio" type="radio" name="age_range" value="{{item.name}}" [(ngModel)] = "profile.age_range" required id="{{item.id}}"/>
                             <span class="text-body">{{item.name}}</span>
                         </label>
                     </div>

@@ -34,6 +34,7 @@ export class UserDetailsComponent {
     address: '',
     state: '',
     city: '',
+    certification: '',
     zipcode: '',
     age_range: '',
     languages: [],

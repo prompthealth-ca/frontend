@@ -57,13 +57,14 @@ export class ListingComponent implements OnInit {
     languageId: '',
     typicalHoursId: '',
     rating: null,
-    miles: '',
+    miles: 5,
     latLong: '',
     age_range: '',
     name: '',
     type: 'service',
     serviceOfferId: '',
   }
+  queryLatLong
 
   currentPage;
   totalItems;
@@ -77,11 +78,11 @@ export class ListingComponent implements OnInit {
     private _sharedService:SharedService,
     private toastr: ToastrService,
   ) {
+    this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
   }
 
   ngOnInit(): void {
     const personalMatch = this._sharedService.getPersonalMatch();
-    console.log('personalMatch', personalMatch);
     if(personalMatch) {
       this.listing(personalMatch);
     } else {
@@ -101,7 +102,7 @@ export class ListingComponent implements OnInit {
               }
               this.lat = place.geometry.location.lat()
               this.long = place.geometry.location.lng()
-              this.getAddress(this.lat, this.long);
+              this.listing({latLong: `${this.long}, ${this.lat}`});
             });
           });
         });
@@ -148,30 +149,6 @@ export class ListingComponent implements OnInit {
        this._sharedService.loader('hide');
      });
   }
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      this.listingPayload.zipcode = '';
-      if (status === 'OK') {
-        if (results[0]) {
-          // find country name
-          for (var i=0; i<results[0].address_components.length; i++) {
-            for (var b=0;b<results[0].address_components[i].types.length;b++) {
-            if (results[0].address_components[i].types[b] === "postal_code") {
-              this.listingPayload.zipcode = results[0].address_components[i].long_name;
-              this.listing(this.listingPayload)
-              break;
-            }
-
-          }
-        }
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-    });
-  }
   listing(filter) {
     this._sharedService.loader('show');
     let path = 'user/filter';
@@ -201,7 +178,7 @@ export class ListingComponent implements OnInit {
       languageId: '',
       typicalHoursId: '',
       rating: null,
-      miles: '',
+      miles: 5,
       latLong: '',
       age_range: '',
       name: '',
@@ -243,13 +220,16 @@ export class ListingComponent implements OnInit {
     }
   }
   changeMiles(evt) {
-    if(evt.target.value !== 'exactZipCode') {
-      this.listingPayload.miles = evt.target.value;
+
+    this.listingPayload.miles = Math.ceil(evt.target.value / 5) * 5;
+    if(this.long &&  this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-      this.listing(this.listingPayload);
-    } else {
-      this.listing(this.listingPayload)
     }
+    else {
+      this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
+    }
+    this.listing(this.listingPayload);
+    
   }
   changeAge(evt) {
     this.listingPayload.age_range = evt.target.value;

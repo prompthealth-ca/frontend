@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
   }
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
-      console.log(x);
       const payload = {
         socialToken: x.idToken,
         email: x.email,
@@ -103,7 +102,6 @@ export class LoginComponent implements OnInit {
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
-      console.log(x);
       const payload = {
         socialToken: x.idToken,
         email: x.email,

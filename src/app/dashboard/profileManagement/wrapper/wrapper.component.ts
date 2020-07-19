@@ -80,7 +80,6 @@ export class WrapperComponent implements OnInit {
     });
   }
   setListing(profile){
-    console.log('profile.isVipAffiliateUser', profile)
     if(profile) {
       if( profile.isVipAffiliateUser) {
         if(profile.roles === 'SP') {

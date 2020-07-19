@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
-    console.log('ngOnInit')
       this.getCategoryServices();
       this.token = localStorage.getItem("token");
       this.role = localStorage.getItem("roles");
@@ -103,9 +102,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCategoryServices() {
-    console.log('getCategoryServices')
     this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
-      console.log('res', res)
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;

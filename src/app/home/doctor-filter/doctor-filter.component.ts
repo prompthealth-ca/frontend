@@ -33,6 +33,7 @@ export class DoctorFilterComponent implements OnInit {
   zipcode = '';
   lat;
   long;
+  miles = 5;
 
   queryLatLong;
 
@@ -51,7 +52,7 @@ export class DoctorFilterComponent implements OnInit {
     private toastr: ToastrService,
   ) { 
 
-    this.queryLatLong = `${this.activeRoute.snapshot.queryParams['lat']}, ${this.activeRoute.snapshot.queryParams['long']}`;
+    this.queryLatLong = `${this.activeRoute.snapshot.queryParams['long']}, ${this.activeRoute.snapshot.queryParams['lat']}`;
   }
 
   ngOnInit(): void {
@@ -115,7 +116,6 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         const result = res.data;
-        console.log('Result----------------', result)
         this.createNameList(result)
        
       } else {
@@ -158,14 +158,18 @@ export class DoctorFilterComponent implements OnInit {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
 
-       this.createNameList(res.data)
-       const self = this
-        setTimeout(()=>{
-          self.createMapMarker(this.doctorList)
-        }, 100)
-        this.sharedService.loader('hide');
-      } else {
-        this.toastr.error(res.message);
+       if(this.doctorList.length) {
+        this.createNameList(res.data)
+        const self = this
+          setTimeout(()=>{
+            self.createMapMarker(this.doctorList)
+          }, 100);
+          this.sharedService.loader('hide');
+        } else {
+          this.toastr.error('No Professionals found');
+          this.sharedService.loader('hide');
+        }
+
       }
     }, err => {
       this.sharedService.loader('hide');
@@ -176,6 +180,9 @@ export class DoctorFilterComponent implements OnInit {
     if (event.target.value !== 'all') {
       this.ratingFilter = { rating: parseInt(event.target.value) }
     }
+  }
+  onRangeChange(event) {
+    this.miles = Math.ceil(event.target.value / 5) * 5;
   }
   onOptionsSelected(value:string, type){
     this.selectedLang ='';
@@ -216,7 +223,9 @@ export class DoctorFilterComponent implements OnInit {
       languageId:this.selectedLang,
       gender: this.gender,
       typicalHoursId:this.selectedHours,
-      serviceOfferId:this.selectedServiceType
+      serviceOfferId:this.selectedServiceType,
+      miles: this.miles,
+      latLong: `${this.long}, ${this.lat}`
     }
 
     this.getDoctorList(payload);
@@ -247,7 +256,6 @@ export class DoctorFilterComponent implements OnInit {
 
   }
   createNameList(data) {
-    console.log('----------------', data)
     for (let element of data) {
       if(element.firstName) {
         this.allDoctorList.push({

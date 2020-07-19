@@ -273,7 +273,14 @@
                 <option *ngFor="let opt of serviceQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
               </select>
           </div>
-          </div>    
+          </div> 
+          <div class="row">
+            <div class="col-sm-12">
+              <label for="customRange1">Distance range</label>
+              <input type="range" class="custom-range" min="5" max="100" (input) ="onRangeChange($event)"  id="customRange1">
+              Kms: {{miles}}
+            </div>
+          </div> 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" (click) = "resetFilter()">Reset</button>

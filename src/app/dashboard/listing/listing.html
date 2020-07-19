@@ -20,26 +20,11 @@
           />
         </div>
 
-        <div class="mb-3" *ngIf="listingPayload.zipcode.length">
+        <div class="mb-3">
           <div class="radio">
-            <input type="radio" name="zipcode" value="exactZipCode"
-            (change)="changeMiles($event)"/>
-            <span>Exact Zip Code</span>
-          </div>
-          <div class="radio">
-            <input type="radio" name="zipcode" value="10"
-            (change)="changeMiles($event)"/>
-            <span>Less than 10 miles</span>
-          </div>
-          <div class="radio">
-            <input type="radio" name="zipcode" value="20"
-            (change)="changeMiles($event)"/>
-            <span>Less than 20 miles</span>
-          </div>
-          <div class="radio">
-            <input type="radio" name="zipcode"  value="30"
-            (change)="changeMiles($event)"/>
-            <span>Less than 30 miles</span>
+            <span>Distance Range</span>
+            <input type="range" class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
+              Kms: {{listingPayload.miles}}
           </div>
         </div>
 

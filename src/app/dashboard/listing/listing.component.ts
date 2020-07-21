@@ -59,7 +59,7 @@ export class ListingComponent implements OnInit {
     rating: null,
     miles: 5,
     latLong: '',
-    age_range: '',
+    age_range: [],
     name: '',
     type: 'service',
     serviceOfferId: '',
@@ -180,7 +180,7 @@ export class ListingComponent implements OnInit {
       rating: null,
       miles: 5,
       latLong: '',
-      age_range: '',
+      age_range: [],
       name: '',
       type: 'service',
       serviceOfferId: '',
@@ -232,7 +232,7 @@ export class ListingComponent implements OnInit {
     
   }
   changeAge(evt) {
-    this.listingPayload.age_range = evt.target.value;
+    this.listingPayload.age_range.push( evt.target.value);
     this.listing(this.listingPayload)
   }
   selectEvent(item) {

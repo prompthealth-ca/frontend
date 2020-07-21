@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,18 +7,6 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'wellness-frontend';
   constructor() {
-
-    console.log('App component', navigator.geolocation)
-
-    // navigator.geolocation.getCurrentPosition(position => {
-    //   console.log('App component', position)
-    
-    //   localStorage.setItem('ipLat', position.coords.latitude.toString());
-    //   localStorage.setItem('ipLong', position.coords.longitude.toString());
-    // },
-    // (err) => {
-    //   console.log('err', err);
-    // }, {enableHighAccuracy: true,maximumAge:60000, timeout: 10000});
 }
 
 ngOnInit() {

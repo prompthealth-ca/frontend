@@ -25,11 +25,11 @@ export class MyProfileComponent implements OnInit {
   formData = new FormData();
 
   ageRangeList  = [
-    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
-    { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
-    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
-    { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
-    { id: '5eb1a4e199957471610e6cdb', name: 'Senior' },
+    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child', checked: false },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent', checked: false },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult', checked: false },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior', checked: false },
   ];
   experienceList  = [
     { id: 'exp1', name: '<5 Years'},
@@ -77,7 +77,7 @@ export class MyProfileComponent implements OnInit {
     languages: [],
     typical_hours: [],
     serviceOfferIds: [],
-    age_range: '',
+    age_range: [],
     years_of_experience: '',
     price_per_hours: '',
     business_kind: '',
@@ -89,6 +89,7 @@ export class MyProfileComponent implements OnInit {
   languagesSelected = [];
   hoursSelected = [];
   serviceOfferSelected = []; 
+  age_rangeSelected = [];
   
   public response: any;
 
@@ -227,9 +228,11 @@ export class MyProfileComponent implements OnInit {
           this.getDefaultCheckedValues(this.profile.languages, 'languages');
           this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
           this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
+          this.getDefaultCheckedValues(this.profile.age_range, 'ageRange');
           this.languagesSelected = this.profile.languages;
           this.serviceOfferSelected = this.profile.serviceOfferIds;
           this.hoursSelected = this.profile.typical_hours;
+          this.age_rangeSelected = this.profile.age_range;
         }
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -253,6 +256,11 @@ export class MyProfileComponent implements OnInit {
     if(key === 'languages' && this.languageQuestion) {
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
+      });
+    }
+    if(key === 'ageRange' && this.ageRangeList) {
+      this.ageRangeList.forEach(checkbox => {
+        checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
       });
     }
   }
@@ -298,6 +306,21 @@ export class MyProfileComponent implements OnInit {
         }
       }
       this.profile.serviceOfferIds = this.serviceOfferSelected;
+    }
+
+    if(fieldUpdated === 'ageRange') {
+      if(e.target.checked) {
+        if(this.age_rangeSelected.indexOf(e.target.id) === -1) {
+          this.age_rangeSelected.push(e.target.id);
+        }
+      }
+      else {
+        const find = this.age_rangeSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.age_rangeSelected.splice(find, 1);
+        }
+      }
+      this.profile.age_range = this.age_rangeSelected;
     }
 
   }

@@ -213,16 +213,23 @@
         </div>
         <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
             <label class="col-md-3">Age range of you client</label>
-            <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p>
-
-            <div *ngIf="editFields" class="col-sm-9">
-                <div class="form-row">
-                    <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
-                        
-                        <label for="{{item.id}}">
-                            <input class="radio" type="radio" name="age_range" value="{{item.name}}" [(ngModel)] = "profile.age_range" required id="{{item.id}}"/>
-                            <span class="text-body">{{item.name}}</span>
-                        </label>
+            <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
+            <div class="col-sm-9">
+                <div *ngIf="!editFields">
+                    <span *ngFor="let item of ageRangeList; let i = index">
+                        <span *ngFor="let profileItem of profile?.age_range; let i = index"> 
+                            <span *ngIf="!editFields && item.id === profileItem">{{item.name}} </span>
+                        </span>
+                    </span>
+                </div>
+                <div *ngIf="editFields">
+                    <div class="form-row">
+                        <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
+                            <label for="{{item.id}}">
+                                <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
+                                <span class="text-body">{{item.name}}</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

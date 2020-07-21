@@ -36,7 +36,7 @@ export class UserDetailsComponent {
     city: '',
     certification: '',
     zipcode: '',
-    age_range: '',
+    age_range: [],
     languages: [],
     typical_hours: [],
     serviceOfferIds: [],
@@ -54,10 +54,19 @@ export class UserDetailsComponent {
   };
   userId = ''
 
+  ageRangeList  = [
+    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior' },
+  ];
+
   languagesSelected = [];
   hoursSelected = [];
   serviceOfferSelected = []
   profileQuestions = [];
+  age_rangeSelected = [];
 
   avalibilityQuestion
   languageQuestion
@@ -203,7 +212,7 @@ export class UserDetailsComponent {
     this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.userDetails.profileImage = res.data;
+        this.userDetails.profileImage = res.data.profileImage;
         this._sharedService.loader('hide');
       } else {
         this.toastr.error(res.message);
@@ -257,7 +266,20 @@ export class UserDetailsComponent {
       
       this.userDetails.serviceOfferIds = this.serviceOfferSelected;
     }
-    
+    if(fieldUpdated === 'ageRange') {
+      if(e.target.checked) {
+        if(this.age_rangeSelected.indexOf(e.target.id) === -1) {
+          this.age_rangeSelected.push(e.target.id);
+        }
+      }
+      else {
+        const find = this.age_rangeSelected.indexOf(e.target.id)
+        if(find > -1) {
+          this.age_rangeSelected.splice(find, 1);
+        }
+      }
+      this.userDetails.age_range = this.age_rangeSelected;
+    }
   }
   handleReaderLoaded(e) {
     let reader = e.target;

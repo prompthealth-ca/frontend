@@ -290,6 +290,7 @@
                 <span>{{doc.userData.email}}</span>
               </a>
             </div>
+            <div class="mb-2" *ngIf="doc?.userData.calcDistance">Distance: {{doc?.userData.calcDistance | number: '1.0-0'}} KMs</div>
             <div class="mb-2" *ngIf="doc.userData.address">Address</div>
             <div class="desciption text-truncate">
               {{doc.userData.address}}

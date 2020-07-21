@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   private geoCoder;
   homeForm: FormGroup;
   submitted = false;
+  roles = ''
   zipCodeSearched;
   lat;
   long;
@@ -43,6 +44,8 @@ export class HomeComponent implements OnInit {
     return this.homeForm.controls;
   }
   ngOnInit() {
+    
+    this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : ''
     localStorage.removeItem('searchedAddress');
     this.token = localStorage.getItem("token");
     this.homeForm = this.formBuilder.group({

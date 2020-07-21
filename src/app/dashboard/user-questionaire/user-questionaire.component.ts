@@ -33,7 +33,7 @@ ansIDs = [];
   };
   personalMatch = {
     ids: [],
-    age_range: '',
+    age_range: [],
     type: 'service',
     typicalHoursId: [],
   }
@@ -168,6 +168,7 @@ ansIDs = [];
     }, err => {
       this._sharedService.loader('hide');
     });
+    console.log('personalMatch', this.personalMatch)
     this._sharedService.setPersonalMatch(this.personalMatch)
    
     this._router.navigate(['/dashboard/listing']);
@@ -205,6 +206,7 @@ ansIDs = [];
     else {
       
     }
+    console.log('data', data)
     this.updateProfile(data);
   }
   getMultiAns(question_id,event) {
@@ -232,7 +234,12 @@ ansIDs = [];
       _id:  localStorage.getItem('loginID'),
       ...data,
     }
-    this.personalMatch.age_range = data.customer_age_group;
+    if(data.customer_age_group && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
+      this.personalMatch.age_range.push(data.customer_age_group);
+    }
+    if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
+      this.personalMatch.age_range.push(data.customer_loved);
+    }
 
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {

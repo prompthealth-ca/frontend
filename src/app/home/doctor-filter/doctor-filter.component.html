@@ -59,7 +59,7 @@
             
             <label class="font-weight-bold text-light"></label>
             <div class="dropdown ">
-            <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">By Service <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle nav-link form-control" data-toggle="dropdown">{{ selectedService }} <b class="caret"></b></a>
             <ul class="dropdown-menu shadow rounded-0 border-0 multi-level service-lists">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
                 <a  class="service-list nav-link" [id] = "cat._id" (click)="serviceFilter($event)">{{ cat.item_text }}</a>

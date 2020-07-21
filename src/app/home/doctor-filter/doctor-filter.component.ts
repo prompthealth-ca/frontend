@@ -14,6 +14,7 @@ export class DoctorFilterComponent implements OnInit {
   @ViewChild('searchGlobal')
   
   public searchGlobalElementRef: ElementRef;
+  selectedService = 'By Service'
   private geoCoder;
   keyword = 'name';
   gender ='';
@@ -266,7 +267,8 @@ export class DoctorFilterComponent implements OnInit {
     }
   }
   serviceFilter(event) {
-    this.getDoctorList({ serviceId: event.target.id })
+    this.getDoctorList({ serviceId: event.target.id });
+    this.selectedService = event.target.text;
   }
 
 

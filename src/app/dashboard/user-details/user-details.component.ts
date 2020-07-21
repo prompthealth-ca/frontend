@@ -203,8 +203,7 @@ export class UserDetailsComponent {
     this._sharedService.loader('show');
     this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.userDetails = res.data;
-
+        this.userDetails.profileImage = res.data;
         this._sharedService.loader('hide');
       } else {
         this.toastr.error(res.message);

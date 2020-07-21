@@ -56,15 +56,6 @@ export class HomeComponent implements OnInit {
   }
 
   findDoctor() {
-    // navigator.geolocation.getCurrentPosition(position => {
-    //   console.log('home component', position)
-    
-    //   localStorage.setItem('ipLat', position.coords.latitude.toString());
-    //   localStorage.setItem('ipLong', position.coords.longitude.toString());
-    // },
-    // err => {
-    //   console.log('App err', err)
-    // }, {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});
     this.lat = 0 + localStorage.getItem("ipLat");
     this.long = 0 + localStorage.getItem("ipLong");
     this.router.navigate(['/doctor-filter'], { queryParams: {lat: this.lat, long: this.long}});

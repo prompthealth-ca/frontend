@@ -9,7 +9,7 @@ export const environment = {
     // BASE_URL: "http://18.216.244.101/",
     // API_URL: "http://18.216.244.101/api/",
     //server
-    BASE_URL: "http://3.12.81.245:3000/",
+    BASE_URL: "https://prompthealth.ca:4200/",
     API_URL: "https://prompthealth.ca:3000/",
     
   },

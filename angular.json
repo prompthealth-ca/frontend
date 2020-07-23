@@ -77,8 +77,8 @@
           "options": {
             "browserTarget": "wellness-frontend:build",
             "ssl": true,
-            "sslKey": "/home/ubuntu/wellservercerts/wellservercert/wellserver.key",
-            "sslCert": "/home/ubuntu/wellservercerts/wellservercert/9259eeb3be37cd11.pem"
+            "sslKey": "https://prompthealth.ca:3000/development/wellness_frontend/src/app/shared/wellserver.key",
+            "sslCert": "https://prompthealth.ca:3000/development/wellness_frontend/src/app/shared/9259eeb3be37cd11.crt"
           },
           "configurations": {
             "production": {

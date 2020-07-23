@@ -76,9 +76,9 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "wellness-frontend:build",
-            "ssl": true,
             "sslKey": "https://prompthealth.ca:3000/development/wellness_frontend/src/app/shared/wellserver.key",
-            "sslCert": "https://prompthealth.ca:3000/development/wellness_frontend/src/app/shared/9259eeb3be37cd11.crt"
+            "sslCert": "https://prompthealth.ca:3000/development/wellness_frontend/src/app/shared/9259eeb3be37cd11.crt",
+            "ssl": true
           },
           "configurations": {
             "production": {

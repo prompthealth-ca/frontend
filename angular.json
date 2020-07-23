@@ -76,6 +76,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "wellness-frontend:build",
+            "ssl": true,
             "sslKey": "/home/ubuntu/wellservercerts/wellservercert/wellserver.key",
             "sslCert": "/home/ubuntu/wellservercerts/wellservercert/9259eeb3be37cd11.pem"
           },

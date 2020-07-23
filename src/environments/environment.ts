@@ -14,7 +14,8 @@ export const environment = {
     // API_URL: "http://3.12.81.245:1337/"
 
     BASE_URL: "http://3.12.81.245:3000/api/v1/",
-    API_URL: "http://3.12.81.245:3000/",
+    // API_URL: "http://3.12.81.245:3000/",
+    API_URL: "https://prompthealth.ca:3000/"
   },
   api_routes: {
     LOGIN: 'login',

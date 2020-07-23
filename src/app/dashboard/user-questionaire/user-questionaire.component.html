@@ -89,7 +89,7 @@
                   <div class="form-row" *ngIf="question.choice_type === 'single'">
                     <div class="col-md-4"  *ngFor="let options of question.answers; let i = index">
                       <div class="radio">
-                        <input type="radio" name="{{question._id}}" [id]="options._id" [checked] ="options.active" class="mr-3" (change)="addQuestion(question.c_question, options._id)"/> <span>{{ options.item_text }}</span>
+                        <input type="radio" name="{{question._id}}" [id]="options._id" [checked] ="options.active" class="mr-3" (change)="addQuestion(question._id, options._id)"/> <span>{{ options.item_text }}</span>
                       </div>
                     </div>
                   </div>

@@ -25,7 +25,6 @@ getPosition(): Promise<any> {
     },
     err => {
       reject(err);
-      console.log('App err', err)
     }, {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});
   });
 

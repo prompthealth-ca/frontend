@@ -35,7 +35,7 @@ ansIDs = [];
     ids: [],
     age_range: [],
     type: 'service',
-    typicalHoursId: [],
+    typical_hours: [],
   }
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
@@ -92,7 +92,7 @@ ansIDs = [];
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
         this.typical_hours.push(parentId);
-        this.personalMatch.typicalHoursId = this.typical_hours;
+        this.personalMatch.typical_hours = this.typical_hours;
       }
       else {
         this.selectedItems.push(parentId);
@@ -168,7 +168,6 @@ ansIDs = [];
     }, err => {
       this._sharedService.loader('hide');
     });
-    console.log('personalMatch', this.personalMatch)
     this._sharedService.setPersonalMatch(this.personalMatch)
    
     this._router.navigate(['/dashboard/listing']);
@@ -193,20 +192,11 @@ ansIDs = [];
   }
   addQuestion(question, ansID) {
     let data;
-    if(question === "What is your age range?") {
+    if(question === "5eb1a4e199957471610e6cd5") {
       data = {
         customer_age_group: ansID
       }
     }
-    if(question === "Are you looking for your loved one?") {
-      data = {
-        customer_loved: ansID
-      }
-    }
-    else {
-      
-    }
-    console.log('data', data)
     this.updateProfile(data);
   }
   getMultiAns(question_id,event) {
@@ -240,6 +230,7 @@ ansIDs = [];
     if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
       this.personalMatch.age_range.push(data.customer_loved);
     }
+
 
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {

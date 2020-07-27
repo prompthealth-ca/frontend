@@ -259,9 +259,16 @@ export class MyProfileComponent implements OnInit {
       });
     }
     if(key === 'ageRange' && this.ageRangeList) {
-      this.ageRangeList.forEach(checkbox => {
-        checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
-      });
+
+      if(data.length === 5) {
+        this.ageRangeList[0].checked = true;
+      }
+      else {
+        this.ageRangeList.forEach(checkbox => {
+          checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
+        });
+
+      }
     }
   }
   checkBoxChanged(e, fieldUpdated) {
@@ -311,7 +318,13 @@ export class MyProfileComponent implements OnInit {
     if(fieldUpdated === 'ageRange') {
       if(e.target.checked) {
         if(this.age_rangeSelected.indexOf(e.target.id) === -1) {
-          this.age_rangeSelected.push(e.target.id);
+          if(e.target.id === '5eb1a4e199957471610e6cd7') {
+            this.ageRangeList.forEach(el => {
+              this.age_rangeSelected.push(el.id);
+            })
+          } else {
+            this.age_rangeSelected.push(e.target.id);
+          }
         }
       }
       else {

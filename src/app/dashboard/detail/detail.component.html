@@ -215,10 +215,20 @@
                 {{userInfo?.product_description}}
               </td>
             </tr>
-            <tr>
+            <tr *ngIf="userInfo?.age_range.length">
               <th>Specialty Age Group:</th>
               <td>
-                {{userInfo?.age_range}}
+                <span *ngIf="userInfo?.age_range.length === 5">
+
+                  <span *ngIf="(ageRangeList[0].id == userInfo?.age_range[0])">{{ageRangeList[0].name}} </span>
+                </span>
+                <span *ngIf="userInfo?.age_range.length !== 5">
+                  <span *ngFor="let item of ageRangeList">
+                    <span *ngFor="let profileItem of userInfo?.age_range; let i = index">
+                        <span *ngIf="item.id === profileItem">{{item.name}}  </span>
+                    </span>
+                  </span>
+                </span>
               </td>
             </tr>
             <!-- -- {{ userInfo | json}} -->
@@ -247,8 +257,8 @@
             <tr>
               <th>Year Of Experience:</th>
               <td>
-                  {{userInfo?.years_of_experience}}
-            </td>
+                {{userInfo?.years_of_experience}}
+              </td>
             </tr>
           </tbody>
         </table>

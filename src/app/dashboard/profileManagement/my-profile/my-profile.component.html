@@ -216,20 +216,37 @@
             <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
             <div class="col-sm-9">
                 <div *ngIf="!editFields">
-                    <span *ngFor="let item of ageRangeList; let i = index">
-                        <span *ngFor="let profileItem of profile?.age_range; let i = index"> 
-                            <span *ngIf="!editFields && item.id === profileItem">{{item.name}} </span>
+                    <span *ngIf="profile?.age_range.length === 5">
+                        <span *ngIf="(ageRangeList[0].id == profile?.age_range[0])">{{ageRangeList[0].name}} </span>
+                    </span>
+                    <span *ngIf="profile?.age_range.length !== 5">
+                        <span *ngFor="let item of ageRangeList; let i = index">
+                            <span *ngFor="let profileItem of profile?.age_range; let i = index"> 
+                                <span *ngIf="!editFields && item.id === profileItem">{{item.name}} </span>
+                            </span>
                         </span>
                     </span>
                 </div>
                 <div *ngIf="editFields">
                     <div class="form-row">
-                        <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
-                            <label for="{{item.id}}">
-                                <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
-                                <span class="text-body">{{item.name}}</span>
-                            </label>
-                        </div>
+                        <span *ngIf="profile?.age_range.length === 5">
+                            <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
+                                <label for="{{item.id}}">
+                                    <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
+                                    <span class="text-body">{{item.name}}</span>
+                                </label>
+                            </div>
+                        </span>
+
+                        <span *ngIf="profile?.age_range.length !== 5">
+                            <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
+                                <label for="{{item.id}}">
+                                    <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
+                                    <span class="text-body">{{item.name}}</span>
+                                </label>
+                            </div>
+                        </span>
+
                     </div>
                 </div>
             </div>

@@ -250,7 +250,6 @@ export class UserDetailsComponent {
       }
         this.userDetails.languages = this.languagesSelected;
     }
-
     if(fieldUpdated === 'serviceType') {
       if(e.target.checked) {
         if(this.serviceOfferSelected.indexOf(e.target.id) === -1) {
@@ -269,7 +268,13 @@ export class UserDetailsComponent {
     if(fieldUpdated === 'ageRange') {
       if(e.target.checked) {
         if(this.age_rangeSelected.indexOf(e.target.id) === -1) {
-          this.age_rangeSelected.push(e.target.id);
+          if(e.target.id === '5eb1a4e199957471610e6cd7') {
+            this.ageRangeList.forEach(el => {
+              this.age_rangeSelected.push(el.id);
+            })
+          } else {
+            this.age_rangeSelected.push(e.target.id);
+          }
         }
       }
       else {

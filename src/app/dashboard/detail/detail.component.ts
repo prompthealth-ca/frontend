@@ -26,6 +26,14 @@ export class DetailComponent implements OnInit {
   rating = [];
   
   savedAminities = [];
+
+  ageRangeList  = [
+    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior' },
+  ];
   timingList = [
     { id: 'timing1', name: 'Morning' },
     { id: 'timing2', name: 'Afternoon' },

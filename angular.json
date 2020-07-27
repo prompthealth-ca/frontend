@@ -75,10 +75,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wellness-frontend:build",
-            "sslKey": "/home/ubuntu/wellservercerts/wellservercert/wellserver.key",
-            "sslCert": "/home/ubuntu/wellservercerts/wellservercert/9259eeb3be37cd11.crt",
-            "ssl": true
+            "browserTarget": "wellness-frontend:build"
           },
           "configurations": {
             "production": {
@@ -144,8 +141,10 @@
           "options": {
             "outputPath": "dist/wellness-frontend/server",
             "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
+            "tsConfig": "tsconfig.server.json",
+            "disableHostCheck": true
           },
+
           "configurations": {
             "production": {
               "outputHashing": "media",

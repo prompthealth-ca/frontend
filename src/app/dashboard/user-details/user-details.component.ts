@@ -23,7 +23,7 @@ export class UserDetailsComponent {
   roles = ''
   private geoCoder;
   defaultImage = '';
-  imageBaseURL = 'http://3.12.81.245:3000/public/images/users/';
+  imageBaseURL = 'https://prompthealth.ca:3000/users/';
 
   public userDetails = {
     firstName: '',

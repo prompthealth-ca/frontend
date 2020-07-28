@@ -13,7 +13,7 @@
     <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
       <div class="col-md-12 text-center">
         <div class="upload-img">
-          <img [src]="(userDetails.profileImage &&  (userDetails.profileImage | json) != '{}' )? 'http://3.12.81.245:3000/public/images/users/'+userDetails.profileImage : '../../../assets/img/no-image.jpg'" alt="User image">
+          <img [src]="(userDetails.profileImage &&  (userDetails.profileImage | json) != '{}' )? 'https://prompthealth.ca:3000/users/'+userDetails.profileImage : '../../../assets/img/no-image.jpg'" alt="User image">
           <input name="imageUrl" type="file"  (change)="handleImageChange($event)" />
         </div>
       </div>
@@ -50,7 +50,6 @@
           </small>
         </div>
       </div>
-
       <div class="col-md-6 mb-3">
         <label>Phone <span class="text-danger">*</span></label>
         <input autofocus type="number" id="phone" name="phone" class="form-control" placeholder="" maxlength="12"
@@ -72,7 +71,6 @@
         [disabled] = "true" name="email" class="form-control" placeholder=""
           (keyup)="trim('email')" #email="ngModel" [ngModel]="userDetails.email" />
       </div>
-
       <div class="col-md-6 mb-3"  *ngIf="roles !== 'C'">
         <div class="row">
           <div class="col-md-12">
@@ -95,7 +93,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-6 mb-3">
         <label>Address <span class="text-danger">*</span></label>
         <input type="text" id="address" name="address" class="form-control" placeholder="" (keyup)="trim('address')"
@@ -146,7 +143,6 @@
           </small>
         </div>
       </div>
-
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
             <label>What is your proffesional association<span class="text-danger">*</span></label>
@@ -259,7 +255,7 @@
           <span>Not Critical</span> -->
           <label for="{{item.id}}" >
             <input class="radio" type="checkbox" required name="age_range" (change)="checkBoxChanged($event, 'ageRange')" [value]="item.id" required id="{{item.id}}"/>
-            <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
+            <span class="" style="margin-left: 5px;">{{item.name}}</span>
         </label>
         </div>
       </div>
@@ -309,8 +305,7 @@
           </small>
         </div> -->
       </div>
-    </div>
-      
+    </div>  
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>How many years of experience do you have ? <span class="text-danger">*</span></label>
       <div class="row">
@@ -351,7 +346,7 @@
           <label for="{{item._id}}">
 
               <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'languageQuestion')"/>
-              <span class="text-body">{{item.item_text}}</span>
+              <span class="">{{item.item_text}}</span>
           </label>
         </div>
       </div>
@@ -364,12 +359,12 @@
           <label for="{{item._id}}">
 
               <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'avalibilityQuestion')"/>
-              <span class="text-body">{{item.item_text}}</span>
+              <span class="">{{item.item_text}}</span>
           </label>
         </div>
       </div>
     </div>
-  <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+    <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>What is your Service Type ?</label>
       <div class="row">
         <div  class="col-md-4" *ngFor="let item of serviceQuestion?.answers; let i = index">
@@ -377,7 +372,7 @@
           <label for="{{item._id}}">
 
               <input class="radio" type="checkbox" required id="{{item._id}}" (change)="checkBoxChanged($event, 'serviceType')"/>
-              <span class="text-body">{{item.item_text}}</span>
+              <span class="">{{item.item_text}}</span>
           </label>
         </div>
       </div>

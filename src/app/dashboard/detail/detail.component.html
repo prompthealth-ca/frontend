@@ -9,7 +9,7 @@
         <div class="col-md-4">
           <div class="d-inline-flex">
             <img
-              [src]="'http://3.12.81.245:3000/public/images/users/'+userInfo?.profileImage"
+              [src]="'https://prompthealth.ca:3000/users/'+userInfo?.profileImage"
               class="rounded-circle border detailprofileimg"
             />
             <div class="p-2">
@@ -225,7 +225,7 @@
                 <span *ngIf="userInfo?.age_range.length !== 5">
                   <span *ngFor="let item of ageRangeList">
                     <span *ngFor="let profileItem of userInfo?.age_range; let i = index">
-                        <span *ngIf="item.id === profileItem">{{item.name}}  </span>
+                        <span *ngIf="item.id === profileItem">{{item.name}},  </span>
                     </span>
                   </span>
                 </span>
@@ -249,7 +249,7 @@
               <td>
                 <span *ngFor="let item of languageQuestion?.answers">
                   <span *ngFor="let profileItem of userInfo?.languages; let i = index">
-                      <span *ngIf="item._id === profileItem">{{item.item_text}}  </span>
+                      <span *ngIf="item._id === profileItem">{{item.item_text}},  </span>
                   </span>
                 </span>
               </td>
@@ -406,7 +406,7 @@
                 <td>
                   <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
                     <div class="img-list" *ngFor="let img of prod.images; let i=index" >
-                        <img [src]="'http://3.12.81.245:3000/public/images/products/' + img" />
+                        <img [src]="'https://prompthealth.ca:3000/products/' + img" />
                         
                     </div>
                   </a>
@@ -424,12 +424,12 @@
                           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                               <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                  <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" alt="...">
+                                  <img  [src]="'https://prompthealth.ca:3000/products/' + img" alt="...">
                               </li>
                             </ol>
                             <div class="carousel-inner">
                               <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                                <img  [src]="'http://3.12.81.245:3000/public/images/products/' + img" class="d-block w-100" alt="...">
+                                <img  [src]="'https://prompthealth.ca:3000/products/' + img" class="d-block w-100" alt="...">
                               </div>
                             </div>
                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -476,7 +476,7 @@
           <div class="col-sm-8">
             <a data-toggle="modal" [attr.data-target]="'#' + amenity.defaultamenityId.item_text" class="list-wrap" *ngIf="amenity.images.length">
               <span *ngFor="let uimg of amenity.images" class="amenityList">
-                <img [src]="'http://3.12.81.245:3000/public/images/amenities/' + uimg" />
+                <img [src]="'https://prompthealth.ca:3000/amenities/' + uimg" />
               </span>
             </a>
             <span *ngIf="!amenity.images.length">No Images added</span>
@@ -495,13 +495,13 @@
                         <ol class="carousel-indicators">
 
                             <li data-target="#carouselExampleControls2" [attr.data-slide-to]="i" *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                <img  [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" alt="...">
+                                <img  [src]="'https://prompthealth.ca:3000/amenities/' + img" alt="...">
                             </li>
                           </ol>
 
                         <div class="carousel-inner">
                           <div class="carousel-item"  *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                            <img  [src]="'http://3.12.81.245:3000/public/images/amenities/' + img" class="d-block w-100" alt="...">
+                            <img  [src]="'https://prompthealth.ca:3000/amenities/' + img" class="d-block w-100" alt="...">
                           </div>
                         </div>
 
@@ -545,7 +545,7 @@
           <tbody>
             <tr *ngFor="let prod of doctors; let i = index">
               <td>
-                <img class="pro-img" [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+                <img class="pro-img" [src]="'https://prompthealth.ca:3000/users/' + prod.image" />
               </td>
               <td>
                 {{ prod.fname }} {{ prod.lname }}
@@ -568,7 +568,7 @@
         <h5 class="mb-0">Reviews</h5>
         <hr />
         <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
-          <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
+          <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'https://prompthealth.ca:3000/users/'+rate.customerId.profileImage : defaultImage" />
           <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
           <div class="pl-3 w-100">
             <div class="d-flex justify-content-between mb-2">

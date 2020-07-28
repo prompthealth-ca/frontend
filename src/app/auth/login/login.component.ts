@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
         case "/auth/login/u": 
         //some logic
-        this.professionalLogin = true;
+        this.professionalLogin = false;
         this.userType = 'U'
         break;
       case "/auth/login/u": 
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
 
           // this.userType === 'U' ? this._router.navigate(['/']) : this._router.navigate(['dashboard/professional-info']);
 
-          this._sharedService.loginUser(res, 'reg');
+          this._sharedService.loginUser(res, 'login');
         } else {
           this.toastr.error(res.message);
         }

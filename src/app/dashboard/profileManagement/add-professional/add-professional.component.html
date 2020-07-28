@@ -33,7 +33,7 @@
         | customFilter: doctorSearch: 'fname');  let i = index">
             
             <td>
-                <img [src]="'http://3.12.81.245:3000/public/images/users/' + prod.image" />
+                <img [src]="'https://prompthealth.ca:3000/users/' + prod.image" />
             </td>
             <td>
                 {{ prod.fname }} - {{ prod.lname }}
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="form-group col-sm-6">
-            <label class="col-md-12">Last Name<span class="text-danger">*</span></label>
+            <label class="col-md-12">Last Name</label>
             <input
             type="text"
             autocomplete="off"
@@ -98,12 +98,12 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'http://3.12.81.245:3000/public/images/users/' + imagesList" height="200"> <br/>
+                <img [src]="'https://prompthealth.ca:3000/users/' + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
                 <label class="col-md-12">Upload Images</label>
-                <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
+                <!-- <img [src]="profile.images ? 'https://prompthealth.ca:3000/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
                 class="form-control col-md-12" (change)="onFileSelect($event)"/>
             
@@ -151,7 +151,7 @@
             </div>
         </div>
         <div class="form-group col-sm-6">
-            <label class="col-md-12">Last Name<span class="text-danger">*</span></label>
+            <label class="col-md-12">Last Name</label>
             <input
             type="text"
             autocomplete="off"
@@ -167,12 +167,12 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'http://3.12.81.245:3000/public/images/users/' + imagesList" height="200"> <br/>
+                <img [src]="'https://prompthealth.ca:3000/users/' + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
                 <label class="col-md-12">Upload Images</label>
-                <!-- <img [src]="profile.images ? 'http://3.12.81.245:3000/public/images/users/'+profile.profileImage : defaultImage" /> -->
+                <!-- <img [src]="profile.images ? 'https://prompthealth.ca:3000/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
                 class="form-control col-md-12" (change)="onFileSelect($event)"/>
             

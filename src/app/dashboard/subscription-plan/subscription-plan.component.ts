@@ -153,6 +153,12 @@ export class SubscriptionPlanComponent {
   }
   setSelectedPlan(plan) {
     this.selectedPlan = plan;
+    if(this.roles === 'SP') {
+      this.selectedPlan.price = this.spYearly ? plan.yearlyPrice : plan.price;
+    } 
+    if(this.roles === 'C') {
+      this.selectedPlan.price = this.centreYearly ? plan.yearlyPrice : plan.price;
+    } 
     if(this.profile.refererencePointEarned) {
       const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned/100));
       this.finalPrice = discountedPrice + (discountedPrice * (5/100)); 

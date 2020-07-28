@@ -5,6 +5,8 @@ import { AuthModule } from '../auth/auth.module';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './../home/home.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
+
+import { SubscriptionPlanComponent } from "../dashboard/subscription-plan/subscription-plan.component";
 import { AuthGuardService as AuthGuard } from '../auth/auth-gaurd.service';
 
 const routes: Routes = [
@@ -28,6 +30,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => DashboardModule,
         // CanActivate: [AuthGuard] 
+      },
+
+      {
+        path: 'subscriptionplan',
+        component: SubscriptionPlanComponent
       },
     ]
   },

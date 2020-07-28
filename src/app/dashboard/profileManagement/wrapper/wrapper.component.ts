@@ -124,7 +124,8 @@ export class WrapperComponent implements OnInit {
       }
       else {
         if (profile.roles === 'SP') {
-          if (profile.plan.userType.length == 2 ) {
+          console.log('userType', profile)
+          if (profile?.plan?.userType.length == 2 ) {
             this.listing.push({
               title: 'Booking',
               link: 'my-booking',
@@ -186,7 +187,7 @@ export class WrapperComponent implements OnInit {
           this.listing.push(...this.uListing);
         }
         if (profile.roles === 'C') {
-          if (profile.plan.userType.length == 2 ) {
+          if (profile?.plan?.userType.length == 2 ) {
             this.listing.push({
               title: 'Booking',
               link: 'my-booking',
@@ -257,7 +258,7 @@ export class WrapperComponent implements OnInit {
             });
           }
 
-          if (profile.plan.ListOfProviders === true) {
+          if (profile?.plan?.ListOfProviders === true) {
             this.listing.push({
               title: 'Proffessionals',
               link: 'add-professionals',
@@ -271,7 +272,7 @@ export class WrapperComponent implements OnInit {
             });
           }
 
-          if (profile.plan.ListProductsOption === true) {
+          if (profile?.plan?.ListProductsOption === true) {
             this.listing.push({
               title: 'Products',
               link: 'my-product',
@@ -285,7 +286,7 @@ export class WrapperComponent implements OnInit {
             });
           }
 
-          if (profile.plan.videoUpload === true) {
+          if (profile?.plan?.videoUpload === true) {
             this.listing.push({
               title: 'Videos',
               link: 'videos-blogs',

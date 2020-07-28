@@ -6,8 +6,8 @@
     currentPage: currentPage,
     totalItems: totalItems 
     }; ">
-      <img *ngIf="userInfo.roles!=='U'" [src]="rate.customerId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.customerId.profileImage : defaultImage" />
-      <img *ngIf="userInfo.roles === 'U'" [src]="rate.drId.profileImage ? 'http://3.12.81.245:3000/public/images/users/'+rate.drId.profileImage : defaultImage" />
+      <img *ngIf="userInfo.roles!=='U'" [src]="rate.customerId.profileImage ? 'https://prompthealth.ca:3000/users/'+rate.customerId.profileImage : defaultImage" />
+      <img *ngIf="userInfo.roles === 'U'" [src]="rate.drId.profileImage ? 'https://prompthealth.ca:3000/users/'+rate.drId.profileImage : defaultImage" />
     
       <div class="pl-3 w-100" *ngIf="rate.rating !== 0">
         <div class="d-flex justify-content-between mb-2">

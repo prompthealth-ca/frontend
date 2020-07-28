@@ -218,7 +218,7 @@
         <tr>
           <td></td>
           <td>
-            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/c']">Register</a>
+            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']">Register</a>
             <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
             (click)="setSelectedFreePlan(basicPlan)" 
             style="max-width: 175px;" aria-label="Close">Explore</a>
@@ -240,7 +240,7 @@
             data-target="#addcard"
             (click)="setSelectedPlan(spPlan)"
             style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
+            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
             style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 

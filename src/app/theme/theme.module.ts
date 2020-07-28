@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AgmCoreModule } from '@agm/core';
+import { NgxStripeModule } from 'ngx-stripe';
 import { ThemeRoutingModule } from './theme-routing.module';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { RoleGuardService } from '../auth/role-guard.service';
     CommonModule,
     ThemeRoutingModule,
     ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),
     SharedModule,
     FlashMessagesModule
 

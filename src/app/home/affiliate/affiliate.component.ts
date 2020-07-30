@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-affiliate',
@@ -17,6 +18,7 @@ export class AffiliateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _sharedService: SharedService,
     private toastr: ToastrService,
+    private _router: Router,
   ) { }
   get f() { return this.affiliateRequestForm.controls; }
 
@@ -44,9 +46,10 @@ export class AffiliateComponent implements OnInit {
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
-          this.toastr.success(res.message);
-          this.affiliateRequestForm.reset();
+          this.toastr.success("Your request has been sent successfully");
+          // this.affiliateRequestForm.reset();
           this.submitted = false;
+          this._router.navigate(["/"]);
 
         }
 
@@ -55,6 +58,8 @@ export class AffiliateComponent implements OnInit {
         }
       }, (error) => {
         this._sharedService.loader('hide');
+        this.toastr.error(error.error.message);
+       
       });
     }
 

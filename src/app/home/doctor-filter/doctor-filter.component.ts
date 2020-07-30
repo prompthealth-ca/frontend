@@ -34,7 +34,7 @@ export class DoctorFilterComponent implements OnInit {
   zipcode = '';
   lat;
   long;
-  miles = 5;
+  miles = 50;
 
   queryLatLong;
 
@@ -219,6 +219,10 @@ export class DoctorFilterComponent implements OnInit {
     this.closebutton.nativeElement.click();
   }
   applyFilter() {
+    let latlongs=this.queryLatLong;
+    if(this.long && this.lat){
+      let latlongs=`${this.long}, ${this.lat}`    }    
+
     const payload = {
       ...this.ratingFilter,
       languageId:this.selectedLang,
@@ -226,7 +230,7 @@ export class DoctorFilterComponent implements OnInit {
       typicalHoursId:this.selectedHours,
       serviceOfferId:this.selectedServiceType,
       miles: this.miles,
-      latLong: `${this.long}, ${this.lat}`
+      latLong: latlongs
     }
 
     this.getDoctorList(payload);

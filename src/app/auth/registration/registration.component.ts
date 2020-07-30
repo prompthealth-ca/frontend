@@ -113,7 +113,8 @@ export class RegistrationComponent implements OnInit {
           this.toastr.error(res.message);
         }
       }, (error) => {
-        this.toastr.error("There are some error please try after some time.")
+        this.toastr.error(error.error.message);
+        // this.toastr.error("There are some error please try after some time.")
         this._sharedService.loader('hide');
       });
     });
@@ -145,7 +146,8 @@ export class RegistrationComponent implements OnInit {
           this.toastr.error(res.message);
         }
       }, (error) => {
-        this.toastr.error("There are some error please try after some time.")
+        this.toastr.error(error.error.message);
+        // this.toastr.error("There are some error please try after some time.")
         this._sharedService.loader('hide');
       });
     
@@ -178,7 +180,9 @@ export class RegistrationComponent implements OnInit {
           this.toastr.error(res.message);
         }
       }, (error) => {
-        this.toastr.error("There are some error please try after some time.")
+        // console.log("error",error)
+        this.toastr.error(error.error.message);
+        // this.toastr.error("There are some error please try after some time.")
         this._sharedService.loader('hide');
       });
     }

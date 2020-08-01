@@ -34,7 +34,7 @@ export class DoctorFilterComponent implements OnInit {
   zipcode = '';
   lat;
   long;
-  miles = 50;
+  miles = 5;
 
   queryLatLong;
 
@@ -277,12 +277,9 @@ export class DoctorFilterComponent implements OnInit {
     this.getDoctorList({ serviceId: event.target.id });
     this.selectedService = event.target.text;
   }
-
-
   selectEvent(item) {
     this.getDoctorList({ name: item.name })
-  }
-  
+  } 
   ngOnDestroy() {
     localStorage.removeItem('searchedAddress');
   }

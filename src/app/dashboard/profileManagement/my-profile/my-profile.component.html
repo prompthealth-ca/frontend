@@ -22,10 +22,10 @@
             <div class="form-row mb-3">
                 <label  class="col-md-3" *ngIf="roles === 'C'; else firstNameLabel">Name</label>
                 <ng-template #firstNameLabel>
-                    <label  class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label>
+                    <label  class="col-md-4">First Name <span class="text-danger"  *ngIf="editFields">*</span></label>
                 </ng-template>
                 <!-- <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label> -->
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <input
                     [disabled] = "!editFields"
                     type="text"
@@ -34,7 +34,7 @@
                     name="firstName"
                     #firstName="ngModel" 
                     [(ngModel)]="profile.firstName"
-                    class="form-control "
+                    class="form-control"
                     minlength="3"
                     maxlength="50"
                     (ngModelChange)="profile.firstName = $event"
@@ -52,8 +52,8 @@
             </div>
 
             <div class="form-row mb-3" *ngIf="roles !== 'C'">
-                <label class="col-md-3">Last Name <span class="text-danger"  *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
+                <label class="col-md-4">Last Name <span class="text-danger"  *ngIf="editFields">*</span></label>
+                <div class="col-md-8">
                     <input
                     [disabled] = "!editFields"
                     type="text"
@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Role <span class="text-danger" *ngIf="editFields">*</span></label>
+                <label class="col-md-4">Role <span class="text-danger" *ngIf="editFields">*</span></label>
                 <input
                 *ngIf="roles === 'C'"
                 type="text"
@@ -87,7 +87,7 @@
                 id="email"
                 name="email"
                 value="Center"
-                class="form-control col-md-9"
+                class="form-control col-md-8"
                 />
                 <input
                 *ngIf="roles === 'SP'"
@@ -97,12 +97,12 @@
                 id="email"
                 name="email"
                 value="Service Provider"
-                class="form-control col-md-9"
+                class="form-control col-md-8"
                 />
             </div>
 
             <div class="form-row mb-3">
-                <label class="col-md-3"
+                <label class="col-md-4"
                 >Email Address</label
                 >
                 <input
@@ -112,34 +112,32 @@
                 id="email"
                 name="email"
                 [(ngModel)]="profile.email"
-                class="form-control col-md-9"
+                class="form-control col-md-8"
                 />
             </div>
 
             <div class="form-row mb-3">
-                <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
+                <label class="col-md-4">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
+                <div class="col-md-8">
                     <input
                     [disabled] = "!editFields"
-                    type="number"
-                    autofocus
+                    type="text"
                     autocomplete="off"
                     id="phone"
                     name="phone"
-                    maxlength="10"
-                    maxlength="12"
                     #phone="ngModel"
-                    number
                     [(ngModel)]="profile.phone"
                     class="form-control"
+                    maxlength="12"
                     (ngModelChange)="profile.phone = $event"
                     required
+                    pattern="^[0-9]*$"
                     />
                     <div class="error-block" *ngIf="editFields">
                         <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
                         Phone Number is required.
                         </small>
-                        <small *ngIf="profile.phone.length > 12 || phone.errors && phone.touched" class="text-danger">
+                        <small *ngIf="phone.errors && phone.touched" class="text-danger">
                         Enter valid Phone number
                         </small>
                     </div>
@@ -147,8 +145,8 @@
             </div>
 
             <div class="form-row mb-3">
-                <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
+                <label class="col-md-4">Address <span class="text-danger" *ngIf="editFields">*</span></label>
+                <div class="col-md-8">
                     <input
                     #search
                     type="text"
@@ -171,22 +169,23 @@
             </div>
             <div *ngIf="roles === 'SP'">
                 <div class="radio form-row mb-3">
-                    <label class="col-md-3">Proffesional Association <span class="text-danger" *ngIf="editFields">*</span></label>
+                    <label class="col-md-4">Proffesional Association <span class="text-danger" *ngIf="editFields">*</span></label>
                     <input
                     type="text"
                     [disabled] = "!editFields"
                     autocomplete="off"
-                    id="address"
-                    name="address"
-                    [(ngModel)]="profile.professional_organization"
+                    id="association"
+                    name="association"
+                    #association="ngModel"
+                    [ngModel]="profile.professional_organization"
                     (onFocus)="profile.professional_organization = ''"
-                    class="form-control col-md-9"
+                    class="form-control col-md-8"
                     />
                 </div>
             </div>
             <div *ngIf="roles === 'SP'">
                 <div class="radio form-row mb-3">
-                    <label class="col-md-3">Certification <span class="text-danger" *ngIf="editFields">*</span></label>
+                    <label class="col-md-4">Certification <span class="text-danger" *ngIf="editFields">*</span></label>
                     <input
                     type="text"
                     [disabled] = "!editFields"
@@ -195,14 +194,14 @@
                     name="certification"
                     [(ngModel)]="profile.certification"
                     (onFocus)="profile.certification = ''"
-                    class="form-control col-md-9"
+                    class="form-control col-md-8"
                     />
                 </div>
             </div>
             <div  *ngIf="roles === 'C' || roles === 'SP'">
                 <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Available Time</label>
-                    <div  class="col-md-9">
+                    <label  class="col-md-4">Available Time</label>
+                    <div  class="col-md-8">
                         <div *ngIf="!editFields">
                             <span *ngFor="let profileItem of profile?.typical_hours; let i = index"> 
                                 <span *ngFor="let item of avalibilityQuestion?.answers; let i = index">
@@ -221,8 +220,8 @@
                     </div>
                 </div>
                 <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Languages</label>
-                    <div  class="col-md-9">
+                    <label  class="col-md-4">Languages</label>
+                    <div  class="col-md-8">
                         <div *ngIf="!editFields">
                             <span *ngFor="let item of languageQuestion?.answers; let i = index">
                                 <span *ngFor="let profileItem of profile?.languages; let i = index"> 
@@ -242,8 +241,8 @@
                     </div>
                 </div>
                 <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Service Type</label>
-                    <div  class="col-md-9">
+                    <label  class="col-md-4">Service Type</label>
+                    <div  class="col-md-8">
                         <div *ngIf="!editFields">
                             <span *ngFor="let item of serviceQuestion?.answers; let i = index">
                                 <span *ngFor="let profileItem of profile?.serviceOfferIds; let i = index"> 
@@ -265,9 +264,9 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Age range of you client</label>
+                <label class="col-md-4">Age range of your client</label>
                 <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <div *ngIf="!editFields">
                         <span *ngIf="profile?.age_range.length === 5">
                             <span *ngIf="(ageRangeList[0].id == profile?.age_range[0])">{{ageRangeList[0].name}} </span>
@@ -282,19 +281,19 @@
                     </div>
                     <div *ngIf="editFields">
                         <div class="form-row">
-                            <span *ngIf="profile?.age_range.length === 5">
+                            <span *ngIf="profile?.age_range.length === 5" class="row">
                                 <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
                                     <label for="{{item.id}}">
-                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
+                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" [disabled]="item.disabled" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
                                         <span class="">{{item.name}}</span>
                                     </label>
                                 </div>
                             </span>
 
-                            <span *ngIf="profile?.age_range.length !== 5">
+                            <span *ngIf="profile?.age_range.length !== 5" class="row">
                                 <div  class="col-md-4" *ngFor="let item of ageRangeList; let i = index"> 
                                     <label for="{{item.id}}">
-                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
+                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" [disabled]="item.disabled" (change)="checkBoxChanged($event, 'ageRange')"/>
                                         <span class="">{{item.name}}</span>
                                     </label>
                                 </div>
@@ -305,9 +304,9 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Total year of experience</label>
-                <p class="col-md-9" *ngIf="!editFields">{{profile.years_of_experience}}</p>
-                <div *ngIf="editFields" class="col-sm-9">
+                <label class="col-md-4">Total year of experience</label>
+                <p class="col-md-8" *ngIf="!editFields">{{profile.years_of_experience}}</p>
+                <div *ngIf="editFields" class="col-sm-8">
                     <div class="form-row">
                         <div  class="col-md-4" *ngFor="let item of experienceList; let i = index"> 
                             <label for="{{item.id}}">
@@ -321,9 +320,9 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Price range per hour</label>
-                <p class="col-md-9" *ngIf="!editFields">{{profile.price_per_hours}}</p>
-                <div *ngIf="editFields" class="col-sm-9">
+                <label class="col-md-4">Price range per hour</label>
+                <p class="col-md-8" *ngIf="!editFields">{{profile.price_per_hours}}</p>
+                <div *ngIf="editFields" class="col-sm-8">
                     <div class="form-row">
                         <div  class="col-md-4" *ngFor="let item of priceList; let i = index"> 
                             <label for="{{item.id}}">
@@ -335,8 +334,8 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C'">
-                <label class="col-md-3">Kind of Business</label>
-                <p class="col-md-9" *ngIf="!editFields">{{profile.business_kind}}</p>
+                <label class="col-md-4">Kind of Business</label>
+                <p class="col-md-8" *ngIf="!editFields">{{profile.business_kind}}</p>
                 <div *ngIf="editFields" class="col-sm-9">
                     <div class="form-row">
                         <div  class="col-md-4" *ngFor="let item of businessList; let i = index"> 
@@ -349,8 +348,8 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">About you</label>
-                <p class="col-md-9" *ngIf="!editFields">{{ profile.product_description }}</p>
+                <label class="col-md-4">About you</label>
+                <p class="col-md-8" *ngIf="!editFields">{{ profile.product_description }}</p>
                 <div *ngIf="editFields" class="col-sm-9">
                     <textarea
                     [disabled] = "!editFields"

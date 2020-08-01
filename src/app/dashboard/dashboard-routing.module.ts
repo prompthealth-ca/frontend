@@ -18,7 +18,8 @@ import {
 const routes: Routes = [
   {
     path: "subscriptionplan",
-    component: SubscriptionPlanComponent
+    component: SubscriptionPlanComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: "professional",

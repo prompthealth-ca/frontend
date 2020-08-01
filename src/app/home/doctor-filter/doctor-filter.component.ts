@@ -75,7 +75,8 @@ export class DoctorFilterComponent implements OnInit {
           this.location.lng = place.geometry.location.lat()
           this.long = place.geometry.location.lng()
           const payload = {
-            latLong: `${this.long}, ${this.lat}`
+            latLong: `${this.long}, ${this.lat}`,
+            miles: this.miles
           }
           this.getDoctorList(payload);
         });
@@ -149,6 +150,7 @@ export class DoctorFilterComponent implements OnInit {
     });
   }
   getDoctorList(filter) {
+    this.allDoctorList = [];
     this.sharedService.loader('show');
     let payload;
     payload = {
@@ -183,7 +185,7 @@ export class DoctorFilterComponent implements OnInit {
     }
   }
   onRangeChange(event) {
-    this.miles = Math.ceil(event.target.value / 5) * 5;
+    this.miles = Math.round(Math.ceil(event.target.value / 5) * 5);
   }
   onOptionsSelected(value:string, type){
     this.selectedLang ='';
@@ -209,6 +211,7 @@ export class DoctorFilterComponent implements OnInit {
   }
   }
   resetFilter() {
+    this.sharedService.loader('show');
     this.ratingFilter = null;
     this.selectedLang = null;
     this.selectedHours = null;

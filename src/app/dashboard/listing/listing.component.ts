@@ -82,6 +82,7 @@ export class ListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     const personalMatch = this._sharedService.getPersonalMatch();
     if(personalMatch) {
       this.listing(personalMatch);
@@ -150,6 +151,7 @@ export class ListingComponent implements OnInit {
      });
   }
   listing(filter) {
+    console.log('ehehe')
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -162,8 +164,8 @@ export class ListingComponent implements OnInit {
           }
         }
 
-       this.createNameList(this.doctorsListing)
-        // this.toastr.success(res.message);
+        this.createNameList(this.doctorsListing);
+        this._sharedService.loader('hide');
       } else {
         this.toastr.error(res.message);
       }
@@ -172,6 +174,7 @@ export class ListingComponent implements OnInit {
     });
   }
   removeFilter() {
+    this._sharedService.loader('show');
     this.listingPayload = {
       ids: [],
       zipcode: '',
@@ -188,6 +191,7 @@ export class ListingComponent implements OnInit {
     this.listing({
       ids: [this.id],
     });
+    this._sharedService.loader('hide');
   }
   onOptionsSelected(value:string, type){
     this.listingPayload.languageId ='';
@@ -220,8 +224,7 @@ export class ListingComponent implements OnInit {
     }
   }
   changeMiles(evt) {
-
-    this.listingPayload.miles = Math.ceil(evt.target.value / 5) * 5;
+    this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
     if(this.long &&  this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;
     }

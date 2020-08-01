@@ -259,9 +259,9 @@ export class MyProfileComponent implements OnInit {
       });
     }
     if(key === 'ageRange' && this.ageRangeList) {
-
       if(data.length === 5) {
         this.ageRangeList[0].checked = true;
+        
       }
       else {
         this.ageRangeList.forEach(checkbox => {
@@ -344,6 +344,8 @@ export class MyProfileComponent implements OnInit {
     if(payload.phone) payload.phone.toString();
     let data = JSON.parse(JSON.stringify(this.profile));
 
+    this._sharedService.loader('show');
+
       this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.profile = res.data;
@@ -351,8 +353,9 @@ export class MyProfileComponent implements OnInit {
           this.editFields = false;
         } else {
           this.toastr.error(res.message);
-  
         }
+
+      this._sharedService.loader('hide');
       }, err => {
         this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });

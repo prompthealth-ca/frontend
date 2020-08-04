@@ -222,7 +222,7 @@ export class DoctorFilterComponent implements OnInit {
   applyFilter() {
     let latlongs=this.queryLatLong;
     if(this.long && this.lat){
-      let latlongs=`${this.long}, ${this.lat}`    }    
+      latlongs=`${this.long}, ${this.lat}`    }    
 
     const payload = {
       ...this.ratingFilter,

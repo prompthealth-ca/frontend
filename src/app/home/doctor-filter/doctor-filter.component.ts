@@ -189,10 +189,6 @@ export class DoctorFilterComponent implements OnInit {
     this.miles = Math.round(Math.ceil(event.target.value / 5) * 5);
   }
   onOptionsSelected(value:string, type){   
-    // this.selectedLang =this.selectedLang?this.selectedLang:'';
-    // this.gender = this.gender?this.gender:'';
-    // this.selectedHours = this.selectedHours?this.selectedHours:'';
-    // this.selectedServiceType = this.selectedServiceType?this.selectedServiceType:'';
 
     if(type === 'language') {
       this.selectedLang = value;

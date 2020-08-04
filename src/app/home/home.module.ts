@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { HomeRoutingModule } from "./home-routing.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from "../home/home.component";
 import { FAQComponent } from "./faq/faq.component";
 import { PricvacyPolicyComponent } from "./pricvacy-policy/pricvacy-policy.component";
@@ -42,6 +42,7 @@ import { BlogCategoryComponent } from './blog-category/blog-category.component';
     // ProfessionalRegisterComponent
   ],
   imports: [
+    FormsModule,
     NgxSpinnerModule,
     AutocompleteLibModule,
     AgmCoreModule.forRoot(  {

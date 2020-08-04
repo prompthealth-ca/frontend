@@ -156,6 +156,7 @@ export class DoctorFilterComponent implements OnInit {
     payload = {
       ...filter,
     }
+    console.log(payload);
     let path = 'user/filter-map';
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -187,16 +188,17 @@ export class DoctorFilterComponent implements OnInit {
   onRangeChange(event) {
     this.miles = Math.round(Math.ceil(event.target.value / 5) * 5);
   }
-  onOptionsSelected(value:string, type){
-    this.selectedLang =this.selectedLang?this.selectedLang:'';
-    this.gender = this.gender?this.gender:'';
-    this.selectedHours = this.selectedHours?this.selectedHours:'';
-    this.selectedServiceType = this.selectedServiceType?this.selectedServiceType:'';
+  onOptionsSelected(value:string, type){   
+    // this.selectedLang =this.selectedLang?this.selectedLang:'';
+    // this.gender = this.gender?this.gender:'';
+    // this.selectedHours = this.selectedHours?this.selectedHours:'';
+    // this.selectedServiceType = this.selectedServiceType?this.selectedServiceType:'';
 
     if(type === 'language') {
       this.selectedLang = value;
     }
-    else if(type="userType") {
+
+    if(type==="userType") {
       if(value === 'all') {
         this.gender = '';
       }
@@ -204,15 +206,18 @@ export class DoctorFilterComponent implements OnInit {
         this.gender = value;
       }
     }
-    else if(type="hours"){
-        this.selectedHours = value;
-    }else if(type="serviceType"){
+    if(type==="hours"){
+      this.selectedHours = value;
+    }
+    
+    if(type==="serviceType"){
       this.selectedServiceType = value;
-  }
+    }
   }
   resetFilter() {
     this.sharedService.loader('show');
     this.ratingFilter = null;
+    this.gender = null;
     this.selectedLang = null;
     this.selectedHours = null;
     this.selectedServiceType = null;

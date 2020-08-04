@@ -188,10 +188,10 @@ export class DoctorFilterComponent implements OnInit {
     this.miles = Math.round(Math.ceil(event.target.value / 5) * 5);
   }
   onOptionsSelected(value:string, type){
-    this.selectedLang ='';
-    this.gender = '';
-    this.selectedHours = '';
-    this.selectedServiceType = '';
+    this.selectedLang =this.selectedLang?this.selectedLang:'';
+    this.gender = this.gender?this.gender:'';
+    this.selectedHours = this.selectedHours?this.selectedHours:'';
+    this.selectedServiceType = this.selectedServiceType?this.selectedServiceType:'';
 
     if(type === 'language') {
       this.selectedLang = value;
@@ -216,9 +216,7 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedLang = null;
     this.selectedHours = null;
     this.selectedServiceType = null;
-
     this.getDoctorList({ latLong: this.queryLatLong });
-
     this.closebutton.nativeElement.click();
   }
   applyFilter() {

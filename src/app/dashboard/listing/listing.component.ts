@@ -121,7 +121,8 @@ export class ListingComponent implements OnInit {
         this.type = queryParams.type;
         this.listing({
           ids: this.id ? [this.id] : [],
-          type: this.type
+          type: this.type,
+          latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
         });
       });
     }

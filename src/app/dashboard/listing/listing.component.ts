@@ -111,6 +111,7 @@ export class ListingComponent implements OnInit {
                   ids: this.id ? [this.id] : [],
                   latLong: `${this.long}, ${this.lat}`,
                   miles: this.listingPayload.miles,
+                  type:this.listingPayload.type
               }
               );
               // this.listing({latLong: `${this.long}, ${this.lat}`});
@@ -204,13 +205,14 @@ export class ListingComponent implements OnInit {
       latLong: '',
       age_range: [],
       name: '',
-      type: 'service',
+      type: this.type,
       serviceOfferId: '',
     }
     this.listing({
       ids: [this.id],
       miles:this.listingPayload.miles,
       latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+      type: this.type,
     });
     this._sharedService.loader('hide');
   }

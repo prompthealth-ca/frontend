@@ -106,7 +106,7 @@
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label>Address <span class="text-danger">*</span></label>
+        <label>Address (<b>Please select suggested Google address</b>)<span class="text-danger">*</span></label>
         <input type="text" id="address" name="address" class="form-control" placeholder="" (keyup)="trim('address')"
           #address="ngModel" #search [ngModel]="userDetails.address" required />
 
@@ -119,7 +119,7 @@
       <div class="col-md-6 mb-3">
         <label>City <span class="text-danger">*</span></label>
         <input type="text" id="city" name="city" class="form-control" placeholder="" minlength="3" maxlength="50"
-          (keyup)="trim('city')" #city="ngModel" [ngModel]="userDetails.city" required />
+          (keyup)="trim('city')" #city="ngModel" [ngModel]="userDetails.city" required disabled="disabled"/>
 
         <div class="error-block">
           <small *ngIf="city.errors?.required && city.touched" class="text-danger">
@@ -130,7 +130,7 @@
       <div class="col-md-6 mb-3">
         <label>State <span class="text-danger">*</span></label>
         <input type="text" id="state" name="state" class="form-control" placeholder="" minlength="3" maxlength="50"
-          (keyup)="trim('state')" #state="ngModel" [ngModel]="userDetails.state" required />
+          (keyup)="trim('state')" #state="ngModel" [ngModel]="userDetails.state" required disabled="disabled"/>
 
         <div class="error-block">
           <small *ngIf="state.errors?.required && state.touched" class="text-danger">
@@ -144,7 +144,7 @@
       <div class="col-md-6 mb-3">
         <label>Zip Code <span class="text-danger">*</span></label>
         <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="" minlength="3" maxlength="50"
-          (keyup)="trim('zipcode')" #zipcode="ngModel" [ngModel]="userDetails.zipcode" required />
+          (keyup)="trim('zipcode')" #zipcode="ngModel" [ngModel]="userDetails.zipcode" required disabled="disabled"/>
 
         <div class="error-block">
           <small *ngIf="zipcode.errors?.required && zipcode.touched" class="text-danger">

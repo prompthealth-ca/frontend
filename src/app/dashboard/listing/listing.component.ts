@@ -103,7 +103,14 @@ export class ListingComponent implements OnInit {
               }
               this.lat = place.geometry.location.lat()
               this.long = place.geometry.location.lng()
-              this.listing({latLong: `${this.long}, ${this.lat}`});
+              this.listing(
+                {
+                  
+                  ids: this.id ? [this.id] : [],
+                  latLong: `${this.long}, ${this.lat}`
+              }
+              );
+              // this.listing({latLong: `${this.long}, ${this.lat}`});
             });
           });
         });

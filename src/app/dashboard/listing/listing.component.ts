@@ -129,7 +129,8 @@ export class ListingComponent implements OnInit {
         this.listing({
           ids: this.id ? [this.id] : [],
           type: this.type,
-          latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`
+          //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
         });
       });
     }

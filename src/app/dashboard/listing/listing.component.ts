@@ -107,7 +107,8 @@ export class ListingComponent implements OnInit {
                 {
                   
                   ids: this.id ? [this.id] : [],
-                  latLong: `${this.long}, ${this.lat}`
+                  latLong: `${this.long}, ${this.lat}`,
+                  miles: this.listingPayload.miles,
               }
               );
               // this.listing({latLong: `${this.long}, ${this.lat}`});
@@ -126,10 +127,14 @@ export class ListingComponent implements OnInit {
       this.route.queryParams.subscribe(queryParams => {
         this.id = queryParams.id;
         this.type = queryParams.type;
+        this.listingPayload.ids = [];
+        this.listingPayload.ids.push(queryParams.id);
+        this.listingPayload.type =  queryParams.type;
         this.listing({
           ids: this.id ? [this.id] : [],
           type: this.type,
-          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`
+          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+          miles: this.listingPayload.miles,
           //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
         });
       });

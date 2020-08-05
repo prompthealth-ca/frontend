@@ -18,6 +18,7 @@ export class ListingComponent implements OnInit {
   serviceQuestion;
   languageQuestion;
   avalibilityQuestion;
+  currentAddress="";
   loggedInUser;
   loggedInRole;
   id;
@@ -95,6 +96,7 @@ export class ListingComponent implements OnInit {
           autocomplete.addListener("place_changed", () => {
             this.ngZone.run(() => {
               //get the place result
+              
               let place: google.maps.places.PlaceResult = autocomplete.getPlace();
     
               //verify result
@@ -189,6 +191,9 @@ export class ListingComponent implements OnInit {
   }
   removeFilter() {
     this._sharedService.loader('show');
+    this.lat="";
+    this.long="";
+    this.currentAddress="";
     this.listingPayload = {
       ids: [],
       zipcode: '',
@@ -204,6 +209,8 @@ export class ListingComponent implements OnInit {
     }
     this.listing({
       ids: [this.id],
+      miles:this.listingPayload.miles,
+      latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
     });
     this._sharedService.loader('hide');
   }

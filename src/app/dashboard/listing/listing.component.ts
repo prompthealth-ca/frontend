@@ -31,7 +31,7 @@ export class ListingComponent implements OnInit {
   typical_hours = [];
   type = 'Goal';
   ageRangeList  = [
-    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical' },
+    { id: '', name: 'Not Critical' },
     { id: '5eb1a4e199957471610e6cd8', name: 'Child' },
     { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent' },
     { id: '5eb1a4e199957471610e6cda', name: 'Adult' },
@@ -168,7 +168,7 @@ export class ListingComponent implements OnInit {
      });
   }
   listing(filter) {
-    console.log('ehehe')
+    console.log('filter', filter);
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -217,11 +217,6 @@ export class ListingComponent implements OnInit {
     this._sharedService.loader('hide');
   }
   onOptionsSelected(value:string, type){
-    this.listingPayload.languageId ='';
-    this.listingPayload.typicalHoursId = '';
-    this.listingPayload.rating = '';
-    this.listingPayload.serviceOfferId = '';
-
     if (type === 'language') {
       this.listingPayload.languageId= value;
     }
@@ -258,8 +253,8 @@ export class ListingComponent implements OnInit {
     
   }
   changeAge(evt) {
-    this.listingPayload.age_range.push( evt.target.value);
-    this.listing(this.listingPayload)
+    this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
+    this.listing(this.listingPayload);
   }
   selectEvent(item) {
     this.listingPayload.name = item.name;

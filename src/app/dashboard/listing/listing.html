@@ -70,7 +70,8 @@
         <h6 class="mb-3 text-primary">Hours of Availability</h6>
        
         <div class="mb-3">
-          <select class="form-control"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
+          <select class="form-control" [(ngModel)]="listingPayload.typicalHoursId"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
+          <option value = ''>All</option>
           <option *ngFor="let opt of avalibilityQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
         </select>
         </div>
@@ -79,7 +80,8 @@
         <h6 class="mb-3 text-primary">Provider language</h6>
        
         <div class="mb-3">
-          <select class="form-control"  #language (change)="onOptionsSelected(language.value, 'language')">
+          <select class="form-control" [(ngModel)]="listingPayload.languageId"  #language (change)="onOptionsSelected(language.value, 'language')">
+            <option value = ''>All</option>
             <option *ngFor="let opt of languageQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
           </select>
         </div>
@@ -88,7 +90,8 @@
         <h6 class="mb-3 text-primary">Service Type</h6>
        
         <div class="mb-3">
-          <select class="form-control"  #serviceType (change)="onOptionsSelected(serviceType.value, 'serviceType')">
+          <select class="form-control"  [(ngModel)]="listingPayload.serviceOfferId"  #serviceType (change)="onOptionsSelected(serviceType.value, 'serviceType')">
+            <option value = ''>All</option>
             <option *ngFor="let opt of serviceQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
           </select>
         </div>
@@ -99,7 +102,7 @@
           <div class="row">
             <div  class="col-md-12" *ngFor="let item of ageRangeList; let i = index">       
               <label for="{{item.id}}" >
-                  <input class="radio" type="radio" name="age_range" (change)="changeAge($event)"  [value]="item.id" required id="{{item.id}}"/>
+                  <input class="radio" type="radio" name="age_range"   value="{{item.id}}"  required id="{{item.id}}" (change)="changeAge($event)" />
                   <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
               </label>
             </div>

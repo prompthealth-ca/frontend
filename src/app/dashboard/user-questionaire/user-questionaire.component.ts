@@ -36,6 +36,7 @@ ansIDs = [];
     age_range: [],
     type: 'service',
     typical_hours: [],
+    latLong:`${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
   }
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor

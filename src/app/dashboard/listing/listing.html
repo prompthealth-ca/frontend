@@ -44,6 +44,7 @@
               placeHolder="Enter the Service Provider Name"
               [searchKeyword]="keyword"
               (selected)='selectEvent($event)'
+              (inputCleared)="resetNames()"
               [itemTemplate]="itemTemplate"
               [notFoundTemplate]="notFoundTemplate">                                 
             </ng-autocomplete>
@@ -61,7 +62,8 @@
 
         <h6 class="mb-3 text-primary">Ratings</h6>
         <div class="mb-3">
-          <select class="form-control"  #ratings (change)="onOptionsSelected(ratings.value, 'rating')">
+          <select class="form-control"  [(ngModel)]="listingPayload.rating"  #ratings (change)="onOptionsSelected(ratings.value, 'rating')">
+            
             <option *ngFor="let opt of ratingsOption" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
           </select>
         </div>

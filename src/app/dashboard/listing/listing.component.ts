@@ -4,10 +4,12 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import * as e from 'express';
 @Component({
   selector: "app-listing",
   templateUrl: "./listing.html",
   styleUrls: ["./listing.scss"]
+
 })
 export class ListingComponent implements OnInit {
   @ViewChild('searchGlobal')
@@ -39,15 +41,19 @@ export class ListingComponent implements OnInit {
   ];
   ratingsOption = [
     {
-      _id: '5',
+      _id: 0,
+      item_text: 'All'
+    },
+    {
+      _id: 5,
       item_text: '5 Stars'
     },
     {
-      _id: '4',
+      _id: 4,
       item_text: '4 Stars'
     },
     {
-      _id: '3',
+      _id: 3,
       item_text: '3 Stars'
     }
   ]
@@ -57,7 +63,7 @@ export class ListingComponent implements OnInit {
     zipcode: '',
     languageId: '',
     typicalHoursId: '',
-    rating: null,
+    rating: 0,
     miles: 5,
     latLong: '',
     age_range: [],
@@ -84,10 +90,56 @@ export class ListingComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.getProfileQuestion();
     const personalMatch = this._sharedService.getPersonalMatch();
-    if(personalMatch) {
-      this.listing(personalMatch);
-    } else {
+    console.log('personalMatch', personalMatch);
+
+    
+      this.route.queryParams.subscribe(queryParams => {
+
+        this.id = queryParams.id;
+        this.type = queryParams.type;
+        if(queryParams.id && queryParams.type) {
+
+
+        this.loggedInUser = localStorage.getItem('loginID');
+        this.loggedInRole = localStorage.getItem('roles');
+        if(localStorage.getItem('typical_hours')) {
+          this.typical_hours = localStorage.getItem('typical_hours').split(',');
+        }
+          this.listingPayload.ids = [];
+          this.listingPayload.ids.push(queryParams.id);
+          this.listingPayload.type =  queryParams.type;
+          console.log('this.id', this.id)
+          this.listing({
+            ids: this.id ? [this.id] : [],
+            type: this.type,
+            latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+            miles: this.listingPayload.miles,
+            //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+          });
+      }
+      else {
+       if(personalMatch) {
+          this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+          this.listingPayload.age_range = personalMatch.age_range;
+          this.listingPayload.typicalHoursId = personalMatch.typical_hours[0];
+          this.listingPayload.type = personalMatch.type;
+          this.listingPayload.latLong = personalMatch.latLong;
+           
+        this.listing(this.listingPayload);
+        }      
+        else {   
+        this.listing({
+          ids: this.id ? [this.id] : [],
+          type: this.listingPayload.type,
+          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+          miles: this.listingPayload.miles,
+          //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+        });       
+      }}
+      });
+
       this.mapsAPILoader.load().then(() => {
         this.geoCoder = new google.maps.Geocoder;
         this.mapsAPILoader.load().then(() => {
@@ -120,34 +172,14 @@ export class ListingComponent implements OnInit {
         });
         
       });
-
-      this.loggedInUser = localStorage.getItem('loginID');
-      this.loggedInRole = localStorage.getItem('roles');
-      if(localStorage.getItem('typical_hours')) {
-        this.typical_hours = localStorage.getItem('typical_hours').split(',');
-      }
-      this.getProfileQuestion();
-      this.route.queryParams.subscribe(queryParams => {
-        this.id = queryParams.id;
-        this.type = queryParams.type;
-        this.listingPayload.ids = [];
-        this.listingPayload.ids.push(queryParams.id);
-        this.listingPayload.type =  queryParams.type;
-        this.listing({
-          ids: this.id ? [this.id] : [],
-          type: this.type,
-          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-          miles: this.listingPayload.miles,
-          //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
-        });
-      });
     }
-  }
+  
 
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
+
         res.data.forEach(element => {
           if(element.question_type ==='service' && element.category_type==="Delivery") {
             this.serviceQuestion = element
@@ -200,23 +232,23 @@ export class ListingComponent implements OnInit {
       zipcode: '',
       languageId: '',
       typicalHoursId: '',
-      rating: null,
+      rating: 0,
       miles: 5,
-      latLong: '',
+      latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
       age_range: [],
       name: '',
       type: this.type,
       serviceOfferId: '',
     }
     this.listing({
-      ids: [this.id],
+      ids: this.id ? [this.id ] : [],
       miles:this.listingPayload.miles,
-      latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+      latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
       type: this.type,
     });
     this._sharedService.loader('hide');
   }
-  onOptionsSelected(value:string, type){
+  onOptionsSelected(value, type){
     if (type === 'language') {
       this.listingPayload.languageId= value;
     }
@@ -224,7 +256,7 @@ export class ListingComponent implements OnInit {
       this.listingPayload.typicalHoursId = value;
     }
     if (type === 'rating') {
-      this.listingPayload.rating = parseInt(value);
+      this.listingPayload.rating = value ? parseInt(value) : 0;
     }
     if(type="serviceType"){
       this.listingPayload.serviceOfferId = value;
@@ -232,6 +264,7 @@ export class ListingComponent implements OnInit {
     this.listing(this.listingPayload);
   }
   createNameList(data) {
+    this.allDoctorList = []
     for (let element of data) {
       if(element.userData.firstName) {
         this.allDoctorList.push({
@@ -242,6 +275,7 @@ export class ListingComponent implements OnInit {
     }
   }
   changeMiles(evt) {
+    console.log('listingPayload', this.listingPayload.ids)
     this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
     if(this.long &&  this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;
@@ -254,11 +288,17 @@ export class ListingComponent implements OnInit {
   }
   changeAge(evt) {
     this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
+    console.log(this.listingPayload);
     this.listing(this.listingPayload);
   }
   selectEvent(item) {
     this.listingPayload.name = item.name;
     this.listing(this.listingPayload);
+  }
+  resetNames() {
+    this.listingPayload.name = '';
+    this.listing(this.listingPayload);
+
   }
   compareFields(doc, evt) {
     if(evt.target.checked) {

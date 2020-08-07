@@ -28,7 +28,7 @@ export class DoctorFilterComponent implements OnInit {
   selectedLang = '';
   doctorList = [];
   allDoctorList = [];
-  ratingFilter ;
+  rating = 0 ;
   zipCodeSearched;
   searchedAddress = ''
   zipcode = '';
@@ -86,7 +86,7 @@ export class DoctorFilterComponent implements OnInit {
 
 
     this.searchedAddress = localStorage.getItem('searchedAddress')
-    this.getDoctorList({ latLong: this.queryLatLong });
+    this.getDoctorList({ latLong: this.queryLatLong, miles: this.miles });
     this.getProfileQuestion();
   }
 
@@ -180,9 +180,8 @@ export class DoctorFilterComponent implements OnInit {
     });
   }
   handleRatingChange(event) {
-    this.ratingFilter = {};
     if (event.target.value !== 'all') {
-      this.ratingFilter = { rating: parseInt(event.target.value) }
+      this.rating = parseInt(event.target.value);
     }
   }
   onRangeChange(event) {
@@ -195,13 +194,9 @@ export class DoctorFilterComponent implements OnInit {
     }
 
     if(type==="userType") {
-      if(value === 'all') {
-        this.gender = '';
-      }
-      else {
+      
         this.gender = value;
-      }
-    }
+          }
     if(type==="hours"){
       this.selectedHours = value;
     }
@@ -212,12 +207,14 @@ export class DoctorFilterComponent implements OnInit {
   }
   resetFilter() {
     this.sharedService.loader('show');
-    this.ratingFilter = null;
-    this.gender = null;
-    this.selectedLang = null;
-    this.selectedHours = null;
-    this.selectedServiceType = null;
-    this.getDoctorList({ latLong: this.queryLatLong });
+    this.rating = 0;
+    this.gender = '';
+    this.selectedLang = '';
+    this.selectedHours = '';
+    this.selectedServiceType = '';
+    this.miles = 5;
+    this.getDoctorList({
+      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles });
     this.closebutton.nativeElement.click();
   }
   applyFilter() {
@@ -226,7 +223,7 @@ export class DoctorFilterComponent implements OnInit {
       latlongs=`${this.long}, ${this.lat}`    }    
 
     const payload = {
-      ...this.ratingFilter,
+      rating: this.rating,
       languageId:this.selectedLang,
       gender: this.gender,
       typicalHoursId:this.selectedHours,
@@ -263,6 +260,7 @@ export class DoctorFilterComponent implements OnInit {
 
   }
   createNameList(data) {
+    this.allDoctorList = [];
     for (let element of data) {
       if(element.firstName) {
         this.allDoctorList.push({
@@ -273,12 +271,33 @@ export class DoctorFilterComponent implements OnInit {
     }
   }
   serviceFilter(event) {
-    this.getDoctorList({ serviceId: event.target.id });
+    const payload = {
+      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
+      miles: this.miles,
+      serviceId: event.target.id
+    }
+    this.getDoctorList(payload);
     this.selectedService = event.target.text;
   }
   selectEvent(item) {
-    this.getDoctorList({ name: item.name })
+    const payload = {
+      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
+      miles: this.miles,
+      name: item.name,
+      serviceId: this.selectedService !== 'By Service'? this.selectedService : ''
+    }
+    this.getDoctorList(payload)
   } 
+  resetNames() {
+    const payload = {
+      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
+      miles: this.miles,
+      name: '',
+      serviceId: this.selectedService !== 'By Service' ? this.selectedService : ''
+    }
+    this.getDoctorList(payload)
+
+  }
   ngOnDestroy() {
     localStorage.removeItem('searchedAddress');
   }

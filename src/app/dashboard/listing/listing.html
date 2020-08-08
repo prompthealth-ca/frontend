@@ -104,7 +104,7 @@
           <div class="row">
             <div  class="col-md-12" *ngFor="let item of ageRangeList; let i = index">       
               <label for="{{item.id}}" >
-                  <input class="radio" type="radio" name="age_range"   value="{{item.id}}"  required id="{{item.id}}" (change)="changeAge($event)" />
+                  <input class="radio" type="radio" name="age_range" [(ngModel)] ="listingPayload.age_range[0]"  value="{{item.id}}"  required id="{{item.id}}" (change)="changeAge($event)" />
                   <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
               </label>
             </div>

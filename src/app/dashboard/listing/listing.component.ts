@@ -92,7 +92,6 @@ export class ListingComponent implements OnInit {
     
     this.getProfileQuestion();
     const personalMatch = this._sharedService.getPersonalMatch();
-    console.log('personalMatch', personalMatch);
 
     
       this.route.queryParams.subscribe(queryParams => {
@@ -110,7 +109,6 @@ export class ListingComponent implements OnInit {
           this.listingPayload.ids = [];
           this.listingPayload.ids.push(queryParams.id);
           this.listingPayload.type =  queryParams.type;
-          console.log('this.id', this.id)
           this.listing({
             ids: this.id ? [this.id] : [],
             type: this.type,
@@ -200,7 +198,6 @@ export class ListingComponent implements OnInit {
      });
   }
   listing(filter) {
-    console.log('filter', filter);
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {

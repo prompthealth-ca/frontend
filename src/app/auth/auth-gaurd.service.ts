@@ -10,8 +10,6 @@ export class AuthGuardService implements CanActivate {
     const token = localStorage.getItem('token');
     // decode the token to get its payload
     // const tokenPayload = decode(token);
-
-    console.log('here', !this.auth.isAuthenticated(), expectedRole)
     if (
       !this.auth.isAuthenticated() || expectedRole
     ) {

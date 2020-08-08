@@ -15,6 +15,8 @@ export class DoctorFilterComponent implements OnInit {
   
   public searchGlobalElementRef: ElementRef;
   selectedService = 'By Service'
+
+  selectedServiceId = ''
   private geoCoder;
   keyword = 'name';
   gender ='';
@@ -34,6 +36,7 @@ export class DoctorFilterComponent implements OnInit {
   zipcode = '';
   lat;
   long;
+  selectedName = ''
   miles = 5;
 
   queryLatLong;
@@ -274,18 +277,21 @@ export class DoctorFilterComponent implements OnInit {
     const payload = {
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
       miles: this.miles,
-      serviceId: event.target.id
+      serviceId: event.target.id,
+      name: this.selectedName ? this.selectedName : ''
     }
     this.getDoctorList(payload);
     this.selectedService = event.target.text;
+    this.selectedServiceId = event.target.id
   }
   selectEvent(item) {
     const payload = {
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
       miles: this.miles,
       name: item.name,
-      serviceId: this.selectedService !== 'By Service'? this.selectedService : ''
+      serviceId: this.selectedServiceId
     }
+    this.selectedName = item.name;
     this.getDoctorList(payload)
   } 
   resetNames() {
@@ -293,8 +299,9 @@ export class DoctorFilterComponent implements OnInit {
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
       miles: this.miles,
       name: '',
-      serviceId: this.selectedService !== 'By Service' ? this.selectedService : ''
+      serviceId: this.selectedServiceId
     }
+    this.selectedName = ''
     this.getDoctorList(payload)
 
   }

@@ -46,7 +46,7 @@ export class UserDetailsComponent {
     business_kind: '',
     booking: '',
     bookingURL: '',
-    profileImage: {},
+    profileImage: '',
     latitude: 0,
     longitude: 0,
     licence_type_degree: '',
@@ -174,10 +174,10 @@ export class UserDetailsComponent {
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Delivery") {
+          if(element.question_type ==='service' && element.category_type==="Service Type") {
             this.serviceQuestion = element;
           }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {

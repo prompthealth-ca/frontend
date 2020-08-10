@@ -37,7 +37,7 @@ export class DoctorFilterComponent implements OnInit {
   lat;
   long;
   selectedName = ''
-  miles = 5;
+  miles = 100;
 
   queryLatLong;
 
@@ -98,10 +98,10 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Delivery") {
+          if(element.question_type ==='service' && element.category_type==="Service Type") {
             this.serviceQuestion = element
           }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {
@@ -215,7 +215,7 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedLang = '';
     this.selectedHours = '';
     this.selectedServiceType = '';
-    this.miles = 5;
+    this.miles = 100;
     this.getDoctorList({
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles });
     this.closebutton.nativeElement.click();

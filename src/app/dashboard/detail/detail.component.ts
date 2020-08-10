@@ -110,10 +110,10 @@ export class DetailComponent implements OnInit {
        if (res.statusCode = 200) {
         this.profileQuestions = res.data;
           res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Delivery") {
+          if(element.question_type ==='service' && element.category_type==="Service Type") {
             this.serviceQuestion = element
           }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {

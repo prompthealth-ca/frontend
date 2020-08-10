@@ -58,18 +58,30 @@ export class ListingComponent implements OnInit {
     }
   ]
 
+  priceList = [
+    { id: '', name: 'Not Critical', checked: false},
+    { id: 'price1', name: '< 50', checked: false},
+    { id: 'price2', name: '50-100', checked: false},
+    { id: 'price3', name: '100-200', checked: false},
+    { id: 'price4', name: '200-500', checked: false},
+    { id: 'price5', name: '500-1000', checked: false},
+    { id: 'price6', name: '> 1000', checked: false},
+  ];
+
   listingPayload = {
     ids: [],
     zipcode: '',
     languageId: '',
     typicalHoursId: '',
     rating: 0,
-    miles: 5,
+    miles: 100,
     latLong: '',
     age_range: [],
     name: '',
     type: 'service',
     serviceOfferId: '',
+    price_per_hours: '',
+    gender: '',
   }
   queryLatLong
 
@@ -179,10 +191,10 @@ export class ListingComponent implements OnInit {
        if (res.statusCode = 200) {
 
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Delivery") {
+          if(element.question_type ==='service' && element.category_type==="Service Type") {
             this.serviceQuestion = element
           }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {
@@ -230,12 +242,14 @@ export class ListingComponent implements OnInit {
       languageId: '',
       typicalHoursId: '',
       rating: 0,
-      miles: 5,
+      miles: 100,
       latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
       age_range: [],
       name: '',
       type: this.type,
       serviceOfferId: '',
+      gender:"",
+    price_per_hours: '',
     }
     this.listing({
       ids: this.id ? [this.id ] : [],
@@ -257,6 +271,9 @@ export class ListingComponent implements OnInit {
     }
     if(type="serviceType"){
       this.listingPayload.serviceOfferId = value;
+    }
+    if(type="gender"){
+      this.listingPayload.gender = value;
     }
     this.listing(this.listingPayload);
   }
@@ -285,7 +302,10 @@ export class ListingComponent implements OnInit {
   }
   changeAge(evt) {
     this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
-    console.log(this.listingPayload);
+    this.listing(this.listingPayload);
+  }
+  changePrice(price){
+    this.listingPayload.price_per_hours = price === 'Not Critical' ? '' : price;
     this.listing(this.listingPayload);
   }
   selectEvent(item) {

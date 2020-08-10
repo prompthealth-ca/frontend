@@ -42,7 +42,7 @@ export class ListingcompareComponent implements OnInit {
           // if(element.question_type ==='service' && element.category_type==="Delivery") {
           //   this.serviceQuestion = element
           // }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {

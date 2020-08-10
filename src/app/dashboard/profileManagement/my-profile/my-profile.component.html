@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-4">Role <span class="text-danger" *ngIf="editFields">*</span></label>
+                <label class="col-md-4">Membership Type <span class="text-danger" *ngIf="editFields">*</span></label>
                 <input
                 *ngIf="roles === 'C'"
                 type="text"
@@ -96,7 +96,7 @@
                 autocomplete="off"
                 id="email"
                 name="email"
-                value="Service Provider"
+                value="Provider"
                 class="form-control col-md-8"
                 />
             </div>
@@ -264,7 +264,7 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-4">Age range of your client</label>
+                <label class="col-md-4">Age range of your clients</label>
                 <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
                 <div class="col-sm-8">
                     <div *ngIf="!editFields">
@@ -304,7 +304,7 @@
                 </div>
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-4">Total year of experience</label>
+                <label class="col-md-4">Total years of experience</label>
                 <p class="col-md-8" *ngIf="!editFields">{{profile.years_of_experience}}</p>
                 <div *ngIf="editFields" class="col-sm-8">
                     <div class="form-row">
@@ -321,13 +321,21 @@
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
                 <label class="col-md-4">Price range per hour</label>
-                <p class="col-md-8" *ngIf="!editFields">{{profile.price_per_hours}}</p>
+                <p class="col-md-8" *ngIf="!editFields && profile.price_per_hours">$ {{profile.price_per_hours}}</p>
+                <p class="col-md-8" *ngIf="!editFields && !profile.price_per_hours">Not Critical</p>
                 <div *ngIf="editFields" class="col-sm-8">
                     <div class="form-row">
                         <div  class="col-md-4" *ngFor="let item of priceList; let i = index"> 
                             <label for="{{item.id}}">
-                                <input class="radio" type="radio" name="price_per_hours" [(ngModel)] = "profile.price_per_hours"  value="{{item.name}}" required id="{{item.id}}"/>
-                                <span class="">{{item.name}}</span>
+                                <input
+                                    class="radio"
+                                    type="radio"
+                                    name="price_per_hours"
+                                    [(ngModel)] = "profile.price_per_hours"
+                                    value="{{item.name}}"
+                                    required
+                                    id="{{item.id}}"/>
+                                <span class="">$ {{item.name}}</span>
                             </label>
                         </div>
                     </div>

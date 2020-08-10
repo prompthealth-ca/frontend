@@ -38,12 +38,13 @@ export class MyProfileComponent implements OnInit {
     { id: 'exp4', name: '>20 Years'},
   ];
   priceList = [
-    { id: 'price1', name: '< $50'},
-    { id: 'price2', name: '$50-100'},
-    { id: 'price3', name: '$100-200'},
-    { id: 'price4', name: '$200-500'},
-    { id: 'price5', name: '$500-1000'},
-    { id: 'price6', name: '> $1000'},
+    { id: 'price1', name: 'Not Critical', checked: false},
+    { id: 'price1', name: '< 50', checked: false},
+    { id: 'price2', name: '50-100', checked: false},
+    { id: 'price3', name: '100-200', checked: false},
+    { id: 'price4', name: '200-500', checked: false},
+    { id: 'price5', name: '500-1000', checked: false},
+    { id: 'price6', name: '> 1000', checked: false},
   ];
   businessList = [
     { id: 'business1', name: 'Clinic'},
@@ -200,10 +201,10 @@ export class MyProfileComponent implements OnInit {
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Delivery") {
+          if(element.question_type ==='service' && element.category_type==="Service Type") {
             this.serviceQuestion = element;
           }
-          if(element.question_type ==='service' && element.category_type!=="Delivery") {
+          if(element.question_type ==='service' && element.category_type!=="Service Type") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {
@@ -229,6 +230,8 @@ export class MyProfileComponent implements OnInit {
           this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
           this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
           this.getDefaultCheckedValues(this.profile.age_range, 'ageRange');
+
+          this.getDefaultCheckedValues(this.profile.price_per_hours, 'price');
           this.languagesSelected = this.profile.languages;
           this.serviceOfferSelected = this.profile.serviceOfferIds;
           this.hoursSelected = this.profile.typical_hours;
@@ -257,6 +260,18 @@ export class MyProfileComponent implements OnInit {
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
+    }
+
+    if(key === 'price' && this.priceList) {
+      if(data) {
+        this.priceList.forEach(checkbox => {
+          checkbox.checked = (data.indexOf(checkbox.name) > -1) ? true : false;
+        });
+      }
+      else {
+        this.priceList[0].checked = true;
+
+      }
     }
     if(key === 'ageRange' && this.ageRangeList) {
       if(data.length === 5) {

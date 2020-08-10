@@ -28,13 +28,30 @@
         <div class="mb-3">
           <div class="radio">
             <span>Distance Range</span>
-            <input type="range" class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
+            <input type="range"  class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
               Kms: {{listingPayload.miles}}
           </div>
         </div>
 
         <hr />
 
+        <h6 class="mb-3 text-primary">Gender</h6>
+        <div class="mb-3">
+          <div class="radio">
+              <select class="form-control" 
+              #userType
+              [(ngModel)]="listingPayload.gender"
+              (change)="onOptionsSelected(userType.value, 'gender')">
+                <option value="">All</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            <!-- <span>Distance Range</span> -->
+            <!-- <input type="range" class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
+              Kms: {{listingPayload.miles}} -->
+          </div>
+        </div>
+        <hr>
         <h6 class="mb-3 text-primary">Therapist Name</h6>
 
         <div class="d-flex mb-3">
@@ -105,6 +122,22 @@
             <div  class="col-md-12" *ngFor="let item of ageRangeList; let i = index">       
               <label for="{{item.id}}" >
                   <input class="radio" type="radio" name="age_range" [(ngModel)] ="listingPayload.age_range[0]"  value="{{item.id}}"  required id="{{item.id}}" (change)="changeAge($event)" />
+                  <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <hr/>
+        <h6 class="mb-3 text-primary">Price Range</h6>
+
+        <div class="mb-3">
+          <div class="row">
+            <div  class="col-md-12" *ngFor="let item of priceList; let i = index">       
+              <label for="{{item.id}}" >
+                  <input class="radio" type="radio" name="price_range" [(ngModel)] ="listingPayload.price_per_hours"  
+                  value="{{item.name}}"  required id="{{item.id}}" (change)="changePrice(item.name)" />
                   <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
               </label>
             </div>

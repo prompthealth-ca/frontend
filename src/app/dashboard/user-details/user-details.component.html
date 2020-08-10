@@ -170,7 +170,7 @@
       </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
-          <label>Is there any certitification<span class="text-danger">*</span></label>
+          <label>List your certification(s)/depgree(s)<span class="text-danger">*</span></label>
           <input autofocus type="text" id="certification" name="certification" class="form-control"
             (keyup)="trim('certification')" #certification="ngModel" [ngModel]="userDetails.certification" number
             (ngModelChange)="userDetails.certification = $event" required />
@@ -220,35 +220,40 @@
       <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label>What is your price range per hour ? <span class="text-danger">*</span></label>
         <div class="row">
+          <div class="radio col-md-4">
+            <input type="radio" value="" name="price_per_hours" #price_per_hours="ngModel"
+              [(ngModel)]="userDetails.price_per_hours"  />
+            <span>Not Critical</span>
+          </div>
         <div class="radio col-md-4">
           <input type="radio" value="< $50" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"/>
           <span>
             < $50</span>
         </div>
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="50-100" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"/>
           <span>$50-100</span>
         </div>
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="100-200" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"/>
           <span>$100-200</span>
         </div>
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="200-500" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"/>
           <span>$200-500</span>
         </div>
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="500-1000" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"  />
           <span>$500-1000</span>
         </div>
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="1000" name="price_per_hours" #price_per_hours="ngModel"
-            [(ngModel)]="userDetails.price_per_hours" required />
+            [(ngModel)]="userDetails.price_per_hours"  />
           <span>> $1000</span>
         </div>
       </div>
@@ -278,7 +283,7 @@
         </div> -->
       </div>
       <div class="col-md-12 mb-3" *ngIf="roles === 'C'">
-        <label>What kind of business are you ? <span class="text-danger">*</span></label>
+        <label>What kind of a business are you ? <span class="text-danger">*</span></label>
         <div class="row">
         <div class="radio col-md-4 mb-3">
           <input type="radio" value="clinic" name="business_kind" #business_kind="ngModel"

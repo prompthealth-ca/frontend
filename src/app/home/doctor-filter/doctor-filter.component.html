@@ -335,6 +335,16 @@
           </div>
           </div> 
           <div class="row">
+            <div class="col-md-12">
+              <label>Price Range</label>
+              <select class="form-control"
+                #priceRange
+                [(ngModel)]="selectedPriceRange" (ngModelChange)="onOptionsSelected(priceRange.value, 'priceRange')">
+                <option *ngFor="let opt of priceList" [value] = "opt.value">{{opt.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-sm-12">
               <label for="customRange1">Distance range</label>
               <input type="range" class="custom-range" min="5" [(ngModel)] = 'miles' max="100" (input) ="onRangeChange($event)"  id="customRange1">

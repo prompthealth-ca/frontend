@@ -56,16 +56,15 @@ export class ListingComponent implements OnInit {
       _id: 3,
       item_text: '3 Stars'
     }
-  ]
-
+  ]; 
   priceList = [
-    { id: '', name: 'Not Critical', checked: false},
-    { id: 'price1', name: '< 50', checked: false},
-    { id: 'price2', name: '50-100', checked: false},
-    { id: 'price3', name: '100-200', checked: false},
-    { id: 'price4', name: '200-500', checked: false},
-    { id: 'price5', name: '500-1000', checked: false},
-    { id: 'price6', name: '> 1000', checked: false},
+    { value: '', name: 'Not Critical' },
+    { value: '< 50', name: '< 50' },
+    { value: '50-100', name: '50-100' },
+    { value: '100-200', name: '100-200' },
+    { value: '200-500', name: '200-500' },
+    { value: '500-1000', name: '500-1000'},
+    { value: '> 1000', name: '> 1000' },
   ];
 
   listingPayload = {
@@ -249,7 +248,7 @@ export class ListingComponent implements OnInit {
       type: this.type,
       serviceOfferId: '',
       gender:"",
-    price_per_hours: '',
+      price_per_hours: '',
     }
     this.listing({
       ids: this.id ? [this.id ] : [],
@@ -269,11 +268,14 @@ export class ListingComponent implements OnInit {
     if (type === 'rating') {
       this.listingPayload.rating = value ? parseInt(value) : 0;
     }
-    if(type="serviceType"){
+    if(type="serviceType") {
       this.listingPayload.serviceOfferId = value;
     }
-    if(type="gender"){
+    if(type="gender") {
       this.listingPayload.gender = value;
+    }
+    if(type="price") {
+      this.listingPayload.price_per_hours = value;
     }
     this.listing(this.listingPayload);
   }
@@ -304,10 +306,10 @@ export class ListingComponent implements OnInit {
     this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
     this.listing(this.listingPayload);
   }
-  changePrice(price){
-    this.listingPayload.price_per_hours = price === 'Not Critical' ? '' : price;
-    this.listing(this.listingPayload);
-  }
+  // changePrice(price){
+  //   this.listingPayload.price_per_hours = price === 'Not Critical' ? '' : price;
+  //   this.listing(this.listingPayload);
+  // }
   selectEvent(item) {
     this.listingPayload.name = item.name;
     this.listing(this.listingPayload);

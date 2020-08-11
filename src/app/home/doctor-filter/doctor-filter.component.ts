@@ -36,7 +36,17 @@ export class DoctorFilterComponent implements OnInit {
   zipcode = '';
   lat;
   long;
-  selectedName = ''
+  selectedName = '';
+  selectedPriceRange = '';
+  priceList = [
+    { value: '', name: 'Not Critical' },
+    { value: '< 50', name: '< 50' },
+    { value: '50-100', name: '50-100' },
+    { value: '100-200', name: '100-200' },
+    { value: '200-500', name: '200-500' },
+    { value: '500-1000', name: '500-1000'},
+    { value: '> 1000', name: '> 1000' },
+  ];
   miles = 100;
 
   queryLatLong;
@@ -207,6 +217,10 @@ export class DoctorFilterComponent implements OnInit {
     if(type==="serviceType"){
       this.selectedServiceType = value;
     }
+    
+    if(type==="priceRange"){
+      this.selectedPriceRange = value;
+    }
   }
   resetFilter() {
     this.sharedService.loader('show');
@@ -216,6 +230,7 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedHours = '';
     this.selectedServiceType = '';
     this.miles = 100;
+    this.selectedPriceRange = '';
     this.getDoctorList({
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles });
     this.closebutton.nativeElement.click();
@@ -231,6 +246,7 @@ export class DoctorFilterComponent implements OnInit {
       gender: this.gender,
       typicalHoursId:this.selectedHours,
       serviceOfferId:this.selectedServiceType,
+      price_per_hours: this.selectedPriceRange,
       miles: this.miles,
       latLong: latlongs
     }

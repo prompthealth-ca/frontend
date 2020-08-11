@@ -116,6 +116,24 @@
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>
+
+        <tr>
+          <th class="text-left">Differentiate yourself by side-by-side comparisons</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="basicPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!basicPlan?.sideBySideComparisons"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="spPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlan?.sideBySideComparisons"></i>
+          </td>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="cPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.sideBySideComparisons"></i>
+          </td>
+          <td><i class="fa fa-check text-success"></i></td>
+        </tr>
+
         <tr>
           <th class="text-left">Performance Dashboard</th>
           <td>
@@ -353,6 +371,23 @@
           <td *ngIf="roles === 'C'">
             <i class="fa fa-check text-success" *ngIf="cPlan?.videoUpload"></i>
             <i class="fa fa-times text-danger" *ngIf="!cPlan?.videoUpload"></i>
+          </td>
+          <td><i class="fa fa-check text-success"></i></td>
+        </tr>
+
+        <tr>
+          <th class="text-left">Differentiate yourself by side-by-side comparisons</th>
+          <td>
+            <i class="fa fa-check text-success" *ngIf="basicPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!basicPlan?.sideBySideComparisons"></i>
+          </td>
+          <td *ngIf="roles === 'SP'">
+            <i class="fa fa-check text-success" *ngIf="spPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!spPlan?.sideBySideComparisons"></i>
+          </td>
+          <td *ngIf="roles === 'C'">
+            <i class="fa fa-check text-success" *ngIf="cPlan?.sideBySideComparisons"></i>
+            <i class="fa fa-times text-danger" *ngIf="!cPlan?.sideBySideComparisons"></i>
           </td>
           <td><i class="fa fa-check text-success"></i></td>
         </tr>

@@ -109,12 +109,32 @@
         <h6 class="mb-3 text-primary">Service Type</h6>
        
         <div class="mb-3">
-          <select class="form-control"  [(ngModel)]="listingPayload.serviceOfferId"  #serviceType (change)="onOptionsSelected(serviceType.value, 'serviceType')">
+          <select class="form-control"  [(ngModel)]="listingPayload.serviceOfferId"  #serviceType 
+          (change)="onOptionsSelected(serviceType.value, 'serviceType')">
             <option value = ''>All</option>
             <option *ngFor="let opt of serviceQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
           </select>
         </div>
         <hr/>
+        <h6 class="mb-3 text-primary">Price Range</h6>
+
+        <div class="mb-3">
+          <!-- <div class="row">
+            <div  class="col-md-12" *ngFor="let item of priceList; let i = index">       
+              <label for="{{item.id}}" >
+                  <input class="radio" type="radio" name="price_range" [(ngModel)] ="listingPayload.price_per_hours"  
+                  value="{{item.name}}"  required id="{{item.id}}" (change)="changePrice(item.name)" />
+                  <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
+              </label>
+            </div>
+          </div> -->
+          <select class="form-control"  [(ngModel)]="listingPayload.price_per_hours"
+          #priceRange (change)="onOptionsSelected(priceRange.value, 'price')">
+            <option *ngFor="let opt of priceList" [value] = "opt.value">{{opt.name}}</option>
+          </select>
+        </div>
+
+        <hr />
         <h6 class="mb-3 text-primary">Specialty Age Group</h6>
 
         <div class="mb-3">
@@ -130,21 +150,6 @@
 
 
         <hr/>
-        <h6 class="mb-3 text-primary">Price Range</h6>
-
-        <div class="mb-3">
-          <div class="row">
-            <div  class="col-md-12" *ngFor="let item of priceList; let i = index">       
-              <label for="{{item.id}}" >
-                  <input class="radio" type="radio" name="price_range" [(ngModel)] ="listingPayload.price_per_hours"  
-                  value="{{item.name}}"  required id="{{item.id}}" (change)="changePrice(item.name)" />
-                  <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <hr />
 
       </div>
       <div class="col-12 col-lg-9">

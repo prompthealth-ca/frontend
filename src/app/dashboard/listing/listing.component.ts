@@ -104,6 +104,8 @@ export class ListingComponent implements OnInit {
     this.getProfileQuestion();
     const personalMatch = this._sharedService.getPersonalMatch();
 
+    console.log('personalMatch', personalMatch)
+
     
       this.route.queryParams.subscribe(queryParams => {
 
@@ -132,7 +134,7 @@ export class ListingComponent implements OnInit {
        if(personalMatch) {
           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
           this.listingPayload.age_range = personalMatch.age_range;
-          this.listingPayload.typicalHoursId = personalMatch.typical_hours[0];
+          this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
           this.listingPayload.type = personalMatch.type;
           this.listingPayload.latLong = personalMatch.latLong;
            
@@ -164,17 +166,28 @@ export class ListingComponent implements OnInit {
               if (place.geometry === undefined || place.geometry === null) {
                 return;
               }
-              this.lat = place.geometry.location.lat()
-              this.long = place.geometry.location.lng()
-              this.listing(
-                {
-                  
-                  ids: this.id ? [this.id] : [],
-                  latLong: `${this.long}, ${this.lat}`,
-                  miles: this.listingPayload.miles,
-                  type:this.listingPayload.type
+              this.lat = place.geometry.location.lat();
+              this.long = place.geometry.location.lng();
+
+              if(personalMatch) {
+                this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+                this.listingPayload.age_range = personalMatch.age_range;
+                this.listingPayload.typicalHoursId = personalMatch.typical_hours[0];
+                this.listingPayload.type = personalMatch.type;
+                this.listingPayload.latLong = `${this.long}, ${this.lat}`;
+                
+              this.listing(this.listingPayload);
               }
-              );
+              else {
+                this.listing(
+                  {
+                    ids: this.id ? [this.id] : [],
+                    latLong: `${this.long}, ${this.lat}`,
+                    miles: this.listingPayload.miles,
+                    type:this.listingPayload.type
+                  }
+                );
+              }
               // this.listing({latLong: `${this.long}, ${this.lat}`});
             });
           });

@@ -91,40 +91,58 @@ ansIDs = [];
     const parentId = evt.target.id;
 
     console.log('--',parentId, subOption, questType)
+
+    if(evt.target.checked) {
     
-    if(this.selectedItems.indexOf(parentId) === -1) {
-      if(questType === 'availability') {
-        this.typical_hours.push(parentId);
-        this.personalMatch.typical_hours = this.typical_hours;
+      if(this.selectedItems.indexOf(parentId) === -1) {
+        if(questType === 'availability') {
+          this.typical_hours.push(parentId);
+          this.personalMatch.typical_hours = this.typical_hours;
+        }
+        else {
+          console.log('parentId', this.selectedItems)
+          this.selectedItems.push(parentId);
+          
+          console.log('SELECTEDITEMS', this.personalMatch.ids, this.selectedItems);
+        }
+      }
+      if(subOption) {
+        this.subRes.question = evt.target.name
+        this.subRes.quesId =  parentId;
+        const path = `questionare/get-answer/${evt.target.id}`;
+        this._sharedService.get(path).subscribe((res: any) => {
+          if (res.statusCode = 200) {
+              this.subRes.options =  res.data;
+          } else {
+            this._sharedService.checkAccessToken(res.message);
+          }
+        }, err => {
+
+          this._sharedService.checkAccessToken(err);
+        });
       }
       else {
-        console.log('parentId', this.selectedItems)
-        this.selectedItems.push(parentId);
+        this.subRes.question = '';
+        this.subRes.quesId = '';
+        this.subRes.options = [];
       }
     }
-    if(evt.target.checked && subOption) {
-      this.subRes.question = evt.target.name
-      this.subRes.quesId =  parentId;
-      const path = `questionare/get-answer/${evt.target.id}`;
-      this._sharedService.get(path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
-            this.subRes.options =  res.data;
-        } else {
-          this._sharedService.checkAccessToken(res.message);
-        }
-      }, err => {
-
-        this._sharedService.checkAccessToken(err);
-      });
-    }
     else {
+      console.log('unchecked')
+      const index = this.personalMatch.ids.indexOf(parentId);
+      if(index > -1) this.personalMatch.ids.splice(index, 1);
+      const index2 = this.selectedItems.indexOf(parentId);
+      if(index2 > -1) this.selectedItems.splice(index2, 1);
+      if(questType === 'availability') {
+        const index = this.personalMatch.typical_hours.indexOf(parentId);
+        if(index > -1) this.personalMatch.typical_hours.splice(index, 1);
+      }
 
-      console.log('?????????????', this.selectedItems)
-      if(questType !== 'availability') this.personalMatch.ids.push(parentId);
-      this.subRes.question = '';
-      this.subRes.quesId = '';
-      this.subRes.options = [];
     }
+
+    const uniqueArr = [... new Set([...this.personalMatch.ids, ...this.selectedItems])];
+    this.personalMatch.ids = uniqueArr;
+    console.log('personalMatch>>>', this.personalMatch.ids);
 
   }
   getUserQuestionnaire() {
@@ -174,6 +192,8 @@ ansIDs = [];
     }, err => {
       this._sharedService.loader('hide');
     });
+
+    console.log('personalMatch', this.personalMatch)
     this._sharedService.setPersonalMatch(this.personalMatch)
    
     this._router.navigate(['/dashboard/listing']);
@@ -233,9 +253,9 @@ ansIDs = [];
     if(data.customer_age_group && data.customer_age_group !== "5eb1a4e199957471610e6cd7" && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
       this.personalMatch.age_range.push(data.customer_age_group);
     }
-    if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
-      this.personalMatch.age_range.push(data.customer_loved);
-    }
+    // if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
+    //   this.personalMatch.age_range.push(data.customer_loved);
+    // }
 
 
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
@@ -264,31 +284,47 @@ ansIDs = [];
   getSubSubAns(evt, subans) {
     const parentId = evt.target.id;
     console.log('IDS', parentId);
-    if(this.selectedItems.indexOf(parentId) === -1) {
-      this.selectedItems.push(parentId);
+    if(evt.target.checked) {
+      if(this.selectedItems.indexOf(parentId) === -1) {
+        this.selectedItems.push(parentId);
+      }
+      if(subans) {
+        this.sublevel2Res.question = evt.target.name
+        this.sublevel2Res.quesId =  parentId;
+        const path  = `questionare/get-sub-answer/${parentId}`;
+        this._sharedService.get(path).subscribe((res: any) => {
+          if (res.statusCode = 200) {
+            this.sublevel2Res.options =  res.data;
+          } else {
+            this._sharedService.checkAccessToken(res.message);
+          }
+        }, err => {
 
-      this.personalMatch.ids.push(...this.selectedItems);
-    }
-    if(evt.target.checked && subans) {
-      this.sublevel2Res.question = evt.target.name
-      this.sublevel2Res.quesId =  parentId;
-      const path  = `questionare/get-sub-answer/${parentId}`;
-      this._sharedService.get(path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
-          this.sublevel2Res.options =  res.data;
-        } else {
-          this._sharedService.checkAccessToken(res.message);
-        }
-      }, err => {
+          this._sharedService.checkAccessToken(err);
+        });
+      }
+      else {
+        this.sublevel2Res.question = '';
+        this.sublevel2Res.quesId = '';
+        this.sublevel2Res.options = [];
 
-        this._sharedService.checkAccessToken(err);
-      });
+      }
     }
     else {
-      this.sublevel2Res.question = '';
-      this.sublevel2Res.quesId = '';
-      this.sublevel2Res.options = [];
+      
+      console.log('unchecked')
+      const index = this.personalMatch.ids.indexOf(parentId);
+      if(index > -1) this.personalMatch.ids.splice(index, 1);
+      const index2 = this.selectedItems.indexOf(parentId);
+      if(index2 > -1) this.selectedItems.splice(index2, 1);
 
     }
+
+
+
+    const uniqueArr = [... new Set([...this.personalMatch.ids, ...this.selectedItems])];
+    this.personalMatch.ids = uniqueArr;
+    console.log('Sub ans personalMatch>>>', this.personalMatch.ids);
+
   }
 }

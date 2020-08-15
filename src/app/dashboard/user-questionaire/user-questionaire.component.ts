@@ -89,6 +89,8 @@ ansIDs = [];
   }
   getSubAns(evt, subOption, questType) {
     const parentId = evt.target.id;
+
+    console.log('--',parentId, subOption, questType)
     
     if(this.selectedItems.indexOf(parentId) === -1) {
       if(questType === 'availability') {
@@ -96,6 +98,7 @@ ansIDs = [];
         this.personalMatch.typical_hours = this.typical_hours;
       }
       else {
+        console.log('parentId', this.selectedItems)
         this.selectedItems.push(parentId);
       }
     }
@@ -116,6 +119,8 @@ ansIDs = [];
     }
     else {
 
+      console.log('?????????????', this.selectedItems)
+      if(questType !== 'availability') this.personalMatch.ids.push(parentId);
       this.subRes.question = '';
       this.subRes.quesId = '';
       this.subRes.options = [];
@@ -225,7 +230,7 @@ ansIDs = [];
       _id:  localStorage.getItem('loginID'),
       ...data,
     }
-    if(data.customer_age_group && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
+    if(data.customer_age_group && data.customer_age_group !== "5eb1a4e199957471610e6cd7" && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
       this.personalMatch.age_range.push(data.customer_age_group);
     }
     if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
@@ -258,9 +263,11 @@ ansIDs = [];
 
   getSubSubAns(evt, subans) {
     const parentId = evt.target.id;
+    console.log('IDS', parentId);
     if(this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
-      this.personalMatch.ids = this.selectedItems;
+
+      this.personalMatch.ids.push(...this.selectedItems);
     }
     if(evt.target.checked && subans) {
       this.sublevel2Res.question = evt.target.name

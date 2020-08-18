@@ -81,6 +81,7 @@ export class ListingComponent implements OnInit {
     serviceOfferId: '',
     price_per_hours: '',
     gender: '',
+    typical_hours: [],
   }
   queryLatLong
 
@@ -135,6 +136,9 @@ export class ListingComponent implements OnInit {
           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
           this.listingPayload.age_range = personalMatch.age_range;
           this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
+         
+          this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
+         
           this.listingPayload.type = personalMatch.type;
           this.listingPayload.latLong = personalMatch.latLong;
            
@@ -172,7 +176,9 @@ export class ListingComponent implements OnInit {
               if(personalMatch) {
                 this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
                 this.listingPayload.age_range = personalMatch.age_range;
-                this.listingPayload.typicalHoursId = personalMatch.typical_hours[0];
+                this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
+         
+                this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
                 this.listingPayload.type = personalMatch.type;
                 this.listingPayload.latLong = `${this.long}, ${this.lat}`;
                 
@@ -262,6 +268,7 @@ export class ListingComponent implements OnInit {
       serviceOfferId: '',
       gender:"",
       price_per_hours: '',
+      typical_hours: [],
     }
     this.listing({
       ids: this.id ? [this.id ] : [],

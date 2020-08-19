@@ -26,10 +26,10 @@ export class MyProfileComponent implements OnInit {
 
   ageRangeList  = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
-    { id: '5eb1a4e199957471610e6cd8', name: 'Child', checked: false },
-    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent', checked: false },
-    { id: '5eb1a4e199957471610e6cda', name: 'Adult', checked: false },
-    { id: '5eb1a4e199957471610e6cdb', name: 'Senior', checked: false },
+    { id: '5eb1a4e199957471610e6cd8', name: 'Child (<12)', checked: false },
+    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent (12-18)', checked: false },
+    { id: '5eb1a4e199957471610e6cda', name: 'Adult (18+)', checked: false },
+    { id: '5eb1a4e199957471610e6cdb', name: 'Senior (>64)', checked: false },
   ];
   experienceList  = [
     { id: 'exp1', name: '<5 Years'},

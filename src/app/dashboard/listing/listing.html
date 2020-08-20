@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-12 col-lg-3">
        <div class="text-right mb-3">
-         <button class="btn btn-primary" (click)="removeFilter()">Remove All Filtes</button>
+         <button class="btn btn-primary" (click)="removeFilter()">Remove All Filters</button>
        </div>
         <h6 class="mb-3 text-primary">Travel Distance from Postal Code</h6>
 
@@ -130,7 +130,7 @@
           </div> -->
           <select class="form-control"  [(ngModel)]="listingPayload.price_per_hours"
           #priceRange (change)="onOptionsSelected(priceRange.value, 'price')">
-            <option *ngFor="let opt of priceList" [value] = "opt.value">{{opt.name}}</option>
+            <option *ngFor="let opt of priceList" [value] = "opt.value">$ {{opt.name}}</option>
           </select>
         </div>
 
@@ -156,7 +156,7 @@
         <div
           class="d-flex align-items-center justify-content-between text-primary flex-wrap flex-md-nowrap"
         >
-          <h3 class="mb-3">Your Experts</h3>
+          <h3 class="mb-3">Expert Finder</h3>
           <div class="text-primary h6 mb-3">
             Number of professionals that meet all your criteria
             <span class="badge badge-secondary"

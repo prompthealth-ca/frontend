@@ -291,6 +291,10 @@ export class UserDetailsComponent {
     this.defaultImage = reader.result;
   }
   save() {
+    if(this.userDetails.typical_hours.length ==0){
+      this.toastr.error("Please select the typical hours!");
+      return;
+    }
     const formData = new FormData();
     const payload = this.userDetails;
     payload['_id'] = localStorage.getItem('loginID');

@@ -32,27 +32,27 @@ export class MyProfileComponent implements OnInit {
     { id: '5eb1a4e199957471610e6cdb', name: 'Senior (>64)', checked: false },
   ];
   experienceList  = [
-    { id: 'exp1', name: '<5 Years'},
-    { id: 'exp2', name: '5-10 Years'},
-    { id: 'exp3', name: '10-20 Years'},
-    { id: 'exp4', name: '>20 Years'},
+    { id: 'exp1', label: '<5 Years', value:'< 5'},
+    { id: 'exp2', label: '5-10 Years', value:'5-10'},
+    { id: 'exp3', label: '10-20 Years', value:'10-20'},
+    { id: 'exp4', label: '>20 Years', value:'> 20'},
   ];
   priceList = [
-    { id: 'price1', name: 'Not Critical', checked: false},
-    { id: 'price1', name: '< 50', checked: false},
-    { id: 'price2', name: '50-100', checked: false},
-    { id: 'price3', name: '100-200', checked: false},
-    { id: 'price4', name: '200-500', checked: false},
-    { id: 'price5', name: '500-1000', checked: false},
-    { id: 'price6', name: '> 1000', checked: false},
+    { id: 'price1', label: 'Not Critical', value:'Not Critical', checked: false},
+    { id: 'price2', label: '< 50', value:'< $50', checked: false},
+    { id: 'price3', label: '50-100', value:'50-100', checked: false},
+    { id: 'price4', label: '100-200', value:'100-200', checked: false},
+    { id: 'price5', label: '200-500', value:'200-500', checked: false},
+    { id: 'price6', label: '500-1000', value:'500-1000', checked: false},
+    { id: 'price7', label: '> 1000', value:'1000', checked: false},
   ];
   businessList = [
-    { id: 'business1', name: 'Clinic'},
-    { id: 'business2', name: 'Health Center'},
-    { id: 'business3', name: 'Health Club'},
-    { id: 'business4', name: 'Gym'},
-    { id: 'business5', name: 'Studio'},
-    { id: 'business6', name: 'Pharmacy'},
+    { id: 'business1', label: 'Clinic', value:'clinic'},
+    { id: 'business2', label: 'Health Center', value:'health_center'},
+    { id: 'business3', label: 'Health Club', value:'health_club'},
+    { id: 'business4', label: 'Gym', value:'gym'},
+    { id: 'business5', label: 'Studio', value:'studio'},
+    { id: 'business6', label: 'Pharmacy', value:'pharmacy'},
   ];
 
   avalibilityQuestion
@@ -230,7 +230,6 @@ export class MyProfileComponent implements OnInit {
           this.getDefaultCheckedValues(this.profile.typical_hours, 'typical_hours');
           this.getDefaultCheckedValues(this.profile.serviceOfferIds, 'serviceType');
           this.getDefaultCheckedValues(this.profile.age_range, 'ageRange');
-
           this.getDefaultCheckedValues(this.profile.price_per_hours, 'price');
           this.languagesSelected = this.profile.languages;
           this.serviceOfferSelected = this.profile.serviceOfferIds;
@@ -257,6 +256,7 @@ export class MyProfileComponent implements OnInit {
       });
     }
     if(key === 'languages' && this.languageQuestion) {
+      console.log(this.languageQuestion);
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
@@ -265,7 +265,7 @@ export class MyProfileComponent implements OnInit {
     if(key === 'price' && this.priceList) {
       if(data) {
         this.priceList.forEach(checkbox => {
-          checkbox.checked = (data.indexOf(checkbox.name) > -1) ? true : false;
+          checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
         });
       }
       else {
@@ -354,6 +354,10 @@ export class MyProfileComponent implements OnInit {
   }
  
   save() {
+    if(this.profile.typical_hours.length ==0){
+      this.toastr.error("Please select the available time!");
+      return;
+    }
     const payload = this.profile;
     payload['_id'] = localStorage.getItem('loginID');
     if(payload.phone) payload.phone.toString();

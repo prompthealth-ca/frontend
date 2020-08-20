@@ -170,7 +170,7 @@
       </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
-          <label>List your certification(s)/depgree(s)<span class="text-danger">*</span></label>
+          <label>List your certification(s)/degree(s)<span class="text-danger">*</span></label>
           <input autofocus type="text" id="certification" name="certification" class="form-control"
             (keyup)="trim('certification')" #certification="ngModel" [ngModel]="userDetails.certification" number
             (ngModelChange)="userDetails.certification = $event" required />

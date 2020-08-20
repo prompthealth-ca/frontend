@@ -312,8 +312,8 @@
                             <label for="{{item.id}}">
                                 <!-- -- {{ profile.years_of_experience }}
                                 >> {{ item.name }} -->
-                                <input class="radio" type="radio" name="years_of_experience" [(ngModel)] = "profile.years_of_experience" value="{{item.name}}" required id="{{item.id}}"/>
-                                <span class="">{{item.name}}</span>
+                                <input class="radio" type="radio" name="years_of_experience" [(ngModel)] = "profile.years_of_experience" value="{{item.value}}" required id="{{item.id}}"/>
+                                <span class="">{{item.label}}</span>
                             </label>
                         </div>
                     </div>
@@ -332,10 +332,10 @@
                                     type="radio"
                                     name="price_per_hours"
                                     [(ngModel)] = "profile.price_per_hours"
-                                    value="{{item.name}}"
+                                    value="{{item.value}}"
                                     required
                                     id="{{item.id}}"/>
-                                <span class="">$ {{item.name}}</span>
+                                <span class="">$ {{item.label}}</span>
                             </label>
                         </div>
                     </div>
@@ -348,8 +348,8 @@
                     <div class="form-row">
                         <div  class="col-md-4" *ngFor="let item of businessList; let i = index"> 
                             <label for="{{item.id}}">
-                                <input class="radio" type="radio" name="business_kind" value="{{item.name}}" [(ngModel)] = "profile.business_kind" required id="{{item.id}}"/>
-                                <span class="">{{item.name}}</span>
+                                <input class="radio" type="radio" name="business_kind" value="{{item.value}}" [(ngModel)] = "profile.business_kind" required id="{{item.id}}"/>
+                                <span class="">{{item.label}}</span>
                             </label>
                         </div>
                     </div>

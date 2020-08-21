@@ -14,6 +14,7 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ModalModule } from "ngx-bootstrap/modal";
 
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ScrollTopService } from './scrolltop.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ToastrModule.forRoot(),
   ],
   providers: [
+    ScrollTopService,
     BehaviorService,
     CookieService,
     CanonicalLinkService,

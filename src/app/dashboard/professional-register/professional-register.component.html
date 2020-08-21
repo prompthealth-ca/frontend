@@ -21,34 +21,21 @@
             <li class="nav-item">
                 <a
                 class="nav-link btn-circle"
-                [ngClass]="{'active': activeTab === 'basicInfo'}"
-                id="tab1"
-                data-toggle="pill"
-                role="tab"
-                aria-controls="pill1"
-                aria-selected="true"
+                
                 >Basic Information</a
                 >
             </li>
             <li class="nav-item">
                 <a
                 class="nav-link btn-circle"
-                [ngClass]="{'active': activeTab === 'questionnaire'}"
-                id="tab2"
-                role="tab"
-                aria-controls="pill2"
-                aria-selected="false"
+               
                 >Questionnaire</a
                 >
             </li>
             <li class="nav-item" *ngIf="isVipAffiliateUser">
                 <a
                 class="nav-link btn-circle"
-                [ngClass]="{'active': activeTab === 'payment'}"
-                id="tab3"
-                role="tab"
-                aria-controls="pill3"
-                aria-selected="false"
+                
                 >Payment</a
                 >
             </li>

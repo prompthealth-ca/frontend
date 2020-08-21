@@ -9,6 +9,7 @@
       <div class="col-md-3"></div>
       <div class="col-md-6 text-center text-light">
         <h2>Subscription Plan</h2>
+        <h6>50% off for first 200 users</h6>
         <p> You can get listed for free with a basic profile or upgrade to access so much more features
         </p>
       </div>
@@ -23,41 +24,42 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <span class="text-primary">Basic</span>
+              <h6 class="text-primary mb-2">Basic</h6>
+            
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">Free</b>
+              <b class="h5 mb-2">Free</b>
             </div>
           </th>
           <th class="free border-0">
-            <span class="text-primary">Service Provider</span>
-            <div class="">
-              <label>Monthly</label>
+            <h6 class="text-primary mb-2">Service Provider <span class="badge badge-danger ml-1">50% off</span></h6>
+            <div class="d-inline-flex">
+              <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
-              <label>Yearly</label>
+              <label class="ml-1">Yearly</label>
             </div>
 
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b>
+              <b class="h5 mb-2">$</b>
               <span *ngIf="!spYearly"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
               <span *ngIf="spYearly"><b class="h5">{{spPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
           </th>
 
           <th class="paid border-0">
-            <span class="text-primary">Center</span>
-            <div class="">
-              <label>Monthly</label>
+              <h6 class="text-primary mb-2">Center <span class="badge badge-danger ml-1">50% off</span></h6>
+            <div class="d-inline-flex">
+              <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
-              <label>Yearly</label>
+              <label class="ml-1">Yearly</label>
             </div>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b>
+              <b class="h5 mb-2">$</b>
               <span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
               <span *ngIf="centreYearly"><b class="h5">{{cPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
           </th>
           <th class="free border-0">
-            <span class="text-primary">Enterprise</span>
+              <h6 class="text-primary mb-2">Enterprise <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Get a Quote</b>
             </div>
@@ -271,22 +273,22 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <span class="text-primary">Basic</span>
+            <h6 class="text-primary mb-2">Basic <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Free</b>
             </div>
           </th>
 
           <th class="free border-0" *ngIf="roles === 'SP'">
-            <div>
-              <label>Monthly</label>
+            <div class="d-inline-flex">
+              <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
-              <label>Yearly</label>
+              <label class="ml-1">Yearly</label>
             </div>
             
-            <span class="text-primary">Premium</span>
+            <h6 class="text-primary mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b>
+              <b class="h5 mb-2">$</b>
               <span *ngIf="spYearly === false"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
               <span *ngIf="spYearly === true"><b class="h5">{{spPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
@@ -298,14 +300,14 @@
             </div> -->
           </th>
           <th class="paid border-0" *ngIf="roles === 'C'">
-            <span class="text-primary">Premium</span>
-            <div>
-              <label>Monthly</label>
+            <h6 class="text-primary mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
+            <div class="d-inline-flex">
+              <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
-              <label>Yearly</label>
+              <label class="ml-1">Yearly</label>
             </div>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">$</b><span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
+              <b class="h5 mb-2">$</b><span *ngIf="!centreYearly"><b class="h5">{{cPlan?.price}}</b>/Monthly</span>
               <span *ngIf="centreYearly"><b class="h5">{{cPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
 
@@ -314,9 +316,9 @@
             </div>
           </th>
           <th class="free border-0">
-            <span class="text-primary">Enterprise</span>
+            <h6 class="text-primary mb-2">Enterprise <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
-              <b class="h5 mb-4">Get a Quote</b>
+              <b class="h5 mb-3">Get a Quote</b>
             </div>
             <!-- <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly

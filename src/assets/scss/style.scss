@@ -1,5 +1,15 @@
 @import "mixins";
 
+
+ui-switch{
+  .switch{
+    &:not(.checked){
+      background-color: $primaryColor !important;
+    }
+  }
+}
+
+
 // bootstarp classes
 .rounded-right {
   border-top-right-radius: $radius !important;

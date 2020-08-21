@@ -13,6 +13,14 @@ button.close.position-absolute {
   align-items: center;
 }
 
+.Reviewsbox{
+  >img{
+    object-fit: cover;
+    height: 80px;
+    object-position: top center;
+  }
+}
+
 label {
   font-weight: normal;
 }

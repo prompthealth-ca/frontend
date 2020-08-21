@@ -16,14 +16,21 @@ $testimonialsAvtarSize: 73px;
 }
 
 .testimonials-text {
-  // &::before,
-  // &::after {
-  //   content: '"';
-  // }
   font-size: 16px;
-  line-height: 22px;
+  line-height: 28px;
   font-weight: 300;
   font-style: italic;
+
+  h5{
+    font-style: initial;
+    text-align: center;
+    margin-top: 15px;
+
+    + div{
+      text-align: center;
+      font-style: initial;
+    }
+  }
 }
 
 $testimonialsLiSize: 10px;

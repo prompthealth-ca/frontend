@@ -33,7 +33,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-6 mb-3">
-                <button class="btn btn-light w-100" [disabled] = "token && roles !== 'U'" (click)="questionnaire()">Personal Match</button>
+                <button class="btn btn-light w-100" (click)="questionnaire()">Personal Match</button>
               </div>
               <div class="col-md-6 mb-3">
                 <a class="btn btn-light w-100" (click)="findDoctor()">Find By Location</a>
@@ -178,10 +178,11 @@
               />
             </div>
             <p>
-              Get a personalized guide option by answering a few questions
+              Search by a single category that matters the most to you such 
+              as your goal, services or how you want it whether in person or 
+              virtual, treatment type or just location
               <br />or<br />
-              Skip the questions and search by a single category that matters
-              most to you
+              To get a customized guide, login for free to answer a few questions
             </p>
           </div>
         </div>
@@ -197,7 +198,11 @@
               />
             </div>
             <p>
-              Filter options and compare against each other
+              <!-- Filter options and compare against each other -->
+              Filter selections and compare options in your 
+              geographic area including list of services, certifications 
+              and experience, language, price, specialty with certain age
+               group and more to choose what best suits your needs
             </p>
           </div>
         </div>
@@ -213,7 +218,7 @@
               />
             </div>
             <p>
-              Request booking with your preferred availability
+              Directly request a booking with your preferred availability
             </p>
           </div>
         </div>
@@ -229,7 +234,7 @@
               />
             </div>
             <p>
-              Join for free and get access to dashboard of your activities (Favorites, bookings and rewards)
+              Enjoy your treatment with relaxation and ease! And build your dashboard of providers and services for future reference
             </p>
           </div>
         </div>

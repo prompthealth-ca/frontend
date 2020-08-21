@@ -448,3 +448,11 @@ textarea.form-control {
     height: $headerHeight;
   }
 }
+
+ui-switch{
+  .switch{
+    &:not(.checked){
+      background-color: $primaryColor !important;
+    }
+  }
+}

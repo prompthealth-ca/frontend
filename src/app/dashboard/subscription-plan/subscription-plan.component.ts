@@ -27,9 +27,9 @@ export class SubscriptionPlanComponent {
   @ViewChild('signin') signin:ElementRef;
 
   @ViewChild('closebutton') closebutton;
-  centreYearly = true;
+  centreYearly = false;
   finalPrice ;
-  spYearly = true;
+  spYearly = false;
   stripe;
   loading = false;
   confirmation;
@@ -168,25 +168,29 @@ export class SubscriptionPlanComponent {
     this.finalPrice = this.finalPrice.toFixed(2)
   }
   setSelectedFreePlan(plan) {
+if(this.roles =='U'){
+  this._router.navigate(['/']);
+}else{
+  const payload = {
+    _id: localStorage.getItem('loginID'),
+    plan
+  }
 
-    const payload = {
-      _id: localStorage.getItem('loginID'),
-      plan
-    }
+    this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.toastr.success(res.message);
 
-      this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.toastr.success(res.message);
+      this._router.navigate(['/']);
+      } else {
+        this.toastr.error(res.message);
 
-        this._router.navigate(['/']);
-        } else {
-          this.toastr.error(res.message);
-  
-        }
-      }, err => {
-        this.toastr.error('There are some errors, please try again after some time !', 'Error');
-      });
+      }
+    }, err => {
+      this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    });
 
+}
+    
   }
   getUserDetails() {
     this._sharedService.loader('show');

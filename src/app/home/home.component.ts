@@ -67,8 +67,9 @@ export class HomeComponent implements OnInit {
     if (this.token) {
       this.router.navigate(['dashboard/questions/User']);
     } else {
-      this.router.navigate(['auth/login/u']);
-      this.toastr.warning("Please login first.")
+      this.router.navigate(['dashboard/listing'])
+      // this.router.navigate(['auth/login/u']);
+      // this.toastr.warning("Please login first.")
     } 
   }
 

@@ -59,12 +59,12 @@ export class ListingComponent implements OnInit {
   ]; 
   priceList = [
     { value: '', name: 'Not Critical' },
-    { value: '< 50', name: '< 50' },
-    { value: '50-100', name: '50-100' },
-    { value: '100-200', name: '100-200' },
-    { value: '200-500', name: '200-500' },
-    { value: '500-1000', name: '500-1000'},
-    { value: '> 1000', name: '> 1000' },
+    { value: '< 50', name: '$ < 50' },
+    { value: '50-100', name: '$ 50-100' },
+    { value: '100-200', name: '$ 100-200' },
+    { value: '200-500', name: '$ 200-500' },
+    { value: '500-1000', name: '$ 500-1000'},
+    { value: '> 1000', name: '$ > 1000' },
   ];
 
   listingPayload = {

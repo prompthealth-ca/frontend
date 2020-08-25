@@ -130,7 +130,7 @@
           </div> -->
           <select class="form-control"  [(ngModel)]="listingPayload.price_per_hours"
           #priceRange (change)="onOptionsSelected(priceRange.value, 'price')">
-            <option *ngFor="let opt of priceList" [value] = "opt.value">$ {{opt.name}}</option>
+            <option *ngFor="let opt of priceList" [value] = "opt.value">{{opt.name}}</option>
           </select>
         </div>
 

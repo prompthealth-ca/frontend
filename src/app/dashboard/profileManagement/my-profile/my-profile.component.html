@@ -101,7 +101,7 @@
                 />
             </div>
 
-            <div class="form-row mb-3">
+            <div class="form-row mb-3" *ngIf="roles=='U'">
                 <label class="col-md-4"
                 >Email Address</label
                 >
@@ -116,7 +116,7 @@
                 />
             </div>
 
-            <div class="form-row mb-3">
+            <div class="form-row mb-3" *ngIf="roles=='U'">
                 <label class="col-md-4">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
                 <div class="col-md-8">
                     <input

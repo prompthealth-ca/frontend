@@ -13,6 +13,8 @@ $testimonialsAvtarSize: 100px;
 .testimonials-avtar {
   height: $testimonialsAvtarSize !important;
   width: $testimonialsAvtarSize !important;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .testimonials-text {

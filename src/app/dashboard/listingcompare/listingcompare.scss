@@ -2,11 +2,18 @@
 
 .avatartable {
   position: relative;
+  text-align: center;
+
+>img{
   width: 100%;
   max-width: 150px;
-  display: block;
   margin: auto;
+  object-fit: cover;
+  object-position: top center;
+  height: 150px;
   border: 1px solid;
+}
+
   > i {
     position: absolute;
     top: -10px;

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   long;
   // _host = environment.config.BASE_URL;
   id: any;
-
+  showPersonalMatch:boolean = true;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -48,6 +48,13 @@ export class HomeComponent implements OnInit {
     this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : ''
     localStorage.removeItem('searchedAddress');
     this.token = localStorage.getItem("token");
+    if(this.token){
+      if(this.roles=='SP'|| this.roles=='C'){
+        this.showPersonalMatch = false;
+      }else{
+        this.showPersonalMatch = true;
+      }
+    }
     this.homeForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]]
     });
@@ -67,7 +74,7 @@ export class HomeComponent implements OnInit {
     if (this.token) {
       this.router.navigate(['dashboard/questions/User']);
     } else {
-      this.router.navigate(['dashboard/listing'])
+      this.router.navigate(['dashboard/questions/User'])
       // this.router.navigate(['auth/login/u']);
       // this.toastr.warning("Please login first.")
     } 

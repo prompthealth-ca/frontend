@@ -22,6 +22,7 @@ import { AffiliateComponent } from './affiliate/affiliate.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -39,6 +40,7 @@ import { BlogCategoryComponent } from './blog-category/blog-category.component';
     BlogComponent,
     BlogDetailComponent,
     BlogCategoryComponent,
+    SubscriptionComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

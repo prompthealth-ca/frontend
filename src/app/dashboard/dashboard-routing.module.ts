@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path: "questions/User",
     component: UserQuestionaireComponent,
-    canActivate: [AuthGuard] 
+    // canActivate: [AuthGuard] 
   },
   {
     path: "listing",

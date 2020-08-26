@@ -181,7 +181,7 @@
               <div class="font-weight-bold mb-2">
                 {{ doc.userData.firstName }}
               </div>
-              <div class="mb-2 font-weight-normal">
+              <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
                 {{ doc.userData.email }}
               </div>
               <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
@@ -243,7 +243,7 @@
               [src]="'https://prompthealth.ca:3000/users/'+doc?.userData?.profileImage"
               class="profileimg" /> -->
             <div
-              class="bg-cover w-100 h-100 profileimg"
+              class="w-100 h-100 profileimg"
               [ngStyle]="{'background-image': 'url(https://prompthealth.ca:3000/users/'+ doc.userData.profileImage +')'}"
             >
           
@@ -260,7 +260,7 @@
                   class="d-block h5 text-uppercase mb-0"
                   >{{ doc.userData.firstName }}</a
                 >
-                <div class="mb-2 font-weight-normal">
+                <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
                   {{doc.userData.email}}
                 </div>
                 <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
@@ -331,7 +331,7 @@
               >
                 <span>{{doc.userData.phone}}</span>
               </a>
-              <a
+              <a *ngIf="loggedInUser"
                 class="fa fa-envelope text-secondary d-inline-block mr-2"
                 href="mailto:{{doc.userData.address}}"
               >

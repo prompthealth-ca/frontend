@@ -4,24 +4,29 @@
     top: 50%;
     transform: translateY(-50%);
     right: 163px;
-    height: 115px;
-    width: 200px;
+    text-align: center;
 
     img{
       height: 115px;
       width: 200px;
       object-fit: contain;
+      margin-bottom: 11px;
     }
 
     span{
-      font-size: 11.5px;
+      background-image:url('/assets/img/badge-bottom.png');
+      font-size: 11px;
     font-weight: bold;
+    background-size: 100% 100%;
     text-transform: uppercase;
     position: absolute;
-    bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    bottom: 0px;
     color: #fff;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 230px;
     text-align: center;
     }
   }

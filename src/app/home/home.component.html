@@ -32,8 +32,8 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-md-6 mb-3">
-                <button class="btn btn-light w-100" (click)="questionnaire()">Personal Match</button>
+              <div class="col-md-6 mb-3" >
+                <button class="btn btn-light w-100" [disabled]='!showPersonalMatch' (click)="questionnaire()">Personal Match</button>
               </div>
               <div class="col-md-6 mb-3">
                 <a class="btn btn-light w-100" (click)="findDoctor()">Find By Location</a>
@@ -182,7 +182,7 @@
               as your goal, services or how you want it whether in person or 
               virtual, treatment type or just location
               <br />or<br />
-              To get a customized guide (take the login for free out since we are taking the login out)
+              To get a customized guide
             </p>
           </div>
         </div>
@@ -339,11 +339,11 @@
   <div class="container">
     <div class="row align-items-center">
       <div
-        class="col-md-12 col-lg-7 h5 font-weight-light text-center text-lg-left mb-4 order-2 order-lg-0"
+        class="col-md-12 col-lg-7 h6 font-weight-light text-center text-lg-left mb-4 order-2 order-lg-0"
       >
-        <h2 class="ttle-bott-bor text-center text-lg-left">
+        <h3 class="ttle-bott-bor text-center text-lg-left">
           What makes us unique?
-        </h2>
+        </h3>
         <!-- Prompt Health connects clients with practitioners through intelligent
         questions that serve as a triage, which enables better and faster
         decision making for access to the most suitable solutions. We believe a
@@ -384,14 +384,14 @@
       <div class="col-md-12 col-lg-8">
         <div
           id="carouselExampleIndicators"
-          class="carousel slide pb-5 quote-bg"
+          class="quote-bg"
           data-ride="carousel"
         >
 
           <div class="testimonials-text mb-3">
-
-          <div class="">
-            <div class="carousel-item active">
+              <div class="text-center">
+                <img src="/assets/img/imgpsh_fullsize_anim.jpg" class="shadow rounded-circle mb-3 testimonials-avtar">
+              </div>
               <div class="text-center">
                   Having worked as a clinician for over 15 years in one of the pioneer centers of Private Health,
                   as well as providing business consultation to tech driven health related start-ups,
@@ -400,106 +400,10 @@
                   in health and wellness connect to one another. That’s how Prompt Health came to life, a two sided online marketplace for
                   individualized referral network in health and wellness”
               </div>
-              
               <h5 class="text-primary text-uppercase">Hedieh Safiyari, Founder/CEO</h5>
               <div>MBA, MSc</div>
-            </div>
+  
           </div>
-          </div>
-          <!-- <ol class="carousel-indicators mb-0 mk-carousel-indicators">
-            <li
-              data-target="#carouselExampleIndicators"
-              data-slide-to="0"
-              class="active bg-primary"
-            ></li>
-            <li
-              data-target="#carouselExampleIndicators"
-              class="bg-primary"
-              data-slide-to="1"
-            ></li>
-            <li
-              data-target="#carouselExampleIndicators"
-              class="bg-primary"
-              data-slide-to="2"
-            ></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="text-center">
-                <div class="mb-3">
-                  <img
-                    src="assets/img/man-testimonial.jpg"
-                    class="img-cover rounded-circle testimonials-avtar"
-                    style="width:73px"
-                  />
-                </div>
-                <div class="testimonials-text mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  vehicula fringilla sapien, in lacinia felis frrtingilla at.
-                </div>
-                <h5 class="text-primary text-uppercase">Hedieh Safiyari, Founder/CEO</h5>
-                <div>MBA, MSc</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="text-center">
-                <div class="mb-3">
-                  <img
-                    src="assets/img/man-testimonial.jpg"
-                    class="img-cover rounded-circle testimonials-avtar"
-                    style="width:73px"
-                  />
-                </div>
-                <div class="testimonials-text mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  vehicula fringilla sapien, in lacinia felis frrtingilla at.
-                </div>
-                <h5 class="text-primary text-uppercase">Lorem ipsum</h5>
-                <div>consectetur adipiscing</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="text-center">
-                <div class="mb-3">
-                  <img
-                    src="assets/img/man-testimonial.jpg"
-                    class="img-cover rounded-circle testimonials-avtar"
-                    style="width:73px"
-                  />
-                </div>
-                <div class="testimonials-text mb-3">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  vehicula fringilla sapien, in lacinia felis frrtingilla at.
-                </div>
-                <h5 class="text-primary text-uppercase">Lorem ipsum</h5>
-                <div>consectetur adipiscing</div>
-              </div>
-            </div>
-          </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselExampleIndicators"
-            role="button"
-            data-slide="prev"
-          >
-            <span
-              class="fa fa-chevron-left text-primary"
-              aria-hidden="true"
-            ></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselExampleIndicators"
-            role="button"
-            data-slide="next"
-          >
-            <span
-              class="fa fa-chevron-right text-primary"
-              aria-hidden="true"
-            ></span>
-            <span class="sr-only">Next</span>
-          </a> -->
         </div>
       </div>
     </div>

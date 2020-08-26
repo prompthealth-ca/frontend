@@ -52,9 +52,13 @@ ansIDs = [];
       
     }
     this.type = localStorage.getItem('roles');
-    
+    if(!this.type){
+      this.type = 'U';
+    }else{
+      this.getProfileDetails()
+    }
     localStorage.removeItem('typical_hours');
-    this.getProfileDetails()
+   
     this.getUserQuestionnaire();
   }
   setAnsChecked(){
@@ -159,11 +163,12 @@ ansIDs = [];
         this._sharedService.checkAccessToken(res.message);
       }
     }, err => {
-
+console.log(err);
       this._sharedService.checkAccessToken(err);
     });
   }
   getProfileDetails() {
+    console.log('calling.....');
     let path = `user/get-profile/${localStorage.getItem('loginID')}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {

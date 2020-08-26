@@ -132,6 +132,7 @@ export class ListingComponent implements OnInit {
           });
       }
       else {
+        this.loggedInUser = localStorage.getItem('loginID');
        if(personalMatch) {
           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
           this.listingPayload.age_range = personalMatch.age_range;

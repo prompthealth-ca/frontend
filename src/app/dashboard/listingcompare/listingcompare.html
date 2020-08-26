@@ -32,7 +32,8 @@
 
           <tr>
             <th class="table-active">Contact Information</th>
-            <td *ngFor="let user of data">Email: {{user.userData.email}}, Phone: {{user.userData.phone}}</td>
+            <!-- <td *ngFor="let user of data">Email: {{user.userData.email }}, Phone: {{user.userData.phone}}</td> -->
+            <td *ngFor="let user of data"><div *ngIf="loggedInUser">Email: {{user.userData.email }},</div> Phone: {{user.userData.phone}}</td>
           </tr>
 
           <tr>

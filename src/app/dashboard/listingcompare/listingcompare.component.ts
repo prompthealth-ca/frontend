@@ -16,6 +16,7 @@ export class ListingcompareComponent implements OnInit {
   avalibilityQuestion;
   
   public data = [];
+  loggedInUser: string;
 
   constructor(
     private behaviorService: BehaviorService,
@@ -23,6 +24,7 @@ export class ListingcompareComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    this.loggedInUser = localStorage.getItem('loginID');
     this.getProfileQuestion();
     // this.data = this.compareIds[i];
   }

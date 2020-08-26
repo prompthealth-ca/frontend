@@ -63,7 +63,7 @@
             <li class="fas fa-map-marker">
               <span>{{userInfo?.address}}</span>
             </li>
-            <a
+            <a *ngIf="isLoggedIn"
               href="mailto:{{userInfo?.email}}"
               class="fas fa-envelope text-primary d-inline-block mr-2"
             >

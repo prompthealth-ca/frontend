@@ -28,7 +28,7 @@ export class User {
 export class SharedService {
   rootUrl: string = environment.config.BASE_URL;
   //baseUrl: string = environment.config.API_URL;
-
+  type:any
   personalMatch
   constructor(
     // private authService: SocialAuthService,
@@ -39,7 +39,10 @@ export class SharedService {
     private previousRouteService: PreviousRouteService,
 
     @Inject(DOCUMENT) private document,
-    private http: HttpClient) { }
+    private http: HttpClient) { 
+      this.type = localStorage.getItem('roles');
+   
+    }
 
 
   logout() {
@@ -57,9 +60,15 @@ export class SharedService {
   }
 
   get(path, setParams = {}) {
-    const headers = this.getAuthorizationHeader();
-    const url = this.rootUrl + path;
-    return this.http.get(url, { headers });
+    if(!this.type){
+      const url = this.rootUrl + path;
+      return this.http.get(url);
+    }else{
+ const headers = this.getAuthorizationHeader();
+ const url = this.rootUrl + path;
+ return this.http.get(url,{headers});
+    }
+   
   }
   getNoAuth(path, setParams = {}) {
     const url = this.rootUrl + path;

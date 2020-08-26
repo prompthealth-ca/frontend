@@ -129,6 +129,11 @@ export class SharedService {
     return this.http.delete(this.rootUrl + path, { headers });
 
   }
+
+  sendEmailSubscribers(data){
+    return this.http.post(this.rootUrl + '/user/subscribe', data);
+  }
+
   delete(id, model) {
 
     let headers = this.getAuthorizationHeader();

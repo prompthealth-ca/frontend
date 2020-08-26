@@ -16,6 +16,7 @@ import { AffiliateComponent } from './affiliate/affiliate.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 const routes: Routes = [
   {
     path: "home",
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: "faq",
     component: FAQComponent
+  },
+  {
+    path: "subscription",
+    component: SubscriptionComponent
   },
   {
     path: "map",

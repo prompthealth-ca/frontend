@@ -163,7 +163,10 @@ export class SubscriptionPlanComponent {
       const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned/100));
       this.finalPrice = discountedPrice + (discountedPrice * (5/100)); 
     } else {
-      this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
+      const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50/100)); // Undo this after sep discount
+
+      this.finalPrice  = sepDiscount + (sepDiscount * (5/100));  // Undo this after sep discount
+      // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
     }
     this.finalPrice = this.finalPrice.toFixed(2)
   }

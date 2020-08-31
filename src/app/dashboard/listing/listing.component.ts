@@ -208,12 +208,12 @@ export class ListingComponent implements OnInit {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
-
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Service Type") {
+          if(element.question_type ==='service' && element.slug==="offer-your-services") {
             this.serviceQuestion = element
+
           }
-          if(element.question_type ==='service' && element.category_type!=="Service Type") {
+          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {
@@ -312,7 +312,6 @@ export class ListingComponent implements OnInit {
     }
   }
   changeMiles(evt) {
-    console.log('listingPayload', this.listingPayload.ids)
     this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
     if(this.long &&  this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;

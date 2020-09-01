@@ -9,9 +9,6 @@ export const environment = {
 
     BASE_URL: "https://prompthealth.ca/",
     API_URL: "https://prompthealth.ca:3000/api/v1/",
-
-    // BASE_URL: "https://prompthealth.ca:4200/",
-    // API_URL: "https://prompthealth.ca:3000/",
   },
   api_routes: {
     LOGIN: 'login',

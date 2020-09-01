@@ -26,8 +26,8 @@ export class User {
 
 @Injectable()
 export class SharedService {
-  rootUrl: string = environment.config.BASE_URL;
-  //baseUrl: string = environment.config.API_URL;
+  rootUrl: string = environment.config.API_URL;
+  // baseUrl: string = environment.config.API_URL;
   type:any
   personalMatch
   constructor(

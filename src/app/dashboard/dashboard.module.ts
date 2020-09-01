@@ -52,7 +52,7 @@ import { UserQuestionaireComponent } from './user-questionaire/user-questionaire
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),
+    NgxStripeModule.forRoot('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU'),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
   ]

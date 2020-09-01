@@ -86,7 +86,7 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_DiHxOWNaWPsVarXAsrMkIW2500J4pXM80l').then(
+    this.stripeService.setPublishableKey('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU').then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();

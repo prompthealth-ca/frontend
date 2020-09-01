@@ -31,11 +31,16 @@
               </div>
               <div class="col-md-12 mb-3">
                 <label>Email <span class="text-danger">*</span></label>
-                <input type="email"  class="form-control" placeholder="Enter Your Email" formControlName="email" 
-                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required />
+                <input 
+                type="email"  
+                class="form-control" 
+                placeholder="Enter Your Email" 
+                formControlName="email" 
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                 required />
                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                   <div *ngIf="f.email.errors.required">Email is required</div>
-                  <div *ngIf="f.email.errors.email">
+                  <div *ngIf="f.email.errors?.pattern">
                     Email must be a valid email address
                   </div>
                 </div>
@@ -55,7 +60,7 @@
               </div>
               <div class="col-md-12 mb-3">
                 <label>Total Users <span class="text-danger">*</span></label>
-                <input
+                <input min=0
                   type="number" class="form-control"
                   required formControlName="numberOfUser" 
                   [ngClass]="{

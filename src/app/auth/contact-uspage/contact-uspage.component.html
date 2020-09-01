@@ -47,12 +47,12 @@
                 <div class="w-100">
                   <input type="text" formControlName="email" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                    <div *ngIf="f.email.errors.email">
-                      Email must be a valid email address
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">Email is required</div>
+                      <div *ngIf="f.email.errors?.pattern">
+                        Email must be a valid email address
+                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

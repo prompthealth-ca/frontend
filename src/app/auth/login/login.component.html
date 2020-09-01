@@ -33,20 +33,13 @@
                     placeholder="Enter your email"
                     formControlName="email"
                     [ngClass]="{ 'is-invalid': submitted && loginForm.invalid }"
-                  />
-                  <div
-                    *ngIf="submitted || loginForm.controls['email'].dirty || loginForm.controls['email'].touched"
-                    class="invalid-feedback"
-                  >
-                    <div class="invalid-feedback">
-                      <div *ngIf="loginForm.controls['email'].hasError('required')">
-                        Email is required
-                      </div>
-                      <div *ngIf="loginForm.controls['email'].hasError('email')">
+                    required />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">Email is required</div>
+                      <div *ngIf="f.email.errors?.pattern">
                         Email must be a valid email address
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
               <div class="col-md-12 mb-2">

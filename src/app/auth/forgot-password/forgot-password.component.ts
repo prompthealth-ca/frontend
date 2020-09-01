@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 @Component({
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
         this._sharedService.sendTop();
         this.forgotForm = this.formBuilder.group({
 
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, Validators.pattern(re)]],
 
         });
     }

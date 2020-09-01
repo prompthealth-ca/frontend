@@ -35,6 +35,7 @@ export class ContactUsComponent implements OnInit {
   }
 
   submit() {
+    debugger
     this.submitted = true;
 
     if (this.contactForm.invalid) {
@@ -47,8 +48,8 @@ export class ContactUsComponent implements OnInit {
       this._sharedService.loader('show');
       this._sharedService.postNoAuth(data, 'user/contactus').subscribe((res: any) => {
         this._sharedService.loader('hide');
-        if (res.success) {
-          this.toastr.success(res.data.message);
+        if (res.statusCode===200) {
+          this.toastr.success(res.message);
           this._router.navigate(['/home']);
 
         } else {

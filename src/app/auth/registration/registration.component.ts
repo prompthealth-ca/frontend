@@ -73,8 +73,9 @@ export class RegistrationComponent implements OnInit {
         break;
 
     }
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(re)]],
       hear_from: ['', [Validators.required]],
       t_c: ['', [Validators.required]],
       roles: this.userType,

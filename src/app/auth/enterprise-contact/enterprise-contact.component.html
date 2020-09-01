@@ -61,12 +61,12 @@
                   <div class="w-100">
                     <input type="text" formControlName="email" class="form-control"
                       [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                      <div *ngIf="f.email.errors.required">Email is required</div>
-                      <div *ngIf="f.email.errors.email">
-                        Email must be a valid email address
+                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.required">Email is required</div>
+                        <div *ngIf="f.email.errors?.pattern">
+                          Email must be a valid email address
+                        </div>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -80,7 +80,7 @@
                       <div *ngIf="f.phone.errors.required">
                         Phone is required & must be at least 10 characters
                       </div>
-                      <div *ngIf="f.phone.errors.minLength">
+                      <div *ngIf="f.phone.errors.pattern">
                         Phone number must be 10 characters
                       </div>
                     </div>

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port 4300",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -61,7 +61,6 @@
     "ngx-toastr": "^12.0.0",
     "ngx-toggle-switch": "^2.0.5",
     "npm": "^6.14.5",
-    "pipe-transform": "0.0.13",
     "pm2": "^4.4.0",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.4",

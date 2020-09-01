@@ -45,12 +45,14 @@ export class ContactUspageComponent implements OnInit {
 
     this._sharedService.sendTop()
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const emailReg = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneReg = "^((\\+91-?)|0)?[0-9]{10}$"
     this.homeForm = this.formBuilder.group({
 
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(emailReg)]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      phone: ['', [Validators.required, Validators.minLength(10),Validators.pattern(phoneReg)]],
       website: ['', [Validators.required, Validators.pattern(reg)]],
       company: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -80,7 +82,7 @@ export class ContactUspageComponent implements OnInit {
       this._sharedService.contactus(data).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.success) {
-          this.toastr.success(res.data.message);
+          this.toastr.success(res.message);
 
           this.homeForm.reset();
           this.submitted = false;

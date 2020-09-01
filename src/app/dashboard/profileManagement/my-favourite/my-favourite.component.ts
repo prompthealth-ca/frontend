@@ -19,30 +19,35 @@ export class MyFavouriteComponent implements OnInit {
     this.getFavList();
   }
   getFavList() {
+    this._sharedService.loader('show');
     let path = `user/get-favorite`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
+        this._sharedService.loader('hide');
         this.favListing = res.data[0].favouriteBy;
       } else {
+        this._sharedService.loader('hide');
         this._sharedService.checkAccessToken(res.message);
       }
     }, err => {
-
+      this._sharedService.loader('hide');
       this._sharedService.checkAccessToken(err);
     });
 
   }
   unlikeDoc (id){
-    this._sharedService.loader('show');
-    this._sharedService.removeFav(id,).subscribe((res: any) => {
-      if (res.statusCode = 200) {
-        this.toastr.success(res.message);
-        this.getFavList();
-      } else {
-        this.toastr.error(res.message);
-      }
-    }, err => {
-      this._sharedService.loader('hide');
-    });
+      this._sharedService.loader('show');
+      this._sharedService.removeFav(id,).subscribe((res: any) => {
+        if (res.statusCode = 200) {
+          this._sharedService.loader('hide');
+          this.toastr.success(res.message);
+          this.getFavList();
+        } else {
+          this._sharedService.loader('hide');
+          this.toastr.error(res.message);
+        }
+      }, err => {
+        this._sharedService.loader('hide');
+      });
   }
 }

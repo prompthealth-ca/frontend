@@ -370,8 +370,10 @@ export class ListingComponent implements OnInit {
       let path = 'user/add-favorite';
       this._sharedService.post({ drId: drId }, path).subscribe((res: any) => {
         if (res.statusCode = 200) {
+          this._sharedService.loader('hide');
           this.toastr.success(res.message);
         } else {
+          this._sharedService.loader('hide');
           this.toastr.error(res.message);
         }
       }, err => {
@@ -382,8 +384,10 @@ export class ListingComponent implements OnInit {
       this._sharedService.loader('show');
       this._sharedService.removeFav(drId,).subscribe((res: any) => {
         if (res.statusCode = 200) {
+          this._sharedService.loader('hide');
           this.toastr.success(res.message);
         } else {
+          this._sharedService.loader('hide');
           this.toastr.error(res.message);
         }
       }, err => {

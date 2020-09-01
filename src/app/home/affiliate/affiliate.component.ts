@@ -23,10 +23,11 @@ export class AffiliateComponent implements OnInit {
   get f() { return this.affiliateRequestForm.controls; }
 
   ngOnInit(): void {
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     this.affiliateRequestForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      numberOfUser: [0, [Validators.required]],
+      email: ['', [Validators.required, Validators.pattern(re)]],
+      numberOfUser: [0, [Validators.required,Validators.min(0)]],
       role: ['SP', [Validators.required]],
       message: ['',],
     });

@@ -65,12 +65,14 @@ export class LoginComponent implements OnInit {
         break;
 
     }
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(re)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       termsCondition: [false, [Validators.required]]
     });
   }
+  get f() { return this.loginForm.controls; }
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
       const payload = {

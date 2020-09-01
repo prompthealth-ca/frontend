@@ -42,12 +42,14 @@ export class EnterpriseContactComponent implements OnInit {
   ngOnInit(): void {
     this._sharedService.sendTop()
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const emailReg = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const phoneReg = "^((\\+91-?)|0)?[0-9]{10}$"
     this.homeForm = this.formBuilder.group({
 
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(emailReg)]],
       firstName : ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      phone: ['', [Validators.required, Validators.minLength(10),Validators.pattern(phoneReg)]],
       userType: ['SP', Validators.required],
       description: ['', [Validators.required]],
     });

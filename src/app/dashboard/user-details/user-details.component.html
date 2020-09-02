@@ -157,7 +157,7 @@
       </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
-            <label>What is your proffesional association<span class="text-danger">*</span></label>
+            <label>What is your professional association<span class="text-danger">*</span></label>
             <input autofocus type="text" id="professional_organization" name="professional_organization" class="form-control"
               (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
               (ngModelChange)="userDetails.professional_organization = $event" required />

@@ -9,8 +9,7 @@
             <div class="col-md-6">
                 <h2 class="mb-3">Subscribe to get notified of the latest updates</h2>
             </div>
-            <form [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()">
-                <div class="col-md-6">
+            <form class="col-md-6" [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()">
                     <div class="form-row">
                         <div class="col-md-12 mb-3">
                             <h3 class="mb-3 text-center">Subscription</h3>
@@ -40,7 +39,6 @@
                                >Subscribe</button>
                         </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>

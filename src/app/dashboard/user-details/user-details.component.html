@@ -396,12 +396,14 @@
     </div>
     <div class="col-md-12 mb-3" *ngIf="roles === 'C' || roles === 'SP'">
       <label>Tell us more about you in a paragraph (optional) <span class="text-danger"></span></label>
-      <div class="radio col-md-12 mb-4">
         <textarea rows="4" cols="50" minlength="3" id="product_description" name="product_description"
           class="form-control" (keyup)="trim('product_description')" #product_description="ngModel"
           [ngModel]="userDetails.product_description" (ngModelChange)="userDetails.product_description = $event">
           Product Description...</textarea>
-      </div>
+    </div>
+
+    <div class="col-md-12 mb-3">
+      <label class="mb-0"><input type="checkbox" class="mr-2"> I verify I am an accredited Provider in Canada</label>
     </div>
     <div class="col-md-12 mb-2 text-right">
       <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">

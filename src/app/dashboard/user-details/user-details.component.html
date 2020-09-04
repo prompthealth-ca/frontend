@@ -142,13 +142,13 @@
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label>Zip Code <span class="text-danger">*</span></label>
+        <label>Postal Code <span class="text-danger">*</span></label>
         <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="" minlength="3" maxlength="50"
           (keyup)="trim('zipcode')" #zipcode="ngModel" [ngModel]="userDetails.zipcode" required disabled="disabled"/>
 
         <div class="error-block">
           <small *ngIf="zipcode.errors?.required && zipcode.touched" class="text-danger">
-            Zipcode is required.
+            Postal code is required.
           </small>
           <small *ngIf="zipcode.errors?.minlength && zipcode.touched" class="text-danger">
             Minumum length should be 3.

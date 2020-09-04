@@ -120,4 +120,12 @@ export class HomeComponent implements OnInit {
     this.minutes = minutes;
     this.seconds = seconds;
   }
+
+  learnMore(){
+    if(this.token){
+      this.router.navigate(['dashboard/subscriptionplan']);
+    }else{
+      this.router.navigate(['subscriptionplan']);
+    }
+  }
 }

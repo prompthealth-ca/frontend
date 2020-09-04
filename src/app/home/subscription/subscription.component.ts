@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-subscription',
@@ -10,25 +11,41 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SubscriptionComponent implements OnInit {
 
-  email: any
+ 
   private _SubcriberObservable: any;
+  public subscriptionForm: FormGroup;
+  submitted = false;
 
-  constructor(private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) { }
+
+  constructor(private formBuilder:FormBuilder, private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) 
+  {
+    this.createForm();
+   }
+
+  createForm() {
+    this.subscriptionForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
+
+  get f() { return this.subscriptionForm.controls; }
 
   ngOnInit(): void {
   }
 
-  Subscribe() {
-    if (this.email) {
+  onSubmit() {
+    this.submitted = true;
+    if (!this.subscriptionForm.invalid) {
       this.spinner.show();
-      var data = {
-        'email': this.email
-      }
-      this._SubcriberObservable = this._sharedService.sendEmailSubscribers(data).subscribe((res: any) => {
+      // var data = {
+      //   'email': this.email
+      // }
+      this._SubcriberObservable = this._sharedService.sendEmailSubscribers(this.subscriptionForm.value).subscribe((res: any) => {
         this.spinner.hide();
         if (res.statusCode == 200) {
           this.toastr.success(res.message);
-          this.email = '';
+          
         } else {
           this.toastr.error(res.error.message);
         }
@@ -38,9 +55,7 @@ export class SubscriptionComponent implements OnInit {
           this.toastr.error(error);
         }
       )
-    } else {
-      this.toastr.warning('Email field is empty!');
-    }
+    } 
   }
 
   ngOnDestroy(): void {

@@ -355,12 +355,12 @@ export class MyProfileComponent implements OnInit {
   }
  
   save() {
-    if(this.roles =='SP' || this.roles=='C'){
-      if(this.profile.typical_hours.length ==0){
-        this.toastr.error("Please select the available time!");
-        return;
-      }
+    if(this.roles === 'C' || this.roles === 'SP') {
+    if(this.profile.typical_hours.length ==0){
+      this.toastr.error("Please select the available time!");
+      return;
     }
+  }
     const payload = this.profile;
     payload['_id'] = localStorage.getItem('loginID');
     if(payload.phone) payload.phone.toString();

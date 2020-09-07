@@ -68,8 +68,8 @@ export class EnterpriseContactComponent implements OnInit {
       let path = 'user/planRequest'
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
-        if (res.success) {
-          this.toastr.success('Request sent');
+        if (res.statusCode == 200) {
+          this.toastr.success(res.message);
 
           this.homeForm.reset();
           this.submitted = false;

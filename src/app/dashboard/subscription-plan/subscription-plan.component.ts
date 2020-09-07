@@ -111,7 +111,9 @@ export class SubscriptionPlanComponent {
 
     this.getSubscriptionPlan('user/get-plans');
     // this.getUserDetails();
+    if(this.isLoggedIn == true){
     this.getProfileDetails();
+    }
   }
   getSubscriptionPlan(path) {
     this._sharedService.loader('show');

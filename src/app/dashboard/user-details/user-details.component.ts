@@ -175,10 +175,10 @@ export class UserDetailsComponent {
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
        if (res.statusCode = 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.category_type==="Service Type") {
+          if(element.question_type ==='service' && element.slug==="offer-your-services") {
             this.serviceQuestion = element;
           }
-          if(element.question_type ==='service' && element.category_type!=="Service Type") {
+          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
             this.languageQuestion = element
           }
           if(element.question_type ==='availability') {

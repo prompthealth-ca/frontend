@@ -321,7 +321,7 @@
             </div>
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
                 <label class="col-md-4">Price range per hour</label>
-                <p class="col-md-8" *ngIf="!editFields && profile.price_per_hours">$ {{profile.price_per_hours}}</p>
+                <p class="col-md-8" *ngIf="!editFields && profile.price_per_hours">{{profile.price_per_hours}}</p>
                 <p class="col-md-8" *ngIf="!editFields && !profile.price_per_hours">Not Critical</p>
                 <div *ngIf="editFields" class="col-sm-8">
                     <div class="form-row">
@@ -335,7 +335,7 @@
                                     value="{{item.value}}"
                                     required
                                     id="{{item.id}}"/>
-                                <span class="">$ {{item.label}}</span>
+                                <span class="">{{item.label}}</span>
                             </label>
                         </div>
                     </div>
@@ -367,6 +367,21 @@
                     placeholder="Tell us more about you in paragraph (optional)"
                     class="form-control"
                     ></textarea>
+                </div>
+            </div>
+            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+                <label class="col-md-4">Accredited Provider in Canada</label>
+                <p class="col-md-8" *ngIf="!editFields">{{ profile.accredited_provide_canada }}</p>
+                <div *ngIf="editFields" class="col-sm-9">
+                    <label class="mb-0"><input type="checkbox"   [disabled] = "!editFields" [(ngModel)]="profile.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
+                    <!-- <textarea
+                    [disabled] = "!editFields"
+                    id="product_description"
+                    name="product_description"
+                    [(ngModel)]="profile.product_description"
+                    placeholder="Tell us more about you in paragraph (optional)"
+                    class="form-control"
+                    ></textarea> -->
                 </div>
             </div>
         </div>

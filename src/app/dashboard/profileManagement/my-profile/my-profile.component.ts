@@ -39,12 +39,12 @@ export class MyProfileComponent implements OnInit {
   ];
   priceList = [
     { id: 'price1', label: 'Not Critical', value:'Not Critical', checked: false},
-    { id: 'price2', label: '< 50', value:'< $50', checked: false},
-    { id: 'price3', label: '50-100', value:'50-100', checked: false},
-    { id: 'price4', label: '100-200', value:'100-200', checked: false},
-    { id: 'price5', label: '200-500', value:'200-500', checked: false},
-    { id: 'price6', label: '500-1000', value:'500-1000', checked: false},
-    { id: 'price7', label: '> 1000', value:'1000', checked: false},
+    { id: 'price2', label: '< $50', value:'< $50', checked: false},
+    { id: 'price3', label: '$50-100', value:'$50-100', checked: false},
+    { id: 'price4', label: '$100-200', value:'$100-200', checked: false},
+    { id: 'price5', label: '$200-500', value:'$200-500', checked: false},
+    { id: 'price6', label: '$500-1000', value:'$500-1000', checked: false},
+    { id: 'price7', label: '> $1000', value:'$1000', checked: false},
   ];
   businessList = [
     { id: 'business1', label: 'Clinic', value:'clinic'},
@@ -85,7 +85,8 @@ export class MyProfileComponent implements OnInit {
     product_description: '',
     professional_organization: '',
     certification: '',
-    isPlanExpired: false
+    isPlanExpired: false,
+    accredited_provide_canada:''
   };
   languagesSelected = [];
   hoursSelected = [];

@@ -59,12 +59,12 @@ export class ListingComponent implements OnInit {
   ]; 
   priceList = [
     { value: '', name: 'Not Critical' },
-    { value: '< 50', name: '$ < 50' },
-    { value: '50-100', name: '$ 50-100' },
-    { value: '100-200', name: '$ 100-200' },
-    { value: '200-500', name: '$ 200-500' },
-    { value: '500-1000', name: '$ 500-1000'},
-    { value: '> 1000', name: '$ > 1000' },
+    { value: '< $50', name: '$ < 50' },
+    { value: '$50-100', name: '$ 50-100' },
+    { value: '$100-200', name: '$ 100-200' },
+    { value: '$200-500', name: '$ 200-500' },
+    { value: '$500-1000', name: '$ 500-1000'},
+    { value: '$1000', name: '$ > 1000' },
   ];
 
   listingPayload = {
@@ -229,6 +229,10 @@ export class ListingComponent implements OnInit {
      });
   }
   listing(filter) {
+    console.log(filter);
+    if(filter.latLong == "null, null"){
+    filter.latLong = "";
+  }
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -289,13 +293,13 @@ export class ListingComponent implements OnInit {
     if (type === 'rating') {
       this.listingPayload.rating = value ? parseInt(value) : 0;
     }
-    if(type="serviceType") {
+    if(type === "serviceType") {
       this.listingPayload.serviceOfferId = value;
     }
-    if(type="gender") {
+    if(type === "gender") {
       this.listingPayload.gender = value;
     }
-    if(type="price") {
+    if(type === "price") {
       this.listingPayload.price_per_hours = value;
     }
     this.listing(this.listingPayload);

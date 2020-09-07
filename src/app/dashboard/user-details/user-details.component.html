@@ -232,27 +232,27 @@
             < $50</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="50-100" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="$50-100" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours"/>
           <span>$50-100</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="100-200" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="$100-200" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours"/>
           <span>$100-200</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="200-500" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="$200-500" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours"/>
           <span>$200-500</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="500-1000" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="$500-1000" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours"  />
           <span>$500-1000</span>
         </div>
         <div class="radio col-md-4 mb-3">
-          <input type="radio" value="1000" name="price_per_hours" #price_per_hours="ngModel"
+          <input type="radio" value="$1000" name="price_per_hours" #price_per_hours="ngModel"
             [(ngModel)]="userDetails.price_per_hours"  />
           <span>> $1000</span>
         </div>
@@ -403,7 +403,7 @@
     </div>
 
     <div class="col-md-12 mb-3">
-      <label class="mb-0"><input type="checkbox" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
+      <label class="mb-0"><input type="checkbox" [(ngModel)]="userDetails.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
     </div>
     <div class="col-md-12 mb-2 text-right">
       <button class="btn btn-primary" [disabled]="!updateDetailForm.valid">

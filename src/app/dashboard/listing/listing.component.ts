@@ -4,7 +4,6 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
-import * as e from 'express';
 @Component({
   selector: "app-listing",
   templateUrl: "./listing.html",
@@ -66,7 +65,6 @@ export class ListingComponent implements OnInit {
     { value: '$500-1000', name: '$ 500-1000'},
     { value: '$1000', name: '$ > 1000' },
   ];
-
   listingPayload = {
     ids: [],
     zipcode: '',
@@ -84,6 +82,11 @@ export class ListingComponent implements OnInit {
     typical_hours: [],
   }
   queryLatLong
+  serviceData;
+  treatmentModalities;
+  serviceType;
+  serviceOffering;
+  categoryList;
 
   currentPage;
   totalItems;
@@ -99,140 +102,131 @@ export class ListingComponent implements OnInit {
   ) {
     this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
   }
-
   ngOnInit(): void {
-    
     this.getProfileQuestion();
     const personalMatch = this._sharedService.getPersonalMatch();
+    this.route.queryParams.subscribe(queryParams => {
 
-    console.log('personalMatch', personalMatch)
-
-    
-      this.route.queryParams.subscribe(queryParams => {
-
-        this.id = queryParams.id;
-        this.type = queryParams.type;
-        if(queryParams.id && queryParams.type) {
+      this.id = queryParams.id;
+      this.type = queryParams.type;
+      if(queryParams.id && queryParams.type) {
 
 
-        this.loggedInUser = localStorage.getItem('loginID');
-        this.loggedInRole = localStorage.getItem('roles');
-        if(localStorage.getItem('typical_hours')) {
-          this.typical_hours = localStorage.getItem('typical_hours').split(',');
-        }
-          this.listingPayload.ids = [];
-          this.listingPayload.ids.push(queryParams.id);
-          this.listingPayload.type =  queryParams.type;
-          this.listing({
-            ids: this.id ? [this.id] : [],
-            type: this.type,
-            latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-            miles: this.listingPayload.miles,
-            //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
-          });
+      this.loggedInUser = localStorage.getItem('loginID');
+      this.loggedInRole = localStorage.getItem('roles');
+      if(localStorage.getItem('typical_hours')) {
+        this.typical_hours = localStorage.getItem('typical_hours').split(',');
       }
-      else {
-        this.loggedInUser = localStorage.getItem('loginID');
-       if(personalMatch) {
-          this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-          this.listingPayload.age_range = personalMatch.age_range;
-          this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
-         
-          this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
-         
-          this.listingPayload.type = personalMatch.type;
-          this.listingPayload.latLong = personalMatch.latLong;
-           
-        this.listing(this.listingPayload);
-        }      
-        else {   
+        this.listingPayload.ids = [];
+        this.listingPayload.ids.push(queryParams.id);
+        this.listingPayload.type =  queryParams.type;
         this.listing({
           ids: this.id ? [this.id] : [],
-          type: this.listingPayload.type,
+          type: this.type,
           latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           miles: this.listingPayload.miles,
           //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
-        });       
-      }}
-      });
+        });
+    }
+    else {
+      this.loggedInUser = localStorage.getItem('loginID');
+      if(personalMatch) {
+        this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+        this.listingPayload.age_range = personalMatch.age_range;
+        this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
+        
+        this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
+        
+        this.listingPayload.type = personalMatch.type;
+        this.listingPayload.latLong = personalMatch.latLong;
+          
+      this.listing(this.listingPayload);
+      }      
+      else {   
+      this.listing({
+        ids: this.id ? [this.id] : [],
+        type: this.listingPayload.type,
+        latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+        miles: this.listingPayload.miles,
+        //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+      });       
+    }}
+    });
 
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder;
       this.mapsAPILoader.load().then(() => {
         this.geoCoder = new google.maps.Geocoder;
-        this.mapsAPILoader.load().then(() => {
-          this.geoCoder = new google.maps.Geocoder;
-          let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-          autocomplete.addListener("place_changed", () => {
-            this.ngZone.run(() => {
-              //get the place result
-              
-              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-    
-              //verify result
-              if (place.geometry === undefined || place.geometry === null) {
-                return;
-              }
-              this.lat = place.geometry.location.lat();
-              this.long = place.geometry.location.lng();
+        let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            //get the place result
+            
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  
+            //verify result
+            if (place.geometry === undefined || place.geometry === null) {
+              return;
+            }
+            this.lat = place.geometry.location.lat();
+            this.long = place.geometry.location.lng();
 
-              if(personalMatch) {
-                this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-                this.listingPayload.age_range = personalMatch.age_range;
-                this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
-         
-                this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
-                this.listingPayload.type = personalMatch.type;
-                this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-                
-              this.listing(this.listingPayload);
-              }
-              else {
-                this.listing(
-                  {
-                    ids: this.id ? [this.id] : [],
-                    latLong: `${this.long}, ${this.lat}`,
-                    miles: this.listingPayload.miles,
-                    type:this.listingPayload.type
-                  }
-                );
-              }
-              // this.listing({latLong: `${this.long}, ${this.lat}`});
-            });
+            if(personalMatch) {
+              this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+              this.listingPayload.age_range = personalMatch.age_range;
+              this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
+        
+              this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
+              this.listingPayload.type = personalMatch.type;
+              this.listingPayload.latLong = `${this.long}, ${this.lat}`;
+              
+            this.listing(this.listingPayload);
+            }
+            else {
+              this.listing(
+                {
+                  ids: this.id ? [this.id] : [],
+                  latLong: `${this.long}, ${this.lat}`,
+                  miles: this.listingPayload.miles,
+                  type:this.listingPayload.type
+                }
+              );
+            }
+            // this.listing({latLong: `${this.long}, ${this.lat}`});
           });
         });
-        
       });
-    }
-  
-
+      
+    });
+  }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-       if (res.statusCode = 200) {
-        res.data.forEach(element => {
-          if(element.question_type ==='service' && element.slug==="offer-your-services") {
-            this.serviceQuestion = element
-
-          }
-          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
-            this.languageQuestion = element
-          }
-          if(element.question_type ==='availability') {
-            this.avalibilityQuestion = element
-          }
-        });
-       } else {
-         this.toastr.error(res.message);
-  
-       }
+      if (res.statusCode = 200) {
+      res.data.forEach(element => {
+        if (element.question_type ==='service' && element.slug==="offer-your-services") {
+          this.serviceQuestion = element
+        }
+        if (element.question_type ==='service' && element.slug==="languages-you-offer") {
+          this.languageQuestion = element
+        }
+        if(element.question_type ==='availability') {
+          this.avalibilityQuestion = element
+        }
+      });
+      } else {
+        this.toastr.error(res.message);
+      }
      }, err => {
        this._sharedService.loader('hide');
      });
   }
   listing(filter) {
     console.log(filter);
+
     if(filter.latLong == "null, null"){
-    filter.latLong = "";
-  }
+      filter.latLong = "";
+    }
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -323,8 +317,7 @@ export class ListingComponent implements OnInit {
     else {
       this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
     }
-    this.listing(this.listingPayload);
-    
+    this.listing(this.listingPayload);   
   }
   changeAge(evt) {
     this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
@@ -347,14 +340,64 @@ export class ListingComponent implements OnInit {
     if(evt.target.checked) {
       const index = this.compareList.findIndex((e) => e.userId === doc.userId);
 
-      if (index === -1) {
+      this.getCategoryServices(doc.userId);
+      doc.serviceData = this.serviceData;
+      doc.treatmentModalities = this.treatmentModalities;
+      doc.serviceType = this.serviceType;
+      doc.serviceOffering = this.serviceOffering;
+
+      setTimeout(() => {
+        if (index === -1) {
           this.compareList.push(doc);
-      } 
+        } 
+      }, 1000)
+
+      console.log('compareList ----', this.compareList);
       this.behaviorService
     }
     else {
-      this.removefromCopare( doc.userId)
+      this.removefromCopare(doc.userId)
     }
+  }
+
+
+  getCategoryServices(userId) {
+    this.serviceData = [];
+    this.treatmentModalities = [];
+    this.serviceType = [];
+    this.serviceOffering = [];
+    let path = `user/getService/${userId}`;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+      if (res.statusCode === 200) {
+        this.categoryList = res.data;
+        this.categoryList.forEach(element => {
+          if(element.slug === 'providers-are-you') {
+            if(this.serviceData.indexOf(element.item_text) === -1) {
+              this.serviceData.push(element)
+            }
+          }
+          if(element.slug === 'treatment-modalities') {
+            if(this.treatmentModalities.indexOf(element.item_text) === -1) {
+              this.treatmentModalities.push(element);
+            }
+          }
+          if(element.slug === "your-goal-specialties") {
+            if(this.serviceType.indexOf(element) === -1) {
+              this.serviceType.push(element.item_text);
+            }
+          }
+          if(element.slug === "your-offerings") {
+            if(this.serviceOffering.indexOf(element) === -1) {
+              this.serviceOffering.push(element.item_text);
+            }
+          }
+        });
+      } else {
+      }
+    }, (error) => {
+      this._sharedService.loader('hide');
+    });
   }
   clearCompareList() {
     this.compareList = [];

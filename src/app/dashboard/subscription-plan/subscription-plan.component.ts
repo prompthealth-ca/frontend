@@ -253,25 +253,26 @@ if(this.roles =='U'){
 
         this._sharedService.loader('show');
         const path = `user/buyPlan`;
-        this.planPurchase(payload, path);
+        // this.planPurchase(payload, path);
 
-//         this._sharedService.post(payload, path).subscribe((res: any) => {
-//           // this._sharedService.loader('hide');
-//           alert("hello3")
+        this._sharedService.post(payload, path).subscribe((res: any) => {
+          // this._sharedService.loader('hide');
+      
 
-//             if (res.statusCode === 200) {
-//               alert("hello4")
+            if (res.statusCode === 200) {
+          
 
-//               this.toastr.success(res.message);
-//               this.closebutton.nativeElement.click();
-//               this._router.navigate(['/dashboard/profilemanagement/my-profile']);
-//             } else {
-//               this.toastr.error(res.message, 'Error');
-//             }
-//             this._sharedService.loader('hide');
-//           }, (error) => {
-//             this._sharedService.loader('hide');
-//           });
+              this.toastr.success(res.message);
+              this.closebutton.nativeElement.click();
+              this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+            } else {
+              this.toastr.error(res.message, 'Error');
+            }
+            this._sharedService.loader('hide');
+          }, (error) => {
+            this.toastr.error(error);
+            this._sharedService.loader('hide');
+          });
         } else if (result.error) {
           // Error creating the token
           this.toastr.error(result.error.message, 'Error');
@@ -280,28 +281,28 @@ if(this.roles =='U'){
       });
   }
 
-  planPurchase(payload, path) {
-    console.log("inplan",payload, path)
-    // alert("hello4")
-    this._sharedService.loader('show');
-    this._sharedService.post(payload, path).subscribe((res: any) => {
-      // alert("hello5")
+  // planPurchase(payload, path) {
+  //   console.log("inplan",payload, path)
+  //   // alert("hello4")
+  //   this._sharedService.loader('show');
+  //   this._sharedService.post(payload, path).subscribe((res: any) => {
+  //     // alert("hello5")
 
-        if (res.statusCode === 200) {
-          // alert("hello6")
+  //       if (res.statusCode === 200) {
+  //         // alert("hello6")
 
-          this.toastr.success(res.message);
-          this.closebutton.nativeElement.click();
-          this._router.navigate(['/dashboard/profilemanagement/my-profile']);
-        } else {
-          this.toastr.error(res.message, 'Error');
-        }
-        this._sharedService.loader('hide');
-      }, (error) => {
-        this.toastr.error(error);
-        this._sharedService.loader('hide');
-      });
-  }
+  //         this.toastr.success(res.message);
+  //         this.closebutton.nativeElement.click();
+  //         this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+  //       } else {
+  //         this.toastr.error(res.message, 'Error');
+  //       }
+  //       this._sharedService.loader('hide');
+  //     }, (error) => {
+  //       this.toastr.error(error);
+  //       this._sharedService.loader('hide');
+  //     });
+  // }
 
 
 }

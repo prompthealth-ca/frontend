@@ -7,11 +7,11 @@
     </div>
 </div>
 
-<div class="container main-content py-5">
+<div class="container main-content heightHF-100 py-5">
     <div class="row">
         <div class="col-md-9" style="min-height: 300px;">
             <div class="row" *ngIf="blogList.length; else nodata">
-                <div class="col-md-4 mb-3" *ngFor="let list of blogList  | slice:0:6">
+                <div class="col-md-6 mb-3" *ngFor="let list of blogList  | slice:0:6">
                     <a
                     [routerLink]="['/blog-detail', list._id]"
                     class="blog-post">

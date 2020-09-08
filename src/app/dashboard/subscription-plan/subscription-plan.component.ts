@@ -234,7 +234,7 @@ if(this.roles =='U'){
   }
   buy() {
     const name = this.stripeTest.get('name').value;
-  
+
     // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
@@ -253,26 +253,56 @@ if(this.roles =='U'){
 
         this._sharedService.loader('show');
         const path = `user/buyPlan`;
-        this._sharedService.post(payload, path).subscribe((res: any) => {
-          this._sharedService.loader('hide');
-            if (res.statusCode === 200) {
-              this.toastr.success(res.message);
-              this.closebutton.nativeElement.click();
-              this._router.navigate(['/dashboard/profilemanagement/my-profile']);
-            }
-      
-            else {
-              this._sharedService.showAlert(res.message, 'alert-danger');
-            }
-          }, (error) => {
-            this._sharedService.loader('hide');
-          });
+        this.planPurchase(payload, path);
+
+//         this._sharedService.post(payload, path).subscribe((res: any) => {
+//           // this._sharedService.loader('hide');
+//           alert("hello3")
+
+//             if (res.statusCode === 200) {
+//               alert("hello4")
+
+//               this.toastr.success(res.message);
+//               this.closebutton.nativeElement.click();
+//               this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+//             } else {
+//               this.toastr.error(res.message, 'Error');
+//             }
+//             this._sharedService.loader('hide');
+//           }, (error) => {
+//             this._sharedService.loader('hide');
+//           });
         } else if (result.error) {
           // Error creating the token
-          this._sharedService.showAlert(result.error.message, 'alert-danger');
+          this.toastr.error(result.error.message, 'Error');
+          this.closebutton.nativeElement.click();
         }
       });
   }
+
+  planPurchase(payload, path) {
+    console.log("inplan",payload, path)
+    alert("hello4")
+    this._sharedService.loader('show');
+    this._sharedService.post(payload, path).subscribe((res: any) => {
+      alert("hello5")
+
+        if (res.statusCode === 200) {
+          alert("hello6")
+
+          this.toastr.success(res.message);
+          this.closebutton.nativeElement.click();
+          this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+        } else {
+          this.toastr.error(res.message, 'Error');
+        }
+        this._sharedService.loader('hide');
+      }, (error) => {
+        this._sharedService.loader('hide');
+      });
+  }
+
+
 }
 // end section
 

@@ -167,7 +167,6 @@ ansIDs = [];
       }
       this._sharedService.loader('hide');
     }, err => {
-console.log(err);
 this._sharedService.loader('hide');
       this._sharedService.checkAccessToken(err);
     });

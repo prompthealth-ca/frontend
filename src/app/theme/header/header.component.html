@@ -7,7 +7,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto align-items-center">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/']">Home</a>
           </li>
@@ -90,16 +90,45 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/blogs']">Blogs</a>
           </li>
-          <li *ngIf="token" class="nav-item">
+
+          
+          <li class="nav-item dropdown user-dropdown" *ngIf="token">
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false">
+
+              <!-- if no image -->
+               <!-- <i class="fa fa-user-circle mr-2"></i> -->
+
+               <!-- if image -->
+               <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2">
+
+                Welcome, Username
+            </a>
+
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
+              <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
+            </div>
+          </li>
+
+          <!-- <li *ngIf="token" class="nav-item">
             <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a *ngIf="!token" class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
+
+          <li *ngIf="token" class="nav-item">
+              <a class="nav-link" href="javascript:void(0)" (click)="logout()">Logout</a>
+          </li> -->
+
+          <li class="nav-item" *ngIf="!token">
+            <a class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
 
           </li>
-          <li *ngIf="token" class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" (click)="logout()">Logout</a>
-          </li>
+          
           <li *ngIf="!token" class="nav-item">
             <a class="nav-link">OR</a>
           </li>

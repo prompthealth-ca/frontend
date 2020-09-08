@@ -22,6 +22,7 @@ ansIDs = [];
     options: []
   };
 
+  public subOptions= true;
   showlevel2SubAns = false
   ageQuestion
   profile
@@ -97,7 +98,7 @@ ansIDs = [];
     console.log('--',parentId, subOption, questType)
 
     if(evt.target.checked) {
-    
+    this.subOptions = true;
       if(this.selectedItems.indexOf(parentId) === -1) {
         if(questType === 'availability') {
           this.typical_hours.push(parentId);
@@ -133,6 +134,7 @@ ansIDs = [];
     }
     else {
       console.log('unchecked')
+      this.subOptions = false;
       const index = this.personalMatch.ids.indexOf(parentId);
       if(index > -1) this.personalMatch.ids.splice(index, 1);
       const index2 = this.selectedItems.indexOf(parentId);

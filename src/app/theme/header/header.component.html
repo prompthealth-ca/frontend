@@ -107,7 +107,7 @@
                <!-- if image -->
                <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2">
 
-                Welcome, Username
+                Welcome, {{user.firstName ? user.firstName: user.email }}
             </a>
 
             <div class="dropdown-menu">

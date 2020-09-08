@@ -152,6 +152,7 @@ ansIDs = [];
 
   }
   getUserQuestionnaire() {
+    this._sharedService.loader('show');
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -164,8 +165,10 @@ ansIDs = [];
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
+      this._sharedService.loader('hide');
     }, err => {
 console.log(err);
+this._sharedService.loader('hide');
       this._sharedService.checkAccessToken(err);
     });
   }

@@ -1,4 +1,4 @@
-@import "../../../assets/scss/style.scss";
+@import "../../../assets/scss/mixins";
 
 // multipallavel dropdown css
 .dropdown-submenu {
@@ -51,6 +51,62 @@ ul.dropdown-menu.multi-level.show {
 }
 
 // end css
+
+
+.user-dropdown{
+  .dropdown-toggle{
+    display: flex;
+    align-items: center;
+    position: relative;
+    >i{
+      font-size: 30px;
+    }
+
+    .user-img{
+      height: 30px;
+      width:30px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 50%;
+    }
+
+    &:before{
+      content: none;
+      position: absolute;
+      width: 0;
+      bottom: -3px;
+      z-index: 99999;
+      right: 16px;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 7px solid $primaryColor;
+    }
+  }
+
+  &.show{
+    .dropdown-toggle{
+      &::before{
+      content: "";
+      }
+    }
+  }
+
+
+
+  .dropdown-menu{
+    background-color: $primaryColor;
+    left: initial;
+    right: 0;
+
+    a{
+      color: #fff;
+      &:hover{
+        color: $primaryColor;
+      }
+    }
+  }
+}
 
 .main-header {
   z-index: 999;

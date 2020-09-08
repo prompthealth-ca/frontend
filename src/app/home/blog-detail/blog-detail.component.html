@@ -7,16 +7,17 @@
   </div>
 </div>
     
-<div class="container main-content py-5">
+<div class="container main-content heightHF-100 py-5">
   <div class="row">
     <div class="col-md-9 content">
       <a class="blog-link">
-        
+        <div class="position-relative d-inline-block">
         <img [src]="blogList?.image ? 'https://prompthealth.ca:3000/blogs/' + blogList.image :  defaultImage">
-        <h4 class="text-uppercase">{{ blogList.title }}</h4>
+        </div>
+        <h4 class="text-uppercase mb-0">{{ blogList.title }}</h4>
       </a>
 
-      <p [innerHTML] = "blogList.description"></p>
+      <div [innerHTML] = "blogList.description"></div>
         
     </div>
 

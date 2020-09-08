@@ -33,6 +33,7 @@ export class MyAffiliateComponent implements OnInit {
   }
 
   addAffiliateUser() {
+    console.log('its called');
     this.submitted = true;
     if (this.affiliateRequestForm.invalid) {
       return;
@@ -46,20 +47,22 @@ export class MyAffiliateComponent implements OnInit {
       let path = 'user/request'
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
+        console.log(res.statusCode);
         if (res.statusCode === 200) {
-          this.toastr.success(res.message);
+          this.toastr.success('Invitation sent successfully!');
           this.affiliateRequestForm.reset();
           this.submitted = false;
           this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/dashboard/profilemanagement/my-affiliate']);
         });
 
-        }
-
-        else {
+        }else {
+          console.log(res.message);
+          this.toastr.error(res.message);
           this._sharedService.showAlert(res.message, 'alert-danger');
         }
       }, (error) => {
+        this.toastr.error(error);
         this._sharedService.loader('hide');
       });
     }
@@ -71,7 +74,7 @@ export class MyAffiliateComponent implements OnInit {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
           this.affiliatedList = res.data.data;
-          this.toastr.success(res.message);
+          // this.toastr.success(res.message);
         }
 
         else {

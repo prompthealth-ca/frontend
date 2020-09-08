@@ -282,13 +282,13 @@ if(this.roles =='U'){
 
   planPurchase(payload, path) {
     console.log("inplan",payload, path)
-    alert("hello4")
+    // alert("hello4")
     this._sharedService.loader('show');
     this._sharedService.post(payload, path).subscribe((res: any) => {
-      alert("hello5")
+      // alert("hello5")
 
         if (res.statusCode === 200) {
-          alert("hello6")
+          // alert("hello6")
 
           this.toastr.success(res.message);
           this.closebutton.nativeElement.click();
@@ -298,6 +298,7 @@ if(this.roles =='U'){
         }
         this._sharedService.loader('hide');
       }, (error) => {
+        this.toastr.error(error);
         this._sharedService.loader('hide');
       });
   }

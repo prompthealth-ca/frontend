@@ -15,6 +15,8 @@ import { ModalModule } from "ngx-bootstrap/modal";
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ScrollTopService } from './scrolltop.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './shared/services/error.interceptor';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { ScrollTopService } from './scrolltop.service';
     BehaviorService,
     CookieService,
     CanonicalLinkService,
+    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true}
   ],
   bootstrap: [AppComponent]
 })

@@ -307,7 +307,7 @@ export class UserDetailsComponent {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.response = res;
-        this.toastr.success(res.message);
+        this.toastr.success('Profile updated successfully!');
         // this._router.navigate(['/home']);
       } else {
         this.toastr.error(res.message);

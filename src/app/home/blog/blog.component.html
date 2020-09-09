@@ -15,7 +15,7 @@
                     <a
                     [routerLink]="['/blog-detail', list.slug]"
                     class="blog-post">
-                        <img [src]="list.image ? 'http://3.12.81.245:3000/blogs/' + list.image : defaultImage">
+                        <img [src]="list.image ? 'https://prompthealth.ca:3000/blogs/' + list.image : defaultImage">
                         <h4 class="mb-3">{{ list.title }}</h4>
                         <p [innerHTML] = "list.description"></p>
                     </a>
@@ -41,7 +41,7 @@
                         <a 
                         [routerLink]="['/blog-detail', list.slug]" class="media py-3">
                             <div *ngIf="list.image">
-                                <img style="width:100%;max-width: 50px; height: auto" [src]="'http://3.12.81.245:3000/blogs/' + list.image" class="mr-3" alt="...">
+                                <img style="width:100%;max-width: 50px; height: auto" [src]="'https://prompthealth.ca:3000/blogs/' + list.image" class="mr-3" alt="...">
                             </div>
                             <div>
                             <h6>{{ list.title }}</h6>

@@ -198,6 +198,7 @@ this._sharedService.loader('hide');
         this.toastr.error(res.message);
 
       }
+      this._sharedService.loader('hide');
     }, err => {
       this._sharedService.loader('hide');
     });

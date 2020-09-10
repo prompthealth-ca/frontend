@@ -108,11 +108,23 @@ export class SharedService {
   }
   login(body) {
     let headers = this.getDefaultHeader();
-    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
+    // return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
+    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers }).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
   }
   register(body) {
     let headers = this.getDefaultHeader();
-    return this.http.post(this.rootUrl + 'user/register', body, { headers });
+    // return this.http.post(this.rootUrl + 'user/register', body, { headers });
+    return this.http.post(this.rootUrl + 'user/register', body, { headers }).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
   }
   socialRegister(body) {
     

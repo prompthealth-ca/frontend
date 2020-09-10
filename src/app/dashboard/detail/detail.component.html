@@ -82,7 +82,7 @@
             Standard Hourly Fees: <span class="text-primary">{{userInfo?.price_per_hours}}</span>
           </div>
             <div *ngIf="userInfo?.booking === 'no' && isLoggedIn">
-              <a class="btn btn-outline-primary" data-toggle="modal" data-target="#bookingmodal">Raise Booking Request</a>  
+              <a class="btn btn-outline-primary" data-toggle="modal" data-target="#bookingmodal">Request booking</a>  
             </div> 
             <div *ngIf="userInfo?.booking === 'yes' && isLoggedIn">
               <a href="{{userInfo?.bookingURL}}" target="_blank" class="btn btn-outline-primary">Book Now</a> 
@@ -239,7 +239,7 @@
               </td>
             </tr>
             <tr *ngIf="userInfo?.roles === 'SP'">
-              <th>Certificatioasan:</th>
+              <th>Certification:</th>
               <td>
                 <span>{{userInfo?.certification}}  </span>
               </td>

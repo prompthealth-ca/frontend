@@ -22,6 +22,7 @@ ansIDs = [];
     options: []
   };
 
+  public subOptions= true;
   showlevel2SubAns = false
   ageQuestion
   profile
@@ -97,7 +98,7 @@ ansIDs = [];
     console.log('--',parentId, subOption, questType)
 
     if(evt.target.checked) {
-    
+    this.subOptions = true;
       if(this.selectedItems.indexOf(parentId) === -1) {
         if(questType === 'availability') {
           this.typical_hours.push(parentId);
@@ -133,6 +134,7 @@ ansIDs = [];
     }
     else {
       console.log('unchecked')
+      this.subOptions = false;
       const index = this.personalMatch.ids.indexOf(parentId);
       if(index > -1) this.personalMatch.ids.splice(index, 1);
       const index2 = this.selectedItems.indexOf(parentId);
@@ -150,6 +152,7 @@ ansIDs = [];
 
   }
   getUserQuestionnaire() {
+    this._sharedService.loader('show');
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode = 200) {
@@ -162,8 +165,9 @@ ansIDs = [];
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
+      this._sharedService.loader('hide');
     }, err => {
-console.log(err);
+this._sharedService.loader('hide');
       this._sharedService.checkAccessToken(err);
     });
   }
@@ -194,6 +198,7 @@ console.log(err);
         this.toastr.error(res.message);
 
       }
+      this._sharedService.loader('hide');
     }, err => {
       this._sharedService.loader('hide');
     });

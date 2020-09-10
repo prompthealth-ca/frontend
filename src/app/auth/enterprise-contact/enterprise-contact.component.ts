@@ -69,7 +69,7 @@ export class EnterpriseContactComponent implements OnInit {
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode == 200) {
-          this.toastr.success(res.message);
+          this.toastr.success('Quotation submitted successfully!');
 
           this.homeForm.reset();
           this.submitted = false;

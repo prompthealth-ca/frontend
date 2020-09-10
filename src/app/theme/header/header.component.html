@@ -15,7 +15,7 @@
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a  class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type }}</a>
+                <a  class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type  }}</a>
                 <ul class="dropdown-menu">
                   <li>
                     <div *ngFor="let answers of cat.category">
@@ -107,7 +107,7 @@
                <!-- if image -->
                <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2">
 
-                Welcome, Username
+                Welcome, {{user.firstName ? user.firstName: user.email }}
             </a>
 
             <div class="dropdown-menu">

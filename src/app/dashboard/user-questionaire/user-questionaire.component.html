@@ -81,7 +81,7 @@
                         <span>{{ options.item_text }}</span>
                         </div>
                     <!-- </ng-template> -->
-                      <div class="showSubans" *ngIf="options.subans && (subRes.quesId === options._id) ">
+                      <div class="showSubans" *ngIf="options.subans && subOptions && (subRes.quesId === options._id) ">
                         <h5 class="text-primary text-uppercase">{{options.item_text }}</h5>
                         <div class="mb-12">
                           <div class="form-row">

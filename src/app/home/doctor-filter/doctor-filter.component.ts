@@ -233,7 +233,6 @@ export class DoctorFilterComponent implements OnInit {
     this.selectedPriceRange = '';
     this.getDoctorList({
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles });
-    this.closebutton.nativeElement.click();
   }
   applyFilter() {
     let latlongs=this.queryLatLong;

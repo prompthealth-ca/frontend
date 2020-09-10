@@ -182,7 +182,7 @@ export class RegistrationComponent implements OnInit {
         }
       }, (error) => {
         // console.log("error",error)
-        this.toastr.error(error.error.message);
+        this.toastr.error(error);
         // this.toastr.error("There are some error please try after some time.")
         this._sharedService.loader('hide');
       });

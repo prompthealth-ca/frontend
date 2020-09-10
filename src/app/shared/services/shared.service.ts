@@ -1,13 +1,13 @@
 import { Injectable, Optional, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PreviousRouteService } from './previousUrl.service'
 
 // import { SocialAuthService } from 'angularx-social-login';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 // import 'rxjs/add/operator/toPromise';
 import { catchError, map } from 'rxjs/operators';
@@ -76,11 +76,28 @@ export class SharedService {
   }
   post(body, path) {
     let headers = this.getAuthorizationHeader();
-    return this.http.post(this.rootUrl + path, body, { headers });
+    return this.http.post(this.rootUrl + path, body, { headers }).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
+    // return this.http.post(this.rootUrl + path, body, { headers });
   }
   postNoAuth(body, path) {
-    return this.http.post(this.rootUrl + path, body);
+    return this.http.post(this.rootUrl + path, body).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
+    // return this.http.post(this.rootUrl + path, body),catchError(this.handleError);
   }
+
+  handleError(error: HttpErrorResponse) {
+      return throwError(error);
+  }
+  
   imgUpload(body, path) {
     // let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body);
@@ -91,11 +108,23 @@ export class SharedService {
   }
   login(body) {
     let headers = this.getDefaultHeader();
-    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
+    // return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
+    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers }).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
   }
   register(body) {
     let headers = this.getDefaultHeader();
-    return this.http.post(this.rootUrl + 'user/register', body, { headers });
+    // return this.http.post(this.rootUrl + 'user/register', body, { headers });
+    return this.http.post(this.rootUrl + 'user/register', body, { headers }).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
   }
   socialRegister(body) {
     
@@ -292,6 +321,8 @@ export class SharedService {
   }
 
 }
+
+
 
 export declare type LinkDefinition = {
   charset?: string;

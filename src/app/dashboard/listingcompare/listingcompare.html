@@ -53,17 +53,30 @@
               </span>
             </td>
           </tr>
-
           <tr class="bg-primary text-light">
-            <th class="table-active">Treatment services</th>
-            <td *ngFor="let user of data"></td>
+            <th class="table-active">Type of Provider</th>
+            <td *ngFor="let user of data">
+
+            <span class="d-inline-block mr-2" *ngFor="let serv of user.serviceData">
+              {{serv.item_text}},
+            </span>
+            </td>
+          </tr>
+          <tr>
+            <th>Treatment Modalities</th>
+            <td *ngFor="let user of data">
+
+            <span class="d-inline-block mr-2" *ngFor="let serv of user.treatmentModalities">
+              {{serv.item_text}},
+            </span>
+            </td>
           </tr>
 
           <tr>
-            <th class="table-active">Service Types</th>
+            <th class="table-active">Services</th>
             <td *ngFor="let user of data"> 
-            <span class="d-inline-block mr-2" *ngFor="let serv of user.ans">
-              {{serv.item_text}},
+            <span class="d-inline-block mr-2" *ngFor="let serv of user.serviceType">
+              {{serv}},
             </span>
           </td>
           </tr>

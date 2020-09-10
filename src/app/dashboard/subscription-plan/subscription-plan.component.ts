@@ -234,7 +234,7 @@ if(this.roles =='U'){
   }
   buy() {
     const name = this.stripeTest.get('name').value;
-  
+
     // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
@@ -253,26 +253,29 @@ if(this.roles =='U'){
 
         this._sharedService.loader('show');
         const path = `user/buyPlan`;
+
         this._sharedService.post(payload, path).subscribe((res: any) => {
-          this._sharedService.loader('hide');
             if (res.statusCode === 200) {
               this.toastr.success(res.message);
               this.closebutton.nativeElement.click();
               this._router.navigate(['/dashboard/profilemanagement/my-profile']);
+            } else {
+              this.toastr.error(res.message, 'Error');
             }
-      
-            else {
-              this._sharedService.showAlert(res.message, 'alert-danger');
-            }
+            this._sharedService.loader('hide');
           }, (error) => {
+            this.toastr.error(error);
             this._sharedService.loader('hide');
           });
         } else if (result.error) {
           // Error creating the token
-          this._sharedService.showAlert(result.error.message, 'alert-danger');
+          this.toastr.error(result.error.message, 'Error');
+          this.closebutton.nativeElement.click();
         }
       });
   }
+
+  
 }
 // end section
 

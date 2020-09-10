@@ -44,7 +44,7 @@ const routes: Routes = [
     ]
   },
 
-  { 
+  {
     path: '**', 
     component: LayoutComponent,
     children: [
@@ -53,7 +53,7 @@ const routes: Routes = [
         component: HomeComponent
       },
     ]
-  },
+  }
 ];
 
 @NgModule({

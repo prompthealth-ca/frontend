@@ -51,13 +51,15 @@ export class ForgotPasswordComponent implements OnInit {
 
                 } else {
                     this._sharedService.loader('hide');
-                    if (res.success == false)
+                    // if (res.success == false)
                         this.toastr.error(res.message);
 
                 }
 
             }, (error) => {
-                this.toastr.error("There are some error please try after some time.");
+                this.toastr.error(error);
+                this._sharedService.loader('hide');
+                // this.toastr.error("There are some error please try after some time.");
             });
         }
     }

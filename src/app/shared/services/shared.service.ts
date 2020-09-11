@@ -126,6 +126,17 @@ export class SharedService {
       catchError(this.handleError)
     )
   }
+
+  unsubscribe(email){
+    // let headers = this.getDefaultHeader();
+    return this.http.delete(this.rootUrl + 'user/unsubscribe/'+email).pipe(
+      map((response:any)=>{
+        return response;
+      }),
+      catchError(this.handleError)
+    )
+  }
+
   socialRegister(body) {
     
     let headers = this.getDefaultHeader();

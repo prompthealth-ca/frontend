@@ -17,6 +17,7 @@ import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 const routes: Routes = [
   {
     path: "home",
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path:'affiliate',
     component: AffiliateComponent
+  },
+  {
+    path:'unsubscribe/:email',
+    component: UnsubscribeComponent
   }
 ];
 

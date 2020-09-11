@@ -37,13 +37,13 @@ const routes: Routes = [
         path: 'subscriptionplan',
         component: SubscriptionPlanComponent
       },
-      {
-        path: 'thankyou',
-        component: ThankuPageComponent
-      }
+    
     ]
   },
-
+  {
+    path: 'thankyou',
+    component: ThankuPageComponent
+  },
   {
     path: '**', 
     component: LayoutComponent,

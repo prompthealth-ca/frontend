@@ -33,7 +33,6 @@ export class MyAffiliateComponent implements OnInit {
   }
 
   addAffiliateUser() {
-    console.log('its called');
     this.submitted = true;
     if (this.affiliateRequestForm.invalid) {
       return;
@@ -57,7 +56,6 @@ export class MyAffiliateComponent implements OnInit {
         });
 
         }else {
-          console.log(res.message);
           this.toastr.error(res.message);
           this._sharedService.showAlert(res.message, 'alert-danger');
         }

@@ -18,13 +18,15 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
 import { AuthService } from '../auth/auth.service';
 import { AuthGuardService } from '../auth/auth-gaurd.service';
 import { RoleGuardService } from '../auth/role-guard.service';
+import { ThankuPageComponent } from './thanku-page/thanku-page.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     LayoutComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    ThankuPageComponent
   ],
   providers: [
     AuthService,

@@ -23,6 +23,7 @@ import { BlogComponent } from './blog/blog.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -41,6 +42,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     BlogDetailComponent,
     BlogCategoryComponent,
     SubscriptionComponent,
+    UnsubscribeComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

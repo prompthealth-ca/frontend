@@ -68,7 +68,7 @@
             </div>
             <div
               class=""
-              *ngIf="isVipAffiliateUser && activeTab === 'payment'"
+              *ngIf="!isVipAffiliateUser && activeTab === 'payment'"
             >
                 <div class="row">
                     <app-subscription-plan></app-subscription-plan>

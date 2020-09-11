@@ -8,6 +8,7 @@ import { DashboardModule } from '../dashboard/dashboard.module';
 
 import { SubscriptionPlanComponent } from "../dashboard/subscription-plan/subscription-plan.component";
 import { AuthGuardService as AuthGuard } from '../auth/auth-gaurd.service';
+import { ThankuPageComponent } from './thanku-page/thanku-page.component';
 
 const routes: Routes = [
   {
@@ -36,10 +37,14 @@ const routes: Routes = [
         path: 'subscriptionplan',
         component: SubscriptionPlanComponent
       },
+    
     ]
   },
-
-  { 
+  {
+    path: 'thankyou',
+    component: ThankuPageComponent
+  },
+  {
     path: '**', 
     component: LayoutComponent,
     children: [
@@ -48,7 +53,7 @@ const routes: Routes = [
         component: HomeComponent
       },
     ]
-  },
+  }
 ];
 
 @NgModule({

@@ -59,7 +59,7 @@ export class AffiliateComponent implements OnInit {
         }
       }, (error) => {
         this._sharedService.loader('hide');
-        this.toastr.error(error.error.message);
+        this.toastr.error(error);
        
       });
     }

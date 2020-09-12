@@ -32,7 +32,7 @@
                 >Questionnaire</a
                 >
             </li>
-            <li class="nav-item" *ngIf="isVipAffiliateUser">
+            <li class="nav-item" *ngIf="!isVipAffiliateUser">
                 <a
                 class="nav-link btn-circle"
                 
@@ -56,7 +56,7 @@
                     <app-user-questionaire></app-user-questionaire>
                 </div>
                 <div  *ngIf="type !== 'U'">
-                    <div class="row" *ngIf="isVipAffiliateUser; else next">
+                    <div class="row" *ngIf="!isVipAffiliateUser; else next">
                         <app-questionnaire 
                         (ActiveNextTab)="activeNextTabHandler($event)"></app-questionnaire>
                     </div>

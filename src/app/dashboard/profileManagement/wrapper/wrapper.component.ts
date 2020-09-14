@@ -84,6 +84,31 @@ export class WrapperComponent implements OnInit {
       if( profile.isVipAffiliateUser) {
         if(profile.roles === 'SP') {
           this.listing.push({
+            title: 'Booking',
+            link: 'my-booking',
+            active: true,
+          }),
+          this.listing.push({
+            title: 'Payment',
+            link: 'my-payment',
+            active: true,
+          });
+          this.listing.push({
+            title: 'Subscription',
+            link: 'my-subscription',
+            active: true,
+          });
+          this.listing.push({
+            title: 'Videos',
+            link: 'videos-blogs',
+            active: true,
+          });
+          this.listing.push({
+            title: 'Review and Rating',
+            link: 'reviews-ratings',
+            active: true,
+          });
+          this.listing.push({
             title: 'Affiliate',
             link: 'my-affiliate',
             active: true,
@@ -141,7 +166,6 @@ export class WrapperComponent implements OnInit {
               link: 'my-subscription',
               active: false,
             });
-
             this.listing.push({
               title: 'Videos',
               link: 'videos-blogs',

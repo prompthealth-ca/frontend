@@ -30,7 +30,7 @@
             <h4 class="sidebar-title mb-0">Categories</h4>
         
             <div class="sidebar-link mb-3">
-                <span *ngFor="let list of categoryList">
+                <span *ngFor="let list of categories">
                     <a [routerLink]="['/blog-category', list._id]">{{list.title}}</a>
                 </span>
             </div>

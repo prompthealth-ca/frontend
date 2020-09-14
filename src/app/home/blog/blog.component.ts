@@ -10,6 +10,7 @@ import { SharedService } from '../../shared/services/shared.service';
 export class BlogComponent implements OnInit {
   blogList = [];
   categoryList = [];
+  categories: any = []
   defaultImage = 'assets/img/no-image.jpg';
 
   constructor(
@@ -43,6 +44,13 @@ export class BlogComponent implements OnInit {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data.data;
+        for (let i = 0; i < this.categoryList.length; i++) {
+          for (let j = 0; j < this.blogList.length; j++) {
+            if (this.categoryList[i]._id == this.blogList[j].categoryId) {
+              this.categories.push(this.categoryList[i]);
+            }
+          }
+        }
       }
 
       else {

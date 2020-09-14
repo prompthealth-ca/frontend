@@ -88,8 +88,8 @@ export class WrapperComponent implements OnInit {
             link: 'my-affiliate',
             active: true,
           });
-        }
-        if(profile.roles === 'C') {
+          
+        }else if(profile.roles === 'C') {
           this.listing.push({
             title: 'Amenities',
             link: 'my-amenities',
@@ -186,7 +186,7 @@ export class WrapperComponent implements OnInit {
         if(profile.roles === 'U') {
           this.listing.push(...this.uListing);
         }
-        if (profile.roles === 'C') {
+        if (profile.roles === 'C' && !profile.isVipAffiliateUser) {
           if (profile?.plan?.userType.length == 2 ) {
             this.listing.push({
               title: 'Booking',

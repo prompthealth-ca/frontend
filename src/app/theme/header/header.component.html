@@ -201,16 +201,16 @@
         <a class="btn btn-primary w-100 mr-2" (click)="professionalOption = !professionalOption"
           style="max-width: 175px;">PROFESSIONAL</a>
         or
-        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/login', 'u']" data-dismiss="modal"
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/login', 'u']" (click)="optUserType('U')" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">CLIENT</a>
       </div>
       <div class="mb-3" *ngIf="professionalOption">
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'sp')" />
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'sp')" (click)="optUserType('SP')" />
           <span>Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'c')" />
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'c')" (click)="optUserType('C')" />
           <span>Center</span>
         </div>
       </div>

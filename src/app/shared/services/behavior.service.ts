@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class BehaviorService {
     public city:BehaviorSubject<object> = new BehaviorSubject<object>({});
     public latLng:BehaviorSubject<object> = new BehaviorSubject<object>({});
+    public loginRole: BehaviorSubject<object> = new BehaviorSubject<object>({});
     public cart:BehaviorSubject<object> = new BehaviorSubject<object>({});
     public user:BehaviorSubject<object> = new BehaviorSubject<object>({});
 
@@ -63,6 +63,12 @@ export class BehaviorService {
         return {};     
     }
 
-    set
+    setRole(data) {
+        this.loginRole.next(data);
+    }
+
+    getRole() {
+        return this.loginRole.asObservable();
+    }
 
 }

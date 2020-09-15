@@ -1,5 +1,15 @@
 @import "../../../assets/scss/mixins";
 
+
+@media(min-width:768px){
+.nav-pills {
+  .nav-item{
+    width: 100%;
+    flex: 1;
+  }
+}
+}
+
 $arrowHeight: 25px;
 .nav-pills {
   a {

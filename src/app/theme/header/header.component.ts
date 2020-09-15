@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from "../../shared/services/shared.service";
+import { BehaviorService } from '../../shared/services/behavior.service';
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private _router: Router,
     private _sharedService: SharedService,
+    private _bs: BehaviorService,
     private toastr: ToastrService,
   ) {
     //this.fetchUser();
@@ -130,4 +132,12 @@ export class HeaderComponent implements OnInit {
       this.signup.nativeElement.click();      
     }
   }
+
+  optUserType(value) {
+    this._bs.setRole(value);
+    localStorage.setItem("userType", value);
+  }
+
+
+
 }

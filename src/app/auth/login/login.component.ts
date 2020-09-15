@@ -7,6 +7,7 @@ import { SocialAuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SharedService } from '../../shared/services/shared.service';
+import { BehaviorService } from '../../shared/services/behavior.service';
 
 @Component({
   selector: 'app-login',
@@ -20,19 +21,28 @@ export class LoginComponent implements OnInit {
   public professionalLogin = false;
   userType = 'U';
   public submitted = false;
-  
+  public loginUserType: any; 
 
   constructor(
     private authService: SocialAuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     private _sharedService: SharedService,
+    private _bs: BehaviorService,
     private toastr: ToastrService,
   ) { }
+
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
     });
+
+    this._bs.getRole().subscribe((res: any) => {
+      this.loginUserType = res;
+    });
+
+    this.loginUserType = localStorage.getItem('userType');
+
     switch(this.router.url) {
       case "/auth/login/sp": 
         //some logic
@@ -69,7 +79,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern(re)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      termsCondition: [false, [Validators.required]]
+      termsCondition: [false, [Validators.required]],
+      loginType: ['']
     });
   }
   get f() { return this.loginForm.controls; }
@@ -141,6 +152,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.submitted = true;
+      this.loginForm.controls.loginType.setValue(this.loginUserType);
       let data = JSON.stringify(this.loginForm.value);
       this._sharedService.loader('show');
       this._sharedService.login(data).subscribe((res: any) => {

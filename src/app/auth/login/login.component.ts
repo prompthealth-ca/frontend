@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(re)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       termsCondition: [false, [Validators.required]],
-      loginType: ['', [Validators.required]]
+      loginType: ['']
     });
   }
   get f() { return this.loginForm.controls; }

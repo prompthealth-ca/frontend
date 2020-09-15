@@ -1,5 +1,14 @@
 @import "../../../assets/scss/mixins";
 
+@media(min-width:768px){
+  .nav-pills {
+    .nav-item{
+      width: 100%;
+      flex: 1;
+    }
+  }
+  }
+
 .questionaareUser {
   left: 16px;
   top: -35px;

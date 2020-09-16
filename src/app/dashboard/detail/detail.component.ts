@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
     { id: 'timing3', name: 'Evening' },
     { id: 'timing4', name: 'Anytime' },
   ];
-  userInfo;
+  userInfo:any={};
   serviceData = [];
   treatmentModalities = [];
   serviceOffering = [];

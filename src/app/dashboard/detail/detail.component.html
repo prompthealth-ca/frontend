@@ -134,7 +134,7 @@
           >Professional Background</a
         >
       </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
+      <li class="nav-item" *ngIf="userInfo?.roles === 'C' || userInfo.roles === 'SP'">
         <a
           class="nav-link"
           id="videos-tab"
@@ -215,7 +215,7 @@
                 {{userInfo?.product_description}}
               </td>
             </tr>
-            <tr *ngIf="userInfo?.age_range.length">
+            <tr *ngIf="userInfo.age_range?.length >0">
               <th>Specialty Age Group:</th>
               <td>
                 <span *ngIf="userInfo?.age_range.length === 5">
@@ -244,7 +244,7 @@
                 <span>{{userInfo?.certification}}  </span>
               </td>
             </tr>
-            <tr *ngIf="userInfo?.languages.length">
+            <tr *ngIf="userInfo.languages?.length">
               <th>Language:</th>
               <td>
                 <span *ngFor="let item of languageQuestion?.answers">

@@ -13,8 +13,9 @@ export class BlogCategoryComponent implements OnInit {
   blogList = [];
   defaultImage = 'assets/img/no-image.jpg';
   categoryList = [];
+  categories: any = [];
   private sub: any;
-  id='';
+  id = '';
 
 
 
@@ -30,33 +31,31 @@ export class BlogCategoryComponent implements OnInit {
       this.id = params['id'];
       this.getBlogList();
       this.getAllCategories();
-   });
+    });
   }
 
   getBlogList() {
+    this._sharedService.loader('show');
     let path = `blog/get-all?count=10&page=1&frontend=1&categoryId=${this.id}`
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.blogList = res.data.data;
-      }
-
-      else {
+      } else {
         this.toastr.error(res.message);
       }
+      this._sharedService.loader('hide');
     }, (error) => {
       this._sharedService.loader('hide');
     });
   }
   getAllCategories() {
-    let path = `category/get-all?count=10&page=1&frontend=1`;
+    this._sharedService.loader('show');
+    let path = `category/get-categories`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.categoryList = res.data.data;
-      }
-
-      else {
+        this.categoryList = res.data;
+      } else {
         this.toastr.error(res.message);
       }
     }, (error) => {

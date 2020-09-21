@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   public payment = 'true';
 
   user: any = {};
+  updateData: any;
   categoryList = [];
   cities = [];
   Items = [];
@@ -46,6 +47,14 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
+
+    this._bs.getUserData().subscribe((res: any) => {
+      this.updateData = res;
+      console.log("reeeeeeeeeee",this.updateData);
+      if (res.firstName)
+        localStorage.setItem("user", JSON.stringify(this.updateData));
+    });
+
       this.getCategoryServices();
       this.token = localStorage.getItem("token");
       this.role = localStorage.getItem("roles");

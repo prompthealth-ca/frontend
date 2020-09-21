@@ -12,6 +12,12 @@
                 <img
                   [src]="'https://prompthealth.ca:3000/users/'+user.userData?.profileImage"
                   class="w-100"
+                  *ngIf="user.userData?.profileImage"
+                />
+                <img
+                  src="/assets/img/default_user.jpg"
+                  class="w-100 noimage"
+                  *ngIf="!user.userData?.profileImage"
                 />
               </div>
             </th>

@@ -8,6 +8,7 @@ export class BehaviorService {
     public loginRole: BehaviorSubject<object> = new BehaviorSubject<object>({});
     public cart:BehaviorSubject<object> = new BehaviorSubject<object>({});
     public user:BehaviorSubject<object> = new BehaviorSubject<object>({});
+    public userData: BehaviorSubject<object> = new BehaviorSubject<object>({});
 
     rootUrl: string =   environment.config.BASE_URL;
 
@@ -56,6 +57,14 @@ export class BehaviorService {
     unsetCart( ) {
         this.cart.next({});
         return {};     
+    }
+
+    setUserData(data) {
+        this.userData.next(data);
+    }
+
+    getUserData() {
+        return this.userData.asObservable();
     }
 
     unsetUser( ) {

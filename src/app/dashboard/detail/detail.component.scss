@@ -34,6 +34,8 @@ label {
 .detailprofileimg {
   height: 70px;
   width: 70px;
+  object-fit: cover;
+  object-position: top center;
 }
 
 ul#pills-tab {

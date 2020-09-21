@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
 import {} from 'googlemaps';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { BehaviorService } from '../../../shared/services/behavior.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -99,6 +100,7 @@ export class MyProfileComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader, 
     private ngZone: NgZone,
     private toastr: ToastrService,
+    private _bs: BehaviorService,
     private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
@@ -373,6 +375,8 @@ export class MyProfileComponent implements OnInit {
           this.profile = res.data;
           this.toastr.success(res.message);
           this.editFields = false;
+          console.log("proressssssss",res.data);
+          this._bs.setUserData(res.data);
         } else {
           this.toastr.error(res.message);
         }

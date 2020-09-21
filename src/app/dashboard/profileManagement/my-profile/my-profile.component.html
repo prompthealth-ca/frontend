@@ -8,8 +8,8 @@
 <h4 class="mb-3">Personal Information
     <button class="btn btn-primary pull-right" (click) = "editFields = !editFields">Edit Profile</button>
 </h4>
-<div class="form-row">
-    <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
+<div class="form-container">
+    <form role="form" class="form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
         <div class="col-md-12 text-center">
             <div class="d-inline-block profileeditbox">
                 <img [src]="profile?.profileImage ? 'https://prompthealth.ca:3000/users/'+profile?.profileImage : defaultImage" />

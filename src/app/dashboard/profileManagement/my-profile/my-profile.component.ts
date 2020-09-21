@@ -15,7 +15,7 @@ export class MyProfileComponent implements OnInit {
 
   defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'https://prompthealth.ca:3000/users/';
-  
+  submitted = false;
   editFields = false;
   userInfo;
   roles = ''
@@ -144,6 +144,15 @@ export class MyProfileComponent implements OnInit {
     }
   }
   
+  updateFields(){
+    this.editFields = !this.editFields;
+    if(this.editFields){
+      this.submitted = true;
+    }else{
+      this.submitted = false
+    }
+  }
+
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       this.profile.city = '';

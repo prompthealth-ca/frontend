@@ -203,7 +203,7 @@
               <agm-info-window>
                 <div class="map-marker-popup">
                   <div class="d-flex mb-2">
-                <img height="50" width="50" [src]="'https://prompthealth.ca:3000/users/'+m.infoContent?.profileImage" />
+                <img height="50" width="50" [src]="m.infoContent?.profileImage ? 'https://prompthealth.ca:3000/users/'+m.infoContent?.profileImage : defaultImage" />
                 <div class="pl-2">
                 <strong>{{ m.infoContent.name }}</strong>
                 <!-- <div class="text-rating my-1">

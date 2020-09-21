@@ -105,7 +105,11 @@
                <!-- <i class="fa fa-user-circle mr-2"></i> -->
 
                <!-- if image -->
-               <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2">
+               <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img-logo" />
+               <img *ngIf="user.profileImage"
+                 src="https://prompthealth.ca:3000/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
+                 class="img-responsive api-cls" />
+               <!-- <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2"> -->
 
                 Welcome, {{user.firstName ? user.firstName: user.email }}
             </a>
@@ -133,7 +137,7 @@
             <a class="nav-link">OR</a>
           </li>
           <li *ngIf="!token" class="nav-item">
-            <a class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3" href="" data-toggle="modal"
+          <a class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3" href="" data-toggle="modal"
               data-target="#exampleModal">Join network</a>
           </li>
         </ul>

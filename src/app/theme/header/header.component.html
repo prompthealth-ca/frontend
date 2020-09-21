@@ -105,10 +105,10 @@
                <!-- <i class="fa fa-user-circle mr-2"></i> -->
 
                <!-- if image -->
-               <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img-logo" />
+               <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
                <img *ngIf="user.profileImage"
                  src="https://prompthealth.ca:3000/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
-                 class="img-responsive api-cls" />
+                 class="user-img mr-2" />
                <!-- <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2"> -->
 
                 Welcome, {{user.firstName ? user.firstName: user.email }}

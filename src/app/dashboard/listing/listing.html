@@ -176,6 +176,12 @@
             <img
               [src]="'https://prompthealth.ca:3000/users/'+ doc.userData.profileImage"
               class="compareprofileimg"
+              *ngIf="doc.userData.profileImage"
+            />
+            <img
+              *ngIf="!doc.userData.profileImage"
+              src="/assets/img/default_user.jpg"
+              class="compareprofileimg noimage"
             />
             <div class="p-2">
               <div class="font-weight-bold mb-2">

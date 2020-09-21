@@ -6,10 +6,10 @@
 <h4 *ngIf="profile?.isPlanExpired"><p>Renew Plan to be listed in user search  <span class="pull-right"><a class="btn btn-primary pull-right"  [routerLink]="['/dashboard/subscriptionplan']">Renew Plan</a></span> </p></h4>
 <hr *ngIf="profile?.isPlanExpired">
 <h4 class="mb-3">Personal Information
-    <button class="btn btn-primary pull-right" (click) = "editFields = !editFields">Edit Profile</button>
+    <button class="btn btn-primary pull-right" (click) = "updateFields()">Edit Profile</button>
 </h4>
-<div class="form-row">
-    <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
+<div class="form-container">
+    <form role="form" class="form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
         <div class="col-md-12 text-center">
             <div class="d-inline-block profileeditbox">
                 <img [src]="profile?.profileImage ? 'https://prompthealth.ca:3000/users/'+profile?.profileImage : defaultImage" />
@@ -129,6 +129,7 @@
                     [(ngModel)]="profile.phone"
                     class="form-control"
                     maxlength="12"
+                    minlength="10"
                     (ngModelChange)="profile.phone = $event"
                     required
                     pattern="^[0-9]*$"
@@ -137,7 +138,7 @@
                         <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
                         Phone Number is required.
                         </small>
-                        <small *ngIf="phone.errors && phone.touched" class="text-danger">
+                        <small *ngIf="phone.errors && submitted" class="text-danger">
                         Enter valid Phone number
                         </small>
                     </div>

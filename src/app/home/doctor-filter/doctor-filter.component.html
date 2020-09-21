@@ -84,7 +84,7 @@
 </section>
 <div class="container-fluid">
   <div class="row" *ngIf="doctorList.length; else noRecord">
-      <div class="col-md-6 mapfilteroverflow pr-2">
+      <div class="col-md-6 mapfilteroverflow py-3 pr-2">
           <div class="">
               <div class="row m-0 shadow-sm overflow-hidden profileBox mb-4" 
               *ngFor="let doc of doctorList">
@@ -203,7 +203,7 @@
               <agm-info-window>
                 <div class="map-marker-popup">
                   <div class="d-flex mb-2">
-                <img height="50" width="50" [src]="'https://prompthealth.ca:3000/users/'+m.infoContent?.profileImage" />
+                <img height="50" width="50" [src]="m.infoContent?.profileImage ? 'https://prompthealth.ca:3000/users/'+m.infoContent?.profileImage : defaultImage" />
                 <div class="pl-2">
                 <strong>{{ m.infoContent.name }}</strong>
                 <!-- <div class="text-rating my-1">

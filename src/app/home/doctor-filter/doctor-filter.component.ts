@@ -15,7 +15,7 @@ export class DoctorFilterComponent implements OnInit {
   
   public searchGlobalElementRef: ElementRef;
   selectedService = 'By Service'
-
+  defaultImage = 'assets/img/no-image.jpg';
   selectedServiceId = ''
   private geoCoder;
   keyword = 'name';

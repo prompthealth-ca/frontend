@@ -61,7 +61,7 @@
               <div class="col-md-12 mb-3">
                 <label>Total Users <span class="text-danger">*</span></label>
                 <input min=0
-                  type="number" class="form-control"
+                  type="text" pattern="[0-9]" class="form-control"
                   required formControlName="numberOfUser" 
                   [ngClass]="{
                     'is-invalid': submitted && f.numberOfUser.errors
@@ -71,6 +71,9 @@
                 <div *ngIf="submitted && f.numberOfUser.errors" class="invalid-feedback">
                   <div *ngIf="f.numberOfUser.errors.required">
                     User Count is required
+                  </div>
+                  <div *ngIf="f.numberOfUser.errors.pattern">
+                    User Count is invalid
                   </div>
                 </div>
               </div>
@@ -85,6 +88,7 @@
                 <button
                   type="button"
                   class="btn btn-secondary mr-2"
+                  [routerLink]="['/home']"
                 >
                   Cancel
                 </button>

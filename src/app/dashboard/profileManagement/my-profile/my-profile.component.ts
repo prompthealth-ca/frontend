@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
 import {} from 'googlemaps';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { BehaviorService } from '../../../shared/services/behavior.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -15,7 +16,7 @@ export class MyProfileComponent implements OnInit {
 
   defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'https://prompthealth.ca:3000/users/';
-  
+  submitted = false;
   editFields = false;
   userInfo;
   roles = ''
@@ -99,6 +100,7 @@ export class MyProfileComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader, 
     private ngZone: NgZone,
     private toastr: ToastrService,
+    private _bs: BehaviorService,
     private _sharedService: SharedService, ) { }
 
   ngOnInit(): void {
@@ -144,6 +146,15 @@ export class MyProfileComponent implements OnInit {
     }
   }
   
+  updateFields(){
+    this.editFields = !this.editFields;
+    if(this.editFields){
+      this.submitted = true;
+    }else{
+      this.submitted = false
+    }
+  }
+
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       this.profile.city = '';
@@ -373,6 +384,8 @@ export class MyProfileComponent implements OnInit {
           this.profile = res.data;
           this.toastr.success(res.message);
           this.editFields = false;
+          console.log("proressssssss",res.data);
+          this._bs.setUserData(res.data);
         } else {
           this.toastr.error(res.message);
         }

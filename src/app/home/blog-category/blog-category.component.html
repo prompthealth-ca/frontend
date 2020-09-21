@@ -18,7 +18,7 @@
             <div class="row" *ngIf="blogList.length; else nodata">
                 <div class="col-md-6 mb-3" *ngFor="let list of blogList  | slice:0:6">
                     <a
-                    [routerLink]="['/blog-detail', list._id]"
+                    [routerLink]="['/blog-detail', list.slug]"
                     class="blog-post">
                     <img [src]="list.image ? 'https://prompthealth.ca:3000/blogs/' + list.image :  defaultImage">
                         <h4 class="mb-3">{{ list.title }}</h4>

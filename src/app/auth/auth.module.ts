@@ -57,7 +57,8 @@ import { EnterpriseContactComponent } from './enterprise-contact/enterprise-cont
         },
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('561602290896109'),
+          // provider: new FacebookLoginProvider('561602290896109'),
+          provider: new FacebookLoginProvider('2053494228293760'),
         },
       ],
     } as SocialAuthServiceConfig,

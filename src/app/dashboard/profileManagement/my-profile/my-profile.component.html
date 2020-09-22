@@ -153,24 +153,10 @@
                     </div>
 
                     <div *ngIf="editFields">
-                    <!-- <input
-                    #search
-                    type="text"
-                    [disabled] = "!editFields"
-                    autocomplete="off"
-                    id="address"
-                    name="address"
-                    #address="ngModel" 
-                    [ngModel]="profile.address"
-                    (onFocus)="profile.address = ''"
-                    class="form-control"
-                    (keydown.enter)="$event.preventDefault()"
-                    required
-                    /> -->
-                    <input type="text" class="form-control"
+                    <input type="text" class="form-control" [disabled] = "!editFields"
                     (keydown.enter)="$event.preventDefault()"
                     (ngModelChange)="profile.address = $event.toLowerCase()"
-                    [ngModel]="profile.address" id="address" name="address"
+                    [ngModel]="profile.address" id="address" name="address" (onFocus)="profile.address = ''"
                     autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off"
                     type="text" #search2 #address="ngModel" required>
                     <div class="error-block">

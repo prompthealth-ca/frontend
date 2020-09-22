@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
 import {} from 'googlemaps';
@@ -11,10 +11,8 @@ import { BehaviorService } from '../../../shared/services/behavior.service';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
-  // @ViewChild('search')
-  // public searchElementRef: ElementRef;
-  @ViewChild('search2', { static: false }) search2ElementRef: ElementRef;
 
+  @ViewChild('search2', { static: false }) search2ElementRef: ElementRef;
 
   defaultImage = 'assets/img/no-image.jpg';
   imageBaseURL = 'https://prompthealth.ca:3000/users/';
@@ -105,7 +103,8 @@ export class MyProfileComponent implements OnInit {
     private _bs: BehaviorService,
     private _sharedService: SharedService, ) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+
     this.userInfo = JSON.parse(localStorage.getItem('user'));
 
     this.roles = localStorage.getItem('roles');
@@ -144,35 +143,6 @@ export class MyProfileComponent implements OnInit {
       });
     });
   }
-
-  // google_address() {
-  //   this.mapsAPILoader.load().then(() => {
-  //     this.setCurrentLocation();
-  //     this.geoCoder = new google.maps.Geocoder;
- 
-  //     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
-  //     autocomplete.addListener("place_changed", () => {
-  //       if (this.editFields) {
-  //         this.profile.latitude = 0;
-  //         this.profile.longitude = 0;
-  //       }
-  //       this.ngZone.run(() => {
-  //         //get the place result
-  //         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
-  //         //verify result
-  //         if (place.geometry === undefined || place.geometry === null) {
-  //           return;
-  //         }
- 
-  //         //set latitude, longitude and zoom
-  //         this.profile.latitude = place.geometry.location.lat();
-  //         this.profile.longitude = place.geometry.location.lng();
-  //         this.getAddress(this.profile.latitude, this.profile.longitude);
-  //       });
-  //     });
-  //   });
-  // }
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -277,7 +247,7 @@ export class MyProfileComponent implements OnInit {
 
         setTimeout(() => {
           this.google_address()
-        }, 10000);
+        }, 50000);
 
         this.profile = res.data[0];
 
@@ -300,6 +270,7 @@ export class MyProfileComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
+  
   getDefaultCheckedValues(data, key) {
     if(key === 'serviceType' && this.serviceQuestion) {
       this.serviceQuestion.answers.forEach(checkbox => {

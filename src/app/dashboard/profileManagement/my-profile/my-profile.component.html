@@ -153,7 +153,7 @@
                     </div>
 
                     <div *ngIf="editFields">
-                    <input
+                    <!-- <input
                     #search
                     type="text"
                     [disabled] = "!editFields"
@@ -164,8 +164,15 @@
                     [ngModel]="profile.address"
                     (onFocus)="profile.address = ''"
                     class="form-control"
+                    (keydown.enter)="$event.preventDefault()"
                     required
-                    />
+                    /> -->
+                    <input type="text" class="form-control"
+                    (keydown.enter)="$event.preventDefault()"
+                    (ngModelChange)="profile.address = $event.toLowerCase()"
+                    [ngModel]="profile.address" id="address" name="address"
+                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off"
+                    type="text" #search2 #address="ngModel" required>
                     <div class="error-block">
                     <small *ngIf="address.errors && address.touched" class="text-danger">
                         Address is required.

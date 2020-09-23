@@ -89,7 +89,6 @@ export class RegistrationComponent implements OnInit {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
-    
       const payload = {
         socialToken: x.idToken,
         email: x.email,
@@ -124,7 +123,7 @@ export class RegistrationComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
       const payload = {
-        socialToken: x.idToken,
+        socialToken: x.id,
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),

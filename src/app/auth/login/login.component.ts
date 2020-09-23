@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
       const payload = {
-        socialToken: x.idToken,
+        socialToken: x.id,
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),

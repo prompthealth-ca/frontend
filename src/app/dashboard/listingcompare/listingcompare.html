@@ -27,7 +27,7 @@
             <th *ngFor="let user of data">
               <a 
                 [routerLink]="['/dashboard/detail', user.userId]"
-              >{{user.userData.firstName}}</a></th>
+              >{{user.userData.firstName}} {{user.userData.lastName}}</a></th>
           </tr>
         </thead>
         <tbody>

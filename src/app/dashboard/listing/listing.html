@@ -185,7 +185,7 @@
             />
             <div class="p-2">
               <div class="font-weight-bold mb-2">
-                {{ doc.userData.firstName }}
+                {{ doc.userData.firstName }} {{ doc.userData.lastName }}
               </div>
               <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
                 {{ doc.userData.email }}
@@ -264,7 +264,7 @@
                   href="/dashboard/detail"
                   [routerLink]="['/dashboard/detail', doc.userId]"
                   class="d-block h5 text-uppercase mb-0"
-                  >{{ doc.userData.firstName }}</a
+                  >{{ doc.userData.firstName }} {{ doc.userData.lastName }}</a
                 >
                 <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
                   {{doc.userData.email}}

@@ -71,7 +71,8 @@ export class VideosBlogsComponent implements OnInit {
   saveVideos() {
     const path = `user/addVideo`;
     const payload = { user_id: this.userId, data: this.videosForm.value.data };
-    payload.data[0].url = `https://www.youtube.com/embed/${this.getEmbededURL(payload.data[0].url)}`;
+    // payload.data[0].url = `https://www.youtube.com/embed/${this.getEmbededURL(payload.data[0].url)}`;
+    payload.data[0].url = `https://www.youtube.com/watch?v=${this.getEmbededURL(payload.data[0].url)}`;
     this.sharedService.loader('show');
     this.sharedService.post(payload, path).subscribe((res: any) => {
       this.sharedService.loader('hide');
@@ -95,7 +96,6 @@ export class VideosBlogsComponent implements OnInit {
   getEmbededURL(url) {
       const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
       const match = url.match(regExp);
-
       return (match && match[2].length === 11)
         ? match[2]
         : null;

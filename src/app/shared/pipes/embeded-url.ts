@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
     name: 'embededUrl',
@@ -7,8 +7,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 
 export class EmbededURLPipe implements PipeTransform {
+    safeSrc:SafeResourceUrl;
     constructor(private sanitizer: DomSanitizer) {}
     transform(args): any {
-        return this.sanitizer.bypassSecurityTrustResourceUrl(args);
+        // console.log(args);
+        return this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(args);
     } 
 }

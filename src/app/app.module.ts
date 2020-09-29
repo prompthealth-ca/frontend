@@ -15,9 +15,9 @@ import { ModalModule } from "ngx-bootstrap/modal";
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ScrollTopService } from './scrolltop.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptor } from './shared/services/error.interceptor';
-
+import { EmbedVideo } from 'ngx-embed-video';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +30,7 @@ import { ErrorInterceptor } from './shared/services/error.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
+    HttpClientModule, EmbedVideo.forRoot()
   ],
   providers: [
     ScrollTopService,

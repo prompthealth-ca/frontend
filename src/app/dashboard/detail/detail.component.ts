@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 @Component({
   selector: "app-detail",
@@ -59,12 +60,16 @@ export class DetailComponent implements OnInit {
   languageQuestion;
   serviceQuestion;
   categoryList;
+  videos:any =[];
+  yt_iframe_html:any;
+  iframe:any=[];
 
   constructor(
     private route: ActivatedRoute,
     private sharedService:SharedService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private embedService: EmbedVideoService
   ) {}
 
   get f() { return this.bookingForm.controls; }
@@ -95,6 +100,16 @@ export class DetailComponent implements OnInit {
         this.getCategoryServices();
         if (this.userInfo) {
           this.userInfo.ratingAvg =  Math.floor(this.userInfo.ratingAvg);
+          this.videos = this.userInfo.videos? this.userInfo.videos: [];
+          for(let i=0; i<this.videos.length;i++){
+            // console.log(this.videos[i].url);
+          // let  youtubeUrl = "https://www.youtube.com/watch?v=xcJtL7QggTI&t=130s";
+            // this.yt_iframe_html.push(this.embedService.embed(this.videos[i].url));
+            this.yt_iframe_html=this.embedService.embed(this.videos[i].url);
+            this.yt_iframe_html['title'] = this.videos[i].title;
+            this.iframe.push(this.yt_iframe_html);
+            // console.log(this.iframe);
+          }
         }
        } else {
          this.toastr.error(res.message);

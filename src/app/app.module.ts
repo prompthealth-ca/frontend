@@ -30,7 +30,7 @@ import { EmbedVideo } from 'ngx-embed-video';
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
-    HttpClientModule, EmbedVideo.forRoot()
+    EmbedVideo.forRoot()
   ],
   providers: [
     ScrollTopService,

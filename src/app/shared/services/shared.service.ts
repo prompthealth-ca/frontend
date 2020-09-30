@@ -170,6 +170,11 @@ export class SharedService {
 
   }
 
+  removeProfile(formData){
+    let headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + '/user/updateStatus', formData, { headers });
+  }
+
   sendEmailSubscribers(data){
     return this.http.post(this.rootUrl + '/user/subscribe', data);
   }
@@ -281,20 +286,27 @@ export class SharedService {
 
 
   loginUser(res, type) {
-    if (res.data.roles === 'U') {
-      this._router.navigate(['home']);
-    } 
+    console.log(res);
+    console.log(res.data.roles);
     let route
-    if(type === 'reg') {
-      route =  res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
-    }
-    else {
-      if(this.previousRouteService.getPreviousUrl() === '') {
-
-      } else {
-        route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+    if (res.data.roles === 'U') {
+      console.log(res.data.roles);
+      // this._router.navigate(['/']);
+      route =  res.data.roles === 'U' ? '/' : '';
+    } else{
+      if(type === 'reg') {
+        route =  res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
+      }
+      else {
+        if(this.previousRouteService.getPreviousUrl() === '') {
+  
+        } else {
+          route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+        }
       }
     }
+    
+  
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);

@@ -5,6 +5,8 @@ import { } from 'googlemaps';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { BehaviorService } from '../../../shared/services/behavior.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { ThrowStmt } from '@angular/compiler';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-my-profile',
@@ -106,7 +108,8 @@ export class MyProfileComponent implements OnInit {
     private toastr: ToastrService,
     private _bs: BehaviorService,
     private _sharedService: SharedService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
     ) { }
 
   ngOnInit(): void {
@@ -455,11 +458,13 @@ export class MyProfileComponent implements OnInit {
   }
 
   removeProfile() {
+    this.spinner.show();
     var data = {
       'id': this.profile._id,
       'status': 'false'
     }
     this._sharedService.removeProfile(data).subscribe((res: any) => {
+      this.spinner.hide();
       if (res.statusCode === 200) {
         this.modalref.close();
         this.toastr.success('User deactivated successfully!')
@@ -467,8 +472,10 @@ export class MyProfileComponent implements OnInit {
       } else {
         this.toastr.error(res.message);
       }
+      
     },
       err => {
+        this.spinner.hide();
         this.toastr.error(err);
       }
     )

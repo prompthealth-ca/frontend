@@ -4,6 +4,9 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { } from 'googlemaps';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { BehaviorService } from '../../../shared/services/behavior.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { ThrowStmt } from '@angular/compiler';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-my-profile',
@@ -62,6 +65,7 @@ export class MyProfileComponent implements OnInit {
 
 
   public profile = {
+    _id: '',
     firstName: '',
     lastName: '',
     gender: '',
@@ -95,13 +99,18 @@ export class MyProfileComponent implements OnInit {
   age_rangeSelected = [];
 
   public response: any;
+  closeResult: string;
+  modalref: any;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private toastr: ToastrService,
     private _bs: BehaviorService,
-    private _sharedService: SharedService,) { }
+    private _sharedService: SharedService,
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
+    ) { }
 
   ngOnInit(): void {
 
@@ -415,8 +424,8 @@ export class MyProfileComponent implements OnInit {
   }
 
   onFileSelect(event) {
-    if(event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg' || event.target.files[0].type == 'image/jpeg'){
-      if(event.target.files.length > 0){
+    if (event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg' || event.target.files[0].type == 'image/jpeg') {
+      if (event.target.files.length > 0) {
         let input = new FormData();
         // Add your values in here
         input.append('_id', this.userInfo._id);
@@ -435,10 +444,41 @@ export class MyProfileComponent implements OnInit {
           this.toastr.error('There are some errors, please try again after some time !', 'Error');
         });
       }
-    }else{
+    } else {
       this.toastr.error('This file format is not supportbale!');
     }
   }
 
+  deleteProfile(content) {
+  this.modalref = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'sm'});
+  this.modalref.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+    });
+  }
+
+  removeProfile() {
+    this.spinner.show();
+    var data = {
+      'id': this.profile._id,
+      'status': 'false'
+    }
+    this._sharedService.removeProfile(data).subscribe((res: any) => {
+      this.spinner.hide();
+      if (res.statusCode === 200) {
+        this.modalref.close();
+        this.toastr.success('User deactivated successfully!')
+        this._sharedService.logout();
+      } else {
+        this.toastr.error(res.message);
+      }
+      
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(err);
+      }
+    )
+  }
 
 }

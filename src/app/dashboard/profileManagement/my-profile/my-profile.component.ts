@@ -415,23 +415,29 @@ export class MyProfileComponent implements OnInit {
   }
 
   onFileSelect(event) {
-    let input = new FormData();
-    // Add your values in here
-    input.append('_id', this.userInfo._id);
-    input.append('profileImage', event.target.files[0]);
-    this._sharedService.loader('show');
-    this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
-      if (res.statusCode === 200) {
-        // this.profile = res.data;
-        this.profile.profileImage = res.data.profileImage;
-        this._sharedService.loader('hide');
-      } else {
-        this.toastr.error(res.message);
+    if(event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg' || event.target.files[0].type == 'image/jpeg'){
+      if(event.target.files.length > 0){
+        let input = new FormData();
+        // Add your values in here
+        input.append('_id', this.userInfo._id);
+        input.append('profileImage', event.target.files[0]);
+        this._sharedService.loader('show');
+        this._sharedService.imgUpload(input, 'user/imgUpload').subscribe((res: any) => {
+          if (res.statusCode === 200) {
+            // this.profile = res.data;
+            this.profile.profileImage = res.data.profileImage;
+            this._sharedService.loader('hide');
+          } else {
+            this.toastr.error(res.message);
+          }
+        }, err => {
+          this._sharedService.loader('hide');
+          this.toastr.error('There are some errors, please try again after some time !', 'Error');
+        });
       }
-    }, err => {
-      this._sharedService.loader('hide');
-      this.toastr.error('There are some errors, please try again after some time !', 'Error');
-    });
+    }else{
+      this.toastr.error('This file format is not supportbale!');
+    }
   }
 
 

@@ -24,6 +24,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MyProductComponent } from './my-product/my-product.component';
 import { RatingsComponent } from '../../shared/ratings/ratings.component';
 import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -53,7 +54,7 @@ import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
     NgxPaginationModule,NgxSpinnerModule,
     SharedModule,NgxDatatableModule,
     OwlDateTimeModule, OwlNativeDateTimeModule,
-    CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, ]
+    CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule,NgbModule ]
     
 })
 export class ProfileManagementModule {}

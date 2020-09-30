@@ -60,18 +60,19 @@
         </div>
         <div class="col-md-4">
           <ul class="check_ul font-weight-normal">
-            <li class="fas fa-map-marker">
+            <li class="fas fa-map-marker" *ngIf="userInfo?.address">
               <span>{{userInfo?.address}}</span>
             </li>
-            <a *ngIf="isLoggedIn"
+            <a *ngIf="isLoggedIn && userInfo?.email"
               href="mailto:{{userInfo?.email}}"
-              class="fas fa-envelope text-primary d-inline-block mr-2"
+              class="fas fa-envelope text-primary mr-2"
             >
             <span>{{userInfo?.email}}</span>
             </a>
             <a
               href="tel:{{userInfo?.phone}}"
-              class="fas fa-phone text-primary d-inline-block"
+              class="fas fa-phone text-primary"
+              *ngIf="userInfo?.phone"
               >
               <span>{{userInfo?.phone}}</span>
               </a>

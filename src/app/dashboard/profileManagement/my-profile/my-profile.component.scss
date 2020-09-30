@@ -1,5 +1,10 @@
 @import "../../../../assets/scss/mixins";
 
+
+.mrt{
+  margin-top: 12px;
+}
+
 .profileeditbox {
   @include profileImageInput(150px);
   margin-bottom: 30px;

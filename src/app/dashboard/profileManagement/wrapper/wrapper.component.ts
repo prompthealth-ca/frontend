@@ -121,7 +121,7 @@ export class WrapperComponent implements OnInit {
             active: true,
           });
           this.listing.push({
-            title: 'Proffessionals',
+            title: 'Professionals',
             link: 'add-professionals',
             active: true,
           });
@@ -284,13 +284,13 @@ export class WrapperComponent implements OnInit {
 
           if (profile?.plan?.ListOfProviders === true) {
             this.listing.push({
-              title: 'Proffessionals',
+              title: 'Professionals',
               link: 'add-professionals',
               active: true,
             });
           } else {
             this.listing.push({
-              title: 'Proffessionals',
+              title: 'Professionals',
               link: 'add-professionals',
               active: false,
             });

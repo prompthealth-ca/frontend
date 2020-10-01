@@ -210,7 +210,7 @@
                                 </span>
                             </span>
                         </div>
-                        <div *ngIf="editFields" class="row">
+                        <div *ngIf="editFields" class="row mrt">
                             <div class="col-md-3" *ngFor="let item of avalibilityQuestion?.answers; let i = index"> 
                                 <label for="{{item._id}}">
                                     <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, 'avalibilityQuestion')"/>
@@ -230,7 +230,7 @@
                                 </span>
                             </span>
                         </div>
-                        <div *ngIf="editFields" class="row">
+                        <div *ngIf="editFields" class="row mrt">
                             <div  class="col-md-9" *ngFor="let item of languageQuestion?.answers; let i = index">
 
                                 <label for="{{item._id}}">
@@ -251,7 +251,7 @@
                                 </span>
                             </span>
                         </div>
-                        <div *ngIf="editFields" class="row">
+                        <div *ngIf="editFields" class="row mrt">
                             <div  class="col-md-3" *ngFor="let item of serviceQuestion?.answers; let i = index">
                             
                                 <label for="{{item._id}}">
@@ -280,7 +280,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="form-control disable" *ngIf="editFields">
+                    <div class="mrt" *ngIf="editFields">
                         <div class="form-row">
                             <span *ngIf="profile?.age_range.length === 5" class="row">
                                 <div  class="col-md-3" *ngFor="let item of ageRangeList; let i = index"> 
@@ -308,7 +308,7 @@
                 <label class="col-md-3">Total years of experience</label>
                 <div class="form-control disable col-md-9" *ngIf="!editFields">{{profile.years_of_experience}}</div>
                 <div *ngIf="editFields" class="col-sm-8">
-                    <div class="form-row">
+                    <div class="form-row mrt">
                         <div  class="col-md-3" *ngFor="let item of experienceList; let i = index"> 
                             <label for="{{item.id}}">
                                 <!-- -- {{ profile.years_of_experience }}
@@ -325,7 +325,7 @@
                 <div class="form-control disable col-md-9" *ngIf="!editFields && profile.price_per_hours">{{profile.price_per_hours}}</div>
                 <div class="form-control disable col-md-9" *ngIf="!editFields && !profile.price_per_hours">Not Critical</div>
                 <div *ngIf="editFields" class="col-sm-8">
-                    <div class="form-row">
+                    <div class="form-row mrt">
                         <div  class="col-md-3" *ngFor="let item of priceList; let i = index"> 
                             <label for="{{item.id}}">
                                 <input
@@ -359,7 +359,7 @@
             <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
                 <label class="col-md-3">About you</label>
                 <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.product_description }}</div>
-                <div *ngIf="editFields" class="col-sm-9">
+                <div *ngIf="editFields" class="col-sm-9 mrt">
                     <textarea
                     [disabled] = "!editFields"
                     id="product_description"
@@ -374,7 +374,7 @@
                 <label class="col-md-3">Accredited Provider in Canada</label>
                 <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.accredited_provide_canada }}</div>
                 <div *ngIf="editFields" class="col-sm-9">
-                    <label class="mb-0"><input type="checkbox"   [disabled] = "!editFields" [(ngModel)]="profile.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
+                    <label class="mb-0 mrt"><input type="checkbox"   [disabled] = "!editFields" [(ngModel)]="profile.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
                     <!-- <textarea
                     [disabled] = "!editFields"
                     id="product_description"

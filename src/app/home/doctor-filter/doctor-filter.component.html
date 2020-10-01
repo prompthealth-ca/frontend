@@ -96,18 +96,18 @@
                   </div>
                   <div class="col-12 col-lg-9 p-3">
                   <div
-                      class="d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap"
+                      class="d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap mb-3"
                   >
                       <div class="text-primary">
                       <a
-                          class="d-block h5 text-uppercase mb-0"
+                          class="d-block h5 text-uppercase mb-0 overflow-wrap"
                           >{{ doc?.firstName }} {{ doc?.lastName }}</a
                       >
-                      <div class="mb-2 font-weight-normal">{{doc?.email}}</div>
+                      <div class="mb-2 font-weight-normal overflow-wrap" *ngIf="doc?.email">{{doc?.email}}</div>
                       </div>
                       <a
                       [routerLink]="['/dashboard/detail', doc._id]"
-                      class="btn btn-primary pull-right"
+                      class="btn btn-primary pull-right req-btn"
                       >Request Appointment</a>
                       <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#appointmentModal">Request Appointment</button> -->
                   </div>
@@ -116,10 +116,12 @@
                       <a
                       class="fa fa-phone-square text-secondary d-inline-block mr-2"
                       href="tel:{{doc?.phone}}"
+                      *ngIf="doc?.phone"
                       >
                       <span>{{doc?.phone}}</span>
                       </a>
                       <a
+                      *ngIf="doc?.email"
                       class="fa fa-envelope text-secondary d-inline-block mr-2"
                       href="mailto:{{doc?.address}}"
                       >

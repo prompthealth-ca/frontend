@@ -174,7 +174,7 @@ export class DoctorFilterComponent implements OnInit {
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
        this.doctorList = res.data;
-
+       this.doctorList = this.doctorList.sort((a,b)=>a.calcDistance - b.calcDistance);
        if(this.doctorList.length) {
         this.createNameList(res.data)
         const self = this

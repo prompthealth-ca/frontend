@@ -26,7 +26,7 @@ export class ListingComponent implements OnInit {
   lat;
   long;
   private sub: any;
-  doctorsListing = [];
+  doctorsListing:any = [];
   allDoctorList = [];
   compareList = [];
   typical_hours = [];
@@ -232,6 +232,7 @@ export class ListingComponent implements OnInit {
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode = 200) {
         this.doctorsListing = res.data;
+        this.doctorsListing = this.doctorsListing.sort((a,b)=>a.userData.calcDistance - b.userData.calcDistance);
         this.totalItems =  this.doctorsListing.length;
         for(let i = 0; i < this.doctorsListing.length; i++) {
           if(this.doctorsListing[i].userData.ratingAvg) {

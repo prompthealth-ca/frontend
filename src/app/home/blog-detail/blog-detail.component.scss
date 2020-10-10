@@ -19,8 +19,9 @@
 
     img{
         max-width: 100%;
+        width:100%;
         height: 400px;
-        object-fit: cover;
+        object-fit: top cover;
         border:1px solid #e6e5e5;
     }
 
@@ -94,7 +95,7 @@ a{
 
 .content{
 font-size: 18px;
-word-break: break-all;
+word-break: break-word;
 line-height: normal;
 font-weight: 400;
 *{

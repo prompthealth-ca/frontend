@@ -24,6 +24,8 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
+import { NgxSocialShareModule } from 'ngx-social-share';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -55,7 +57,8 @@ import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
     }),
     CommonModule,
     HomeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSocialShareModule,
   ],
 
   schemas: [

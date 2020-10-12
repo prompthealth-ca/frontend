@@ -9,24 +9,34 @@ import { SharedService } from '../../shared/services/shared.service';
   styleUrls: ['./blog-detail.component.scss']
 })
 export class BlogDetailComponent implements OnInit {
-  blogList;
+  blogList: any;
   defaultImage = 'assets/img/no-image.jpg';
   categoryList = [];
   private sub: any;
-  id='';
+  id = '';
+  socialShare: boolean = false;
+  socialSharing: any;
 
   constructor(
     private activeRoute: ActivatedRoute,
     private _sharedService: SharedService,
-    private toastr: ToastrService,) { 
-    }
+    private toastr: ToastrService,) {
+  }
 
   ngOnInit(): void {
     this.sub = this.activeRoute.params.subscribe(params => {
       this.id = params['id'];
-   });
+    });
     this.getBlog()
     this.getAllCategories();
+  }
+
+  changeSocialLink(value) {
+    if (value == 'fb') {
+      this.socialSharing = 'fb';
+    } else {
+      this.socialSharing = 'in';
+    }
   }
 
   getBlog() {

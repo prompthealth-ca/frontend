@@ -9,7 +9,7 @@
     
 <div class="container main-content heightHF-100 py-5">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-9" socialShare="{{this.socialSharing}}">
       <a class="blog-link mb-3">
         <div class="position-relative d-inline-block">
         <img [src]="blogList?.image ? 'https://prompthealth.ca:3000/blogs/' + blogList.image :  defaultImage">
@@ -18,11 +18,11 @@
           <span class="mr-2">{{ blogList.title }}</span>
 
           <div class="social-share">
-            <a target="_new">
+            <a target="_new" (click)="changeSocialLink('fb')">
               <img src="/assets/img/fb.png" />
             </a>
 
-            <a target="_new">
+            <a target="_new" (click)="changeSocialLink('in')">
               <img src="/assets/img/linkedin.png" />
             </a>
           </div>

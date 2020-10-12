@@ -1,12 +1,35 @@
 @import "../../../assets/scss/mixins";
 
 .top-links{
-
     a{
         font-weight: 500;
         color: #000;
         &:hover{
             color: $primaryColor;
+        }
+    }
+}
+
+.social-share{
+    display: flex;
+    min-width: 73px;
+    a{
+        display: inline-block;
+        line-height: normal;
+        img{
+            max-width: 32px;
+            height: auto;
+            border: 0;
+        }
+
+        &:not(:last-child){
+            margin-right: 9px;
+        }
+
+        &:hover{
+            img{
+                opacity: .6;
+            }
         }
     }
 }

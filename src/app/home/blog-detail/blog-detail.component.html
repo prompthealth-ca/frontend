@@ -10,11 +10,23 @@
 <div class="container main-content heightHF-100 py-5">
   <div class="row">
     <div class="col-md-9">
-      <a class="blog-link">
+      <a class="blog-link mb-3">
         <div class="position-relative d-inline-block">
         <img [src]="blogList?.image ? 'https://prompthealth.ca:3000/blogs/' + blogList.image :  defaultImage">
         </div>
-        <h4 class="text-uppercase mb-0">{{ blogList.title }}</h4>
+        <h4 class="text-uppercase d-flex align-items-center flex-wrap justify-content-between mb-0">
+          <span class="mr-2">{{ blogList.title }}</span>
+
+          <div class="social-share">
+            <a target="_new">
+              <img src="/assets/img/fb.png" />
+            </a>
+
+            <a target="_new">
+              <img src="/assets/img/linkedin.png" />
+            </a>
+          </div>
+        </h4>
       </a>
 
       <div class="content" [innerHTML] = "blogList.description"></div>

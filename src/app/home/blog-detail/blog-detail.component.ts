@@ -52,9 +52,14 @@ export class BlogDetailComponent implements OnInit {
       let img: string = "https://prompthealth.ca/assets/img/logo.png";
       if (res.statusCode === 200) {
         this.blogList = res.data;
-        const des = this.removeTags(this.blogList.description)
+        let des=""
+        
+        if(this.blogList.description){
+          des = this.removeTags(this.blogList.description)
+        }
+        
         this.title.setTitle(this.blogList.title);
-        this.meta.updateTag({ name: 'og:title', content: 'Dynamic Hello Angular Lovers description!' });
+        this.meta.updateTag({ name: 'og:title', content: this.blogList.title });
         if (des) {
           this.meta.updateTag({ name: 'description', content: des });
           this.meta.updateTag({ name: 'og:description', content: des });

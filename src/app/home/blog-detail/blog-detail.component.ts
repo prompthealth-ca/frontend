@@ -75,7 +75,8 @@ export class BlogDetailComponent implements OnInit {
         // }
         
         this.meta.updateTag({ property: 'og:image', content: img, itemprop: 'image' });
-        this.meta.updateTag({ property: 'og:image:url', content: img, itemprop: 'image' });
+        this.meta.updateTag({ property: 'og:image:url', content: img, itemprop: 'image' });        
+        this.meta.updateTag({ property: 'og:image:type', content: 'image/png' });
       }
 
       else {

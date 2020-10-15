@@ -59,21 +59,21 @@ export class BlogDetailComponent implements OnInit {
         }
         
         this.title.setTitle(this.blogList.title);
-        this.meta.updateTag({ name: 'og:title', content: this.blogList.title });
+        this.meta.updateTag({ property: 'og:title', content: this.blogList.title });
         if (des) {
           this.meta.updateTag({ name: 'description', content: des });
-          this.meta.updateTag({ name: 'og:description', content: des });
+          this.meta.updateTag({ property: 'og:description', content: des });
         }
         if (this.router.url) {
           url = url + this.router.url
         }
-        this.meta.updateTag({ name: 'og:url', content: url });
+        this.meta.updateTag({ property: 'og:url', content: url });
 
         if (this.blogList.image) {
           img = "https://prompthealth.ca:3000/blogs/" + this.blogList.image
         }
 
-        this.meta.updateTag({ name: 'og:image', content: img });
+        this.meta.updateTag({ property: 'og:image', content: img });
       }
 
       else {

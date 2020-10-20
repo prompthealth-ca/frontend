@@ -59,6 +59,7 @@ export class BlogDetailComponent implements OnInit {
         }
         
         this.title.setTitle(this.blogList.title);
+        this.meta.updateTag({ name: 'title', content: this.blogList.title});
         this.meta.updateTag({ property: 'og:title', content: this.blogList.title });
         if (des) {
           this.meta.updateTag({ name: 'description', content: des });
@@ -69,11 +70,13 @@ export class BlogDetailComponent implements OnInit {
         }
         this.meta.updateTag({ property: 'og:url', content: url });
 
-        if (this.blogList.image) {
-          img = "https://prompthealth.ca:3000/blogs/" + this.blogList.image
-        }
-
-        this.meta.updateTag({ property: 'og:image', content: img });
+        // if (this.blogList.image) {
+        //   img = "https://prompthealth.ca:3000/blogs/" + this.blogList.image
+        // }
+        
+        this.meta.updateTag({ property: 'og:image', content: img, itemprop: 'image' });
+        this.meta.updateTag({ property: 'og:image:url', content: img, itemprop: 'image' });        
+        this.meta.updateTag({ property: 'og:image:type', content: 'image/png' });
       }
 
       else {

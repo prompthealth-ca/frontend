@@ -147,7 +147,7 @@ export class MyProfileComponent implements OnInit {
           // set latitude, longitude and zoom
           this.profile.latitude = place.geometry.location.lat();
           this.profile.longitude = place.geometry.location.lng();
-          this.getAddress(this.profile.latitude, this.profile.longitude);
+          this.getAddress(this.profile.latitude, this.profile.longitude, place);
 
         });
       });
@@ -177,8 +177,10 @@ export class MyProfileComponent implements OnInit {
     }
   }
 
-  getAddress(latitude, longitude) {
+  getAddress(latitude, longitude, place={}) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log("place",place)
+      console.log("results",results)
       this.profile.city = '';
       this.profile.state = '';
       this.profile.zipcode = '';
@@ -186,6 +188,9 @@ export class MyProfileComponent implements OnInit {
 
       if (status === 'OK') {
         if (results[0]) {
+          // if(place){
+          //   results[0]=place
+          // }
           this.zoom = 12;
           this.profile.address = results[0].formatted_address;
           // find country name

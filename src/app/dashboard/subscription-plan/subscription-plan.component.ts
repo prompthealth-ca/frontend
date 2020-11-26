@@ -44,6 +44,7 @@ export class SubscriptionPlanComponent {
   stripeTest: FormGroup;
   centreMonth=false;
   spMonth=false;
+  discounttype:any
 
   public checkout = {
     email: "this.userEmail.email",
@@ -165,10 +166,11 @@ export class SubscriptionPlanComponent {
     } 
     if(this.profile.refererencePointEarned) {
       const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned/100));
+      this.discounttype='reference';
       this.finalPrice = discountedPrice + (discountedPrice * (5/100)); 
     } else {
       const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50/100)); // Undo this after sep discount
-
+      this.discounttype='sepdiscount';
       this.finalPrice  = sepDiscount + (sepDiscount * (5/100));  // Undo this after sep discount
       // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
     }
@@ -236,7 +238,6 @@ if(this.roles =='U'){
   }
   buy() {
     const name = this.stripeTest.get('name').value;
-
     // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
@@ -251,6 +252,7 @@ if(this.roles =='U'){
           token: result.token.id,
           amount: this.finalPrice,
           discount: this.profile.refererencePointEarned,
+          discountType:this.discounttype
         }
 
         this._sharedService.loader('show');

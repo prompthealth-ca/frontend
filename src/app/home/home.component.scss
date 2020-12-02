@@ -44,6 +44,13 @@ $testimonialsLiSize: 10px;
   border-radius: 50%;
 }
 
+.intro-white-text{
+  font-style: normal;
+  font-weight: 350;
+  font-size: 26px;
+  line-height: 31px;
+}
+
 $slideLeftRightPaddding: 80px;
 .quote-bg {
   .testimonials-text {
@@ -53,6 +60,34 @@ $slideLeftRightPaddding: 80px;
     background-size: 100px;
     background-repeat: no-repeat;
   }
+}
+
+.recBackground {
+    //background-repeat:no-repeat;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      180deg, 
+      #3377C5 0%, 
+      rgba(255, 255, 255, 0) 
+      100%),
+      url('../../assets/img/rec_pictures/preventative.png');
+
+    background-size: cover;
+}
+
+.btn-home {
+  border: 3px $accentColor solid;
+  border-radius: 15px;
+  color: $accentColor;
+  font-weight: 500;
+  font-size: medium;
+}
+.btn-home:hover {
+  border-color: rgb(255, 255, 255) !important;
+  background: $primaryColor !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 // testimonials end

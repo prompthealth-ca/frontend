@@ -144,6 +144,10 @@ h6,
 .text-primary {
   color: $primaryColor !important;
 }
+.text-accent {
+  color: $accentColor !important;
+  font-weight: 400;
+}
 
 .text-google {
   color: $googleColor !important;
@@ -322,6 +326,18 @@ textarea.form-control {
   min-height: calc(100vh - #{$headerHeight+$footerHeight});
 }
 
+.height-60 {
+  min-height: 60vh;
+}
+
+.heightH-60 {
+  min-height: calc(60vh - #{$headerHeight});
+}
+
+.heightHF-60 {
+  min-height: calc(60vh - #{$headerHeight+$footerHeight});
+}
+
 .spacer-top {
   height: $headerHeight;
 }
@@ -334,6 +350,18 @@ textarea.form-control {
 .bg-fixed {
   background-attachment: fixed;
 }
+
+.ph-gradient-title {
+  margin: 0;
+  overflow-wrap: break-word !important;
+  background: $ph-gradient;
+  font-size: 2rem !important;
+  font-weight: 500 !important;
+  line-height: 1.375em !important;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .bg-overlay {
   @include bgOverlay();
@@ -478,5 +506,12 @@ textarea.form-control {
   }
   .spacer-top {
     height: $headerHeight;
+  }
+  .heightH-60 {
+    min-height: calc(60vh - #{$headerHeight});
+  }
+
+  .heightHF-60 {
+    min-height: calc(60vh - #{$headerHeight+$footerHeight});
   }
 }

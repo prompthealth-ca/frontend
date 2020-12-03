@@ -24,15 +24,13 @@ export class MyPasswordComponent implements OnInit {
   }
 
   changePassword(event) {
-    console.log(event);
-    console.log(this.pass);
     if (this.pass.password !== this.pass.confirmPassword) {
       this.toastr.error('Confirm password must match your new password');
       return;
     }
-    this._sharedService.post(this.pass, '/user/change-password').subscribe(data => {
-      console.log(data);
-      this.toastr.success('Your password has been successfully updated');
+    this._sharedService.post(this.pass, '/user/change-password').subscribe((res) => {
+      console.log(res);
+      this.toastr.success(res.message);
     }, error => {
       this.toastr.error(error);
     });

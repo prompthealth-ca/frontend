@@ -12,7 +12,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 export class MyBookingComponent implements OnInit {
   @ViewChild('closebutton') closebutton;
   @ViewChild('closeRatingbutton') closeRatingbutton;
-  @ViewChild('reviewModal') reviewModal:ElementRef;
+  @ViewChild('reviewModal') reviewModal: ElementRef;
   bookingForm: FormGroup;
   ratingSubmited = false;
   ratingPayload = {}
@@ -46,19 +46,19 @@ export class MyBookingComponent implements OnInit {
   ngOnInit(): void {
 
     this.bookingForm = this.formBuilder.group({
-      timing: new FormControl('', [Validators.required] ),
+      timing: new FormControl('', [Validators.required]),
       bookingDateTime: new FormControl('', [Validators.required]),
     });
     this.getBookingList();
   }
-  
+
   getBookingList() {
     this.roles = localStorage.getItem('roles');
     // this.roles = 'U';
     this.userId = localStorage.getItem('loginID');
     let path = `booking/get-all?userId=${this.userId}&count=10&page=1&frontend=0/`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.bookingList = res.data.data;
         this.totalItems = this.bookingList.length;
       } else {
@@ -72,13 +72,13 @@ export class MyBookingComponent implements OnInit {
   cancelBooking(id) {
     this._sharedService.loader('show');
     const path = `booking/cancelBooking/`;
-    let data = {"id":id}
+    let data = { "id": id }
     this._sharedService.put(data, path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.bookingList.forEach((ele, index) => {
-          if(ele._id === id) this.bookingList.splice(index, 1);
+          if (ele._id === id) this.bookingList.splice(index, 1);
         });
         // this._router.navigate(['/home']);
       } else {
@@ -92,13 +92,13 @@ export class MyBookingComponent implements OnInit {
   updateBooking(id, status) {
     this._sharedService.loader('show');
     const path = `booking/updateBooking/`;
-    let data = {id, status}
+    let data = { id, status }
     this._sharedService.put(data, path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.bookingList.forEach((ele, index) => {
-          if(ele._id === id) this.bookingList.splice(index, 1);
+          if (ele._id === id) this.bookingList.splice(index, 1);
         });
 
         this.getBookingList();
@@ -112,14 +112,14 @@ export class MyBookingComponent implements OnInit {
   }
 
   timingSelected(evt) {
-    this.timingSelectedValue =  evt.target.value;
+    this.timingSelectedValue = evt.target.value;
   }
 
   rescheduleBooking(id) {
     this.slectedBookingId = id;
   }
   rescheduleBookingApi() {
-    this.submitted  = true;
+    this.submitted = true;
     this.submitted = true;
     if (this.bookingForm.invalid) {
       return;
@@ -129,7 +129,7 @@ export class MyBookingComponent implements OnInit {
         ...this.bookingForm.value,
       }
       let data = {
-        'id':  this.slectedBookingId,
+        'id': this.slectedBookingId,
         ...formData,
       };
       data.timing = this.timingSelectedValue;
@@ -145,12 +145,12 @@ export class MyBookingComponent implements OnInit {
           this.closebutton.nativeElement.click();
         }
 
-      else {
-        this._sharedService.showAlert(res.message, 'alert-danger');
-      }
-    }, (error) => {
-      this._sharedService.loader('hide');
-    });
+        else {
+          this._sharedService.showAlert(res.message, 'alert-danger');
+        }
+      }, (error) => {
+        this._sharedService.loader('hide');
+      });
     }
   }
 

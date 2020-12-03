@@ -12,26 +12,26 @@ import { BehaviorService } from '../../shared/services/behavior.service';
 })
 export class ListingComponent implements OnInit {
   @ViewChild('searchGlobal')
-  
+
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
   keyword = 'name';
   serviceQuestion;
   languageQuestion;
   avalibilityQuestion;
-  currentAddress="";
+  currentAddress = "";
   loggedInUser;
   loggedInRole;
   id;
   lat;
   long;
   private sub: any;
-  doctorsListing:any = [];
+  doctorsListing: any = [];
   allDoctorList = [];
   compareList = [];
   typical_hours = [];
   type = 'Goal';
-  ageRangeList  = [
+  ageRangeList = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
     { id: '5eb1a4e199957471610e6cd8', name: 'Child (<12)', checked: false },
     { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent (12-18)', checked: false },
@@ -55,14 +55,14 @@ export class ListingComponent implements OnInit {
       _id: 3,
       item_text: '3 Stars'
     }
-  ]; 
+  ];
   priceList = [
     { value: '', name: 'Not Critical' },
     { value: '< $50', name: '$ < 50' },
     { value: '$50-100', name: '$ 50-100' },
     { value: '$100-200', name: '$ 100-200' },
     { value: '$200-500', name: '$ 200-500' },
-    { value: '$500-1000', name: '$ 500-1000'},
+    { value: '$500-1000', name: '$ 500-1000' },
     { value: '$1000', name: '$ > 1000' },
   ];
   listingPayload = {
@@ -97,7 +97,7 @@ export class ListingComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private router: Router,
     private ngZone: NgZone,
-    private _sharedService:SharedService,
+    private _sharedService: SharedService,
     private toastr: ToastrService,
   ) {
     this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
@@ -109,17 +109,17 @@ export class ListingComponent implements OnInit {
 
       this.id = queryParams.id;
       this.type = queryParams.type;
-      if(queryParams.id && queryParams.type) {
+      if (queryParams.id && queryParams.type) {
 
 
-      this.loggedInUser = localStorage.getItem('loginID');
-      this.loggedInRole = localStorage.getItem('roles');
-      if(localStorage.getItem('typical_hours')) {
-        this.typical_hours = localStorage.getItem('typical_hours').split(',');
-      }
+        this.loggedInUser = localStorage.getItem('loginID');
+        this.loggedInRole = localStorage.getItem('roles');
+        if (localStorage.getItem('typical_hours')) {
+          this.typical_hours = localStorage.getItem('typical_hours').split(',');
+        }
         this.listingPayload.ids = [];
         this.listingPayload.ids.push(queryParams.id);
-        this.listingPayload.type =  queryParams.type;
+        this.listingPayload.type = queryParams.type;
         this.listing({
           ids: this.id ? [this.id] : [],
           type: this.type,
@@ -127,30 +127,31 @@ export class ListingComponent implements OnInit {
           miles: this.listingPayload.miles,
           //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
         });
-    }
-    else {
-      this.loggedInUser = localStorage.getItem('loginID');
-      if(personalMatch) {
-        this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-        this.listingPayload.age_range = personalMatch.age_range;
-        this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
-        
-        this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
-        
-        this.listingPayload.type = personalMatch.type;
-        this.listingPayload.latLong = personalMatch.latLong;
-          
-      this.listing(this.listingPayload);
-      }      
-      else {   
-      this.listing({
-        ids: this.id ? [this.id] : [],
-        type: this.listingPayload.type,
-        latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-        miles: this.listingPayload.miles,
-        //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
-      });       
-    }}
+      }
+      else {
+        this.loggedInUser = localStorage.getItem('loginID');
+        if (personalMatch) {
+          this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+          this.listingPayload.age_range = personalMatch.age_range;
+          this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
+
+          this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
+
+          this.listingPayload.type = personalMatch.type;
+          this.listingPayload.latLong = personalMatch.latLong;
+
+          this.listing(this.listingPayload);
+        }
+        else {
+          this.listing({
+            ids: this.id ? [this.id] : [],
+            type: this.listingPayload.type,
+            latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+            miles: this.listingPayload.miles,
+            //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+          });
+        }
+      }
     });
 
     this.mapsAPILoader.load().then(() => {
@@ -161,9 +162,9 @@ export class ListingComponent implements OnInit {
         autocomplete.addListener("place_changed", () => {
           this.ngZone.run(() => {
             //get the place result
-            
+
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-  
+
             //verify result
             if (place.geometry === undefined || place.geometry === null) {
               return;
@@ -171,16 +172,16 @@ export class ListingComponent implements OnInit {
             this.lat = place.geometry.location.lat();
             this.long = place.geometry.location.lng();
 
-            if(personalMatch) {
+            if (personalMatch) {
               this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
               this.listingPayload.age_range = personalMatch.age_range;
-              this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ?  '' : personalMatch.typical_hours[0];
-        
-              this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours  : [];
+              this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
+
+              this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
               this.listingPayload.type = personalMatch.type;
               this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-              
-            this.listing(this.listingPayload);
+
+              this.listing(this.listingPayload);
             }
             else {
               this.listing(
@@ -188,7 +189,7 @@ export class ListingComponent implements OnInit {
                   ids: this.id ? [this.id] : [],
                   latLong: `${this.long}, ${this.lat}`,
                   miles: this.listingPayload.miles,
-                  type:this.listingPayload.type
+                  type: this.listingPayload.type
                 }
               );
             }
@@ -196,46 +197,46 @@ export class ListingComponent implements OnInit {
           });
         });
       });
-      
+
     });
   }
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
-      res.data.forEach(element => {
-        if (element.question_type ==='service' && element.slug==="offer-your-services") {
-          this.serviceQuestion = element
-        }
-        if (element.question_type ==='service' && element.slug==="languages-you-offer") {
-          this.languageQuestion = element
-        }
-        if(element.question_type ==='availability') {
-          this.avalibilityQuestion = element
-        }
-      });
+      if (res.statusCode === 200) {
+        res.data.forEach(element => {
+          if (element.question_type === 'service' && element.slug === "offer-your-services") {
+            this.serviceQuestion = element
+          }
+          if (element.question_type === 'service' && element.slug === "languages-you-offer") {
+            this.languageQuestion = element
+          }
+          if (element.question_type === 'availability') {
+            this.avalibilityQuestion = element
+          }
+        });
       } else {
         this.toastr.error(res.message);
       }
-     }, err => {
-       this._sharedService.loader('hide');
-     });
+    }, err => {
+      this._sharedService.loader('hide');
+    });
   }
   listing(filter) {
     console.log(filter);
 
-    if(filter.latLong == "null, null"){
+    if (filter.latLong == "null, null") {
       filter.latLong = "";
     }
     this._sharedService.loader('show');
     let path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.doctorsListing = res.data;
-        this.doctorsListing = this.doctorsListing.sort((a,b)=>a.userData.calcDistance - b.userData.calcDistance);
-        this.totalItems =  this.doctorsListing.length;
-        for(let i = 0; i < this.doctorsListing.length; i++) {
-          if(this.doctorsListing[i].userData.ratingAvg) {
+        this.doctorsListing = this.doctorsListing.sort((a, b) => a.userData.calcDistance - b.userData.calcDistance);
+        this.totalItems = this.doctorsListing.length;
+        for (let i = 0; i < this.doctorsListing.length; i++) {
+          if (this.doctorsListing[i].userData.ratingAvg) {
             this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg)
           }
         }
@@ -251,9 +252,9 @@ export class ListingComponent implements OnInit {
   }
   removeFilter() {
     this._sharedService.loader('show');
-    this.lat="";
-    this.long="";
-    this.currentAddress="";
+    this.lat = "";
+    this.long = "";
+    this.currentAddress = "";
     this.listingPayload = {
       ids: [],
       zipcode: '',
@@ -266,21 +267,21 @@ export class ListingComponent implements OnInit {
       name: '',
       type: this.type,
       serviceOfferId: '',
-      gender:"",
+      gender: "",
       price_per_hours: '',
       typical_hours: [],
     }
     this.listing({
-      ids: this.id ? [this.id ] : [],
-      miles:this.listingPayload.miles,
+      ids: this.id ? [this.id] : [],
+      miles: this.listingPayload.miles,
       latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
       type: this.type,
     });
     this._sharedService.loader('hide');
   }
-  onOptionsSelected(value, type){
+  onOptionsSelected(value, type) {
     if (type === 'language') {
-      this.listingPayload.languageId= value;
+      this.listingPayload.languageId = value;
     }
     if (type === 'hours') {
       this.listingPayload.typicalHoursId = value;
@@ -288,13 +289,13 @@ export class ListingComponent implements OnInit {
     if (type === 'rating') {
       this.listingPayload.rating = value ? parseInt(value) : 0;
     }
-    if(type === "serviceType") {
+    if (type === "serviceType") {
       this.listingPayload.serviceOfferId = value;
     }
-    if(type === "gender") {
+    if (type === "gender") {
       this.listingPayload.gender = value;
     }
-    if(type === "price") {
+    if (type === "price") {
       this.listingPayload.price_per_hours = value;
     }
     this.listing(this.listingPayload);
@@ -302,7 +303,7 @@ export class ListingComponent implements OnInit {
   createNameList(data) {
     this.allDoctorList = []
     for (let element of data) {
-      if(element.userData.firstName) {
+      if (element.userData.firstName) {
         this.allDoctorList.push({
           id: element.userId,
           name: element.userData.firstName,
@@ -312,13 +313,13 @@ export class ListingComponent implements OnInit {
   }
   changeMiles(evt) {
     this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
-    if(this.long &&  this.lat) {
+    if (this.long && this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;
     }
     else {
       this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
     }
-    this.listing(this.listingPayload);   
+    this.listing(this.listingPayload);
   }
   changeAge(evt) {
     this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
@@ -338,7 +339,7 @@ export class ListingComponent implements OnInit {
 
   }
   compareFields(doc, evt) {
-    if(evt.target.checked) {
+    if (evt.target.checked) {
       const index = this.compareList.findIndex((e) => e.userId === doc.userId);
 
       this.getCategoryServices(doc.userId);
@@ -350,7 +351,7 @@ export class ListingComponent implements OnInit {
       setTimeout(() => {
         if (index === -1) {
           this.compareList.push(doc);
-        } 
+        }
       }, 1000)
 
       console.log('compareList ----', this.compareList);
@@ -373,23 +374,23 @@ export class ListingComponent implements OnInit {
       if (res.statusCode === 200) {
         this.categoryList = res.data;
         this.categoryList.forEach(element => {
-          if(element.slug === 'providers-are-you') {
-            if(this.serviceData.indexOf(element.item_text) === -1) {
+          if (element.slug === 'providers-are-you') {
+            if (this.serviceData.indexOf(element.item_text) === -1) {
               this.serviceData.push(element)
             }
           }
-          if(element.slug === 'treatment-modalities') {
-            if(this.treatmentModalities.indexOf(element.item_text) === -1) {
+          if (element.slug === 'treatment-modalities') {
+            if (this.treatmentModalities.indexOf(element.item_text) === -1) {
               this.treatmentModalities.push(element);
             }
           }
-          if(element.slug === "your-goal-specialties") {
-            if(this.serviceType.indexOf(element) === -1) {
+          if (element.slug === "your-goal-specialties") {
+            if (this.serviceType.indexOf(element) === -1) {
               this.serviceType.push(element.item_text);
             }
           }
-          if(element.slug === "your-offerings") {
-            if(this.serviceOffering.indexOf(element) === -1) {
+          if (element.slug === "your-offerings") {
+            if (this.serviceOffering.indexOf(element) === -1) {
               this.serviceOffering.push(element.item_text);
             }
           }
@@ -405,7 +406,7 @@ export class ListingComponent implements OnInit {
   }
   removefromCopare(userId) {
     this.compareList.forEach((ele, index) => {
-      if(ele.userId === userId) this.compareList.splice(index, 1);
+      if (ele.userId === userId) this.compareList.splice(index, 1);
     });
   }
   compareDoc() {
@@ -413,11 +414,11 @@ export class ListingComponent implements OnInit {
     this.router.navigate(['/dashboard/listingCompare']);
   }
   likeProfile(evt, drId) {
-    if(evt.target.checked) {
+    if (evt.target.checked) {
       this._sharedService.loader('show');
       let path = 'user/add-favorite';
       this._sharedService.post({ drId: drId }, path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
+        if (res.statusCode === 200) {
           this._sharedService.loader('hide');
           this.toastr.success(res.message);
         } else {
@@ -431,7 +432,7 @@ export class ListingComponent implements OnInit {
     else {
       this._sharedService.loader('show');
       this._sharedService.removeFav(drId,).subscribe((res: any) => {
-        if (res.statusCode = 200) {
+        if (res.statusCode === 200) {
           this._sharedService.loader('hide');
           this.toastr.success(res.message);
         } else {

@@ -192,7 +192,8 @@ export class MyProfileComponent implements OnInit {
           for (let i = 0; i < results[0].address_components.length; i++) {
             for (let b = 0; b < results[0].address_components[i].types.length; b++) {
 
-              // there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+              // there are different types that might hold a city admin_area_lvl_1 usually does
+              // in come cases looking for sublocality type will be more appropriate
               if (results[0].address_components[i].types[b] === 'locality') {
                 // this is the object you are looking for
                 this.profile.city = results[0].address_components[i].long_name;
@@ -233,7 +234,7 @@ export class MyProfileComponent implements OnInit {
   getProfileQuestion() {
     const path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         res.data.forEach(element => {
           if (element.question_type === 'service' && element.slug === 'offer-your-services') {
             this.serviceQuestion = element;
@@ -258,7 +259,7 @@ export class MyProfileComponent implements OnInit {
   getProfileDetails() {
     const path = `user/get-profile/${this.userInfo._id}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
 
         this.profile = res.data[0];
 
@@ -273,6 +274,7 @@ export class MyProfileComponent implements OnInit {
           this.hoursSelected = this.profile.typical_hours;
           this.age_rangeSelected = this.profile.age_range;
         }
+        console.log(this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -294,7 +296,6 @@ export class MyProfileComponent implements OnInit {
       });
     }
     if (key === 'languages' && this.languageQuestion) {
-      console.log(this.languageQuestion);
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });

@@ -139,7 +139,7 @@
         <!-- <label class="col-md-3">Booking URL <span class="text-danger"  *ngIf="editFields">*</span></label> -->
         <div class="col-md-9">
           <input type="url" [disabled]="!editFields" autocomplete="off" id="bookingURL" name="bookingURL"
-            pattern="https://.*" #bookingURL="ngModel" placeholder="https://example.com"
+            pattern="https://.*" #bookingURL="ngModel" [placeholder]="editFields ? 'https://example.com' : ''"
             [(ngModel)]="profile.bookingURL" (onFocus)="profile.bookingURL = ''" class="form-control" />
           <div class="error-block" *ngIf="editFields">
             <small *ngIf="bookingURL.errors" class="text-danger">
@@ -187,7 +187,9 @@
                 <label for="{{item._id}}">
                   <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}"
                     (change)="checkBoxChanged($event, 'languageQuestion')" />
-                  <span class="">{{item.item_text}}</span>
+                  <span class="">
+                    {{item.item_text}}
+                  </span>
                 </label>
               </div>
             </div>
@@ -198,8 +200,10 @@
           <div class="col-md-9">
             <div class="form-control disable" *ngIf="!editFields">
               <span *ngFor="let item of serviceQuestion?.answers; let i = index">
-                <span *ngFor="let profileItem of profile?.serviceOfferIds; let i = index">
-                  <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
+                <span *ngFor="let profileItem of profile?.serviceOfferIds; let j = index">
+                  <span *ngIf="!editFields && item._id === profileItem">
+                    {{item.item_text}}
+                  </span>
                 </span>
               </span>
             </div>

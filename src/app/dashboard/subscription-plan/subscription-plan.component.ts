@@ -24,11 +24,11 @@ export class SubscriptionPlanComponent {
   card: StripeElement;
   subData: [];
   @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
-  @ViewChild('signin') signin:ElementRef;
+  @ViewChild('signin') signin: ElementRef;
 
   @ViewChild('closebutton') closebutton;
   centreYearly = false;
-  finalPrice ;
+  finalPrice;
   spYearly = false;
   stripe;
   loading = false;
@@ -40,10 +40,10 @@ export class SubscriptionPlanComponent {
   token: any;
   roles: string;
   isLoggedIn = false;
-  professionalOption =false;
+  professionalOption = false;
   stripeTest: FormGroup;
-  centreMonth=false;
-  spMonth=false;
+  centreMonth = false;
+  spMonth = false;
 
   public checkout = {
     email: "this.userEmail.email",
@@ -56,7 +56,7 @@ export class SubscriptionPlanComponent {
   elementsOptions: ElementsOptions = {
     locale: 'en'
   };
- 
+
   userEmail: any;
   cardNumber: [];
   selectedCard: any;
@@ -72,7 +72,7 @@ export class SubscriptionPlanComponent {
     private cd: ChangeDetectorRef,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    private stripeService: StripeService ) { }
+    private stripeService: StripeService) { }
 
   ngOnInit() {
     if (localStorage.getItem('token')) this.isLoggedIn = true;
@@ -111,8 +111,8 @@ export class SubscriptionPlanComponent {
 
     this.getSubscriptionPlan('user/get-plans');
     // this.getUserDetails();
-    if(this.isLoggedIn == true){
-    this.getProfileDetails();
+    if (this.isLoggedIn == true) {
+      this.getProfileDetails();
     }
   }
   getSubscriptionPlan(path) {
@@ -121,7 +121,7 @@ export class SubscriptionPlanComponent {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-        res.data.forEach(element => {         
+        res.data.forEach(element => {
           if (element.userType.length > 1 && element.name === 'Basic') {
             this.basicPlan = element;
           }
@@ -141,9 +141,9 @@ export class SubscriptionPlanComponent {
     });
   }
   getProfileDetails() {
-    let path = `user/get-profile/${this.userEmail._id }`;
+    let path = `user/get-profile/${this.userEmail._id}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.profile = res.data[0];
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -155,47 +155,47 @@ export class SubscriptionPlanComponent {
   }
   setSelectedPlan(plan) {
     this.selectedPlan = plan;
-    if(this.roles === 'SP') {
+    if (this.roles === 'SP') {
       this.selectedPlan.price = this.spYearly ? plan.yearlyPrice : plan.price;
-    } 
-    if(this.roles === 'C') {
+    }
+    if (this.roles === 'C') {
       this.selectedPlan.price = this.centreYearly ? plan.yearlyPrice : plan.price;
-    } 
-    if(this.profile.refererencePointEarned) {
-      const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned/100));
-      this.finalPrice = discountedPrice + (discountedPrice * (5/100)); 
+    }
+    if (this.profile.refererencePointEarned) {
+      const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned / 100));
+      this.finalPrice = discountedPrice + (discountedPrice * (5 / 100));
     } else {
-      const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50/100)); // Undo this after sep discount
+      const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50 / 100)); // Undo this after sep discount
 
-      this.finalPrice  = sepDiscount + (sepDiscount * (5/100));  // Undo this after sep discount
+      this.finalPrice = sepDiscount + (sepDiscount * (5 / 100));  // Undo this after sep discount
       // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
     }
     this.finalPrice = this.finalPrice.toFixed(2)
   }
   setSelectedFreePlan(plan) {
-if(this.roles =='U'){
-  this._router.navigate(['/']);
-}else{
-  const payload = {
-    _id: localStorage.getItem('loginID'),
-    plan
-  }
-
-    this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
-      if (res.statusCode === 200) {
-        this.toastr.success(res.message);
-
+    if (this.roles == 'U') {
       this._router.navigate(['/']);
-      } else {
-        this.toastr.error(res.message);
-
+    } else {
+      const payload = {
+        _id: localStorage.getItem('loginID'),
+        plan
       }
-    }, err => {
-      this.toastr.error('There are some errors, please try again after some time !', 'Error');
-    });
 
-}
-    
+      this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.toastr.success(res.message);
+
+          this._router.navigate(['/']);
+        } else {
+          this.toastr.error(res.message);
+
+        }
+      }, err => {
+        this.toastr.error('There are some errors, please try again after some time !', 'Error');
+      });
+
+    }
+
   }
   getUserDetails() {
     this._sharedService.loader('show');
@@ -221,9 +221,9 @@ if(this.roles =='U'){
     this._router.navigate(['/contact-us']);
   }
 
-  handleChange(url, type){
+  handleChange(url, type) {
     this._router.navigate([url, type]);
-    if(url === '/auth/login') {
+    if (url === '/auth/login') {
       this.signin.nativeElement.click();
     }
   }
@@ -240,21 +240,21 @@ if(this.roles =='U'){
       .createToken(this.card, { name })
       .subscribe(result => {
         if (result.token) {
-        const payload = {
-          userId: localStorage.getItem('loginID'),
-          userType: localStorage.getItem('roles'),
-          email: JSON.parse(localStorage.getItem("user")).email,
-          plan: this.selectedPlan,
-          cardId: result.token.card.id,
-          token: result.token.id,
-          amount: this.finalPrice,
-          discount: this.profile.refererencePointEarned,
-        }
+          const payload = {
+            userId: localStorage.getItem('loginID'),
+            userType: localStorage.getItem('roles'),
+            email: JSON.parse(localStorage.getItem("user")).email,
+            plan: this.selectedPlan,
+            cardId: result.token.card.id,
+            token: result.token.id,
+            amount: this.finalPrice,
+            discount: this.profile.refererencePointEarned,
+          }
 
-        this._sharedService.loader('show');
-        const path = `user/buyPlan`;
+          this._sharedService.loader('show');
+          const path = `user/buyPlan`;
 
-        this._sharedService.post(payload, path).subscribe((res: any) => {
+          this._sharedService.post(payload, path).subscribe((res: any) => {
             if (res.statusCode === 200) {
               this.toastr.success(res.message);
               this.closebutton.nativeElement.click();
@@ -275,7 +275,7 @@ if(this.roles =='U'){
       });
   }
 
-  
+
 }
 // end section
 

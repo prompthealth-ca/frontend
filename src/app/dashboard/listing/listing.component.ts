@@ -1,13 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 @Component({
-  selector: "app-listing",
-  templateUrl: "./listing.html",
-  styleUrls: ["./listing.scss"]
+  selector: 'app-listing',
+  templateUrl: './listing.html',
+  styleUrls: ['./listing.scss']
 
 })
 export class ListingComponent implements OnInit {
@@ -19,7 +19,7 @@ export class ListingComponent implements OnInit {
   serviceQuestion;
   languageQuestion;
   avalibilityQuestion;
-  currentAddress = "";
+  currentAddress = '';
   loggedInUser;
   loggedInRole;
   id;
@@ -80,8 +80,8 @@ export class ListingComponent implements OnInit {
     price_per_hours: '',
     gender: '',
     typical_hours: [],
-  }
-  queryLatLong
+  };
+  queryLatLong;
   serviceData;
   treatmentModalities;
   serviceType;
@@ -90,7 +90,7 @@ export class ListingComponent implements OnInit {
 
   currentPage;
   totalItems;
-  itemsPerPage = 10
+  itemsPerPage = 10;
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
@@ -125,10 +125,9 @@ export class ListingComponent implements OnInit {
           type: this.type,
           latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           miles: this.listingPayload.miles,
-          //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+          // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
         });
-      }
-      else {
+      } else {
         this.loggedInUser = localStorage.getItem('loginID');
         if (personalMatch) {
           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
@@ -141,14 +140,13 @@ export class ListingComponent implements OnInit {
           this.listingPayload.latLong = personalMatch.latLong;
 
           this.listing(this.listingPayload);
-        }
-        else {
+        } else {
           this.listing({
             ids: this.id ? [this.id] : [],
             type: this.listingPayload.type,
             latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
             miles: this.listingPayload.miles,
-            //latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`, 
+            // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           });
         }
       }
@@ -158,14 +156,14 @@ export class ListingComponent implements OnInit {
       this.geoCoder = new google.maps.Geocoder;
       this.mapsAPILoader.load().then(() => {
         this.geoCoder = new google.maps.Geocoder;
-        let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-        autocomplete.addListener("place_changed", () => {
+        const autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+        autocomplete.addListener('place_changed', () => {
           this.ngZone.run(() => {
-            //get the place result
+            // get the place result
 
-            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-            //verify result
+            // verify result
             if (place.geometry === undefined || place.geometry === null) {
               return;
             }
@@ -182,8 +180,7 @@ export class ListingComponent implements OnInit {
               this.listingPayload.latLong = `${this.long}, ${this.lat}`;
 
               this.listing(this.listingPayload);
-            }
-            else {
+            } else {
               this.listing(
                 {
                   ids: this.id ? [this.id] : [],
@@ -201,18 +198,18 @@ export class ListingComponent implements OnInit {
     });
   }
   getProfileQuestion() {
-    let path = `questionare/get-profile-questions`;
+    const path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         res.data.forEach(element => {
-          if (element.question_type === 'service' && element.slug === "offer-your-services") {
-            this.serviceQuestion = element
+          if (element.question_type === 'service' && element.slug === 'offer-your-services') {
+            this.serviceQuestion = element;
           }
-          if (element.question_type === 'service' && element.slug === "languages-you-offer") {
-            this.languageQuestion = element
+          if (element.question_type === 'service' && element.slug === 'languages-you-offer') {
+            this.languageQuestion = element;
           }
           if (element.question_type === 'availability') {
-            this.avalibilityQuestion = element
+            this.avalibilityQuestion = element;
           }
         });
       } else {
@@ -225,11 +222,11 @@ export class ListingComponent implements OnInit {
   listing(filter) {
     console.log(filter);
 
-    if (filter.latLong == "null, null") {
-      filter.latLong = "";
+    if (filter.latLong == 'null, null') {
+      filter.latLong = '';
     }
     this._sharedService.loader('show');
-    let path = 'user/filter';
+    const path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.doctorsListing = res.data;
@@ -237,7 +234,7 @@ export class ListingComponent implements OnInit {
         this.totalItems = this.doctorsListing.length;
         for (let i = 0; i < this.doctorsListing.length; i++) {
           if (this.doctorsListing[i].userData.ratingAvg) {
-            this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg)
+            this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg);
           }
         }
 
@@ -252,9 +249,9 @@ export class ListingComponent implements OnInit {
   }
   removeFilter() {
     this._sharedService.loader('show');
-    this.lat = "";
-    this.long = "";
-    this.currentAddress = "";
+    this.lat = '';
+    this.long = '';
+    this.currentAddress = '';
     this.listingPayload = {
       ids: [],
       zipcode: '',
@@ -267,10 +264,10 @@ export class ListingComponent implements OnInit {
       name: '',
       type: this.type,
       serviceOfferId: '',
-      gender: "",
+      gender: '',
       price_per_hours: '',
       typical_hours: [],
-    }
+    };
     this.listing({
       ids: this.id ? [this.id] : [],
       miles: this.listingPayload.miles,
@@ -289,25 +286,25 @@ export class ListingComponent implements OnInit {
     if (type === 'rating') {
       this.listingPayload.rating = value ? parseInt(value) : 0;
     }
-    if (type === "serviceType") {
+    if (type === 'serviceType') {
       this.listingPayload.serviceOfferId = value;
     }
-    if (type === "gender") {
+    if (type === 'gender') {
       this.listingPayload.gender = value;
     }
-    if (type === "price") {
+    if (type === 'price') {
       this.listingPayload.price_per_hours = value;
     }
     this.listing(this.listingPayload);
   }
   createNameList(data) {
-    this.allDoctorList = []
-    for (let element of data) {
+    this.allDoctorList = [];
+    for (const element of data) {
       if (element.userData.firstName) {
         this.allDoctorList.push({
           id: element.userId,
           name: element.userData.firstName,
-        })
+        });
       }
     }
   }
@@ -315,8 +312,7 @@ export class ListingComponent implements OnInit {
     this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
     if (this.long && this.lat) {
       this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-    }
-    else {
+    } else {
       this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
     }
     this.listing(this.listingPayload);
@@ -352,13 +348,12 @@ export class ListingComponent implements OnInit {
         if (index === -1) {
           this.compareList.push(doc);
         }
-      }, 1000)
+      }, 1000);
 
       console.log('compareList ----', this.compareList);
-      this.behaviorService
-    }
-    else {
-      this.removefromCopare(doc.userId)
+      this.behaviorService;
+    } else {
+      this.removefromCopare(doc.userId);
     }
   }
 
@@ -368,7 +363,7 @@ export class ListingComponent implements OnInit {
     this.treatmentModalities = [];
     this.serviceType = [];
     this.serviceOffering = [];
-    let path = `user/getService/${userId}`;
+    const path = `user/getService/${userId}`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
@@ -376,7 +371,7 @@ export class ListingComponent implements OnInit {
         this.categoryList.forEach(element => {
           if (element.slug === 'providers-are-you') {
             if (this.serviceData.indexOf(element.item_text) === -1) {
-              this.serviceData.push(element)
+              this.serviceData.push(element);
             }
           }
           if (element.slug === 'treatment-modalities') {
@@ -384,12 +379,12 @@ export class ListingComponent implements OnInit {
               this.treatmentModalities.push(element);
             }
           }
-          if (element.slug === "your-goal-specialties") {
+          if (element.slug === 'your-goal-specialties') {
             if (this.serviceType.indexOf(element) === -1) {
               this.serviceType.push(element.item_text);
             }
           }
-          if (element.slug === "your-offerings") {
+          if (element.slug === 'your-offerings') {
             if (this.serviceOffering.indexOf(element) === -1) {
               this.serviceOffering.push(element.item_text);
             }
@@ -406,7 +401,7 @@ export class ListingComponent implements OnInit {
   }
   removefromCopare(userId) {
     this.compareList.forEach((ele, index) => {
-      if (ele.userId === userId) this.compareList.splice(index, 1);
+      if (ele.userId === userId) { this.compareList.splice(index, 1); }
     });
   }
   compareDoc() {
@@ -416,8 +411,8 @@ export class ListingComponent implements OnInit {
   likeProfile(evt, drId) {
     if (evt.target.checked) {
       this._sharedService.loader('show');
-      let path = 'user/add-favorite';
-      this._sharedService.post({ drId: drId }, path).subscribe((res: any) => {
+      const path = 'user/add-favorite';
+      this._sharedService.post({ drId }, path).subscribe((res: any) => {
         if (res.statusCode === 200) {
           this._sharedService.loader('hide');
           this.toastr.success(res.message);
@@ -428,8 +423,7 @@ export class ListingComponent implements OnInit {
       }, err => {
         this._sharedService.loader('hide');
       });
-    }
-    else {
+    } else {
       this._sharedService.loader('show');
       this._sharedService.removeFav(drId,).subscribe((res: any) => {
         if (res.statusCode === 200) {

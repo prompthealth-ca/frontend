@@ -5,11 +5,11 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { StripeService, Elements, Element as StripeElement, ElementsOptions } from "ngx-stripe";
+import { StripeService, Elements, Element as StripeElement, ElementsOptions } from 'ngx-stripe';
 import { SharedService } from '../../shared/services/shared.service';
 
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
-import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 
@@ -44,11 +44,12 @@ export class SubscriptionPlanComponent {
   stripeTest: FormGroup;
   centreMonth = false;
   spMonth = false;
+  discounttype: any;
 
   public checkout = {
-    email: "this.userEmail.email",
-    token: "this.token"
-  }
+    email: 'this.userEmail.email',
+    token: 'this.token'
+  };
 
   user = {
     paymentMethod: []
@@ -62,7 +63,7 @@ export class SubscriptionPlanComponent {
   selectedCard: any;
   errMessage: any;
   selectedPlan: any;
-  profile
+  profile;
 
   constructor(
     private previousRouteService: PreviousRouteService,
@@ -75,10 +76,10 @@ export class SubscriptionPlanComponent {
     private stripeService: StripeService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) this.isLoggedIn = true;
-    this.userEmail = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user"))
+    if (localStorage.getItem('token')) { this.isLoggedIn = true; }
+    this.userEmail = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))
       : {};
-    this.roles = localStorage.getItem("roles");
+    this.roles = localStorage.getItem('roles');
     this.checkout.email = this.userEmail.email;
 
     this.stripeTest = this.fb.group({
@@ -141,7 +142,7 @@ export class SubscriptionPlanComponent {
     });
   }
   getProfileDetails() {
-    let path = `user/get-profile/${this.userEmail._id}`;
+    const path = `user/get-profile/${this.userEmail._id}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.profile = res.data[0];
@@ -157,20 +158,23 @@ export class SubscriptionPlanComponent {
     this.selectedPlan = plan;
     if (this.roles === 'SP') {
       this.selectedPlan.price = this.spYearly ? plan.yearlyPrice : plan.price;
+      this.selectedPlan.monthly = this.spYearly ? false : true;
     }
     if (this.roles === 'C') {
       this.selectedPlan.price = this.centreYearly ? plan.yearlyPrice : plan.price;
+      this.selectedPlan.monthly = this.centreYearly ? false : true;
     }
     if (this.profile.refererencePointEarned) {
       const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned / 100));
+      this.discounttype = 'reference';
       this.finalPrice = discountedPrice + (discountedPrice * (5 / 100));
     } else {
       const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50 / 100)); // Undo this after sep discount
-
+      this.discounttype = 'sepdiscount';
       this.finalPrice = sepDiscount + (sepDiscount * (5 / 100));  // Undo this after sep discount
-      // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100)); 
+      // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100));
     }
-    this.finalPrice = this.finalPrice.toFixed(2)
+    this.finalPrice = this.finalPrice.toFixed(2);
   }
   setSelectedFreePlan(plan) {
     if (this.roles == 'U') {
@@ -179,7 +183,7 @@ export class SubscriptionPlanComponent {
       const payload = {
         _id: localStorage.getItem('loginID'),
         plan
-      }
+      };
 
       this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
         if (res.statusCode === 200) {
@@ -234,7 +238,6 @@ export class SubscriptionPlanComponent {
   }
   buy() {
     const name = this.stripeTest.get('name').value;
-
     // const price = this.selectedPlan.price * (5/100) // Tax added
     this.stripeService
       .createToken(this.card, { name })
@@ -243,13 +246,14 @@ export class SubscriptionPlanComponent {
           const payload = {
             userId: localStorage.getItem('loginID'),
             userType: localStorage.getItem('roles'),
-            email: JSON.parse(localStorage.getItem("user")).email,
+            email: JSON.parse(localStorage.getItem('user')).email,
             plan: this.selectedPlan,
             cardId: result.token.card.id,
             token: result.token.id,
             amount: this.finalPrice,
             discount: this.profile.refererencePointEarned,
-          }
+            discountType: this.discounttype
+          };
 
           this._sharedService.loader('show');
           const path = `user/buyPlan`;

@@ -1,381 +1,335 @@
 <ngx-spinner bdColor="#fff" size="medium" color="#fff">
-    <p style="font-size: 20px; color: white" class="loaderbg">
-        <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
-    </p>
+  <p style="font-size: 20px; color: white" class="loaderbg">
+    <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+  </p>
 </ngx-spinner>
-<h4 *ngIf="profile?.isPlanExpired"><p>Renew Plan to be listed in user search  <span class="pull-right"><a class="btn btn-primary pull-right"  [routerLink]="['/dashboard/subscriptionplan']">Renew Plan</a></span> </p></h4>
+<h4 *ngIf="profile?.isPlanExpired">
+  <p>Renew Plan to be listed in user search <span class="pull-right"><a class="btn btn-primary pull-right"
+        [routerLink]="['/dashboard/subscriptionplan']">Renew Plan</a></span> </p>
+</h4>
 <hr *ngIf="profile?.isPlanExpired">
 <h4 class="mb-3">Personal Information
-    <button class="btn btn-primary pull-right" (click) = "updateFields()">Edit Profile</button>
-    <button class="btn btn-primary pull-right mr-2" (click) = "deleteProfile(content)">Delete Profile</button>
+  <button class="btn btn-primary pull-right" (click)="updateFields()">Edit Profile</button>
+  <button class="btn btn-primary pull-right mr-2" (click)="deleteProfile(content)">Delete Profile</button>
 </h4>
 <div class="form-container">
-    <form role="form" class="form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
-        <div class="col-md-12 text-center">
-            <div class="d-inline-block profileeditbox">
-                <img [src]="profile?.profileImage ? 'https://prompthealth.ca:3000/users/'+profile?.profileImage : defaultImage" />
-                <!-- <img [src]="defaultImage" /> -->
-                <!-- <input type="file" *ngIf="editFields"/> -->
-                <input type="file" name="profile"  (change)="onFileSelect($event)" *ngIf="editFields"/>
-            </div>
+  <form role="form" class=" form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
+    <div class="col-md-12 text-center my-3">
+      <div class="d-inline-block profileeditbox">
+        <img
+          [src]="profile?.profileImage ? 'https://prompthealth.ca:3000/users/'+profile?.profileImage : defaultImage" />
+        <!-- <img [src]="defaultImage" /> -->
+        <!-- <input type="file" *ngIf="editFields"/> -->
+        <input class="d-block " type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"
+          accept="image/x-png,image/gif,image/jpeg,image/jpg" />
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-row mb-3">
+        <label class="col-md-3" *ngIf="roles === 'C'; else firstNameLabel">Name</label>
+        <ng-template #firstNameLabel>
+          <label class="col-md-3">First Name <span class="text-danger" *ngIf="editFields">*</span></label>
+        </ng-template>
+        <!-- <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label> -->
+        <div class="col-md-9">
+          <input [disabled]="!editFields" type="text" autocomplete="off" id="firstName" name="firstName"
+            #firstName="ngModel" [(ngModel)]="profile.firstName" class="form-control" minlength="1" maxlength="50"
+            (ngModelChange)="profile.firstName = $event" required />
+          <div class="error-block" *ngIf="editFields">
+            <small *ngIf="firstName.errors?.required && firstName.touched" class="text-danger">
+              First name is required.
+            </small>
+            <small *ngIf="firstName.errors?.minlength && firstName.touched" class="text-danger">
+              First name must be longer than one letter
+            </small>
+          </div>
         </div>
-        <div class="col-md-12">
-            <div class="form-row mb-3">
-                <label  class="col-md-3" *ngIf="roles === 'C'; else firstNameLabel">Name</label>
-                <ng-template #firstNameLabel>
-                    <label  class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label>
-                </ng-template>
-                <!-- <label class="col-md-3">First Name <span class="text-danger"  *ngIf="editFields">*</span></label> -->
-                <div class="col-md-9">
-                    <input
-                    [disabled] = "!editFields"
-                    type="text"
-                    autocomplete="off"
-                    id="firstName"
-                    name="firstName"
-                    #firstName="ngModel" 
-                    [(ngModel)]="profile.firstName"
-                    class="form-control"
-                    minlength="3"
-                    maxlength="50"
-                    (ngModelChange)="profile.firstName = $event"
-                    required
-                    />
-                    <div class="error-block" *ngIf="editFields">
-                        <small *ngIf="firstName.errors?.required && firstName.touched" class="text-danger">
-                        First name is required.
-                        </small>
-                        <small *ngIf="firstName.errors?.minlength && firstName.touched" class="text-danger">
-                        Minumum length should be 3.
-                        </small>
-                    </div>
-                </div>
+      </div>
+
+      <div class="form-row mb-3" *ngIf="roles !== 'C'">
+        <label class="col-md-3">Last Name <span class="text-danger" *ngIf="editFields">*</span></label>
+        <div class="col-md-9">
+          <input [disabled]="!editFields" type="text" autocomplete="off" id="lastName" name="lastName"
+            #lastName="ngModel" [(ngModel)]="profile.lastName" class="form-control" minlength="1" required
+            (ngModelChange)="profile.lastName = $event" />
+
+          <div class="error-block" *ngIf="editFields">
+            <small *ngIf="lastName.errors?.required && lastName.touched" class="text-danger">
+              Last name is required.
+            </small>
+            <small *ngIf="lastName.errors?.minlength && lastName.touched" class="text-danger">
+              Last name must be longer than one letter
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">Membership Type <span class="text-danger" *ngIf="editFields">*</span></label>
+        <input *ngIf="roles === 'C'" type="text" [disabled]="true" autocomplete="off" id="email" name="email"
+          value="Center" class="form-control col-md-9" />
+        <input *ngIf="roles === 'SP'" type="text" [disabled]="true" autocomplete="off" id="email" name="email"
+          value="Provider" class="form-control col-md-9" />
+      </div>
+
+      <div class="form-row mb-3">
+        <label class="col-md-3">Email Address</label>
+        <input type="email" [disabled]="true" autocomplete="off" id="email" name="email" [(ngModel)]="profile.email"
+          class="form-control col-md-8" />
+      </div>
+
+      <div class="form-row mb-3">
+        <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
+        <div class="col-md-9">
+          <input [disabled]="!editFields" type="text" autocomplete="off" id="phone" name="phone" #phone="ngModel"
+            [(ngModel)]="profile.phone" class="form-control" maxlength="12" minlength="10"
+            (ngModelChange)="profile.phone = $event" required pattern="^[0-9]*$" />
+          <div class="error-block" *ngIf="editFields">
+            <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
+              Phone Number is required.
+            </small>
+            <small *ngIf="phone.errors && submitted" class="text-danger">
+              Enter valid Phone number
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row mb-3">
+        <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
+        <div class="col-md-9">
+          <div class="form-control disable" *ngIf="!editFields">
+            {{profile.address}}
+          </div>
+
+          <div *ngIf="editFields">
+            <input type="text" class="form-control" [disabled]="!editFields" (keydown.enter)="$event.preventDefault()"
+              (ngModelChange)="profile.address = $event.toLowerCase()" [ngModel]="profile.address" id="address"
+              name="address" (onFocus)="profile.address = ''" autocomplete="off" autocorrect="off" autocapitalize="off"
+              spellcheck="off" type="text" #search2 #address="ngModel" required>
+            <div class="error-block">
+              <small *ngIf="address.errors && address.touched" class="text-danger">
+                Address is required.
+              </small>
             </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="roles === 'SP'" class=" form-row mb-3">
+        <label class="col-md-3">Professional Association <span class="text-danger" *ngIf="editFields">*</span></label>
+        <div class="col-md-9">
 
-            <div class="form-row mb-3" *ngIf="roles !== 'C'">
-                <label class="col-md-3">Last Name <span class="text-danger"  *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
-                    <input
-                    [disabled] = "!editFields"
-                    type="text"
-                    autocomplete="off"
-                    id="lastName"
-                    name="lastName"
-                    #lastName="ngModel" 
-                    [(ngModel)]="profile.lastName"
-                    class="form-control"
-                    (ngModelChange)="profile.lastName = $event"
-                    />
+          <input type="text" [disabled]="!editFields" autocomplete="off" id="association" name="association"
+            #association="ngModel" [ngModel]="profile.professional_organization"
+            (onFocus)="profile.professional_organization = ''" class="form-control" />
+        </div>
+      </div>
+      <div *ngIf="roles === 'SP'" class="form-row mb-3">
+        <label class="col-md-3">Certification <span class="text-danger" *ngIf="editFields">*</span></label>
+        <div class="col-md-9">
 
-                    <div class="error-block" *ngIf="editFields">
-                        <small *ngIf="lastName.errors?.required && lastName.touched" class="text-danger">
-                        Last name is required.
-                        </small>
-                        <small *ngIf="lastName.errors?.minlength && lastName.touched" class="text-danger">
-                        Minumum length should be 3.
-                        </small>
-                    </div>
-                </div>
+          <input type="text" [disabled]="!editFields" autocomplete="off" id="certification" name="certification"
+            #certification="ngModel" [(ngModel)]="profile.certification" (onFocus)="profile.certification = ''"
+            class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-row mb-3">
+        <label class="col-md-3">Booking URL</label>
+        <!-- <label class="col-md-3">Booking URL <span class="text-danger"  *ngIf="editFields">*</span></label> -->
+        <div class="col-md-9">
+          <input type="url" [disabled]="!editFields" autocomplete="off" id="bookingURL" name="bookingURL"
+            pattern="https://.*" #bookingURL="ngModel" [placeholder]="editFields ? 'https://example.com' : ''"
+            [(ngModel)]="profile.bookingURL" (onFocus)="profile.bookingURL = ''" class="form-control" />
+          <div class="error-block" *ngIf="editFields">
+            <small *ngIf="bookingURL.errors" class="text-danger">
+              Booking URL must be a valid URL
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="roles === 'C' || roles === 'SP'">
+        <div class="radio form-row mb-3">
+          <label class="col-md-3">Available Time</label>
+          <div class="col-md-9">
+            <div class="form-control disable" *ngIf="!editFields">
+              <span *ngFor="let profileItem of profile?.typical_hours; let i = index">
+                <span *ngFor="let item of avalibilityQuestion?.answers; let i = index">
+                  <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
+                </span>
+              </span>
             </div>
-
-            <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Membership Type <span class="text-danger" *ngIf="editFields">*</span></label>
-                <input
-                *ngIf="roles === 'C'"
-                type="text"
-                [disabled] = "true"
-                autocomplete="off"
-                id="email"
-                name="email"
-                value="Center"
-                class="form-control col-md-9"
-                />
-                <input
-                *ngIf="roles === 'SP'"
-                type="text"
-                [disabled] = "true"
-                autocomplete="off"
-                id="email"
-                name="email"
-                value="Provider"
-                class="form-control col-md-9"
-                />
+            <div *ngIf="editFields" class="row mrt">
+              <div class="col-md-3" *ngFor="let item of avalibilityQuestion?.answers; let i = index">
+                <label for="{{item._id}}">
+                  <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}"
+                    (change)="checkBoxChanged($event, 'avalibilityQuestion')" />
+                  <span class="">{{item.item_text}}</span>
+                </label>
+              </div>
             </div>
-
-            <div class="form-row mb-3">
-                <label class="col-md-3"
-                >Email Address</label
-                >
-                <input
-                type="email"
-                [disabled] = "true"
-                autocomplete="off"
-                id="email"
-                name="email"
-                [(ngModel)]="profile.email"
-                class="form-control col-md-8"
-                />
+          </div>
+        </div>
+        <div class="radio form-row mb-3">
+          <label class="col-md-3">Languages</label>
+          <div class="col-md-9">
+            <div class="form-control disable" *ngIf="!editFields">
+              <span *ngFor="let item of languageQuestion?.answers; let i = index">
+                <span *ngFor="let profileItem of profile?.languages; let i = index">
+                  <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
+                </span>
+              </span>
             </div>
+            <div *ngIf="editFields" class="row mrt">
+              <div class="col-md-9" *ngFor="let item of languageQuestion?.answers; let i = index">
 
-            <div class="form-row mb-3">
-                <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
-                    <input
-                    [disabled] = "!editFields"
-                    type="text"
-                    autocomplete="off"
-                    id="phone"
-                    name="phone"
-                    #phone="ngModel"
-                    [(ngModel)]="profile.phone"
-                    class="form-control"
-                    maxlength="12"
-                    minlength="10"
-                    (ngModelChange)="profile.phone = $event"
-                    required
-                    pattern="^[0-9]*$"
-                    />
-                    <div class="error-block" *ngIf="editFields">
-                        <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
-                        Phone Number is required.
-                        </small>
-                        <small *ngIf="phone.errors && submitted" class="text-danger">
-                        Enter valid Phone number
-                        </small>
-                    </div>
-                </div>
+                <label for="{{item._id}}">
+                  <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}"
+                    (change)="checkBoxChanged($event, 'languageQuestion')" />
+                  <span class="">
+                    {{item.item_text}}
+                  </span>
+                </label>
+              </div>
             </div>
-
-            <div class="form-row mb-3">
-                <label class="col-md-3">Address <span class="text-danger" *ngIf="editFields">*</span></label>
-                <div class="col-md-9">
-                    <div class="form-control disable" *ngIf="!editFields">
-                            {{profile.address}}
-                    </div>
-
-                    <div *ngIf="editFields">
-                    <input type="text" class="form-control" [disabled] = "!editFields"
-                    (keydown.enter)="$event.preventDefault()"
-                    (ngModelChange)="profile.address = $event.toLowerCase()"
-                    [ngModel]="profile.address" id="address" name="address" (onFocus)="profile.address = ''"
-                    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off"
-                    type="text" #search2 #address="ngModel" required>
-                    <div class="error-block">
-                    <small *ngIf="address.errors && address.touched" class="text-danger">
-                        Address is required.
-                    </small>
-                    </div>
-                </div>
-                </div>
+          </div>
+        </div>
+        <div class="radio form-row mb-3">
+          <label class="col-md-3">Service Type</label>
+          <div class="col-md-9">
+            <div class="form-control disable" *ngIf="!editFields">
+              <span *ngFor="let item of serviceQuestion?.answers; let i = index">
+                <span *ngFor="let profileItem of profile?.serviceOfferIds; let j = index">
+                  <span *ngIf="!editFields && item._id === profileItem">
+                    {{item.item_text}}
+                  </span>
+                </span>
+              </span>
             </div>
-            <div *ngIf="roles === 'SP'">
-                <div class="radio form-row mb-3">
-                    <label class="col-md-3">Professional Association <span class="text-danger" *ngIf="editFields">*</span></label>
-                    <input
-                    type="text"
-                    [disabled] = "!editFields"
-                    autocomplete="off"
-                    id="association"
-                    name="association"
-                    #association="ngModel"
-                    [ngModel]="profile.professional_organization"
-                    (onFocus)="profile.professional_organization = ''"
-                    class="form-control col-md-9"
-                    />
-                </div>
-            </div>
-            <div *ngIf="roles === 'SP'">
-                <div class="radio form-row mb-3">
-                    <label class="col-md-3">Certification <span class="text-danger" *ngIf="editFields">*</span></label>
-                    <input
-                    type="text"
-                    [disabled] = "!editFields"
-                    autocomplete="off"
-                    id="certification"
-                    name="certification"
-                    [(ngModel)]="profile.certification"
-                    (onFocus)="profile.certification = ''"
-                    class="form-control col-md-9"
-                    />
-                </div>
-            </div>
-            <div  *ngIf="roles === 'C' || roles === 'SP'">
-                <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Available Time</label>
-                    <div  class="col-md-9">
-                        <div class="form-control disable" *ngIf="!editFields">
-                            <span *ngFor="let profileItem of profile?.typical_hours; let i = index"> 
-                                <span *ngFor="let item of avalibilityQuestion?.answers; let i = index">
-                                    <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
-                                </span>
-                            </span>
-                        </div>
-                        <div *ngIf="editFields" class="row mrt">
-                            <div class="col-md-3" *ngFor="let item of avalibilityQuestion?.answers; let i = index"> 
-                                <label for="{{item._id}}">
-                                    <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, 'avalibilityQuestion')"/>
-                                    <span class="">{{item.item_text}}</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Languages</label>
-                    <div  class="col-md-9">
-                        <div class="form-control disable" *ngIf="!editFields">
-                            <span *ngFor="let item of languageQuestion?.answers; let i = index">
-                                <span *ngFor="let profileItem of profile?.languages; let i = index"> 
-                                    <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
-                                </span>
-                            </span>
-                        </div>
-                        <div *ngIf="editFields" class="row mrt">
-                            <div  class="col-md-9" *ngFor="let item of languageQuestion?.answers; let i = index">
+            <div *ngIf="editFields" class="row mrt">
+              <div class="col-md-3" *ngFor="let item of serviceQuestion?.answers; let i = index">
 
-                                <label for="{{item._id}}">
-                                    <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, 'languageQuestion')"/>
-                                    <span class="">{{item.item_text}}</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="radio form-row mb-3">
-                    <label  class="col-md-3">Service Type</label>
-                    <div  class="col-md-9">
-                        <div class="form-control disable" *ngIf="!editFields">
-                            <span *ngFor="let item of serviceQuestion?.answers; let i = index">
-                                <span *ngFor="let profileItem of profile?.serviceOfferIds; let i = index"> 
-                                    <span *ngIf="!editFields && item._id === profileItem">{{item.item_text}} </span>
-                                </span>
-                            </span>
-                        </div>
-                        <div *ngIf="editFields" class="row mrt">
-                            <div  class="col-md-3" *ngFor="let item of serviceQuestion?.answers; let i = index">
-                            
-                                <label for="{{item._id}}">
+                <label for="{{item._id}}">
 
-                                    <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}" (change)="checkBoxChanged($event, 'serviceType')"/>
-                                    <span class="">{{item.item_text}}</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  <input class="radio" type="checkbox" [checked]="item.checked" required id="{{item._id}}"
+                    (change)="checkBoxChanged($event, 'serviceType')" />
+                  <span class="">{{item.item_text}}</span>
+                </label>
+              </div>
             </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Age range of your clients</label>
-                <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
-                <div class="col-sm-9">
-                    <div class="form-control disable" *ngIf="!editFields">
-                        <span *ngIf="profile?.age_range.length === 5">
-                            <span *ngIf="(ageRangeList[0].id == profile?.age_range[0])">{{ageRangeList[0].name}} </span>
-                        </span>
-                        <span *ngIf="profile?.age_range.length !== 5">
-                            <span *ngFor="let item of ageRangeList; let i = index">
-                                <span *ngFor="let profileItem of profile?.age_range; let i = index"> 
-                                    <span *ngIf="!editFields && item.id === profileItem">{{item.name}} </span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="mrt" *ngIf="editFields">
-                        <div class="form-row">
-                            <span *ngIf="profile?.age_range.length === 5" class="row">
-                                <div  class="col-md-3" *ngFor="let item of ageRangeList; let i = index"> 
-                                    <label for="{{item.id}}">
-                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" [disabled]="item.disabled" required id="{{item.id}}" (change)="checkBoxChanged($event, 'ageRange')"/>
-                                        <span class="">{{item.name}}</span>
-                                    </label>
-                                </div>
-                            </span>
-
-                            <span *ngIf="profile?.age_range.length !== 5" class="row">
-                                <div  class="col-md-3" *ngFor="let item of ageRangeList; let i = index"> 
-                                    <label for="{{item.id}}">
-                                        <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required id="{{item.id}}" [disabled]="item.disabled" (change)="checkBoxChanged($event, 'ageRange')"/>
-                                        <span class="">{{item.name}}</span>
-                                    </label>
-                                </div>
-                            </span>
-
-                        </div>
-                    </div>
+          </div>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">Age range of your clients</label>
+        <!-- <p class="col-md-9" *ngIf="!editFields">{{profile.age_range}}</p> -->
+        <div class="col-sm-9">
+          <div class="form-control disable" *ngIf="!editFields">
+            <span *ngIf="profile?.age_range.length === 5">
+              <span *ngIf="(ageRangeList[0].id == profile?.age_range[0])">{{ageRangeList[0].name}} </span>
+            </span>
+            <span *ngIf="profile?.age_range.length !== 5">
+              <span *ngFor="let item of ageRangeList; let i = index">
+                <span *ngFor="let profileItem of profile?.age_range; let i = index">
+                  <span *ngIf="!editFields && item.id === profileItem">{{item.name}} </span>
+                </span>
+              </span>
+            </span>
+          </div>
+          <div class="mrt" *ngIf="editFields">
+            <div class="form-row">
+              <span *ngIf="profile?.age_range.length === 5" class="row">
+                <div class="col-md-3" *ngFor="let item of ageRangeList; let i = index">
+                  <label for="{{item.id}}">
+                    <input class="radio" type="checkbox" name="age_range" [checked]="item.checked"
+                      [disabled]="item.disabled" required id="{{item.id}}"
+                      (change)="checkBoxChanged($event, 'ageRange')" />
+                    <span class="">{{item.name}}</span>
+                  </label>
                 </div>
+              </span>
+
+              <span *ngIf="profile?.age_range.length !== 5" class="row">
+                <div class="col-md-3" *ngFor="let item of ageRangeList; let i = index">
+                  <label for="{{item.id}}">
+                    <input class="radio" type="checkbox" name="age_range" [checked]="item.checked" required
+                      id="{{item.id}}" [disabled]="item.disabled" (change)="checkBoxChanged($event, 'ageRange')" />
+                    <span class="">{{item.name}}</span>
+                  </label>
+                </div>
+              </span>
+
             </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Total years of experience</label>
-                <div class="form-control disable col-md-9" *ngIf="!editFields">{{profile.years_of_experience}}</div>
-                <div *ngIf="editFields" class="col-sm-8">
-                    <div class="form-row mrt">
-                        <div  class="col-md-3" *ngFor="let item of experienceList; let i = index"> 
-                            <label for="{{item.id}}">
-                                <!-- -- {{ profile.years_of_experience }}
+          </div>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">Total years of experience</label>
+        <div class="form-control disable col-md-9" *ngIf="!editFields">{{profile.years_of_experience}}</div>
+        <div *ngIf="editFields" class="col-sm-8">
+          <div class="form-row mrt">
+            <div class="col-md-3" *ngFor="let item of experienceList; let i = index">
+              <label for="{{item.id}}">
+                <!-- -- {{ profile.years_of_experience }}
                                 >> {{ item.name }} -->
-                                <input class="radio" type="radio" name="years_of_experience" [(ngModel)] = "profile.years_of_experience" value="{{item.value}}" required id="{{item.id}}"/>
-                                <span class="">{{item.label}}</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                <input class="radio" type="radio" name="years_of_experience" [(ngModel)]="profile.years_of_experience"
+                  value="{{item.value}}" required id="{{item.id}}" />
+                <span class="">{{item.label}}</span>
+              </label>
             </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Price range per hour</label>
-                <div class="form-control disable col-md-9" *ngIf="!editFields && profile.price_per_hours">{{profile.price_per_hours}}</div>
-                <div class="form-control disable col-md-9" *ngIf="!editFields && !profile.price_per_hours">Not Critical</div>
-                <div *ngIf="editFields" class="col-sm-8">
-                    <div class="form-row mrt">
-                        <div  class="col-md-3" *ngFor="let item of priceList; let i = index"> 
-                            <label for="{{item.id}}">
-                                <input
-                                    class="radio"
-                                    type="radio"
-                                    name="price_per_hours"
-                                    [(ngModel)] = "profile.price_per_hours"
-                                    value="{{item.value}}"
-                                    required
-                                    id="{{item.id}}"/>
-                                <span class="">{{item.label}}</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">Price range per hour</label>
+        <div class="form-control disable col-md-9" *ngIf="!editFields && profile.price_per_hours">
+          {{profile.price_per_hours}}</div>
+        <div class="form-control disable col-md-9" *ngIf="!editFields && !profile.price_per_hours">Not Critical</div>
+        <div *ngIf="editFields" class="col-sm-8">
+          <div class="form-row mrt">
+            <div class="col-md-3" *ngFor="let item of priceList; let i = index">
+              <label for="{{item.id}}">
+                <input class="radio" type="radio" name="price_per_hours" [(ngModel)]="profile.price_per_hours"
+                  value="{{item.value}}" required id="{{item.id}}" />
+                <span class="">{{item.label}}</span>
+              </label>
             </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C'">
-                <label class="col-md-3">Kind of Business</label>
-                <div class="form-control disable col-md-9" *ngIf="!editFields">{{profile.business_kind}}</div>
-                <div *ngIf="editFields" class="col-sm-9">
-                    <div class="form-row">
-                        <div  class="col-md-3" *ngFor="let item of businessList; let i = index"> 
-                            <label for="{{item.id}}">
-                                <input class="radio" type="radio" name="business_kind" value="{{item.value}}" [(ngModel)] = "profile.business_kind" required id="{{item.id}}"/>
-                                <span class="">{{item.label}}</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+          </div>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C'">
+        <label class="col-md-3">Kind of Business</label>
+        <div class="form-control disable col-md-9" *ngIf="!editFields">{{profile.business_kind}}</div>
+        <div *ngIf="editFields" class="col-sm-9">
+          <div class="form-row">
+            <div class="col-md-3" *ngFor="let item of businessList; let i = index">
+              <label for="{{item.id}}">
+                <input class="radio" type="radio" name="business_kind" value="{{item.value}}"
+                  [(ngModel)]="profile.business_kind" required id="{{item.id}}" />
+                <span class="">{{item.label}}</span>
+              </label>
             </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">About you</label>
-                <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.product_description }}</div>
-                <div *ngIf="editFields" class="col-sm-9 mrt">
-                    <textarea
-                    [disabled] = "!editFields"
-                    id="product_description"
-                    name="product_description"
-                    [(ngModel)]="profile.product_description"
-                    placeholder="Tell us more about you in paragraph (optional)"
-                    class="form-control"
-                    ></textarea>
-                </div>
-            </div>
-            <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
-                <label class="col-md-3">Accredited Provider in Canada</label>
-                <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.accredited_provide_canada }}</div>
-                <div *ngIf="editFields" class="col-sm-9">
-                    <label class="mb-0 mrt"><input type="checkbox"   [disabled] = "!editFields" [(ngModel)]="profile.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
-                    <!-- <textarea
+          </div>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">About you</label>
+        <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.product_description }}</div>
+        <div *ngIf="editFields" class="col-sm-9 mrt">
+          <textarea [disabled]="!editFields" id="product_description" name="product_description"
+            [(ngModel)]="profile.product_description" placeholder="Tell us more about you in paragraph (optional)"
+            class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="radio form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
+        <label class="col-md-3">Accredited Provider in Canada</label>
+        <div class="form-control disable col-md-9" *ngIf="!editFields">{{ profile.accredited_provide_canada }}</div>
+        <div *ngIf="editFields" class="col-sm-9">
+          <label class="mb-0 mrt"><input type="checkbox" [disabled]="!editFields"
+              [(ngModel)]="profile.accredited_provide_canada" [ngModelOptions]="{standalone: true}" class="mr-2"> I
+            verify I am an accredited Provider in Canada <span class="text-danger"></span></label>
+          <!-- <textarea
                     [disabled] = "!editFields"
                     id="product_description"
                     name="product_description"
@@ -383,30 +337,30 @@
                     placeholder="Tell us more about you in paragraph (optional)"
                     class="form-control"
                     ></textarea> -->
-                </div>
-            </div>
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-12 text-right"  *ngIf="editFields">
-            <button [disabled]="!updateDetailForm.valid" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+    <div class="col-md-12 text-right" *ngIf="editFields">
+      <button [disabled]="!updateDetailForm.valid" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
 </div>
 <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="dateOfBirth">Are you sure you want to remove ?</label>
-          <div class="input-group">
-          </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Are you sure you want to remove?</label>
+        <div class="input-group">
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="removeProfile()">Yes</button>
-      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">No</button>
-    </div>
-  </ng-template>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="removeProfile()">Yes</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">No</button>
+  </div>
+</ng-template>

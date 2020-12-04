@@ -14,7 +14,7 @@ export class AddProfessionalComponent implements OnInit {
   editDoctorCheck = false;
   submitted = false;
   addMore = false;
-  doctors =[];
+  doctors = [];
   editDoctorId = '';
   doctorSearch: '';
   imagesList = '';
@@ -48,10 +48,10 @@ export class AddProfessionalComponent implements OnInit {
   getStaffList() {
     let path = `staff/get-all?userId=${this.userId}&count=10&page=1&frontend=0/`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.doctors = res.data.data;
         this.totalItems = this.doctors.length;
-        if(this.doctors.length > 0) this.addMore = false
+        if (this.doctors.length > 0) this.addMore = false
 
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -67,21 +67,21 @@ export class AddProfessionalComponent implements OnInit {
     const formData: FormData = new FormData();
     let input = new FormData();
     input.append('imgLocation', 'users');
-    input.append('images', event.target.files[0]);    
-      this._sharedService.loader('show');
-      this._sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.imagesList = res.data;
-          this._sharedService.loader('hide');
-        } else {
-          this.toastr.error(res.message);
-        }
-      }, err => {
+    input.append('images', event.target.files[0]);
+    this._sharedService.loader('show');
+    this._sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.imagesList = res.data;
         this._sharedService.loader('hide');
-        this.toastr.error('There are some errors, please try again after some time !', 'Error');
-      });
+      } else {
+        this.toastr.error(res.message);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+      this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    });
 
-  
+
   }
   save() {
     this.submitted = true;
@@ -93,31 +93,31 @@ export class AddProfessionalComponent implements OnInit {
         ...this.addDoctorForm.value,
         'image': this.imagesList,
       }
-    let data = {
-      'userId':  this.userId,
-      ...formData,
-    };
-    data['userId'] = this.userId;
-    this._sharedService.loader('show');
-    const path = `staff/create`;
-    this._sharedService.post(data, path).subscribe((res: any) => {
-    this._sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.imagesList = '';
-        this.toastr.success(res.message);
-        this.getStaffList();
-        this.addMore = !this.addMore;
-        this.addDoctorForm.reset();
-        this.submitted = false;
+      let data = {
+        'userId': this.userId,
+        ...formData,
+      };
+      data['userId'] = this.userId;
+      this._sharedService.loader('show');
+      const path = `staff/create`;
+      this._sharedService.post(data, path).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+          this.imagesList = '';
+          this.toastr.success(res.message);
+          this.getStaffList();
+          this.addMore = !this.addMore;
+          this.addDoctorForm.reset();
+          this.submitted = false;
 
-      }
+        }
 
-      else {
-        this._sharedService.showAlert(res.message, 'alert-danger');
-      }
-    }, (error) => {
-      this._sharedService.loader('hide');
-    });
+        else {
+          this._sharedService.showAlert(res.message, 'alert-danger');
+        }
+      }, (error) => {
+        this._sharedService.loader('hide');
+      });
     }
   }
   deleteStaff(i) {
@@ -128,7 +128,7 @@ export class AddProfessionalComponent implements OnInit {
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.doctors.forEach((ele, index) => {
-          if(ele._id === i) this.doctors.splice(index, 1);
+          if (ele._id === i) this.doctors.splice(index, 1);
         });
         // this._router.navigate(['/home']);
       } else {
@@ -144,7 +144,7 @@ export class AddProfessionalComponent implements OnInit {
     this.editDoctorForm.controls.fname.setValue(prod.fname);
     this.editDoctorForm.controls.lname.setValue(prod.lname);
     this.editDoctorForm.controls.description.setValue(prod.description);
-    this.imagesList =  prod.image;
+    this.imagesList = prod.image;
     this.editDoctorId = prod._id;
   }
   updateStaff() {
@@ -156,30 +156,30 @@ export class AddProfessionalComponent implements OnInit {
         ...this.editDoctorForm.value,
         'image': this.imagesList,
       }
-    let body = {
-      'userId':  this.userId,
-      ...formData,
-    };
-    body['userId'] = this.userId;
-    const path = `staff/update/${this.editDoctorId}`
-    this._sharedService.put(body, path).subscribe((res: any) => {
-      this._sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.toastr.success(res.message);
-        this.getStaffList();
-        this.editDoctorCheck = !this.editDoctorCheck;
-        this.addMore = !this.addMore;
-        this.addDoctorForm.reset();
-        this.submitted = false;
+      let body = {
+        'userId': this.userId,
+        ...formData,
+      };
+      body['userId'] = this.userId;
+      const path = `staff/update/${this.editDoctorId}`
+      this._sharedService.put(body, path).subscribe((res: any) => {
+        this._sharedService.loader('hide');
+        if (res.statusCode === 200) {
+          this.toastr.success(res.message);
+          this.getStaffList();
+          this.editDoctorCheck = !this.editDoctorCheck;
+          this.addMore = !this.addMore;
+          this.addDoctorForm.reset();
+          this.submitted = false;
 
-      }
+        }
 
-      else {
-        this._sharedService.showAlert(res.message, 'alert-danger');
-      }
-    }, (error) => {
-      this._sharedService.loader('hide');
-    });
-  }
+        else {
+          this._sharedService.showAlert(res.message, 'alert-danger');
+        }
+      }, (error) => {
+        this._sharedService.loader('hide');
+      });
+    }
   }
 }

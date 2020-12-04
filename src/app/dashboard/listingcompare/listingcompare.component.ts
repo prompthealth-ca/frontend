@@ -10,20 +10,20 @@ import { SharedService } from '../../shared/services/shared.service';
 })
 
 export class ListingcompareComponent implements OnInit {
- 
+
   compareIds;
   languageQuestion;
   avalibilityQuestion;
   serviceOffering;
   categoryList;
-  
+
   public data = [];
   loggedInUser: string;
 
   constructor(
     private behaviorService: BehaviorService,
     private sharedService: SharedService,
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loggedInUser = localStorage.getItem('loginID');
@@ -34,27 +34,27 @@ export class ListingcompareComponent implements OnInit {
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
-       if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.compareIds = this.behaviorService.getCopmareIds().value;
 
         for (var i = 0; i < this.compareIds.length; ++i) {
           if (this.compareIds[i]) this.data.push(this.compareIds[i]);
         }
-        
+
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
+          if (element.question_type === 'service' && element.slug === "languages-you-offer") {
             this.languageQuestion = element
           }
-          if(element.question_type ==='availability') {
+          if (element.question_type === 'availability') {
             this.avalibilityQuestion = element
           }
         });
-       } else {
+      } else {
         //  this.toastr.error(res.message);
-  
-       }
-     }, err => {
-       this.sharedService.loader('hide');
-     });
+
+      }
+    }, err => {
+      this.sharedService.loader('hide');
+    });
   }
 }

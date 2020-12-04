@@ -15,36 +15,36 @@ export class UnsubscribeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router:Router,
-    private sharedService:SharedService,
-    private toastr:ToastrService,
-    private spinner:NgxSpinnerService
+    private router: Router,
+    private sharedService: SharedService,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
     this.spinner.show();
-    this.route.paramMap 
-      .subscribe(params => { 
+    this.route.paramMap
+      .subscribe(params => {
         const routeParams = params.get('email');
-  this.sharedService.unsubscribe(routeParams).subscribe((res)=>{
-    this.spinner.hide();
-    if(res.statusCode == 200){
-      this.toastr.success('Unsubscribe successfully!');
-      this.router.navigate(['/thankyou']);
-    }else{
-      this.toastr.error(res.message);
-    }
-    
-  },
-  err=>{
-    this.spinner.hide();
-    this.toastr.error(err);
-  }
-  )
-    });
+        this.sharedService.unsubscribe(routeParams).subscribe((res) => {
+          this.spinner.hide();
+          if (res.statusCode === 200) {
+            this.toastr.success('Unsubscribe successfully!');
+            this.router.navigate(['/thankyou']);
+          } else {
+            this.toastr.error(res.message);
+          }
+
+        },
+          err => {
+            this.spinner.hide();
+            this.toastr.error(err);
+          }
+        );
+      });
   }
 
 
-  
+
 
 }

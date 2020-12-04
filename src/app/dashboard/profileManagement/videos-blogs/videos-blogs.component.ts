@@ -14,36 +14,36 @@ export class VideosBlogsComponent implements OnInit {
   videosList;
   addMore = false;
   currentPage;
-  totalItems
-  pageSize: 10
+  totalItems;
+  pageSize: 10;
 
-  reg = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/
+  reg = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
 
   constructor(
     private _fb: FormBuilder,
     private sharedService: SharedService,
     private toastrService: ToastrService
   ) {
-   }
-   get formArr() {
+  }
+  get formArr() {
     return this.videosForm.get('data') as FormArray;
   }
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.videosForm = this._fb.group({
-        data: this._fb.array([this.initItemRows()])
+      data: this._fb.array([this.initItemRows()])
     });
     this.getProfileDetails();
   }
   get url(): FormArray {
     return this.videosForm.get('url') as FormArray;
-  } 
+  }
   getProfileDetails() {
-    let path = `user/get-profile/${this.userId}`;
+    const path = `user/get-profile/${this.userId}`;
     this.sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.videosList = res.data[0].videos;
-        this.totalItems = this.videosList.length
+        this.totalItems = this.videosList.length;
 
       } else {
         this.sharedService.checkAccessToken(res.message);
@@ -63,7 +63,7 @@ export class VideosBlogsComponent implements OnInit {
   addNewRow() {
     this.formArr.push(this.initItemRows());
   }
-  
+
   deleteRow(index: number) {
     this.formArr.removeAt(index);
   }
@@ -82,33 +82,6 @@ export class VideosBlogsComponent implements OnInit {
         this.addMore = false;
         this.videosForm = this._fb.group({
           data: this._fb.array([this.initItemRows()])
-      });
-        // this._router.navigate(['/home']);
-      } else {
-        this.toastrService.error(res.message);
-
-      }
-    }, err => {
-      this.sharedService.loader('hide');
-    });
-    
-  }
-  getEmbededURL(url) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11)
-        ? match[2]
-        : null;
-  }
-  deleteVideo(i) {
-    this.sharedService.loader('show');
-    const path = `user/removeVideo/${this.userId}/${i}`;
-    this.sharedService.deleteContent(path).subscribe((res: any) => {
-      this.sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.toastrService.success(res.message);
-        this.videosList.forEach((ele, index) => {
-          if(ele._id === i) this.videosList.splice(index, 1);
         });
         // this._router.navigate(['/home']);
       } else {
@@ -118,7 +91,34 @@ export class VideosBlogsComponent implements OnInit {
     }, err => {
       this.sharedService.loader('hide');
     });
-    
+
+  }
+  getEmbededURL(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11)
+      ? match[2]
+      : null;
+  }
+  deleteVideo(i) {
+    this.sharedService.loader('show');
+    const path = `user/removeVideo/${this.userId}/${i}`;
+    this.sharedService.deleteContent(path).subscribe((res: any) => {
+      this.sharedService.loader('hide');
+      if (res.statusCode === 200) {
+        this.toastrService.success(res.message);
+        this.videosList.forEach((ele, index) => {
+          if (ele._id === i) { this.videosList.splice(index, 1); }
+        });
+        // this._router.navigate(['/home']);
+      } else {
+        this.toastrService.error(res.message);
+
+      }
+    }, err => {
+      this.sharedService.loader('hide');
+    });
+
   }
 }
 

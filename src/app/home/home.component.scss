@@ -71,8 +71,7 @@ $slideLeftRightPaddding: 80px;
       180deg, 
       #3377C5 0%, 
       rgba(255, 255, 255, 0) 
-      100%),
-      url('../../assets/img/rec_pictures/preventative.png');
+      100%);
 
     background-size: cover;
 }
@@ -147,4 +146,75 @@ video {
       padding-right: $slideLeftRightPaddding;
     }
   }
+}
+
+@keyframes slide-right-to-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-left-to-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.switch1:checked {
+  animation-name: slide-left-to-right !important;
+}
+
+.switch2:checked {
+  animation-name: slide-right-to-left !important;
+}
+
+.switch-tab:checked {
+  animation-duration: 0.2s !important;
+  animation-timing-function: cubic-bezier(0, 0, 0.1, 1) !important;
+  border-color: $primaryColor !important;
+}
+
+.switch-tab {
+  -webkit-appearance: none !important;
+  position: absolute !important;
+  width: 100% !important;
+  left: 0px !important;
+  bottom: 0px !important;
+  height: 0px !important;
+  outline: none !important;
+  border-width: 0px 0px 2px !important;
+  border-style: none !important;
+  border-color: white !important;
+  border-image: initial !important;
+  border-radius: 0px !important;
+  margin: 0px !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.hidden-input {
+  visibility: hidden;
+}
+
+.tab {
+  font-size: 17px !important;
+  line-height: 20px !important;
+  cursor: pointer !important;
+  position: relative;
+}
+
+.searchTitle {
+  font-size: 16px !important;
+  line-height: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: dimgrey;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+  Helvetica Neue, sans-serif;
 }

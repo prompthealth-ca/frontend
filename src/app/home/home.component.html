@@ -120,14 +120,17 @@
   </div>
 </section>
 
-<section class="bg-gradient mb-5 recBackground" style="min-height: 50vh;">
+<section class="bg-gradient mb-5 recBackground" style="min-height: 50vh;"
+  [ngStyle]="{'background-image': 'url(' + introBannerItems[currentIntroIndex].bgImg + ')'}">
 
   <div class="container h-100">
     <div class="row">
-      <div class="col">
-        <div class="jumbotron">
-          asdlfkjwqelkrl
-        </div>
+      <div class="col" *ngFor="let item of this.introBannerItems; let i = index">
+        <label class="tab mr-3 pb-2" for="{{item.name}}">
+          <input [(ngModel)]="currentIntroIndex" class="switch-tab switch" id="{{item.name}}" name="introbanner"
+            type="radio" value="{{i}}" />
+          {{item.title}}
+        </label>
 
       </div>
     </div>

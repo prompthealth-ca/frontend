@@ -41,6 +41,72 @@ export class HomeComponent implements OnInit {
     private ngZone: NgZone,
   ) { }
 
+  currentIntroIndex = 0;
+  introBannerItems = [
+    {
+      name: 'menwomen',
+      bgImg: '../../assets/img/rec_pictures/menwomen.png',
+      title: 'Women/Men\'s health',
+      description: 'When it comes to hormones, there are gender specific services for you!'
+    },
+    {
+      name: 'immune',
+      bgImg: '../../assets/img/rec_pictures/immunesys.png',
+      title: 'Immune system and energy',
+      description: 'Natural remedies, supplements, or energy healing… you’ve come\
+      to the right place.'
+    },
+    {
+      name: 'fitness',
+      bgImg: '../../assets/img/rec_pictures/fitness.png',
+      title: 'Fitness',
+      description: 'We all have different needs ranging from strength training, aerobic, flexibility, cardio, \
+      and we’ve got something for everyone'
+    },
+    {
+      name: 'preventative',
+      bgImg: '../../assets/img/rec_pictures/preventative.png',
+      title: 'Preventative health',
+      description: 'This refers to your overall physical health, including medical, oral, hearing and vision'
+    },
+    {
+      name: 'mood',
+      bgImg: '../../assets/img/rec_pictures/mood.png',
+      title: 'Mood/mental health',
+      description: 'Mental health is a big part of our overall well being, and there are many\
+      different approaches to it.You don’t necessarily have to have a mood disorder, anyone can\
+      benefit from motivation and mindfulness, and we encourage that.'
+    },
+    {
+      name: 'nutrition',
+      bgImg: '../../assets/img/rec_pictures/nutrition.png',
+      title: 'Nutrition',
+      description: 'It’s not always about weight management, sometimes we have a specific need when it\
+      comes to our nutrition that needs to be fulfilled.'
+    },
+    {
+      name: 'painmanagement',
+      bgImg: '../../assets/img/rec_pictures/painmanagement.png',
+      title: 'Pain management',
+      description: 'There are many different practitioners offering solutions for pain management, and some are even more \
+      specialized in certain areas.'
+    },
+    {
+      name: 'sleep',
+      bgImg: '../../assets/img/rec_pictures/sleep.png',
+      title: 'Sleep',
+      description: 'There are many different solutions for a better night\'s sleep, \
+        whether it\'s a medical treetment or natural remedies, there\'s something for everyone.'
+    },
+    {
+      name: 'skin',
+      bgImg: '../../assets/img/rec_pictures/skinrejuv.png',
+      title: 'Skin rejuvenation',
+      description: 'Whether it’s a relaxing facial or a total skin transformation, we’ve got you\
+      covered.'
+    },
+  ];
+
   get f() {
     return this.homeForm.controls;
   }

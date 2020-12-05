@@ -62,18 +62,44 @@ $slideLeftRightPaddding: 80px;
   }
 }
 
-.recBackground {
-    //background-repeat:no-repeat;
-    display: block;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(
-      180deg, 
-      #3377C5 0%, 
-      rgba(255, 255, 255, 0) 
-      100%);
 
-    background-size: cover;
+.tab-row {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1em;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  scroll-padding: 0px 24px;
+  display: grid !important;
+  grid-auto-flow: column !important;
+  overflow: auto hidden !important;
+  scroll-snap-type: x mandatory !important;
+  gap: 5px !important;
+}
+
+.tab-row::-webkit-scrollbar {
+  display: none !important;
+}
+.recBackground {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-size: cover !important;
+  transition: opacity 600ms ease-in-out 0s;
+  transform: scaleX(1);
+}
+
+
+.intro-thumbnail {
+  min-width:110px;
+  width: auto;
+  height: auto;
+  border: none;
+}
+
+.intro-content-area {
+  background: rgba(250, 252, 255, 0.7);
+  border-radius: 20px;
+  min-height: 40vh;
 }
 
 .btn-home {
@@ -177,7 +203,11 @@ video {
 .switch-tab:checked {
   animation-duration: 0.2s !important;
   animation-timing-function: cubic-bezier(0, 0, 0.1, 1) !important;
-  border-color: $primaryColor !important;
+}
+
+.switch-tab:checked ~ label{
+  opacity: 1 !important;
+  border-bottom: 4px $primaryColor solid!important;
 }
 
 .switch-tab {
@@ -206,6 +236,7 @@ video {
   line-height: 20px !important;
   cursor: pointer !important;
   position: relative;
+  opacity: 0.4;
 }
 
 .searchTitle {

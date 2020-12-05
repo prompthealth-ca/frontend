@@ -170,6 +170,9 @@ h6,
 .text-insta {
   color: $instaColor !important;
 }
+.text-white {
+  color: white;
+}
 
 .form-control {
   line-height: normal !important;
@@ -351,17 +354,19 @@ textarea.form-control {
   background-attachment: fixed;
 }
 
-.ph-gradient-title {
-  margin: 0;
-  overflow-wrap: break-word !important;
-  background: $ph-gradient;
+.ph-title {
   font-size: 2rem !important;
   font-weight: 500 !important;
   line-height: 1.375em !important;
+  margin: 0;
+  overflow-wrap: break-word !important;
+}
+
+.text-gradient {
+  background: $ph-gradient;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 
 .bg-overlay {
   @include bgOverlay();

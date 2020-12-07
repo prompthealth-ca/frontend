@@ -84,10 +84,17 @@ $slideLeftRightPaddding: 80px;
   height: 100%;
   width: 100%;
   background-size: cover !important;
-  transition: opacity 600ms ease-in-out 0s;
   transform: scaleX(1);
 }
 
+.background-gradient {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, #3377C5 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
+}
 
 .intro-thumbnail {
   min-width:110px;
@@ -237,6 +244,7 @@ video {
   cursor: pointer !important;
   position: relative;
   opacity: 0.4;
+  transition: opacity 600ms ease-in-out 0s;
 }
 
 .searchTitle {

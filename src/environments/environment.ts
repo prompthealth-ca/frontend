@@ -7,11 +7,11 @@ export const environment = {
   config: {
     APP_NAME: 'Wellness',
 
-    // BASE_URL: "https://prompthealth.ca/",
-    // API_URL: "https://prompthealth.ca:3000/api/v1/",
+     BASE_URL: "https://prompthealth.ca/",
+     API_URL: "https://prompthealth.ca:3000/api/v1/",
 
-    BASE_URL: 'http://198.251.65.146:4200/',
-    API_URL: 'http://198.251.65.146:4202/api/v1/',
+    //BASE_URL: 'http://198.251.65.146:4200/',
+    //API_URL: 'http://198.251.65.146:4202/api/v1/',
 
     //  BASE_URL: "http://localhost:4200/",
     //   // API_URL: "https://c79aeae3034a.ngrok.io/api/v1/",

@@ -52,8 +52,8 @@ import { UserQuestionaireComponent } from './user-questionaire/user-questionaire
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    // NgxStripeModule.forRoot('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU'),
-    NgxStripeModule.forRoot('pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'),
+     NgxStripeModule.forRoot('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU'),
+    //NgxStripeModule.forRoot('pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
   ]

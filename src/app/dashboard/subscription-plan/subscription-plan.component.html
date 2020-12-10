@@ -29,14 +29,14 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <h6 class="text-accent mb-2">Basic</h6>
+            <h6 class="text-primary mb-2">Basic</h6>
 
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-2">Free</b>
             </div>
           </th>
           <th class="free border-0">
-            <h6 class="text-accent mb-2">Service Provider <span class="badge badge-danger ml-1">50% off</span></h6>
+            <h6 class="text-primary mb-2">Service Provider <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="d-inline-flex">
               <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
@@ -51,7 +51,7 @@
           </th>
 
           <th class="paid border-0">
-            <h6 class="text-accent mb-2">Center <span class="badge badge-danger ml-1">50% off</span></h6>
+            <h6 class="text-primary mb-2">Center <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="d-inline-flex">
               <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
@@ -64,7 +64,7 @@
             </div>
           </th>
           <th class="free border-0">
-            <h6 class="text-accent mb-2">Enterprise</h6>
+            <h6 class="text-primary mb-2">Enterprise</h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Get a Quote</b>
             </div>
@@ -276,7 +276,7 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-            <h6 class="text-accent mb-2">Basic</h6>
+            <h6 class="text-primary mb-2">Basic</h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Free</b>
             </div>
@@ -284,7 +284,7 @@
 
           <th class="free border-0" *ngIf="roles === 'SP'">
 
-            <h6 class="text-accent mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
+            <h6 class="text-primary mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-2">$</b>
               <span *ngIf="spYearly === false"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
@@ -304,7 +304,7 @@
             </div> -->
           </th>
           <th class="paid border-0" *ngIf="roles === 'C'">
-            <h6 class="text-accent mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
+            <h6 class="text-primary mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="d-inline-flex">
               <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
@@ -320,7 +320,7 @@
             </div>
           </th>
           <th class="free border-0">
-            <h6 class="text-accent mb-2">Enterprise</h6>
+            <h6 class="text-primary mb-2">Enterprise</h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-3">Get a Quote</b>
             </div>

@@ -8,6 +8,12 @@
   right: 0 !important;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 2em;
+  }
+}
+
 // testimonials
 $testimonialsAvtarSize: 100px;
 .testimonials-avtar {
@@ -103,16 +109,34 @@ $slideLeftRightPaddding: 80px;
   border: none;
 }
 
+.blue-bold {
+  color: #3377C5;
+}
+
+.dot-bg {
+  background: url('src/assets/img/dotted_line_bg.png') no-repeat 50%;
+}
+
 .intro-content-area {
-  background: rgba(250, 252, 255, 0.7);
+  background: rgba(250, 252, 255, 0.5);
+  backdrop-filter: saturate(180%) blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 20px;
   min-height: 40vh;
 }
 
+.about-us-body-font {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 200%;
+}
+
 .btn-home {
-  border: 3px $accentColor solid;
+  border: 3px $primaryColor solid;
   border-radius: 15px;
-  color: $accentColor;
+  color: $primaryColor;
   font-weight: 500;
   font-size: medium;
 }
@@ -181,30 +205,30 @@ video {
   }
 }
 
-@keyframes slide-right-to-left {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
+.quote-block {
+  background: linear-gradient(6.05deg, #D4E4F8 11.94%, rgba(237, 244, 255, 0) 88.88%);
+  border-radius: 13px;
+}
+.quote-font {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 150%;
+  /* or 36px */
+
+  text-align: center;
+  letter-spacing: 0.04em;
 }
 
-@keyframes slide-left-to-right {
-  0% {
-    transform: translateX(100%);
+@media (min-width: 676px){
+  .coming-soon-bottom-bar {
+    background: url('src/assets/img/app-coming-soon-bottom.svg') no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+    width: 100%;
+    min-height: 100px;
   }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-.switch1:checked {
-  animation-name: slide-left-to-right !important;
-}
-
-.switch2:checked {
-  animation-name: slide-right-to-left !important;
 }
 
 .switch-tab:checked {
@@ -214,24 +238,23 @@ video {
 
 .switch-tab:checked ~ label{
   opacity: 1 !important;
-  border-bottom: 4px $primaryColor solid!important;
+  border-bottom: 4px $accentColor solid!important;
 }
 
 .switch-tab {
   -webkit-appearance: none !important;
-  position: absolute !important;
-  width: 100% !important;
-  left: 0px !important;
-  bottom: 0px !important;
-  height: 0px !important;
-  outline: none !important;
-  border-width: 0px 0px 2px !important;
-  border-style: none !important;
-  border-color: white !important;
-  border-image: initial !important;
-  border-radius: 0px !important;
-  margin: 0px !important;
-  border-bottom: 2px solid transparent !important;
+  appearance: none !important;
+  // left: 0px !important;
+  // bottom: 0px !important;
+  // height: 0px !important;
+  // outline: none !important;
+  // border-width: 0px 0px 2px !important;
+  // border-style: none !important;
+  // border-color: white !important;
+  // border-image: initial !important;
+  // border-radius: 0px !important;
+  // margin: 0px !important;
+  // border-bottom: 2px solid transparent !important;
 }
 
 .hidden-input {

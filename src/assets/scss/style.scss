@@ -141,6 +141,9 @@ h6,
   margin-top: -84px;
 }
 
+.text-black {
+  color: black !important;
+}
 .text-primary {
   color: $primaryColor !important;
 }
@@ -246,6 +249,9 @@ textarea.form-control {
 .bg-primary {
   background-color: $primaryColor !important;
 }
+.bg-accent {
+  background-color: $accentColor !important;
+}
 
 .btn-secondary {
   color: #fff !important;
@@ -301,9 +307,9 @@ textarea.form-control {
   border-color: $primaryColor;
   &:hover,
   &:focus {
-    background-color: $primaryColor;
+    background-color: $primaryColorhover;
     color: #fff !important;
-    border-color: $primaryColor;
+    border-color: $primaryColorhover;
   }
 }
 
@@ -362,8 +368,25 @@ textarea.form-control {
   overflow-wrap: break-word !important;
 }
 
+.text-orange {
+  color: #ED7D2B;
+}
+
+.separator {
+  border: 2px solid #B7D3F3;
+}
+
+.text-green {
+  color: #599DAD;
+}
 .text-gradient {
   background: $ph-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-light {
+  background: $ph-gradient-light;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -431,6 +454,12 @@ textarea.form-control {
     font-size: 8px;
     margin-top: 5px;
   }
+}
+
+.blur {
+  background: rgba(250, 252, 255, 0.5);
+  backdrop-filter: saturate(180%) blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .check_ul1 {

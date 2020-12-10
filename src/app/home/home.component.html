@@ -1,4 +1,4 @@
-<section class="bg-primary text-light">
+<section class="bg-accent text-light">
 
   <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true" [mapTypeId]="'hybrid'">
     <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
@@ -8,7 +8,7 @@
       <div class="col-lg-5 col-md-12 order-2 order-lg-0 align-self-end">
         <img src="assets/img/holdphone.png" class="w-100" />
       </div>
-      <div class="col-lg-7 col-md-12 mb-3 mb-lg-0 align-self-center pl-lg-5">
+      <div class="col-lg-7 col-md-12 mb-3 mb-lg-0 align-self-center pl-lg-5 mt-4 mt-md-0">
         <h4 class="font-weight-light intro-white-text">
           <!-- A smart concierge care service to guide you choose the right
           practitioner -->
@@ -26,7 +26,7 @@
                 Match</button>
             </div>
             <div class="col-md-5 mb-3">
-              <a class="btn btn-home w-100 h-100" (click)="findDoctor()">Find By Category</a>
+              <a class="btn btn-home w-100 h-100" (click)="findDoctor()">Find By Location</a>
               <!-- <input 
                   id="address"
                   name="address" 
@@ -77,7 +77,7 @@
     <div class="row">
       <div class="col-6 col-md-3 mb-3 d-none d-md-block ">
         <div class="d-flex flex-column justify-content-center h-100">
-          <div class="text-center align-self-center mb-3 text-accent">
+          <div class="text-center align-self-center mb-3 text-primary">
             <b>
               Client
             </b>
@@ -93,7 +93,7 @@
       <!-- show two buttons side by side on small screen -->
       <div class="col-6 col-md-3 mb-3 d-md-none">
         <div class="d-flex flex-column justify-content-center h-100">
-          <div class="text-center align-self-center mb-3 text-accent">
+          <div class="text-center align-self-center mb-3 text-primary">
             <b>
               Client
             </b>
@@ -106,7 +106,7 @@
       <div class="col-6 col-md-3 mb-3">
         <div class="d-flex flex-column justify-content-center h-100">
 
-          <div class="text-center align-self-center mb-3 text-accent">
+          <div class="text-center align-self-center mb-3 text-primary">
             <b>
               Professionals
             </b>
@@ -123,7 +123,7 @@
 <section class="bg-gradient mb-5 py-5 recBackground" style="min-height: 50vh;" [ngStyle]="{
   'background': 'url(' + introBannerItems[currentIntroIndex].bgImg + ') no-repeat 50%',
   'transition': 'background-image 600ms ease-in-out 0s'
-}">
+}" id="introsection">
   <div class="position-absolute background-gradient"></div>
   <div class="container h-100">
     <div class="row">
@@ -142,7 +142,8 @@
           <input [(ngModel)]="currentIntroIndex" class="switch-tab switch" id="{{item.name}}" name="introbanner"
             type="radio" [value]="i" />
           <label class="tab" for="{{item.name}}">
-            <img src="{{item.thumbnail}}" alt="{{item.title}}" class="img-thumbnail rounded intro-thumbnail">
+            <img src="{{item.thumbnail}}" alt="{{item.title+': '+item.description}}"
+              class="img-thumbnail rounded intro-thumbnail">
           </label>
         </span>
       </div>
@@ -153,115 +154,71 @@
             <h3 class="text-gradient">
               {{this.introBannerItems[currentIntroIndex].title}}
             </h3>
-            <p>
-              {{this.introBannerItems[1].description}}
+            <p class="font-weight-bold about-us-body-font">
+              {{this.introBannerItems[currentIntroIndex].description}}
             </p>
           </div>
           <div class="col-12 col-md-6 p-5">
-            <h4 class="text-accent">You might like</h4>
+            <h4 class="text-primary">You might like</h4>
+            <div class="featured row">
+              <div class="col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="d-none d-md-block col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="d-none d-md-block col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="d-none d-md-block col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+              <div class="d-none d-md-block col-6 col-md-3">
+                <img src="assets/img/logo2.png" class="w-100" />
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- app comminng soon section -->
-<section class="pt-3 pt-lg-5 pb-0 pb-lg-5" style="
-  background: linear-gradient(82.84deg, #E2DCF1 25.37%, #95B3EF 92.89%);
-  border-radius: 52.5px;
-  ">
-  APP COMING SOON
-</section>
-
-<!-- How Prompt Health Works -->
-<section class="pt-5 pb-5">
-  <div class="container">
-    <h2 class="ttle-bott-bor text-center mb-5">How Prompt Health Works</h2>
-    <div class="row text-center">
-      <div class="col-lg-3 col-md-4 mb-4">
-        <div class="shadow rounded h-100 scaleup">
-          <div class="card-body">
-            <div>
-              <img src="assets/img/q-and-a-icon.png" class="object-fit-contain mb-3"
-                style="width: 100%;height: 90px;" />
-            </div>
-            <p>
-              Search by a single category that matters the most to you such
-              as your goal, services or how you want it whether in person or
-              virtual, treatment type or just location
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mb-4">
-        <div class="shadow rounded h-100 scaleup">
-          <div class="card-body">
-            <div>
-              <img src="assets/img/filter.png" class="object-fit-contain mb-3" style="width: 100%;height: 90px;" />
-            </div>
-            <p>
-              <!-- Filter options and compare against each other -->
-              Filter selections and compare options in your
-              geographic area including list of services, certifications
-              and experience, language, price, specialty with certain age
-              group and more to choose what best suits your needs
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mb-4">
-        <div class="shadow rounded h-100 scaleup">
-          <div class="card-body">
-            <div>
-              <img src="assets/img/message.png" class="object-fit-contain mb-3" style="width: 100%;height: 90px;" />
-            </div>
-            <p>
-              Directly request a booking with your preferred availability
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 mb-4">
-        <div class="shadow rounded h-100 scaleup">
-          <div class="card-body">
-            <div>
-              <img src="assets/img/dashboard-icon.png" class="object-fit-contain mb-3"
-                style="width: 100%;height: 90px;" />
-            </div>
-            <p>
-              Enjoy your treatment with relaxation and ease! And build your dashboard of providers and services for
-              future reference
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- About section -->
-<section class="text-light position-relative pt-0 pt-lg-2 pb-0 pb-lg-2" id="aboutsection">
-  <div class="col-md-6 d-none d-lg-flex m-0 position-absolute bg-secondary h-100 top-0 right-0"
-    style="border-radius: 15px 0px 0px 0px;"></div>
-  <div class="spacer-top"></div>
-  <div class="position-relative pt-4 pb-4" style="background-color: #4a86abd1;">
+<section class="position-relative pt-0 pt-lg-2 pb-0 pb-lg-2" id="aboutsection">
+  <div class="py-5" style="background-color: #EDF4FF;">
     <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-lg-5 mb-3 mb-lg-0">
-          <video width="100%" height="100%" class="d-block d-lg-none" controls>
+      <!-- about us row -->
+      <div class="row my-3">
+        <div class="col-12 col-md-5 col-lg-5 mb-3 mb-lg-0">
+          <video width="100%" height="100%" class="" controls>
             <source src="assets/video/video2.mp4" type="video/mp4" />
 
             Your browser does not support the video tag.
           </video>
         </div>
-        <div class="col-md-12 col-lg-7 font-weight-light text-center text-lg-left">
-          <h3 class="ttle-bott-bor text-center text-lg-left">
-            About PromptHealth
+        <div class="col-12 col-md-1 col-lg-2 d-flex flex-column justify-content-center text-center">
+          <h2 class="text-gradient">
+            X
+          </h2>
+        </div>
+        <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-center">
+          <h3 class="text-primary">
+            About Us
           </h3>
-          <!-- Everybody has different health and wellness goals. You would typically
+          <p class="about-us-body-font">
+            <!-- Everybody has different health and wellness goals. You would typically
           ask around, lookup directories or Google search for different health
           professionals. These are called blind referrals as we are all
           different and one size does not fit all. With Prompt Health, people
@@ -270,148 +227,105 @@
           personalized as possible based on their health risks, background and
           preferences. Using one easy to use platform and app, clients connect
           with practitioners, services and products at their convenience. -->
-          Prompt Health is a location-based application that connects people to Canadian
-          accredited medical and holistic health services, based on individualized needs.
-          Prompt Health is almost like an online ‘personal assistant’ that takes the
-          challenge out to access and navigate the care you need,
-          easier and faster how and where you want it.
+            Prompt Health is a location-based application that connects people to Canadian accredited medical and
+            holistic health services, based
+            on individualized needs. Prompt Health is your online ‘personal assistant’ that takes the challenge out of
+            accessing and navigating the care you need.
+          </p>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="container d-none d-lg-block m-0 pt-4 pb-4 row position-absolute h-100 w-100"
-    style="left:50%;transform: translateX(-50%);top:0">
-    <div class="col-lg-5 h-100">
-      <video width="100%" height="100%" controls>
-        <source src="assets/video/video2.mp4" type="video/mp4" />
-
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-  <div class="spacer-top d-none d-lg-block"></div>
-</section>
-
-<!-- Our Mission -->
-<section class="pt-6 pb-6 bg-cover bg-fixed bg-overlay"
-  style="background-image: url(/assets/img/guyshowingsomething.jpg);">
-  <div class="container text-center text-light">
-    <div class="row">
-      <div class="col-lg-3 col-md-2"></div>
-      <div class="col-lg-6 col-md-8 h5 font-weight-light">
-        <h2 class="ttle-bott-bor text-center">
-          Our mission is to simplify access to care
-        </h2>
-        <!-- Here at Prompt Health, we believe navigating care should be a lot better
-        and easier in this digital era. The world is changing and so should the
-        access to health and wellness solutions. At Prompt Health, we use
-        technology to modernize and transform the client’s journey so they never
-        have to guess again by connecting them to services based on their needs.
-        We also provide technology for practitioners to elevate their client’s
-        experience by facilitating continuous engagement. -->
-        At Prompt Health, we believe navigating care should be done with ease and with as
-        much knowledge to empower stronger decisions for individual care.
-        The world is constantly evolving, and so should the access to health and wellness solutions.
-        Prompt Health uses technology to modernize and transform the client’s journey
-        so they no longer have to blindly connect with services.
-        This allows people to build health and wellness routines
-        by connecting them to services based on their needs.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- What makes us unique? -->
-<section class="pt-5 pb-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-12 col-lg-7 h6 font-weight-light text-center text-lg-left mb-4 order-2 order-lg-0">
-        <h3 class="ttle-bott-bor text-center text-lg-left">
+      <!-- what make us unique row-->
+      <div class="row my-3 py-3">
+        <div class="col-12 text-center ph-title text-gradient-light mb-4" style="font-size: 3em !important;">
           What makes us unique?
-        </h3>
-        <!-- Prompt Health connects clients with practitioners through intelligent
-        questions that serve as a triage, which enables better and faster
-        decision making for access to the most suitable solutions. We believe a
-        need assessment can suggest better matches, which means better care.
-        Prompt Heath also enriches provider-client interactions by creating
-        rewards for engagement. -->
-        Every individual has different health and wellness goals;
-        how we accomplish them is generally left up to each of us.
-        Typically people ask around to friends and family, look up directories,
-        or search on line for different health professionals.
-        The results of those searches generally leave us with a list of unknown
-        service providers based on someone else’s experiences and needs.
-        We all have different needs and one size does not fit all.
-        Prompt Health is here to change that experience to provide personalized options
-        based on an individual’s specific health and wellness needs and goals.
-        It allows people to compare and filter to narrow down searches to cater to their specific
-        needs and how they want it. It is a service that is made and built for each individual.
-      </div>
-      <div class="col-md-12 col-lg-5 text-center mb-4 mb-lg-0">
-        <a href="" [routerLink]="['/dashboard/questionnaire']"><img src="assets/img/questionare.jpg"
-            class="w-100 shadow-lg rounded-lg scaleup" /></a>
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
 
-<!-- testimonials -->
-<section class="pt-6 pb-6 bg-cover text-light bg-overlay bg-fixed"
-  style="background-image: url(assets/img/backgroud4.jpg);">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-lg-2"></div>
-      <div class="col-md-12 col-lg-8">
-        <div id="carouselExampleIndicators" class="quote-bg" data-ride="carousel">
+        <div class="col-12 col-md-5 col-lg-5 mb-3 mb-lg-0">
+          <img src="assets/img/makes-us-unique.png" alt="people cheer" class="img-fluid">
+        </div>
+        <div class="d-none d-md-block col-md-1 col-lg-2">
+        </div>
+        <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-center">
 
-          <div class="testimonials-text mb-3">
-            <div class="text-center">
-              <img src="/assets/img/imgpsh_fullsize_anim.jpg" class="shadow rounded-circle mb-3 testimonials-avtar">
-            </div>
-            <div class="text-center">
-              Having worked as a clinician for over 15 years in one of the pioneer centers of Private Health,
-              as well as providing business consultation to tech driven health related start-ups,
-              I became acutely aware of the challenges of finding the right individual services for health and wellness.
-              I believe we need to focus on strengthening knowledge to provide a system that helps both clients and
-              small businesses
-              in health and wellness connect to one another. That’s how Prompt Health came to life, a two sided online
-              marketplace for
-              individualized referral network in health and wellness”
-            </div>
-            <h5 class="text-primary text-uppercase">Hedieh Safiyari, Founder/CEO</h5>
-            <div>MBA, MSc</div>
-
-          </div>
+          <p class="about-us-body-font">
+            We do the screening or the “triage” for you using our algorithm to provide you with <b
+              class="blue-bold">smart
+              referrals</b>, helping
+            you to find your care with <b class="blue-bold">ease</b> ease and <b class="blue-bold">confidence</b>.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- how it works section -->
+<section id="how-it-works" class="py-5">
+  <div class="container dot-bg">
+    <div class="row">
+      <div class="col">
+        <h2 class="ph-title text-gradient">How Prompt Health Works</h2>
+      </div>
+    </div>
+    <div class="row my-3" *ngFor="let item of howPhWorks; let i = index">
+      <div class="col-12 col-md-6 d-flex justify-content-center my-2 my-md-0" [ngClass]="{'order-md-2': i % 2 === 1}">
+        <img src="{{item.imgUrl}}" alt="{{item.title}}" class="img-fluid">
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-column justify-content-center" [ngClass]="{'order-md-1': i % 2 === 1}">
+        <h3 class="text-primary text-center text-md-left">{{item.title}}</h3>
+        <p class="about-us-body-font">
+          {{item.body}}
+        </p>
+        <p *ngIf="item.remark" [innerHTML]="item.remark"> </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Rotating partners logos here -->
-<section class="pt-4 pb-4" style="background-color: #f8f9fa;">
+<!-- quote section -->
+<section id="quotesection" class="my-5">
   <div class="container">
-    <h3 class="text-center">Partners</h3>
-    <div class="logo-slider row">
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
+    <div class="row">
+      <div class="col quote-block">
+        <span style="font-size: 4em; color: #406FBF;">“</span>
+        <p class="quote-font p-3">
+          We believe the journey to the healthier you should be personalized, as one size does not fit all. Prompt
+          Health uses technology to modernize
+          and transform the client’s journey so you no longer have to blindly connect with services.
+        </p>
+        <span style="font-size: 4em; color: #406FBF; float: right;">”</span>
+
       </div>
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <div class="mt-2">
+          <div class="d-flex justify-content-center">
+            <img src="assets/img/imgpsh_fullsize_anim.jpg" class="shadow rounded-circle mb-3 testimonials-avtar">
+          </div>
+          <h5 class="text-primary text-uppercase text-center">Hedieh Safiyari, Founder/CEO</h5>
+          <div class="text-center">MBA, MSc</div>
+        </div>
       </div>
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
-      </div>
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
-      </div>
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
-      </div>
-      <div class="col">
-        <img src="assets/img/logo2.png" class="w-100" />
+    </div>
+  </div>
+</section>
+<!-- app comminng soon section -->
+<section class="pt-3 pt-lg-5 pb-0 pb-lg-5">
+  <div class="container">
+    <div class="coming-soon-bottom-bar">
+      <div class="row">
+
+        <div class="col-12 col-md-7 d-flex justify-content-center">
+          <h1 class="text-center text-primary align-self-center" style="padding-top: 2rem;">
+            APP COMING SOON
+          </h1>
+        </div>
+        <div class="col-12 col-md-5 d-flex justify-content-center">
+          <img src="assets/img/app_coming_icon.png" alt="a phone icon" class="img-fluid">
+        </div>
+
       </div>
     </div>
   </div>

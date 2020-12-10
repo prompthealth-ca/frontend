@@ -14,8 +14,9 @@ export const environment = {
     API_URL: 'http://198.251.65.146:4202/api/v1/',
 
     //  BASE_URL: "http://localhost:4200/",
-    //   // API_URL: "https://c79aeae3034a.ngrok.io/api/v1/",
     //   API_URL: "http://localhost:3000/api/v1/",
+    //   // API_URL: "https://c79aeae3034a.ngrok.io/api/v1/",
+    stripeKey: 'pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'
   },
   api_routes: {
     LOGIN: 'login',

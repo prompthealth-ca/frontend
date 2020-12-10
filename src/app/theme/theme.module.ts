@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { NgxStripeModule } from 'ngx-stripe';
 import { ThemeRoutingModule } from './theme-routing.module';
@@ -19,6 +19,7 @@ import { AuthService } from '../auth/auth.service';
 import { AuthGuardService } from '../auth/auth-gaurd.service';
 import { RoleGuardService } from '../auth/role-guard.service';
 import { ThankuPageComponent } from './thanku-page/thanku-page.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { ThankuPageComponent } from './thanku-page/thanku-page.component';
     RoleGuardService,
   ],
   imports: [
-    AgmCoreModule.forRoot(  {
+    AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCbRhC6h9Pp43-5t_Knyrd_ewAdLMIJtCg',
       libraries: ['places']
     }),
@@ -42,8 +43,7 @@ import { ThankuPageComponent } from './thanku-page/thanku-page.component';
     CommonModule,
     ThemeRoutingModule,
     ReactiveFormsModule,
-    // NgxStripeModule.forRoot('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU'),
-    NgxStripeModule.forRoot('pk_test_zqD7pwcCCzFTnYdL8NhZeIl600rcJJW5dU'),
+    NgxStripeModule.forRoot(environment.config.stripeKey),
     SharedModule,
     FlashMessagesModule
 

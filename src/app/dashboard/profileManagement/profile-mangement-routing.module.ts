@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
@@ -15,6 +15,7 @@ import { MyAmenitiesComponent } from './my-amenities/my-amenities.component';
 
 import { MyProductComponent } from './my-product/my-product.component';
 import { MyAffiliateComponent } from './my-affiliate/my-affiliate.component';
+import { MyPasswordComponent } from './my-password/my-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,20 +23,20 @@ const routes: Routes = [
     // redirectTo: '/my-profile',
     children: [
       {
-        path: "",
+        path: '',
         redirectTo: 'my-profile',
         component: MyProfileComponent
       },
       {
-        path: "my-profile",
+        path: 'my-profile',
         component: MyProfileComponent
       },
       {
-        path: "my-product",
+        path: 'my-product',
         component: MyProductComponent
       },
       {
-        path: "my-subscription",
+        path: 'my-subscription',
         component: MySubscriptionComponent
       },
       // {
@@ -43,23 +44,23 @@ const routes: Routes = [
       //   component: MyProfessionalInfoComponent
       // },
       {
-        path: "my-booking",
+        path: 'my-booking',
         component: MyBookingComponent
       },
       {
-        path: "my-payment",
+        path: 'my-payment',
         component: MyPaymentComponent
       },
       {
-        path: "add-professionals",
+        path: 'add-professionals',
         component: AddProfessionalComponent
       },
       {
-        path: "my-favourites",
+        path: 'my-favourites',
         component: MyFavouriteComponent
       },
       {
-        path: "reviews-ratings",
+        path: 'reviews-ratings',
         component: ReviewsRatingsComponent
       },
       {
@@ -74,6 +75,10 @@ const routes: Routes = [
         path: 'my-affiliate',
         component: MyAffiliateComponent,
       },
+      {
+        path: 'my-password',
+        component: MyPasswordComponent,
+      },
     ]
   },
 ];
@@ -82,4 +87,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProfileManagementRoutingModule {}
+export class ProfileManagementRoutingModule { }

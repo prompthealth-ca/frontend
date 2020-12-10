@@ -51,11 +51,11 @@ export class UserDetailsComponent {
     longitude: 0,
     licence_type_degree: '',
     professional_organization: '',
-    accredited_provide_canada:false
+    accredited_provide_canada: false
   };
   userId = ''
 
-  ageRangeList  = [
+  ageRangeList = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
     { id: '5eb1a4e199957471610e6cd8', name: 'Child (<12)', checked: false },
     { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent (12-18)', checked: false },
@@ -173,25 +173,25 @@ export class UserDetailsComponent {
   getProfileQuestion() {
     let path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-       if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.slug==="offer-your-services") {
+          if (element.question_type === 'service' && element.slug === "offer-your-services") {
             this.serviceQuestion = element;
           }
-          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
+          if (element.question_type === 'service' && element.slug === "languages-you-offer") {
             this.languageQuestion = element
           }
-          if(element.question_type ==='availability') {
+          if (element.question_type === 'availability') {
             this.avalibilityQuestion = element
           }
         });
-       } else {
-         this.toastr.error(res.message);
-  
-       }
-     }, err => {
-       this._sharedService.loader('hide');
-     });
+      } else {
+        this.toastr.error(res.message);
+
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+    });
   }
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -222,54 +222,54 @@ export class UserDetailsComponent {
       this._sharedService.loader('hide');
       this.toastr.error('There are some errors, please try again after some time !', 'Error');
     });
-    
+
   }
   checkBoxChanged(e, fieldUpdated) {
-    if(fieldUpdated === 'avalibilityQuestion') {
-      if(e.target.checked) {
+    if (fieldUpdated === 'avalibilityQuestion') {
+      if (e.target.checked) {
         this.hoursSelected.push(e.target.id);
       }
       else {
         const find = this.hoursSelected.indexOf(e.target.id);
-        if(find > -1) {
+        if (find > -1) {
           this.hoursSelected.splice(find, 1);
         }
       }
 
       this.userDetails.typical_hours = this.hoursSelected;
     }
-    if(fieldUpdated === 'languageQuestion') {
-      if(e.target.checked) {
+    if (fieldUpdated === 'languageQuestion') {
+      if (e.target.checked) {
         this.languagesSelected.push(e.target.id);
       }
       else {
 
         const find = this.languagesSelected.indexOf(e.target.id)
-        if(find > -1) {
+        if (find > -1) {
           this.languagesSelected.splice(find, 1);
         }
       }
-        this.userDetails.languages = this.languagesSelected;
+      this.userDetails.languages = this.languagesSelected;
     }
-    if(fieldUpdated === 'serviceType') {
-      if(e.target.checked) {
-        if(this.serviceOfferSelected.indexOf(e.target.id) === -1) {
+    if (fieldUpdated === 'serviceType') {
+      if (e.target.checked) {
+        if (this.serviceOfferSelected.indexOf(e.target.id) === -1) {
           this.serviceOfferSelected.push(e.target.id);
         }
       }
       else {
         const find = this.serviceOfferSelected.indexOf(e.target.id)
-        if(find > -1) {
+        if (find > -1) {
           this.serviceOfferSelected.splice(find, 1);
         }
       }
-      
+
       this.userDetails.serviceOfferIds = this.serviceOfferSelected;
     }
-    if(fieldUpdated === 'ageRange') {
-      if(e.target.checked) {
-        if(this.age_rangeSelected.indexOf(e.target.id) === -1) {
-          if(e.target.id === '5eb1a4e199957471610e6cd7') {
+    if (fieldUpdated === 'ageRange') {
+      if (e.target.checked) {
+        if (this.age_rangeSelected.indexOf(e.target.id) === -1) {
+          if (e.target.id === '5eb1a4e199957471610e6cd7') {
             this.ageRangeList.forEach(el => {
               this.age_rangeSelected.push(el.id);
             })
@@ -280,7 +280,7 @@ export class UserDetailsComponent {
       }
       else {
         const find = this.age_rangeSelected.indexOf(e.target.id)
-        if(find > -1) {
+        if (find > -1) {
           this.age_rangeSelected.splice(find, 1);
         }
       }
@@ -292,7 +292,7 @@ export class UserDetailsComponent {
     this.defaultImage = reader.result;
   }
   save() {
-    if(this.userDetails.typical_hours.length ==0){
+    if (this.userDetails.typical_hours.length == 0) {
       this.toastr.error("Please select the typical hours!");
       return;
     }

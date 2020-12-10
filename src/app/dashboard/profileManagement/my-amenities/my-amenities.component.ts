@@ -40,10 +40,10 @@ export class MyAmenitiesComponent implements OnInit {
     this.getSavedAmenties();
   }
   getDefaultAmenities() {
-    
+
     let path = `amenity/get-default-aminities?frontend=0`;
     this.sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.defaultAmenities = res.data;
 
       } else {
@@ -56,7 +56,7 @@ export class MyAmenitiesComponent implements OnInit {
 
   }
   getSelectedAmenties(event, amenity) {
-      if(event.target.checked) {
+    if (event.target.checked) {
       this.selectedAmenityId = amenity._id;
       this.imagesList = [];
       this.uploadAmenity = {
@@ -77,7 +77,7 @@ export class MyAmenitiesComponent implements OnInit {
     let input = new FormData();
     input.append('imgLocation', 'amenities');
     this.spinner.show();
-    if(event.target.files.length === 1) {
+    if (event.target.files.length === 1) {
 
       input.append('images', event.target.files[0]);
       this.sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
@@ -97,7 +97,7 @@ export class MyAmenitiesComponent implements OnInit {
       });
     }
     else {
-      if (event.target.files.length > 3)  event.target.files.pop();
+      if (event.target.files.length > 3) event.target.files.pop();
       for (var i = 0; i < event.target.files.length; i++) {
         input.append('images', event.target.files[i]);
       }
@@ -126,7 +126,7 @@ export class MyAmenitiesComponent implements OnInit {
       this.spinner.show();
       if (res.statusCode === 200) {
         this.savedAminities = res.data.data;
-        this.totalItems =  this.savedAminities.length;
+        this.totalItems = this.savedAminities.length;
         this.addMore = false;
         this.spinner.hide();
         this.toastr.success(res.message);
@@ -141,7 +141,7 @@ export class MyAmenitiesComponent implements OnInit {
       this.spinner.hide();
     });
   }
-  
+
   saveAmenities() {
     this.spinner.show();
     const path = `amenity/create`;
@@ -192,7 +192,7 @@ export class MyAmenitiesComponent implements OnInit {
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.savedAminities.forEach((ele, index) => {
-          if(ele._id === id) this.savedAminities.splice(index, 1);
+          if (ele._id === id) this.savedAminities.splice(index, 1);
         });
         // this._router.navigate(['/home']);
         this.spinner.hide();

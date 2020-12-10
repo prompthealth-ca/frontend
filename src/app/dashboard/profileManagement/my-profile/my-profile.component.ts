@@ -4,7 +4,7 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { } from 'googlemaps';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { BehaviorService } from '../../../shared/services/behavior.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ThrowStmt } from '@angular/compiler';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -22,7 +22,7 @@ export class MyProfileComponent implements OnInit {
   submitted = false;
   editFields = false;
   userInfo;
-  roles = ''
+  roles = '';
   zoom: number;
   private geoCoder;
   profileQuestions;
@@ -59,9 +59,9 @@ export class MyProfileComponent implements OnInit {
     { id: 'business6', label: 'Pharmacy', value: 'pharmacy' },
   ];
 
-  avalibilityQuestion
-  languageQuestion
-  serviceQuestion
+  avalibilityQuestion;
+  languageQuestion;
+  serviceQuestion;
 
 
   public profile = {
@@ -110,7 +110,7 @@ export class MyProfileComponent implements OnInit {
     private _sharedService: SharedService,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
@@ -128,18 +128,18 @@ export class MyProfileComponent implements OnInit {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
-      let autocomplete = new google.maps.places.Autocomplete(this.search2ElementRef.nativeElement, {});
+      const autocomplete = new google.maps.places.Autocomplete(this.search2ElementRef.nativeElement, {});
 
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         if (this.editFields) {
           this.profile.latitude = 0;
           this.profile.longitude = 0;
         }
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -147,7 +147,7 @@ export class MyProfileComponent implements OnInit {
           // set latitude, longitude and zoom
           this.profile.latitude = place.geometry.location.lat();
           this.profile.longitude = place.geometry.location.lng();
-          this.getAddress(this.profile.latitude, this.profile.longitude);
+          this.getAddress(this.profile.latitude, this.profile.longitude, place);
 
         });
       });
@@ -166,19 +166,21 @@ export class MyProfileComponent implements OnInit {
   updateFields() {
 
     setTimeout(() => {
-      this.google_address()
+      this.google_address();
     }, 50);
 
     this.editFields = !this.editFields;
     if (this.editFields) {
       this.submitted = true;
     } else {
-      this.submitted = false
+      this.submitted = false;
     }
   }
 
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+  getAddress(latitude, longitude, place = {}) {
+    this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log('place', place);
+      console.log('results', results);
       this.profile.city = '';
       this.profile.state = '';
       this.profile.zipcode = '';
@@ -186,37 +188,41 @@ export class MyProfileComponent implements OnInit {
 
       if (status === 'OK') {
         if (results[0]) {
+          // if(place){
+          //   results[0]=place
+          // }
           this.zoom = 12;
           this.profile.address = results[0].formatted_address;
           // find country name
-          for (var i = 0; i < results[0].address_components.length; i++) {
-            for (var b = 0; b < results[0].address_components[i].types.length; b++) {
+          for (let i = 0; i < results[0].address_components.length; i++) {
+            for (let b = 0; b < results[0].address_components[i].types.length; b++) {
 
-              //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
-              if (results[0].address_components[i].types[b] == "locality") {
-                //this is the object you are looking for
+              // there are different types that might hold a city admin_area_lvl_1 usually does
+              // in come cases looking for sublocality type will be more appropriate
+              if (results[0].address_components[i].types[b] === 'locality') {
+                // this is the object you are looking for
                 this.profile.city = results[0].address_components[i].long_name;
                 break;
               }
               if (this.profile.city.length === 0) {
-                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
-                  //this is the object you are looking for
+                if (results[0].address_components[i].types[b] === 'administrative_area_level_1') {
+                  // this is the object you are looking for
                   this.profile.city = results[0].address_components[i].long_name;
                   break;
                 }
-                if (results[0].address_components[i].types[b] == "administrative_area_level_2") {
-                  //this is the object you are looking for
+                if (results[0].address_components[i].types[b] === 'administrative_area_level_2') {
+                  // this is the object you are looking for
                   this.profile.state = results[0].address_components[i].long_name;
                   break;
                 }
               }
-              if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
-                //this is the object you are looking for
+              if (results[0].address_components[i].types[b] === 'administrative_area_level_1') {
+                // this is the object you are looking for
                 this.profile.state = results[0].address_components[i].long_name;
                 break;
               }
-              if (results[0].address_components[i].types[b] == "postal_code") {
-                //this is the object you are looking for
+              if (results[0].address_components[i].types[b] === 'postal_code') {
+                // this is the object you are looking for
                 this.profile.zipcode = results[0].address_components[i].long_name;
                 break;
               }
@@ -231,18 +237,18 @@ export class MyProfileComponent implements OnInit {
     });
   }
   getProfileQuestion() {
-    let path = `questionare/get-profile-questions`;
+    const path = `questionare/get-profile-questions`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         res.data.forEach(element => {
-          if (element.question_type === 'service' && element.slug === "offer-your-services") {
+          if (element.question_type === 'service' && element.slug === 'offer-your-services') {
             this.serviceQuestion = element;
           }
-          if (element.question_type === 'service' && element.slug === "languages-you-offer") {
-            this.languageQuestion = element
+          if (element.question_type === 'service' && element.slug === 'languages-you-offer') {
+            this.languageQuestion = element;
           }
           if (element.question_type === 'availability') {
-            this.avalibilityQuestion = element
+            this.avalibilityQuestion = element;
           }
         });
 
@@ -256,9 +262,9 @@ export class MyProfileComponent implements OnInit {
   }
 
   getProfileDetails() {
-    let path = `user/get-profile/${this.userInfo._id}`;
+    const path = `user/get-profile/${this.userInfo._id}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
 
         this.profile = res.data[0];
 
@@ -273,6 +279,7 @@ export class MyProfileComponent implements OnInit {
           this.hoursSelected = this.profile.typical_hours;
           this.age_rangeSelected = this.profile.age_range;
         }
+        console.log(this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -294,7 +301,6 @@ export class MyProfileComponent implements OnInit {
       });
     }
     if (key === 'languages' && this.languageQuestion) {
-      console.log(this.languageQuestion);
       this.languageQuestion.answers.forEach(checkbox => {
         checkbox.checked = (data.indexOf(checkbox._id) > -1) ? true : false;
       });
@@ -305,8 +311,7 @@ export class MyProfileComponent implements OnInit {
         this.priceList.forEach(checkbox => {
           checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
         });
-      }
-      else {
+      } else {
         this.priceList[0].checked = true;
 
       }
@@ -315,8 +320,7 @@ export class MyProfileComponent implements OnInit {
       if (data.length === 5) {
         this.ageRangeList[0].checked = true;
 
-      }
-      else {
+      } else {
         this.ageRangeList.forEach(checkbox => {
           checkbox.checked = (data.indexOf(checkbox.id) > -1) ? true : false;
         });
@@ -330,9 +334,8 @@ export class MyProfileComponent implements OnInit {
         if (this.hoursSelected.indexOf(e.target.id) === -1) {
           this.hoursSelected.push(e.target.id);
         }
-      }
-      else {
-        const find = this.hoursSelected.indexOf(e.target.id)
+      } else {
+        const find = this.hoursSelected.indexOf(e.target.id);
         if (find > -1) {
           this.hoursSelected.splice(find, 1);
         }
@@ -344,9 +347,8 @@ export class MyProfileComponent implements OnInit {
         if (this.languagesSelected.indexOf(e.target.id) === -1) {
           this.languagesSelected.push(e.target.id);
         }
-      }
-      else {
-        const find = this.languagesSelected.indexOf(e.target.id)
+      } else {
+        const find = this.languagesSelected.indexOf(e.target.id);
         if (find > -1) {
           this.languagesSelected.splice(find, 1);
         }
@@ -358,9 +360,8 @@ export class MyProfileComponent implements OnInit {
         if (this.serviceOfferSelected.indexOf(e.target.id) === -1) {
           this.serviceOfferSelected.push(e.target.id);
         }
-      }
-      else {
-        const find = this.serviceOfferSelected.indexOf(e.target.id)
+      } else {
+        const find = this.serviceOfferSelected.indexOf(e.target.id);
         if (find > -1) {
           this.serviceOfferSelected.splice(find, 1);
         }
@@ -374,14 +375,13 @@ export class MyProfileComponent implements OnInit {
           if (e.target.id === '5eb1a4e199957471610e6cd7') {
             this.ageRangeList.forEach(el => {
               this.age_rangeSelected.push(el.id);
-            })
+            });
           } else {
             this.age_rangeSelected.push(e.target.id);
           }
         }
-      }
-      else {
-        const find = this.age_rangeSelected.indexOf(e.target.id)
+      } else {
+        const find = this.age_rangeSelected.indexOf(e.target.id);
         if (find > -1) {
           this.age_rangeSelected.splice(find, 1);
         }
@@ -393,24 +393,29 @@ export class MyProfileComponent implements OnInit {
 
   save() {
     if (this.roles === 'C' || this.roles === 'SP') {
-      if (this.profile.typical_hours.length == 0) {
-        this.toastr.error("Please select the available time!");
+      if (this.profile.typical_hours.length === 0) {
+        this.toastr.error('Please select the available time!');
         return;
       }
     }
     const payload = this.profile;
-    payload['_id'] = localStorage.getItem('loginID');
-    if (payload.phone) payload.phone.toString();
-    let data = JSON.parse(JSON.stringify(this.profile));
+    payload._id = localStorage.getItem('loginID');
+    if (payload.phone) { payload.phone.toString(); }
+    const data = JSON.parse(JSON.stringify(this.profile));
 
     this._sharedService.loader('show');
-
+    this.profile.bookingURL = this.profile.bookingURL.trim();
+    if (this.profile.bookingURL) {
+      this.profile.booking = 'yes';
+    } else {
+      this.profile.booking = 'no';
+    }
     this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.profile = res.data;
         this.toastr.success(res.message);
         this.editFields = false;
-        console.log("proressssssss", res.data);
+        console.log('proressssssss', res.data);
         this._bs.setUserData(res.data);
       } else {
         this.toastr.error(res.message);
@@ -424,9 +429,11 @@ export class MyProfileComponent implements OnInit {
   }
 
   onFileSelect(event) {
-    if (event.target.files[0].type == 'image/png' || event.target.files[0].type == 'image/jpg' || event.target.files[0].type == 'image/jpeg') {
+    if (event.target.files[0].type === 'image/png'
+      || event.target.files[0].type === 'image/jpg'
+      || event.target.files[0].type === 'image/jpeg') {
       if (event.target.files.length > 0) {
-        let input = new FormData();
+        const input = new FormData();
         // Add your values in here
         input.append('_id', this.userInfo._id);
         input.append('profileImage', event.target.files[0]);
@@ -450,8 +457,8 @@ export class MyProfileComponent implements OnInit {
   }
 
   deleteProfile(content) {
-  this.modalref = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'sm'});
-  this.modalref.result.then((result) => {
+    this.modalref = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' });
+    this.modalref.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
     });
@@ -459,26 +466,26 @@ export class MyProfileComponent implements OnInit {
 
   removeProfile() {
     this.spinner.show();
-    var data = {
-      'id': this.profile._id,
-      'status': 'false'
-    }
+    const data = {
+      id: this.profile._id,
+      status: 'false'
+    };
     this._sharedService.removeProfile(data).subscribe((res: any) => {
       this.spinner.hide();
       if (res.statusCode === 200) {
         this.modalref.close();
-        this.toastr.success('User deactivated successfully!')
+        this.toastr.success('User deactivated successfully!');
         this._sharedService.logout();
       } else {
         this.toastr.error(res.message);
       }
-      
+
     },
       err => {
         this.spinner.hide();
         this.toastr.error(err);
       }
-    )
+    );
   }
 
 }

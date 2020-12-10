@@ -11,16 +11,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 })
 export class SubscriptionComponent implements OnInit {
 
- 
+
   private _SubcriberObservable: any;
   public subscriptionForm: FormGroup;
   submitted = false;
 
 
-  constructor(private formBuilder:FormBuilder, private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) 
-  {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) {
     this.createForm();
-   }
+  }
 
   createForm() {
     this.subscriptionForm = this.formBuilder.group({
@@ -43,9 +42,9 @@ export class SubscriptionComponent implements OnInit {
       // }
       this._SubcriberObservable = this._sharedService.sendEmailSubscribers(this.subscriptionForm.value).subscribe((res: any) => {
         this.spinner.hide();
-        if (res.statusCode == 200) {
+        if (res.statusCode === 200) {
           this.toastr.success(res.message);
-          
+
         } else {
           this.toastr.error(res.error.message);
         }
@@ -55,7 +54,7 @@ export class SubscriptionComponent implements OnInit {
           this.toastr.error(error);
         }
       )
-    } 
+    }
   }
 
   ngOnDestroy(): void {

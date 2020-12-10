@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { SharedService } from "../../shared/services/shared.service";
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
   selector: 'app-doctor-filter',
@@ -12,17 +12,17 @@ import { SharedService } from "../../shared/services/shared.service";
 export class DoctorFilterComponent implements OnInit {
   @ViewChild('closebutton') closebutton;
   @ViewChild('searchGlobal')
-  
+
   public searchGlobalElementRef: ElementRef;
-  selectedService = 'By Service'
+  selectedService = 'By Service';
   defaultImage = 'assets/img/no-image.jpg';
-  selectedServiceId = ''
+  selectedServiceId = '';
   private geoCoder;
   keyword = 'name';
-  gender ='';
+  gender = '';
   categoryList = [];
   serviceQuestion;
-  profileQuestions
+  profileQuestions;
   languageQuestion;
   avalibilityQuestion;
   selectedHours = '';
@@ -30,9 +30,9 @@ export class DoctorFilterComponent implements OnInit {
   selectedLang = '';
   doctorList = [];
   allDoctorList = [];
-  rating = 0 ;
+  rating = 0;
   zipCodeSearched;
-  searchedAddress = ''
+  searchedAddress = '';
   zipcode = '';
   lat;
   long;
@@ -44,7 +44,7 @@ export class DoctorFilterComponent implements OnInit {
     { value: '$50-100', name: '$ 50-100' },
     { value: '$100-200', name: '$ 100-200' },
     { value: '$200-500', name: '$ 200-500' },
-    { value: '$500-1000', name: '$ 500-1000'},
+    { value: '$500-1000', name: '$ 500-1000' },
     { value: '$1000', name: '$ > 1000' },
   ];
   miles = 100;
@@ -52,11 +52,11 @@ export class DoctorFilterComponent implements OnInit {
   queryLatLong;
 
   location = {
-    markers:  [],
+    markers: [],
     zoom: 10,
-    lati:51.673858,
+    lati: 51.673858,
     lng: 7.815982,
-  }
+  };
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -64,33 +64,33 @@ export class DoctorFilterComponent implements OnInit {
     private ngZone: NgZone,
     private sharedService: SharedService,
     private toastr: ToastrService,
-  ) { 
+  ) {
 
-    this.queryLatLong = `${this.activeRoute.snapshot.queryParams['long']}, ${this.activeRoute.snapshot.queryParams['lat']}`;
+    this.queryLatLong = `${this.activeRoute.snapshot.queryParams.long}, ${this.activeRoute.snapshot.queryParams.lat}`;
   }
 
   ngOnInit(): void {
     this.getCategoryServices();
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
-      let autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
-          //verify result
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          this.lat = place.geometry.location.lat()
-          this.location.lati = place.geometry.location.lng()
-          this.location.lng = place.geometry.location.lat()
-          this.long = place.geometry.location.lng()
+          this.lat = place.geometry.location.lat();
+          this.location.lati = place.geometry.location.lng();
+          this.location.lng = place.geometry.location.lat();
+          this.long = place.geometry.location.lng();
           const payload = {
             latLong: `${this.long}, ${this.lat}`,
             miles: this.miles
-          }
+          };
           this.getDoctorList(payload);
         });
       });
@@ -98,41 +98,41 @@ export class DoctorFilterComponent implements OnInit {
 
 
 
-    this.searchedAddress = localStorage.getItem('searchedAddress')
+    this.searchedAddress = localStorage.getItem('searchedAddress');
     this.getDoctorList({ latLong: this.queryLatLong, miles: this.miles });
     this.getProfileQuestion();
   }
 
   getProfileQuestion() {
-    let path = `questionare/get-profile-questions`;
+    const path = `questionare/get-profile-questions`;
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
-       if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         res.data.forEach(element => {
-          if(element.question_type ==='service' && element.slug==="offer-your-services") {
-            this.serviceQuestion = element
+          if (element.question_type === 'service' && element.slug === 'offer-your-services') {
+            this.serviceQuestion = element;
           }
-          if(element.question_type ==='service' && element.slug==="languages-you-offer") {
-            this.languageQuestion = element
+          if (element.question_type === 'service' && element.slug === 'languages-you-offer') {
+            this.languageQuestion = element;
           }
-          if(element.question_type ==='availability') {
-            this.avalibilityQuestion = element
+          if (element.question_type === 'availability') {
+            this.avalibilityQuestion = element;
           }
         });
-       } else {
-         this.toastr.error(res.message);
-  
-       }
-     }, err => {
-       this.sharedService.loader('hide');
-     });
+      } else {
+        this.toastr.error(res.message);
+
+      }
+    }, err => {
+      this.sharedService.loader('hide');
+    });
   }
   getAllDoctorList() {
-    let path = 'user/get-all-dr';
+    const path = 'user/get-all-dr';
     this.sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         const result = res.data;
-        this.createNameList(result)
-       
+        this.createNameList(result);
+
       } else {
         this.toastr.error(res.message);
       }
@@ -147,10 +147,10 @@ export class DoctorFilterComponent implements OnInit {
       if (res.statusCode === 200) {
         this.categoryList = res.data;
         this.categoryList.forEach(el => {
-          if(el.category_type === 'Service') {
+          if (el.category_type === 'Service') {
             el.category.forEach(element => {
-              if(element.item_text === 'Service') {
-                this.categoryList = element.subCategory
+              if (element.item_text === 'Service') {
+                this.categoryList = element.subCategory;
               }
             });
           }
@@ -158,7 +158,8 @@ export class DoctorFilterComponent implements OnInit {
       } else {
       }
     }, (error) => {
-      this.toastr.error("There are some error please try after some time.")
+      console.error(error);
+      this.toastr.error('There are some error please try after some time.');
       this.sharedService.loader('hide');
     });
   }
@@ -168,18 +169,18 @@ export class DoctorFilterComponent implements OnInit {
     let payload;
     payload = {
       ...filter,
-    }
+    };
     console.log(payload);
-    let path = 'user/filter-map';
+    const path = 'user/filter-map';
     this.sharedService.postNoAuth(payload, path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
-       this.doctorList = res.data;
-       this.doctorList = this.doctorList.sort((a,b)=>a.calcDistance - b.calcDistance);
-       if(this.doctorList.length) {
-        this.createNameList(res.data)
-        const self = this
-          setTimeout(()=>{
-            self.createMapMarker(this.doctorList)
+      if (res.statusCode === 200) {
+        this.doctorList = res.data;
+        this.doctorList = this.doctorList.sort((a, b) => a.calcDistance - b.calcDistance);
+        if (this.doctorList.length) {
+          this.createNameList(res.data);
+          const self = this;
+          setTimeout(() => {
+            self.createMapMarker(this.doctorList);
           }, 100);
           this.sharedService.loader('hide');
         } else {
@@ -200,25 +201,25 @@ export class DoctorFilterComponent implements OnInit {
   onRangeChange(event) {
     this.miles = Math.round(Math.ceil(event.target.value / 5) * 5);
   }
-  onOptionsSelected(value:string, type){   
+  onOptionsSelected(value: string, type) {
 
-    if(type === 'language') {
+    if (type === 'language') {
       this.selectedLang = value;
     }
 
-    if(type==="userType") {
-      
-        this.gender = value;
-          }
-    if(type==="hours"){
+    if (type === 'userType') {
+
+      this.gender = value;
+    }
+    if (type === 'hours') {
       this.selectedHours = value;
     }
-    
-    if(type==="serviceType"){
+
+    if (type === 'serviceType') {
       this.selectedServiceType = value;
     }
-    
-    if(type==="priceRange"){
+
+    if (type === 'priceRange') {
       this.selectedPriceRange = value;
     }
   }
@@ -232,23 +233,25 @@ export class DoctorFilterComponent implements OnInit {
     this.miles = 100;
     this.selectedPriceRange = '';
     this.getDoctorList({
-      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles });
+      latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong, miles: this.miles
+    });
   }
   applyFilter() {
-    let latlongs=this.queryLatLong;
-    if(this.long && this.lat){
-      latlongs=`${this.long}, ${this.lat}`    }    
+    let latlongs = this.queryLatLong;
+    if (this.long && this.lat) {
+      latlongs = `${this.long}, ${this.lat}`;
+    }
 
     const payload = {
       rating: this.rating,
-      languageId:this.selectedLang,
+      languageId: this.selectedLang,
       gender: this.gender,
-      typicalHoursId:this.selectedHours,
-      serviceOfferId:this.selectedServiceType,
+      typicalHoursId: this.selectedHours,
+      serviceOfferId: this.selectedServiceType,
       price_per_hours: this.selectedPriceRange,
       miles: this.miles,
       latLong: latlongs
-    }
+    };
 
     this.getDoctorList(payload);
 
@@ -256,11 +259,11 @@ export class DoctorFilterComponent implements OnInit {
   }
   createMapMarker(data) {
     this.location.markers = [];
-    this.location.lati = data[data.length-1].location[1];
+    this.location.lati = data[data.length - 1].location[1];
 
-    this.location.lng = data[data.length-1].location[0];
-    for (let element of data) {
-      if(element.location) {
+    this.location.lng = data[data.length - 1].location[0];
+    for (const element of data) {
+      if (element.location) {
         this.location.markers.push({
           lat: element.location[1],
           lng: element.location[0],
@@ -272,19 +275,19 @@ export class DoctorFilterComponent implements OnInit {
             profileImage: element.profileImage,
             _id: element._id,
           }
-        })
+        });
       }
     }
 
   }
   createNameList(data) {
     this.allDoctorList = [];
-    for (let element of data) {
-      if(element.firstName) {
+    for (const element of data) {
+      if (element.firstName) {
         this.allDoctorList.push({
           id: element._id,
           name: element.firstName,
-        })
+        });
       }
     }
   }
@@ -294,10 +297,10 @@ export class DoctorFilterComponent implements OnInit {
       miles: this.miles,
       serviceId: event.target.id,
       name: this.selectedName ? this.selectedName : ''
-    }
+    };
     this.getDoctorList(payload);
     this.selectedService = event.target.text;
-    this.selectedServiceId = event.target.id
+    this.selectedServiceId = event.target.id;
   }
   selectEvent(item) {
     const payload = {
@@ -305,19 +308,19 @@ export class DoctorFilterComponent implements OnInit {
       miles: this.miles,
       name: item.name,
       serviceId: this.selectedServiceId
-    }
+    };
     this.selectedName = item.name;
-    this.getDoctorList(payload)
-  } 
+    this.getDoctorList(payload);
+  }
   resetNames() {
     const payload = {
       latLong: (this.long && this.lat) ? `${this.long}, ${this.lat}` : this.queryLatLong,
       miles: this.miles,
       name: '',
       serviceId: this.selectedServiceId
-    }
-    this.selectedName = ''
-    this.getDoctorList(payload)
+    };
+    this.selectedName = '';
+    this.getDoctorList(payload);
 
   }
   ngOnDestroy() {
@@ -326,9 +329,9 @@ export class DoctorFilterComponent implements OnInit {
 }
 // just an interface for type safety.
 interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
+  lat: number;
+  lng: number;
+  label?: string;
   draggable: boolean;
   infoContent?: string;
 }

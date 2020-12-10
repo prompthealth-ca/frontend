@@ -8,6 +8,12 @@
   right: 0 !important;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 2em;
+  }
+}
+
 // testimonials
 $testimonialsAvtarSize: 100px;
 .testimonials-avtar {
@@ -44,6 +50,13 @@ $testimonialsLiSize: 10px;
   border-radius: 50%;
 }
 
+.intro-white-text{
+  font-style: normal;
+  font-weight: 350;
+  font-size: 26px;
+  line-height: 31px;
+}
+
 $slideLeftRightPaddding: 80px;
 .quote-bg {
   .testimonials-text {
@@ -53,6 +66,84 @@ $slideLeftRightPaddding: 80px;
     background-size: 100px;
     background-repeat: no-repeat;
   }
+}
+
+
+.tab-row {
+  background-color: white;
+  border-radius: 20px;
+  padding: 1em;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  scroll-padding: 0px 24px;
+  display: grid !important;
+  grid-auto-flow: column !important;
+  overflow: auto hidden !important;
+  scroll-snap-type: x mandatory !important;
+  gap: 5px !important;
+}
+
+.tab-row::-webkit-scrollbar {
+  display: none !important;
+}
+.recBackground {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-size: cover !important;
+  transform: scaleX(1);
+}
+
+.background-gradient {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, #3377C5 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: -1;
+}
+
+.intro-thumbnail {
+  min-width:110px;
+  width: auto;
+  height: auto;
+  border: none;
+}
+
+.blue-bold {
+  color: #3377C5;
+}
+
+.dot-bg {
+  background: url('src/assets/img/dotted_line_bg.png') no-repeat 50%;
+}
+
+.intro-content-area {
+  background: rgba(250, 252, 255, 0.5);
+  backdrop-filter: saturate(180%) blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  min-height: 40vh;
+}
+
+.about-us-body-font {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 200%;
+}
+
+.btn-home {
+  border: 3px $primaryColor solid;
+  border-radius: 15px;
+  color: $primaryColor;
+  font-weight: 500;
+  font-size: medium;
+}
+.btn-home:hover {
+  border-color: rgb(255, 255, 255) !important;
+  background: $primaryColor !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 // testimonials end
@@ -112,4 +203,80 @@ video {
       padding-right: $slideLeftRightPaddding;
     }
   }
+}
+
+.quote-block {
+  background: linear-gradient(6.05deg, #D4E4F8 11.94%, rgba(237, 244, 255, 0) 88.88%);
+  border-radius: 13px;
+}
+.quote-font {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5em;
+  line-height: 150%;
+  /* or 36px */
+
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 676px){
+  .coming-soon-bottom-bar {
+    background: url('src/assets/img/app-coming-soon-bottom.svg') no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+    width: 100%;
+    min-height: 100px;
+  }
+}
+
+.switch-tab:checked {
+  animation-duration: 0.2s !important;
+  animation-timing-function: cubic-bezier(0, 0, 0.1, 1) !important;
+}
+
+.switch-tab:checked ~ label{
+  opacity: 1 !important;
+  border-bottom: 4px $accentColor solid!important;
+}
+
+.switch-tab {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  // left: 0px !important;
+  // bottom: 0px !important;
+  // height: 0px !important;
+  // outline: none !important;
+  // border-width: 0px 0px 2px !important;
+  // border-style: none !important;
+  // border-color: white !important;
+  // border-image: initial !important;
+  // border-radius: 0px !important;
+  // margin: 0px !important;
+  // border-bottom: 2px solid transparent !important;
+}
+
+.hidden-input {
+  visibility: hidden;
+}
+
+.tab {
+  font-size: 17px !important;
+  line-height: 20px !important;
+  cursor: pointer !important;
+  position: relative;
+  opacity: 0.4;
+  transition: opacity 600ms ease-in-out 0s;
+}
+
+.searchTitle {
+  font-size: 16px !important;
+  line-height: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: dimgrey;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+  Helvetica Neue, sans-serif;
 }

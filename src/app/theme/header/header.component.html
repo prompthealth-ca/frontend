@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light main-header position-fixed shadow-sm w-100">
+  <nav class="blur navbar navbar-expand-lg main-header position-fixed navbar-light shadow-sm w-100">
     <div class="container">
       <a class="navbar-brand" href="#"><img src="assets/img/logo.png" /></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -15,28 +15,31 @@
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
               <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a  class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type  }}</a>
+                <a class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type  }}</a>
                 <ul class="dropdown-menu">
                   <li>
                     <div *ngFor="let answers of cat.category">
-                      <div *ngIf="answers.subCategory.length"> 
+                      <div *ngIf="answers.subCategory.length">
                         <h6>{{answers.item_text}}</h6>
-                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: subanswers._id, type:  cat.category_type }">
+                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item"
+                          [routerLink]="['/dashboard/listing']"
+                          [queryParams]=" {id: subanswers._id, type:  cat.category_type }">
                           {{subanswers.item_text}}
                         </a>
                       </div>
                       <div *ngIf="answers.subCategory.length === 0">
-                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: answers._id, type:  cat.category_type }"
-                          data-toggle="dropdown">
+                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']"
+                          [queryParams]=" {id: answers._id, type:  cat.category_type }" data-toggle="dropdown">
                           {{answers.item_text}}
                         </a>
 
                         <ul class="dropdown-menu" *ngIf="answers.subCategory.length">
-                          <li>                           
+                          <li>
                             <div *ngFor="let sub of answers.subCategory">
                               <hr>
                               <h6>{{sub.item_text}}</h6>
-                              <a class="dropdown-item" [routerLink]="['/dashboard/listing']" [queryParams]=" {id: sub._id }">
+                              <a class="dropdown-item" [routerLink]="['/dashboard/listing']"
+                                [queryParams]=" {id: sub._id }">
                                 {{sub.item_text}}
                               </a>
                             </div>
@@ -91,27 +94,22 @@
             <a class="nav-link" [routerLink]="['/blogs']">Blogs</a>
           </li>
 
-          
+
           <li class="nav-item dropdown user-dropdown" *ngIf="token">
-            <a
-              class="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
               aria-expanded="false">
 
               <!-- if no image -->
-               <!-- <i class="fa fa-user-circle mr-2"></i> -->
+              <!-- <i class="fa fa-user-circle mr-2"></i> -->
 
-               <!-- if image -->
-               <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
-               <img *ngIf="user.profileImage"
-                 src="https://prompthealth.ca:3000/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
-                 class="user-img mr-2" />
-               <!-- <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2"> -->
+              <!-- if image -->
+              <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
+              <img *ngIf="user.profileImage"
+                src="https://prompthealth.ca:3000/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
+                class="user-img mr-2" />
+              <!-- <img src="https://prompthealth.ca:3000/users/1598659473722buYK-monea.jpg" class="user-img mr-2"> -->
 
-                Welcome, {{user.firstName ? user.firstName: user.email }}
+              Welcome, {{user.firstName ? user.firstName: user.email }}
             </a>
 
             <div class="dropdown-menu">
@@ -132,12 +130,12 @@
             <a class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
 
           </li>
-          
+
           <li *ngIf="!token" class="nav-item">
             <a class="nav-link">OR</a>
           </li>
           <li *ngIf="!token" class="nav-item">
-          <a class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3" href="" data-toggle="modal"
+            <a class="nav-link btn btn-secondary mr-2 ml-2 pl-3 pr-3" href="" data-toggle="modal"
               data-target="#exampleModal">Join network</a>
           </li>
         </ul>
@@ -205,16 +203,18 @@
         <a class="btn btn-primary w-100 mr-2" (click)="professionalOption = !professionalOption"
           style="max-width: 175px;">PROFESSIONAL</a>
         or
-        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/login', 'u']" (click)="optUserType('U')" data-dismiss="modal"
-          style="max-width: 175px;" aria-label="Close">CLIENT</a>
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/login', 'u']" (click)="optUserType('U')"
+          data-dismiss="modal" style="max-width: 175px;" aria-label="Close">CLIENT</a>
       </div>
       <div class="mb-3" *ngIf="professionalOption">
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'sp')" (click)="optUserType('SP')" />
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'sp')"
+            (click)="optUserType('SP')" />
           <span>Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'c')" (click)="optUserType('C')" />
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'c')"
+            (click)="optUserType('C')" />
           <span>Center</span>
         </div>
       </div>

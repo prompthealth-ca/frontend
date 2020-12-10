@@ -1,58 +1,56 @@
-<section class="main-footer pt-5 pb-5 bg-primary text-light">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-12 mb-4 mb-md-0">
-            <h5 class="mb-3 text-center text-md-left">PromptHealth</h5>
-            <div class="row">
-              <nav
-                class="nav w-100 justify-content-center justify-content-md-start font-weight-normal"
-              >
-                <a class="nav-link text-light" [routerLink]="['/faq']">FAQ</a>
-                <a
-                  class="nav-link text-light"
-                  [routerLink]="['/affiliate']"
-                  >Affiliate</a
-                >
-                <a class="nav-link text-light" [routerLink]="['/contact-us']"
-                  >Contact us</a
-                >
-                <a class="nav-link text-light" [routerLink]="['/policy/']"
-                  >Privacy Policy</a
-                >
-                <a
-                  class="nav-link text-light"
-                  [routerLink]="['/termConditions/']"
-                  >Terms & Conditions</a
-                >
+<section class="main-footer py-5">
+  <div class="container">
+    <div class="separator my-3">
+    </div>
 
-                <a
-                  class="nav-link text-light"
-                  [routerLink]="['/subscription/']"
-                  >Subscription</a
-                >
-              </nav>
-            </div>
-          </div>
+    <div class="row my-3 ">
+      <div class="col d-flex justify-content-center">
+        <div style="width: 10rem;">
+          <img class="img-fluid" src="assets/img/logo.png" alt="logo">
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="row">
-          <div class="col-md-12 text-center text-md-right">
-            <p class="mb-3">© 2020 Prompthealth</p>
-            <div class="social-links d-inline-block">
-              <a href="https://www.facebook.com/PromptHealth/?modal=admin_todo_tour" class="btn btn-light mr-2" target="_blank"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a href="https://www.linkedin.com/company/52172152/admin/" class="btn btn-light mr-2" target="_blank"
-                ><i class="fab fa-linkedin"></i></a>
-              <a href="https://www.instagram.com/prompthealth/" class="btn btn-light" target="_blank"
-                ><i class="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
+    </div>
+
+    <div class="row my-3">
+
+      <div class="col-12 col-md-4 d-flex justify-content-center flex-wrap w-100" style="font-weight: 500;">
+        <a class="text-black" [routerLink]="['/faq']">FAQ</a>
       </div>
+
+      <div class="col-12 col-md-4 d-flex justify-content-center flex-wrap w-100 py-3 py-md-0" style="font-weight: 500;">
+        <a class="text-black" [routerLink]="['/affiliate']">Affiliate</a>
+      </div>
+      <div class="col-12 col-md-4 d-flex justify-content-center flex-wrap w-100" style="font-weight: 500;">
+        <a class="text-black" [routerLink]="['/subscription/']">Subscription</a>
+      </div>
+
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 col-md-8 align-self-center d-none d-md-block">
+
+        <span class="mb-3">© 2020 Prompthealth</span> |
+        <a class="px-2" [routerLink]="['/contact-us']">Contact us</a> |
+        <a class="px-2" [routerLink]="['/policy/']">Privacy Policy</a> |
+        <a class="" [routerLink]="['/termConditions/']">Terms & Conditions</a>
+      </div>
+      <div class="col-12 col-md-8 align-self-center d-md-none">
+        <div class="mb-3 w-100 text-center">© 2020 Prompthealth</div>
+
+        <a class="d-block text-center w-100" [routerLink]="['/contact-us']">Contact us</a>
+        <a class="d-block text-center w-100" [routerLink]="['/policy/']">Privacy Policy</a>
+        <a class="d-block text-center w-100" [routerLink]="['/termConditions/']">Terms & Conditions</a>
+      </div>
+
+      <div class="col-12 col-md-4 text-center text-md-right mt-3 mt-md-0">
+        <a href="https://www.facebook.com/PromptHealth/?modal=admin_todo_tour"
+          class="btn btn-primary button-circular mr-2" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.linkedin.com/company/52172152/admin/" class="btn btn-primary button-circular mr-2"
+          target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/prompthealth/" class="btn btn-primary button-circular " target="_blank"><i
+            class="fab fa-instagram"></i></a>
+      </div>
+
     </div>
   </div>
 </section>

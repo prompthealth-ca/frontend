@@ -12,6 +12,7 @@ import { SharedService } from '../../shared/services/shared.service';
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 declare var jQuery: any;
 
 
@@ -300,11 +301,14 @@ export class SubscriptionPlanComponent implements OnInit {
       if (res.statusCode === 200) {
         this.toastr.success('Checking out...');
         // this.closebutton.nativeElement.click();
+        // console.log(environment.config.stripeKey);
         console.log(res);
+        this.stripeService.changeKey(environment.config.stripeKey);
         this.stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
           console.log('success!');
         }, error => {
           this.toastr.error(error);
+          console.log(error);
         });
       } else {
         this.toastr.error(res.message, 'Error');

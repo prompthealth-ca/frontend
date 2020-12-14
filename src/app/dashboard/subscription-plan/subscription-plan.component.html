@@ -243,27 +243,27 @@
         <tr>
           <td></td>
           <td>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
               [routerLink]="['/auth/registration/sp']">Register</a>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedFreePlan(basicPlan)" style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedPlan(cPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               [routerLink]="['/auth/registration/sp']" style="max-width: 175px;" aria-label="Close">Buy</a>
-            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-primary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedPlan(spPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               [routerLink]="['/auth/registration/c']" style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 
-          <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+          <td><a class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
               [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
         </tr>
       </tfoot>
@@ -497,21 +497,21 @@
         <tr>
           <td></td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedFreePlan(basicPlan)" style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td *ngIf="roles === 'SP'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedPlan(spPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
           <td *ngIf="roles === 'C'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
               (click)="setSelectedPlan(cPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
-            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-primary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
           </td>
 
-          <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+          <td><a class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
               [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
         </tr>
       </tfoot>

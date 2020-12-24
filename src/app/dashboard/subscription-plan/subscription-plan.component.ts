@@ -86,30 +86,6 @@ export class SubscriptionPlanComponent implements OnInit {
       name: ['', [Validators.required]]
     });
 
-    // this.stripeService.elements(this.elementsOptions)
-    //   .subscribe(elements => {
-    //     this.elements = elements;
-    //     // Only mount the element the first time
-    //     if (!this.card) {
-    //       this.card = this.elements.create('card', {
-    //         style: {
-    //           base: {
-    //             iconColor: '#666EE8',
-    //             color: '#31325F',
-    //             lineHeight: '40px',
-    //             fontWeight: 300,
-    //             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-    //             fontSize: '18px',
-    //             '::placeholder': {
-    //               color: '#CFD7E0'
-    //             }
-    //           }
-    //         }
-    //       });
-    //       this.card.mount('#card-element');
-    //     }
-    //   });
-
     this.getSubscriptionPlan('user/get-plans');
     // this.getUserDetails();
     if (this.isLoggedIn === true) {
@@ -122,6 +98,7 @@ export class SubscriptionPlanComponent implements OnInit {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
+        console.log(res.data);
         res.data.forEach(element => {
           if (element.userType.length > 1 && element.name === 'Basic') {
             this.basicPlan = element;
@@ -190,7 +167,7 @@ export class SubscriptionPlanComponent implements OnInit {
         if (res.statusCode === 200) {
           this.toastr.success(res.message);
 
-          this._router.navigate(['/']);
+          this._router.navigate(['/dashboard/profilemanagement/my-subscription']);
         } else {
           this.toastr.error(res.message);
 
@@ -294,6 +271,7 @@ export class SubscriptionPlanComponent implements OnInit {
       discountType: this.discounttype
     };
     console.log(payload);
+
     const path = `user/checkoutSession`;
     this._sharedService.loader('show');
     this._sharedService.post(payload, path).subscribe((res: any) => {
@@ -304,12 +282,21 @@ export class SubscriptionPlanComponent implements OnInit {
         // console.log(environment.config.stripeKey);
         console.log(res);
         this.stripeService.changeKey(environment.config.stripeKey);
-        this.stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
-          console.log('success!');
-        }, error => {
-          this.toastr.error(error);
-          console.log(error);
-        });
+
+        if (res.data.type === 'checkout') {
+          this.stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
+            console.log('success!');
+          }, error => {
+            this.toastr.error(error);
+            console.log(error);
+          });
+        }
+        if (res.data.type === 'portal') {
+          console.log(res.data);
+          location.href = res.data.url;
+        }
+
+
       } else {
         this.toastr.error(res.message, 'Error');
       }

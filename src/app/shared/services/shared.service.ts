@@ -172,11 +172,11 @@ export class SharedService {
 
   removeProfile(formData) {
     const headers = this.getAuthorizationHeader();
-    return this.http.put(this.rootUrl + '/user/updateStatus', formData, { headers });
+    return this.http.put(this.rootUrl + 'user/updateStatus', formData, { headers });
   }
 
   sendEmailSubscribers(data) {
-    return this.http.post(this.rootUrl + '/user/subscribe', data);
+    return this.http.post(this.rootUrl + 'user/subscribe', data);
   }
 
   delete(id, model) {

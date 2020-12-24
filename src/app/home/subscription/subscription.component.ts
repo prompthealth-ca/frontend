@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.scss']
 })
-export class SubscriptionComponent implements OnInit {
+export class SubscriptionComponent implements OnInit, OnDestroy {
 
 
   private _SubcriberObservable: any;
@@ -17,13 +17,19 @@ export class SubscriptionComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private _sharedService: SharedService,
+    private spinner: NgxSpinnerService
+  ) {
     this.createForm();
   }
 
   createForm() {
     this.subscriptionForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
     });
   }
@@ -53,7 +59,7 @@ export class SubscriptionComponent implements OnInit {
           this.spinner.hide();
           this.toastr.error(error);
         }
-      )
+      );
     }
   }
 

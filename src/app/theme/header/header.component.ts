@@ -117,7 +117,6 @@ export class HeaderComponent implements OnInit {
   getCategoryServices() {
     this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
-      console.log('hi');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
       }
@@ -128,9 +127,9 @@ export class HeaderComponent implements OnInit {
     });
   }
   isSelectedURL(path) {
-    if ((this.currentUrl == '/' || this.currentUrl == '') && path == '/') {
+    if ((this.currentUrl === '/' || this.currentUrl === '') && path === '/') {
       return true;
-    } else if (this.currentUrl.indexOf(path) >= 0 && path != '/') { return true; } else { return false; }
+    } else if (this.currentUrl.indexOf(path) >= 0 && path !== '/') { return true; } else { return false; }
   }
 
   handleChange(url, type) {

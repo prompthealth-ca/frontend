@@ -10,35 +10,37 @@
                 <h2 class="mb-3">Subscribe to get notified of the latest updates</h2>
             </div>
             <form class="col-md-6" [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()">
-                    <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <h3 class="mb-3 text-center">Subscription</h3>
-                            <input type="name"  placeholder="Your Name" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
-                                class="form-control">
-                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                                    <div *ngIf="f.name.errors.required">Name is required</div>
-                                </div>
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <input type="email" placeholder="Your Email"  name="myEmail"
-                            formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
-                                class="form-control">
-                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                    <div *ngIf="f.email.errors.required">Email is required</div>
-                                    <div *ngIf="f.email.errors.email">Email is invalid</div>
-                                </div>
-                        </div>
-
-                        <!-- <div class="col-md-12 mb-2">
-                        <label class="mb-0"><input type="checkbox" class="mr-2" /> I want to recieve newsletters</label>
-                    </div> -->
-
-                        <div class="col-md-12 mb-3 text-right">
-                            <button class="btn btn-light rounded-0" 
-                               >Subscribe</button>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <h3 class="mb-3 text-center">Join our email list</h3>
+                        <input type="name" placeholder="First Name" formControlName="firstname"
+                            [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" class="form-control">
+                        <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstname.errors.required">First name is required</div>
                         </div>
                     </div>
+
+                    <div class="col-md-12 mb-3">
+                        <input type="name" placeholder="Last Name" formControlName="lastname"
+                            [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" class="form-control">
+                        <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastname.errors.required">Last name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <input type="email" placeholder="Your Email" name="myEmail" formControlName="email"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control">
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email is invalid</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-3 text-right">
+                        <button class="btn btn-light rounded-0">Subscribe</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

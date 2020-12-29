@@ -89,6 +89,11 @@ export class WrapperComponent implements OnInit {
       if (profile.isVipAffiliateUser) {
         if (profile.roles === 'SP') {
           this.listing.push({
+            title: 'Subscription',
+            link: 'my-subscription',
+            active: true,
+          });
+          this.listing.push({
             title: 'Booking',
             link: 'my-booking',
             active: true,
@@ -96,11 +101,6 @@ export class WrapperComponent implements OnInit {
           this.listing.push({
             title: 'Payment',
             link: 'my-payment',
-            active: true,
-          });
-          this.listing.push({
-            title: 'Subscription',
-            link: 'my-subscription',
             active: true,
           });
           this.listing.push({
@@ -156,6 +156,11 @@ export class WrapperComponent implements OnInit {
           console.log('userType', profile);
           if (profile?.plan?.userType.length == 2) {
             this.listing.push({
+              title: 'Subscription',
+              link: 'my-subscription',
+              active: true,
+            });
+            this.listing.push({
               title: 'Booking',
               link: 'my-booking',
               active: false,
@@ -163,11 +168,6 @@ export class WrapperComponent implements OnInit {
             this.listing.push({
               title: 'Payment',
               link: 'my-payment',
-              active: false,
-            });
-            this.listing.push({
-              title: 'Subscription',
-              link: 'my-subscription',
               active: false,
             });
             this.listing.push({
@@ -216,19 +216,18 @@ export class WrapperComponent implements OnInit {
       if (profile.roles === 'C' && !profile.isVipAffiliateUser) {
         if (profile?.plan?.userType.length === 2) {
           this.listing.push({
+            title: 'Subscription',
+            link: 'my-subscription',
+            active: true,
+          });
+          this.listing.push({
             title: 'Booking',
             link: 'my-booking',
             active: false,
           });
-
           this.listing.push({
             title: 'Payment',
             link: 'my-payment',
-            active: false,
-          });
-          this.listing.push({
-            title: 'Subscription',
-            link: 'my-subscription',
             active: false,
           });
           this.listing.push({

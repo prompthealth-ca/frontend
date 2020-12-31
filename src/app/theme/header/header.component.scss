@@ -1,6 +1,19 @@
 @import "../../../assets/scss/mixins";
 
+@media screen and (max-width: 350px){
+  .plr-0-i5{
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .pl-5-i5{
+    padding-left: 5px;
+  }
+  .pr-5-i5{
+    padding-right: 5px;
+  }
+}
 .nav-link{ color: inherit; }
+
 
 .btn{ padding: 4px 16px; }
 .btn-icon{

@@ -4,11 +4,24 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { environment } from '../../../environments/environment';
+import { trigger, transition, animate, style, query} from '@angular/animations'
+
+const fadeAnimation = trigger('fade', [
+  transition(':enter', [
+    style({display: 'block', opacity: 0}),
+    animate('300ms ease', style({opacity: 1}))
+  ]),
+  transition(':leave', [
+    style({opacity: 1}),
+    animate('300ms ease', style({opacity: 0}))
+  ])]
+);
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [fadeAnimation]
 })
 export class HeaderComponent implements OnInit {
 
@@ -157,6 +170,24 @@ export class HeaderComponent implements OnInit {
   optUserType(value) {
     this._bs.setRole(value);
     localStorage.setItem('userType', value);
+  }
+
+
+  showMenu(){
+    this._sharedService.showNavMenu();
+  }
+
+  hideMenu(){
+    this._sharedService.hideNavMenu();
+  }
+  changeMenuCategory(i: number){
+    this.activeCategory = i;
+  }
+
+  scrollMenuSm(n: number){
+    var menuSm = document.getElementById('menu_sm');
+    var w = menuSm.getBoundingClientRect().width;
+    menuSm.scrollLeft = w * n;
   }
 
 

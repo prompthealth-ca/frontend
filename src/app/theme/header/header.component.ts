@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
   public role = '';
   public payment = 'true';
 
+  public navMenu:any;
+  public activeCategory = 0;
+
+
   user: any = {};
   updateData: any;
   categoryList = [];
@@ -43,6 +47,7 @@ export class HeaderComponent implements OnInit {
     private toastr: ToastrService,
   ) {
     // this.fetchUser();
+    this.navMenu = this._sharedService.navMenu;
   }
 
   // Start ngOninit
@@ -118,7 +123,15 @@ export class HeaderComponent implements OnInit {
     this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.categoryList = res.data;
+        this.categoryList= [];
+        for(var i=0; i<res.data.length; i++){
+          console.log(res.data[i])
+          if(res.data[i].category_type.toLowerCase() == 'goal'){
+            this.categoryList = res.data[i].category;
+            break;
+          }
+        }
+        console.log(this.categoryList)
       }
     }, (error) => {
       console.error(error);

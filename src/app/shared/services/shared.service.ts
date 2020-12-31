@@ -41,8 +41,17 @@ export class SharedService {
     @Inject(DOCUMENT) private document,
     private http: HttpClient) {
     this.type = localStorage.getItem('roles');
-
   }
+
+
+  navMenu = {isShown: false}
+  hideNavMenu(){
+    this.navMenu.isShown = false;
+  }
+  showNavMenu(){
+    this.navMenu.isShown = true;
+  }
+
 
 
   logout() {

@@ -12,12 +12,15 @@
     padding-right: 5px;
   }
 }
-.nav-link{ color: inherit; }
+.nav-link{
+  color: inherit;
+  cursor: pointer;
+}
 
 
 .btn{ padding: 4px 16px; }
 .btn-icon{
-  font-size: 30px;
+  font-size: 28px;
   padding: 0 10px;
 }
 
@@ -64,11 +67,9 @@ img.brand-sm{
 .menu{
   position: absolute;
   top: 100%;
-  width: calc(100% - 32px);
-  background: white;
+  left: 0;
+  width: 100%;
   box-sizing: border-box;
-  border-radius: 0 0 20px 20px;
-  overflow: hidden;
 
   .menu-close{
     position: fixed;
@@ -78,9 +79,19 @@ img.brand-sm{
     left: 0;
   }
 
+  .menu_inner{
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    background: white;
+    width: calc(100% - 36px);
+    max-width: 1000px;
+    margin: auto;
+  }
+
   .menu-title{
     position: relative;
     border-bottom: 4px solid #3377C5;
+    color: #3377C5;
     line-height: 2em;
     text-align: center;
     padding: 10px;
@@ -88,6 +99,9 @@ img.brand-sm{
 
   .menu-category-group{
     position: relative;
+    height: 70vh;
+    max-height: 500px;
+
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
@@ -96,7 +110,9 @@ img.brand-sm{
 
   .menu-category{
     background: #E0EFFF;
-    padding: 0 0 0 60px;
+    padding: 0 0 0 35px;
+    overflow: auto;
+    height: 100%;
   }
 
   .menu-subcategory{ padding: 0 0 0 50px; }
@@ -104,38 +120,74 @@ img.brand-sm{
   ul.category{
     position: relative;
     list-style: none;
-    padding: 0;
+    padding: 1.5em 0;
+    overflow: hidden;
+
+    &.sub{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-content: flex-start;
+      height: 80%;
+      &.h-60{ height: 60%; }
+
+    }
 
     li{
+      position: relative;
       color: #4274BA;
-      margin: 2em 0;
+      padding: 0.5em 2em 0.5em 0;
       line-height: 1.5em;
-      transition: margin 200ms ease;
+      transition: padding 200ms ease;
       cursor: pointer;
+
+      &:not(:last-child){ margin-bottom: 1.5em; }
+
+      span{ position: relative; }
     }
 
     &.sub li{
+      flex: 0 0 20%;
+      width: 50%;
+      margin: 0;
       color: inherit;
       line-height: 1.5em;
       cursor: auto;
+
+      &.lower{ flex: 0 0 15%; }
+      &.lowest{ flex: 0 0 10%; }
+      &.narrower{ width: 40%; }
+      &.narrowest{ width: 30%; }
+    }
+
+    .highlighter{
+      height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      background: white;
+      position: absolute;
+      border-radius: 40px 0 0 40px;
+      transition: transform 200ms ease;
+      transform: translateX(100%);
+      transition-delay: 0ms;
     }
 
     li.active{
-      margin-left: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
+
+      .highlighter{
+        transform: translateX(0);
+        transition-delay: 200ms;
+      }
     }
   }
-  .highlighter{
-    height: 2.4em;
-    background: white;
+  img{
     position: absolute;
-    top: 1.5em;
-    width: 100%;
-    border-radius: 40px 0 0 40px;
-    transition: transform 200ms ease;
-
-    @for $i from 1 through 8{
-      &.pos-#{$i}{ transform: translateY(146% * $i); }
-    }
+    bottom: 50px;
+    right: 50px;
+    width: 50%;
   }
 }
 
@@ -156,31 +208,37 @@ img.brand-sm{
     position: absolute;
     top: 9px;
     right: 9px;
+    z-index: 10;
   }
 
   ul.menu-item{
     position: absolute;
+    left: 0;
     top: 50%;
     width: 100%;
-    transform: translate(0, -50%);
     list-style: none;
     padding: 0;
+    box-sizing: border-box;
     font-size: 1.4em;
+    background: #E0EFFF;
+    transition: transform 300ms ease;
+    transform: translate(0, -50%);
 
-    left: 0;
-    &.l-100{ left: 100%; }
-    &.l-200{ left: 200%; }
+    &.before{ transform: (translate(-100%, -50%)); }
+    &.after{ transform: translate(100%, -50%); }
 
     li{
       text-align: center;
       margin: 60px auto;
       color: #3377C5;
       width: 70%;
+      cursor: pointer;
     }
   }
   ul.menu-item.sub{
-    top: 50px;
-    transform: inherit;
+    padding-top: 50px;
+    height: 100vh;
+    overflow: auto;
     li{
       text-align: left;
       margin: 30px auto;

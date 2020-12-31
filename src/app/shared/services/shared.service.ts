@@ -44,12 +44,14 @@ export class SharedService {
   }
 
 
-  navMenu = {isShown: false}
+  navMenu = {isShown: false, levelMenuSm: 0}
   hideNavMenu(){
     this.navMenu.isShown = false;
+    this.navMenu.levelMenuSm = 0;
   }
-  showNavMenu(){
+  showNavMenu(jumpToCategory: boolean = true){
     this.navMenu.isShown = true;
+    this.navMenu.levelMenuSm = (jumpToCategory)? 1 : 0;
   }
 
 

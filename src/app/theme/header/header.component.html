@@ -31,7 +31,7 @@
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
         </div>
-        <div class="nav-item" (mouseenter)="showMenu()">
+        <div class="nav-item" (mouseenter)="showMenu()" (click)="showMenu()">
           <a class="nav-link">Category</a>
         </div>
         <div class="nav-item">
@@ -44,23 +44,33 @@
     </div>
 
 
-    <div class="menu d-none d-md-block shadow" *ngIf="navMenu.isShown && categoryList" [@fade]>
+    <div class="menu d-none d-md-block" *ngIf="navMenu.isShown && categoryList" [@fade]>
       <div class="menu-close" (click)="hideMenu()"></div>
 
-      <div class="menu-title center">Service/Goal</div>
-      <div class="menu-category-group w-100">
-        <div class="col-4 menu-category">
-          <div class="highlighter" [class]="'pos-' + activeCategory"></div>
-          <ul class="category">
-            <li *ngFor="let cat of categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">{{cat.item_text}}</li>
-          </ul>
-        </div>
-        <div class="col-8 menu-subcategory">
-          <ul class="category sub">
-            <li *ngFor="let sub of categoryList[activeCategory].subCategory">{{sub.item_text}}</li>
-          </ul>
+      <div class="shadow menu_inner">
+        <div class="menu-title center">Service/Goal</div>
+        <div class="menu-category-group w-100">
+          <div class="col-4 menu-category">
+            <ul class="category">
+              <li *ngFor="let cat of categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">
+                <div class="highlighter"></div>
+                <span>{{cat.item_text}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-8 menu-subcategory">
+            <img [src]="'assets/img/services_' + categoryList[activeCategory].label + '.png'"/>
+            <ul class="category sub"
+              [class]="classSubcategory"
+            >
+              <li *ngFor="let sub of categoryList[activeCategory].subCategory"
+                [class]="classSubcategoryItem"
+              >{{sub.item_text}}</li>
+            </ul>
+          </div>
         </div>
       </div>
+
     </div>
   </nav>
 </header>
@@ -70,7 +80,9 @@
   <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
     <i class="fas fa-times"></i>
   </button>
-  <ul class="menu-item font-weight-bold">
+  <ul class="menu-item font-weight-bold"
+    [ngClass]="{before: (navMenu.levelMenuSm > 0), after: (navMenu.levelMenuSm < 0)}"
+  >
     <li>Home</li>
     <li (click)="scrollMenuSm(1)">Category</li>
     <li>Solution</li>
@@ -78,9 +90,11 @@
     <li>Log in/Sign up</li>
   </ul>
 
-  <ul class="menu-item l-100 sub font-weight-bold">
-    <li class="menu-subtitle">
-      <button class="btn" (click)="scrollMenuSm(0)">
+  <ul class="menu-item sub"
+    [ngClass]="{before: (navMenu.levelMenuSm > 1), after: (navMenu.levelMenuSm < 1)}"
+  >
+    <li class="menu-subtitle font-weight-bold">
+      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(0)">
         <i class="fas fa-arrow-left"></i>
       </button>
       Category
@@ -90,12 +104,16 @@
     >{{cat.item_text}}</li>
   </ul>
 
-  <ul class="menu-item l-200 sub font-weight-bold">
-    <li class="menu-subtitle">
-      <button class="btn" (click)="scrollMenuSm(1)">
+  <ul class="menu-item sub"
+    [ngClass]="{before: (navMenu.levelMenuSm > 2), after: (navMenu.levelMenuSm < 2)}"
+  >
+    <li class="menu-subtitle font-weight-bold d-flex align-items-center">
+      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(1)">
         <i class="fas fa-arrow-left"></i>
       </button>
-      {{categoryList[activeCategory].item_text}}
+      <span class="d-inline-block">
+        {{categoryList[activeCategory].item_text}}
+      </span>
     </li>
     <li *ngFor="let sub of categoryList[activeCategory].subCategory">{{sub.item_text}}</li>
   </ul>

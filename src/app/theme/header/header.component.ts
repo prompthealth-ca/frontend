@@ -138,13 +138,16 @@ export class HeaderComponent implements OnInit {
       if (res.statusCode === 200) {
         this.categoryList= [];
         for(var i=0; i<res.data.length; i++){
-          console.log(res.data[i])
           if(res.data[i].category_type.toLowerCase() == 'goal'){
             this.categoryList = res.data[i].category;
             break;
           }
         }
-        console.log(this.categoryList)
+        this.categoryList.forEach((cat,i)=>{
+          var label = cat.item_text.toLowerCase();
+          label = label.replace(/[\/\s]/g, '_');
+          this.categoryList[i].label = label.replace(/[^0-9a-zA-Z_]/g, '');
+        });
       }
     }, (error) => {
       console.error(error);
@@ -173,23 +176,40 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  showMenu(){
-    this._sharedService.showNavMenu();
+  showMenu(slow: boolean = false){
+    setTimeout(()=>{
+      this._sharedService.showNavMenu(false);
+    })
   }
 
   hideMenu(){
+    console.log('hideMenu');
     this._sharedService.hideNavMenu();
   }
   changeMenuCategory(i: number){
     this.activeCategory = i;
+    this.setClassForSubcategory(i);
   }
 
   scrollMenuSm(n: number){
-    var menuSm = document.getElementById('menu_sm');
-    var w = menuSm.getBoundingClientRect().width;
-    menuSm.scrollLeft = w * n;
+    this.navMenu.levelMenuSm = n;
   }
 
-
+  public classSubcategory = '';
+  public classSubcategoryItem = ''
+  setClassForSubcategory(i: number){
+    var clname = ['', ''];
+    switch(this.categoryList[i].label){
+//      case 'skin_rejuvination': clname = ['', '']; break;
+      case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
+      case 'pain_management': clname = ['', 'lower narrowest']; break;
+      case 'women_mens_health': clname = ['h-100', 'lower']; break;
+      case 'mood_mental_health': clname = ['h-100', 'lowest narrower']; break;
+      case 'fitness': clname = ['h-100', '']; break;
+//      case 'nutrition': clname = ['h-60', '']; break;
+    }
+    this.classSubcategory = clname[0];
+    this.classSubcategoryItem = clname[1];
+  }
 
 }

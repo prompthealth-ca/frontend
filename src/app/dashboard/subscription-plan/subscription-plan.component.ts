@@ -48,6 +48,8 @@ export class SubscriptionPlanComponent implements OnInit {
   spMonth = false;
   discounttype: any;
 
+  public isPriceMonthly: boolean = true;
+
   public checkout = {
     email: 'this.userEmail.email',
     token: 'this.token'
@@ -98,7 +100,7 @@ export class SubscriptionPlanComponent implements OnInit {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-        console.log(res.data);
+//        console.log(res.data);
         res.data.forEach(element => {
           if (element.userType.length > 1 && element.name === 'Basic') {
             this.basicPlan = element;
@@ -306,6 +308,10 @@ export class SubscriptionPlanComponent implements OnInit {
       this.toastr.error(error);
       this._sharedService.loader('hide');
     });
+  }
+
+  changePriceRange(isMonthly: boolean){
+    this.isPriceMonthly = isMonthly;
   }
 
 

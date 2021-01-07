@@ -27,7 +27,7 @@ export class EnterpriseContactComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _router: Router,
     private _sharedService: SharedService
-  ) { 
+  ) {
     if (localStorage.getItem('token')) this.isLogin = true;
 
     this.routerSubscription = this._router.events.subscribe((evt) => {
@@ -47,9 +47,9 @@ export class EnterpriseContactComponent implements OnInit {
     this.homeForm = this.formBuilder.group({
 
       email: ['', [Validators.required, Validators.pattern(emailReg)]],
-      firstName : ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(10),Validators.pattern(phoneReg)]],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.pattern(phoneReg)]],
       userType: ['SP', Validators.required],
       description: ['', [Validators.required]],
     });
@@ -68,14 +68,14 @@ export class EnterpriseContactComponent implements OnInit {
       let path = 'user/planRequest'
       this._sharedService.postNoAuth(data, path).subscribe((res: any) => {
         this._sharedService.loader('hide');
-        if (res.statusCode == 200) {
+        if (res.statusCode === 200) {
           this.toastr.success('Quotation submitted successfully!');
 
           this.homeForm.reset();
           this.submitted = false;
 
 
-        this._router.navigate(['/home']);
+          this._router.navigate(['/home']);
 
         }
 

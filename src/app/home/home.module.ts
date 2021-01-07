@@ -1,8 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { HomeRoutingModule } from "./home-routing.module";
-import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from "../home/home.component";
 import { FAQComponent } from "./faq/faq.component";
 import { PricvacyPolicyComponent } from "./pricvacy-policy/pricvacy-policy.component";
@@ -51,7 +51,7 @@ import { NgxSocialShareModule } from 'ngx-social-share';
     FormsModule,
     NgxSpinnerModule,
     AutocompleteLibModule,
-    AgmCoreModule.forRoot(  {
+    AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCbRhC6h9Pp43-5t_Knyrd_ewAdLMIJtCg',
       libraries: ['places']
     }),
@@ -65,4 +65,4 @@ import { NgxSocialShareModule } from 'ngx-social-share';
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
-export class HomeModule {}
+export class HomeModule { }

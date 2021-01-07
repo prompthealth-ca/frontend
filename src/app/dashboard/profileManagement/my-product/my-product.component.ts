@@ -14,7 +14,7 @@ export class MyProductComponent implements OnInit {
   editProductCheck = false;
   submitted = false;
   addMore = false;
-  product =[];
+  product = [];
   editProductId = '';
   productSearch: '';
   imagesList = [];
@@ -49,10 +49,10 @@ export class MyProductComponent implements OnInit {
   getProductList() {
     let path = `product/get-all?userId=${this.userId}&count=10&page=1&frontend=0/`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.product = res.data.data;
         this.totalItems = this.product.length
-        if(this.product.length > 0) this.addMore = false
+        if (this.product.length > 0) this.addMore = false
 
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -69,13 +69,13 @@ export class MyProductComponent implements OnInit {
     let input = new FormData();
 
     input.append('imgLocation', 'products');
-    if(event.target.files.length === 1) {
+    if (event.target.files.length === 1) {
       input.append('images', event.target.files[0]);
       this._sharedService.loader('show');
       this._sharedService.imgUpload(input, 'common/imgUpload').subscribe((res: any) => {
         if (res.statusCode === 200) {
           this.imagesList.push(res.data);
-  
+
           this._sharedService.loader('hide');
         } else {
           this.toastr.error(res.message);
@@ -100,14 +100,14 @@ export class MyProductComponent implements OnInit {
           this.toastr.error(res.message);
         }
       }, err => {
-      this._sharedService.loader('hide');
+        this._sharedService.loader('hide');
         this.toastr.error('There are some errors, please try again after some time !', 'Error');
       });
     }
   }
   removefromList(url) {
     this.imagesList.forEach((ele, index) => {
-      if(ele === url) this.imagesList.splice(index, 1);
+      if (ele === url) this.imagesList.splice(index, 1);
     });
   }
   save() {
@@ -121,7 +121,7 @@ export class MyProductComponent implements OnInit {
         'images': this.imagesList ? this.imagesList : [],
       }
       let data = {
-        'userId':  this.userId,
+        'userId': this.userId,
         ...formData,
       };
       data['userId'] = this.userId;
@@ -155,7 +155,7 @@ export class MyProductComponent implements OnInit {
       if (res.statusCode === 200) {
         this.toastr.success(res.message);
         this.product.forEach((ele, index) => {
-          if(ele._id === i) this.product.splice(index, 1);
+          if (ele._id === i) this.product.splice(index, 1);
         });
         // this._router.navigate(['/home']);
       } else {
@@ -171,8 +171,8 @@ export class MyProductComponent implements OnInit {
     this.editProductForm.controls.title.setValue(prod.slug);
     this.editProductForm.controls.description.setValue(prod.description);
     this.editProductForm.controls.price.setValue(prod.price);
-    this.imagesList =  prod.images;
-    this.editProductId = prod._id;   
+    this.imagesList = prod.images;
+    this.editProductId = prod._id;
   }
   updateProduct() {
     if (this.editProductForm.invalid) {
@@ -184,7 +184,7 @@ export class MyProductComponent implements OnInit {
         'images': this.imagesList ? this.imagesList : [],
       }
       let body = {
-        'userId':  this.userId,
+        'userId': this.userId,
         ...formData,
       };
       body['userId'] = this.userId;

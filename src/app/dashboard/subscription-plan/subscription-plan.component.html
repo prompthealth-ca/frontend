@@ -5,10 +5,10 @@
 </ngx-spinner>
 <section class="pt-5 pb-5 bg-cover bg-overlay banner1" style="background-image: url(assets/img/blog2.jpg);">
   <div class="badgeimg">
-  <div class="position-relative">
-    <img src="/assets/img/badge50p.png"/>
-    <span>For First 1000 Users</span>
-  </div>
+    <div class="position-relative">
+      <img src="/assets/img/badge50p.png" />
+      <span>For First 1000 Users</span>
+    </div>
   </div>
   <div class="container pt-5 pb-5">
     <div class="row justify-content-center">
@@ -29,8 +29,8 @@
         <tr>
           <th class="border-0"></th>
           <th class="paid border-0">
-              <h6 class="text-primary mb-2">Basic</h6>
-            
+            <h6 class="text-primary mb-2">Basic</h6>
+
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-2">Free</b>
             </div>
@@ -51,7 +51,7 @@
           </th>
 
           <th class="paid border-0">
-              <h6 class="text-primary mb-2">Center <span class="badge badge-danger ml-1">50% off</span></h6>
+            <h6 class="text-primary mb-2">Center <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="d-inline-flex">
               <label class="mr-1">Monthly</label>
               <ui-switch size="small" [(ngModel)]="centreYearly"></ui-switch>
@@ -64,7 +64,7 @@
             </div>
           </th>
           <th class="free border-0">
-              <h6 class="text-primary mb-2">Enterprise</h6>
+            <h6 class="text-primary mb-2">Enterprise</h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">Get a Quote</b>
             </div>
@@ -243,37 +243,33 @@
         <tr>
           <td></td>
           <td>
-            <a  *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/registration/sp']">Register</a>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
-            (click)="setSelectedFreePlan(basicPlan)" 
-            style="max-width: 175px;" aria-label="Close">Explore</a>
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+              [routerLink]="['/auth/registration/sp']">Register</a>
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedFreePlan(basicPlan)" style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
-            data-toggle="modal"
-            data-target="#addcard"
-            (click)="setSelectedPlan(cPlan)"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-          <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/sp']"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedPlan(cPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              [routerLink]="['/auth/registration/sp']" style="max-width: 175px;" aria-label="Close">Buy</a>
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-primary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
           </td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
-            data-toggle="modal"
-            data-target="#addcard"
-            (click)="setSelectedPlan(spPlan)"
-            style="max-width: 175px;" aria-label="Close">Buy</a>
-            <a *ngIf="!isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" [routerLink]="['/auth/registration/c']"
-            style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedPlan(spPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a *ngIf="!isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              [routerLink]="['/auth/registration/c']" style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
 
-          <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
+          <td><a class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+              [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
         </tr>
       </tfoot>
     </table>
-    <table class="subscriptionTable w-100 table table-striped text-center" *ngIf="isLoggedIn && (roles === 'C' || 'SP')">
+    <table class="subscriptionTable w-100 table table-striped text-center"
+      *ngIf="isLoggedIn && (roles === 'C' || 'SP')">
       <thead>
         <tr>
           <th class="border-0"></th>
@@ -285,20 +281,21 @@
           </th>
 
           <th class="free border-0" *ngIf="roles === 'SP'">
-            <div class="d-inline-flex">
-              <label class="mr-1">Monthly</label>
-              <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
-              <label class="ml-1">Yearly</label>
-            </div>
-            
+
             <h6 class="text-primary mb-2">Premium <span class="badge badge-danger ml-1">50% off</span></h6>
             <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-2">$</b>
               <span *ngIf="spYearly === false"><b class="h5">{{spPlan?.price}}</b>/Monthly</span>
               <span *ngIf="spYearly === true"><b class="h5">{{spPlan?.yearlyPrice}}</b>/Yearly</span>
             </div>
+            <div class="d-inline-flex">
+              <label class="mr-1">Monthly</label>
+              <ui-switch size="small" [(ngModel)]="spYearly"></ui-switch>
+              <label class="ml-1">Yearly</label>
+            </div>
+
             <div *ngIf="profile?.refererencePointEarned > 0">
-                You have earned points you will get {{profile.refererencePointEarned}} % discount
+              You have earned points you will get {{profile.refererencePointEarned}} % discount
             </div>
             <!-- <div class="text-center d-flex justify-content-center align-items-center">
               <b class="h5 mb-4">$</b><b class="h5">80</b>/Monthly
@@ -500,27 +497,22 @@
         <tr>
           <td></td>
           <td>
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"  (click)="setSelectedFreePlan(basicPlan)" 
-            style="max-width: 175px;" aria-label="Close">Explore</a>
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedFreePlan(basicPlan)" style="max-width: 175px;" aria-label="Close">Explore</a>
           </td>
           <td *ngIf="roles === 'SP'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2" 
-            data-toggle="modal"
-            data-target="#addcard"
-            (click)="setSelectedPlan(spPlan)"
-            style="max-width: 175px;" aria-label="Close">Buy</a>
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedPlan(spPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
           </td>
           <td *ngIf="roles === 'C'">
-            <a *ngIf="isLoggedIn" class="btn btn-secondary rounded-pill scaleup w-100 ml-2"
-            data-toggle="modal"
-            data-target="#addcard"
-            (click)="setSelectedPlan(cPlan)"
-          style="max-width: 175px;" aria-label="Close">Buy</a>
-            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-secondary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
+            <a *ngIf="isLoggedIn" class="btn btn-primary rounded-pill scaleup w-100 ml-2"
+              (click)="setSelectedPlan(cPlan)" style="max-width: 175px;" aria-label="Close">Buy</a>
+            <!-- <a href=""  *ngIf="!isLoggedIn" class="btn btn-primary w-100 text-center rounded-pill shadow scaleup" data-toggle="modal"
             data-target="#loginmodal">Buy</a> -->
           </td>
 
-          <td><a class="btn btn-secondary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;" [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
+          <td><a class="btn btn-primary rounded-pill scaleup w-100 ml-2" style="max-width: 175px;"
+              [routerLink]="['/auth/get-in-touch']">Get In Touch</a></td>
         </tr>
       </tfoot>
     </table>
@@ -528,40 +520,26 @@
 </div>
 <hr>
 <p class="text-center font-weight-bold">Fees are in $CAD and are subject to 5% GST.</p>
-<div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="addcard" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
-    <div class="modal-content mk-border">
-      <div class="modal-header">
-        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
-          Add Card Details
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" 
-        #closebutton aria-label="Close" (click)="getSubscriptionPlan('user/get-plans')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Plan Price: <span class="pull-right">$CAD {{selectedPlan?.price}}</span></p>
-        <p *ngIf="profile?.refererencePointEarned">Discount: <span class="pull-right"> - {{profile.refererencePointEarned}}%</span></p>
 
-        <p>Discount: <span class="pull-right">- 50%</span></p>
-        <p>Tax: <span class="pull-right">+ 5%</span></p>
-        <hr>
-        <p>Total Price: <span class="pull-right">{{finalPrice}}</span></p>
-        <hr>
-        <form novalidate (ngSubmit)="buy()" [formGroup]="stripeTest">
-          <div id="card-element" class="field mb-3"></div>
-          <button type="submit" class="btn btn-primary px-4">
-            BUY
-          </button>
-        </form>
-      </div>
+<!-- add-on section -->
+<!-- <div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>
+        Add-On Products
+      </h2>
     </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col">
+      <app-add-on-card></app-add-on-card>
+    </div>
+  </div>
+</div> -->
 
 <!-- Modal Questionnaire -->
-<div class="modal fade" id="questionnaire" tabindex="-1" role="dialog" aria-labelledby="questionnaire" aria-hidden="true">
+<div class="modal fade" id="questionnaire" tabindex="-1" role="dialog" aria-labelledby="questionnaire"
+  aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
@@ -577,8 +555,8 @@
           <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
         </div>
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
-        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/dashboard/questionnaire/SP']" data-dismiss="modal" aria-label="Close"
-          style="max-width: 175px;">PROFESSIONAL</a>
+        <a class="btn btn-primary w-100 mr-2" [routerLink]="['/dashboard/questionnaire/SP']" data-dismiss="modal"
+          aria-label="Close" style="max-width: 175px;">PROFESSIONAL</a>
         or
         <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/dashboard/questions/User']" data-dismiss="modal"
           style="max-width: 175px;" aria-label="Close">USER</a>
@@ -589,70 +567,35 @@
 
 
 <!-- Modal login -->
-<div
-  class="modal fade"
-  id="loginmodal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="loginmodal"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog"
-    role="document"
-    style="margin: auto !important;width:100%"
-  >
+<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
-        <h5
-          class="modal-title w-100 text-center"
-          id="exampleModalLabel"
-          style="text-indent: 56px;"
-        >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="text-indent: 56px;">
           Login
         </h5>
-        <button
-          #signin
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button #signin type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center pb-4">
         <div class="text-center">
-          <img
-            src="assets/img/logo.png"
-            class="mb-3"
-            style="max-width: 220px;"
-          />
+          <img src="assets/img/logo.png" class="mb-3" style="max-width: 220px;" />
         </div>
         <div class="text-secondary font-weight-bold mb-3">Are You A</div>
-        <a
-          class="btn btn-primary w-100 mr-2"
-          (click)="professionalOption = !professionalOption" 
-          style="max-width: 175px;"
-          >PROFESSIONAL</a
-        >
+        <a class="btn btn-primary w-100 mr-2" (click)="professionalOption = !professionalOption"
+          style="max-width: 175px;">PROFESSIONAL</a>
         or
-        <a
-          class="btn btn-secondary w-100 ml-2"
-          [routerLink]="['/auth/login', 'u']"
-          data-dismiss="modal"
-          style="max-width: 175px;"
-          aria-label="Close"
-          >USER</a
-        >
+        <a class="btn btn-secondary w-100 ml-2" [routerLink]="['/auth/login', 'u']" data-dismiss="modal"
+          style="max-width: 175px;" aria-label="Close">USER</a>
       </div>
       <div class="mb-3" *ngIf="professionalOption">
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change) ="handleChange('/auth/login', 'sp')"/>
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'sp')" />
           <span>Service Provider</span>
         </div>
         <div class="radio">
-          <input type="radio" name="userTypeLogin" (change) ="handleChange('/auth/login', 'c')"/>
+          <input type="radio" name="userTypeLogin" (change)="handleChange('/auth/login', 'c')" />
           <span>Center</span>
         </div>
       </div>

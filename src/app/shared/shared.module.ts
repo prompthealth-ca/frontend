@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+//import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { SharedService } from './services/shared.service';
 import { PreviousRouteService } from './services/previousUrl.service';
@@ -11,7 +12,7 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
   imports: [
     CommonModule,
     RouterModule,
-
+//    BrowserAnimationsModule,
     // FlashMessagesModule
   ],
   providers: [
@@ -25,7 +26,8 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
   ],
   exports: [
     UserSidebarComponent,
-    SearchPipe
+//    BrowserAnimationsModule,
+    SearchPipe,
   ]
 })
 export class SharedModule { }

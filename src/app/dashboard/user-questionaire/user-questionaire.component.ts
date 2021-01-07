@@ -1,15 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';@Component({
+import { ToastrService } from 'ngx-toastr'; @Component({
   selector: 'app-user-questionaire',
   templateUrl: './user-questionaire.component.html',
   styleUrls: ['./user-questionaire.component.scss']
 })
 export class UserQuestionaireComponent implements OnInit {
-  questionType="age";
-  
-ansIDs = [];
+  questionType = "age";
+
+  ansIDs = [];
   myForm: any;
   public questionnaire: any;
   public type = window.localStorage.getItem('roles');
@@ -22,7 +22,7 @@ ansIDs = [];
     options: []
   };
 
-  public subOptions= true;
+  public subOptions = true;
   showlevel2SubAns = false
   ageQuestion
   profile
@@ -37,56 +37,56 @@ ansIDs = [];
     age_range: [],
     type: 'service',
     typical_hours: [],
-    latLong:`${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+    latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
   }
   @Output() ActiveNextTab = new EventEmitter<string>();
   constructor
     (
       private toastr: ToastrService,
       private _router: Router,
-      private _sharedService: SharedService, ) { }
+      private _sharedService: SharedService,) { }
 
   ngOnInit(): void {
     this.userSavePayload = {
       _id: localStorage.getItem('loginID'),
       answers: [],
-      
+
     }
     this.type = localStorage.getItem('roles');
-    if(!this.type){
+    if (!this.type) {
       this.type = 'U';
-    }else{
+    } else {
       this.getProfileDetails()
     }
     localStorage.removeItem('typical_hours');
-   
+
     this.getUserQuestionnaire();
   }
-  setAnsChecked(){
+  setAnsChecked() {
     this.questionnaire.forEach(element => {
-      if(element.c_question === "What is your age range?" && this.profile?.customer_age_group) {
+      if (element.c_question === "What is your age range?" && this.profile?.customer_age_group) {
         element.answers.forEach(ele => {
-          if(ele._id === this.profile.customer_age_group) {
+          if (ele._id === this.profile.customer_age_group) {
             ele.active = true;
           }
-        
+
         });
       }
-        
-      if(element.c_question === "Are you looking for your loved one?" && this.profile?.customer_loved) {
+
+      if (element.c_question === "Are you looking for your loved one?" && this.profile?.customer_loved) {
         element.answers.forEach(el => {
-          if(el._id === this.profile?.customer_loved) {
+          if (el._id === this.profile?.customer_loved) {
             el.active = true;
           }
         });
       }
 
-      if(element.c_question === "Check the status of your health" && this.profile?.customer_health.length) {
+      if (element.c_question === "Check the status of your health" && this.profile?.customer_health.length) {
         element.answers.forEach(el => {
           this.profile?.customer_health.forEach(save => {
-            if(el._id === save) {
+            if (el._id === save) {
               el.active = true;
-            } 
+            }
           });
         });
       }
@@ -95,29 +95,29 @@ ansIDs = [];
   getSubAns(evt, subOption, questType) {
     const parentId = evt.target.id;
 
-    console.log('--',parentId, subOption, questType)
+    console.log('--', parentId, subOption, questType)
 
-    if(evt.target.checked) {
-    this.subOptions = true;
-      if(this.selectedItems.indexOf(parentId) === -1) {
-        if(questType === 'availability') {
+    if (evt.target.checked) {
+      this.subOptions = true;
+      if (this.selectedItems.indexOf(parentId) === -1) {
+        if (questType === 'availability') {
           this.typical_hours.push(parentId);
           this.personalMatch.typical_hours = this.typical_hours;
         }
         else {
           console.log('parentId', this.selectedItems)
           this.selectedItems.push(parentId);
-          
+
           console.log('SELECTEDITEMS', this.personalMatch.ids, this.selectedItems);
         }
       }
-      if(subOption) {
+      if (subOption) {
         this.subRes.question = evt.target.name
-        this.subRes.quesId =  parentId;
+        this.subRes.quesId = parentId;
         const path = `questionare/get-answer/${evt.target.id}`;
         this._sharedService.get(path).subscribe((res: any) => {
-          if (res.statusCode = 200) {
-              this.subRes.options =  res.data;
+          if (res.statusCode === 200) {
+            this.subRes.options = res.data;
           } else {
             this._sharedService.checkAccessToken(res.message);
           }
@@ -136,12 +136,12 @@ ansIDs = [];
       console.log('unchecked')
       this.subOptions = false;
       const index = this.personalMatch.ids.indexOf(parentId);
-      if(index > -1) this.personalMatch.ids.splice(index, 1);
+      if (index > -1) this.personalMatch.ids.splice(index, 1);
       const index2 = this.selectedItems.indexOf(parentId);
-      if(index2 > -1) this.selectedItems.splice(index2, 1);
-      if(questType === 'availability') {
+      if (index2 > -1) this.selectedItems.splice(index2, 1);
+      if (questType === 'availability') {
         const index = this.personalMatch.typical_hours.indexOf(parentId);
-        if(index > -1) this.personalMatch.typical_hours.splice(index, 1);
+        if (index > -1) this.personalMatch.typical_hours.splice(index, 1);
       }
 
     }
@@ -155,11 +155,11 @@ ansIDs = [];
     this._sharedService.loader('show');
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.questionnaire = res.data;
-        
-        for(var i in this.questionnaire) {
-          this.questionnaire[i].answers.forEach(obj=> { obj['active'] = false })
+
+        for (var i in this.questionnaire) {
+          this.questionnaire[i].answers.forEach(obj => { obj['active'] = false })
         }
         this.setAnsChecked();
       } else {
@@ -167,7 +167,7 @@ ansIDs = [];
       }
       this._sharedService.loader('hide');
     }, err => {
-this._sharedService.loader('hide');
+      this._sharedService.loader('hide');
       this._sharedService.checkAccessToken(err);
     });
   }
@@ -175,7 +175,7 @@ this._sharedService.loader('hide');
     console.log('calling.....');
     let path = `user/get-profile/${localStorage.getItem('loginID')}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.profile = res.data[0];
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -191,7 +191,7 @@ this._sharedService.loader('hide');
     let payload;
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         localStorage.setItem('typical_hours', this.typical_hours.toString());
         this.toastr.success(res.message);
       } else {
@@ -205,11 +205,11 @@ this._sharedService.loader('hide');
 
     console.log('personalMatch', this.personalMatch)
     this._sharedService.setPersonalMatch(this.personalMatch)
-   
+
     this._router.navigate(['/dashboard/listing']);
   }
   nextTabEvent() {
-    switch(this.questionType) {
+    switch (this.questionType) {
       case 'age': {
         this.questionType = 'health';
         break;
@@ -228,27 +228,27 @@ this._sharedService.loader('hide');
   }
   addQuestion(question, ansID) {
     let data;
-    if(question === "5eb1a4e199957471610e6cd5") {
+    if (question === "5eb1a4e199957471610e6cd5") {
       data = {
         customer_age_group: ansID
       }
     }
     this.updateProfile(data);
   }
-  getMultiAns(question_id,event) {
+  getMultiAns(question_id, event) {
     let data;
-    if(event.target.checked) {
-      if(this.ansIDs.indexOf(event.target.id) === -1) {
+    if (event.target.checked) {
+      if (this.ansIDs.indexOf(event.target.id) === -1) {
         this.ansIDs.push(event.target.id);
       }
     }
     else {
       const find = this.ansIDs.indexOf(event.target.id)
-      if(find > -1) {
+      if (find > -1) {
         this.ansIDs.splice(find, 1);
       }
     }
-    if(question_id == "CHECK THE STATUS OF YOUR HEALTH") {
+    if (question_id == "CHECK THE STATUS OF YOUR HEALTH") {
       data = {
         customer_health: this.ansIDs
       }
@@ -257,10 +257,10 @@ this._sharedService.loader('hide');
   }
   updateProfile(data) {
     const payload = {
-      _id:  localStorage.getItem('loginID'),
+      _id: localStorage.getItem('loginID'),
       ...data,
     }
-    if(data.customer_age_group && data.customer_age_group !== "5eb1a4e199957471610e6cd7" && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
+    if (data.customer_age_group && data.customer_age_group !== "5eb1a4e199957471610e6cd7" && this.personalMatch.age_range.indexOf(data.customer_age_group) === -1) {
       this.personalMatch.age_range.push(data.customer_age_group);
     }
     // if(data.customer_loved && this.personalMatch.age_range.indexOf(data.customer_loved) === -1) {
@@ -268,15 +268,15 @@ this._sharedService.loader('hide');
     // }
 
 
-      this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.profile = res.data;
-        } else {
-          this.toastr.error(res.message);
-  
-        }
-      }, err => {
-      });
+    this._sharedService.post(payload, 'user/updateProfile').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.profile = res.data;
+      } else {
+        this.toastr.error(res.message);
+
+      }
+    }, err => {
+    });
 
   }
   // previousTabEvent() {
@@ -294,17 +294,17 @@ this._sharedService.loader('hide');
   getSubSubAns(evt, subans) {
     const parentId = evt.target.id;
     console.log('IDS', parentId);
-    if(evt.target.checked) {
-      if(this.selectedItems.indexOf(parentId) === -1) {
+    if (evt.target.checked) {
+      if (this.selectedItems.indexOf(parentId) === -1) {
         this.selectedItems.push(parentId);
       }
-      if(subans) {
+      if (subans) {
         this.sublevel2Res.question = evt.target.name
-        this.sublevel2Res.quesId =  parentId;
-        const path  = `questionare/get-sub-answer/${parentId}`;
+        this.sublevel2Res.quesId = parentId;
+        const path = `questionare/get-sub-answer/${parentId}`;
         this._sharedService.get(path).subscribe((res: any) => {
-          if (res.statusCode = 200) {
-            this.sublevel2Res.options =  res.data;
+          if (res.statusCode === 200) {
+            this.sublevel2Res.options = res.data;
           } else {
             this._sharedService.checkAccessToken(res.message);
           }
@@ -321,12 +321,12 @@ this._sharedService.loader('hide');
       }
     }
     else {
-      
+
       console.log('unchecked')
       const index = this.personalMatch.ids.indexOf(parentId);
-      if(index > -1) this.personalMatch.ids.splice(index, 1);
+      if (index > -1) this.personalMatch.ids.splice(index, 1);
       const index2 = this.selectedItems.indexOf(parentId);
-      if(index2 > -1) this.selectedItems.splice(index2, 1);
+      if (index2 > -1) this.selectedItems.splice(index2, 1);
 
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,22 +9,27 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.scss']
 })
-export class SubscriptionComponent implements OnInit {
+export class SubscriptionComponent implements OnInit, OnDestroy {
 
- 
+
   private _SubcriberObservable: any;
   public subscriptionForm: FormGroup;
   submitted = false;
 
 
-  constructor(private formBuilder:FormBuilder, private toastr: ToastrService, private _sharedService: SharedService, private spinner: NgxSpinnerService) 
-  {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private _sharedService: SharedService,
+    private spinner: NgxSpinnerService
+  ) {
     this.createForm();
-   }
+  }
 
   createForm() {
     this.subscriptionForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
     });
   }
@@ -43,9 +48,9 @@ export class SubscriptionComponent implements OnInit {
       // }
       this._SubcriberObservable = this._sharedService.sendEmailSubscribers(this.subscriptionForm.value).subscribe((res: any) => {
         this.spinner.hide();
-        if (res.statusCode == 200) {
+        if (res.statusCode === 200) {
           this.toastr.success(res.message);
-          
+
         } else {
           this.toastr.error(res.error.message);
         }
@@ -54,8 +59,8 @@ export class SubscriptionComponent implements OnInit {
           this.spinner.hide();
           this.toastr.error(error);
         }
-      )
-    } 
+      );
+    }
   }
 
   ngOnDestroy(): void {

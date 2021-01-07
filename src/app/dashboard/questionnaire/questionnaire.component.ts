@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class QuestionnaireComponent implements OnInit {
   activeTab = 'payment';
-  questionType="age";
+  questionType = "age";
   myForm: any;
   public questionnaire: any;
   public type = window.localStorage.getItem('roles');
@@ -36,20 +36,20 @@ export class QuestionnaireComponent implements OnInit {
     (
       private toastr: ToastrService,
       private _router: Router,
-      private _sharedService: SharedService, ) { }
+      private _sharedService: SharedService,) { }
 
   ngOnInit(): void {
 
     this.userSavePayload = {
       _id: localStorage.getItem('loginID'),
       answers: [],
-      
+
     }
     this.type = localStorage.getItem('roles');
-    if(JSON.parse(localStorage.getItem('isVipAffiliateUser')) === true) {
+    if (JSON.parse(localStorage.getItem('isVipAffiliateUser')) === true) {
       this.isVipAffiliateUser = true
     }
-    
+
     localStorage.removeItem('typical_hours');
     this.getSelectedSkill();
   }
@@ -57,9 +57,9 @@ export class QuestionnaireComponent implements OnInit {
   getSelectedSkill() {
     let path = `questionare/get-questions?type=${this.type}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.questionnaire = res.data;
-        
+
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -71,9 +71,9 @@ export class QuestionnaireComponent implements OnInit {
   getUserQuestionnaire() {
     let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this.questionnaire = res.data;
-        
+
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -86,14 +86,14 @@ export class QuestionnaireComponent implements OnInit {
   saveQuestionnaire() {
     this._sharedService.loader('show');
     let payload;
-      payload = {
-        _id: localStorage.getItem('loginID'),
-        services: this.selectedItems,
-      }
-    
+    payload = {
+      _id: localStorage.getItem('loginID'),
+      services: this.selectedItems,
+    }
+
     let path = 'user/updateServices';
     this._sharedService.post(payload, path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         localStorage.setItem('typical_hours', this.typical_hours.toString());
         this.toastr.success(res.message);
       } else {
@@ -104,38 +104,38 @@ export class QuestionnaireComponent implements OnInit {
     }, err => {
       this._sharedService.loader('hide');
     });
-    if(this.isVipAffiliateUser) {
-      if(this.type === 'U') {
+    if (this.isVipAffiliateUser) {
+      if (this.type === 'U') {
         this._router.navigate(['/dashboard/listing']);
       } else {
         this._router.navigate(['/dashboard/profilemanagement/my-profile']);
       }
     } else {
-      if(this.type === 'U') {
-      this._router.navigate(['/dashboard/listing']);
+      if (this.type === 'U') {
+        this._router.navigate(['/dashboard/listing']);
       } else {
-      this.ActiveNextTab.emit(this.activeTab); 
+        this.ActiveNextTab.emit(this.activeTab);
       }
     }
   }
   getSubAns(evt, subOption, questType) {
     const parentId = evt.target.id;
-    
-    if(this.selectedItems.indexOf(parentId) === -1) {
-      if(questType === 'availability') {
+
+    if (this.selectedItems.indexOf(parentId) === -1) {
+      if (questType === 'availability') {
         this.typical_hours.push(parentId);
       }
       else {
         this.selectedItems.push(parentId);
       }
     }
-    if(evt.target.checked && subOption) {
+    if (evt.target.checked && subOption) {
       this.subRes.question = evt.target.name
-      this.subRes.quesId =  parentId;
+      this.subRes.quesId = parentId;
       const path = `questionare/get-answer/${evt.target.id}`;
       this._sharedService.get(path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
-            this.subRes.options =  res.data;
+        if (res.statusCode === 200) {
+          this.subRes.options = res.data;
         } else {
           this._sharedService.checkAccessToken(res.message);
         }
@@ -154,17 +154,17 @@ export class QuestionnaireComponent implements OnInit {
   }
   getSubSubAns(evt, subans) {
     const parentId = evt.target.id;
-    if(this.selectedItems.indexOf(parentId) === -1) {
+    if (this.selectedItems.indexOf(parentId) === -1) {
       this.selectedItems.push(parentId);
     }
-    if(evt.target.checked && subans) {
+    if (evt.target.checked && subans) {
       this.sublevel2Res.question = evt.target.name
-      this.sublevel2Res.quesId =  parentId;
-      const path  = `questionare/get-sub-answer/${parentId}`;
+      this.sublevel2Res.quesId = parentId;
+      const path = `questionare/get-sub-answer/${parentId}`;
       this._sharedService.get(path).subscribe((res: any) => {
-        if (res.statusCode = 200) {
+        if (res.statusCode === 200) {
 
-          this.sublevel2Res.options =  res.data;
+          this.sublevel2Res.options = res.data;
         } else {
           this._sharedService.checkAccessToken(res.message);
         }
@@ -181,7 +181,7 @@ export class QuestionnaireComponent implements OnInit {
     }
   }
   nextTabEvent() {
-    switch(this.questionType) {
+    switch (this.questionType) {
       case 'age': {
         this.questionType = 'health';
         break;

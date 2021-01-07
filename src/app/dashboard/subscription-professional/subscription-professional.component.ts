@@ -13,6 +13,7 @@ import { AngularStripeService } from '@fireflysemantics/angular-stripe-service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-subscription-professional',
   templateUrl: './subscription-professional.component.html',
@@ -86,7 +87,9 @@ export class SubscriptionProfessionalComponent implements AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_live_51HMSVQHzvKsIv7FclCIgEYNrD4tlvjzZRTDx43Y54pVY3vjQ8MhFuOntQMY094MZ49bDzOdFf2A2tkYdTwSag9ij00xDUu4xnU').then(
+    const key = environment.config.stripeKey
+    
+    this.stripeService.setPublishableKey(key).then(
       stripe => {
         this.stripe = stripe;
         const elements = stripe.elements();

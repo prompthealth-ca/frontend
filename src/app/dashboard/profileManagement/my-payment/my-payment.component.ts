@@ -19,11 +19,11 @@ export class MyPaymentComponent implements OnInit {
   }
   getMyTransactions() {
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    let path = `user/get-payment-details/${userInfo._id }`;
+    let path = `user/get-payment-details/${userInfo._id}`;
     this.sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
-        this.transactionList =res.data;
-        this.totalItems =  this.transactionList;
+      if (res.statusCode === 200) {
+        this.transactionList = res.data;
+        this.totalItems = this.transactionList;
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

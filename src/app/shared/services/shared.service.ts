@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { PreviousRouteService } from './previousUrl.service'
+import { PreviousRouteService } from './previousUrl.service';
 
 // import { SocialAuthService } from 'angularx-social-login';
 
@@ -28,8 +28,8 @@ export class User {
 export class SharedService {
   rootUrl: string = environment.config.API_URL;
   // baseUrl: string = environment.config.API_URL;
-  type:any
-  personalMatch
+  type: any;
+  personalMatch;
   constructor(
     // private authService: SocialAuthService,
     private _router: Router,
@@ -39,10 +39,21 @@ export class SharedService {
     private previousRouteService: PreviousRouteService,
 
     @Inject(DOCUMENT) private document,
-    private http: HttpClient) { 
-      this.type = localStorage.getItem('roles');
-   
-    }
+    private http: HttpClient) {
+    this.type = localStorage.getItem('roles');
+  }
+
+
+  navMenu = {isShown: false, levelMenuSm: 0}
+  hideNavMenu(){
+    this.navMenu.isShown = false;
+    this.navMenu.levelMenuSm = 0;
+  }
+  showNavMenu(jumpToCategory: boolean = true){
+    this.navMenu.isShown = true;
+    this.navMenu.levelMenuSm = (jumpToCategory)? 1 : 0;
+  }
+
 
 
   logout() {
@@ -54,151 +65,151 @@ export class SharedService {
     localStorage.removeItem('roles');
     localStorage.removeItem('isVipAffiliateUser');
     // this.authService.signOut();
-    this.showAlert("Logout Sucessfully", "alert-success");
+    this.showAlert('Logout Sucessfully', 'alert-success');
 
-    this._router.navigate(["/auth/login", "u"]);
+    this._router.navigate(['/auth/login', 'u']);
   }
 
   get(path, setParams = {}) {
-    if(!this.type){
+    if (!this.type) {
       const url = this.rootUrl + path;
       return this.http.get(url);
-    }else{
- const headers = this.getAuthorizationHeader();
- const url = this.rootUrl + path;
- return this.http.get(url,{headers});
+    } else {
+      const headers = this.getAuthorizationHeader();
+      const url = this.rootUrl + path;
+      return this.http.get(url, { headers });
     }
-   
+
   }
   getNoAuth(path, setParams = {}) {
     const url = this.rootUrl + path;
-    return this.http.get(url );
+    return this.http.get(url);
   }
   post(body, path) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers }).pipe(
-      map((response:any)=>{
+      map((response: any) => {
         return response;
       }),
       catchError(this.handleError)
-    )
+    );
     // return this.http.post(this.rootUrl + path, body, { headers });
   }
   postNoAuth(body, path) {
     return this.http.post(this.rootUrl + path, body).pipe(
-      map((response:any)=>{
+      map((response: any) => {
         return response;
       }),
       catchError(this.handleError)
-    )
+    );
     // return this.http.post(this.rootUrl + path, body),catchError(this.handleError);
   }
 
   handleError(error: HttpErrorResponse) {
-      return throwError(error);
+    return throwError(error);
   }
-  
+
   imgUpload(body, path) {
     // let headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body);
   }
   put(body, path) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.put(this.rootUrl + path, body, { headers });
   }
   login(body) {
-    let headers = this.getDefaultHeader();
+    const headers = this.getDefaultHeader();
     // return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
     return this.http.post(this.rootUrl + 'user/signinUser', body, { headers }).pipe(
-      map((response:any)=>{
+      map((response: any) => {
         return response;
       }),
       catchError(this.handleError)
-    )
+    );
   }
   register(body) {
-    let headers = this.getDefaultHeader();
+    const headers = this.getDefaultHeader();
     // return this.http.post(this.rootUrl + 'user/register', body, { headers });
     return this.http.post(this.rootUrl + 'user/register', body, { headers }).pipe(
-      map((response:any)=>{
+      map((response: any) => {
         return response;
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
-  unsubscribe(email){
+  unsubscribe(email) {
     // let headers = this.getDefaultHeader();
-    return this.http.delete(this.rootUrl + 'user/unsubscribe/'+email).pipe(
-      map((response:any)=>{
+    return this.http.delete(this.rootUrl + 'user/unsubscribe/' + email).pipe(
+      map((response: any) => {
         return response;
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   socialRegister(body) {
-    
-    let headers = this.getDefaultHeader();
+
+    const headers = this.getDefaultHeader();
     return this.http.post(this.rootUrl + 'user/social-login', body, { headers });
   }
   logingOut() {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.delete(this.rootUrl + 'user/logout', { headers });
   }
   getSubscriptionPlan() {
-    let date = new Date().getTime().toString();
-    let url = this.rootUrl + 'subscribepackage';
+    const date = new Date().getTime().toString();
+    const url = this.rootUrl + 'subscribepackage';
 
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.get(url, { headers });
   }
   getUserDetails() {
-    let date = new Date().getTime().toString();
-    let url = this.rootUrl + 'getuserdetail';
+    const date = new Date().getTime().toString();
+    const url = this.rootUrl + 'getuserdetail';
 
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.get(url, { headers });
   }
   token(body) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'createcustomer', body, { headers });
   }
   deleteContent(path) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.delete(this.rootUrl + path, { headers });
 
   }
 
-  removeProfile(formData){
-    let headers = this.getAuthorizationHeader();
-    return this.http.put(this.rootUrl + '/user/updateStatus', formData, { headers });
+  removeProfile(formData) {
+    const headers = this.getAuthorizationHeader();
+    return this.http.put(this.rootUrl + 'user/updateStatus', formData, { headers });
   }
 
-  sendEmailSubscribers(data){
-    return this.http.post(this.rootUrl + '/user/subscribe', data);
+  sendEmailSubscribers(data) {
+    return this.http.post(this.rootUrl + 'user/subscribe', data);
   }
 
   delete(id, model) {
 
-    let headers = this.getAuthorizationHeader();
-    let url = this.rootUrl + 'delete?id=' + id + '&model=' + model;
+    const headers = this.getAuthorizationHeader();
+    const url = this.rootUrl + 'delete?id=' + id + '&model=' + model;
     return this.http.delete(url, { headers });
   }
   removeFav(id) {
-    let headers = this.getAuthorizationHeader();
-    let url = this.rootUrl + `user/remove-favorite/${id}`;
+    const headers = this.getAuthorizationHeader();
+    const url = this.rootUrl + `user/remove-favorite/${id}`;
     return this.http.delete(url, { headers });
   }
   contactus(body) {
     return this.http.post(this.rootUrl + 'user/contactus', body);
   }
   uploadImage(object) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
   uploadImage1(object) {
-    let headers = this.getAuthorizationHeader();
+    const headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + 'upload', object, { headers });
   }
   sendTop() {
@@ -206,10 +217,10 @@ export class SharedService {
   }
   /*This function is use to remove user session if Access token expired. */
   checkAccessToken(err): void {
-    let code = err.code;
-    let message = err.message;
+    const code = err.code;
+    const message = err.message;
 
-    if ((code == 401 && message == "authorization")) {
+    if ((code == 401 && message == 'authorization')) {
       localStorage.removeItem('token');
       // this.showAlert('Session Expired.', 'alert-danger')
       // this._router.navigate(['/auth/business']);
@@ -226,36 +237,36 @@ export class SharedService {
   }
   /*This function is use to get access token from cookie. */
   getAccessToken(): string {
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     return token;
   }
 
   /*This function is use to get header with Authorization or without Authorization. */
   getAuthorizationHeader(access = true) {
-    let token = this.getAccessToken();
-    let headers = {}
+    const token = this.getAccessToken();
+    let headers = {};
 
     if (access) {
       headers = new HttpHeaders()
         .set('Authorization', token)
-        .set('Content-Type','application/json');
+        .set('Content-Type', 'application/json');
     }
 
 
     return headers;
   }
   getDefaultHeader() {
-    
-    let headers = new HttpHeaders()
-    .set('Content-Type','application/json');
-    return headers
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+    return headers;
   }
   addCookie(key, value) {
     localStorage.setItem(key, value);
   }
 
   getCookie(key) {
-    let item = localStorage.getItem(key);
+    const item = localStorage.getItem(key);
     return item;
   }
   addCookieObject(key, obj) {
@@ -271,16 +282,16 @@ export class SharedService {
   }
 
   loader(key) {
-    if (key == 'show') this.spinner.show();
-    if (key == 'hide') this.spinner.hide();
+    if (key == 'show') { this.spinner.show(); }
+    if (key == 'hide') { this.spinner.hide(); }
   }
 
   showAlert(message, alertClass) {
     // window.scrollTo(0, 0);
-    let obj = {
+    const obj = {
       classes: ['alert', alertClass],
       timeout: 1800
-    }
+    };
     this._flashMessagesService.show(message, obj);
   }
 
@@ -288,25 +299,24 @@ export class SharedService {
   loginUser(res, type) {
     console.log(res);
     console.log(res.data.roles);
-    let route
+    let route;
     if (res.data.roles === 'U') {
       console.log(res.data.roles);
       // this._router.navigate(['/']);
-      route =  res.data.roles === 'U' ? '/' : '';
-    } else{
-      if(type === 'reg') {
-        route =  res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
-      }
-      else {
-        if(this.previousRouteService.getPreviousUrl() === '') {
-  
+      route = res.data.roles === 'U' ? '/' : '';
+    } else {
+      if (type === 'reg') {
+        route = res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
+      } else {
+        if (this.previousRouteService.getPreviousUrl() === '') {
+
         } else {
-          route =  res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
+          route = res.data.roles === 'U' ? '/' : '/dashboard/profilemanagement/my-profile';
         }
       }
     }
-    
-  
+
+
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);
@@ -317,14 +327,14 @@ export class SharedService {
   }
 
   removeDuplicates(originalArray, prop) {
-    var newArray = [];
-    var lookupObject = {};
+    const newArray = [];
+    const lookupObject = {};
 
-    for (var i in originalArray) {
+    for (const i in originalArray) {
       lookupObject[originalArray[i][prop]] = originalArray[i];
     }
 
-    for (i in lookupObject) {
+    for (const i in lookupObject) {
       newArray.push(lookupObject[i]);
     }
     return newArray;

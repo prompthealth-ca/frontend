@@ -13,7 +13,7 @@ export class MyFavouriteComponent implements OnInit {
     private toastr: ToastrService,
   ) { }
 
-  doctorsListing= [1,2,3];
+  doctorsListing = [1, 2, 3];
 
   ngOnInit(): void {
     this.getFavList();
@@ -22,7 +22,7 @@ export class MyFavouriteComponent implements OnInit {
     this._sharedService.loader('show');
     let path = `user/get-favorite`;
     this._sharedService.get(path).subscribe((res: any) => {
-      if (res.statusCode = 200) {
+      if (res.statusCode === 200) {
         this._sharedService.loader('hide');
         this.favListing = res.data[0].favouriteBy;
       } else {
@@ -35,19 +35,19 @@ export class MyFavouriteComponent implements OnInit {
     });
 
   }
-  unlikeDoc (id){
-      this._sharedService.loader('show');
-      this._sharedService.removeFav(id,).subscribe((res: any) => {
-        if (res.statusCode = 200) {
-          this._sharedService.loader('hide');
-          this.toastr.success(res.message);
-          this.getFavList();
-        } else {
-          this._sharedService.loader('hide');
-          this.toastr.error(res.message);
-        }
-      }, err => {
+  unlikeDoc(id) {
+    this._sharedService.loader('show');
+    this._sharedService.removeFav(id,).subscribe((res: any) => {
+      if (res.statusCode === 200) {
         this._sharedService.loader('hide');
-      });
+        this.toastr.success(res.message);
+        this.getFavList();
+      } else {
+        this._sharedService.loader('hide');
+        this.toastr.error(res.message);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+    });
   }
 }

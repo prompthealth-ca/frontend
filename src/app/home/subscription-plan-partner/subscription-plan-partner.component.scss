@@ -1,0 +1,14 @@
+.max-w-1000{ max-width: 1000px; }
+.text-blue{ color: #3377C5; }
+.text-pink{ color: #A759B3; }
+
+.hero{ 
+    background-image: url('/assets/img/hero-subscription-plan-partner-s.png');
+    h2{ font-size: 20px; }
+  
+    @media screen and (min-width: 768px){
+      background-image: url("/assets/img/hero-subscription-plan-partner.png");
+      h2{ font-size: 35px; }
+    }
+  }
+  

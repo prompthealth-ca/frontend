@@ -27,8 +27,8 @@
 .tab{
     position: absolute;
     z-index: 1;
-    min-width: 35%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 250px;
     box-sizing: border-box;
     padding: 15px 25px 35px;
     top: 50px;
@@ -36,6 +36,14 @@
     font-weight: bold;
     border-radius: 10px;
     transform: translateY(calc(-100% + 20px));
+
+    .save-annualy{
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateY(calc(-50% - 10px));
+        font-size: 0.8em;
+    }
 }
 
 .addon-card{
@@ -54,4 +62,5 @@
 
 .btn-more{
     border-radius: 20px;
+    white-space: nowrap;
 }

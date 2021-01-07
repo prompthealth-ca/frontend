@@ -18,7 +18,7 @@
 <div class="container-fluid max-w-1000 my-5">
   <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
   <br class="d-block d-md-none"> 
-  <span class="pl-md-5 font-italic text-blue font-weight-bold">save 20% with yearly subscription</span>
+  <span class="pl-md-5 font-italic text-blue font-bigger">save 20% with yearly subscription</span>
 </div>
 
 <div class="container-fluid max-w-1000">
@@ -31,9 +31,9 @@
 
     <div class="col-md-7">
       <h3 class="text-pink mt-5 mt-md-0 mb-3">Add-ons for Provider and Centre</h3>
-      <subscription-plan-addon-card type='op1' class=''></subscription-plan-addon-card>
-      <subscription-plan-addon-card type='op2' class='mt-5'></subscription-plan-addon-card>
-      <subscription-plan-addon-card type='op3' class='mt-5'></subscription-plan-addon-card>
+      <subscription-plan-addon-card type='op1' class='' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+      <subscription-plan-addon-card type='op2' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+      <subscription-plan-addon-card type='op3' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
     </div>
   </div>
 </div>

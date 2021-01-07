@@ -10,6 +10,7 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
   @Input() type: string /* op1 */
   @Input() data: any;
   @Input() isPriceMonthly: boolean = true;
+  @Input() flexibleButtonPosition: boolean = true;
 
   @Output() select = new EventEmitter<string>(); /* op1 | op2 */
 
@@ -22,9 +23,9 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
   }
 
   getTabName(){
-    var name: string = 'monthly';
+    var name = `$${this.isPriceMonthly? ('xx/Monthly') : ('xx/Annualy')}`;
     if(this.data){
-      name = `$${this.isPriceMonthly? (this.data.price + '/Monthly') : (this.data.yearlyPrice + '/Annualy')}`;
+      name = `$${this.isPriceMonthly? (this.data.price + 'xx/Monthly') : (this.data.yearlyPrice + 'xx/Annualy')}`;
     }
     return name;
   }

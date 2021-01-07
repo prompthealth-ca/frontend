@@ -14,7 +14,7 @@
       </div>
       <div class="col-3 d-none d-md-block">
         <div class="row justify-content-end align-items-center">
-          <a class="btn btn-home">Login</a>
+          <a class="btn btn-home" data-toggle="modal" data-target="#loginmodal">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue">Sign up</a>
         </div>
       </div>
@@ -31,7 +31,8 @@
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
         </div>
-        <div class="nav-item" (mouseenter)="showMenu()" (click)="showMenu()">
+<!--        <div class="nav-item" (mouseenter)="showMenu()" (click)="showMenu()"> -->
+        <div class="nav-item" (click)="showMenu()">
           <a class="nav-link">Category</a>
         </div>
         <div class="nav-item">

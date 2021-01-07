@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-//import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { SharedService } from './services/shared.service';
 import { PreviousRouteService } from './services/previousUrl.service';
 import { SearchPipe } from '../shared/pipes/search-pipe';
 import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 
+import { SubscriptionPlanItemCardComponent } from './subscription-plan-item-card/subscription-plan-item-card.component';
+import { SubscriptionPlanAddonCardComponent } from './subscription-plan-addon-card/subscription-plan-addon-card.component';
+import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-switcher.component';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-//    BrowserAnimationsModule,
-    // FlashMessagesModule
+    // FlashMessagesModule,
   ],
   providers: [
     PreviousRouteService,
@@ -22,12 +24,16 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
   declarations: [
     UserSidebarComponent,
     SearchPipe,
-
+    SubscriptionPlanItemCardComponent,
+    SubscriptionPlanAddonCardComponent,
+    PriceRangeSwitcherComponent,
   ],
   exports: [
     UserSidebarComponent,
-//    BrowserAnimationsModule,
     SearchPipe,
+    SubscriptionPlanItemCardComponent,
+    SubscriptionPlanAddonCardComponent,
+    PriceRangeSwitcherComponent,
   ]
 })
 export class SharedModule { }

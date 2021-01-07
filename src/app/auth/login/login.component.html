@@ -4,13 +4,11 @@
   </p>
 </ngx-spinner>
 <section
-  class="heightHF-100 pt-4 pb-4 d-flex justify-content-center align-items-center bg-secondary"
+  class="heightHF-100 pt-4 pb-4 d-flex justify-content-center align-items-center bg-blue"
 >
-  <div class="container">
-    <div
-      class="row m-0 justify-content-between bg-white rounded-lg overflow-hidden"
-    >
-      <div class="col-md-4 p-0">
+  <div class="container-fluid w-max-1000">
+    <div class="row m-0 justify-content-between bg-white rounded-lg overflow-hidden">
+      <div class="col-md-5 p-0 order-md-2">
         <div class="card-body p-5">
           <h5 class="mb-3">
             Login
@@ -102,19 +100,28 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8 p-0">
+      <div class="col-md-7 p-0 order-md-1">
         <div
-          class="bg-cover bg-overlay h-100 d-flex align-items-end login-user"
-          [ngClass]="{ 'professional': professionalLogin }"
+          class="h-100 bg"
+          [ngClass]="{ 'bg-user': !professionalLogin, 'bg-professional': professionalLogin }"
         >
-          <div class="w-100 p-4 text-light" *ngIf="professionalLogin">
-            <h3>Join Our Canadian Network </h3>
-            <p>Get listed with us to attract more clients and generate more bookings
+          <div class="w-100 p-4" *ngIf="!professionalLogin">
+            <h3 class="pt-md-4">Client</h3>
+            <p class="p-sd-for-image pb-md-0">
+              Prompt Health empowers you with the convenience and accessibility you need to better manage
+              your health and the health of your family.<br><br>
+              No more guesswork. We’ve got you!
             </p>
+
           </div>
-          <div class="w-100 p-4 text-light" *ngIf="!professionalLogin">
-            <h3>Find The Right Care For You </h3>
-            <p>See what your options are based on your need and decide what’s right for you 
+          <div class="w-100 p-4" *ngIf="professionalLogin">
+            <h3 class="pt-md-4">Professional</h3>
+            <p class="p-sd-for-image pb-md-0">
+              Join the growing network of Canadian health and wellness professionals.
+              Together, we will change the health and wellness experience.<br><br>
+
+              Prompt Health for every practice:
+              Medical/Dental/Allied Health/Holistic/ Wellness/Nutrition/Fitness
             </p>
           </div>
         </div>

@@ -347,10 +347,11 @@ textarea.form-control {
   min-height: calc(60vh - #{$headerHeight+$footerHeight});
 }
 
+/*
 .spacer-top {
-  height: $headerHeight;
+  height: $headerHeightMd;
 }
-
+*/
 .bg-cover {
   background-size: cover;
   background-position: center;
@@ -538,14 +539,24 @@ textarea.form-control {
   .heightHF-100 {
     min-height: calc(100vh - #{$headerHeight+$footerHeight});
   }
+/*
   .spacer-top {
     height: $headerHeight;
   }
+*/
   .heightH-60 {
     min-height: calc(60vh - #{$headerHeight});
   }
 
   .heightHF-60 {
     min-height: calc(60vh - #{$headerHeight+$footerHeight});
+  }
+}
+
+@import "responsive_variables";
+.spacer-top{
+  height: $headerHeight;
+  @media screen and (min-width: 768px){
+    height: $headerHeightMd;
   }
 }

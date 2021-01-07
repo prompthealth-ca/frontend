@@ -1,0 +1,5 @@
+<div class="d-inline-flex align-items-center">
+    <span class="label" [ngClass]="{active: isMonthly}">Monthly</span>
+    <button class="btn switch" [ngClass]="{on: !isMonthly}" (click)="changeStatus()"></button>
+    <span class="label" [ngClass]="{active: !isMonthly}">Yearly</span>
+</div>

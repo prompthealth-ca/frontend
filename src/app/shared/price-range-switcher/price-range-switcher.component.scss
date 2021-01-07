@@ -1,0 +1,42 @@
+$h: 23px;
+$w: 55px;
+
+$blue: #3377C5; 
+button.switch{
+    position: relative;
+    background: $blue;
+    height: $h;
+    width: $w;
+    padding: 0;
+    box-sizing: content-box;
+    border: solid 3px $blue;
+    border-radius: 100px;
+
+    &::after{
+        content: '';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: $h;
+        height: $h;
+        background: white;
+        border-radius: 30px;
+        transition: transform 200ms;
+    }
+
+    &.on::after{
+        transform: translateX(#{$w - $h})
+    }
+}
+
+.label{
+    padding: 0 10px 0 0;
+    button+&{ padding: 0 0 0 10px; }
+
+    &.active{
+        color: $blue;
+        text-stroke: 1px;
+        -webkit-text-stroke: 1px;
+    }
+}

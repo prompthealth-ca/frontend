@@ -18,7 +18,7 @@ export class MyProfileComponent implements OnInit {
   @ViewChild('search2', { static: false }) search2ElementRef: ElementRef;
 
   defaultImage = 'assets/img/no-image.jpg';
-  imageBaseURL = 'https://prompthealth.ca:3000/users/';
+  imageBaseURL = 'https://api.prompthealth.ca/users/';
   submitted = false;
   editFields = false;
   userInfo;

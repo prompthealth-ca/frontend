@@ -10,7 +10,7 @@ export class ReviewsRatingsComponent implements OnInit {
   rating;
   ru
   defaultImage = 'assets/img/no-image.jpg';
-  imageBaseURL = 'https://prompthealth.ca:3000/users/';
+  imageBaseURL = 'https://api.prompthealth.ca/users/';
   earnedPoint = 0
   currentPage;
   totalItems

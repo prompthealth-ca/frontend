@@ -71,7 +71,7 @@ export class BlogDetailComponent implements OnInit {
         this.meta.updateTag({ property: 'og:url', content: url });
 
         // if (this.blogList.image) {
-        //   img = "https://prompthealth.ca:3000/blogs/" + this.blogList.image
+        //   img = "https://api.prompthealth.ca/blogs/" + this.blogList.image
         // }
         
         this.meta.updateTag({ property: 'og:image', content: img, itemprop: 'image' });

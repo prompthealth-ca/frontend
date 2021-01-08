@@ -20,7 +20,7 @@
                     <a
                     [routerLink]="['/blog-detail', list.slug]"
                     class="blog-post">
-                    <img [src]="list.image ? 'https://prompthealth.ca:3000/blogs/' + list.image :  defaultImage">
+                    <img [src]="list.image ? 'https://api.prompthealth.ca/blogs/' + list.image :  defaultImage">
                         <h4 class="mb-3">{{ list.title }}</h4>
                         <p [innerHTML] = "list.description"></p>
                     </a>

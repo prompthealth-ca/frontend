@@ -33,7 +33,7 @@
         | customFilter: doctorSearch: 'fname');  let i = index">
             
             <td>
-                <img [src]="'https://prompthealth.ca:3000/users/' + prod.image" />
+                <img [src]="'https://api.prompthealth.ca/users/' + prod.image" />
             </td>
             <td>
                 {{ prod.fname }} - {{ prod.lname }}
@@ -98,12 +98,12 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'https://prompthealth.ca:3000/users/' + imagesList" height="200"> <br/>
+                <img [src]="'https://api.prompthealth.ca/users/' + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
                 <label class="col-md-12">Upload Images</label>
-                <!-- <img [src]="profile.images ? 'https://prompthealth.ca:3000/users/'+profile.profileImage : defaultImage" /> -->
+                <!-- <img [src]="profile.images ? 'https://api.prompthealth.ca/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
                 class="form-control col-md-12" (change)="onFileSelect($event)"/>
             
@@ -167,12 +167,12 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'https://prompthealth.ca:3000/users/' + imagesList" height="200"> <br/>
+                <img [src]="'https://api.prompthealth.ca/users/' + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
                 <label class="col-md-12">Upload Images</label>
-                <!-- <img [src]="profile.images ? 'https://prompthealth.ca:3000/users/'+profile.profileImage : defaultImage" /> -->
+                <!-- <img [src]="profile.images ? 'https://api.prompthealth.ca/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
                 class="form-control col-md-12" (change)="onFileSelect($event)"/>
             

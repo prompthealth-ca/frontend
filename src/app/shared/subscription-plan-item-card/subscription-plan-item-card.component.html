@@ -75,8 +75,8 @@
     [routerLink]="getLinkToSignin()"
     >
     <span *ngIf="type == 'basic'">Explore</span>
-    <span *ngIf="type == 'centre' || type == 'provider'">Get Started</span>
-    <span *ngIf="type == 'partner'">Get in touch</span>
+    <span *ngIf="type != 'basic'">Get Started</span>
+    <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
     </a>
 
     <button *ngIf="isLoggedIn"

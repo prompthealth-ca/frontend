@@ -1,7 +1,7 @@
 <div class="tab shadow">
     {{getTabName()}}
     <span class="save-annualy font-weight-normal text-center d-inline-block font-italic"
-        *ngIf="!isPriceMonthly && type != 'basic' && type != 'partner'"
+        *ngIf="!isPriceMonthly && type != 'social'"
     >save<br>20%</span>
 </div>
 
@@ -11,41 +11,17 @@
     >
         <div class='col-12' [ngClass]="{'col-md-9': flexibleButtonPosition, 'col-lg-9': flexibleButtonPosition}">
             <h3 class="m-0 title">
-                <span *ngIf="type == 'op1'">Option 1 - Get featured on home page</span>
-                <span *ngIf="type == 'op2'">Option 2 - The Socialite</span>
+                {{addon.title}}
             </h3>
         
-            <ul class="mb-0 mt-3 feature fa-ul" *ngIf="type == 'op2'">
-                <li>
+            <ul class="mb-0 mt-3 feature fa-ul">
+                <li *ngFor="let desc of addon.desc;">
                     <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                    3 general health content IG/FB posts/week (same as PT posts with no logo)<br>
-                    IG/FB Posts for all special occasions<br>
-                    1 custom videos per year (tiktok, IGTV or podcast) to be uploaded to youtube<br>
-                    Shared content on our quarterly health magazine
-                </li>
-                <li>
-                    <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                    3 general health content IG/FB posts/week (same as PT posts with no logo)<br>
-                    IG/FB Posts for all special occasions<br>
-                    1 custom videos per year (tiktok, IGTV or podcast) to be uploaded to youtube<br>
-                    Shared content on our quarterly health magazine
-                </li>
-                <li>
-                    <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                    3 general health content IG/FB posts/week (same as PT posts with no logo)<br>
-                    IG/FB Posts for all special occasions<br>
-                    1 custom videos per year (tiktok, IGTV or podcast) to be uploaded to youtube<br>
-                    Shared content on our quarterly health magazine
-                </li>
-                <li>
-                    <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                    3 general health content IG/FB posts/week (same as PT posts with no logo)<br>
-                    IG/FB Posts for all special occasions<br>
-                    1 custom videos per year (tiktok, IGTV or podcast) to be uploaded to youtube<br>
-                    Shared content on our quarterly health magazine
+                    {{desc}}
                 </li>
             </ul>
         </div>
+
         <div class='col-12' [ngClass]="{'col-md-3': flexibleButtonPosition, 'col-lg-3': flexibleButtonPosition}">
             <!-- if user is not loggedin, go to signin / login page -->
             <a *ngIf="!isLoggedIn"
@@ -59,9 +35,11 @@
                 [ngClass]="{'mt-md-0': flexibleButtonPosition}"
                 (click)="triggerButtonClick()"
             >Get Started</button>
+
+            <!-- for quotation -->
+            <a href="" *ngIf="type == 'social'"
+                [ngClass]="{'mt-md-0': flexibleButtonPosition}"
+            >Contact Us</a>
         </div>
     </div>
-
-
- 
 </div>

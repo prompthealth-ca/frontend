@@ -10,6 +10,8 @@ import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 import { SubscriptionPlanItemCardComponent } from './subscription-plan-item-card/subscription-plan-item-card.component';
 import { SubscriptionPlanAddonCardComponent } from './subscription-plan-addon-card/subscription-plan-addon-card.component';
 import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-switcher.component';
+import { StarRateComponent } from './star-rate/star-rate.component';
+import { PostDummyComponent } from './post-dummy/post-dummy.component';
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-
     SubscriptionPlanItemCardComponent,
     SubscriptionPlanAddonCardComponent,
     PriceRangeSwitcherComponent,
+    StarRateComponent,
+    PostDummyComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -34,6 +38,8 @@ import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-
     SubscriptionPlanItemCardComponent,
     SubscriptionPlanAddonCardComponent,
     PriceRangeSwitcherComponent,
+    StarRateComponent,
+    PostDummyComponent,
   ]
 })
 export class SharedModule { }

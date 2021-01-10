@@ -1,5 +1,7 @@
 <header>
-  <nav class="blur navbar main-header position-fixed navbar-light shadow-sm w-100 plr-0-i5">
+  <nav class="blur navbar main-header position-fixed navbar-light shadow-sm w-100 plr-0-i5"
+    [ngClass]="{hide: !isHeaderShown}"
+    >
     <div class="nav-row">
       <div class="col col-sm-2 col-md-3 pl-0 pr-5-i5">
         <a class="navbar-brand mr-0" href="#">
@@ -45,7 +47,7 @@
     </div>
 
 
-    <div class="menu d-none d-md-block" *ngIf="navMenu.isShown && categoryList" [@fade]>
+    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList" [@fade]>
       <div class="menu-close" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner">
@@ -77,12 +79,12 @@
 </header>
 <div class="spacer-top"></div>
 
-<div class="menu-sm d-md-none" id="menu_sm" *ngIf="navMenu.isShown" [@fade]>
+<div class="menu-sm d-md-none" id="menu_sm" *ngIf="isNavMenuShown" [@fade]>
   <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
     <i class="fas fa-times"></i>
   </button>
   <ul class="menu-item font-weight-bold"
-    [ngClass]="{before: (navMenu.levelMenuSm > 0), after: (navMenu.levelMenuSm < 0)}"
+    [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
   >
     <li>Home</li>
     <li (click)="scrollMenuSm(1)">Category</li>
@@ -92,7 +94,7 @@
   </ul>
 
   <ul class="menu-item sub"
-    [ngClass]="{before: (navMenu.levelMenuSm > 1), after: (navMenu.levelMenuSm < 1)}"
+    [ngClass]="{before: (levelMenuSm > 1), after: (levelMenuSm < 1)}"
   >
     <li class="menu-subtitle font-weight-bold">
       <button class="btn btn-icon text-blue" (click)="scrollMenuSm(0)">
@@ -106,7 +108,7 @@
   </ul>
 
   <ul class="menu-item sub"
-    [ngClass]="{before: (navMenu.levelMenuSm > 2), after: (navMenu.levelMenuSm < 2)}"
+    [ngClass]="{before: (levelMenuSm > 2), after: (levelMenuSm < 2)}"
   >
     <li class="menu-subtitle font-weight-bold d-flex align-items-center">
       <button class="btn btn-icon text-blue" (click)="scrollMenuSm(1)">

@@ -16,6 +16,8 @@
 .color-card-icon{ color: #646363; }
 
 .overflow-hidden{ overflow: hidden;}
+
+.mt-6{ margin-top: 120px; }
 .font-smallest{ font-size: 0.6rem; }
 .font-smaller{ font-size: 0.8em; }
 .font-regular{ font-size: 1em }
@@ -38,7 +40,6 @@
   width: 100%; 
   height: 1px; 
 }
-
 
 .row-1200-by-margin{
   margin: 0 15px;
@@ -78,7 +79,9 @@ $imageSize: 100, 120;
 
 .banner{
   height: 200px;
-  background: grey;
+  background: whitesmoke;
+  background-size: cover;
+  background-position: center;
 }
 
 .tabbar{
@@ -106,12 +109,12 @@ $imageSize: 100, 120;
   h3{ 
     color: white;
     transition-property: color;
-    transition-duration: inherit;
+    transition-duration: $transDurTabStick;
   }
   p{
     color: white;
     transition-property: opacity;
-    transition-duration: inherit;
+    transition-duration: $transDurTabStick;
   }
   .sticked &{
     transform: translate(0, calc(100% + 12px)) scale(0.8);
@@ -158,6 +161,9 @@ $imageSize: 100, 120;
 }
 
 .tab-item{ 
+  transition-duration: $transDurTabStick;
+  transition-property: width;
+  
   cursor: pointer;
   width: 80px;
   @media screen and (min-width: 768px){  width: 150px; }

@@ -25,6 +25,7 @@ import { AgmCoreModule } from '@agm/core';
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { AddOnCardComponent } from './add-on-card/add-on-card.component';
 import { environment } from 'src/environments/environment';
+import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-intersection-observer.directive';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { environment } from 'src/environments/environment';
     EmbededURLPipe,
     UserQuestionaireComponent,
     AddOnCardComponent,
+    DetailTabbarIntersectionObserverDirective,
   ],
   imports: [
     AutocompleteLibModule,

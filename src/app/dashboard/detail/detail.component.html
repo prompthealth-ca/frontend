@@ -1,7 +1,208 @@
-<section
-  class="bg-cover detailbanner"
-  style="background-image: url(assets/img/professional-banner.png);"
-></section>
+<div class="row-1200-by-padding banner position-relative"></div>
+<div class='intersection-observer' intersectionObserver (changeStatus)="changeStickyStatusTabbar($event)"></div>
+<div class="borderb-grey sticky-header">
+  <div class="row-1200-by-margin tabbar bg-white" [ngClass]="{sticked: isTabSticked}">
+    <div class="d-flex-column d-md-flex d-wrap d-md-nowrap ml-for-avoid-image profile-info"
+      [ngClass]="{sticked: isTabSticked}"
+    >
+      <div class="d-flex align-items-center">
+        <i class="fas fa-clinic-medical pr-1" *ngIf="isUserRole('c')"></i>
+        <h3 class='mb-0 font-bigger font-md-biggest'>{{getFullname()}}</h3>  
+      </div>
+      <p class="mt-1 mt-md-0 ml-md-3 mb-0">summary here</p>
+  </div>
+
+    <div class="profile-image rounded-circle">
+      <img [src]="'https://prompthealth.ca:3000/users/' + userInfo?.profileImage" [alt]="getFullname()">
+    </div>
+    <ul class="p-0 mb-0 ml-for-avoid-image list-unstyled d-inline-flex align-items-center position-relative">
+      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+        [ngClass]='{active: (indexTabItem == 0)}'
+        (click)="changeTabTo(0)"
+      >About</li>
+      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+        [ngClass]='{active: (indexTabItem == 1)}'
+        (click)='changeTabTo(1)'
+      >Reviews</li>
+  
+      <li class='ml-2 ml-md-5'>
+        <star-rate class="d-none d-md-block" [rate]="(userInfo? userInfo.ratingAvg : 0)"></star-rate>
+        <star-rate class="d-md-none" [rate]="(userInfo? userInfo.ratingAvg : 0)" [simple]="true"></star-rate>
+      </li>
+      <li class="tab-item tab-highlighter bg-blue" [class]="'pos-' + indexTabItem"></li>
+    </ul>
+  </div>
+</div>
+
+<section class="row-1200-by-padding bg-white mt-5" *ngIf="indexTabItem == 1">
+  <div class='my-5'>
+    <star-rate [rate]="(userInfo? userInfo.ratingAvg : 0)" margin='big'></star-rate>
+    <span class='text-blue pl-4'>{{getCountReviewString()}}</span>
+  </div>
+  <div class="my-5">
+    <ul class="review-controller list-unstyled d-inline-flex mb-3">
+      <li class="btn text-blue mr-2 mr-md-4 font-regular"
+        (click)="sortReviewsBy(0)" 
+        [ngClass]="{active: indexSortReviews == 0}"
+      >Highest Rated</li>
+      <li class="btn text-blue mr-2 mr-md-4 font-regular"
+        (click)="sortReviewsBy(1)" 
+        [ngClass]="{active: indexSortReviews == 1}" 
+      >Lowest Rated</li>
+      <li class="btn text-blue font-regular"
+        (click)="sortReviewsBy(2)" 
+        [ngClass]="{active: indexSortReviews == 2}"
+      >Most Recent</li>
+    </ul>
+
+    <ul class="reviews p-0 m-0">
+      <li class="d-md-flex flex-md-nowrap p-3 p-md-4">
+        <div class="mb-3 mb-md-0 col-md-5 col-lg-3 d-flex">
+          <div class="review-image rounded-circle overflow-hidden mr-3"></div>
+          <p class="font-weight-bold mt-3 font-big mb-0">Justin Timber</p>
+        </div>
+        <div class="col-md-7 col-lg-9">
+          <star-rate [rate]="5" margin='big'></star-rate>
+          <div class="borderb-grey pt-2"></div>
+          <p class='pt-3 pb-0'>I am an energetic & enthusiasm person, I have my passionate in fitness industry, I like to motivate peoples to have active living because I believe that exercises can helps human beings lives healthy, lower the risks in getting chronic diseases. Less suffers from diseases, enjoy the life.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="row-1200-by-padding bg-white mt-5" *ngIf="indexTabItem == 0">
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <div class="col-md-6 col-lg-7">
+      <div class="row mb-5">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue ">Practice Philosophy:</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.product_description}}</p>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Specialty Age Group</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getAgeRangeString()}}</p>
+      </div>
+      <div class="row mb-5" *ngIf="isUserRole('sp')">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Professional organization</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.professional_organization}}</p>
+      </div>
+      <div class="row mb-5" *ngIf="isUserRole('sp')">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Certification</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.certification}}</p>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Language</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getLanguages()}}</p>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Years Of Experience</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo.years_of_experience}}</p>
+      </div>
+
+
+      <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Type of Provider:</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getTypeOfProviderString()}}</p>
+      </div>
+      <div class="row bg-lightblue pt-5 pb-0" *ngIf="isUserRole('sp')">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Treatment Modalities: </div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getTreatmentModalitiesString()}}</p>
+      </div>
+      <div class="row bg-lightblue pt-5 pb-0">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Services:</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getServicesString()}}</p>
+      </div>
+      <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="isUserRole('c')">
+        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Product:</div>
+        <p class="col-12 col-md-7 col-lg-8 mb-0">{{getProductListString()}}</p>
+      </div>
+      <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
+
+
+      <div class="row bg-grey rounded-top pt-4 pb-0 mt-5 justify-content-start justify-content-md-between align-items-center">
+        <div class="col-12 col-md-8 mb-3 mb-md-0 text-blue font-big font-md-bigger">Meet our professionals</div>
+        <div class="col-12 col-md-4 text-md-right">
+          <button class="btn border-blue text-blue" 
+            type="button"
+            (click)="filterProfessionals()"
+          >Explore all</button>
+        </div>
+      </div>
+      <ul class='list-unstyled row text-center bg-grey py-4 rounded-bottom'>
+        <li class='col-12 col-md-6 col-lg-4 mb-4' *ngFor="let pro of professionalsFiltered; let i = index;">
+          <div class="professional-image rounded-circle overflow-hidden"></div>
+          <h6 class="font-smallest mb-4">{{pro.name}}</h6>
+          <p>{{pro.desc}}</p>  
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-5 col-lg-4">
+      <div class="rounded shadow text-center pb-3 overflow-hidden mb-5">
+        <div class="card-title">Contact Information</div>
+        <table class="table table-borderless table-hover px-2">
+          <tbody>
+            <tr>
+              <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
+              <td class="text-left">{{userInfo?.address}}</td>
+            </tr>
+            <tr>
+              <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
+              <td class="text-left">{{getPhoneNumber()}}</td>
+            </tr>
+            <tr>
+              <td class="pr-0"><i class="fas fa-dollar-sign color-card-icon"></i></td>
+              <td class="text-left">Standard Hourly Fees: {{userInfo?.price_per_hours}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn border-blue text-blue px-5" type="button">Book</button>
+      </div>
+
+      <div class="rounded shadow overflow-hidden mb-5">
+        <div class="row m-3 align-items-center justify-content-between">
+          <h5 class='m-0'>
+            <span class="text-blue">Video</span>
+            <span class="ml-2 font-smaller">10</span>
+          </h5> 
+          <div class="text-right">
+            <button class="btn border-blue text-blue font-smaller" type="button">Load more videos</button>
+          </div>
+        </div>
+        <div class="row">
+          <ul class="videos p-3 m-0">
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="rounded shadow pb-3 overflow-hidden mb-5">
+        <div class="card-title font-big font-md-regular text-center">Endosement</div>
+        <post-dummy *ngIf="!endosements"></post-dummy>
+        
+        <div class="px-3">
+          <div class="endosement-wrapper py-4" *ngFor="let endosement of endosements;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <p class="font-weight-bold m-0">
+                {{endosement.name}}
+                <star-rate class="ml-1 d-lg-display" [rate]="endosement.rate" size='small' margin="none"></star-rate>
+              </p>
+              <button class='btn' type='button'><i class="fas fa-share-alt text-blue font-big"></i></button>
+            </div>
+            <a class="btn border-blue text-blue mb-3" type="button">view website</a>
+            <div class="endosement-images mb-3"></div>
+            <p class="m-0">{{endosement.desc}}</p>  
+          </div>
+        </div>
+        <div class="text-center my-3">
+          <button class="btn text-blue border-blue">Load more</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
 <div class="container pb-4">
   <div class="shadow bg-white">
     <div class="p-3">
@@ -95,7 +296,9 @@
         </div>
       </div>
     </div>
+  -->
     <!-- Nav tabs -->
+  <!--
     <ul class="nav bg-light font-weight-normal" id="pills-tab" role="tablist">
       <li class="nav-item">
         <a
@@ -200,7 +403,9 @@
       >
       </li>
     </ul>
+  -->
     <!-- Tab panes -->
+<!--
     <div class="tab-content p-3">
       <div
         class="tab-pane active"
@@ -232,7 +437,9 @@
                 </span>
               </td>
             </tr>
+-->
             <!-- -- {{ userInfo | json}} -->
+<!--
             <tr *ngIf="userInfo?.roles === 'SP'">
               <th>Professional organization:</th>
               <td>
@@ -308,6 +515,7 @@
                 {{userInfo?.price_per_hours}}
               </td>
             </tr>
+  -->
             <!-- <tr>
               <th>Serices Type:</th>
               <td>
@@ -324,6 +532,7 @@
                 {{userInfo?.price_per_hours}}
               </td>
             </tr> -->
+<!--
           </tbody>
         </table>
       </div>
@@ -334,7 +543,9 @@
         role="tabpanel"
         aria-labelledby="professional-tab"
       >
+-->
       <!-- <h3>Work in progress...</h3> -->
+<!--
         <table class="table table-borderless informationtable">
           <tbody>
             <tr>
@@ -353,15 +564,19 @@
         <h5 class="mb-0">Videos</h5>
         <hr />
         <div class="row" *ngIf="videos.length > 0">
+-->
           <!-- <div class="col-sm-4 mb-3" *ngFor="let video of userInfo?.videos"> -->
+<!--
             <div class="col-sm-4 mb-3" *ngFor="let video of iframe">
             <h6  class="text-primary text-uppercase">{{ video.title }}</h6>
             <div  [innerHtml]="video"></div>
             <!-- <iframe width="100%" height="200" src="https://www.youtube.com/embed/DxIDKZHW3-E" frameborder="0" allowfullscreen></iframe> -->
             <!-- <iframe *ngIf="video.url" width="100%" height="200" [src]="video.url | embededUrl" frameborder="0" allowfullscreen></iframe> -->
+<!--
         </div>
 
         </div>
+-->
         <!-- <div class="text-center">
           <div
             class="px-3 py-2 bg-primary rounded d-inline-block h4 text-light"
@@ -370,6 +585,7 @@
           </div>
           <h4>No records found.</h4>
         </div> -->
+<!--
       </div>
       <div
         class="tab-pane product-list"
@@ -414,7 +630,9 @@
                         
                     </div>
                   </a>
+-->
                     <!-- Image slider modal -->
+<!--
                   <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
                     <div class="modal-dialog w-100">
                       <div class="modal-content bg-transparent border-0">
@@ -484,7 +702,9 @@
               </span>
             </a>
             <span *ngIf="!amenity.images.length">No Images added</span>
+-->
             <!-- Image slider modal -->
+<!--
             <div class="modal fade imageslidermodal" [id]="amenity.defaultamenityId.item_text" tabindex="-1" role="dialog" [attr.aria-labelledby]="amenity._id" aria-hidden="true">
               <div class="modal-dialog w-100">
                 <div class="modal-content bg-transparent border-0">
@@ -573,7 +793,9 @@
         <hr />
         <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
           <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'https://prompthealth.ca:3000/users/'+rate.customerId.profileImage : defaultImage" />
+-->
           <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
+<!--
           <div class="pl-3 w-100">
             <div class="d-flex justify-content-between mb-2">
               <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
@@ -621,6 +843,7 @@
         </div>
       </div>
     </div>
+-->
 
 <!-- Modal login -->
 <div

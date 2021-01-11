@@ -8,8 +8,8 @@ export const environment = {
     // stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'
 
     //Local host
-    // BASE_URL: "http://localhost:3000",
-    // API_URL: "http://localhost:3000/api/v1/",
+    // BASE_URL: "https://localhost:3000",
+    // API_URL: "https://localhost:3000/api/v1/",
     // stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'
     
 

@@ -7,9 +7,15 @@ export const environment = {
     // API_URL: "http://198.251.65.146:4202/api/v1/",
     // stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'
 
-    //Staging
-    BASE_URL: "http://prompthealth.ca:3000",
-    API_URL: "http://prompthealth.ca:3000/api/v1/",
+    //Local host
+    // BASE_URL: "http://localhost:3000",
+    // API_URL: "http://localhost:3000/api/v1/",
+    // stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'
+    
+
+    // //Staging
+    BASE_URL: "https://prompthealth.ca:3000",
+    API_URL: "https://prompthealth.ca:3000/api/v1/",
     stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'
     
     // BASE_URL: 'https://prompthealth.ca/',

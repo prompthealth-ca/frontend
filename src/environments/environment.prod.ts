@@ -2,10 +2,7 @@ export const environment = {
   production: true,
   config: {
     APP_NAME: 'Wellness',
-    // server
-    //BASE_URL: 'http://3.12.81.245:3000/api/v1/',
-    //API_URL: 'http://3.12.81.245:3000/api/v1/',
-
+    // Old Staging server
     // BASE_URL: "http://198.251.65.146:4202/api/v1/",
     // API_URL: "http://198.251.65.146:4202/api/v1/",
     // stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR'

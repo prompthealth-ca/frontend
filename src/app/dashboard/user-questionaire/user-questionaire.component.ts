@@ -1,13 +1,16 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr'; @Component({
+import { ToastrService } from 'ngx-toastr'; 
+import { Subscription } from 'rxjs';
+import { QuestionnaireAnswer, QuestionnaireService, QuestionnaireType } from '../questionnaire.service';
+
+@Component({
   selector: 'app-user-questionaire',
   templateUrl: './user-questionaire.component.html',
   styleUrls: ['./user-questionaire.component.scss']
 })
 export class UserQuestionaireComponent implements OnInit {
-  questionType = "age";
 
   ansIDs = [];
   myForm: any;
@@ -40,58 +43,58 @@ export class UserQuestionaireComponent implements OnInit {
     latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
   }
   @Output() ActiveNextTab = new EventEmitter<string>();
-  constructor
-    (
-      private toastr: ToastrService,
-      private _router: Router,
-      private _sharedService: SharedService,) { }
+
+  public currentQuestionnaire: string;
+  public idxCurrentQuestionnaire: number = 0;
+  public questionnaireTypes: QuestionnaireType[];
+
+  private subscriptionCurrentType: Subscription;
+  private subscriptionSubmit: Subscription
+
+  constructor(
+    private toastr: ToastrService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _sharedService: SharedService,
+    private _qService: QuestionnaireService,
+    _changeDetector: ChangeDetectorRef,
+  ) {
+    this.questionnaireTypes = _qService.getQuestionnaireTypes();
+
+    this.subscriptionCurrentType = _qService.observeCurrentQuestionnaireType().subscribe(([type, idx])=>{
+      this.currentQuestionnaire = type;
+      this.idxCurrentQuestionnaire = idx;
+      _changeDetector.detectChanges();
+    });
+    
+    this.subscriptionSubmit = _qService.observeSubmit().subscribe(()=>{
+      this.submitQuestionnaire()
+    });
+  }
+
+  ngOnDestroy(){
+    if(this.subscriptionCurrentType){ this.subscriptionCurrentType.unsubscribe(); }
+    if(this.subscriptionSubmit){ this.subscriptionSubmit.unsubscribe(); }
+  }
 
   ngOnInit(): void {
     this.userSavePayload = {
       _id: localStorage.getItem('loginID'),
       answers: [],
+    }
 
-    }
     this.type = localStorage.getItem('roles');
-    if (!this.type) {
-      this.type = 'U';
-    } else {
-      this.getProfileDetails()
-    }
+    if (!this.type) { this.type = 'U'; } 
+    else { this.getProfileDetails(); }  /* todo: need async await ?*/
+
     localStorage.removeItem('typical_hours');
 
-    this.getUserQuestionnaire();
+    // if questionaire data is set yet, set data.
+    if(!this._qService.getQuestionnaireAll()){ this.getUserQuestionnaire(); };
+
   }
-  setAnsChecked() {
-    this.questionnaire.forEach(element => {
-      if (element.c_question === "What is your age range?" && this.profile?.customer_age_group) {
-        element.answers.forEach(ele => {
-          if (ele._id === this.profile.customer_age_group) {
-            ele.active = true;
-          }
 
-        });
-      }
-
-      if (element.c_question === "Are you looking for your loved one?" && this.profile?.customer_loved) {
-        element.answers.forEach(el => {
-          if (el._id === this.profile?.customer_loved) {
-            el.active = true;
-          }
-        });
-      }
-
-      if (element.c_question === "Check the status of your health" && this.profile?.customer_health.length) {
-        element.answers.forEach(el => {
-          this.profile?.customer_health.forEach(save => {
-            if (el._id === save) {
-              el.active = true;
-            }
-          });
-        });
-      }
-    });
-  }
+  /** no need for new UI */
   getSubAns(evt, subOption, questType) {
     const parentId = evt.target.id;
 
@@ -118,6 +121,8 @@ export class UserQuestionaireComponent implements OnInit {
         this._sharedService.get(path).subscribe((res: any) => {
           if (res.statusCode === 200) {
             this.subRes.options = res.data;
+            console.log(res.data)
+
           } else {
             this._sharedService.checkAccessToken(res.message);
           }
@@ -151,17 +156,22 @@ export class UserQuestionaireComponent implements OnInit {
     console.log('personalMatch>>>', this.personalMatch.ids);
 
   }
+
+  /** get questionaire from server */
   getUserQuestionnaire() {
     this._sharedService.loader('show');
-    let path = `questionare/get-questions?type=${this.type}&filter=${this.questionType}`;
-    this._sharedService.get(path).subscribe((res: any) => {
+//    let path = `questionare/get-questions?type=${this.type}&filter=${this.currentQuestionnaire}`;
+    let path = `questionare/get-questions?type=${this.type}`;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.questionnaire = res.data;
 
         for (var i in this.questionnaire) {
           this.questionnaire[i].answers.forEach(obj => { obj['active'] = false })
         }
+
         this.setAnsChecked();
+        this._qService.setQuestionnaire(this.questionnaire);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }
@@ -171,6 +181,38 @@ export class UserQuestionaireComponent implements OnInit {
       this._sharedService.checkAccessToken(err);
     });
   }
+
+  /** set default answer if the user logged in*/
+  setAnsChecked() {
+    this.questionnaire.forEach(element => {
+      if (element.c_question === "What is your age range?" && this.profile?.customer_age_group) {
+        element.answers.forEach(ele => {
+          if (ele._id === this.profile.customer_age_group) {
+            ele.active = true;
+          }
+        });
+      }
+
+      if (element.c_question === "Are you looking for your loved one?" && this.profile?.customer_loved) {
+        element.answers.forEach(el => {
+          if (el._id === this.profile?.customer_loved) {
+            el.active = true;
+          }
+        });
+      }
+
+      if (element.c_question === "Check the status of your health" && this.profile?.customer_health.length) {
+        element.answers.forEach(el => {
+          this.profile?.customer_health.forEach(save => {
+            if (el._id === save) {
+              el.active = true;
+            }
+          });
+        });
+      }
+    });
+  }
+
   getProfileDetails() {
     console.log('calling.....');
     let path = `user/get-profile/${localStorage.getItem('loginID')}`;
@@ -181,12 +223,34 @@ export class UserQuestionaireComponent implements OnInit {
         this._sharedService.checkAccessToken(res.message);
       }
     }, err => {
-
       this._sharedService.checkAccessToken(err);
     });
   }
 
+
+  submitQuestionnaire(){
+    this.questionnaireTypes.forEach(type=>{
+      var q = this._qService.getQuestionnaire(type.id);
+      this.setPersonalMatchIfAnswersActive(q.answers, type.personalMatchTarget);
+    });
+
+    this.saveQuestionnaire();
+  }
+
+  setPersonalMatchIfAnswersActive(answers: QuestionnaireAnswer[], personalMatchTarget: string){
+    answers.forEach(a=>{
+      if(a.active){
+        this.personalMatch[personalMatchTarget].push(a._id);
+      }
+      if(a.subans && a.subansData){
+        this.setPersonalMatchIfAnswersActive(a.subansData, personalMatchTarget)
+      }
+    });
+  }
+
+
   saveQuestionnaire() {
+
     this._sharedService.loader('show');
     let payload;
     let path = 'user/updateServices';
@@ -203,29 +267,29 @@ export class UserQuestionaireComponent implements OnInit {
       this._sharedService.loader('hide');
     });
 
-    console.log('personalMatch', this.personalMatch)
     this._sharedService.setPersonalMatch(this.personalMatch)
 
     this._router.navigate(['/dashboard/listing']);
   }
+  /*
   nextTabEvent() {
-    switch (this.questionType) {
+    switch (this.currentQuestionnaire) {
       case 'age': {
-        this.questionType = 'health';
+        this.currentQuestionnaire = 'health';
         break;
       }
       case 'health': {
-        this.questionType = 'goal';
+        this.currentQuestionnaire = 'goal';
         break;
       }
       case 'goal': {
-        this.questionType = 'availability';
+        this.currentQuestionnaire = 'availability';
         break;
       }
     }
     this.getUserQuestionnaire();
-
   }
+  */
   addQuestion(question, ansID) {
     let data;
     if (question === "5eb1a4e199957471610e6cd5") {
@@ -280,14 +344,14 @@ export class UserQuestionaireComponent implements OnInit {
 
   }
   // previousTabEvent() {
-  //   if (this.questionType === 'availability') {
-  //     this.questionType = 'goal'
+  //   if (this.currentQuestionnaire === 'availability') {
+  //     this.currentQuestionnaire = 'goal'
   //   }
-  //   if (this.questionType === 'goal') {
-  //     this.questionType = 'health'
+  //   if (this.currentQuestionnaire === 'goal') {
+  //     this.currentQuestionnaire = 'health'
   //   }
-  //   if (this.questionType === 'health') {
-  //     this.questionType = 'age'
+  //   if (this.currentQuestionnaire === 'health') {
+  //     this.currentQuestionnaire = 'age'
   //   }
   // }
 

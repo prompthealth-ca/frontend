@@ -1,150 +1,84 @@
 @import "../../../assets/scss/mixins";
 
-@media(min-width:768px){
-  .nav-pills {
-    .nav-item{
-      width: 100%;
-      flex: 1;
+$colorLightBlue: #B7D3F3;
+$colorBlue: #3377C5;
+
+.bg-lightgrey{ background: #E5E5E5; }
+
+:host{
+    font-size: 16px;
+}
+
+.sticky-top-sm{
+  @media screen and (max-width: 767px){
+    position: sticky;
+    top: $headerHeight;
+  }
+  z-index: 20;
+  background: #ffffff80;
+  backdrop-filter: blur(10px);
+}
+
+@import '../../../assets/scss/responsive_variables';
+.stepper-road-sm{
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background: $colorLightBlue;
+
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $colorBlue;
+    transition: transform 300ms;
+    transform-origin: left;
+  }
+  &.pos-0::after{ transform: scaleX(0.25); }
+  &.pos-1::after{ transform: scaleX(0.50); }
+  &.pos-2::after{ transform: scaleX(0.75); }
+  &.pos-3::after{ transform: scaleX(1); }
+}
+
+.stepper-item-sm{
+  color: $colorBlue;
+  font-size: 1.2em;
+}
+
+.stepper-road{
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  top: 10px;
+  background: $colorBlue;
+}
+.stepper-item{
+  position: relative;
+  .point{
+    width: 24px;
+    height: 24px;
+    margin: 0 auto 15px;
+    background: $colorLightBlue;
+    transition: transform 200ms;
+  }
+  .label{ 
+    color: $colorBlue; 
+    white-space: nowrap;
+  }
+
+  &.active{
+    .point{ 
+      background: $colorBlue;
+      transform: scale(1.1);
+      transform-origin: center;
+    }
+
+    .label{
+      -webkit-text-stroke: 1px; 
+      text-stroke: 1px;                     
     }
   }
-  }
-
-label.radio {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-}
-
-.questionaareUser {
-  left: 16px;
-  top: -35px;
-  height: 70px;
-  width: 70px;
-  border: 2px solid #4274ba;
-}
-
-// .radio {
-//   font-weight: 500;
-//   position: relative;
-//   display: inline-block;
-//   font-size: 16px;
-//   margin-bottom: 13px;
-//   padding-left: 25px;
-//   > input {
-//     height: 0px;
-//     width: 0px;
-//     &::after {
-//       content: "";
-//       display: block;
-//       position: absolute;
-//       height: 100%;
-//       cursor: pointer;
-//       width: 100%;
-//       left: 0;
-//       top: 0;
-//     }
-
-//     &::before {
-//       position: absolute;
-//       left: 0;
-//       top: 0;
-//     }
-
-//     &:checked {
-//       &.fa-circle-o:before {
-//         content: "\f111";
-//         color: $primaryColor;
-//       }
-//       &.fa-square-o::before {
-//         content: "\f14a";
-//         color: $primaryColor;
-//       }
-//       + * {
-//         color: $primaryColor;
-//       }
-//     }
-//   }
-//   &:hover {
-//     color: $primaryColor;
-//   }
-// }
-
-.w-25 {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 25% !important;
-          flex: 0 0 25% !important;
-  max-width: 25%;
-}
-.sub-options {
-  margin-left: 100px;
-  margin-bottom: 15px;
-}
-$arrowHeight: 25px;
-.nav-pills {
-  a {
-    border-radius: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    font-size: 20px;
-    line-height: 50px;
-    &.active {
-      &::before {
-        border-left-color: $primaryColor !important;
-      }
-    }
-  }
-  .nav-item {
-    width: 25%;
-    text-align: center;
-    &:not(:first-child) {
-      position: relative;
-      margin-left: -$arrowHeight / 2;
-      a {
-        padding-left: $arrowHeight + 10px;
-        &::after {
-          position: absolute;
-          left: 0;
-          top: 0;
-          content: "";
-          border-top: $arrowHeight solid transparent;
-          border-right: $arrowHeight solid transparent;
-          border-bottom: $arrowHeight solid transparent;
-          border-left: $arrowHeight solid #ffffff;
-        }
-      }
-    }
-    &:not(:last-child) {
-      position: relative;
-      padding-right: $arrowHeight;
-      a {
-        &::before {
-          content: "";
-          position: absolute;
-          width: 0;
-          height: 0;
-          right: 0px;
-          top: 0px;
-          z-index: 1;
-          border-top: $arrowHeight solid transparent;
-          border-bottom: $arrowHeight solid transparent;
-          border-left: $arrowHeight solid $secondaryColor;
-        }
-      }
-    }
-  }
-  .nav-link {
-    font-weight: bold;
-    color: #fff;
-    background-color: $secondaryColor;
-    &.active {
-      background-color: $primaryColor;
-    }
-  }
-}
-.question {
-  margin-bottom: 15px;
-}
-.showSubans {
-  margin-left: 30px;
-  margin-bottom: 15px;
 }

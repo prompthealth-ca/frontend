@@ -12,6 +12,7 @@ import { SubscriptionPlanAddonCardComponent } from './subscription-plan-addon-ca
 import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-switcher.component';
 import { StarRateComponent } from './star-rate/star-rate.component';
 import { PostDummyComponent } from './post-dummy/post-dummy.component';
+import { FocusDirective } from './focus.directive';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { PostDummyComponent } from './post-dummy/post-dummy.component';
     PriceRangeSwitcherComponent,
     StarRateComponent,
     PostDummyComponent,
+    FocusDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -40,6 +42,7 @@ import { PostDummyComponent } from './post-dummy/post-dummy.component';
     PriceRangeSwitcherComponent,
     StarRateComponent,
     PostDummyComponent,
+    FocusDirective,
   ]
 })
 export class SharedModule { }

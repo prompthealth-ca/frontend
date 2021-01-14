@@ -1,0 +1,83 @@
+.title{
+    .colorset-red & {   color: #FF9797; border-color: #FF9797;} 
+    .colorset-green & { color: #95C38B; border-color: #82B378;} 
+    .colorset-blue & {  color: #4A7FCA; border-color: #4A7FCA;} 
+}
+
+.btn-more{
+    color: white;
+    .colorset-red & {   background: #F48C7F; }
+    .colorset-green & { background: #95C38B; } 
+    .colorset-blue & {  background: #A5B9F9; } 
+}
+
+.feature i{
+    .colorset-red & {   color: #FF9797; }
+    .colorset-green & { color: #95C38B; } 
+    .colorset-blue & {  color: #4A7FCA; } 
+}
+
+.tab{
+    color: white;
+    &.colorset-red{   background: #F48C7F;}
+    &.colorset-green { background: #95C38B; }
+    &.colorset-blue {  background: #A5B9F9; }
+}
+
+
+:host{
+    position: relative;
+    padding-top: 50px;
+}
+
+.tab{
+    position: absolute;
+    z-index: 1;
+    width: 80%;
+    max-width: 250px;
+    box-sizing: border-box;
+    padding: 15px 25px 35px;
+    top: 50px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    transform: translateY(calc(-100% + 20px));
+
+
+    .save-annualy{
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateY(calc(-50% - 10px));
+        font-size: 0.8em;
+    }
+    
+}
+
+.plan-card{
+    position: relative;
+    z-index: 2;
+    padding: 20px 10px 60px; 
+    border-radius: 10px;
+    background: white;
+}
+
+.title{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 0 20px 5px;
+    font-size: 2.3em;
+}
+
+.feature{
+    list-style: none;
+
+    li:not(:last-child){ margin-bottom: 10px; }
+}
+
+.btn-more{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+}

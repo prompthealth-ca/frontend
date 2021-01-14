@@ -17,6 +17,10 @@
   cursor: pointer;
 }
 
+nav{
+  transition: transform 400ms;
+  &.hide{ transform: translateY(-100%); }
+}
 
 .btn{ padding: 4px 16px; }
 .btn-icon{

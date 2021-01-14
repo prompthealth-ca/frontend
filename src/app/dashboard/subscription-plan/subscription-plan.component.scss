@@ -1,52 +1,14 @@
-.banner1{
-  .badgeimg{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 60px;
-    text-align: center;
+.max-w-1200{ max-width: 1200px; }
+.text-blue{ color: #3377C5; }
+.text-pink{ color: #A759B3; }
+.font-bigger{ font-size: 1.2em; }
+.hero{ 
+  background-image: url('/assets/img/hero-subscription-plan-s.png');
+  h2{ font-size: 20px; }
 
-    img{
-      height: 115px;
-      width: 200px;
-      object-fit: contain;
-      margin-bottom: 11px;
-    }
-
-    span{
-      background-image:url('/assets/img/badge-bottom.png');
-      font-size: 11px;
-    font-weight: bold;
-    background-size: 100% 100%;
-    text-transform: uppercase;
-    position: absolute;
-    padding-bottom: 10px;
-    padding-top: 5px;
-    bottom: 0px;
-    color: #fff;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 230px;
-    text-align: center;
-    }
-  }
-
-  p{
-    font-weight: 400;
-    line-height: 27px;
-    font-size: 16px !important;
-  }
-}
-
-@media(max-width:992px){
-  .banner1{
-    .badgeimg{
-      position: initial !important;
-      right: initial !important;
-      top:initial !important;
-      transform: initial !important;
-      margin: auto;
-    }
+  @media screen and (min-width: 768px){
+    background-image: url("/assets/img/hero-subscription-plan.png");
+    h2{ font-size: 35px; }
   }
 }
 

@@ -3,8 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
 import { trigger, transition, animate, style, query} from '@angular/animations'
+import { Subscription } from 'rxjs';
 
 const fadeAnimation = trigger('fade', [
   transition(':enter', [
@@ -34,7 +36,9 @@ export class HeaderComponent implements OnInit {
   public role = '';
   public payment = 'true';
 
-  public navMenu:any;
+  public isHeaderShown: boolean = true;
+  public isNavMenuShown: boolean = false;
+  public levelMenuSm: number = 0;
   public activeCategory = 0;
 
 
@@ -58,10 +62,11 @@ export class HeaderComponent implements OnInit {
     private _sharedService: SharedService,
     private _bs: BehaviorService,
     private toastr: ToastrService,
+    private _headerStatusService: HeaderStatusService,
   ) {
     // this.fetchUser();
-    this.navMenu = this._sharedService.navMenu;
   }
+
 
   // Start ngOninit
   ngOnInit() {
@@ -109,6 +114,9 @@ export class HeaderComponent implements OnInit {
       : {};
     this.user.firstName = this.user.firstName ? this.user.firstName + ' ' + this.user.lastName : '';
 
+    this._headerStatusService.observeHeaderStatus().subscribe(([key,val]: [string, any]) => {
+      this[key] = val; 
+    });
     // if(this.token) {
     //   if(this.role === 'U') {
     //     this.showDashboard = true;
@@ -176,24 +184,20 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  hideMenu(){ this._headerStatusService.hideNavMenu(); }
   showMenu(slow: boolean = false){
     setTimeout(()=>{
-      this._sharedService.showNavMenu(false);
+      this._headerStatusService.showNavMenu(false);
     })
   }
 
-  hideMenu(){
-    console.log('hideMenu');
-    this._sharedService.hideNavMenu();
-  }
+  scrollMenuSm(n: number){ this._headerStatusService.changeLevelMenuSm(n); }
+
   changeMenuCategory(i: number){
     this.activeCategory = i;
     this.setClassForSubcategory(i);
   }
 
-  scrollMenuSm(n: number){
-    this.navMenu.levelMenuSm = n;
-  }
 
   public classSubcategory = '';
   public classSubcategoryItem = ''

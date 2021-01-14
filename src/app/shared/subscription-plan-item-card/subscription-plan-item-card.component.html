@@ -1,0 +1,91 @@
+<div class="tab shadow font-weight-bold" 
+    [class]="'colorset-' + color" 
+>
+    {{getTabName()}}
+    <span class="save-annualy font-weight-normal text-center d-inline-block font-italic"
+        *ngIf="!isPriceMonthly && type != 'basic' && type != 'partner'"
+    >save<br>20%</span>
+</div>
+
+<div class="plan-card h-100 shadow text-center" [class]="'colorset-' + color">
+
+    <h3 class="title d-inline-block" [innerText]="type | titlecase"></h3>
+    <p>
+        <span *ngIf="type == 'basic'">Get listed with us for free so that the clients can find you.</span>
+        <span *ngIf="type == 'provider'">This is for a solo health and wellness professional looking to boost their online presence and acquire and retain more clients.</span>
+        <span *ngIf="type == 'centre'">This is for a centre in any area of health and wellness with multiple professionals or products
+            looking to showcase their facility and offerings. There is no limit to how many you can list, but
+            you must have at least one professional.</span>
+        <span *ngIf="type == 'partner'">This is for an enterprise in any area of health and wellness looking to
+            showcase their product or service to clients and get exposure and endorsement by heath
+            professionals.</span>
+    </p>
+    <ul class="feature text-left fa-ul">
+
+        <!-- only for centre -->
+        <li *ngIf="type == 'centre'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            all the Provider benefits plus
+        </li>
+        <li *ngIf="type == 'centre'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Advertise your saleable products
+        </li>
+
+        <!-- except centre and depend on data-->
+        <li *ngIf="type != 'centre' && data?.professionalProfile">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Your Professional Profile
+        </li>
+        <li *ngIf="type != 'centre' && data?.sideBySideComparisons">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Differentiate yourself with side-by-side comparisons
+        </li>
+        <li *ngIf="type != 'centre' && data?.videoUpload">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Showcase yourself with video introduction
+        </li>
+        <li *ngIf="type != 'centre' && data?.reviewsAndFeedback">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Genuine Reviews And Feedback
+        </li>
+        <li *ngIf="type != 'centre' && data?.performanceDashboard">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Performance Dashboard
+        </li>
+        <li *ngIf="type != 'centre' && data?.receiveMessagesForBooking">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Receive requests for booking /integration with your own booking system option
+        </li>
+
+        <!-- depend on data -->
+        <li *ngIf="data?.ListOfProviders">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            List Special Amenities
+        </li>
+        <li *ngIf="data?.ListOfProviders">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            List Of Providers
+        </li>
+    </ul>
+            
+    <!-- if user is not loggedin, go to signin / login page -->
+    <a *ngIf="!isLoggedIn"
+    class="btn btn-more"
+    [routerLink]="getLinkToSignin()"
+    >
+    <span *ngIf="type == 'basic'">Explore</span>
+    <span *ngIf="type != 'basic'">Get Started</span>
+    <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
+    </a>
+
+    <button *ngIf="isLoggedIn"
+    class="btn btn-more"
+    (click)="triggerButtonClick()"
+    >
+    <span *ngIf="type == 'basic'">Explore</span>
+    <span *ngIf="type == 'centre' || type == 'provider'">Get Started</span>
+    <span *ngIf="type == 'partner'">Get in touch</span>
+    </button>
+
+</div>

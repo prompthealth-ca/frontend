@@ -4,6 +4,8 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../shared/services/shared.service';
+import { HeaderStatusService } from '../shared/services/header-status.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,6 +17,7 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder,
     // tslint:disable-next-line: variable-name
     private _sharedService: SharedService,
+    private _headerStatusService: HeaderStatusService,
     private toastr: ToastrService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
@@ -243,6 +246,6 @@ export class HomeComponent implements OnInit {
 
 
   showMenu(){
-    this._sharedService.showNavMenu()
+    this._headerStatusService.showNavMenu()
   }
 }

@@ -75,12 +75,19 @@ img.brand-sm{
   width: 100%;
   box-sizing: border-box;
 
-  .menu-close{
+  .close-menu-full{
     position: fixed;
     width: 100vw;
     height: 120vh;
     top: 0;
     left: 0;
+  }
+
+  button.close-menu{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
   }
 
   .menu_inner{

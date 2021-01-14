@@ -37,8 +37,11 @@
         <div class="nav-item" (click)="showMenu()">
           <a class="nav-link">Category</a>
         </div>
-        <div class="nav-item">
+        <!-- <div class="nav-item">
           <a class="nav-link" class="nav-link">Solutions</a>
+        </div> -->
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan-partner']">Partner</a>
         </div>
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="['/blogs']">Blogs</a>
@@ -49,9 +52,13 @@
 
     <!-- menu for medium view or more-->
     <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList" [@fade]>
-      <div class="menu-close" (click)="hideMenu()"></div>
+      <div class="close-menu-full" (click)="hideMenu()"></div>
 
-      <div class="shadow menu_inner">
+      <div class="shadow menu_inner position-relative">
+        <button class="btn close-menu btn-icon text-blue" (click)="hideMenu()">
+          <i class="fas fa-times"></i>
+        </button>
+
         <div class="menu-title center">Service/Goal</div>
         <div class="menu-category-group w-100">
           <div class="col-4 menu-category">
@@ -92,11 +99,16 @@
   <ul class="menu-item font-weight-bold"
     [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
   >
-    <li [routerLink]="'/'" (click)="hideMenu()">Home</li>
-    <li (click)="scrollMenuSm(1)">Category</li>
-    <li>Solution</li>
-    <li [routerLink]="['/blogs']"  (click)="hideMenu()">Blogs</li>
-    <li>Log in/Sign up</li>
+    <li><a [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
+    <li><span (click)="scrollMenuSm(1)">Category</span></li>
+    <!-- <li>Solution</li> -->
+    <li><a [routerLink]="['/subscriptionplan-partner']" (click)="hideMenu()">Partner</a></li>
+    <li><a [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
+    <li>
+      <span class="px-2" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</span>
+      <span class="display-inline-block mx-2">/</span>
+      <span class="px-2" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</span>
+    </li>
   </ul>
 
   <ul class="menu-item sub"
@@ -108,9 +120,9 @@
       </button>
       Category
     </li>
-    <li *ngFor="let cat of categoryList; let i = index"
-      (click)="changeMenuCategory(i); scrollMenuSm(2)"
-    >{{cat.item_text}}</li>
+    <li *ngFor="let cat of categoryList; let i = index">
+      <span (click)="changeMenuCategory(i); scrollMenuSm(2)">{{cat.item_text}}</span>
+    </li>
   </ul>
 
   <ul class="menu-item sub"

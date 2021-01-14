@@ -49,7 +49,7 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     var link = ['/auth', 'registration', 'sp']
     return link;
   }
-
+  
   triggerButtonClick(){ this.select.emit(this.type); }
 
 }

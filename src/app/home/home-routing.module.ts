@@ -88,10 +88,9 @@ const routes: Routes = [
   {
     path:'unsubscribe/:email',
     component: UnsubscribeComponent
-  },{
-    path: 'subscriptionplan-partner',
-    component: SubscriptionPlanPartnerComponent
-  }
+  },
+
+  { path: 'subscriptionplan-partner', component: SubscriptionPlanPartnerComponent },
 ];
 
 @NgModule({

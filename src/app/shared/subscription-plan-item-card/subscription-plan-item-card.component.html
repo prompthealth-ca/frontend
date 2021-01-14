@@ -10,7 +10,7 @@
 <div class="plan-card h-100 shadow text-center" [class]="'colorset-' + color">
 
     <h3 class="title d-inline-block" [innerText]="type | titlecase"></h3>
-    <p>
+    <p class="my-4">
         <span *ngIf="type == 'basic'">Get listed with us for free so that the clients can find you.</span>
         <span *ngIf="type == 'provider'">This is for a solo health and wellness professional looking to boost their online presence and acquire and retain more clients.</span>
         <span *ngIf="type == 'centre'">This is for a centre in any area of health and wellness with multiple professionals or products
@@ -20,7 +20,30 @@
             showcase their product or service to clients and get exposure and endorsement by heath
             professionals.</span>
     </p>
-    <ul class="feature text-left fa-ul">
+
+    <ul class="feature text-left fa-ul my-4">
+
+        <!-- only for partner -->
+        <li *ngIf="type == 'partner'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Company name
+        </li> 
+        <li *ngIf="type == 'partner'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Description
+        </li> 
+        <li *ngIf="type == 'partner'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Link
+        </li> 
+        <li *ngIf="type == 'partner'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            5 pictures
+        </li> 
+        <li *ngIf="type == 'partner'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            Contact info
+        </li> 
 
         <!-- only for centre -->
         <li *ngIf="type == 'centre'">
@@ -71,17 +94,17 @@
             
     <!-- if user is not loggedin, go to signin / login page -->
     <a *ngIf="!isLoggedIn"
-    class="btn btn-more"
-    [routerLink]="getLinkToSignin()"
-    >
-    <span *ngIf="type == 'basic'">Explore</span>
-    <span *ngIf="type != 'basic'">Get Started</span>
-    <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
+        class="btn btn-more"
+        [routerLink]="getLinkToSignin()"
+        >
+        <span *ngIf="type == 'basic'">Explore</span>
+        <span *ngIf="type != 'basic'">Get Started</span>
+        <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
     </a>
 
     <button *ngIf="isLoggedIn"
-    class="btn btn-more"
-    (click)="triggerButtonClick()"
+        class="btn btn-more"
+        (click)="triggerButtonClick()"
     >
     <span *ngIf="type == 'basic'">Explore</span>
     <span *ngIf="type == 'centre' || type == 'provider'">Get Started</span>

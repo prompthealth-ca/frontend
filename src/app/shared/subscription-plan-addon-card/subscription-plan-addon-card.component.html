@@ -10,11 +10,13 @@
         [ngClass]="{'flex-md-nowrap': flexibleButtonPosition, 'align-items-md-center': flexibleButtonPosition}"
     >
         <div class='col-12' [ngClass]="{'col-md-9': flexibleButtonPosition, 'col-lg-9': flexibleButtonPosition}">
-            <h3 class="m-0 title">
-                {{addon.title}}
-            </h3>
+            <h3 class="m-0 title">{{addon.title}}</h3>
         
             <ul class="mb-0 mt-3 feature fa-ul">
+                <li *ngIf="type == 'endorsement'" class="font-weight-bold">
+                    <span class="fa-li"><i class="far fa-check-circle"></i></span>
+                    Advanced Tier
+                </li>
                 <li *ngFor="let desc of addon.desc;">
                     <span class="fa-li"><i class="far fa-check-circle"></i></span>
                     {{desc}}
@@ -24,13 +26,13 @@
 
         <div class='col-12' [ngClass]="{'col-md-3': flexibleButtonPosition, 'col-lg-3': flexibleButtonPosition}">
             <!-- if user is not loggedin, go to signin / login page -->
-            <a *ngIf="!isLoggedIn"
+            <a *ngIf="!isLoggedIn && type != 'social'"
                 class="mt-3 btn btn-more"
                 [ngClass]="{'mt-md-0': flexibleButtonPosition}"
                 [routerLink]="getLinkToSignin()"
             >Get Started</a>
 
-            <button *ngIf="isLoggedIn"
+            <button *ngIf="isLoggedIn && type != 'social'"
                 class="mt-3 btn btn-more"
                 [ngClass]="{'mt-md-0': flexibleButtonPosition}"
                 (click)="triggerButtonClick()"
@@ -38,6 +40,7 @@
 
             <!-- for quotation -->
             <a href="" *ngIf="type == 'social'"
+                class="mt-3 btn btn-more"
                 [ngClass]="{'mt-md-0': flexibleButtonPosition}"
             >Contact Us</a>
         </div>

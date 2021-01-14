@@ -5,15 +5,18 @@ import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan
 import { UserDetailsComponent } from "./user-details/user-details.component";
 import { SubscriptionProfessionalComponent } from "./subscription-professional/subscription-professional.component";
 import { QuestionnaireComponent } from "./questionnaire/questionnaire.component";
-import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { ListingComponent } from "./listing/listing.component";
 import { ListingcompareComponent } from "./listingcompare/listingcompare.component";
 import { DetailComponent } from "./detail/detail.component";
 import { ProfileManagementModule } from "./profileManagement/profile-mangement.module";
 import { ProfessionalRegisterComponent } from "./professional-register/professional-register.component";
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
-import { 
-  AuthGuardService as AuthGuard  } from '../auth/auth-gaurd.service';
+
+import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
+import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
+import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
+
+import { AuthGuardService as AuthGuard  } from '../auth/auth-gaurd.service';
 
 const routes: Routes = [
   {
@@ -42,7 +45,14 @@ const routes: Routes = [
   },
   {
     path: "questions/User",
-    component: UserQuestionaireComponent,
+    component: UserQuestionaireComponent, children:[
+      { path: '', redirectTo: 'age' },
+      { path: 'age', component: QuestionnaireItemSelectComponent, data: {q: 'age'}},
+      { path: 'background', component: QuestionnaireItemCheckboxComponent, data: {q: 'background', style: 'block'}},
+      { path: 'goal', component: QuestionnaireItemCheckboxComponent, data: {q: 'goal', style: 'block'}},
+      { path: 'availability', component: QuestionnaireItemCheckboxComponent, data: {q: 'availability', style: 'block'}},
+      { path: '**', redirectTo: 'age'},
+    ],
     // canActivate: [AuthGuard] 
   },
   {

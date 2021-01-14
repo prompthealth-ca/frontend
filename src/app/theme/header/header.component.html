@@ -47,6 +47,7 @@
     </div>
 
 
+    <!-- menu for medium view or more-->
     <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList" [@fade]>
       <div class="menu-close" (click)="hideMenu()"></div>
 
@@ -68,17 +69,22 @@
             >
               <li *ngFor="let sub of categoryList[activeCategory].subCategory"
                 [class]="classSubcategoryItem"
-              >{{sub.item_text}}</li>
+              >
+                <a [routerLink]="['/dashboard/listing']"
+                  [queryParams]=" {id: sub._id, type: 'goal'}"
+                  (click)="hideMenu()"
+                >{{sub.item_text}}</a>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-
     </div>
   </nav>
 </header>
 <div class="spacer-top"></div>
 
+<!-- Menu for Small view-->
 <div class="menu-sm d-md-none" id="menu_sm" *ngIf="isNavMenuShown" [@fade]>
   <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
     <i class="fas fa-times"></i>
@@ -86,10 +92,10 @@
   <ul class="menu-item font-weight-bold"
     [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
   >
-    <li>Home</li>
+    <li [routerLink]="'/'" (click)="hideMenu()">Home</li>
     <li (click)="scrollMenuSm(1)">Category</li>
     <li>Solution</li>
-    <li>Blogs</li>
+    <li [routerLink]="['/blogs']"  (click)="hideMenu()">Blogs</li>
     <li>Log in/Sign up</li>
   </ul>
 
@@ -118,9 +124,13 @@
         {{categoryList[activeCategory].item_text}}
       </span>
     </li>
-    <li *ngFor="let sub of categoryList[activeCategory].subCategory">{{sub.item_text}}</li>
+    <li *ngFor="let sub of categoryList[activeCategory].subCategory">
+      <a [routerLink]="['/dashboard/listing']"
+        [queryParams]=" {id: sub._id, type: 'goal'}"
+        (click)="hideMenu()"
+      >{{sub.item_text}}</a>
+    </li>
   </ul>
-
 </div>
 
 

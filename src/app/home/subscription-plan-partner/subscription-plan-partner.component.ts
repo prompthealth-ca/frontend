@@ -20,8 +20,10 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token')) { this.isLoggedIn = true; }
 
-    this.getSubscriptionPlan('user/get-plans');
-    if (this.isLoggedIn === true) {
+    /** enable to get usbscription plan after api is ready */
+//    this.getSubscriptionPlan('user/get-plans');
+
+if (this.isLoggedIn === true) {
 //      this.getProfileDetails();
     }
   }

@@ -556,7 +556,6 @@ textarea.form-control {
 @import "responsive_variables";
 .spacer-top{
   height: $headerHeight;
-  @media screen and (min-width: 768px){
-    height: $headerHeightMd;
-  }
+  @media screen and (min-width: 768px){ height: $headerHeightMd; }
+  @media screen and (min-width: 992px){ height: $headerHeightLg; }
 }

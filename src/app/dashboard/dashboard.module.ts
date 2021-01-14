@@ -22,10 +22,13 @@ import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AgmCoreModule } from '@agm/core';
-import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { AddOnCardComponent } from './add-on-card/add-on-card.component';
 import { environment } from 'src/environments/environment';
 import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-intersection-observer.directive';
+
+import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
+import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
+import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,11 @@ import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-inter
     ProfessionalHomeComponent,
     ProfessionalRegisterComponent,
     EmbededURLPipe,
-    UserQuestionaireComponent,
     AddOnCardComponent,
     DetailTabbarIntersectionObserverDirective,
+    UserQuestionaireComponent,
+    QuestionnaireItemSelectComponent,
+    QuestionnaireItemCheckboxComponent,
   ],
   imports: [
     AutocompleteLibModule,

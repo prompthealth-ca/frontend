@@ -45,8 +45,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     NgxStripeModule.forRoot(environment.config.stripeKey),
     SharedModule,
-    FlashMessagesModule
-
+    FlashMessagesModule,
   ]
 })
 export class ThemeModule { }

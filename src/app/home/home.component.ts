@@ -240,4 +240,9 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['subscriptionplan']);
     }
   }
+
+
+  showMenu(){
+    this._sharedService.showNavMenu()
+  }
 }

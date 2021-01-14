@@ -4,11 +4,24 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { environment } from '../../../environments/environment';
+import { trigger, transition, animate, style, query} from '@angular/animations'
+
+const fadeAnimation = trigger('fade', [
+  transition(':enter', [
+    style({display: 'block', opacity: 0}),
+    animate('300ms ease', style({opacity: 1}))
+  ]),
+  transition(':leave', [
+    style({opacity: 1}),
+    animate('300ms ease', style({opacity: 0}))
+  ])]
+);
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [fadeAnimation]
 })
 export class HeaderComponent implements OnInit {
 
@@ -20,6 +33,10 @@ export class HeaderComponent implements OnInit {
   public token = '';
   public role = '';
   public payment = 'true';
+
+  public navMenu:any;
+  public activeCategory = 0;
+
 
   user: any = {};
   updateData: any;
@@ -43,6 +60,7 @@ export class HeaderComponent implements OnInit {
     private toastr: ToastrService,
   ) {
     // this.fetchUser();
+    this.navMenu = this._sharedService.navMenu;
   }
 
   // Start ngOninit
@@ -118,7 +136,18 @@ export class HeaderComponent implements OnInit {
     this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.categoryList = res.data;
+        this.categoryList= [];
+        for(var i=0; i<res.data.length; i++){
+          if(res.data[i].category_type.toLowerCase() == 'goal'){
+            this.categoryList = res.data[i].category;
+            break;
+          }
+        }
+        this.categoryList.forEach((cat,i)=>{
+          var label = cat.item_text.toLowerCase();
+          label = label.replace(/[\/\s]/g, '_');
+          this.categoryList[i].label = label.replace(/[^0-9a-zA-Z_]/g, '');
+        });
       }
     }, (error) => {
       console.error(error);
@@ -147,5 +176,40 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  showMenu(slow: boolean = false){
+    setTimeout(()=>{
+      this._sharedService.showNavMenu(false);
+    })
+  }
+
+  hideMenu(){
+    console.log('hideMenu');
+    this._sharedService.hideNavMenu();
+  }
+  changeMenuCategory(i: number){
+    this.activeCategory = i;
+    this.setClassForSubcategory(i);
+  }
+
+  scrollMenuSm(n: number){
+    this.navMenu.levelMenuSm = n;
+  }
+
+  public classSubcategory = '';
+  public classSubcategoryItem = ''
+  setClassForSubcategory(i: number){
+    var clname = ['', ''];
+    switch(this.categoryList[i].label){
+//      case 'skin_rejuvination': clname = ['', '']; break;
+      case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
+      case 'pain_management': clname = ['', 'lower narrowest']; break;
+      case 'women_mens_health': clname = ['h-100', 'lower']; break;
+      case 'mood_mental_health': clname = ['h-100', 'lowest narrower']; break;
+      case 'fitness': clname = ['h-100', '']; break;
+//      case 'nutrition': clname = ['h-60', '']; break;
+    }
+    this.classSubcategory = clname[0];
+    this.classSubcategoryItem = clname[1];
+  }
 
 }

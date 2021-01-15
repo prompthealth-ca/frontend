@@ -14,7 +14,7 @@
           <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" />
         </div>
       </div>
-      <div class=" col-3 d-none d-md-block" *ngIf="!this.user; else logoutblock">
+      <div class=" col-3 d-none d-md-block" *ngIf="!this.token; else logoutblock">
         <div class="row justify-content-end align-items-center">
           <a class="btn btn-home" data-toggle="modal" data-target="#loginmodal">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign up</a>

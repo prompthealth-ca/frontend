@@ -15,38 +15,44 @@
 </section>
 
 <!-- Pricing table -->
-<div class="container-fluid max-w-1200 my-5">
-  <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
-  <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-bigger d-block d-md-inline-block">save 20% with yearly subscription</span>
-</div>
-
-<div class="container-fluid max-w-1200">
-  <div class="row align-items-stretch">
-    <subscription-plan-item-card class="col-md"
-      type="basic"
-      [data]="basicPlan"
-      [isPriceMonthly]="isPriceMonthly"
-      (select)="setSelectedFreePlan(basicPlan)"
-    ></subscription-plan-item-card>
-
-    <subscription-plan-item-card class="col-md mt-5 mt-md-0"
-      type="provider"
-      [data]="spPlan"
-      [isPriceMonthly]="isPriceMonthly"
-      (select)="setSelectedPlan(spPlan)"
-      ></subscription-plan-item-card>
-
-    <subscription-plan-item-card class="col-md mt-5 mt-md-0"
-      type="centre"
-      [data]="cPlan"
-      [isPriceMonthly]="isPriceMonthly"
-      (select)="setSelectedPlan(cPlan)"
-      ></subscription-plan-item-card>
+<div class="container-fluid my-5">
+  <div class="max-w-1200">
+    <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
+    <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-big d-block d-md-inline-block">save 20% with yearly subscription</span>  
   </div>
 </div>
 
-<div class="container-fluid max-w-1200">
-  <h3 class="text-pink mt-5 mb-3">Add-ons for Provider and Centre</h3>
-  <subscription-plan-addon-card type="op1" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
-  <subscription-plan-addon-card type="op2" class="mt-5" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+<div class="container-fluid">
+  <div class="max-w-1200">
+    <div class="row align-items-stretch">
+      <subscription-plan-item-card class="col-md"
+        type="basic"
+        [data]="basicPlan"
+        [isPriceMonthly]="isPriceMonthly"
+        (select)="setSelectedFreePlan(basicPlan)"
+      ></subscription-plan-item-card>
+  
+      <subscription-plan-item-card class="col-md mt-5 mt-md-0"
+        type="provider"
+        [data]="spPlan"
+        [isPriceMonthly]="isPriceMonthly"
+        (select)="setSelectedPlan(spPlan)"
+        ></subscription-plan-item-card>
+  
+      <subscription-plan-item-card class="col-md mt-5 mt-md-0"
+        type="centre"
+        [data]="cPlan"
+        [isPriceMonthly]="isPriceMonthly"
+        (select)="setSelectedPlan(cPlan)"
+        ></subscription-plan-item-card>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="max-w-1200">
+    <h3 class="text-pink mt-5 mb-3">Add-ons for Provider and Centre</h3>
+    <subscription-plan-addon-card type="op1" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+    <subscription-plan-addon-card type="op2" class="mt-5" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>  
+  </div>
 </div> 

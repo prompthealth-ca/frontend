@@ -42,8 +42,8 @@ export class SharedService {
     private http: HttpClient) {
     this.type = localStorage.getItem('roles');
   }
- 
- 
+
+
   logout() {
 
     localStorage.removeItem('token');

@@ -14,18 +14,38 @@
           <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" />
         </div>
       </div>
-      <div class="col-3 d-none d-md-block">
+      <div class=" col-3 d-none d-md-block" *ngIf="!this.user; else logoutblock">
         <div class="row justify-content-end align-items-center">
           <a class="btn btn-home" data-toggle="modal" data-target="#loginmodal">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign up</a>
         </div>
       </div>
 
+      <ng-template #logoutblock>
+        <div class="ml-auto col d-none d-md-block">
+          <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
+          <img *ngIf="user.profileImage"
+            src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
+            class="user-img mr-2" />
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">
+            {{this.user.email}}
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </div>
+
+      </ng-template>
+
       <div class="col col-sm-2 d-md-none pr-0 text-right pl-5-i5">
         <button class="btn btn-icon text-blue pr-0" (click)="showMenu()">
           <i class="fas fa-bars text-darkblue"></i>
         </button>
       </div>
+      
+
     </div>
 
     <div class="d-none d-md-block w-100">

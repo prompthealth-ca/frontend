@@ -5,17 +5,17 @@ import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
-import { trigger, transition, animate, style, query} from '@angular/animations'
+import { trigger, transition, animate, style, query } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
 const fadeAnimation = trigger('fade', [
   transition(':enter', [
-    style({display: 'block', opacity: 0}),
-    animate('300ms ease', style({opacity: 1}))
+    style({ display: 'block', opacity: 0 }),
+    animate('300ms ease', style({ opacity: 1 }))
   ]),
   transition(':leave', [
-    style({opacity: 1}),
-    animate('300ms ease', style({opacity: 0}))
+    style({ opacity: 1 }),
+    animate('300ms ease', style({ opacity: 0 }))
   ])]
 );
 
@@ -26,6 +26,15 @@ const fadeAnimation = trigger('fade', [
   animations: [fadeAnimation]
 })
 export class HeaderComponent implements OnInit {
+  constructor(
+    private _router: Router,
+    private _sharedService: SharedService,
+    private _bs: BehaviorService,
+    private toastr: ToastrService,
+    private _headerStatusService: HeaderStatusService,
+  ) {
+    // this.fetchUser();
+  }
 
 
   @ViewChild('signup') signup: ElementRef;
@@ -36,9 +45,9 @@ export class HeaderComponent implements OnInit {
   public role = '';
   public payment = 'true';
 
-  public isHeaderShown: boolean = true;
-  public isNavMenuShown: boolean = false;
-  public levelMenuSm: number = 0;
+  public isHeaderShown = true;
+  public isNavMenuShown = false;
+  public levelMenuSm = 0;
   public activeCategory = 0;
 
 
@@ -57,15 +66,10 @@ export class HeaderComponent implements OnInit {
   uname: any;
   userType = '';
   professionalOption = false;
-  constructor(
-    private _router: Router,
-    private _sharedService: SharedService,
-    private _bs: BehaviorService,
-    private toastr: ToastrService,
-    private _headerStatusService: HeaderStatusService,
-  ) {
-    // this.fetchUser();
-  }
+
+
+  public classSubcategory = '';
+  public classSubcategoryItem = '';
 
 
   // Start ngOninit
@@ -99,7 +103,7 @@ export class HeaderComponent implements OnInit {
       this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
       if (this.token && this.user) {
         const roles = this.user.roles;
-        this.dashboard = roles == 'B' ? 'dashboard/home' : 'dashboard/welcome';
+        this.dashboard = roles === 'B' ? 'dashboard/home' : 'dashboard/welcome';
       }
     });
 
@@ -114,8 +118,8 @@ export class HeaderComponent implements OnInit {
       : {};
     this.user.firstName = this.user.firstName ? this.user.firstName + ' ' + this.user.lastName : '';
 
-    this._headerStatusService.observeHeaderStatus().subscribe(([key,val]: [string, any]) => {
-      this[key] = val; 
+    this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
+      this[key] = val;
     });
     // if(this.token) {
     //   if(this.role === 'U') {
@@ -144,15 +148,15 @@ export class HeaderComponent implements OnInit {
     this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.categoryList= [];
-        for(var i=0; i<res.data.length; i++){
-          if(res.data[i].category_type.toLowerCase() == 'goal'){
+        this.categoryList = [];
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].category_type.toLowerCase() == 'goal') {
             this.categoryList = res.data[i].category;
             break;
           }
         }
-        this.categoryList.forEach((cat,i)=>{
-          var label = cat.item_text.toLowerCase();
+        this.categoryList.forEach((cat, i) => {
+          let label = cat.item_text.toLowerCase();
           label = label.replace(/[\/\s]/g, '_');
           this.categoryList[i].label = label.replace(/[^0-9a-zA-Z_]/g, '');
         });
@@ -170,7 +174,10 @@ export class HeaderComponent implements OnInit {
   }
 
   handleChange(url, type) {
-    this._router.navigate([url, type]);
+    console.log(url);
+    this._router.navigate([url, type]).then(res => {
+      console.log(res);
+    });
     if (url === '/auth/login') {
       this.signin.nativeElement.click();
     } else {
@@ -184,33 +191,29 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  hideMenu(){ this._headerStatusService.hideNavMenu(); }
-  showMenu(slow: boolean = false){
-    setTimeout(()=>{
+  hideMenu() { this._headerStatusService.hideNavMenu(); }
+  showMenu(slow: boolean = false) {
+    setTimeout(() => {
       this._headerStatusService.showNavMenu(false);
-    })
+    });
   }
 
-  scrollMenuSm(n: number){ this._headerStatusService.changeLevelMenuSm(n); }
+  scrollMenuSm(n: number) { this._headerStatusService.changeLevelMenuSm(n); }
 
-  changeMenuCategory(i: number){
+  changeMenuCategory(i: number) {
     this.activeCategory = i;
     this.setClassForSubcategory(i);
   }
-
-
-  public classSubcategory = '';
-  public classSubcategoryItem = ''
-  setClassForSubcategory(i: number){
-    var clname = ['', ''];
-    switch(this.categoryList[i].label){
-//      case 'skin_rejuvination': clname = ['', '']; break;
+  setClassForSubcategory(i: number) {
+    let clname = ['', ''];
+    switch (this.categoryList[i].label) {
+      //      case 'skin_rejuvination': clname = ['', '']; break;
       case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
       case 'pain_management': clname = ['', 'lower narrowest']; break;
       case 'women_mens_health': clname = ['h-100', 'lower']; break;
       case 'mood_mental_health': clname = ['h-100', 'lowest narrower']; break;
       case 'fitness': clname = ['h-100', '']; break;
-//      case 'nutrition': clname = ['h-60', '']; break;
+      //      case 'nutrition': clname = ['h-60', '']; break;
     }
     this.classSubcategory = clname[0];
     this.classSubcategoryItem = clname[1];

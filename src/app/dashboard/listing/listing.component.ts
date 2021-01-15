@@ -4,6 +4,9 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import { HeaderStatusService } from '../../shared/services/header-status.service';
+import { _FEATURE_CONFIGS } from '@ngrx/store/src/tokens';
+import { rootEffectsInit } from '@ngrx/effects';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.html',
@@ -12,6 +15,11 @@ import { BehaviorService } from '../../shared/services/behavior.service';
 })
 export class ListingComponent implements OnInit {
   @ViewChild('searchGlobal')
+
+  public isFinderSticked: boolean = false;
+  public isMapView: boolean = false;
+  public isMapSizeBig: boolean = false;
+  public filterTarget: string = null;
 
   public searchGlobalElementRef: ElementRef;
   private geoCoder;
@@ -91,6 +99,19 @@ export class ListingComponent implements OnInit {
   currentPage;
   totalItems;
   itemsPerPage = 10;
+
+  public filters: Filter[] = [
+    {id: 'distance', label: 'distance'},
+    {id: 'gender', label: 'gender'},
+    {id: 'rating', label: 'rating'},
+    {id: 'availability', label: 'availability'},
+    {id: 'service', label: 'service type'},
+    {id: 'pricing', label: 'pricing'},
+    {id: 'age', label: 'age range'},
+  ];
+
+  private host: HTMLElement; 
+
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
@@ -99,7 +120,10 @@ export class ListingComponent implements OnInit {
     private ngZone: NgZone,
     private _sharedService: SharedService,
     private toastr: ToastrService,
+    private _headerService: HeaderStatusService,
+    _el: ElementRef,
   ) {
+    this.host = _el.nativeElement;
     this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
   }
   ngOnInit(): void {
@@ -441,4 +465,47 @@ export class ListingComponent implements OnInit {
   ngOnDestroy() {
     localStorage.removeItem('typical_hours');
   }
+
+  changeStickyStatus(isSticked: boolean){
+    this.isFinderSticked = isSticked;
+    if(isSticked){ this._headerService.hideHeader(); }
+    else{ this._headerService.showHeader(); }
+  }
+
+  toggleView(){
+    this.isMapView = !this.isMapView;
+  }
+  toggleMapSize(){
+    this.isMapSizeBig = !this.isMapSizeBig;
+  }
+
+  getFilterDropdownPosition(){
+    var idxCurrentFilter: number;
+    var dropdownWidth = 350; 
+    for(var i=0; i< this.filters.length; i++){
+      if(this.filters[i].id == this.filterTarget){ idxCurrentFilter = i; break; }
+    }
+    var filters = this.host.querySelectorAll('.filters li button');
+    var filter = (filters)? filters[idxCurrentFilter] : null;
+    if(!filter){ return; }
+
+    var rectF = filter.getBoundingClientRect();
+
+    var style: {left: string, width: string } = null;
+    if(dropdownWidth + 30 <= window.innerWidth){
+      var centerF = rectF.left + rectF.width / 2;
+      var leftD = centerF - dropdownWidth / 2;
+      var rightD = centerF + dropdownWidth / 2;
+      if(leftD >= 15 && rightD <= window.innerWidth - 15){ style = {left: Math.floor(leftD) + 'px', width: dropdownWidth + 'px'}}
+      else if(leftD < 15){ style = {left: '15px', width: dropdownWidth + 'px'} }
+      else{ style = {left: (window.innerWidth - 15 - dropdownWidth) + 'px', width: dropdownWidth + 'px'}}
+      return style;
+    }
+  }
+  setFilterTarget(s: string){
+    if(this.filterTarget == s){ this.filterTarget = null; }
+    else{ this.filterTarget = s; }
+  }
 }
+
+type Filter = {id: string, label: string};

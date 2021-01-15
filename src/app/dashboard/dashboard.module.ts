@@ -21,6 +21,9 @@ import { SharedModule } from '../shared/shared.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+/** slider for filter in listing page */
+import { NpnSliderModule } from 'npn-slider';
+
 import { AgmCoreModule } from '@agm/core';
 import { AddOnCardComponent } from './add-on-card/add-on-card.component';
 import { environment } from 'src/environments/environment';
@@ -29,6 +32,7 @@ import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-inter
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
 import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbo
     UserQuestionaireComponent,
     QuestionnaireItemSelectComponent,
     QuestionnaireItemCheckboxComponent,
+    FilterDropdownComponent,
   ],
   imports: [
     AutocompleteLibModule,
@@ -66,6 +71,7 @@ import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbo
     NgxStripeModule.forRoot(environment.config.stripeKey),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
+    NpnSliderModule,
   ]
 })
 export class DashboardModule { }

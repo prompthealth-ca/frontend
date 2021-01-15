@@ -3,7 +3,202 @@
       <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
   </p>
 </ngx-spinner>
-<section class="pt-5 pb-5">
+
+<section class="container-fluid bg-blue py-3 py-md-4">
+  <div class="max-w-1200">
+    <div class="d-flex flex-nowwrap align-items-center">
+
+      <div class="banner d-flex flex-column flex-md-row flex-md-nowrap align-items-md-center" [ngClass]="{sticked: isFinderSticked}">
+        <span class="text-light font-mg-big pr-3 pr-lg-5">we provide online services!!!!!</span>
+        <span class="bg-orange px-3 py-2 mt-2 mt-md-0 rounded font-italic">
+          Look for
+          <i class="fas fa-video px-1"></i>
+          to find virtural services
+        </span>
+      </div>
+  
+      <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>  
+    </div>  
+  </div>
+</section>
+
+<div class="intersection-observer" intersectionObserver (changeStatus)="changeStickyStatus($event)"></div>
+<section class="container-fluid mt-5 pt-2 sticky-top blur">
+  <div class="max-w-1200">
+    <h2 class="text-blue-gradient font-weight-normal">Expert Finder</h2>
+    <ul class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
+      <li class='mr-3' *ngFor="let f of filters;">
+        <button class="btn border-darkblue text-darkblue text-nowrap py-2 px-4 rounded-pill" 
+          [ngClass]="{active: (filterTarget == f.id)}"
+          (click)="setFilterTarget(f.id)"
+        >{{f.label}}</button>
+      </li>
+    </ul>
+    <filter-dropdown class="position-absolute shadow rounded-15p bg-white" *ngIf="filterTarget" [ngStyle]="getFilterDropdownPosition()"></filter-dropdown>
+  </div>
+</section>
+
+<section class="container-fluid bg-lightblue">
+  <div class="row align-items-start">
+    <div class="col-12 col-md-6 d-md-block pt-5 min-h-100-finder"
+      [ngClass]="{'d-none': isMapView, 'col-lg-9': !isMapSizeBig, 'col-lg-3': isMapSizeBig}"
+    >
+      <div class="container-fluid postiion-relative">
+        <p class="font-italic">Here are the options we found for you</p>
+        <ul class="professionals list-unstyled row">
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="full">
+              </div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+  
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+  
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+          <li class="col-12 mb-3"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper">
+                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
+              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
+              <p class="mb-1">6042677463</p>
+              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
+              <div>
+                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="d-flex flex-nowrap justify-content-center pt-2 pb-5">
+          <div class="paginator point mr-1 active"></div>
+          <div class="paginator point mr-1"></div>
+          <div class="paginator point mr-1"></div>
+          <div class="paginator next"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 d-none d-md-block sticky-to-finder h-100--finder bg-white"
+      [ngClass]="{'d-none': !isMapView, 'col-lg-9': isMapSizeBig, 'col-lg-3': !isMapSizeBig}"
+    >
+      <agm-map 
+        [latitude]="12"
+        [longitude]="50"
+        [zoom]="6"
+        [disableDefaultUI]="false"
+        [zoomControl]="false"
+      ></agm-map>
+      <button class="btn switch-change-map-size d-none d-md-block text-blue font-biggest" (click)="toggleMapSize()">
+        <i *ngIf="!isMapSizeBig" class="fas fa-expand"></i>
+        <i *ngIf="isMapSizeBig" class="fas fa-compress"></i>
+      </button>
+    </div>
+  </div>
+  
+</section>
+
+<button class="btn switch-ui d-md-none font-biggest text-blue blur" (click)="toggleView()">
+  <i *ngIf="!isMapView" class="fas fa-map-marked-alt"></i>
+  <i *ngIf="isMapView" class="fas fa-list"></i>
+</button>
+
+
+
+
+
+<section class="pt-5 pb-5 position-relative">
   <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
   <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
   </agm-map>

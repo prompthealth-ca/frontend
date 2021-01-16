@@ -174,7 +174,7 @@
           >
             <a (click)="removefromCopare(doc.userId)" class="fa fa-times"></a>
             <img
-              [src]="'https://api.prompthealth.ca/users/'+ doc.userData.profileImage"
+              [src]=" AWS_S3 + doc.userData.profileImage"
               class="compareprofileimg"
               *ngIf="doc.userData.profileImage"
             />
@@ -250,7 +250,7 @@
               class="profileimg" /> -->
             <div
               class="w-100 h-100 profileimg"
-              [ngStyle]="{'background-image': 'url(https://api.prompthealth.ca/users/'+ doc.userData.profileImage +')'}"
+              [ngStyle]="{'background-image': 'url(' + AWS_S3 + doc.userData.profileImage +')'}"
             >
           
           </div>

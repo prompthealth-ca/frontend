@@ -33,7 +33,7 @@
         | customFilter: doctorSearch: 'fname');  let i = index">
             
             <td>
-                <img [src]="'https://api.prompthealth.ca/users/' + prod.image" />
+                <img [src]=" AWS_S3 + prod.image" />
             </td>
             <td>
                 {{ prod.fname }} - {{ prod.lname }}
@@ -98,7 +98,7 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'https://api.prompthealth.ca/users/' + imagesList" height="200"> <br/>
+                <img [src]="AWS_S3 + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>
@@ -167,7 +167,7 @@
         <div class="form-group col-sm-12">
             
             <div class="multipleImage" *ngIf="imagesList.length">
-                <img [src]="'https://api.prompthealth.ca/users/' + imagesList" height="200"> <br/>
+                <img [src]="AWS_S3 + imagesList" height="200"> <br/>
                 <a (click)="imagesList = ''" class="fa fa-times"></a>
             </div>
             <div>

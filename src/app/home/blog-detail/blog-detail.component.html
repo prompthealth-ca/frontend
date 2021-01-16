@@ -12,7 +12,7 @@
     <div class="col-md-9" socialShare="{{this.socialSharing}}">
       <a class="blog-link mb-3">
         <div class="position-relative d-inline-block">
-        <img [src]="blogList?.image ? 'https://api.prompthealth.ca/blogs/' + blogList.image :  defaultImage">
+        <img [src]="blogList?.image ? AWS_S3 + blogList.image :  defaultImage">
         </div>
         <h4 class="text-uppercase d-flex align-items-center flex-wrap justify-content-between mb-0">
           <span class="mr-2">{{ blogList.title }}</span>

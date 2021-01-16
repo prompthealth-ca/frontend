@@ -4,6 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-my-amenities',
   templateUrl: './my-amenities.component.html',
@@ -27,6 +28,8 @@ export class MyAmenitiesComponent implements OnInit {
   currentPage;
   totalItems
   pageSize: 10
+  public AWS_S3='';
+
   constructor(
     private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
@@ -38,6 +41,7 @@ export class MyAmenitiesComponent implements OnInit {
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.getDefaultAmenities();
     this.getSavedAmenties();
+    this.AWS_S3 = environment.config.AWS_S3
   }
   getDefaultAmenities() {
 

@@ -6,8 +6,8 @@
     currentPage: currentPage,
     totalItems: totalItems 
     }; ">
-      <img *ngIf="userInfo.roles!=='U'" [src]="rate.customerId.profileImage ? 'https://api.prompthealth.ca/users/'+rate.customerId.profileImage : defaultImage" />
-      <img *ngIf="userInfo.roles === 'U'" [src]="rate.drId.profileImage ? 'https://api.prompthealth.ca/users/'+rate.drId.profileImage : defaultImage" />
+      <img *ngIf="userInfo.roles!=='U'" [src]="rate.customerId.profileImage ? AWS_S3 + '' +rate.customerId.profileImage : defaultImage" />
+      <img *ngIf="userInfo.roles === 'U'" [src]="rate.drId.profileImage ? AWS_S3 + '' +rate.drId.profileImage : defaultImage" />
     
       <div class="pl-3 w-100" *ngIf="rate.rating !== 0">
         <div class="d-flex justify-content-between mb-2">

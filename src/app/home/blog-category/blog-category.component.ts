@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class BlogCategoryComponent implements OnInit {
   categories: any = [];
   private sub: any;
   id = '';
-
+  public AWS_S3='';
 
 
   constructor(
@@ -32,6 +33,7 @@ export class BlogCategoryComponent implements OnInit {
       this.getBlogList();
       this.getAllCategories();
     });
+    this.AWS_S3 = environment.config.AWS_S3
   }
 
   getBlogList() {

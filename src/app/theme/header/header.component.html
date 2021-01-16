@@ -25,7 +25,7 @@
         <div class="ml-auto col d-none d-md-block">
           <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
           <img *ngIf="user.profileImage"
-            src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
+            src="AWS_S3 + {{updateData.profileImage?updateData.profileImage:user.profileImage}}"
             class="user-img mr-2" />
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
           aria-expanded="false">

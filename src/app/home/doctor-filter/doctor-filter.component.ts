@@ -3,6 +3,7 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-doctor-filter',
@@ -57,6 +58,8 @@ export class DoctorFilterComponent implements OnInit {
     lati: 51.673858,
     lng: 7.815982,
   };
+  
+  public AWS_S3='';
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -96,11 +99,11 @@ export class DoctorFilterComponent implements OnInit {
       });
     });
 
-
-
     this.searchedAddress = localStorage.getItem('searchedAddress');
     this.getDoctorList({ latLong: this.queryLatLong, miles: this.miles });
     this.getProfileQuestion();
+
+    this.AWS_S3 = environment.config.AWS_S3
   }
 
   getProfileQuestion() {

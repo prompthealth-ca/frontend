@@ -4,6 +4,8 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.html',
@@ -14,6 +16,7 @@ export class ListingComponent implements OnInit {
   @ViewChild('searchGlobal')
 
   public searchGlobalElementRef: ElementRef;
+  public AWS_S3='';
   private geoCoder;
   keyword = 'name';
   serviceQuestion;
@@ -103,6 +106,8 @@ export class ListingComponent implements OnInit {
     this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
   }
   ngOnInit(): void {
+    this.AWS_S3 = environment.config.AWS_S3 
+
     this.getProfileQuestion();
     const personalMatch = this._sharedService.getPersonalMatch();
     this.route.queryParams.subscribe(queryParams => {

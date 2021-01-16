@@ -13,7 +13,7 @@
     <form role="form" class="form-row" (ngSubmit)="save()" #updateDetailForm="ngForm">
       <div class="col-md-12 text-center">
         <div class="upload-img">
-          <img [src]="(userDetails.profileImage &&  (userDetails.profileImage | json) != '{}' )? 'https://api.prompthealth.ca/users/'+userDetails.profileImage : '../../../assets/img/no-image.jpg'" alt="User image">
+          <img [src]="(userDetails.profileImage &&  (userDetails.profileImage | json) != '{}' )? AWS_S3+userDetails.profileImage : '../../../assets/img/no-image.jpg'" alt="User image">
           <input name="imageUrl" type="file"  (change)="handleImageChange($event)" />
         </div>
       </div>

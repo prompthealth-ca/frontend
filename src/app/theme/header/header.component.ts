@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
   public levelMenuSm = 0;
   public activeCategory = 0;
 
+  public AWS_S3='';
 
   user: any = {};
   updateData: any;
@@ -74,6 +75,8 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   ngOnInit() {
+
+    this.AWS_S3 = environment.config.AWS_S3
 
     this._bs.getUserData().subscribe((res: any) => {
       this.updateData = res;

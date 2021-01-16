@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-my-favourite',
   templateUrl: './my-favourite.component.html',
@@ -8,6 +9,8 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class MyFavouriteComponent implements OnInit {
   favListing = []
+  public AWS_S3='';
+
   constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
@@ -17,6 +20,7 @@ export class MyFavouriteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFavList();
+    this.AWS_S3 = environment.config.AWS_S3
   }
   getFavList() {
     this._sharedService.loader('show');

@@ -7,6 +7,7 @@ import { BehaviorService } from '../../../shared/services/behavior.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ThrowStmt } from '@angular/compiler';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-my-profile',
@@ -27,6 +28,7 @@ export class MyProfileComponent implements OnInit {
   private geoCoder;
   profileQuestions;
   formData = new FormData();
+  public AWS_S3='';
 
   ageRangeList = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
@@ -120,6 +122,8 @@ export class MyProfileComponent implements OnInit {
 
     this.getProfileQuestion();
     this.getProfileDetails();
+    https://api.prompthealth.ca
+    this.AWS_S3 = environment.config.AWS_S3
 
   }
 

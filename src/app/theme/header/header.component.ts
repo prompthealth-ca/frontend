@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit {
   public levelMenuSm = 0;
   public activeCategory = 0;
 
-
   user: any = {};
   updateData: any;
   categoryList = [];

@@ -1,65 +1,61 @@
 <header>
-  <nav class="blur navbar main-header position-fixed navbar-light shadow-sm w-100 plr-0-i5"
+  <nav class="blur main-header position-fixed navbar-light shadow w-100 p-md-2"
     [ngClass]="{hide: !isHeaderShown}"
-    >
-    <div class="nav-row">
-      <div class="col col-sm-2 col-md-3 pl-0 pr-5-i5">
-        <a class="navbar-brand mr-0" href="#">
+  >
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="ml-2 flex-grow-0 flex-shrink-0">
+        <a class="navbar-brand" ref="#">
           <img class="d-none d-md-block" src="assets/img/logo.png" />
-          <img class="d-md-none brand-sm" src="assets/img/logo-sm.png"  width="auto" height="30" />
+          <img class="d-md-none brand-sm" src="assets/img/logo-sm.png" />
         </a>
       </div>
-      <div class="col col-sm-8 col-md-6 p-0">
-        <div class="searchbar">
+      <div class="mx-2 mx-md-4 flex-grow-1 flex-shrink-1">
+        <div class="searchbar rounded-pill">
           <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" />
         </div>
       </div>
-      <div class=" col-3 d-none d-md-block" *ngIf="!this.user; else logoutblock">
-        <div class="row justify-content-end align-items-center">
-          <a class="btn btn-home" data-toggle="modal" data-target="#loginmodal">Login</a>
+      <div *ngIf="!this.token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
+        <div class="d-flex align-items-center flex-nowrap">
+          <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign up</a>
         </div>
       </div>
 
       <ng-template #logoutblock>
-        <div class="ml-auto col d-none d-md-block">
-          <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
-          <img *ngIf="user.profileImage"
-            src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
-            class="user-img mr-2" />
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="false">
-            {{this.user.email}}
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
-            <a class="dropdown-item" (click)="logout()">Logout</a>
+        <div class="ml-auto d-none d-md-block flex-grow-0 w-160p">
+          <div class="position-absolute top-10p">
+            <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
+            <img *ngIf="user.profileImage"
+              src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
+              class="user-img mr-2" />
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">
+              {{this.user.email}}
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+ 
           </div>
         </div>
-
       </ng-template>
 
-      <div class="col col-sm-2 d-md-none pr-0 text-right pl-5-i5">
-        <button class="btn btn-icon text-blue pr-0" (click)="showMenu()">
+        <div class="d-md-none flex-grow-0">
+        <button class="btn btn-icon text-blue" (click)="showMenu()">
           <i class="fas fa-bars text-darkblue"></i>
         </button>
       </div>
-      
-
     </div>
 
     <div class="d-none d-md-block w-100">
-      <div class="nav-row justify-content-center">
+      <div class="d-flex justify-content-center align-items-center w-100">
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
         </div>
-<!--        <div class="nav-item" (mouseenter)="showMenu()" (click)="showMenu()"> -->
         <div class="nav-item" (click)="showMenu()">
           <a class="nav-link">Category</a>
         </div>
-        <!-- <div class="nav-item">
-          <a class="nav-link" class="nav-link">Solutions</a>
-        </div> -->
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan-partner']">Partner</a>
         </div>
@@ -119,15 +115,22 @@
   <ul class="menu-item font-weight-bold"
     [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
   >
-    <li><a [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
-    <li><span (click)="scrollMenuSm(1)">Category</span></li>
-    <!-- <li>Solution</li> -->
-    <li><a [routerLink]="['/subscriptionplan-partner']" (click)="hideMenu()">Partner</a></li>
-    <li><a [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
-    <li>
-      <span class="px-2" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</span>
+    <li><a class="text-blue" [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
+    <li><a class="text-blue" (click)="scrollMenuSm(1)">Category</a></li>
+    <li><a class="text-blue" [routerLink]="['/subscriptionplan-partner']" (click)="hideMenu()">Partner</a></li>
+    <li><a class="text-blue" [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
+
+    <li *ngIf="!token">
+      <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a>
       <span class="display-inline-block mx-2">/</span>
-      <span class="px-2" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</span>
+      <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
+    </li>
+
+    <li *ngIf="token">
+      <a class="text-blue" [routerLink]="['/dashboard/profilemanagement/my-profile']" (click)="hideMenu()">My Dashboard</a>
+    </li>
+    <li *ngIf="token">
+      <a class="text-blue" (click)="logout(); hideMenu();">Logout</a>
     </li>
   </ul>
 

@@ -1,49 +1,32 @@
 @import "../../../assets/scss/mixins";
 
-@media screen and (max-width: 350px){
-  .plr-0-i5{
-    padding-right: 0;
-    padding-left: 0;
-  }
-  .pl-5-i5{
-    padding-left: 5px;
-  }
-  .pr-5-i5{
-    padding-right: 5px;
-  }
-}
-.nav-link{
-  color: inherit;
-  cursor: pointer;
-}
+
+.border-blue{ border-color: #3377C5 !important; }
+.text-blue{ color: #3377C5; }
+.w-160p{ width: 160px; }
+.top-10p{ top: 10px; }
 
 nav{
   transition: transform 400ms;
   &.hide{ transform: translateY(-100%); }
 }
 
-.btn{ padding: 4px 16px; }
-.btn-icon{
-  font-size: 28px;
-  padding: 0 10px;
+.nav-link{
+  color: inherit;
+  cursor: pointer;
 }
 
-.border-blue{ border-color: #3377C5 !important; }
-.text-blue{ color: #3377C5; }
-
-.nav-row{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
+.btn-signup{ padding: 4px 16px; }
+.btn-icon{
+  font-size: 28px;
 }
 
 .btn-signup{
   color: #00208F;
   border: 2px solid #00208F;
-  box-sizing: border-box;
   border-radius: 21px;
   line-height: 1em;
+  padding: 4px 16px;
 }
 
 img.brand-sm{
@@ -52,18 +35,17 @@ img.brand-sm{
 }
 
 .searchbar{
-  background: #FFFFFF;
   border: 2px solid #4683CC;
-  box-sizing: border-box;
-  border-radius: 40px;
-  width: 100%;
-  appearance: none;
   overflow: none;
   padding: 4px 15px;
 
   input{
+    display: block;
+    width: 100%;
     border: none;
     outline: none;
+    appearance: none;
+    background: none;
   }
 }
 

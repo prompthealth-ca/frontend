@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { animate, trigger, state, style, transition } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
@@ -7,10 +8,28 @@ import { HeaderStatusService } from '../../shared/services/header-status.service
 import { EmbedVideoService } from 'ngx-embed-video';
 import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
+const expandTitleAnimation = trigger('expandTitle', [
+  state('shrink', style({height: '1.2em'})),
+  state('expand', style({height: 'auto'})),
+  transition('shrink=>expand', animate('600ms ease', style({ height: '*' })) ),
+  transition('expand=>shrink', style({height: '1.2em'}) )
+]);
+
+const expandSubtitleAnimation = trigger('expandSubtitle', [
+  state('shrink', style({display: 'none'})),
+  state('expand', style({height: 'auto', display: 'block'})),
+  transition('shrink=>expand', [
+    style({ display: 'block', height: 0, opacity: 0}),
+    animate('600ms ease', style({ height: '*', opacity: 1 }))
+  ] ),
+  transition('expand=>shrink', style({display: 'none'}) )  
+])
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
+  animations: [expandTitleAnimation, expandSubtitleAnimation]
 })
 export class DetailComponent implements OnInit {
 
@@ -485,8 +504,10 @@ const userDummy = {
   loginType: '',
   socialToken: '',
   stripeCustId: 'cus_IXwaAkzWDFElss',
-  firstName: 'Shivam',
-  lastName: 'Grover',
+  firstName: 'this is',
+  lastName: 'short name',
+//  firstName: 'My name is so long.',
+//  lastName: 'I would like show all name when tab is not sticked. but if sticked, please show only one line',
   phone: '09530776612',
   zipcode: '140301',
   address: 'Heritage Haveli 6th Mile Stone, NH 21, Kharar, Guru Teg Bahadur Nagar, Kharar, Punjab 140301, India',
@@ -518,7 +539,7 @@ const userDummy = {
   isVerified: 'Y',
   accredited_provide_canada: true,
   isLicensed: false,
-  roles: 'SP',
+  roles: 'C',
   isVipAffiliateUser: false,
   refererencePointEarned: 0,
   status: true,

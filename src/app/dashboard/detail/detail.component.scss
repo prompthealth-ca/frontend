@@ -61,32 +61,40 @@ $imageSize: 100, 120;
   position: absolute;
   z-index: 2;
   bottom: calc(100% + 10px);
-  width: 60%;
   transform-origin: left bottom;
-  text-shadow: 0 0 3px black;
+  text-shadow: 3px 3px 3px grey;
+  color: white;
 
-  .fa-clinic-medical { 
-    color: white;
-    vertical-align: center;
+  width: calc(100% - #{nth($imageSize, 1)}px);
+  @media screen and (min-width: 768px){
+    width: calc(100% - #{nth($imageSize, 2)px});
   }
-  
-  h3{ 
-    color: white;
-    transition-property: color;
-    transition-duration: $transDurTabStick;
+
+  .title-wrapper{
+    flex-basis: auto;
+
+    .fa-clinic-medical { 
+      font-size: 1em;
+      margin-top: 0.34em;
+      @media screen and (min-width: 768px){ 
+        font-size: 1.1em;
+        margin-top: 0.41em; 
+      }
+    }
+    h3{ max-height: 3.6em; }  
   }
+
   p{
-    color: white;
-    transition-property: opacity;
-    transition-duration: $transDurTabStick;
+    flex: 1 0 40%;
+    max-height: 3.6em;
   }
+
   .sticked &{
     transform: translate(0, calc(100% + 12px)) scale(0.8);
     text-shadow: none;
-
-    .fa-clinic-medical,
-    h3{ color: inherit; }
-    p{ opacity: 0; }
+    color: inherit;
+    
+    /* animation for h3 height is controlled by angular animation */
   }
 }
 

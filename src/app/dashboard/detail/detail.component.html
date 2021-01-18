@@ -5,11 +5,11 @@
     <div class="d-flex-column d-md-flex d-wrap d-md-nowrap ml-for-avoid-image profile-info"
       [ngClass]="{sticked: isTabSticked}"
     >
-      <div class="d-flex align-items-center">
-        <i class="fas fa-clinic-medical pr-1" *ngIf="isUserRole('c')"></i>
-        <h3 class='mb-0 font-bigger font-md-biggest'>{{fullname}}</h3>  
+      <div class="d-flex align-items-start title-wrapper">
+        <i class="fas fa-clinic-medical pr-2" *ngIf="isUserRole('c')"></i>
+        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden ' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">{{fullname}}</h3>  
       </div>
-      <p class="mt-1 mt-md-0 ml-md-3 mb-0">summary here</p>
+      <p class="mt-1 mt-md-0 ml-md-3 mb-0  overflow-hidden" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">summary here. if it's too long. you can see only 3 lines. </p>
     </div>
 
     <div class="profile-image rounded-circle">

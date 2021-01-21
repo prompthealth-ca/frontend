@@ -17,7 +17,7 @@
         </span>
       </div>
   
-      <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>  
+      <!-- <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>   -->
     </div>  
   </div>
 </section>
@@ -26,17 +26,59 @@
 <section class="container-fluid mt-5 pt-2 sticky-top blur">
   <div class="max-w-1200">
     <h2 class="text-blue-gradient font-weight-normal">Expert Finder</h2>
-    <ul class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
-      <li class='mr-3' *ngFor="let f of filters;">
-        <button class="btn border-darkblue text-darkblue text-nowrap py-2 px-4 rounded-pill" 
-          [ngClass]="{active: (filterTarget == f.id)}"
-          (click)="setFilterTarget(f.id)"
-        >{{f.label}}</button>
-      </li>
-    </ul>
-    <filter-dropdown class="position-absolute shadow rounded-15p bg-white" *ngIf="filterTarget" [ngStyle]="getFilterDropdownPosition()"></filter-dropdown>
+    <div (clickOutside)="onClickOutsideOfFilter($event)">
+      <ul class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
+        <li class='mr-3' *ngFor="let f of filters; let i = index;">
+          <button class="btn border-darkblue text-darkblue text-nowrap py-2 px-4 rounded-pill" 
+            [ngClass]="{focus: (filterTarget && filterTarget._id == f._id), active: f.active}"
+            (click)="setFilterTarget(i)"
+          >{{f.item_text}}</button>
+        </li>
+      </ul>
+
+      <div class="overflow-hidden" [@expandVertical] *ngIf="compareList && compareList.length > 0">
+        <div class="compare d-flex">
+          <ul class="pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
+            <li class="position-relative mr-3" *ngFor="let p of compareList">
+              <img class="rounded" [src]="p.image" [alt]="p.name">
+              <button class="btn position-absolute" (click)="removeProfessionalFromCompare(p.id)"><i class="fas fa-times font-bigger"></i></button>
+            </li>
+          </ul>
+          <div class="flex-grow-0 gelx-shrink-0">
+            <div><button class="btn" (click)="removeProfessionalFromCompareAll()">Clear All</button></div>
+            <div><button class="btn font-weight-bold border-blue color-blue rounded" (click)="compareProfessionals()">Compare</button></div>
+          </div>
+        </div>  
+      </div>
+    </div>
   </div>
 </section>
+
+<div>
+  <!-- <filter-dropdown class="position-absolute shadow rounded-15p bg-white filter-dropdown" 
+    *ngIf="filterTarget.type == 'range'" 
+    [ngStyle]="getFilterDropdownPosition()"
+    [target]="filterTarget._id"
+  ></filter-dropdown> --> <!-- multiple slider which is not built yet. (for price) -->
+
+  <filter-dropdown-select class="position-fixed shadow rounded-15p blur filter-dropdown"
+    *ngIf="filterTarget && (filterTarget.type == 'radio' || filterTarget.type == 'checkbox')" 
+    [@slideVertical]
+    [ngStyle]="getFilterDropdownPosition()"
+    [target]="filterTarget._id"
+    [multiple]="(filterTarget.type == 'checkbox')? true: false"
+    [options]="filterTarget.options"
+    (changeState)="updateFilter($event)"
+  ></filter-dropdown-select>
+  <filter-dropdown-slider class="position-fixed shadow rounded-15p blur filter-dropdown"
+    *ngIf="filterTarget && (filterTarget.type == 'slider')" 
+    [@slideVertical]
+    [ngStyle]="getFilterDropdownPosition()"
+    [target]="filterTarget._id"
+    [range]="filterTarget.range"
+    (changeState)="updateFilter($event)">
+  </filter-dropdown-slider>
+</div>
 
 <section class="container-fluid bg-lightblue">
   <div class="row align-items-start">
@@ -45,121 +87,42 @@
     >
       <div class="container-fluid postiion-relative">
         <p class="font-italic">Here are the options we found for you</p>
-        <ul class="professionals list-unstyled row">
+        <ul class="professionals list-unstyled row" *ngIf="!professionals">
           <li class="col-12 mb-3"
+            *ngFor="let i of [0,1,2,3]"
             [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="full">
-              </div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-  
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-  
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
-          <li class="col-12 mb-3"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
-          >
-            <div class="card p-3 text-center border-blue rounded-15p font-small">
-              <div class="img-wrapper">
-                <img src="/assets/img/no-image.jpg" alt="" class="rounded-circle">
-              </div>
-              <div class="price-tag bg-tagblue font-weight-bold">$6000/hr</div>
-              <star-rate class="my-3" [rate]="3.7" margin="small" size="small"></star-rate>
-              <p class="mb-1">6042677463</p>
-              <p class="mb-3 address">10318 Whalley Blvd, <br>Surrey, BC V3T 4H4, Canada</p>
-              <div>
-                <button class="btn border-darkblue text-darkblue rounded-10p">compare</button>
-              </div>
-            </div>
-          </li>
+          ><div class="card p-1 border-blue rounded-15p"><post-dummy></post-dummy></div></li>
+        </ul>
 
+        <ul class="professionals list-unstyled row" *ngIf="professionals">
+          <li class="col-12 mb-3"
+            *ngFor="let p of professionals"
+            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+          >
+            <!-- todo: create component to reuse this card in google map -->
+            <div class="card p-3 text-center border-blue rounded-15p font-small">
+              <div class="img-wrapper mb-3">
+                <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}">
+                <i class="icon-video fas fa-video font-biggest" *ngIf="p.provideVirtual"></i>
+              </div>
+              <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
+              <div class="button-compare form-check">
+                <input type="checkbox" class="form-check-input" [id]="'compare-' + p.id" [(ngModel)]="p.isCheckedForCompare" (change)="updateCompareList()">
+                <label class="form-check-label" [for]="'compare-' + p.id">compare</label>
+              </div>
+
+              <p class="font-weight-bold font-bigger mb-0">{{p.name}}</p>
+              <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
+              <p class="mb-1" *ngIf="!p.isCentre">This is my title</p>
+              <p class="mb-1" *ngIf="p.isCentre && p.phone">{{p.phone}}</p>
+              <p class="mb-3 address">{{p.address}}</p>
+              <div>
+                <a class="btn border-darkblue text-darkblue rounded-10p"
+                  [routerLink]="['../detail', p.id]"
+                >profile</a>
+              </div>
+            </div>
+          </li>
         </ul>
 
         <div class="d-flex flex-nowrap justify-content-center pt-2 pb-5">
@@ -174,12 +137,45 @@
       [ngClass]="{'d-none': !isMapView, 'col-lg-9': isMapSizeBig, 'col-lg-3': !isMapSizeBig}"
     >
       <agm-map 
-        [latitude]="12"
-        [longitude]="50"
-        [zoom]="6"
+        [latitude]="mapdata.lat"
+        [longitude]="mapdata.lng"
+        [zoom]="mapdata.zoom"
         [disableDefaultUI]="false"
         [zoomControl]="false"
-      ></agm-map>
+        (centerChange)="onChangeMapCenter($event)"
+      >
+        <agm-marker *ngFor="let p of professionals; let i = index;" 
+          [longitude]="p.location[0]" 
+          [latitude]="p.location[1]" 
+          [iconUrl]="'/assets/img/agm-map-icon.png'" 
+          [title]="p.mapLabel" 
+          [label]="{text: p.mapLabel, fontWeight: 'bold', fontSize: '16px' }"
+          [zIndex]="professionals.length - i"
+        >
+          <agm-info-window>
+            <div class="agm-info-window">
+              <div class="p-3 text-center">
+                <div class="img-wrapper mb-3">
+                  <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}">
+                </div>
+                <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
+  
+                <p class="font-weight-bold font-bigger mb-0">{{p.name}}</p>
+                <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
+                <p class="mb-1" *ngIf="!p.isCentre">This is my title</p>
+                <p class="mb-1" *ngIf="p.isCentre && p.phone">{{p.phone}}</p>
+                <p class="mb-3 address">{{p.address}}</p>
+                <div>
+                  <a class="btn border-darkblue text-darkblue rounded-10p"
+                    [routerLink]="['../detail', p.id]"
+                  >profile</a>
+                </div>
+              </div>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+
       <button class="btn switch-change-map-size d-none d-lg-block text-blue font-biggest" (click)="toggleMapSize()">
         <i *ngIf="!isMapSizeBig" class="fas fa-expand"></i>
         <i *ngIf="isMapSizeBig" class="fas fa-compress"></i>
@@ -199,9 +195,9 @@
 
 
 <section class="pt-5 pb-5 position-relative">
-  <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
+  <!-- <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
   <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
-  </agm-map>
+  </agm-map> -->
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-3">
@@ -363,7 +359,7 @@
         <hr class="mt-0" />
 
         <div class="p-3 bg-light mb-3 text-right" *ngIf="compareList.length">
-          <div
+          <!-- <div
             class="d-inline-flex bg-white compareprofilebox"
             *ngFor="let doc of compareList"
           >
@@ -423,7 +419,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="d-inline-block text-center">
             <div class="mb-2">

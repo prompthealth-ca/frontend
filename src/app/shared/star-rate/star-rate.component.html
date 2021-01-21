@@ -1,29 +1,27 @@
-<span *ngIf="!simple">
+<span class="star-container" *ngIf="!simple" [ngClass]="{'size-s': (size == 'small'), 'size-l': (size == 'big')}">
     <i class="fas fa-star"
         *ngIf="rate >= 1"
-        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small'), 'size-s': (size == 'small'), 'size-l': (size == 'big')}"
+        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small')}"
     ></i>
     <i class="fas fa-star" 
         *ngIf="rate >= 2"
-        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small'), 'size-s': (size == 'small'), 'size-l': (size == 'big')}"
+        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small')}"
     ></i>
     <i class="fas fa-star" 
         *ngIf="rate >= 3"
-        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small'), 'size-s': (size == 'small'), 'size-l': (size == 'big')}"
+        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small')}"
     ></i>
     <i class="fas fa-star" 
         *ngIf="rate >= 4"
-        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small'), 'size-s': (size == 'small'), 'size-l': (size == 'big')}"
+        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small')}"
     ></i>
     <i class="fas fa-star" 
         *ngIf="rate >= 5"
-        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small'), 'size-s': (size == 'small'), 'size-l': (size == 'big')}"
+        [ngClass]="{'mr-2': (margin == 'regular'), 'mr-3': (margin == 'big'), 'mr-1': (margin == 'small')}"
     ></i>
 </span>
 
-<span *ngIf="simple">
-    <i class="fas fa-star simple"
-        [ngClass]="{'size-s': (size == 'small'), 'size-l': (size == 'big')}"
-    ></i>
-    {{rate}}
+<span *ngIf="simple" class="star-container simple" [ngClass]="{'size-s': (size == 'small'), 'size-l': (size == 'big')}">
+    <i class="fas fa-star"></i>
+    <span class="rate">{{rate}}</span>
 </span>

@@ -13,6 +13,7 @@ import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-
 import { StarRateComponent } from './star-rate/star-rate.component';
 import { PostDummyComponent } from './post-dummy/post-dummy.component';
 import { FocusDirective } from './focus.directive';
+import { ClickOutsideDirective } from './click-outside.directive';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { FocusDirective } from './focus.directive';
     StarRateComponent,
     PostDummyComponent,
     FocusDirective,
+    ClickOutsideDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -43,6 +45,7 @@ import { FocusDirective } from './focus.directive';
     StarRateComponent,
     PostDummyComponent,
     FocusDirective,
+    ClickOutsideDirective,
   ]
 })
 export class SharedModule { }

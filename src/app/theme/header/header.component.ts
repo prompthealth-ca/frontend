@@ -5,19 +5,10 @@ import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
-import { trigger, transition, animate, style, query } from '@angular/animations';
+import { fadeAnimation } from '../../_helpers/animations';
 import { Subscription } from 'rxjs';
 
-const fadeAnimation = trigger('fade', [
-  transition(':enter', [
-    style({ display: 'block', opacity: 0 }),
-    animate('300ms ease', style({ opacity: 1 }))
-  ]),
-  transition(':leave', [
-    style({ opacity: 1 }),
-    animate('300ms ease', style({ opacity: 0 }))
-  ])]
-);
+
 
 @Component({
   selector: 'app-header',

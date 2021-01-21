@@ -22,20 +22,20 @@
       </div>
 
       <ng-template #logoutblock>
-        <div class="ml-auto d-none d-md-block flex-grow-0 w-160p">
-          <div class="position-absolute top-10p">
-            <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
+        <div class="ml-auto d-none d-md-block w-160p position-relative">
+          <dashboard-menu [expandable]="true" 
+            headerDirection="right"
+            [styleButton]="{background: '#ffffffe0'}"
+            [styleMenu]="{background: 'white', minWidth: '250px'}"
+            (logout)="logout()"
+          ></dashboard-menu>
+          <div class="position-absolute top-10p dashboard-menu-wrapper-md">
+
+            <!-- <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
             <img *ngIf="user.profileImage"
               src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
               class="user-img mr-2" />
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">
-              {{this.user.email}}
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
-              <a class="dropdown-item" (click)="logout()">Logout</a>
-            </div>
+            -->
  
           </div>
         </div>
@@ -67,7 +67,7 @@
 
 
     <!-- menu for medium view or more-->
-    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList" [@fade]>
+    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList && categoryList.length>0" [@fade]>
       <div class="close-menu-full" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner position-relative">
@@ -126,11 +126,11 @@
       <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
     </li>
 
-    <li *ngIf="token">
-      <a class="text-blue" [routerLink]="['/dashboard/profilemanagement/my-profile']" (click)="hideMenu()">My Dashboard</a>
-    </li>
-    <li *ngIf="token">
-      <a class="text-blue" (click)="logout(); hideMenu();">Logout</a>
+    <li class="dashboard-menu-wrapper" *ngIf="token">
+      <dashboard-menu class="bg-white overflow-hidden"
+        [styleMenu]="{ color: '#6d6e71'}"
+        (logout)="logout()"
+      ></dashboard-menu>
     </li>
   </ul>
 
@@ -149,6 +149,7 @@
   </ul>
 
   <ul class="menu-item sub"
+    *ngIf="categoryList && categoryList.length > 0"
     [ngClass]="{before: (levelMenuSm > 2), after: (levelMenuSm < 2)}"
   >
     <li class="menu-subtitle font-weight-bold d-flex align-items-center">

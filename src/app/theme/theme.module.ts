@@ -20,6 +20,7 @@ import { AuthGuardService } from '../auth/auth-gaurd.service';
 import { RoleGuardService } from '../auth/role-guard.service';
 import { ThankuPageComponent } from './thanku-page/thanku-page.component';
 import { environment } from 'src/environments/environment';
+import { DashboardMenuComponent } from './dashboard-menu/dashboard-menu.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { environment } from 'src/environments/environment';
     FooterComponent,
     LayoutComponent,
     SubscribeComponent,
-    ThankuPageComponent
+    ThankuPageComponent,
+    DashboardMenuComponent
   ],
   providers: [
     AuthService,

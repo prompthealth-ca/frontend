@@ -116,5 +116,6 @@ export type Questionnaire = {
   _id: string;
   answers: QuestionnaireAnswer[];
   slug: string;
+  question_type?: string;
   c_question: string;
 }

@@ -33,6 +33,8 @@ import { UserQuestionaireComponent } from './user-questionaire/user-questionaire
 import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
 import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';
+import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.compo
     QuestionnaireItemSelectComponent,
     QuestionnaireItemCheckboxComponent,
     FilterDropdownComponent,
+    FilterDropdownSelectComponent,
+    FilterDropdownSliderComponent,
   ],
   imports: [
     AutocompleteLibModule,

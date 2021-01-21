@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'filter-dropdown',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilterDropdownComponent implements OnInit {
 
+  @Input() target: string;
+  @Input() option: {id: string, label: string}[] = [];
+  
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
   onSliderChange([min,max]: [number, number]){

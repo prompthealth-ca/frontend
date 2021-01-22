@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
@@ -11,11 +12,20 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   public isPriceMonthly: boolean = true;
   public partnerPlan: any = null;
 
+  public form: FormGroup;
+
   private isLoggedIn = false;
 
   constructor(
     private _sharedService: SharedService,
-  ) { }
+    _fb: FormBuilder
+  ) {
+    this.form = _fb.group({
+      first: new FormControl('', Validators.required),
+      last: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email])
+    });
+  }
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) { this.isLoggedIn = true; }
@@ -49,5 +59,25 @@ if (this.isLoggedIn === true) {
 
 
   changePriceRange(isMonthly: boolean){ this.isPriceMonthly = isMonthly; }
+
+  public errorForm: string = null;
+  onInputForm(){ if(this.errorForm){ this.errorForm = null; } }
+
+  submitRegister(){    
+    var f = this.form.controls;
+
+    if(f.first.invalid || f.last.invalid || (f.email.invalid && f.email.errors.required)){
+      this.errorForm = 'Please fill all items.';
+    }else if( f.email.invalid && f.email.errors.email ){
+      this.errorForm = 'Please input correct email address.';
+    }else{
+      this.errorForm = null;
+    }
+    
+    if(this.errorForm){ return; }
+    else{
+      console.log(this.form.value)
+    }
+  }
 
 }

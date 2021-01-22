@@ -1,27 +1,44 @@
+$basic-green: #95C38B;
+$darker-green: #82B378;
+
+$monthly-red: #F25249;//FF9797 too light
+$yearly-red: #F25249;
+
+$monthly-blue: #3377C5;//A5B9F9 too light
+$yearly-blue: #3377C5;
+
 .title{
-    .colorset-red & {   color: #FF9797; border-color: #FF9797;} 
-    .colorset-green & { color: #95C38B; border-color: #82B378;} 
-    .colorset-blue & {  color: #4A7FCA; border-color: #4A7FCA;} 
+    .colorset-red & {   color: $monthly-red; border-color: $monthly-red;} 
+    .colorset-green & { color: $basic-green; border-color: $darker-green;} 
+    .colorset-blue & {  color: $monthly-blue; border-color: $monthly-blue;} 
+
+    .colorset-red-yearly & {   color: $yearly-red; border-color: $yearly-red;} 
+    .colorset-green-yearly & { color: $basic-green; border-color: $darker-green;} 
+    .colorset-blue-yearly & {  color: $monthly-blue; border-color: $monthly-blue;} 
 }
 
 .btn-more{
     color: white;
-    .colorset-red & {   background: #F48C7F; }
-    .colorset-green & { background: #95C38B; } 
-    .colorset-blue & {  background: #A5B9F9; } 
+    .colorset-red & {   background: $monthly-red; }
+    .colorset-green & { background: $basic-green; } 
+    .colorset-blue & {  background: $monthly-blue; } 
 }
 
 .feature i{
-    .colorset-red & {   color: #FF9797; }
-    .colorset-green & { color: #95C38B; } 
-    .colorset-blue & {  color: #4A7FCA; } 
+    .colorset-red & {   color: $monthly-red; }
+    .colorset-green & { color: $basic-green; } 
+    .colorset-blue & {  color: $monthly-blue; } 
 }
 
 .tab{
     color: white;
-    &.colorset-red{   background: #F48C7F;}
-    &.colorset-green { background: #95C38B; }
-    &.colorset-blue {  background: #A5B9F9; }
+    &.colorset-red{   background: $monthly-red;}
+    &.colorset-green { background: $basic-green; }
+    &.colorset-blue {  background: $monthly-blue; }
+
+    &.colorset-red-yearly{   background: $yearly-red;}
+    &.colorset-green-yearly { background: $basic-green; }
+    &.colorset-blue-yearly {  background: $yearly-blue; }
 }
 
 

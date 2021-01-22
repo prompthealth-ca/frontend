@@ -13,6 +13,8 @@ import { PreviousRouteService } from '../../shared/services/previousUrl.service'
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
 declare var jQuery: any;
 
 
@@ -48,8 +50,9 @@ export class SubscriptionPlanComponent implements OnInit {
   spMonth = false;
   discounttype: any;
 
-  public isPriceMonthly: boolean = true;
+  public isPriceMonthly = true;
 
+  public addOnPlans: any[] = [];
   public checkout = {
     email: 'this.userEmail.email',
     token: 'this.token'
@@ -74,7 +77,8 @@ export class SubscriptionPlanComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    private stripeService: StripeService
+    private stripeService: StripeService,
+    private _modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -89,6 +93,7 @@ export class SubscriptionPlanComponent implements OnInit {
     });
 
     this.getSubscriptionPlan('user/get-plans');
+    this.getAddonPlan();
     // this.getUserDetails();
     if (this.isLoggedIn === true) {
       this.getProfileDetails();
@@ -100,7 +105,7 @@ export class SubscriptionPlanComponent implements OnInit {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-//        console.log(res.data);
+        //        console.log(res.data);
         res.data.forEach(element => {
           if (element.userType.length > 1 && element.name === 'Basic') {
             this.basicPlan = element;
@@ -112,6 +117,22 @@ export class SubscriptionPlanComponent implements OnInit {
             this.spPlan = element;
           }
         });
+      } else {
+        // this._commanService.checkAccessToken(res.error);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+
+    });
+  }
+  getAddonPlan() {
+    this._sharedService.loader('show');
+    this._sharedService.getNoAuth('addonplans/get-all', { roles: ['SP', 'C'] }).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+
+      if (res.statusCode === 200) {
+        console.log(res.data);
+        this.addOnPlans = res.data;
       } else {
         // this._commanService.checkAccessToken(res.error);
       }
@@ -144,21 +165,20 @@ export class SubscriptionPlanComponent implements OnInit {
       this.selectedPlan.monthly = this.centreYearly ? false : true;
     }
     if (this.profile.refererencePointEarned) {
-      const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned / 100));
-      this.discounttype = 'reference';
-      this.finalPrice = discountedPrice + (discountedPrice * (5 / 100));
+      // const discountedPrice = this.selectedPlan.price - (this.selectedPlan.price * (this.profile.refererencePointEarned / 100));
+      // this.discounttype = 'reference';
+      // this.finalPrice = discountedPrice + (discountedPrice * (5 / 100));
     } else {
-      const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50 / 100)); // Undo this after sep discount
-      this.discounttype = 'sepdiscount';
-      this.finalPrice = sepDiscount + (sepDiscount * (5 / 100));  // Undo this after sep discount
+      // const sepDiscount = this.selectedPlan.price - (this.selectedPlan.price * (50 / 100)); // Undo this after sep discount
+      // this.discounttype = 'sepdiscount';
+      // this.finalPrice = sepDiscount + (sepDiscount * (5 / 100));  // Undo this after sep discount
       // this.finalPrice  = this.selectedPlan.price + (this.selectedPlan.price * (5/100));
     }
-    this.finalPrice = this.finalPrice.toFixed(2);
-    this.stripeCheckout();
+    this.buyDefaultPlan();
   }
   setSelectedFreePlan(plan) {
+    this._router.navigate(['/']);
     if (this.roles === 'U') {
-      this._router.navigate(['/']);
     } else {
       const payload = {
         _id: localStorage.getItem('loginID'),
@@ -212,68 +232,8 @@ export class SubscriptionPlanComponent implements OnInit {
     }
   }
 
-  payment() {
-    // localStorage.setItem('isPayment', 'true');
-    // this._router.navigate(['/dashboard/profilemanagement', this.roles]);
-  }
-  buy() { }
-  //   const name = this.stripeTest.get('name').value;
-  //   // const price = this.selectedPlan.price * (5/100) // Tax added
-  //   this.stripeService
-  //     .createToken(this.card, { name })
-  //     .subscribe(result => {
-  //       if (result.token) {
-  //         const payload = {
-  //           userId: localStorage.getItem('loginID'),
-  //           userType: localStorage.getItem('roles'),
-  //           email: JSON.parse(localStorage.getItem('user')).email,
-  //           plan: this.selectedPlan,
-  //           cardId: result.token.card.id,
-  //           token: result.token.id,
-  //           amount: this.finalPrice,
-  //           discount: this.profile.refererencePointEarned,
-  //           discountType: this.discounttype
-  //         };
 
-  //         this._sharedService.loader('show');
-  //         const path = `user/buyPlan`;
-
-  //         this._sharedService.post(payload, path).subscribe((res: any) => {
-  //           if (res.statusCode === 200) {
-  //             this.toastr.success(res.message);
-  //             this.closebutton.nativeElement.click();
-  //             this._router.navigate(['/dashboard/profilemanagement/my-profile']);
-  //           } else {
-  //             this.toastr.error(res.message, 'Error');
-  //           }
-  //           this._sharedService.loader('hide');
-  //         }, (error) => {
-  //           this.toastr.error(error);
-  //           this._sharedService.loader('hide');
-  //         });
-  //       } else if (result.error) {
-  //         // Error creating the token
-  //         this.toastr.error(result.error.message, 'Error');
-  //         this.closebutton.nativeElement.click();
-  //       }
-  //     });
-  // }
-
-  stripeCheckout() {
-    // this._sharedService.loader('show');
-    const payload = {
-      cancel_url: location.href,
-      success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
-      userId: localStorage.getItem('loginID'),
-      userType: localStorage.getItem('roles'),
-      email: JSON.parse(localStorage.getItem('user')).email,
-      plan: this.selectedPlan,
-      amount: this.finalPrice,
-      discount: this.profile.refererencePointEarned,
-      discountType: this.discounttype
-    };
-    console.log(payload);
-
+  stripeCheckout(payload) {
     const path = `user/checkoutSession`;
     this._sharedService.loader('show');
     this._sharedService.post(payload, path).subscribe((res: any) => {
@@ -309,13 +269,53 @@ export class SubscriptionPlanComponent implements OnInit {
       this._sharedService.loader('hide');
     });
   }
+  buyDefaultPlan() {
+    // this._sharedService.loader('show');
+    const payload = {
+      cancel_url: location.href,
+      success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
+      userId: localStorage.getItem('loginID'),
+      userType: localStorage.getItem('roles'),
+      email: JSON.parse(localStorage.getItem('user')).email,
+      plan: this.selectedPlan,
+      isMonthly: this.isPriceMonthly,
+      type: 'default'
+    };
+    console.log(payload);
 
-  changePriceRange(isMonthly: boolean){
+    this.stripeCheckout(payload);
+  }
+
+  buyAddOnPlan(plan) {
+    console.log(plan);
+    console.log(this.profile);
+    if (plan.name) {
+      const modalRef = this._modalService.open(AddonSelectCategoryComponent, {
+        centered: true
+      });
+      modalRef.result.then(res => {
+        console.log(res);
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+    // const payload = {
+    //   cancel_url: location.href,
+    //   success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
+    //   userId: localStorage.getItem('loginID'),
+    //   userType: localStorage.getItem('roles'),
+    //   email: JSON.parse(localStorage.getItem('user')).email,
+    //   plan,
+    //   isMonthly: this.isPriceMonthly,
+    //   type: 'addon'
+    // };
+    // this.stripeCheckout(payload);
+  }
+  changePriceRange(isMonthly: boolean) {
     this.isPriceMonthly = isMonthly;
   }
 
 
 }
 // end section
-
 

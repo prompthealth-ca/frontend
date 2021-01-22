@@ -8,7 +8,8 @@ import { SharedService } from '../../../shared/services/shared.service';
   styleUrls: ['./my-subscription.component.scss']
 })
 export class MySubscriptionComponent implements OnInit {
-  public profile;
+  public defaultPlan;
+  public addOnPlans = {};
   constructor(
     private sharedService: SharedService,
     private toastr: ToastrService
@@ -22,8 +23,9 @@ export class MySubscriptionComponent implements OnInit {
     const path = `user/get-profile/${userInfo._id}`;
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.profile = res.data[0].plan;
-        console.log(this.profile);
+        this.defaultPlan = res.data[0].plan;
+        this.addOnPlans = res.data[0].addOnPlans;
+        console.log(this.defaultPlan);
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

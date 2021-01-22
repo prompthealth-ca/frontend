@@ -29,6 +29,8 @@ import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-inter
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
 import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbo
     UserQuestionaireComponent,
     QuestionnaireItemSelectComponent,
     QuestionnaireItemCheckboxComponent,
+    AddonSelectCategoryComponent,
   ],
   imports: [
     AutocompleteLibModule,
@@ -66,6 +69,7 @@ import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbo
     NgxStripeModule.forRoot(environment.config.stripeKey),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
+    NgbModalModule
   ]
 })
 export class DashboardModule { }

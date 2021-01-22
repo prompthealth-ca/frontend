@@ -245,7 +245,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  showMenu(){
-    this._headerStatusService.showNavMenu()
+  showMenu() {
+    this._headerStatusService.showNavMenu();
   }
 }

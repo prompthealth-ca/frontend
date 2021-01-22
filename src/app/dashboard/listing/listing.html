@@ -22,39 +22,38 @@
   </div>
 </section>
 
+<div [scrollDetector]="!!filterTarget" [offset]="100" (detect)="setFilterTarget(null)"></div>
 <div class="intersection-observer" intersectionObserver (changeStatus)="changeStickyStatus($event)"></div>
-<section class="container-fluid mt-5 pt-2 sticky-top blur">
+<section class="container-fluid mt-5 pt-2 sticky-top blur" id="expertFinder">
   <div class="max-w-1200">
     <h2 class="text-blue-gradient font-weight-normal">Expert Finder</h2>
-    <div (clickOutside)="onClickOutsideOfFilter($event)">
-      <ul class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
-        <li class='mr-3' *ngFor="let f of filters; let i = index;">
-          <button class="btn border-darkblue text-darkblue text-nowrap py-2 px-4 rounded-pill" 
-            [ngClass]="{focus: (filterTarget && filterTarget._id == f._id), active: f.active}"
-            (click)="setFilterTarget(i)"
-          >{{f.item_text}}</button>
-        </li>
-      </ul>
+    <ul class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
+      <li class='mr-3' *ngFor="let f of filters; let i = index;">
+        <button class="btn border-darkblue text-darkblue text-nowrap py-2 px-4 rounded-pill" 
+          [ngClass]="{focus: (filterTarget && filterTarget._id == f._id), active: f.active}"
+          (click)="setFilterTarget(i)"
+        >{{f.item_text}}</button>
+      </li>
+    </ul>
 
-      <div class="overflow-hidden" [@expandVertical] *ngIf="compareList && compareList.length > 0">
-        <div class="compare d-flex">
-          <ul class="pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
-            <li class="position-relative mr-3" *ngFor="let p of compareList">
-              <img class="rounded" [src]="p.image" [alt]="p.name">
-              <button class="btn position-absolute" (click)="removeProfessionalFromCompare(p.id)"><i class="fas fa-times font-bigger"></i></button>
-            </li>
-          </ul>
-          <div class="flex-grow-0 gelx-shrink-0">
-            <div><button class="btn" (click)="removeProfessionalFromCompareAll()">Clear All</button></div>
-            <div><button class="btn font-weight-bold border-blue color-blue rounded" (click)="compareProfessionals()">Compare</button></div>
-          </div>
-        </div>  
-      </div>
+    <div class="overflow-hidden" [@expandVertical] *ngIf="compareList && compareList.length > 0">
+      <div class="compare d-flex">
+        <ul class="pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
+          <li class="position-relative mr-3" *ngFor="let p of compareList">
+            <img class="rounded" [src]="p.image" [alt]="p.name">
+            <button class="btn position-absolute" (click)="removeProfessionalFromCompare(p.id)"><i class="fas fa-times font-bigger"></i></button>
+          </li>
+        </ul>
+        <div class="flex-grow-0 gelx-shrink-0">
+          <div><button class="btn" (click)="removeProfessionalFromCompareAll()">Clear All</button></div>
+          <div><button class="btn font-weight-bold border-blue color-blue rounded" (click)="compareProfessionals()">Compare</button></div>
+        </div>
+      </div>  
     </div>
   </div>
 </section>
 
-<div>
+<div (clickOutside)="onClickOutsideOfFilter($event)">
   <!-- <filter-dropdown class="position-absolute shadow rounded-15p bg-white filter-dropdown" 
     *ngIf="filterTarget.type == 'range'" 
     [ngStyle]="getFilterDropdownPosition()"
@@ -69,6 +68,7 @@
     [multiple]="(filterTarget.type == 'checkbox')? true: false"
     [options]="filterTarget.options"
     (changeState)="updateFilter($event)"
+
   ></filter-dropdown-select>
   <filter-dropdown-slider class="position-fixed shadow rounded-15p blur filter-dropdown"
     *ngIf="filterTarget && (filterTarget.type == 'slider')" 
@@ -80,23 +80,23 @@
   </filter-dropdown-slider>
 </div>
 
-<section class="container-fluid bg-lightblue">
+<section class="container-fluid bg-lightblue" id="professionalList">
   <div class="row align-items-start">
     <div class="col-12 col-md-6 d-md-block pt-5 min-h-100-finder"
       [ngClass]="{'d-none': isMapView, 'col-lg-9': !isMapSizeBig, 'col-lg-3': isMapSizeBig}"
     >
       <div class="container-fluid postiion-relative">
         <p class="font-italic">Here are the options we found for you</p>
-        <ul class="professionals list-unstyled row" *ngIf="!professionals">
+        <ul class="professionals list-unstyled row" *ngIf="!pages.data">
           <li class="col-12 mb-3"
-            *ngFor="let i of [0,1,2,3]"
+            *ngFor="let i of [0,1,2,3,4,5]"
             [ngClass]="{'col-lg-4': !isMapSizeBig}"
           ><div class="card p-1 border-blue rounded-15p"><post-dummy></post-dummy></div></li>
         </ul>
 
-        <ul class="professionals list-unstyled row" *ngIf="professionals">
+        <ul class="professionals list-unstyled row" *ngIf="pages.data">
           <li class="col-12 mb-3"
-            *ngFor="let p of professionals"
+            *ngFor="let p of pages.data[pages.current - 1]"
             [ngClass]="{'col-lg-4': !isMapSizeBig}"
           >
             <!-- todo: create component to reuse this card in google map -->
@@ -125,11 +125,14 @@
           </li>
         </ul>
 
-        <div class="d-flex flex-nowrap justify-content-center pt-2 pb-5">
-          <div class="paginator point mr-1 active"></div>
-          <div class="paginator point mr-1"></div>
-          <div class="paginator point mr-1"></div>
-          <div class="paginator next"></div>
+        <div class="d-flex flex-nowrap justify-content-center pt-2 pb-5" *ngIf="pages.data">
+          <div class="paginator pre" (click)="changePage(pages.current - 1)"></div>
+          <div *ngFor="let p of pages.data; let i = index"
+            class="paginator point mr-1 active" 
+            [ngClass]="{active: (i == pages.current - 1)}"
+            (click)="changePage(i + 1)"
+          ></div>
+          <div class="paginator next" (click)="changePage(pages.current + 1)"></div>
         </div>
       </div>
     </div>
@@ -144,13 +147,14 @@
         [zoomControl]="false"
         (centerChange)="onChangeMapCenter($event)"
       >
-        <agm-marker *ngFor="let p of professionals; let i = index;" 
+        <!-- <agm-marker [longitude]="mapdata.lng" [latitude]="mapdata.lat"></agm-marker> -->
+        <agm-marker *ngFor="let p of (pages.data? pages.data[pages.current - 1] : []); let i = index;" 
           [longitude]="p.location[0]" 
           [latitude]="p.location[1]" 
           [iconUrl]="'/assets/img/agm-map-icon.png'" 
           [title]="p.mapLabel" 
           [label]="{text: p.mapLabel, fontWeight: 'bold', fontSize: '16px' }"
-          [zIndex]="professionals.length - i"
+          [zIndex]="pages.itemsPerPage - i"
         >
           <agm-info-window>
             <div class="agm-info-window">
@@ -192,362 +196,3 @@
 
 
 
-
-
-<section class="pt-5 pb-5 position-relative">
-  <!-- <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true"  [mapTypeId]="'hybrid'" >
-  <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
-  </agm-map> -->
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-3">
-       <div class="text-right mb-3">
-         <button class="btn btn-primary" (click)="removeFilter()">Remove All Filters</button>
-       </div>
-        <h6 class="mb-3 text-primary">Travel Distance from Postal Code</h6>
-
-        <div class="mb-3">
-          <input 
-            name="address" 
-            type="text"
-            [(ngModel)]="currentAddress"
-            class="form-control"
-            #searchGlobal
-          />
-        </div>
-
-        <div class="mb-3">
-          <div class="radio">
-            <span>Distance Range</span>
-            <input type="range"  class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
-              Kms: {{listingPayload.miles}}
-          </div>
-        </div>
-
-        <hr />
-
-        <h6 class="mb-3 text-primary">Gender</h6>
-        <div class="mb-3">
-          <div class="radio">
-              <select class="form-control" 
-              #userType
-              [(ngModel)]="listingPayload.gender"
-              (change)="onOptionsSelected(userType.value, 'gender')">
-                <option value="">All</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            <!-- <span>Distance Range</span> -->
-            <!-- <input type="range" class="custom-range" min="5" [(ngModel)] = "listingPayload.miles" max="100" (input) ="changeMiles($event)" id="customRange2">
-              Kms: {{listingPayload.miles}} -->
-          </div>
-        </div>
-        <hr>
-        <h6 class="mb-3 text-primary">Professional name</h6>
-
-        <div class="d-flex mb-3">
-          <div class="ng-autocomplete">
-            <ng-autocomplete 
-              [data]="allDoctorList"
-              placeHolder="Enter the Service Provider Name"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent($event)'
-              (inputCleared)="resetNames()"
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">                                 
-            </ng-autocomplete>
-             
-            <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.name"></a>
-            </ng-template>
-             
-            <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]="notFound"></div>
-            </ng-template>
-           </div>
-        </div>
-        <hr />
-
-        <h6 class="mb-3 text-primary">Ratings</h6>
-        <div class="mb-3">
-          <select class="form-control"  [(ngModel)]="listingPayload.rating"  #ratings (change)="onOptionsSelected(ratings.value, 'rating')">
-            
-            <option *ngFor="let opt of ratingsOption" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
-          </select>
-        </div>
-        <hr />
-
-        <h6 class="mb-3 text-primary">Hours of Availability</h6>
-       
-        <div class="mb-3">
-          <select class="form-control" [(ngModel)]="listingPayload.typicalHoursId"  #hours (change)="onOptionsSelected(hours.value, 'hours')">
-          <option value = ''>All</option>
-          <option *ngFor="let opt of avalibilityQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
-        </select>
-        </div>
-        <hr />
-
-        <h6 class="mb-3 text-primary">Provider language</h6>
-       
-        <div class="mb-3">
-          <select class="form-control" [(ngModel)]="listingPayload.languageId"  #language (change)="onOptionsSelected(language.value, 'language')">
-            <option value = ''>All</option>
-            <option *ngFor="let opt of languageQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
-          </select>
-        </div>
-        <hr/>
-
-        <h6 class="mb-3 text-primary">Service Type</h6>
-       
-        <div class="mb-3">
-          <select class="form-control"  [(ngModel)]="listingPayload.serviceOfferId"  #serviceType 
-          (change)="onOptionsSelected(serviceType.value, 'serviceType')">
-            <option value = ''>All</option>
-            <option *ngFor="let opt of serviceQuestion?.answers" [value] = "opt._id" [id]="opt._id">{{opt.item_text}}</option>
-          </select>
-        </div>
-        <hr/>
-        <h6 class="mb-3 text-primary">Price Range</h6>
-
-        <div class="mb-3">
-          <!-- <div class="row">
-            <div  class="col-md-12" *ngFor="let item of priceList; let i = index">       
-              <label for="{{item.id}}" >
-                  <input class="radio" type="radio" name="price_range" [(ngModel)] ="listingPayload.price_per_hours"  
-                  value="{{item.name}}"  required id="{{item.id}}" (change)="changePrice(item.name)" />
-                  <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
-              </label>
-            </div>
-          </div> -->
-          <select class="form-control"  [(ngModel)]="listingPayload.price_per_hours"
-          #priceRange (change)="onOptionsSelected(priceRange.value, 'price')">
-            <option *ngFor="let opt of priceList" [value] = "opt.value">{{opt.name}}</option>
-          </select>
-        </div>
-
-        <hr />
-        <h6 class="mb-3 text-primary">Specialty Age Group</h6>
-
-        <div class="mb-3">
-          <div class="row">
-            <div  class="col-md-12" *ngFor="let item of ageRangeList; let i = index">       
-              <label for="{{item.id}}" >
-                  <input class="radio" type="radio" name="age_range" [(ngModel)] ="listingPayload.age_range[0]"  value="{{item.id}}"  required id="{{item.id}}" (change)="changeAge($event)" />
-                  <span class="text-body" style="margin-left: 5px;">{{item.name}}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-
-        <hr/>
-
-      </div>
-      <div class="col-12 col-lg-9">
-        <div
-          class="d-flex align-items-center justify-content-between text-primary flex-wrap flex-md-nowrap"
-        >
-          <h3 class="mb-3">Expert Finder</h3>
-          <div class="text-primary h6 mb-3">
-            Number of professionals that meet all your criteria
-            <span class="badge badge-secondary"
-              >{{ doctorsListing.length }}</span
-            >
-          </div>
-        </div>
-
-        <hr class="mt-0" />
-
-        <div class="p-3 bg-light mb-3 text-right" *ngIf="compareList.length">
-          <!-- <div
-            class="d-inline-flex bg-white compareprofilebox"
-            *ngFor="let doc of compareList"
-          >
-            <a (click)="removefromCopare(doc.userId)" class="fa fa-times"></a>
-            <img
-              [src]="'https://api.prompthealth.ca/users/'+ doc.userData.profileImage"
-              class="compareprofileimg"
-              *ngIf="doc.userData.profileImage"
-            />
-            <img
-              *ngIf="!doc.userData.profileImage"
-              src="/assets/img/default_user.jpg"
-              class="compareprofileimg noimage"
-            />
-            <div class="p-2">
-              <div class="font-weight-bold mb-2">
-                {{ doc.userData.firstName }} {{ doc.userData.lastName }}
-              </div>
-              <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
-                {{ doc.userData.email }}
-              </div>
-              <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
-                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 5">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 4">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 3">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 2">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 1">
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <div class="d-inline-block text-center">
-            <div class="mb-2">
-              <a class="text-primary" href="javascript:void(0)" (click)="clearCompareList()">Clear All</a>
-            </div>
-            <a (click)="compareDoc()" class="btn btn-outline-primary"
-              >Compare</a
-            >
-          </div>
-        </div>
-
-        <div
-          class="row m-0 shadow-sm overflow-hidden profileBox mb-4"
-          *ngFor="let doc of doctorsListing"
-        >
-          <div class="col-12 col-lg-3 p-0">
-            <!-- <img
-              [src]="'https://api.prompthealth.ca/users/'+doc?.userData?.profileImage"
-              class="profileimg" /> -->
-            <div
-              class="w-100 h-100 profileimg"
-              [ngStyle]="{'background-image': 'url(https://api.prompthealth.ca/users/'+ doc.userData.profileImage +')'}"
-            >
-          
-          </div>
-          </div>
-          <div class="col-12 col-lg-9 p-3">
-            <div
-              class="d-flex justify-content-between align-items-start flex-wrap flex-md-nowrap"
-            >
-              <div class="text-primary">
-                <a
-                  href="/dashboard/detail"
-                  [routerLink]="['/dashboard/detail', doc.userId]"
-                  class="d-block h5 text-uppercase mb-0"
-                  >{{ doc.userData.firstName }} {{ doc.userData.lastName }}</a
-                >
-                <div class="mb-2 font-weight-normal" *ngIf="loggedInUser">
-                  {{doc.userData.email}}
-                </div>
-                <div class="text-review mb-2" *ngIf="doc.userData.ratingAvg">
-                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 5">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 4">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 3">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 2">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                  <div class="text-rating mb-2" *ngIf="doc.userData.ratingAvg === 1">
-                    <i class="fa fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                    <i class="far fa-star"></i>
-                  </div>
-                </div>
-              </div>
-
-              <div class="ml-0 ml-md-3 mb-2 d-flex justify-content-center">
-                <span class="like-input mr-2" *ngIf="loggedInUser && loggedInRole === 'U'">
-                  <input type="checkbox" (change)="likeProfile($event, doc.userId)"/>
-                  <i class="fa fa-heart"></i>
-                </span>
-
-              <div class="checkboxBtn">
-                <input
-                  type="checkbox"
-                  [id]="doc.userId"
-                  value="{{doc.userId}}"
-                  (change)="compareFields(doc, $event)"
-                />
-                <span class="btn btn-outline-primary">
-                    <i class="far fa-square"></i>
-                  <i class="fa fa-check-square"></i>
-                  Compare
-                </span>
-              </div>
-              </div>
-            </div>
-
-            <div class="mb-2">
-              <a
-                class="fa fa-phone text-secondary d-inline-block mr-2"
-                href="tel:{{doc.userData.phone}}"
-              >
-                <span>{{doc.userData.phone}}</span>
-              </a>
-              <a *ngIf="loggedInUser"
-                class="fa fa-envelope text-secondary d-inline-block mr-2"
-                href="mailto:{{doc.userData.address}}"
-              >
-                <span>{{doc.userData.email}}</span>
-              </a>
-            </div>
-            <div class="mb-2" *ngIf="doc?.userData.calcDistance">Distance: {{doc?.userData.calcDistance | number: '1.0-0'}} KMs</div>
-            <div class="mb-2" *ngIf="doc.userData.address">Address</div>
-            <div class="desciption text-truncate">
-              {{doc.userData.address}}
-              <a
-                [routerLink]="['/dashboard/detail', doc.userId]"
-                class="text-primary font-weight-normal pull-right"
-                >Go To Profile <i class="fa fa-chevron-right"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>

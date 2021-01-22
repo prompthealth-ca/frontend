@@ -42,6 +42,14 @@ export class ListingComponent implements OnInit {
   public isMapView: boolean = false;
   public isMapSizeBig: boolean = false;
   public filterTarget: Filter = null;
+  public currentPage: number = 1;
+  private professionals: Professional[] = null;
+  public pages: {current: number, itemsPerPage: number, data: Professional[][]} = {
+    current: 1,
+    itemsPerPage:12,
+    data: null
+  }
+
 
   private geoCoder;
   keyword = 'name';
@@ -103,9 +111,7 @@ export class ListingComponent implements OnInit {
   serviceOffering;
   categoryList;
 
-  currentPage;
   totalItems; /** todo: can be deleted because it's not used anywhere */
-  itemsPerPage = 10;
 
   public listingPayload = {
     ids: [],
@@ -124,7 +130,6 @@ export class ListingComponent implements OnInit {
     typical_hours: [],
   };
   
-  public professionals: Professional[] = null;
   public filters: Filter[] = [
     {_id: 'distance', item_text: 'distance', type: 'slider', payloadName: 'miles', active: false, range: {min: 5, max: 100, current: 100, default: 100}},
     {_id: 'gender', item_text: 'gender', type: 'radio', payloadName: 'gender', active: false, options: [ 
@@ -251,61 +256,57 @@ export class ListingComponent implements OnInit {
       }
     });
 
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-      this.mapsAPILoader.load().then(() => {
-        this.geoCoder = new google.maps.Geocoder;
-        const autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-        autocomplete.addListener('place_changed', () => {
-          this.ngZone.run(() => {
-            // get the place result
+    // this.mapsAPILoader.load().then(() => {
+    //   this.geoCoder = new google.maps.Geocoder;
+    //   this.mapsAPILoader.load().then(() => {
+    //     this.geoCoder = new google.maps.Geocoder;
+    //     const autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
+    //     autocomplete.addListener('place_changed', () => {
+    //       this.ngZone.run(() => {
+    //         // get the place result
 
-            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-            console.log(place);
+    //         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //         console.log(place);
 
-            // verify result
-            if (place.geometry === undefined || place.geometry === null) {
-              return;
-            }
-            this.lat = place.geometry.location.lat();
-            this.long = place.geometry.location.lng();
+    //         // verify result
+    //         if (place.geometry === undefined || place.geometry === null) {
+    //           return;
+    //         }
+    //         this.lat = place.geometry.location.lat();
+    //         this.long = place.geometry.location.lng();
 
-            if (personalMatch) {
-              this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-              this.listingPayload.age_range = personalMatch.age_range;
-              this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
+    //         if (personalMatch) {
+    //           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+    //           this.listingPayload.age_range = personalMatch.age_range;
+    //           this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
 
-              this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
-              this.listingPayload.type = personalMatch.type;
-              this.listingPayload.latLong = `${this.long}, ${this.lat}`;
+    //           this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
+    //           this.listingPayload.type = personalMatch.type;
+    //           this.listingPayload.latLong = `${this.long}, ${this.lat}`;
 
-              this.listing(this.listingPayload);
-            } else {
-              this.listing(
-                {
-                  ids: this.id ? [this.id] : [],
-                  latLong: `${this.long}, ${this.lat}`,
-                  miles: this.listingPayload.miles,
-                  type: this.listingPayload.type
-                }
-              );
-            }
-            // this.listing({latLong: `${this.long}, ${this.lat}`});
-          });
-        });
-      });
+    //           this.listing(this.listingPayload);
+    //         } else {
+    //           this.listing(
+    //             {
+    //               ids: this.id ? [this.id] : [],
+    //               latLong: `${this.long}, ${this.lat}`,
+    //               miles: this.listingPayload.miles,
+    //               type: this.listingPayload.type
+    //             }
+    //           );
+    //         }
+    //         // this.listing({latLong: `${this.long}, ${this.lat}`});
+    //       });
+    //     });
+    //   });
 
-    });
-  }
-
-  @HostListener('window: scroll') windowScroll(){
-    if(this.filterTarget){ this.filterTarget = null; }
+    // });
   }
 
   private timerListing: any;
   onChangeMapCenter(e: {lat: number, lng: number}){
     if(this.timerListing){ clearTimeout(this.timerListing); }
-    this.timerListing = setTimeout(()=>{ this.setMapdata(e, true); }, 500)
+    this.timerListing = setTimeout(()=>{ this.setMapdata(e, false); }, 500)
   }
   setMapdata(data: {lat: number, lng: number, zoom?: number}, updateListing: boolean = false){ 
     this.mapdata.lat = data.lat;
@@ -360,7 +361,7 @@ export class ListingComponent implements OnInit {
             if(this.professionals && this.professionals.length>0){
               var languageSet = this.getFilter('language').options;
               if(this.professionals && this.professionals.length>0){
-                this.professionals.forEach((p: Professional)=>{ p.setLanguageString(languageSet); });
+                this.professionals.forEach((p: Professional)=>{ p.populate('languages', languageSet); });
               }
             }
           }
@@ -402,12 +403,14 @@ export class ListingComponent implements OnInit {
 
         res.data.forEach((d:any)=>{
           var professional = new Professional(d.userId, d.userData, d.ans);
-          if(languageSet && languageSet.length>0){ professional.setLanguageString(languageSet); }
+          if(languageSet && languageSet.length>0){ professional.populate('languages', languageSet); }
           professionals.push(professional);
         });
   
-        this.professionals = professionals
+        this.professionals = professionals;
         this.professionals = this.professionals.sort((a, b)=> a.distance - b.distance);
+
+        this.filterProfessionalsByPage()
 
         this.totalItems = this.professionals; /** todo: can be deleted because it's not used anywhere */
 
@@ -747,8 +750,12 @@ export class ListingComponent implements OnInit {
   /** trigger when click outside of filter and close filter menu */
   onClickOutsideOfFilter(e: Event){
     if(this.filterTarget){ 
-      e.preventDefault(); /** doesn't work? */
-      this.setFilterTarget(null); 
+      var finder = this.host.querySelector('#expertFinder');
+      var target = e.target as HTMLElement;
+      if(!finder.contains(target)){
+        this.setFilterTarget(null); 
+        e.preventDefault(); /** doesn't work? */
+      }
     }
   }
 
@@ -829,7 +836,7 @@ export class ListingComponent implements OnInit {
 
   /** trigger when click save / clear in filter menu and update filter */
   updateFilter(id: string){
-    this.setFilterTarget(null);
+    // this.setFilterTarget(null);
 
     var f = this.getFilter(id);
 
@@ -857,6 +864,35 @@ export class ListingComponent implements OnInit {
       f.active = (f.range.current != f.range.default);
     }
     this.listing(this.listingPayload);
+  }
+
+  changePage(i: number){
+    if(i <= 0){ i = 1 }
+    else if(i > this.pages.data.length){ i = this.pages.data.length; }
+    this.pages.current = i;
+  
+    setTimeout(()=>{
+      var rectF = this.host.querySelector('#expertFinder').getBoundingClientRect();;
+      var rectL = this.host.querySelector('#professionalList').getBoundingClientRect();
+      window.scrollBy(0,rectF.top - rectF.height + rectL.top);
+    });
+  }
+
+  filterProfessionalsByPage(){
+    var pages = [];
+    var prosInPage = [];
+    this.professionals.forEach((p, i)=>{
+      prosInPage.push(p);
+
+      if(prosInPage.length == this.pages.itemsPerPage){
+        pages.push(prosInPage);
+        prosInPage = [];
+      }
+
+      if(i == this.professionals.length - 1){ pages.push(prosInPage); }
+      
+    })
+    this.pages.data = pages;
   }
 }
 

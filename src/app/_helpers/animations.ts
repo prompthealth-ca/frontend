@@ -12,6 +12,17 @@ export const fadeAnimation = trigger('fade', [
   ])]
 );
 
+export const fadeFastAnimation = trigger('fadeFast', [
+  transition(':enter', [
+    style({ display: 'block', opacity: 0 }),
+    animate('100ms ease', style({ opacity: 1 }))
+  ]),
+  transition(':leave', [
+    style({ opacity: 1 }),
+    animate('100ms ease', style({ opacity: 0 }))
+  ])]
+);
+
 export const slideVerticalAnimation = trigger('slideVertical', [
   transition(':enter', [
     style({ display: 'block', opacity: 0, transform: 'translateY(50px)'}),

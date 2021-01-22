@@ -14,7 +14,7 @@
           <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" />
         </div>
       </div>
-      <div *ngIf="!this.token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
+      <div *ngIf="!token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
         <div class="d-flex align-items-center flex-nowrap">
           <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign up</a>
@@ -106,7 +106,7 @@
     </div>
   </nav>
 </header>
-<div class="spacer-top"></div>
+<div class="spacer-top" [ngClass]="{loggedin: token}"></div>
 
 <dashboard-menu class="d-none d-md-block position-fixed dashboard-menu-wrapper-md"
   *ngIf="isDashboardMenuShown"

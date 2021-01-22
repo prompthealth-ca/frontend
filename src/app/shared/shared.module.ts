@@ -14,6 +14,7 @@ import { StarRateComponent } from './star-rate/star-rate.component';
 import { PostDummyComponent } from './post-dummy/post-dummy.component';
 import { FocusDirective } from './focus.directive';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { ScrollDetectorDirective } from './scroll-detector.directive';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { ClickOutsideDirective } from './click-outside.directive';
     PostDummyComponent,
     FocusDirective,
     ClickOutsideDirective,
+    ScrollDetectorDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -46,6 +48,7 @@ import { ClickOutsideDirective } from './click-outside.directive';
     PostDummyComponent,
     FocusDirective,
     ClickOutsideDirective,
+    ScrollDetectorDirective,
   ]
 })
 export class SharedModule { }

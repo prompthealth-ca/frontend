@@ -19,15 +19,15 @@ export class ScrollTopService {
         if(event instanceof ActivationStart){ this.isInitial = false; }
         
         if(event instanceof NavigationEnd && event.url.match(/#addon/)){
-          var timer = this.isInitial? 1000 : 300;
-          var el = document.querySelector('#addon');
-          
-          setTimeout(()=>{
-            window.scroll(0, el.getBoundingClientRect().top - 100)
-          }, timer)
-
+          if(event.url.match(/#addon/)){
+            var timer = this.isInitial? 1000 : 400;
+            setTimeout(()=>{
+              var el = document.querySelector('#addon');
+              window.scrollBy(0, el.getBoundingClientRect().top - 100)
+            }, timer)  
+          }
+          else{ window.scroll(0, 0); }  
         }
-        else{ window.scroll(0, 0); }
       });
     }
   }

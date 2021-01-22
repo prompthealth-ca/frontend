@@ -31,8 +31,12 @@ nav{
 }
 
 .dashboard-menu-wrapper-md{
-  right: 0;
-  top: 0;
+  top: 60px;
+  right: 10px;
+  z-index: 10000;
+  border-radius: 15px;
+  border: solid 1px #d6d6d6;
+  overflow: hidden;
 }
 
 img.brand-sm{

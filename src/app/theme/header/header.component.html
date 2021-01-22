@@ -23,11 +23,12 @@
 
       <ng-template #logoutblock>
         <div class="ml-auto d-none d-md-block w-160p position-relative">
-          <dashboard-menu [expandable]="true" 
-            headerDirection="right"
-            [styleButton]="{background: '#ffffffe0'}"
-            [styleMenu]="{background: 'white', minWidth: '250px'}"
-            (logout)="logout()"
+          <dashboard-menu id="dashboardMenuButton"
+            ui="button"
+            buttonDirection="right"
+            [styleButton]="{background: '#ffffff33'}"
+            [user]="user"
+            (click)="isDashboardMenuShown = !isDashboardMenuShown"
           ></dashboard-menu>
           <div class="position-absolute top-10p dashboard-menu-wrapper-md">
 
@@ -107,6 +108,18 @@
 </header>
 <div class="spacer-top"></div>
 
+<dashboard-menu class="d-none d-md-block position-fixed dashboard-menu-wrapper-md"
+  *ngIf="isDashboardMenuShown"
+  [@fadeFast]
+  [user]="user"
+  [scrollDetector]="isDashboardMenuShown" 
+  [offset]="50" 
+  (detect)="isDashboardMenuShown = false;"
+  (logout)="logout()"
+  (clickOutside)="onClickOutsideOfDashboardMenuMd($event)"
+  (close)="isDashboardMenuShown = false"
+></dashboard-menu> 
+
 <!-- Menu for Small view-->
 <div class="menu-sm d-md-none" id="menu_sm" *ngIf="isNavMenuShown" [@fade]>
   <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
@@ -128,6 +141,7 @@
 
     <li class="dashboard-menu-wrapper" *ngIf="token">
       <dashboard-menu class="bg-white overflow-hidden"
+        [user]="user"
         [styleMenu]="{ color: '#6d6e71'}"
         (logout)="logout()"
       ></dashboard-menu>

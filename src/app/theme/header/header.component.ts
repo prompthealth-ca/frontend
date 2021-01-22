@@ -5,7 +5,7 @@ import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
-import { fadeAnimation } from '../../_helpers/animations';
+import { fadeAnimation, fadeFastAnimation } from '../../_helpers/animations';
 import { Subscription } from 'rxjs';
 
 
@@ -14,19 +14,23 @@ import { Subscription } from 'rxjs';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations: [fadeAnimation]
+  animations: [fadeAnimation, fadeFastAnimation]
 })
 export class HeaderComponent implements OnInit {
+ 
   constructor(
     private _router: Router,
     private _sharedService: SharedService,
     private _bs: BehaviorService,
     private toastr: ToastrService,
     private _headerStatusService: HeaderStatusService,
+    _el: ElementRef
   ) {
     // this.fetchUser();
+    this.elHost = _el.nativeElement;
   }
 
+  private elHost: HTMLElement;
 
   @ViewChild('signup') signup: ElementRef;
   @ViewChild('signin') signin: ElementRef;
@@ -38,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
   public isHeaderShown = true;
   public isNavMenuShown = false;
+  public isDashboardMenuShown = false;
   public levelMenuSm = 0;
   public activeCategory = 0;
 
@@ -209,4 +214,11 @@ export class HeaderComponent implements OnInit {
     this.classSubcategoryItem = clname[1];
   }
 
+  onClickOutsideOfDashboardMenuMd(e: Event){
+    var target = e.target as HTMLElement
+    var dashboardMenuButton = this.elHost.querySelector('#dashboardMenuButton');
+    if(!dashboardMenuButton.contains(target)){
+      this.isDashboardMenuShown = false;
+    }
+  }
 }

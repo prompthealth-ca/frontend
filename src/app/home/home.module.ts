@@ -27,6 +27,7 @@ import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 import { SubscriptionPlanPartnerComponent } from './subscription-plan-partner/subscription-plan-partner.component';
 import { SharedModule } from '../shared/shared.module'; 
 import { NgxSocialShareModule } from 'ngx-social-share';
+import { GetFeaturedTabComponent } from './get-featured-tab/get-featured-tab.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { NgxSocialShareModule } from 'ngx-social-share';
     SubscriptionComponent,
     UnsubscribeComponent,
     SubscriptionPlanPartnerComponent,
+    GetFeaturedTabComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

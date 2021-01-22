@@ -558,6 +558,12 @@ textarea.form-control {
   height: $headerHeight;
   @media screen and (min-width: 768px){ height: $headerHeightMd; }
   @media screen and (min-width: 992px){ height: $headerHeightLg; }
+
+  &.loggedin{
+    height: $headerHeightLoggedin;
+    @media screen and (min-width: 768px){ height: $headerHeightLoggedinMd; }
+    @media screen and (min-width: 992px){ height: $headerHeightLoggedinLg; }
+  }
 }
 
 .max-w-1200{
@@ -598,3 +604,10 @@ textarea.form-control {
   width: 100%; 
   height: 1px; 
 }
+
+
+// npn-handle{
+//   .filler{}
+//   .left-handle{}
+//   .right-handle{}
+// }

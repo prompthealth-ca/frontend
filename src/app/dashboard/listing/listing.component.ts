@@ -896,6 +896,7 @@ export class ListingComponent implements OnInit {
 
     });
     this.pages.data = pages;
+    console.log(pages);
   }
 }
 

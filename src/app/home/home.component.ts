@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../shared/services/shared.service';
 import { HeaderStatusService } from '../shared/services/header-status.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
   zipCodeSearched;
   lat;
   long;
+  AWS_S3 = '';
   // _host = environment.config.BASE_URL;
   id: any;
   showPersonalMatch = true;
@@ -172,7 +174,7 @@ export class HomeComponent implements OnInit {
   public keepOriginalOrder = (a, b) => a.key;
 
   ngOnInit() {
-
+    this.AWS_S3 = environment.config.AWS_S3;
     this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : '';
     localStorage.removeItem('searchedAddress');
     this.token = localStorage.getItem('token');

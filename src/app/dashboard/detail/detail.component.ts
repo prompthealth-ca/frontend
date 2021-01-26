@@ -134,7 +134,7 @@ export class DetailComponent implements OnInit {
           if(this.serviceDeliverySet){ this.userInfo.populate('serviceDelivery', this.serviceDeliverySet); }
           if(this.availabilitySet){ this.userInfo.populate('availability', this.availabilitySet); }
           if(this.amenities){ this.userInfo.setAmenities(this.amenities); }
-          this.userInfo.setReviews(reviewsDummy);
+//          this.userInfo.setReviews(reviewsDummy);
 
           var ageRangeSet: QuestionnaireAnswer[] = [
             { _id: '5eb1a4e199957471610e6cd7', item_text: 'Not Critical' },

@@ -6,7 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxStripeModule } from 'ngx-stripe';
 import { ThemeRoutingModule } from './theme-routing.module';
 import { SubscribeComponent } from './subscribe/subscribe.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -47,6 +47,7 @@ import { DashboardMenuComponent } from './dashboard-menu/dashboard-menu.componen
     NgxStripeModule.forRoot(environment.config.stripeKey),
     SharedModule,
     FlashMessagesModule,
+    FormsModule
   ]
 })
 export class ThemeModule { }

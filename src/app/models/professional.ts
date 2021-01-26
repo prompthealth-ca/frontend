@@ -198,7 +198,7 @@ export class Professional implements IProfessional {
     this._image = (p.profileImage && p.profileImage.length > 0) ? baseURLImage + p.profileImage : '/assets/img/no-image.jpg';
     this._banner = '/assets/img/professional-banner.png';
 
-    this._roles = (typeof p.roles == 'string') ? [p.roles] : p.roles;
+    this._roles = (typeof p.roles === 'string') ? [p.roles] : p.roles;
     this._practicePhilosophy = p.product_description;
 
     let phone: string;
@@ -208,7 +208,7 @@ export class Professional implements IProfessional {
     this._ratingAvg = Number(p.ratingAvg);
     this._reviews = p.ratingBy || [];
 
-    const priceRange: string[] = p.price_per_hours.replace('$', '').split('-');
+    const priceRange: string[] = p.price_per_hours ? p.price_per_hours.replace('$', '').split('-') : [];
     priceRange.forEach((price, i) => {
       const p = Number(price.trim());
       if (p > 0) { this._priceRange.push(p); }

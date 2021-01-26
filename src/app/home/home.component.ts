@@ -189,10 +189,10 @@ export class HomeComponent implements OnInit {
 
     this.getHomePageFeatures();
     this.timer();
-    // this.id = setInterval(() => {
-    //   this.timer();
-    //   this.currentKeyIndex = (this.currentKeyIndex + 1) % 9;
-    // }, 10000);
+    this.id = setInterval(() => {
+      this.timer();
+      this.currentKeyIndex = (this.currentKeyIndex + 1) % 9;
+    }, 10000);
   }
 
   async getHomePageFeatures() {

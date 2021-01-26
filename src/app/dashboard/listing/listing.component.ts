@@ -394,7 +394,7 @@ export class ListingComponent implements OnInit {
   }
 
   listing(filter, showLoader: boolean = true) {
-    if (filter.latLong == 'null, null') {
+    if (filter.latLong === 'null, null') {
       filter.latLong = '';
     }
     if (showLoader) { this._sharedService.loader('show'); }
@@ -795,13 +795,13 @@ export class ListingComponent implements OnInit {
 
     const rectF = filter.getBoundingClientRect();
 
-    let style: { top: string, left: string, width: string } = null;
+    let dropdownStyle: { top: string, left: string, width: string } = null;
     if (dropdownWidth + 30 <= window.innerWidth) {
       const centerF = rectF.left + rectF.width / 2;
       const leftD = centerF - dropdownWidth / 2;
       const rightD = centerF + dropdownWidth / 2;
-      if (leftD >= 15 && rightD <= window.innerWidth - 15) { style = { top: Math.floor(rectF.bottom + 20) + 'px', left: Math.floor(leftD) + 'px', width: dropdownWidth + 'px' }; } else if (leftD < 15) { style = { top: Math.floor(rectF.bottom + 20) + 'px', left: '15px', width: dropdownWidth + 'px' }; } else { style = { top: Math.floor(rectF.bottom + 20) + 'px', left: (window.innerWidth - 15 - dropdownWidth) + 'px', width: dropdownWidth + 'px' }; }
-      return style;
+      if (leftD >= 15 && rightD <= window.innerWidth - 15) { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: Math.floor(leftD) + 'px', width: dropdownWidth + 'px' }; } else if (leftD < 15) { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: '15px', width: dropdownWidth + 'px' }; } else { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: (window.innerWidth - 15 - dropdownWidth) + 'px', width: dropdownWidth + 'px' }; }
+      return dropdownStyle;
     }
   }
 
@@ -828,7 +828,7 @@ export class ListingComponent implements OnInit {
         if (f.options) {
           f.options.forEach(o => {
             for (let i = 0; i < answers.length; i++) {
-              if (o._id == answers[i]) {
+              if (o._id === answers[i]) {
                 o.active = true;
                 f.active = true;
                 break;
@@ -846,7 +846,7 @@ export class ListingComponent implements OnInit {
 
     const f = this.getFilter(id);
 
-    if (f.type == 'radio') {
+    if (f.type === 'radio') {
       let val: string = null;
       let selected: QuestionnaireAnswer;
       for (let i = 0; i < f.options.length; i++) {
@@ -857,15 +857,15 @@ export class ListingComponent implements OnInit {
       f.active = val ? true : false;
       if (!val) { this.removeFilterOne(f.payloadName); } else { this.setFilterOne(val, f.payloadName); }
 
-    } else if (f.type == 'checkbox') {
+    } else if (f.type === 'checkbox') {
       const vals: string[] = [];
       f.options.forEach(o => { if (o.active) { vals.push(o._id); } });
 
       f.active = (vals.length > 0) ? true : false;
       if (vals.length > 0) { this.removeFilterOne(f.payloadName); } else { this.setFilterOne(vals, f.payloadName); }
-    } else if (f.type == 'slider') {
+    } else if (f.type === 'slider') {
       this.setFilterOne(f.range.current, f.payloadName);
-      f.active = (f.range.current != f.range.default);
+      f.active = (f.range.current !== f.range.default);
     }
     this.listing(this.listingPayload);
   }
@@ -887,12 +887,12 @@ export class ListingComponent implements OnInit {
     this.professionals.forEach((p, i) => {
       prosInPage.push(p);
 
-      if (prosInPage.length == this.pages.itemsPerPage) {
+      if (prosInPage.length === this.pages.itemsPerPage) {
         pages.push(prosInPage);
         prosInPage = [];
       }
 
-      if (i == this.professionals.length - 1) { pages.push(prosInPage); }
+      if (i === this.professionals.length - 1) { pages.push(prosInPage); }
 
     });
     this.pages.data = pages;

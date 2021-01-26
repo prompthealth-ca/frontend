@@ -68,7 +68,7 @@
 
 
     <!-- menu for medium view or more-->
-    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList && categoryList.length>0" [@fade]>
+    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && catService.categoryList && catService.categoryList.length>0" [@fade]>
       <div class="close-menu-full" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner position-relative">
@@ -157,13 +157,13 @@
       </button>
       Category
     </li>
-    <li *ngFor="let cat of categoryList; let i = index">
+    <li *ngFor="let cat of catService.categoryList; let i = index">
       <span (click)="changeMenuCategory(i); scrollMenuSm(2)">{{cat.item_text}}</span>
     </li>
   </ul>
 
   <ul class="menu-item sub"
-    *ngIf="categoryList && categoryList.length > 0"
+    *ngIf="catService.categoryList && catService.categoryList.length > 0"
     [ngClass]="{before: (levelMenuSm > 2), after: (levelMenuSm < 2)}"
   >
     <li class="menu-subtitle font-weight-bold d-flex align-items-center">

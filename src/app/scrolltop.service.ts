@@ -11,22 +11,21 @@ export class ScrollTopService {
     private router: Router) {
   }
 
-  private isInitial: boolean = true; 
+  private isInitial = true;
 
   setScrollTop() {
     if (isPlatformBrowser(this.platformId)) {
       this.router.events.subscribe((event: NavigationEnd) => {
-        if(event instanceof ActivationStart){ this.isInitial = false; }
-        
-        if(event instanceof NavigationEnd && event.url.match(/#addon/)){
-          if(event.url.match(/#addon/)){
-            var timer = this.isInitial? 1000 : 400;
-            setTimeout(()=>{
-              var el = document.querySelector('#addon');
-              window.scrollBy(0, el.getBoundingClientRect().top - 100)
-            }, timer)  
-          }
-          else{ window.scroll(0, 0); }  
+        if (event instanceof ActivationStart) { this.isInitial = false; }
+
+        if (event instanceof NavigationEnd && event.url.match(/#addon/)) {
+          if (event.url.match(/#addon/)) {
+            const timer = this.isInitial ? 1000 : 400;
+            setTimeout(() => {
+              const el = document.querySelector('#addon');
+              window.scrollBy(0, el.getBoundingClientRect().top - 100);
+            }, timer);
+          } else { window.scroll(0, 0); }
         }
       });
     }

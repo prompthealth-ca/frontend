@@ -9,11 +9,11 @@
   </div>
 </div>
 
-<div class="menu text-left font-weight-normal blur"
+<div class="menu text-left font-weight-normal"
   *ngIf="ui == 'menu'"
   [ngStyle]="styleMenu"
 >
-  <div class="menu-header d-flex align-item-center"
+  <div class="menu-header d-flex align-item-center blur-blue text-white"
     [ngStyle]="styleHeader"
   >
     <img class="user-image" [src]="getImage()" alt="user avator">
@@ -23,7 +23,7 @@
     </div>  
   </div>
 
-  <div class="menu-body"
+  <div class="menu-body blur"
     [ngStyle]="styleBody"
   >
     <div>

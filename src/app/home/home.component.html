@@ -5,7 +5,7 @@
   </agm-map>
   <div class="container">
     <div class="row pt-3" style="min-height: 50rem;">
-      <div class="col-lg-5 col-md-12 order-2 order-lg-0 align-self-end">
+      <div class="col-lg-5 col-md-6 order-2 order-md-0 align-self-end">
         <img src="assets/img/holdphone.png" class="img-fluid" />
       </div>
       <div class="col-12 col-md-6 col-lg-7 mb-3 mb-lg-0 align-self-center pl-lg-5 mt-4 mt-md-0">
@@ -26,7 +26,7 @@
                 Match</button>
             </div>
             <div class="col-md-5 mb-3">
-              <a class="btn btn-home w-100 h-100" (click)="showMenu()">Find By Location</a>
+              <a class="btn btn-home w-100 h-100" (click)="showMenu()">Find By Category</a>
               <!-- <input
                   id="address"
                   name="address"
@@ -123,7 +123,7 @@
 <get-featured-tab></get-featured-tab>
 <!-- 'background': 'linear-gradient(180deg, #3377C5 0%, rgba(255, 255, 255, 0) 100%), url(' + introBannerItems[currentIntroIndex].bgImg + ') no-repeat 50%', -->
 <section class="bg-gradient py-5 recBackground" style="min-height: 50vh;" [ngStyle]="{
-  'background': 'url(' + introBannerItems[currentIntroIndex].bgImg + ') no-repeat 50%',
+  'background': 'url(' + introBannerItems[allIntroBannerKeys[currentKeyIndex]].bgImg + ') no-repeat 50%',
   'transition': 'background-image 600ms ease-in-out 0s'
 }" id="introsection">
   <div class="position-absolute background-gradient"></div>
@@ -140,11 +140,11 @@
 
     <div class="intro-content-area">
       <div class="tab-row">
-        <span *ngFor="let item of this.introBannerItems; let i = index">
-          <input [(ngModel)]="currentIntroIndex" class="switch-tab switch" id="{{item.name}}" name="introbanner"
-            type="radio" [value]="i" />
-          <label class="tab" for="{{item.name}}">
-            <img src="{{item.thumbnail}}" alt="{{item.title+': '+item.description}}"
+        <span *ngFor="let item of this.introBannerItems | keyvalue: keepOriginalOrder">
+          <input [ngModel]="allIntroBannerKeys[currentKeyIndex]" (change)="switchTab(item.key)" class="switch-tab switch" id="{{item.value.name}}" name="introbanner"
+            type="radio" [value]="item.key" />
+          <label class="tab" for="{{item.value.name}}">
+            <img src="{{item.value.thumbnail}}" alt="{{item.value.title+': '+item.value.description}}"
               class="img-thumbnail rounded intro-thumbnail">
           </label>
         </span>
@@ -154,38 +154,34 @@
         <div class="row">
           <div class="col-12 col-md-6 p-5" style="min-height: 30vh;">
             <h3 class="text-gradient">
-              {{this.introBannerItems[currentIntroIndex].title}}
+              {{this.introBannerItems[allIntroBannerKeys[currentKeyIndex]].title}}
             </h3>
             <p class="font-weight-bold about-us-body-font">
-              {{this.introBannerItems[currentIntroIndex].description}}
+              {{this.introBannerItems[allIntroBannerKeys[currentKeyIndex]].description}}
             </p>
           </div>
           <div class="col-12 col-md-6 p-5">
             <h4 class="text-primary">You might like</h4>
             <div class="featured row">
-              <div class="col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
+              <!-- <div *ngIf="item.value.features.length>0">
+
               </div>
-              <div class="col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
+              <ng-template>
+
+              </ng-template> -->
+              <div class="col-6 col-md-3" *ngFor="let feature of this.introBannerItems[allIntroBannerKeys[currentKeyIndex]].features">
+                <a [routerLink]="['/dashboard/detail/', feature.userId._id]">
+                  <img [src]="feature.userId.profileImage ? AWS_S3 + feature.userId.profileImage : 'assets/img/default_user.jpg'" class="w-100" />
+                  <div class="text-center mt-1 text-dark">
+                    {{feature.userId.firstName}} {{feature.userId.lastName}}
+                  </div>
+                </a>
               </div>
-              <div class="col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
-              </div>
-              <div class="col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
-              </div>
-              <div class="d-none d-md-block col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
-              </div>
-              <div class="d-none d-md-block col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
-              </div>
-              <div class="d-none d-md-block col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
-              </div>
-              <div class="d-none d-md-block col-6 col-md-3">
-                <img src="assets/img/logo2.png" class="w-100" />
+              
+              <div *ngIf="this.introBannerItems[allIntroBannerKeys[currentKeyIndex]].features.length===0" >
+                <div class="col-6 col-md-3" [routerLink]="['/subscriptionplan']">
+                  <img src="assets/img/get-featured.png" class="w-100" />
+                </div>
               </div>
             </div>
           </div>

@@ -32,6 +32,8 @@ import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-inter
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
 import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';
 import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
@@ -53,6 +55,7 @@ import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-d
     UserQuestionaireComponent,
     QuestionnaireItemSelectComponent,
     QuestionnaireItemCheckboxComponent,
+    AddonSelectCategoryComponent,
     FilterDropdownComponent,
     FilterDropdownSelectComponent,
     FilterDropdownSliderComponent,
@@ -75,7 +78,8 @@ import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-d
     NgxStripeModule.forRoot(environment.config.stripeKey),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
-    NpnSliderModule,
+    NgbModalModule,
+    NpnSliderModule
   ]
 })
 export class DashboardModule { }

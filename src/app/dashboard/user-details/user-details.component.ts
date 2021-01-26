@@ -23,7 +23,6 @@ export class UserDetailsComponent {
   roles = ''
   private geoCoder;
   defaultImage = '';
-  imageBaseURL = 'https://api.prompthealth.ca/users/';
 
   public userDetails = {
     firstName: '',
@@ -77,6 +76,8 @@ export class UserDetailsComponent {
   public response: any;
   private imageSrc: string = '';
   imageSrc1: any;
+
+  public AWS_S3 = environment.config.AWS_S3
 
   @Output() ActiveNextTab = new EventEmitter<string>();
 

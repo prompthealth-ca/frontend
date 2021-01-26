@@ -1,9 +1,10 @@
+import { environment } from 'src/environments/environment';
 import { QuestionnaireAnswer } from '../dashboard/questionnaire.service';
 
 export interface IProfessional {
   id: string;
 
-  //general info
+  // general info
   name: string;  // firstname + lastname
   firstname: string;
   image: string;
@@ -14,19 +15,19 @@ export interface IProfessional {
   isCentre: boolean;
   provideVirtual: boolean;
 
-  //used in listingComponent
+  // used in listingComponent
   price: string;
   location: number[]; // geo location
   distance: number;
   mapLabel: string;
   isCheckedForCompare: boolean;
 
-  //used in detailComponent
+  // used in detailComponent
   reviews: any[];
   yearsOfExperience: string;
   languages: string;
   videos: Video[];
-  endosements: any[]
+  endosements: any[];
   banner: string;
   practicePhilosophy: string;
   ageRange: string;
@@ -44,27 +45,27 @@ export interface IProfessional {
 }
 
 /**
- * Professional data 
- * fetched from api {user/filter} 
+ * Professional data
+ * fetched from api {user/filter}
  * used in ListingComponent / detailComponent
 */
-export class Professional implements IProfessional{
+export class Professional implements IProfessional {
   private _rowUserData: any; /** for compatibility with old UI */
   private _rowAns: any;  /** for compatibility with old UI */
-  get dataComparable(): any{
-    var serviceType = [], serviceOffering = [];
-    this._service.forEach(c=>{ serviceType.push(c.item_text); });
-    this._serviceDelivery.forEach(c=>{ serviceOffering.push(c.item_text); });
-    
+  get dataComparable(): any {
+    const serviceType = [], serviceOffering = [];
+    this._service.forEach(c => { serviceType.push(c.item_text); });
+    this._serviceDelivery.forEach(c => { serviceOffering.push(c.item_text); });
+
     return {
-      userId: this._id, 
-      userData: this._rowUserData, 
+      userId: this._id,
+      userData: this._rowUserData,
       ans: this._rowAns,
       serviceData: this._typeOfProvider,
       treatmentModalities: this._treatmentModality,
-      serviceType: serviceType,
-      serviceOffering: serviceOffering
-    }; 
+      serviceType,
+      serviceOffering
+    };
   } /** for compatibility with old compare page */
 
   private _id: string;
@@ -82,7 +83,7 @@ export class Professional implements IProfessional{
   private _location: number[];
   private _distance: number;
   private _provideVirtual: boolean;
-  private _videos: Video[]; 
+  private _videos: Video[];
   private _yearsOfExperience: string;
   private _practicePhilosophy: string;
   private _organization: string;
@@ -90,16 +91,16 @@ export class Professional implements IProfessional{
   private _professionals: Professional[] = [];
   private _amenities: Amenity[];
 
-  private _isCheckedForCompared: boolean = false;;
+  private _isCheckedForCompared = false;;
 
   private _languagesId: string[] = [];
   private _ageRangeId: string[] = [];
   private _availabilityId: string[] = [];
   private _serviceDeliveryId: string[] = [];
 
-  private _languages: {id: string, item_text: string}[] = [];
-  private _ageRange: {id: string, item_text: string}[] = [];
-  private _availability: {id: string, item_text: string}[] = [];
+  private _languages: { id: string, item_text: string }[] = [];
+  private _ageRange: { id: string, item_text: string }[] = [];
+  private _availability: { id: string, item_text: string }[] = [];
 
   private _typeOfProvider: ServiceCategory[] = [];   /** homeopath / dentist / neuropsychologist */
   private _treatmentModality: ServiceCategory[] = []; /** laser treatments / tai chi */
@@ -134,15 +135,15 @@ export class Professional implements IProfessional{
     this._languages.forEach(l=>{ languages.push(l.item_text); });
     return languages.join(', ');
   }
-  get ageRange(){
-    var ageRange = [];
-    this._ageRange.forEach(a=>{ ageRange.push(a.item_text); }) 
-    return ageRange.join(", "); 
+  get ageRange() {
+    const ageRange = [];
+    this._ageRange.forEach(a => { ageRange.push(a.item_text); });
+    return ageRange.join(', ');
   }
-  get availability(){
-    var availability = [];
-    this._availability.forEach(a=>{ availability.push(a.item_text); }) 
-    return availability.join(", "); 
+  get availability() {
+    const availability = [];
+    this._availability.forEach(a => { availability.push(a.item_text); });
+    return availability.join(', ');
   }
   get isCentre(){ return !!(this.role.toLocaleLowerCase().match(/c/)); }
   get mapLabel(){ return (this.price? this.price : 'No Price'); }
@@ -181,12 +182,12 @@ export class Professional implements IProfessional{
     return result;
   }
 
-  get isCheckedForCompare(){ return this._isCheckedForCompared; }
-  set isCheckedForCompare(checked: boolean){ this._isCheckedForCompared = checked; } 
-  uncheckForCompare(){ this._isCheckedForCompared = false; }
+  get isCheckedForCompare() { return this._isCheckedForCompared; }
+  set isCheckedForCompare(checked: boolean) { this._isCheckedForCompared = checked; }
+  uncheckForCompare() { this._isCheckedForCompared = false; }
 
-  constructor(id: string, p: any, ans?: any){
-    var baseURLImage = 'https://api.prompthealth.ca/users/';
+  constructor(id: string, p: any, ans?: any) {
+    const baseURLImage = environment.config.AWS_S3;
     this._id = id;
     this._rowUserData = p;
     this._rowAns = ans;
@@ -206,11 +207,8 @@ export class Professional implements IProfessional{
     this._description = p.description || null;
     this._practicePhilosophy = p.product_description || null;
 
-    var phone: string;
-    if(!p.phone){ phone = null; }
-    else if(p.phone.length == 0 ){ phone = null; }
-    else if(p.phone.length == 10){ phone = `(${p.phone.slice(0,3)}) ${p.phone.slice(3,6)}-${p.phone.slice(6)}`; }
-    else { phone = p.phone; }
+    let phone: string;
+    if (!p.phone) { phone = null; } else if (p.phone.length == 0) { phone = null; } else if (p.phone.length == 10) { phone = `(${p.phone.slice(0, 3)}) ${p.phone.slice(3, 6)}-${p.phone.slice(6)}`; } else { phone = p.phone; }
     this._phone = phone;
 
     this._ratingAvg = p.ratingAvg? Number(p.ratingAvg) : 0;
@@ -240,13 +238,13 @@ export class Professional implements IProfessional{
     this._certification = p.certification || null;
   }
 
-  populate(type: 'languages' | 'availability' | 'ageRange' | 'serviceDelivery', dataSet: QuestionnaireAnswer[]){
-    this['_' + type] = []
-    dataSet.forEach(a=>{
-      for(var i=0; i<this['_' + type + 'Id'].length; i++){
-        var id = this['_' + type + 'Id'][i];
-        if(id == a._id){
-          this['_' + type].push({id: id, item_text: a.item_text});
+  populate(type: 'languages' | 'availability' | 'ageRange' | 'serviceDelivery', dataSet: QuestionnaireAnswer[]) {
+    this['_' + type] = [];
+    dataSet.forEach(a => {
+      for (let i = 0; i < this['_' + type + 'Id'].length; i++) {
+        const id = this['_' + type + 'Id'][i];
+        if (id == a._id) {
+          this['_' + type].push({ id, item_text: a.item_text });
           break;
         }
       }
@@ -278,7 +276,7 @@ export class Professional implements IProfessional{
   }
 }
 
-type ServiceCategory = {
+interface ServiceCategory {
   item_text: string;
   id?: string;
   slug?: string;
@@ -287,9 +285,9 @@ type ServiceCategory = {
   subAnsId?: boolean;
 }
 
-type Video = {
-  _id: string,
-  title: string,
+interface Video {
+  _id: string;
+  title: string;
   url: string;
 }
 

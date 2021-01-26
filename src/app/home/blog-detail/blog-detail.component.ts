@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog-detail',
@@ -17,6 +18,7 @@ export class BlogDetailComponent implements OnInit {
   id = '';
   socialShare: boolean = false;
   socialSharing: any;
+  public AWS_S3='';
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -34,6 +36,7 @@ export class BlogDetailComponent implements OnInit {
     });
     this.getBlog()
     this.getAllCategories();
+    this.AWS_S3 = environment.config.AWS_S3
   }
 
   changeSocialLink(value) {

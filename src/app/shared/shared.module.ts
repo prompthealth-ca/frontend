@@ -15,6 +15,7 @@ import { PostDummyComponent } from './post-dummy/post-dummy.component';
 import { FocusDirective } from './focus.directive';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { ScrollDetectorDirective } from './scroll-detector.directive';
+import { SocialButtonsComponent } from './social-buttons/social-buttons.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { ScrollDetectorDirective } from './scroll-detector.directive';
     FocusDirective,
     ClickOutsideDirective,
     ScrollDetectorDirective,
+    SocialButtonsComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -49,6 +51,7 @@ import { ScrollDetectorDirective } from './scroll-detector.directive';
     FocusDirective,
     ClickOutsideDirective,
     ScrollDetectorDirective,
+    SocialButtonsComponent,
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,23 @@
+ul li:not(:last-child){ 
+  margin-right: 15px;
+  @media screen and (min-width: 768px){ margin-right: 20px; }
+}
+
+.icon-sns{
+  flex: 0 0 40px;
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+  background: grey;
+  overflow: hidden;
+  border-radius: 40px;
+
+  &:first-child{  background: #5d68e1; } 
+  &:nth-child(2){ background: #7e65c0; }
+  &:nth-child(3){ background: #9f639f; }
+  &:nth-child(4){ background: #c0607e; }
+  &:nth-child(5){ background: #e15d5d; }  
+
+  img{ width: 40px; }
+}

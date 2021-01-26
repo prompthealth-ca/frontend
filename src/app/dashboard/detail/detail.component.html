@@ -9,7 +9,10 @@
     >
       <div class="d-flex align-items-start title-wrapper">
         <i class="fas fa-clinic-medical pr-2" *ngIf="userInfo?.isCentre"></i>
-        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden ' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">{{userInfo?.name}}</h3>  
+        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden ' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">
+          {{userInfo?.name}}
+        <i class="fas fa-video px-1" *ngIf="userInfo && userInfo.provideVirtual"></i>
+      </h3>  
       </div>
       <!-- <p class="mt-1 mt-md-0 ml-md-3 mb-0  overflow-hidden" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">summary here. if it's too long. you can see only 3 lines. </p> -->
     </div>
@@ -40,8 +43,8 @@
 <section class="container-fluid bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 1">
   <div class="max-w-1200">
     <div class='my-5'>
-      <star-rate [rate]="(userInfo? userInfo.rating : 0)" margin='big'></star-rate>
-      <span class='text-blue pl-4'>{{(userInfo && userInfo.reviews.length > 0)? userInfo.reviews.length : 'No review yet'}}</span>
+      <star-rate [rate]="((userInfo)? userInfo.rating : 0)" margin='big'></star-rate>
+      <span class='text-blue pl-4'>{{(userInfo && userInfo.reviews.length > 0)? ('(' + userInfo.reviews.length + ')') : 'No review yet'}}</span>
     </div>
     <div *ngIf="userInfo && userInfo.reviews.length > 0">
       <div class="my-5">
@@ -88,73 +91,101 @@
       <div class="col-md-6 col-lg-7">
   
         <!-- basic section -->
-        <div class="row mb-5">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue ">Practice Philosophy:</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.practicePhilosophy}}</p>
+        <div class="row mb-5" *ngIf="userInfo && userInfo.practicePhilosophy">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Practice Philosophy:</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.practicePhilosophy}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Specialty Age Group</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.ageRange}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Specialty Age Group</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.ageRange}}</p>
         </div>
         <div class="row mb-5" *ngIf="!userInfo?.isCentre">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Professional organization</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.organization}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Professional organization</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.organization}}</p>
         </div>
         <div class="row mb-5" *ngIf="!userInfo?.isCentre">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Certification</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.certification}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Certification</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.certification}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Language</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.languages}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Language</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.languages}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Years Of Experience</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.yearsOfExperience}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Years Of Experience</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.yearsOfExperience}}</p>
         </div>
   
         <!-- blue section -->
         <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Type of Provider:</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.typeOfProvider}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Type of Provider:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.typeOfProvider">{{item}}</li>
+          </ul>
         </div>
         <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Treatment Modalities: </div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.treatmentModality}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Treatment Modalities: </div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.treatmentModality">{{item}}</li>
+          </ul>
         </div>
         <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Service Delivery:</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.serviceDelivery}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Service Delivery:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.serviceDelivery">{{item}}</li>
+          </ul>
+          <p class="font-small" *ngIf="userInfo?.provideVirtual">**Virtual/Online services may not be available to all locations. Please inquire the service provider for confirmation.</p>
+        </div>
+        <div class="row bg-lightblue pt-5 pb-0" *ngIf="userInfo?.amenity && userInfo?.amenity.length>0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenities: </div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.amenity">{{item}}</li>
+          </ul>
+
         </div>
         <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Services:</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.service}}</p>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Services:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.service">{{item}}</li>
+          </ul>
         </div>
         <!-- <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="userInfo?.isCentre">
-          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Product:</div>
-          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.product}}</p>
+          <div class="col-12 col-lg-4 mb-2 mb-lg-0 text-blue">Product:</div>
+          <p class="col-12 col-lg-8 mb-0">{{userInfo?.product}}</p>
         </div> -->
         <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
   
         <!-- professionals at centre-->
         <div *ngIf="userInfo?.isCentre">
-          <div class="row bg-grey rounded-top pt-4 pb-0 mt-5 justify-content-start justify-content-md-between align-items-center">
-            <div class="col-12 col-md-8 mb-3 mb-md-0 text-blue font-big font-md-bigger">Meet our professionals</div>
-            <div class="col-12 col-md-4 text-md-right">
+          <div class="row bg-grey rounded-top py-4 mt-5 justify-content-start justify-content-md-between align-items-center">
+            <div class="col text-blue font-big font-md-bigger">Meet our professionals</div>
+          </div>
+          <ul class='list-unstyled row text-center bg-grey py-4 mb-0'>
+            <li class='col-12 col-md-6 mb-5' *ngFor="let pro of userInfo.professionals; let i = index;">
+              <img class="professional-image rounded-circle overflow-hidden" 
+              [src]="pro.image" 
+              [alt]="pro.name"
+              >
+
+              <h6 class="font-smallest mb-3 professional-name">{{pro.name}}</h6>
+              <p class="professional-desc" [ngClass]="{clamp: !isExpandProfessionals}">{{pro.description}}</p> 
+              <button class="btn" style="color: inherit;" (click)="toggleExpandProfessionalDesc()">
+                <span *ngIf="!isExpandProfessionals">- show more -</span>
+                <span *ngIf="isExpandProfessionals">- show less -</span>
+              </button> 
+            </li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
+          </ul>
+          <div class="bg-grey row pb-4 rounded-bottom mb-5">
+            <div class="col text-center">
               <button class="btn border-blue text-blue"
-                *ngIf="userInfo && userInfo.professionals && userInfo.professionals.length > 0"
-                type="button"
-                (click)="filterProfessionals()"
-              >Explore all</button>
+              *ngIf="userInfo && userInfo.professionals && userInfo.professionals.length > 0 && isProfessionalsMoreExist"
+              type="button"
+              (click)="getProfessionals()"
+              >Explore More</button>  
             </div>
           </div>
-          <ul class='list-unstyled row text-center bg-grey py-4 rounded-bottom'>
-            <li class='col-12 col-md-6 col-lg-4 mb-4' *ngFor="let pro of professionalsFiltered; let i = index;">
-              <div class="professional-image rounded-circle overflow-hidden"></div>
-              <h6 class="font-smallest mb-4">{{pro.name}}</h6>
-              <p>{{pro.desc}}</p>  
-            </li>
-          </ul>  
         </div>
       </div>
   
@@ -219,12 +250,13 @@
         </div>
       
         <!-- endosements -->
-        <!-- <div class="rounded shadow pb-3 overflow-hidden mb-5">
+        <div class="rounded shadow overflow-hidden mb-5">
           <div class="card-title font-big font-md-regular text-center m-0">Endosement</div>
-          <post-dummy *ngIf="!endosements"></post-dummy>
-          
+          <div class="px-3 py-5 font-italic coming-soon-gradient font-bigger font-weight-bold">Coming soon...</div>
+
+          <!-- <post-dummy *ngIf="!userInfo ||!userInfo.endosements"></post-dummy>
           <div class="px-3">
-            <div class="endosement-wrapper py-4" *ngFor="let endosement of endosements;">
+            <div class="endosement-wrapper py-4" *ngFor="let endosement of userInfo?.endosements;">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <p class="font-weight-bold m-0">
                   {{endosement.name}}
@@ -239,8 +271,8 @@
           </div>
           <div class="text-center my-3">
             <button class="btn text-blue border-blue">Load more</button>
-          </div>
-        </div> -->
+          </div> -->
+        </div>
       </div>
     </div>
   </div>

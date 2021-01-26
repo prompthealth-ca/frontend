@@ -612,6 +612,13 @@ textarea.form-control {
   height: 1px; 
 }
 
+.coming-soon-gradient{
+  background: linear-gradient(45deg, #5D7DC1, rgba(70, 131, 204, 0.22));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 // npn-handle{
 //   .filler{}

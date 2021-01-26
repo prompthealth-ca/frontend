@@ -56,6 +56,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   public lat: number; /** todo: if not needed, delete */
   public long: number; /** todo: if not needed, delete */
 
+  public isVirtual = false;
   public mapdata: { lat: number, lng: number, zoom: number } = { lat: 53.89, lng: -111.25, zoom: 3 };
   public isFinderSticked = false;
   public isMapView = false;
@@ -196,6 +197,19 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   private timerListing: any;
 
+  get listingContainerClass() {
+    let c = '';
+    if (!this.isVirtual) {
+      if (this.isMapView) { c = 'd-none'; } else if (this.isMapSizeBig) { c = 'col-md-6 col-lg-3'; } else { c = 'col-md-6 col-lg-9'; }
+    }
+    return c;
+  }
+
+  get listingItemClass() {
+    let c = '';
+    if (this.isVirtual) { c = 'col-md-6 col-lg-3'; } else if (!this.isMapSizeBig) { c = 'col-lg-4'; }
+    return c;
+  }
 
   ngOnDestroy() {
     localStorage.removeItem('typical_hours');
@@ -225,7 +239,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
 
     this.route.queryParams.subscribe(queryParams => {
-
+      this.isVirtual = (queryParams.virtual == 'true') ? true : false;
       this.id = queryParams.id;
       this.type = queryParams.type;
       this.keyword = queryParams.keyword;
@@ -403,6 +417,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     if (filter.latLong === 'null, null') {
       filter.latLong = '';
     }
+    if (this.isVirtual) { filter.virtual = true; }
     if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -796,20 +811,23 @@ export class ListingComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.filters.length; i++) {
       if (this.filters[i]._id == this.filterTarget._id) { idxCurrentFilter = i; break; }
     }
-    const filters = this.host.querySelectorAll('.filters li button');
-    const filter = (filters) ? filters[idxCurrentFilter] : null;
+    let filters = this.host.querySelectorAll('.filters li button');
+    let filter = (filters) ? filters[idxCurrentFilter] : null;
     if (!filter) { return; }
 
-    const rectF = filter.getBoundingClientRect();
+    let rectF = filter.getBoundingClientRect();
 
-    let dropdownStyle: { top: string, left: string, width: string } = null;
+    let style: { top: string, left?: string, width?: string } = { top: Math.floor(rectF.bottom + 20) + 'px' };
     if (dropdownWidth + 30 <= window.innerWidth) {
-      const centerF = rectF.left + rectF.width / 2;
-      const leftD = centerF - dropdownWidth / 2;
-      const rightD = centerF + dropdownWidth / 2;
-      if (leftD >= 15 && rightD <= window.innerWidth - 15) { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: Math.floor(leftD) + 'px', width: dropdownWidth + 'px' }; } else if (leftD < 15) { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: '15px', width: dropdownWidth + 'px' }; } else { dropdownStyle = { top: Math.floor(rectF.bottom + 20) + 'px', left: (window.innerWidth - 15 - dropdownWidth) + 'px', width: dropdownWidth + 'px' }; }
-      return dropdownStyle;
+      style.width = dropdownWidth + 'px';
+
+      let centerF = rectF.left + rectF.width / 2;
+      let leftD = centerF - dropdownWidth / 2;
+      let rightD = centerF + dropdownWidth / 2;
+
+      if (leftD >= 15 && rightD <= window.innerWidth - 15) { style.left = Math.floor(leftD) + 'px'; } else if (leftD < 15) { style.left = '15px'; } else { style.left = (window.innerWidth - 15 - dropdownWidth) + 'px'; }
     }
+    return style;
   }
 
   /** determine which filter menu will be shown up or hide filter menu */

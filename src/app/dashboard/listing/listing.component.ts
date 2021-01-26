@@ -57,7 +57,10 @@ export class ListingComponent implements OnInit, OnDestroy {
   public long: number; /** todo: if not needed, delete */
 
   public isVirtual = false;
+
   public mapdata: { lat: number, lng: number, zoom: number } = { lat: 53.89, lng: -111.25, zoom: 3 };
+  public searchCenter: { lat: number, lng: number, radius: number} = {lat: 53.89, lng: -111.25, radius: 0 };
+
   public isFinderSticked = false;
   public isMapView = false;
   public isMapSizeBig = false;
@@ -69,60 +72,19 @@ export class ListingComponent implements OnInit, OnDestroy {
     itemsPerPage: 12,
     data: null
   };
-
+  public compareList = [];
 
   private geoCoder;
   keyword = '';
-  serviceQuestion; /** todo: can be deleted. */
-  languageQuestion; /** todo: can be deleted. */
-  avalibilityQuestion; /** todo: can be deleted. */
   currentAddress = '';
   loggedInUser;
   loggedInRole;
   id;
 
   private sub: any;
-  doctorsListing: any = []; /** can be deleted (change to professionals) */
   allDoctorList = []; /**todo: can be deleted because new ui doesn't have feature to search by doctor name */
-  compareList = [];
   typical_hours = [];
   type = 'Goal';
-
-  ageRangeList = [
-    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
-    { id: '5eb1a4e199957471610e6cd8', name: 'Child (<12)', checked: false },
-    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent (12-18)', checked: false },
-    { id: '5eb1a4e199957471610e6cda', name: 'Adult (18+)', checked: false },
-    { id: '5eb1a4e199957471610e6cdb', name: 'Senior (>64)', checked: false },
-  ]; /** todo: can be deleted. */
-  ratingsOption = [
-    {
-      _id: 0,
-      item_text: 'All'
-    },
-    {
-      _id: 5,
-      item_text: '5 Stars'
-    },
-    {
-      _id: 4,
-      item_text: '4 Stars'
-    },
-    {
-      _id: 3,
-      item_text: '3 Stars'
-    }
-  ]; /** todo: can be deleted. */
-  priceList = [
-    { value: '', name: 'Not Critical' },
-    { value: '< $50', name: '$ < 50' },
-    { value: '$50-100', name: '$ 50-100' },
-    { value: '$100-200', name: '$ 100-200' },
-    { value: '$200-500', name: '$ 200-500' },
-    { value: '$500-1000', name: '$ 500-1000' },
-    { value: '$1000', name: '$ > 1000' },
-  ];
-
 
   queryLatLong;
   serviceData;
@@ -130,8 +92,6 @@ export class ListingComponent implements OnInit, OnDestroy {
   serviceType;
   serviceOffering;
   categoryList;
-
-  totalItems; /** todo: can be deleted because it's not used anywhere */
 
   public listingPayload = {
     ids: [],
@@ -150,6 +110,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     typical_hours: [],
     keyword: ''
   };
+
 
   public filters: Filter[] = [
     { _id: 'distance', item_text: 'distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
@@ -194,7 +155,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
 
   private host: HTMLElement;
-
   private timerListing: any;
 
   get listingContainerClass() {
@@ -222,20 +182,20 @@ export class ListingComponent implements OnInit, OnDestroy {
     const personalMatch = this._sharedService.getPersonalMatch();
 
     /** init mapdata */
-    let lat: number, lng: number;
-    if (personalMatch && !personalMatch.latLong.match(/null/)) {
-      const latLong = personalMatch.latLong.split(',');
-      lat = Number(latLong[0].trim());
-      lng = Number(latLong[1].trim());
-    } else {
-      const latStr = localStorage.getItem('ipLat');
-      const lngStr = localStorage.getItem('ipLong');
-      if (latStr && lngStr) {
-        lat = Number(latStr);
-        lng = Number(lngStr);
-      }
-    }
-    if (lat && lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
+    // let lat: number, lng: number;
+    // if (personalMatch && !personalMatch.latLong.match(/null/)) {
+    //   const latLong = personalMatch.latLong.split(',');
+    //   lat = Number(latLong[0].trim());
+    //   lng = Number(latLong[1].trim());
+    // } else {
+    //   const latStr = localStorage.getItem('ipLat');
+    //   const lngStr = localStorage.getItem('ipLong');
+    //   if (latStr && lngStr) {
+    //     lat = Number(latStr);
+    //     lng = Number(lngStr);
+    //   }
+    // }
+    // if (lat && lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
 
 
     this.route.queryParams.subscribe(queryParams => {
@@ -245,8 +205,6 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.keyword = queryParams.keyword;
       this.listingPayload.keyword = this.keyword;
       if (queryParams.id && queryParams.type) {
-
-
         this.loggedInUser = localStorage.getItem('loginID');
         this.loggedInRole = localStorage.getItem('roles');
         if (localStorage.getItem('typical_hours')) {
@@ -255,6 +213,14 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.listingPayload.ids = [];
         this.listingPayload.ids.push(queryParams.id);
         this.listingPayload.type = queryParams.type;
+
+        const lng = Number(this.lat? this.long : localStorage.getItem('ipLong'));
+        const lat = Number(this.long? this.lat : localStorage.getItem('ipLat'));
+        if(lat && lng){ 
+          this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000};
+          this.mapdata = {lat: lat, lng: lng, zoom: 10};
+        };
+        
         this.listing({ // this has to use this.listingPayload
           ids: this.id ? [this.id] : [],
           type: this.type,
@@ -275,10 +241,26 @@ export class ListingComponent implements OnInit, OnDestroy {
           this.listingPayload.type = personalMatch.type;
           this.listingPayload.latLong = personalMatch.latLong;
 
+          const location = personalMatch.latLong.split(',');
+          const lat = Number(location[1].trim());
+          const lng = Number(location[0].trim());
+          if(lat && lng){ 
+            this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000}
+            this.mapdata = {lat: lat, lng: lng, zoom: 10};
+          };
+
           this.setFilterByPersonalMatch();
 
           this.listing(this.listingPayload);
         } else {
+
+          const lng = Number(this.lat? this.long : localStorage.getItem('ipLong'));
+          const lat = Number(this.long? this.lat : localStorage.getItem('ipLat'));
+          if(lat && lng){ 
+            this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000}
+            this.mapdata = {lat: lat, lng: lng, zoom: 10};
+          };
+
           this.listing({
             ids: this.id ? [this.id] : [],
             type: this.listingPayload.type,
@@ -347,9 +329,18 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.mapdata.lng = data.lng;
     if (data.zoom) { this.mapdata.zoom = data.zoom; }
 
-    this.listingPayload.latLong = data.lng + ', ' + data.lat;
-    if (updateListing) { this.listing(this.listingPayload, false); }
+//    this.listingPayload.latLong = data.lng + ', ' + data.lat;
+//    if (updateListing) { this.listing(this.listingPayload, false); }
   }
+
+  searchInThisArea(){
+    this.searchCenter.lat = this.mapdata.lat;
+    this.searchCenter.lng = this.mapdata.lng;
+    this.searchCenter.radius = this.listingPayload.miles * 1000;
+    this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
+    this.listing(this.listingPayload);
+  }
+  
 
   /** get filter by id */
   getFilter(id: string): Filter {
@@ -386,11 +377,9 @@ export class ListingComponent implements OnInit, OnDestroy {
       if (res.statusCode === 200) {
         res.data.forEach((element: Questionnaire) => {
           if (element.question_type === 'service' && element.slug === 'offer-your-services') {
-            this.serviceQuestion = element; /** todo: can be deleted. */
             this.setFilterOptions('service', element);
           }
           if (element.question_type === 'service' && element.slug === 'languages-you-offer') {
-            this.languageQuestion = element; /** todo: can be deleted. */
             this.setFilterOptions('language', element);
             if (this.professionals && this.professionals.length > 0) {
               const languageSet = this.getFilter('language').options;
@@ -400,7 +389,6 @@ export class ListingComponent implements OnInit, OnDestroy {
             }
           }
           if (element.question_type === 'availability') {
-            this.avalibilityQuestion = element; /** todo: can be deleted. */
             this.setFilterOptions('availability', element);
           }
         });
@@ -422,16 +410,6 @@ export class ListingComponent implements OnInit, OnDestroy {
     const path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.doctorsListing = res.data; /**todo: can be deleted */
-        this.doctorsListing = this.doctorsListing.sort((a, b) => a.userData.calcDistance - b.userData.calcDistance); /**todo: can be deleted */
-        //        this.totalItems = this.doctorsListing.length;/**todo: can be deleted */
-        for (let i = 0; i < this.doctorsListing.length; i++) {
-          if (this.doctorsListing[i].userData.ratingAvg) {
-            this.doctorsListing[i].userData.ratingAvg = Math.floor(this.doctorsListing[i].userData.ratingAvg);
-          }
-        } // todo: can be deteled
-        this.createNameList(this.doctorsListing); // todo: can be deleted
-
         const professionals = [];
         const languageSet = this.getFilter('language').options;
 
@@ -444,9 +422,9 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.professionals = professionals;
         this.professionals = this.professionals.sort((a, b) => a.distance - b.distance);
 
-        this.filterProfessionalsByPage();
+//        this.createNameList(this.doctorsListing); // todo: can be deleted
 
-        this.totalItems = this.professionals; /** todo: can be deleted because it's not used anywhere */
+        this.filterProfessionalsByPage();
 
         this._sharedService.loader('hide');
       } else {
@@ -524,6 +502,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     }
     if (payloadName === 'miles') {
       this.listingPayload[payloadName] = (typeof val === 'string') ? Number(val) : (typeof val === 'number') ? val : 100;
+      this.searchCenter.radius = this.listingPayload.miles * 1000;
     }
     if (typeof val === 'string') {
       if (payloadName === 'rating') { this.listingPayload[payloadName] = Number(val); } else { this.listingPayload[payloadName] = val; }
@@ -787,7 +766,6 @@ export class ListingComponent implements OnInit, OnDestroy {
       const target = e.target as HTMLElement;
       if (!finder.contains(target)) {
         this.setFilterTarget(null);
-        e.preventDefault(); /** doesn't work? */
       }
     }
   }
@@ -921,7 +899,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     });
     this.pages.data = pages;
-    console.log(pages);
   }
 }
 

@@ -158,7 +158,18 @@
         [zoomControl]="false"
         (centerChange)="onChangeMapCenter($event)"
       >
+
         <!-- <agm-marker [longitude]="mapdata.lng" [latitude]="mapdata.lat"></agm-marker> -->
+        <agm-circle [radius]="searchCenter.radius" 
+        [longitude]="searchCenter.lng" 
+        [latitude]="searchCenter.lat"
+        [fillColor]="'#3377C5'"
+        [fillOpacity]="0.1"
+        [strokeColor]="'#3377C5'"
+        [strokeOpacity]="1"
+        [strokeWeight]="1"
+        ></agm-circle>
+
         <agm-marker *ngFor="let p of (pages.data? pages.data[pages.current - 1] : []); let i = index;" 
           [longitude]="p.location[0]" 
           [latitude]="p.location[1]" 
@@ -195,6 +206,8 @@
         <i *ngIf="!isMapSizeBig" class="fas fa-expand"></i>
         <i *ngIf="isMapSizeBig" class="fas fa-compress"></i>
       </button>
+
+      <button class="btn btn-search-in-this-area blur rounded" (click)="searchInThisArea()">Search in this area</button>
     </div>
   </div>
   

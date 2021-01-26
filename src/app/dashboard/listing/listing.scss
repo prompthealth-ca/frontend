@@ -112,6 +112,14 @@ $heightFinder: 112px;
   right: 5px;
 }
 
+.btn-search-in-this-area{
+  z-index: 9;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border: solid 1px white;
+}
+
 .professionals,
 .agm-info-window {
   .card{ overflow: hidden; }

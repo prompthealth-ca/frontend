@@ -123,7 +123,7 @@
                 {{p.name}}
               </p>
               <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
-              <p class="mb-1" *ngIf="!p.isCentre">{{p.organization}}</p>
+              <p class="mb-1 clamp-1line" *ngIf="!p.isCentre">{{p.organization}}</p>
               <p class="mb-1" *ngIf="p.isCentre && p.phone">{{p.phone}}</p>
               <p class="mb-3 address">{{p.address}}</p>
               <div>

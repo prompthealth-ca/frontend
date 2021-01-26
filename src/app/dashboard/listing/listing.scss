@@ -39,6 +39,14 @@ $heightFinder: 112px;
 .h-100--finder{ height: calc(100vh - #{$heightFinder}); }
 .min-h-100--finder{ min-height: calc(100vh - #{$heightFinder}); }
 
+.clamp-1line{
+  display: -webkit-box;
+  height: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 :host{ font-size: 16px; }
 
 

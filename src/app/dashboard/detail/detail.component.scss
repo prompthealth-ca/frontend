@@ -8,7 +8,6 @@
 
 .bg-lightblue{ background: rgba(128, 187, 255, 0.2);; }
 
-.bg-white{ background: white; }
 .bg-grey{ background: #F3F3F3; }
 
 .borderb-grey{ border-bottom: solid 2px #DFD9D9; }
@@ -17,46 +16,12 @@
 
 .overflow-hidden{ overflow: hidden;}
 
-.mt-6{ margin-top: 120px; }
-.font-smallest{ font-size: 0.6rem; }
-.font-smaller{ font-size: 0.8em; }
-.font-regular{ font-size: 1em }
-.font-big{ font-size: 1.2em }
-.font-bigger{ font-size: 1.4em; }
-.font-biggest{ font-size: 1.6em; }
+.mt-md-6{ @media screen and (min-width: 768px){ margin-top: 120px!important; }}
 .font-md-regular{ @media screen and (min-width: 768px){ font-size: 1em; }}
 .font-md-big{ @media screen and (min-width: 768px){ font-size: 1.2em; }}
 .font-md-bigger{ @media screen and (min-width: 768px){ font-size: 1.4em; }}
 .font-md-biggest{ @media screen and (min-width: 768px){ font-size: 1.6em; }}
 
-.sticky-header{
-  z-index: 10;
-  position: sticky;
-  top: 0;
-}
-
-.intersection-observer{ 
-  position: absolute; 
-  width: 100%; 
-  height: 1px; 
-}
-
-.row-1200-by-margin{
-  margin: 0 15px;
-
-  @media screen and (min-width: 768px){ margin: 0 30px; }
-  @media screen and (min-width: 1260px){
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
-.row-1200-by-padding{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 16px;
-  @media screen and (min-width: 768px){  padding: 0 30px; }
-  @media screen and (min-width: 1260px){ padding: 0 calc((100% - 1200px) / 2); }
-}
 
 $transDurTabStick: 600ms;
 $imageSize: 100, 120;
@@ -85,7 +50,6 @@ $imageSize: 100, 120;
 }
 
 .tabbar{
-  overflow-x: hidden;
   transition: padding $transDurTabStick;
 
   &.sticked{
@@ -97,32 +61,40 @@ $imageSize: 100, 120;
   position: absolute;
   z-index: 2;
   bottom: calc(100% + 10px);
-  width: 60%;
   transform-origin: left bottom;
-  text-shadow: 0 0 3px black;
+  text-shadow: 3px 3px 3px grey;
+  color: white;
 
-  .fa-clinic-medical { 
-    color: white;
-    vertical-align: center;
+  width: calc(100% - #{nth($imageSize, 1) + 30px});
+  @media screen and (min-width: 768px){
+    width: calc(100% - #{nth($imageSize, 2) + 30px});
   }
-  
-  h3{ 
-    color: white;
-    transition-property: color;
-    transition-duration: $transDurTabStick;
+
+  .title-wrapper{
+    flex-basis: auto;
+
+    .fa-clinic-medical { 
+      font-size: 1em;
+      margin-top: 0.34em;
+      @media screen and (min-width: 768px){ 
+        font-size: 1.1em;
+        margin-top: 0.41em; 
+      }
+    }
+    h3{ max-height: 3.6em; }  
   }
+
   p{
-    color: white;
-    transition-property: opacity;
-    transition-duration: $transDurTabStick;
+    flex: 1 0 40%;
+    max-height: 3.6em;
   }
+
   .sticked &{
     transform: translate(0, calc(100% + 12px)) scale(0.8);
     text-shadow: none;
-
-    .fa-clinic-medical,
-    h3{ color: inherit; }
-    p{ opacity: 0; }
+    color: inherit;
+    
+    /* animation for h3 height is controlled by angular animation */
   }
 }
 
@@ -197,9 +169,19 @@ $imageSize: 100, 120;
   color: white;
 }
 
-.videos{
-  background: #EBEBEB;
-  width: 100%;
+.video{
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+  }
+  
+  ::ng-deep iframe{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }  
 }
 
 .review-controller{

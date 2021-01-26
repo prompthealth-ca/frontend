@@ -1,21 +1,21 @@
-<div class="row-1200-by-padding banner position-relative"
-  [style]="banner"
+<div class="container-fluid banner position-relative" 
+  [style]="(userInfo? 'background-image: url(' + userInfo?.banner + ')': '')"
 ></div>
 <div class='intersection-observer' intersectionObserver (changeStatus)="changeStickyStatusTabbar($event)"></div>
-<div class="borderb-grey sticky-header">
-  <div class="row-1200-by-margin tabbar bg-white" [ngClass]="{sticked: isTabSticked}">
+<div class="container-fluid borderb-grey sticky-top bg-white">
+  <div class="max-w-1200 position-relative tabbar" [ngClass]="{sticked: isTabSticked}">
     <div class="d-flex-column d-md-flex d-wrap d-md-nowrap ml-for-avoid-image profile-info"
       [ngClass]="{sticked: isTabSticked}"
     >
-      <div class="d-flex align-items-center">
-        <i class="fas fa-clinic-medical pr-1" *ngIf="isUserRole('c')"></i>
-        <h3 class='mb-0 font-bigger font-md-biggest'>{{fullname}}</h3>  
+      <div class="d-flex align-items-start title-wrapper">
+        <i class="fas fa-clinic-medical pr-2" *ngIf="userInfo?.isCentre"></i>
+        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden ' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">{{userInfo?.name}}</h3>  
       </div>
-      <p class="mt-1 mt-md-0 ml-md-3 mb-0">summary here</p>
-  </div>
+      <!-- <p class="mt-1 mt-md-0 ml-md-3 mb-0  overflow-hidden" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">summary here. if it's too long. you can see only 3 lines. </p> -->
+    </div>
 
     <div class="profile-image rounded-circle">
-      <img [src]="profileImage" [alt]="fullname">
+      <img *ngIf="userInfo" [src]="userInfo?.image" [alt]="userInfo?.name">
     </div>
     <ul class="p-0 mb-0 ml-for-avoid-image list-unstyled d-inline-flex align-items-center position-relative">
       <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
@@ -28,8 +28,8 @@
       >Reviews</li>
   
       <li class='ml-2 ml-md-5'>
-        <star-rate class="d-none d-md-block" [rate]="(userInfo? userInfo.ratingAvg : 0)"></star-rate>
-        <star-rate class="d-md-none" [rate]="(userInfo? userInfo.ratingAvg : 0)" [simple]="true"></star-rate>
+        <star-rate class="d-none d-md-block" [rate]="(userInfo? userInfo.rating : 0)"></star-rate>
+        <star-rate class="d-md-none" [rate]="(userInfo? userInfo.rating : 0)" [simple]="true"></star-rate>
       </li>
       <li class="tab-item tab-highlighter bg-blue" [class]="'pos-' + indexTabItem"></li>
     </ul>
@@ -37,180 +37,210 @@
 </div>
 
 <!-- section review -->
-<section class="row-1200-by-padding bg-white mt-" *ngIf="indexTabItem == 1">
-  <div class='my-5'>
-    <star-rate [rate]="(userInfo? userInfo.ratingAvg : 0)" margin='big'></star-rate>
-    <span class='text-blue pl-4'>{{reviewCount}}</span>
-  </div>
-  <div class="my-5">
-    <ul class="review-controller list-unstyled d-inline-flex mb-3">
-      <li class="btn text-blue mr-2 mr-md-4 font-regular"
-        (click)="sortReviewsBy(0)" 
-        [ngClass]="{active: indexSortReviews == 0}"
-      >Highest Rated</li>
-      <li class="btn text-blue mr-2 mr-md-4 font-regular"
-        (click)="sortReviewsBy(1)" 
-        [ngClass]="{active: indexSortReviews == 1}" 
-      >Lowest Rated</li>
-      <li class="btn text-blue font-regular"
-        (click)="sortReviewsBy(2)" 
-        [ngClass]="{active: indexSortReviews == 2}"
-      >Most Recent</li>
-    </ul>
-
-    <ul class="reviews p-0 m-0">
-      <li class="d-md-flex flex-md-nowrap p-3 p-md-4 mb-4" *ngFor="let r of rating">
-        <div class="mb-3 mb-md-0 col-md-5 col-lg-3 d-flex">
-          <div class="review-image rounded-circle overflow-hidden mr-3"></div>
-          <p class="font-weight-bold mt-3 font-big mb-0">{{r.name}}</p>
-        </div>
-        <div class="col-md-7 col-lg-9">
-          <star-rate [rate]="r.rate" margin='big'></star-rate>
-          <div class="borderb-grey pt-2"></div>
-          <p class='pt-3 pb-0'>{{r.desc}}</p>
-          <div>{{r.updatedAt | date:'longDate'}}</div>
-        </div>
-      </li>
-    </ul>
+<section class="container-fluid bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 1">
+  <div class="max-w-1200">
+    <div class='my-5'>
+      <star-rate [rate]="(userInfo? userInfo.rating : 0)" margin='big'></star-rate>
+      <span class='text-blue pl-4'>{{(userInfo && userInfo.reviews.length > 0)? userInfo.reviews.length : 'No review yet'}}</span>
+    </div>
+    <div *ngIf="userInfo && userInfo.reviews.length > 0">
+      <div class="my-5">
+        <ul class="review-controller list-unstyled d-inline-flex mb-3">
+          <li class="btn text-blue mr-2 mr-md-4 font-regular "
+            (click)="sortReviewsBy(0)" 
+            [ngClass]="{active: indexSortReviews == 0}"
+          >Highest Rated</li>
+          <li class="btn text-blue mr-2 mr-md-4 font-regular"
+            (click)="sortReviewsBy(1)" 
+            [ngClass]="{active: indexSortReviews == 1}" 
+          >Lowest Rated</li>
+          <li class="btn text-blue font-regular"
+            (click)="sortReviewsBy(2)" 
+            [ngClass]="{active: indexSortReviews == 2}"
+          >Most Recent</li>
+        </ul>
+    
+        <ul class="reviews p-0 m-0 list-unstyled">
+          <li class="d-md-flex flex-md-nowrap p-3 p-md-4 mb-4" *ngFor="let r of userInfo.reviews">
+            <div class="mb-3 mb-md-0 col-md-5 col-lg-3 d-flex">
+              <div class="review-image rounded-circle overflow-hidden mr-3"></div>
+              <p class="font-weight-bold mt-3 font-big mb-0">{{r.name}}</p>
+            </div>
+            <div class="col-md-7 col-lg-9">
+              <star-rate [rate]="r.rate" margin='big'></star-rate>
+              <div class="borderb-grey pt-2"></div>
+              <p class='pt-3 pb-0'>{{r.desc}}</p>
+              <div>{{r.updatedAt | date:'longDate'}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- section about -->
-<section class="row-1200-by-padding bg-white mt-6" *ngIf="indexTabItem == 0">
-  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-    <!-- main column -->
-    <div class="col-md-6 col-lg-7">
 
-      <!-- basic section -->
-      <div class="row mb-5">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue ">Practice Philosophy:</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.product_description}}</p>
-      </div>
-      <div class="row mb-5">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Specialty Age Group</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{ageRange}}</p>
-      </div>
-      <div class="row mb-5" *ngIf="isUserRole('sp')">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Professional organization</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.professional_organization}}</p>
-      </div>
-      <div class="row mb-5" *ngIf="isUserRole('sp')">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Certification</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.certification}}</p>
-      </div>
-      <div class="row mb-5">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Language</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{language}}</p>
-      </div>
-      <div class="row mb-5">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Years Of Experience</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.years_of_experience}}</p>
-      </div>
-
-      <!-- blue section -->
-      <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Type of Provider:</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{typeOfProvider}}</p>
-      </div>
-      <div class="row bg-lightblue pt-5 pb-0" *ngIf="isUserRole('sp')">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Treatment Modalities: </div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{treatmentModality}}</p>
-      </div>
-      <div class="row bg-lightblue pt-5 pb-0">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Services:</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{service}}</p>
-      </div>
-      <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="isUserRole('c')">
-        <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Product:</div>
-        <p class="col-12 col-md-7 col-lg-8 mb-0">{{product}}</p>
-      </div>
-      <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
-
-      <!-- professionals at centre-->
-      <div *ngIf="isUserRole('c')">
-        <div class="row bg-grey rounded-top pt-4 pb-0 mt-5 justify-content-start justify-content-md-between align-items-center">
-          <div class="col-12 col-md-8 mb-3 mb-md-0 text-blue font-big font-md-bigger">Meet our professionals</div>
-          <div class="col-12 col-md-4 text-md-right">
-            <button class="btn border-blue text-blue" 
-              type="button"
-              (click)="filterProfessionals()"
-            >Explore all</button>
-          </div>
+<section class="container-fluid bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 0">
+  <div class="max-w-1200">
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <!-- main column -->
+      <div class="col-md-6 col-lg-7">
+  
+        <!-- basic section -->
+        <div class="row mb-5">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue ">Practice Philosophy:</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.practicePhilosophy}}</p>
         </div>
-        <ul class='list-unstyled row text-center bg-grey py-4 rounded-bottom'>
-          <li class='col-12 col-md-6 col-lg-4 mb-4' *ngFor="let pro of professionalsFiltered; let i = index;">
-            <div class="professional-image rounded-circle overflow-hidden"></div>
-            <h6 class="font-smallest mb-4">{{pro.name}}</h6>
-            <p>{{pro.desc}}</p>  
-          </li>
-        </ul>  
-      </div>
-    </div>
-
-    <!-- side column -->
-    <div class="col-md-5 col-lg-4">
-      <!-- contact info-->
-      <div class="rounded shadow text-center pb-3 overflow-hidden mb-5">
-        <div class="card-title">Contact Information</div>
-        <table class="table table-borderless table-hover px-2">
-          <tbody>
-            <tr>
-              <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
-              <td class="text-left">{{userInfo?.address}}</td>
-            </tr>
-            <tr>
-              <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
-              <td class="text-left">{{phone}}</td>
-            </tr>
-            <tr>
-              <td class="pr-0"><i class="fas fa-dollar-sign color-card-icon"></i></td>
-              <td class="text-left">Standard Hourly Fees: {{userInfo?.price_per_hours}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
-      </div>
-
-      <!-- videos-->
-      <div class="rounded shadow overflow-hidden mb-5">
-        <div class="row m-3 align-items-center justify-content-between">
-          <h5 class='m-0'>
-            <span class="text-blue">Video</span>
-            <span class="ml-2 font-smaller">10</span>
-          </h5> 
-          <div class="text-right">
-            <button class="btn border-blue text-blue font-smaller" type="button">Load more videos</button>
-          </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Specialty Age Group</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.ageRange}}</p>
         </div>
-        <div class="row">
-          <ul class="videos p-3 m-0">
-            <li></li>
-          </ul>
+        <div class="row mb-5" *ngIf="!userInfo?.isCentre">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Professional organization</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.organization}}</p>
         </div>
-      </div>
-    
-      <!-- endosements -->
-      <div class="rounded shadow pb-3 overflow-hidden mb-5">
-        <div class="card-title font-big font-md-regular text-center m-0">Endosement</div>
-        <post-dummy *ngIf="!endosements"></post-dummy>
-        
-        <div class="px-3">
-          <div class="endosement-wrapper py-4" *ngFor="let endosement of endosements;">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <p class="font-weight-bold m-0">
-                {{endosement.name}}
-                <star-rate class="ml-1 d-lg-display" [rate]="endosement.rate" size='small' margin="none"></star-rate>
-              </p>
-              <button class='btn' type='button'><i class="fas fa-share-alt text-blue font-big"></i></button>
+        <div class="row mb-5" *ngIf="!userInfo?.isCentre">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Certification</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.certification}}</p>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Language</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.languages}}</p>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0  text-blue ">Years Of Experience</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.yearsOfExperience}}</p>
+        </div>
+  
+        <!-- blue section -->
+        <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Type of Provider:</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.typeOfProvider}}</p>
+        </div>
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Treatment Modalities: </div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.treatmentModality}}</p>
+        </div>
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Service Delivery:</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.serviceDelivery}}</p>
+        </div>
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Services:</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.service}}</p>
+        </div>
+        <!-- <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="userInfo?.isCentre">
+          <div class="col-12 col-md-5 col-lg-4 mb-1 mb-md-0 text-blue">Product:</div>
+          <p class="col-12 col-md-7 col-lg-8 mb-0">{{userInfo?.product}}</p>
+        </div> -->
+        <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
+  
+        <!-- professionals at centre-->
+        <div *ngIf="userInfo?.isCentre">
+          <div class="row bg-grey rounded-top pt-4 pb-0 mt-5 justify-content-start justify-content-md-between align-items-center">
+            <div class="col-12 col-md-8 mb-3 mb-md-0 text-blue font-big font-md-bigger">Meet our professionals</div>
+            <div class="col-12 col-md-4 text-md-right">
+              <button class="btn border-blue text-blue"
+                *ngIf="userInfo && userInfo.professionals && userInfo.professionals.length > 0"
+                type="button"
+                (click)="filterProfessionals()"
+              >Explore all</button>
             </div>
-            <a class="btn border-blue text-blue mb-3" type="button">view website</a>
-            <div class="endosement-images mb-3"></div>
-            <p class="m-0">{{endosement.desc}}</p>  
+          </div>
+          <ul class='list-unstyled row text-center bg-grey py-4 rounded-bottom'>
+            <li class='col-12 col-md-6 col-lg-4 mb-4' *ngFor="let pro of professionalsFiltered; let i = index;">
+              <div class="professional-image rounded-circle overflow-hidden"></div>
+              <h6 class="font-smallest mb-4">{{pro.name}}</h6>
+              <p>{{pro.desc}}</p>  
+            </li>
+          </ul>  
+        </div>
+      </div>
+  
+      <!-- side column -->
+      <div class="col-md-5 col-lg-4">
+        <!-- contact info-->
+        <div class="rounded shadow text-center pb-3 overflow-hidden mb-5">
+          <div class="card-title">Contact Information</div>
+          <table class="table table-borderless table-hover px-2">
+            <tbody>
+              <tr>
+                <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
+                <td class="text-left">{{userInfo?.address}}</td>
+              </tr>
+              <tr>
+                <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
+                <td class="text-left">{{userInfo?.phone}}</td>
+              </tr>
+              <tr>
+                <td class="pr-0"><i class="fas fa-dollar-sign color-card-icon"></i></td>
+                <td class="text-left">Standard Hourly Fees: {{userInfo?.priceFull}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button *ngIf="isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
+          <button *ngIf="!isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#messagemodal">Login to Book</button>
+        </div>
+  
+        <!-- videos-->
+        <div class="rounded shadow overflow-hidden pb-3 mb-5">
+          <div class="m-3 d-flex align-items-center justify-content-between">
+            <h5 class='m-0'>
+              <span class="text-blue">Video</span>
+              <span class="ml-2 font-small" *ngIf="userInfo && userInfo.videos.length>0">{{userInfo.videos.length}}</span>
+            </h5> 
+            <div *ngIf="userInfo && userInfo.videos.length > 0" class="text-right">
+              <button *ngIf="iframe.length > countVideoShown" 
+                (click)="showMoreVideo()"
+                class="btn border-blue text-blue font-small" 
+                type="button"
+              >Load more videos</button>
+
+              <button *ngIf="iframe.length <= countVideoShown && iframe.length > defaultVideoCount"
+                (click)="showLessVideo()"
+                class="btn border-blue text-blue font-small" 
+                type="button"
+              >Show less videos</button>
+            </div>
+          </div>
+
+          <post-dummy *ngIf="!userInfo"></post-dummy>
+
+          <div *ngIf="userInfo" class="px-3">
+            <ul *ngIf="userInfo.videos.length>0" class="list-unstyled m-0 p-0">
+              <li *ngFor="let v of iframe; let i = index;" class="mb-3">
+                <div class="video" *ngIf="i<countVideoShown" [innerHTML]="v"></div>
+              </li>
+            </ul>
+
+            <p *ngIf="userInfo.videos.length == 0" class="m-0">No videos</p>
           </div>
         </div>
-        <div class="text-center my-3">
-          <button class="btn text-blue border-blue">Load more</button>
-        </div>
+      
+        <!-- endosements -->
+        <!-- <div class="rounded shadow pb-3 overflow-hidden mb-5">
+          <div class="card-title font-big font-md-regular text-center m-0">Endosement</div>
+          <post-dummy *ngIf="!endosements"></post-dummy>
+          
+          <div class="px-3">
+            <div class="endosement-wrapper py-4" *ngFor="let endosement of endosements;">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="font-weight-bold m-0">
+                  {{endosement.name}}
+                  <star-rate class="ml-1 d-lg-display" [rate]="endosement.rate" size='small' margin="none"></star-rate>
+                </p>
+                <button class='btn' type='button'><i class="fas fa-share-alt text-blue font-big"></i></button>
+              </div>
+              <a class="btn border-blue text-blue mb-3" type="button">view website</a>
+              <div class="endosement-images mb-3"></div>
+              <p class="m-0">{{endosement.desc}}</p>  
+            </div>
+          </div>
+          <div class="text-center my-3">
+            <button class="btn text-blue border-blue">Load more</button>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>

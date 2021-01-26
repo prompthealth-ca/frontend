@@ -15,25 +15,48 @@
 
 
 <!-- Pricing table -->
-<div class="container-fluid max-w-1000 my-5">
-  <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
-  <br class="d-block d-md-none"> 
-  <span class="pl-md-5 font-italic text-blue font-bigger">save 20% with yearly subscription</span>
+<div class="container-fluid my-5">
+  <div class="max-w-1200 d-lg-flex align-items-center mb-5">
+    <p class="text-blue mb-3 mb-lg-0 mr-lg-3 text-md-nowrap">Get updated when partner's program is ready</p>
+    <form class="d-md-flex align-items-center" [formGroup]="form" (ngSubmit)="submitRegister()">
+      <div class="input-group mb-3 mb-md-0 mr-md-3">
+        <input formControlName="first" class="form-control" type="text" name="firstname" (input)="onInputForm()"  placeholder="First Name">
+      </div>
+      <div class="input-group mb-3 mb-md-0 mr-md-3">
+        <input formControlName="last" class="form-control" type="text" name="lastname" (input)="onInputForm()"  placeholder="Last Name">
+      </div>
+      <div class="input-group email mb-3 mb-md-0 mr-md-3">
+        <input formControlName="email" class="form-control" type="text" name="email" (input)="onInputForm()"  placeholder="Email">
+      </div>
+      <div class="position-relative">
+        <input class="input-submit btn bg-blue text-light rounded-pill" type="submit" value="submit">
+        <p *ngIf="errorForm" class="mt-1 mt-md-3 mb-0 error text-md-nowrap">{{errorForm}}</p>
+      </div>
+    </form>
+  </div>
+
+  <div class="max-w-1200">
+    <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
+    <br class="d-block d-md-none"> 
+    <span class="pl-md-5 font-italic text-blue font-big">save 20% with yearly subscription</span>  
+  </div>
 </div>
 
-<div class="container-fluid max-w-1000">
-  <div class="row align-items-stretch">
-    <subscription-plan-item-card class="col-md-5"
-      type="partner"
-      [isPriceMonthly]="isPriceMonthly"
-      [data]="partnerPlan"
-    ></subscription-plan-item-card>
-
-    <div class="col-md-7">
-      <h3 class="text-pink mt-5 mt-md-0 mb-3">Add-ons for Provider and Centre</h3>
-      <subscription-plan-addon-card type='advanced' class='' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
-      <subscription-plan-addon-card type='endorsement' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
-      <subscription-plan-addon-card type='social' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+<div class="container-fluid">
+  <div class="max-w-1200">
+    <div class="row align-items-stretch">
+      <subscription-plan-item-card class="col-md-5"
+        type="partner"
+        [isPriceMonthly]="isPriceMonthly"
+        [data]="partnerPlan"
+      ></subscription-plan-item-card>
+  
+      <div class="col-md-7">
+        <h3 class="text-pink mt-5 mt-md-0 mb-3">Add-ons for Provider and Centre</h3>
+        <subscription-plan-addon-card type='advanced' class='' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+        <subscription-plan-addon-card type='endorsement' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+        <subscription-plan-addon-card type='social' class='mt-5' [flexibleButtonPosition]='false' [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+      </div>
     </div>
   </div>
 </div>

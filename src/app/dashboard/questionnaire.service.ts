@@ -107,8 +107,8 @@ export type QuestionnaireType = {id: string; label: string; personalMatchTarget:
 export type QuestionnaireAnswer = {
   _id: string;
   item_text: string;
-  active: boolean;
-  subans: boolean;
+  active?: boolean;
+  subans?: boolean;
   subansData?: QuestionnaireAnswer[];
 }
 
@@ -116,5 +116,6 @@ export type Questionnaire = {
   _id: string;
   answers: QuestionnaireAnswer[];
   slug: string;
+  question_type?: string;
   c_question: string;
 }

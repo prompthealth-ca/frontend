@@ -15,9 +15,11 @@
 </section>
 
 <!-- Pricing table -->
-<div class="container-fluid max-w-1200 my-5">
-  <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
-  <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-bigger d-block d-md-inline-block">save 20% with yearly subscription</span>
+<div class="container-fluid my-5">
+  <div class="max-w-1200">
+    <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
+    <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-big d-block d-md-inline-block">save 20% with yearly subscription</span>  
+  </div>
 </div>
 
 <div class="container-fluid max-w-1200">
@@ -43,6 +45,21 @@
       [isPriceMonthly]="isPriceMonthly"
       (select)="setSelectedPlan(cPlan)"
       ></subscription-plan-item-card>
+  
+      <subscription-plan-item-card class="col-md mt-5 mt-md-0"
+        type="provider"
+        [data]="spPlan"
+        [isPriceMonthly]="isPriceMonthly"
+        (select)="setSelectedPlan(spPlan)"
+        ></subscription-plan-item-card>
+  
+      <subscription-plan-item-card class="col-md mt-5 mt-md-0"
+        type="centre"
+        [data]="cPlan"
+        [isPriceMonthly]="isPriceMonthly"
+        (select)="setSelectedPlan(cPlan)"
+        ></subscription-plan-item-card>
+    </div>
   </div>
 </div>
 

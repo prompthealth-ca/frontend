@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener, OnDestroy } from '@angular/core';
 import { animate, state, trigger, transition, style } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -31,7 +31,7 @@ const animation = trigger('expandVertical', [
   animations: [animation, slideVerticalAnimation],
 
 })
-export class ListingComponent implements OnInit {
+export class ListingComponent implements OnInit, OnDestroy {
 
   constructor(
     private behaviorService: BehaviorService,
@@ -56,11 +56,11 @@ export class ListingComponent implements OnInit {
   public lat: number; /** todo: if not needed, delete */
   public long: number; /** todo: if not needed, delete */
 
-  public isVirtual: boolean = false;
-  public mapdata: {lat: number, lng: number, zoom: number} = {lat: 53.89, lng: -111.25, zoom: 3};
-  public isFinderSticked: boolean = false;
-  public isMapView: boolean = false;
-  public isMapSizeBig: boolean = false;
+  public isVirtual = false;
+  public mapdata: { lat: number, lng: number, zoom: number } = { lat: 53.89, lng: -111.25, zoom: 3 };
+  public isFinderSticked = false;
+  public isMapView = false;
+  public isMapSizeBig = false;
   public filterTarget: Filter = null;
   public currentPage = 1;
   private professionals: Professional[] = null;
@@ -72,7 +72,7 @@ export class ListingComponent implements OnInit {
 
 
   private geoCoder;
-  keyword = 'name';
+  keyword = '';
   serviceQuestion; /** todo: can be deleted. */
   languageQuestion; /** todo: can be deleted. */
   avalibilityQuestion; /** todo: can be deleted. */
@@ -148,6 +148,7 @@ export class ListingComponent implements OnInit {
     price_per_hours: '',
     gender: '',
     typical_hours: [],
+    keyword: ''
   };
 
   public filters: Filter[] = [
@@ -196,20 +197,17 @@ export class ListingComponent implements OnInit {
 
   private timerListing: any;
 
-  get listingContainerClass(){
-    var c = "";
-    if(!this.isVirtual){
-      if(this.isMapView){ c = 'd-none'; }
-      else if(this.isMapSizeBig){ c = 'col-md-6 col-lg-3'; }
-      else{ c = 'col-md-6 col-lg-9'; }
+  get listingContainerClass() {
+    let c = '';
+    if (!this.isVirtual) {
+      if (this.isMapView) { c = 'd-none'; } else if (this.isMapSizeBig) { c = 'col-md-6 col-lg-3'; } else { c = 'col-md-6 col-lg-9'; }
     }
     return c;
   }
 
-  get listingItemClass(){
-    var c = '';
-    if(this.isVirtual){ c = 'col-md-6 col-lg-3'; }
-    else if(!this.isMapSizeBig){ c = 'col-lg-4'; }
+  get listingItemClass() {
+    let c = '';
+    if (this.isVirtual) { c = 'col-md-6 col-lg-3'; } else if (!this.isMapSizeBig) { c = 'col-lg-4'; }
     return c;
   }
 
@@ -237,13 +235,15 @@ export class ListingComponent implements OnInit {
         lng = Number(lngStr);
       }
     }
-    if (lat & lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
+    if (lat && lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
 
 
     this.route.queryParams.subscribe(queryParams => {
-      this.isVirtual = (queryParams.virtual == 'true')? true : false;
-      this.id = queryParams.id; 
+      this.isVirtual = (queryParams.virtual == 'true') ? true : false;
+      this.id = queryParams.id;
       this.type = queryParams.type;
+      this.keyword = queryParams.keyword;
+      this.listingPayload.keyword = this.keyword;
       if (queryParams.id && queryParams.type) {
 
 
@@ -260,6 +260,7 @@ export class ListingComponent implements OnInit {
           type: this.type,
           latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           miles: this.listingPayload.miles,
+          keyword: this.keyword
           // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
         });
       } else {
@@ -283,6 +284,8 @@ export class ListingComponent implements OnInit {
             type: this.listingPayload.type,
             latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
             miles: this.listingPayload.miles,
+            keyword: this.keyword
+
             // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           });
         }
@@ -410,13 +413,12 @@ export class ListingComponent implements OnInit {
       this._sharedService.loader('hide');
     });
   }
-
   listing(filter, showLoader: boolean = true) {
     if (filter.latLong === 'null, null') {
       filter.latLong = '';
     }
-    if(this.isVirtual){ filter.virtual = true; }
-    if(showLoader){ this._sharedService.loader('show'); }
+    if (this.isVirtual) { filter.virtual = true; }
+    if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
       if (res.statusCode === 200) {
@@ -476,6 +478,7 @@ export class ListingComponent implements OnInit {
       gender: '',
       price_per_hours: '',
       typical_hours: [],
+      keyword: ''
     };
 
     this.listing({
@@ -516,14 +519,14 @@ export class ListingComponent implements OnInit {
 
   /** set formatted value to selected listingPayload property  */
   setFilterOne(val: string | string[] | number, payloadName: string) {
-    if (payloadName == 'rating') {
-      this.listingPayload[payloadName] = (typeof val == 'string') ? Number(val) : (typeof val == 'number') ? val : 0;
+    if (payloadName === 'rating') {
+      this.listingPayload[payloadName] = (typeof val === 'string') ? Number(val) : (typeof val === 'number') ? val : 0;
     }
-    if (payloadName == 'miles') {
-      this.listingPayload[payloadName] = (typeof val == 'string') ? Number(val) : (typeof val == 'number') ? val : 100;
+    if (payloadName === 'miles') {
+      this.listingPayload[payloadName] = (typeof val === 'string') ? Number(val) : (typeof val === 'number') ? val : 100;
     }
-    if (typeof val == 'string') {
-      if (payloadName == 'rating') { this.listingPayload[payloadName] = Number(val); } else { this.listingPayload[payloadName] = val; }
+    if (typeof val === 'string') {
+      if (payloadName === 'rating') { this.listingPayload[payloadName] = Number(val); } else { this.listingPayload[payloadName] = val; }
     } else { this.listingPayload[payloadName] = val; }
   }
 
@@ -808,23 +811,21 @@ export class ListingComponent implements OnInit {
     for (let i = 0; i < this.filters.length; i++) {
       if (this.filters[i]._id == this.filterTarget._id) { idxCurrentFilter = i; break; }
     }
-    var filters = this.host.querySelectorAll('.filters li button');
-    var filter = (filters)? filters[idxCurrentFilter] : null;
-    if(!filter){ return; }
+    let filters = this.host.querySelectorAll('.filters li button');
+    let filter = (filters) ? filters[idxCurrentFilter] : null;
+    if (!filter) { return; }
 
-    var rectF = filter.getBoundingClientRect();
+    let rectF = filter.getBoundingClientRect();
 
-    var style: {top: string, left?: string, width?: string } = {top: Math.floor(rectF.bottom + 20) + 'px'};
-    if(dropdownWidth + 30 <= window.innerWidth){
+    let style: { top: string, left?: string, width?: string } = { top: Math.floor(rectF.bottom + 20) + 'px' };
+    if (dropdownWidth + 30 <= window.innerWidth) {
       style.width = dropdownWidth + 'px';
 
-      var centerF = rectF.left + rectF.width / 2;
-      var leftD = centerF - dropdownWidth / 2;
-      var rightD = centerF + dropdownWidth / 2;
+      let centerF = rectF.left + rectF.width / 2;
+      let leftD = centerF - dropdownWidth / 2;
+      let rightD = centerF + dropdownWidth / 2;
 
-      if(leftD >= 15 && rightD <= window.innerWidth - 15){ style.left = Math.floor(leftD) + 'px'; }
-      else if(leftD < 15){ style.left = '15px'; }
-      else{ style.left = (window.innerWidth - 15 - dropdownWidth) + 'px'; }      
+      if (leftD >= 15 && rightD <= window.innerWidth - 15) { style.left = Math.floor(leftD) + 'px'; } else if (leftD < 15) { style.left = '15px'; } else { style.left = (window.innerWidth - 15 - dropdownWidth) + 'px'; }
     }
     return style;
   }

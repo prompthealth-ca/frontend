@@ -36,11 +36,11 @@ export interface IProfessional {
 
   treatmentModality: string[];
   service: string[];
-  serviceDelivery: string[]
+  serviceDelivery: string[];
   amenity: string[];
   typeOfProvider: string[];
 
-  //not used anywhere yet
+  // not used anywhere yet
   gender: string;
 }
 
@@ -91,7 +91,7 @@ export class Professional implements IProfessional {
   private _professionals: Professional[] = [];
   private _amenities: Amenity[];
 
-  private _isCheckedForCompared = false;;
+  private _isCheckedForCompared = false;
 
   private _languagesId: string[] = [];
   private _ageRangeId: string[] = [];
@@ -107,32 +107,36 @@ export class Professional implements IProfessional {
   private _service: ServiceCategory[] = []; /** medical care / preventative health */
   private _serviceDelivery: ServiceCategory[] = [];  /** service / exercise training / direct billing */
 
-  private _banner: string //todo: implement correctly. currently, this property not used.
-  private _endosements: any[] //todo: impliment correctly. currently, this property not used;
-  
-  get id(){ return this._id; }
-  get name(){ return this._name; }
-  get firstname(){ return this._firstname; }
-  get image(){ return this._image; }
-  get banner(){ return this._banner; }
-  get role(){ return this._roles.toString(); }
-  get description(){ return this._description; }
-  get phone(){ return this._phone; }
-  get reviews(){ return this._reviews; }
-  get rating(){ return this._ratingAvg; }
-  get price(){ return (this._priceRange.length>1)? `$${this._priceRange[0]}+ / hr` : (this._priceRange.length == 1)? `$${this._priceRange[0]} / hr` : null; }
-  get priceFull(){ return (this._priceRange.length == 0)? 'N/A' : '$' + this._priceRange.join(' - ')}
-  get gender(){ return this._gender; }
-  get address(){ return this._address; }
-  get location(){ return this._location; }
-  get distance(){ return this._distance; }
-  get provideVirtual(){ return this._provideVirtual; }
-  get practicePhilosophy(){ return this._practicePhilosophy; }
-  get videos(){ return this._videos; }
-  get yearsOfExperience(){ return this._yearsOfExperience; }
-  get languages(){
-    let languages = [];
-    this._languages.forEach(l=>{ languages.push(l.item_text); });
+  private _banner: string; // todo: implement correctly. currently, this property not used.
+  private _endosements: any[]; // todo: impliment correctly. currently, this property not used;
+
+  get id() { return this._id; }
+  get name() { return this._name; }
+  get firstname() { return this._firstname; }
+  get image() { return this._image; }
+  get banner() { return this._banner; }
+  get role() { return this._roles.toString(); }
+  get description() { return this._description; }
+  get phone() { return this._phone; }
+  get reviews() { return this._reviews; }
+  get rating() { return this._ratingAvg; }
+  get price() {
+    return (
+      this._priceRange.length > 1) ? `$${this._priceRange[0]}+ / hr` :
+      (this._priceRange.length === 1) ? `$${this._priceRange[0]} / hr` : null;
+  }
+  get priceFull() { return (this._priceRange.length === 0) ? 'N/A' : '$' + this._priceRange.join(' - '); }
+  get gender() { return this._gender; }
+  get address() { return this._address; }
+  get location() { return this._location; }
+  get distance() { return this._distance; }
+  get provideVirtual() { return this._provideVirtual; }
+  get practicePhilosophy() { return this._practicePhilosophy; }
+  get videos() { return this._videos; }
+  get yearsOfExperience() { return this._yearsOfExperience; }
+  get languages() {
+    const languages = [];
+    this._languages.forEach(l => { languages.push(l.item_text); });
     return languages.join(', ');
   }
   get ageRange() {
@@ -145,40 +149,40 @@ export class Professional implements IProfessional {
     this._availability.forEach(a => { availability.push(a.item_text); });
     return availability.join(', ');
   }
-  get isCentre(){ return !!(this.role.toLocaleLowerCase().match(/c/)); }
-  get mapLabel(){ return (this.price? this.price : 'No Price'); }
-  get endosements(){ return this._endosements; }
-  get organization(){ return this._organization; }
-  get certification(){ return this._certification; }
-  get professionals(){ return this._professionals; }
+  get isCentre() { return !!(this.role.toLocaleLowerCase().match(/c/)); }
+  get mapLabel() { return (this.price ? this.price : 'No Price'); }
+  get endosements() { return this._endosements; }
+  get organization() { return this._organization; }
+  get certification() { return this._certification; }
+  get professionals() { return this._professionals; }
 
-  get typeOfProvider(){
-    let result = [];
-    if(this._typeOfProvider){ this._typeOfProvider.forEach(o=>{ result.push(o.item_text); }); }
+  get typeOfProvider() {
+    const result = [];
+    if (this._typeOfProvider) { this._typeOfProvider.forEach(o => { result.push(o.item_text); }); }
     return result;
   }
 
-  get treatmentModality(){
-    let result = [];
-    if(this._treatmentModality){ this._treatmentModality.forEach(o=>{ result.push(o.item_text); }); }
+  get treatmentModality() {
+    const result = [];
+    if (this._treatmentModality) { this._treatmentModality.forEach(o => { result.push(o.item_text); }); }
     return result;
   }
 
-  get service(){
-    let result = [];
-    if(this._service){ this._service.forEach(o=>{ result.push(o.item_text); }); }
-    return result; 
-  }
-
-  get serviceDelivery(){
-    let result = [];
-    if(this._serviceDelivery){ this._serviceDelivery.forEach(o=>{ result.push(o.item_text); }); }
+  get service() {
+    const result = [];
+    if (this._service) { this._service.forEach(o => { result.push(o.item_text); }); }
     return result;
   }
 
-  get amenity(){
-    let result = [];
-    if(this._amenities){ this._amenities.forEach(o=>{ result.push(o.item_text); }); }
+  get serviceDelivery() {
+    const result = [];
+    if (this._serviceDelivery) { this._serviceDelivery.forEach(o => { result.push(o.item_text); }); }
+    return result;
+  }
+
+  get amenity() {
+    const result = [];
+    if (this._amenities) { this._amenities.forEach(o => { result.push(o.item_text); }); }
     return result;
   }
 
@@ -198,27 +202,35 @@ export class Professional implements IProfessional {
     this._name = name.trim();
     this._firstname = first;
 
-    const image = p.profileImage || p.image || null;  
-    this._image = (image && image.length > 0)? baseURLImage + image : '/assets/img/no-image.jpg';
+    const image = p.profileImage || p.image || null;
+    this._image = (image && image.length > 0) ? baseURLImage + image : '/assets/img/no-image.jpg';
     this._banner = '/assets/img/professional-banner.png';
 
-    this._roles = !p.roles? ['SP'] : (typeof p.roles == 'string')? [p.roles] : p.roles;
+    this._roles = !p.roles ? ['SP'] : (typeof p.roles === 'string') ? [p.roles] : p.roles;
 
     this._description = p.description || null;
     this._practicePhilosophy = p.product_description || null;
 
     let phone: string;
-    if (!p.phone) { phone = null; } else if (p.phone.length == 0) { phone = null; } else if (p.phone.length == 10) { phone = `(${p.phone.slice(0, 3)}) ${p.phone.slice(3, 6)}-${p.phone.slice(6)}`; } else { phone = p.phone; }
+    if (!p.phone) {
+      phone = null;
+    } else if (p.phone.length === 0) {
+      phone = null;
+    } else if (p.phone.length === 10) {
+      phone = `(${p.phone.slice(0, 3)}) ${p.phone.slice(3, 6)}-${p.phone.slice(6)}`;
+    } else {
+      phone = p.phone;
+    }
     this._phone = phone;
 
-    this._ratingAvg = p.ratingAvg? Number(p.ratingAvg) : 0;
+    this._ratingAvg = p.ratingAvg ? Number(p.ratingAvg) : 0;
     this._reviews = p.ratingBy || [];
-    
+
     const priceRange: string = p.price_per_hours || '';
-    const priceArray: string[] = priceRange? priceRange.replace('$', '').split('-') : [];
-    priceArray.forEach((price)=>{ 
+    const priceArray: string[] = priceRange ? priceRange.replace('$', '').split('-') : [];
+    priceArray.forEach((price) => {
       const p = Number(price.trim());
-      if(p > 0){ this._priceRange.push(p); }
+      if (p > 0) { this._priceRange.push(p); }
     });
 
     this._gender = p.gender || null;
@@ -251,27 +263,27 @@ export class Professional implements IProfessional {
     });
   }
 
-  setServiceCategory(name: string, data: ServiceCategory[]){ this['_' + name] = data; }
-  setEndosements(endosements: any[]){ this._endosements = endosements; }
-  setProfessionals(professionals: Professional[]){  professionals.forEach(p=>{ this._professionals.push(p); }); }
+  setServiceCategory(name: string, data: ServiceCategory[]) { this['_' + name] = data; }
+  setEndosements(endosements: any[]) { this._endosements = endosements; }
+  setProfessionals(professionals: Professional[]) { professionals.forEach(p => { this._professionals.push(p); }); }
 
-  setAmenities(amenities: any[]){
+  setAmenities(amenities: any[]) {
     const a = [];
     amenities.forEach(amenity => {
       a.push({
-        id: amenity.defaultamenityId._id, 
+        id: amenity.defaultamenityId._id,
         item_text: amenity.defaultamenityId.item_text,
-        image: (amenity.defaultamenityId.icon? ('/assets/img/' + amenity.defaultamenityId.icon) : null), 
+        image: (amenity.defaultamenityId.icon ? ('/assets/img/' + amenity.defaultamenityId.icon) : null),
       });
     });
     this._amenities = a;
   }
-  setReviews(reviews: any[]){ this._reviews = reviews || []; }
-  sortReviewBy(i: number){
-    switch(i){
-      case 0: this._reviews.sort((a,b)=> b.rate - a.rate ); break; /** rate desc */
-      case 1: this._reviews.sort((a,b)=> a.rate - b.rate ); break; /** rate asc */
-      case 2: this._reviews.sort((a,b)=> b.updatedAt.getTime() - a.updatedAt.getTime() ); break; /** date desc */
+  setReviews(reviews: any[]) { this._reviews = reviews || []; }
+  sortReviewBy(i: number) {
+    switch (i) {
+      case 0: this._reviews.sort((a, b) => b.rate - a.rate); break; /** rate desc */
+      case 1: this._reviews.sort((a, b) => a.rate - b.rate); break; /** rate asc */
+      case 2: this._reviews.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime()); break; /** date desc */
     }
   }
 }
@@ -291,8 +303,8 @@ interface Video {
   url: string;
 }
 
-type Amenity = {
-  id: string
+interface Amenity {
+  id: string;
   item_text: string;
   image: string;
 }

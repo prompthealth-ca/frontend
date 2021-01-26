@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener, OnDestroy } from '@angular/core';
 import { animate, state, trigger, transition, style } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
@@ -31,7 +31,7 @@ const animation = trigger('expandVertical', [
   animations: [animation, slideVerticalAnimation],
 
 })
-export class ListingComponent implements OnInit {
+export class ListingComponent implements OnInit, OnDestroy {
 
   constructor(
     private behaviorService: BehaviorService,
@@ -71,7 +71,7 @@ export class ListingComponent implements OnInit {
 
 
   private geoCoder;
-  keyword = 'name';
+  keyword = '';
   serviceQuestion; /** todo: can be deleted. */
   languageQuestion; /** todo: can be deleted. */
   avalibilityQuestion; /** todo: can be deleted. */
@@ -147,6 +147,7 @@ export class ListingComponent implements OnInit {
     price_per_hours: '',
     gender: '',
     typical_hours: [],
+    keyword: ''
   };
 
   public filters: Filter[] = [
@@ -195,6 +196,7 @@ export class ListingComponent implements OnInit {
 
   private timerListing: any;
 
+
   ngOnDestroy() {
     localStorage.removeItem('typical_hours');
   }
@@ -219,13 +221,15 @@ export class ListingComponent implements OnInit {
         lng = Number(lngStr);
       }
     }
-    if (lat & lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
+    if (lat && lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
 
 
     this.route.queryParams.subscribe(queryParams => {
 
       this.id = queryParams.id;
       this.type = queryParams.type;
+      this.keyword = queryParams.keyword;
+      this.listingPayload.keyword = this.keyword;
       if (queryParams.id && queryParams.type) {
 
 
@@ -242,6 +246,7 @@ export class ListingComponent implements OnInit {
           type: this.type,
           latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           miles: this.listingPayload.miles,
+          keyword: this.keyword
           // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
         });
       } else {
@@ -265,6 +270,8 @@ export class ListingComponent implements OnInit {
             type: this.listingPayload.type,
             latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
             miles: this.listingPayload.miles,
+            keyword: this.keyword
+
             // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
           });
         }
@@ -392,7 +399,6 @@ export class ListingComponent implements OnInit {
       this._sharedService.loader('hide');
     });
   }
-
   listing(filter, showLoader: boolean = true) {
     if (filter.latLong === 'null, null') {
       filter.latLong = '';
@@ -457,6 +463,7 @@ export class ListingComponent implements OnInit {
       gender: '',
       price_per_hours: '',
       typical_hours: [],
+      keyword: ''
     };
 
     this.listing({
@@ -497,14 +504,14 @@ export class ListingComponent implements OnInit {
 
   /** set formatted value to selected listingPayload property  */
   setFilterOne(val: string | string[] | number, payloadName: string) {
-    if (payloadName == 'rating') {
-      this.listingPayload[payloadName] = (typeof val == 'string') ? Number(val) : (typeof val == 'number') ? val : 0;
+    if (payloadName === 'rating') {
+      this.listingPayload[payloadName] = (typeof val === 'string') ? Number(val) : (typeof val === 'number') ? val : 0;
     }
-    if (payloadName == 'miles') {
-      this.listingPayload[payloadName] = (typeof val == 'string') ? Number(val) : (typeof val == 'number') ? val : 100;
+    if (payloadName === 'miles') {
+      this.listingPayload[payloadName] = (typeof val === 'string') ? Number(val) : (typeof val === 'number') ? val : 100;
     }
-    if (typeof val == 'string') {
-      if (payloadName == 'rating') { this.listingPayload[payloadName] = Number(val); } else { this.listingPayload[payloadName] = val; }
+    if (typeof val === 'string') {
+      if (payloadName === 'rating') { this.listingPayload[payloadName] = Number(val); } else { this.listingPayload[payloadName] = val; }
     } else { this.listingPayload[payloadName] = val; }
   }
 

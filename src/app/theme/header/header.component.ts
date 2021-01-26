@@ -68,6 +68,8 @@ export class HeaderComponent implements OnInit {
 
   public classSubcategory = '';
   public classSubcategoryItem = '';
+  // End Ngoninit
+  public keyword: string;
 
 
   // Start ngOninit
@@ -130,13 +132,17 @@ export class HeaderComponent implements OnInit {
     //   }
     // }
   }
-  // End Ngoninit
-
   route(path) {
     this._router.navigate([path]);
   }
 
-
+  keywordSearch() {
+    this._router.navigate(['/dashboard/listing'], {
+      queryParams: {
+        keyword: this.keyword
+      }
+    });
+  }
   logout() {
     this.token = '';
     this.user = {};

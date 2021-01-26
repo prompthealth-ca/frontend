@@ -10,9 +10,12 @@
         </a>
       </div>
       <div class="mx-2 mx-md-4 flex-grow-1 flex-shrink-1">
-        <div class="searchbar rounded-pill">
-          <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" />
-        </div>
+        <form (submit)="keywordSearch()">
+          <div class="searchbar rounded-pill">
+            <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" [(ngModel)]="keyword" name="keyword" />
+          </div>
+        </form>
+
       </div>
       <div *ngIf="!token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
         <div class="d-flex align-items-center flex-nowrap">
@@ -31,13 +34,6 @@
             (click)="isDashboardMenuShown = !isDashboardMenuShown"
           ></dashboard-menu>
           <div class="position-absolute top-10p dashboard-menu-wrapper-md">
-
-            <!-- <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
-            <img *ngIf="user.profileImage"
-              src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
-              class="user-img mr-2" />
-            -->
- 
           </div>
         </div>
       </ng-template>
@@ -56,6 +52,9 @@
         </div>
         <div class="nav-item" (click)="showMenu()">
           <a class="nav-link">Category</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan']">Pricing</a>
         </div>
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan-partner']">Partner</a>

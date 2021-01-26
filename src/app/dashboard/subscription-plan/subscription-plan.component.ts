@@ -242,13 +242,14 @@ export class SubscriptionPlanComponent implements OnInit {
     this._sharedService.post(payload, path).subscribe((res: any) => {
       console.log('there we go');
       if (res.statusCode === 200) {
-        this.toastr.success('Checking out...');
         // this.closebutton.nativeElement.click();
         // console.log(environment.config.stripeKey);
         console.log(res);
         this.stripeService.changeKey(environment.config.stripeKey);
 
         if (res.data.type === 'checkout') {
+          this.toastr.success('Checking out...');
+
           this.stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
             console.log('success!');
           }, error => {
@@ -257,6 +258,7 @@ export class SubscriptionPlanComponent implements OnInit {
           });
         }
         if (res.data.type === 'portal') {
+          this.toastr.success('You already have this plan. Redirecting to billing portal');
           console.log(res.data);
           location.href = res.data.url;
         }

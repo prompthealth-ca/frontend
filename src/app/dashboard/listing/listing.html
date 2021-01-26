@@ -4,20 +4,27 @@
   </p>
 </ngx-spinner>
 
-<section class="container-fluid bg-blue py-3 py-md-4">
+<section class="container-fluid bg-blue py-3 py-md-4" 
+  [routerLink]="['/dashboard/listing']"
+  [queryParams]="{virtual: !isVirtual}" 
+  style="user-select: none"
+  >
   <div class="max-w-1200">
     <div class="d-flex flex-nowwrap align-items-center">
 
-      <div class="banner d-flex flex-column flex-md-row flex-md-nowrap align-items-md-center" [ngClass]="{sticked: isFinderSticked}">
-        <span class="text-light font-mg-big pr-3 pr-lg-5">we provide online services!!!!!</span>
-        <span class="bg-orange px-3 py-2 mt-2 mt-md-0 rounded font-italic">
-          Look for
-          <i class="fas fa-video px-1"></i>
-          to find virtural services
-        </span>
+      <div>
+        <div class="banner d-flex flex-column flex-md-row flex-md-nowrap align-items-md-center" [ngClass]="{sticked: isFinderSticked}">
+          <span class="text-light font-mg-big pr-3 pr-lg-5">we provide online services!!!!!</span>
+          <span class="bg-orange px-3 py-2 mt-2 mt-md-0 rounded font-italic">
+            Look for
+            <i class="fas fa-video px-1"></i>
+            to find virtural services
+          </span>
+        </div>
+        <p *ngIf="isVirtual" class="mt-2 mb-0 text-light">(go back to view with map)</p>
       </div>
   
-      <!-- <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>   -->
+      <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>  
     </div>  
   </div>
 </section>
@@ -82,22 +89,22 @@
 
 <section class="container-fluid bg-lightblue" id="professionalList">
   <div class="row align-items-start">
-    <div class="col-12 col-md-6 d-md-block pt-5 min-h-100-finder"
-      [ngClass]="{'d-none': isMapView, 'col-lg-9': !isMapSizeBig, 'col-lg-3': isMapSizeBig}"
+    <div class="col-12 d-md-block pt-5 min-h-100-finder"
+      [ngClass]="listingContainerClass"
     >
       <div class="container-fluid postiion-relative">
         <p class="font-italic">Here are the options we found for you</p>
         <ul class="professionals list-unstyled row" *ngIf="!pages.data">
           <li class="col-12 mb-3"
             *ngFor="let i of [0,1,2,3,4,5]"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+            [ngClass]="listingItemClass"
           ><div class="card p-1 border-blue rounded-15p"><post-dummy></post-dummy></div></li>
         </ul>
 
         <ul class="professionals list-unstyled row" *ngIf="pages.data">
           <li class="col-12 mb-3"
             *ngFor="let p of pages.data[pages.current - 1]"
-            [ngClass]="{'col-lg-4': !isMapSizeBig}"
+            [ngClass]="listingItemClass"
           >
             <!-- todo: create component to reuse this card in google map -->
             <div class="card p-3 text-center border-blue rounded-15p font-small">
@@ -111,9 +118,12 @@
                 <label class="form-check-label" [for]="'compare-' + p.id">compare</label>
               </div>
 
-              <p class="font-weight-bold font-bigger mb-0">{{p.name}}</p>
+              <p class="font-weight-bold font-bigger mb-0">
+                <i class="fas fa-clinic-medical pr-1" *ngIf="p?.isCentre"></i>
+                {{p.name}}
+              </p>
               <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
-              <p class="mb-1" *ngIf="!p.isCentre">This is my title</p>
+              <p class="mb-1" *ngIf="!p.isCentre">{{p.organization}}</p>
               <p class="mb-1" *ngIf="p.isCentre && p.phone">{{p.phone}}</p>
               <p class="mb-3 address">{{p.address}}</p>
               <div>
@@ -132,11 +142,12 @@
             [ngClass]="{active: (i == pages.current - 1)}"
             (click)="changePage(i + 1)"
           ></div>
-          <div class="paginator next" (click)="changePage(pages.current + 1)"></div>
+          <div *ngIf="pages.data && pages.data.length > 1" class="paginator next" (click)="changePage(pages.current + 1)"></div>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 d-none d-md-block sticky-to-finder h-100--finder bg-white"
+      *ngIf="!isVirtual"
       [ngClass]="{'d-none': !isMapView, 'col-lg-9': isMapSizeBig, 'col-lg-3': !isMapSizeBig}"
     >
       <agm-map 
@@ -189,7 +200,9 @@
   
 </section>
 
-<button class="btn switch-ui d-md-none font-biggest text-blue blur" (click)="toggleView()">
+<button class="btn switch-ui d-md-none font-biggest text-blue blur" 
+*ngIf="!isVirtual"
+(click)="toggleView()">
   <i *ngIf="!isMapView" class="fas fa-map-marked-alt"></i>
   <i *ngIf="isMapView" class="fas fa-list"></i>
 </button>

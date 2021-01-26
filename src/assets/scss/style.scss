@@ -1,5 +1,8 @@
 @import "mixins";
 
+:root{
+  --ph-blue: #3377C5;
+}
 
 ui-switch{
   .switch{

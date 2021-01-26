@@ -131,7 +131,7 @@ export class Professional implements IProfessional {
   get videos(){ return this._videos; }
   get yearsOfExperience(){ return this._yearsOfExperience; }
   get languages(){
-    var languages = [];
+    let languages = [];
     this._languages.forEach(l=>{ languages.push(l.item_text); });
     return languages.join(', ');
   }
@@ -153,31 +153,31 @@ export class Professional implements IProfessional {
   get professionals(){ return this._professionals; }
 
   get typeOfProvider(){
-    var result = [];
+    let result = [];
     if(this._typeOfProvider){ this._typeOfProvider.forEach(o=>{ result.push(o.item_text); }); }
     return result;
   }
 
   get treatmentModality(){
-    var result = [];
+    let result = [];
     if(this._treatmentModality){ this._treatmentModality.forEach(o=>{ result.push(o.item_text); }); }
     return result;
   }
 
   get service(){
-    var result = [];
+    let result = [];
     if(this._service){ this._service.forEach(o=>{ result.push(o.item_text); }); }
     return result; 
   }
 
   get serviceDelivery(){
-    var result = [];
+    let result = [];
     if(this._serviceDelivery){ this._serviceDelivery.forEach(o=>{ result.push(o.item_text); }); }
     return result;
   }
 
   get amenity(){
-    var result = [];
+    let result = [];
     if(this._amenities){ this._amenities.forEach(o=>{ result.push(o.item_text); }); }
     return result;
   }
@@ -192,13 +192,13 @@ export class Professional implements IProfessional {
     this._rowUserData = p;
     this._rowAns = ans;
 
-    var first = p.firstName || p.fname || '';
-    var last = p.lastName || p.lname || '';
-    var name = first + ' ' + last;
+    const first = p.firstName || p.fname || '';
+    const last = p.lastName || p.lname || '';
+    const name = first + ' ' + last;
     this._name = name.trim();
     this._firstname = first;
 
-    var image = p.profileImage || p.image || null;  
+    const image = p.profileImage || p.image || null;  
     this._image = (image && image.length > 0)? baseURLImage + image : '/assets/img/no-image.jpg';
     this._banner = '/assets/img/professional-banner.png';
 
@@ -214,10 +214,10 @@ export class Professional implements IProfessional {
     this._ratingAvg = p.ratingAvg? Number(p.ratingAvg) : 0;
     this._reviews = p.ratingBy || [];
     
-    var priceRange: string = p.price_per_hours || '';
-    var priceArray: string[] = priceRange? priceRange.replace('$', '').split('-') : [];
+    const priceRange: string = p.price_per_hours || '';
+    const priceArray: string[] = priceRange? priceRange.replace('$', '').split('-') : [];
     priceArray.forEach((price)=>{ 
-      var p = Number(price.trim());
+      const p = Number(price.trim());
       if(p > 0){ this._priceRange.push(p); }
     });
 
@@ -256,7 +256,7 @@ export class Professional implements IProfessional {
   setProfessionals(professionals: Professional[]){  professionals.forEach(p=>{ this._professionals.push(p); }); }
 
   setAmenities(amenities: any[]){
-    var a = [];
+    const a = [];
     amenities.forEach(amenity => {
       a.push({
         id: amenity.defaultamenityId._id, 

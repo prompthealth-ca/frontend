@@ -13,6 +13,7 @@
 .borderb-grey{ border-bottom: solid 2px #DFD9D9; }
 
 .color-card-icon{ color: #646363; }
+.fa-video{ color: #00D147; }
 
 .overflow-hidden{ overflow: hidden;}
 
@@ -101,11 +102,10 @@ $imageSize: 100, 120;
 .profile-image{
   position: absolute;
   bottom: 0;
-  background: black;
   overflow: hidden;
   transform-origin: bottom left;
-
   transition: transform $transDurTabStick;
+  background: white;
 
   width: nth($imageSize, 1) + 0px;
   height: nth($imageSize, 1) + 0px;
@@ -115,12 +115,12 @@ $imageSize: 100, 120;
   }
 
   .sticked &{ 
+    border: solid 1px #DFD9D9;
     transform: scale( 60 / nth($imageSize, 1) ) translateY(-20px);
     @media screen and (min-width: 768px){ 
       transform: scale( 60 / nth($imageSize, 2) ) translateY(-20px);
     }
   }
-
 
   img{
     position: absolute;
@@ -163,6 +163,15 @@ $imageSize: 100, 120;
   &.pos-1{ transform: translate(100%); }
 }
 
+.list-item{ white-space: pre-wrap; }
+.table-item{
+  flex: 1 0 100%;
+  @media screen and (min-width: 768px){ 
+    flex: 1 0 50%; 
+    white-space: nowrap; 
+  }
+}
+
 .card-title{
   padding: 15px 10px;
   background: #4683CC;
@@ -203,11 +212,31 @@ $imageSize: 100, 120;
   }
 }
 
+.professional-name{
+  height: 42px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .professional-image{
   width: 100px;
   height: 100px;
-  background: grey;
   margin: 0 auto 10px;
+  object-fit: cover;
+  border: solid 1px #dcdcdc;
+}
+
+.professional-desc{
+  white-space: pre-wrap;
+  text-align: left;
+  &.clamp{
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-align: center;
+  }
 }
 
 .endosement-wrapper:not(:last-child){

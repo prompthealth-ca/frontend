@@ -13,6 +13,7 @@ import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-
 import { StarRateComponent } from './star-rate/star-rate.component';
 import { PostDummyComponent } from './post-dummy/post-dummy.component';
 import { FocusDirective } from './focus.directive';
+import { CategoryService } from './services/category.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { FocusDirective } from './focus.directive';
   ],
   providers: [
     PreviousRouteService,
-    SharedService
+    SharedService,
+    CategoryService
   ],
   declarations: [
     UserSidebarComponent,

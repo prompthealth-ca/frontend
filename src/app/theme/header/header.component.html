@@ -68,7 +68,7 @@
 
 
     <!-- menu for medium view or more-->
-    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && categoryList" [@fade]>
+    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && catService.categoryList" [@fade]>
       <div class="menu-close" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner">
@@ -76,18 +76,18 @@
         <div class="menu-category-group w-100">
           <div class="col-4 menu-category">
             <ul class="category">
-              <li *ngFor="let cat of categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">
+              <li *ngFor="let cat of catService.categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">
                 <div class="highlighter"></div>
                 <span>{{cat.item_text}}</span>
               </li>
             </ul>
           </div>
           <div class="col-8 menu-subcategory">
-            <img [src]="'assets/img/services_' + categoryList[activeCategory].label + '.png'"/>
+            <img [src]="'assets/img/services_' + catService.categoryList[activeCategory].label + '.png'"/>
             <ul class="category sub"
               [class]="classSubcategory"
             >
-              <li *ngFor="let sub of categoryList[activeCategory].subCategory"
+              <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory"
                 [class]="classSubcategoryItem"
               >
                 <a [routerLink]="['/dashboard/listing']"
@@ -128,7 +128,7 @@
       </button>
       Category
     </li>
-    <li *ngFor="let cat of categoryList; let i = index"
+    <li *ngFor="let cat of catService.categoryList; let i = index"
       (click)="changeMenuCategory(i); scrollMenuSm(2)"
     >{{cat.item_text}}</li>
   </ul>
@@ -141,10 +141,10 @@
         <i class="fas fa-arrow-left"></i>
       </button>
       <span class="d-inline-block">
-        {{categoryList[activeCategory].item_text}}
+        {{catService.categoryList[activeCategory].item_text}}
       </span>
     </li>
-    <li *ngFor="let sub of categoryList[activeCategory].subCategory">
+    <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
       <a [routerLink]="['/dashboard/listing']"
         [queryParams]=" {id: sub._id, type: 'goal'}"
         (click)="hideMenu()"

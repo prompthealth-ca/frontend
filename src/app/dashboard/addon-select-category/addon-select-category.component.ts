@@ -8,12 +8,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddonSelectCategoryComponent implements OnInit {
   @Input() categories = [];
-  selectedCategory;
+  selectedCategory = 0;
 
   constructor(public modal: NgbActiveModal) { }
 
 
   ngOnInit(): void {
+    console.log(this.categories);
   }
 
 }

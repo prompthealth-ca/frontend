@@ -7,9 +7,9 @@
   </button>
 </div>
 <div class="modal-body">
-  <select name="category" id="">
-    <option *ngFor="let cat of categories" value="cat">
-      {{cat}}
+  <select name="category" id="" ngbAutofocus class="custom-select" [(ngModel)]="selectedCategory">
+    <option *ngFor="let cat of categories; let i = index" [value]="i">
+      {{cat.item_text}}
     </option>
   </select>
 </div>

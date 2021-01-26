@@ -7,6 +7,7 @@ import { HeaderStatusService } from '../../shared/services/header-status.service
 import { environment } from '../../../environments/environment';
 import { trigger, transition, animate, style, query } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/shared/services/category.service';
 
 const fadeAnimation = trigger('fade', [
   transition(':enter', [
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
     private _bs: BehaviorService,
     private toastr: ToastrService,
     private _headerStatusService: HeaderStatusService,
+    public catService: CategoryService
   ) {
     // this.fetchUser();
   }
@@ -50,11 +52,10 @@ export class HeaderComponent implements OnInit {
   public levelMenuSm = 0;
   public activeCategory = 0;
 
-  public AWS_S3='';
+  public AWS_S3 = '';
 
   user: any = {};
   updateData: any;
-  categoryList = [];
   cities = [];
   Items = [];
   showCities = false;
@@ -76,7 +77,7 @@ export class HeaderComponent implements OnInit {
   // Start ngOninit
   ngOnInit() {
 
-    this.AWS_S3 = environment.config.AWS_S3
+    this.AWS_S3 = environment.config.AWS_S3;
 
     this._bs.getUserData().subscribe((res: any) => {
       this.updateData = res;
@@ -86,7 +87,6 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    this.getCategoryServices();
     this.token = localStorage.getItem('token');
     this.role = localStorage.getItem('roles');
     // this.payment = localStorage.getItem(isPayment);
@@ -147,29 +147,7 @@ export class HeaderComponent implements OnInit {
     this._sharedService.logout();
   }
 
-  getCategoryServices() {
-    this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
-      this._sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.categoryList = [];
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].category_type.toLowerCase() == 'goal') {
-            this.categoryList = res.data[i].category;
-            break;
-          }
-        }
-        this.categoryList.forEach((cat, i) => {
-          let label = cat.item_text.toLowerCase();
-          label = label.replace(/[\/\s]/g, '_');
-          this.categoryList[i].label = label.replace(/[^0-9a-zA-Z_]/g, '');
-        });
-      }
-    }, (error) => {
-      console.error(error);
-      this.toastr.error('There are some error please try after some time.');
-      this._sharedService.loader('hide');
-    });
-  }
+
   isSelectedURL(path) {
     if ((this.currentUrl === '/' || this.currentUrl === '') && path === '/') {
       return true;
@@ -209,7 +187,7 @@ export class HeaderComponent implements OnInit {
   }
   setClassForSubcategory(i: number) {
     let clname = ['', ''];
-    switch (this.categoryList[i].label) {
+    switch (this.catService.categoryList[i].label) {
       //      case 'skin_rejuvination': clname = ['', '']; break;
       case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
       case 'pain_management': clname = ['', 'lower narrowest']; break;

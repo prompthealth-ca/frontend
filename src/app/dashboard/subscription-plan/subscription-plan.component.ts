@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
+import { CategoryService } from 'src/app/shared/services/category.service';
 declare var jQuery: any;
 
 
@@ -78,7 +79,8 @@ export class SubscriptionPlanComponent implements OnInit {
     private toastr: ToastrService,
     private fb: FormBuilder,
     private stripeService: StripeService,
-    private _modalService: NgbModal
+    private _modalService: NgbModal,
+    public catService: CategoryService
   ) { }
 
   ngOnInit() {
@@ -94,6 +96,7 @@ export class SubscriptionPlanComponent implements OnInit {
 
     this.getSubscriptionPlan('user/get-plans');
     this.getAddonPlan();
+
     // this.getUserDetails();
     if (this.isLoggedIn === true) {
       this.getProfileDetails();
@@ -289,27 +292,40 @@ export class SubscriptionPlanComponent implements OnInit {
   buyAddOnPlan(plan) {
     console.log(plan);
     console.log(this.profile);
-    if (plan.name) {
+    if (plan.name === 'The Networker') {
       const modalRef = this._modalService.open(AddonSelectCategoryComponent, {
         centered: true
       });
+      modalRef.componentInstance.categories = this.catService.categoryList;
       modalRef.result.then(res => {
         console.log(res);
+        const metadata = this.catService.categoryList[res];
+        delete metadata.subCategory;
+        metadata.userType = plan.userType;
+        console.log(metadata);
+        this.checkoutAddonPlan(plan, metadata);
       }).catch(error => {
         console.log(error);
       });
+    } else {
+      this.checkoutAddonPlan(plan);
     }
-    // const payload = {
-    //   cancel_url: location.href,
-    //   success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
-    //   userId: localStorage.getItem('loginID'),
-    //   userType: localStorage.getItem('roles'),
-    //   email: JSON.parse(localStorage.getItem('user')).email,
-    //   plan,
-    //   isMonthly: this.isPriceMonthly,
-    //   type: 'addon'
-    // };
-    // this.stripeCheckout(payload);
+
+  }
+  checkoutAddonPlan(plan, metadata = {}) {
+    const payload = {
+      cancel_url: location.href,
+      success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
+      userId: localStorage.getItem('loginID'),
+      userType: localStorage.getItem('roles'),
+      email: JSON.parse(localStorage.getItem('user')).email,
+      plan,
+      isMonthly: this.isPriceMonthly,
+      type: 'addon',
+      metadata
+    };
+    console.log(payload);
+    this.stripeCheckout(payload);
   }
   changePriceRange(isMonthly: boolean) {
     this.isPriceMonthly = isMonthly;

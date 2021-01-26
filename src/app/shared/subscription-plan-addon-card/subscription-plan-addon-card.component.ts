@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 type AddonType = 'op1' | 'op2' | 'advanced' | 'endorsement' | 'social';
-type AddonData = {title: string; desc: string[]; };
+interface AddonData { title: string; desc: string[]; }
 
 @Component({
   selector: 'subscription-plan-addon-card',
@@ -13,12 +13,13 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
 
   @Input() type: AddonType;
   @Input() data: any;
-  @Input() isPriceMonthly: boolean = true;
-  @Input() flexibleButtonPosition: boolean = true;
+  @Input() isPriceMonthly = true;
+  @Input() hasPlan = false;
+  @Input() flexibleButtonPosition = true;
 
   @Output() select = new EventEmitter<AddonType>();
 
-  public isLoggedIn: boolean = false;
+  public isLoggedIn = false;
   public addon: AddonData = null;
 
   constructor() { }
@@ -28,44 +29,42 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     this.addon = addons[this.type];
   }
 
-  getTabName(){
+  getTabName() {
     /** tod: use real data for price */
-    var name = '';
-    switch(this.type){
+    let name = '';
+    switch (this.type) {
       case 'social': name = 'Ask us for a quote'; break;
-      default: name = `$${this.isPriceMonthly? ('xx/Monthly') : ('xx/Annualy')}`;
+      default: name = `$${this.isPriceMonthly ? ('xx/Monthly') : ('xx/Annualy')}`;
     }
 
-/*
-    if(this.data){
-      name = `$${this.isPriceMonthly? (this.data.price + 'xx/Monthly') : (this.data.yearlyPrice + 'xx/Annualy')}`;
+    if (this.data) {
+      name = `$${this.isPriceMonthly ? (this.data.price + '/Monthly') : (this.data.yearlyPrice + '/Annualy')}`;
     }
-*/
     return name;
   }
 
-  getLinkToSignin(){
+  getLinkToSignin() {
     /** todo: add code  */
-    var link = ['/auth', 'registration', 'sp']
+    const link = ['/auth', 'registration', 'sp'];
     return link;
   }
-  
-  triggerButtonClick(){ this.select.emit(this.type); }
+
+  triggerButtonClick() { this.select.emit(this.data); }
 
 }
 
-const addons: {op1: AddonData, op2: AddonData, advanced: AddonData, endorsement: AddonData, social: AddonData} = {
+const addons: { op1: AddonData, op2: AddonData, advanced: AddonData, endorsement: AddonData, social: AddonData } = {
   op1: {
     title: 'Option 1 - The Networker',
     desc: [
       'Get featured on our homepage for ultimate exposure',
     ],
-  }, 
+  },
   op2: {
     title: 'Option 2 - The Socialite',
     desc: [
       '3 general health content IG/FB posts/week',
-      'IG/FB posts for all special occasions', 
+      'IG/FB posts for all special occasions',
       '1 custom TikTok, IGTV, or Podcast per year, which will also be uploaded to YouTube',
     ]
   },
@@ -89,4 +88,4 @@ const addons: {op1: AddonData, op2: AddonData, advanced: AddonData, endorsement:
       'encouraging others to try products with us',
     ]
   }
-}
+};

@@ -1,0 +1,57 @@
+:host{ 
+  display: block;
+  position: relative;
+  font-size: 16px;
+}
+
+.user-image{
+  flex: 0 0 35px; 
+  height: 35px;
+  width: 35px;
+  object-fit: cover;  
+  border-radius: 35px;
+  overflow: hidden;
+}
+
+.user-info{ 
+  flex: 1 1 auto;
+  padding: 0 15px;
+}
+
+.text-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-button{
+  user-select: none;
+  cursor: pointer;
+  border-radius: 50px;
+  border: solid 1px #d6d6d6;
+
+  padding: 4px;
+
+  &.right{
+    .user-image{ order: 2; }
+    .user-info{ order: 1; }
+  }
+}
+
+.menu{
+  overflow: auto;
+  min-width: 300px;
+
+  &.expandable.right{ right: 0; }
+  
+  .menu-header{
+    padding: 22px 16px;
+  }
+
+  .menu-body{
+    padding: 16px;
+  }
+}
+
+
+.btn{ color: inherit; }
+.btn.logout{ color: #f08580; }

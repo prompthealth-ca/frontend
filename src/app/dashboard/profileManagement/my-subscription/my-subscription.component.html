@@ -4,19 +4,19 @@
     <button class="btn btn-primary" (click)="manageBilling()">Manage subscription</button>
 </div>
 <hr>
-<div *ngIf="profile; else noPlan">
+<div *ngIf="defaultPlan; else noPlan">
     <div class="row">
         <div class="col-sm-6">
             <div class="row">
                 <label class="col-md-4"><b>Plan Name:</b></label>
-                <p class="col-md-8">{{ profile?.planName }} {{profile?.subscriptionPeriod==='year'? 'Yearly':
+                <p class="col-md-8">{{ defaultPlan?.planName }} {{defaultPlan?.subscriptionPeriod==='year'? 'Yearly':
                     'Monthly'}}</p>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="row">
                 <label class="col-md-3"><b>Price:</b></label>
-                <p class="col-md-9">{{ profile?.subscriptionPeriod==='year'? profile.yearlyPrice: profile.price}}</p>
+                <p class="col-md-9">{{ defaultPlan?.subscriptionPeriod==='year'? defaultPlan.yearlyPrice: defaultPlan.price}}</p>
             </div>
         </div>
     </div>
@@ -24,15 +24,28 @@
     <h6>Features:</h6>
 
     <div class="row">
-        <label *ngIf="profile?.professionalProfile" class="col-md-6">Professional Profile</label>
-        <label *ngIf="profile?.addressURLLogoPicture" class="col-md-6">Address, URL, Logo Picture</label>
-        <label *ngIf="profile?.videoUpload" class="col-md-6">Video Upload</label>
-        <label *ngIf="profile?.performanceDashboard" class="col-md-6">Performance Dashboard</label>
-        <label *ngIf="profile?.reviewsAndFeedback" class="col-md-6">Reviews And Feedback</label>
-        <label *ngIf="profile?.ListProductsOption" class="col-md-6">List Of Products</label>
-        <label *ngIf="profile?.ListAmenities" class="col-md-6">List Of Amenities </label>
-        <label *ngIf="profile?.ListOfProviders" class="col-md-6">List Of Providers</label>
+        <label *ngIf="defaultPlan?.professionalProfile" class="col-md-6">Professional Profile</label>
+        <label *ngIf="defaultPlan?.addressURLLogoPicture" class="col-md-6">Address, URL, Logo Picture</label>
+        <label *ngIf="defaultPlan?.videoUpload" class="col-md-6">Video Upload</label>
+        <label *ngIf="defaultPlan?.performanceDashboard" class="col-md-6">Performance Dashboard</label>
+        <label *ngIf="defaultPlan?.reviewsAndFeedback" class="col-md-6">Reviews And Feedback</label>
+        <label *ngIf="defaultPlan?.ListProductsOption" class="col-md-6">List Of Products</label>
+        <label *ngIf="defaultPlan?.ListAmenities" class="col-md-6">List Of Amenities </label>
+        <label *ngIf="defaultPlan?.ListOfProviders" class="col-md-6">List Of Providers</label>
     </div>
+</div>
+<div *ngIf="(addOnPlans | json) != ({} | json)">
+
+  <h4 class="mt-5">Add-On plans</h4>
+  <div class="row" >
+    <div *ngFor="let addOnPlan of this.addOnPlans | keyvalue" class="mb-3 col-6 col-md-4 col-lg-3">
+      <h5>
+        {{addOnPlan.value.name}}
+      </h5>
+      <div style="margin-bottom: 2rem;white-space:pre-wrap;">{{addOnPlan.value.description}}
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #noPlan>

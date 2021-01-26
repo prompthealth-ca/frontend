@@ -1,0 +1,46 @@
+<div class="menu-button d-flex align-items-center"
+  *ngIf="ui == 'button'"
+  [class]="buttonDirection"
+  [ngStyle]="styleButton"
+>
+  <img class="user-image" [src]="getImage()" alt="user avator">
+  <div class="user-info text-ellipsis font-small">
+    <span class="text-nowrap">{{getName()}}</span>
+  </div>
+</div>
+
+<div class="menu text-left font-weight-normal"
+  *ngIf="ui == 'menu'"
+  [ngStyle]="styleMenu"
+>
+  <div class="menu-header d-flex align-item-center blur-blue text-white"
+    [ngStyle]="styleHeader"
+  >
+    <img class="user-image" [src]="getImage()" alt="user avator">
+    <div class="user-info">
+      <div class="text-nowrap mb-1">{{getName()}}</div>
+      <div class="text-nowrap font-small m-0">{{getEmail()}}</div>
+    </div>  
+  </div>
+
+  <div class="menu-body blur"
+    [ngStyle]="styleBody"
+  >
+    <div>
+      <a *ngIf="hasProfile()" 
+        (click)="onClose()"
+        class="btn font-regular pl-0 py-2 text-nowrap" 
+        [routerLink]="['/dashboard/detail/', getId()]"
+      >See my profile</a>
+    </div>
+    <div>
+      <a class="btn font-regular pl-0 py-2 text-nowrap" 
+        (click)="onClose()"  
+        [routerLink]="['/dashboard/profilemanagement/my-profile']"
+      >My Dashboard</a>
+    </div>
+    <div>
+      <button class="btn font-regular pl-0 py-2 text-nowrap logout" (click)="onClickLogout(); onClose();">Logout</button>
+    </div>  
+  </div>
+</div>

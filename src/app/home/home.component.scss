@@ -125,12 +125,26 @@ $slideLeftRightPaddding: 80px;
   min-height: 40vh;
 }
 
+.link-ask-us{
+  position: relative;
+  font-size: 16px;
+  $shadow: #daeafb;
+  text-shadow: 1px 1px 0 $shadow, -1px 1px 0 $shadow, 1px -1px 0 $shadow, -1px -1px 0 $shadow;
+}
+
 .about-us-body-font {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 1em;
   line-height: 200%;
+}
+
+.h2-partner{
+  background: linear-gradient(45deg, #5D7DC1, rgba(70, 131, 204, 0.22));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .btn-home {

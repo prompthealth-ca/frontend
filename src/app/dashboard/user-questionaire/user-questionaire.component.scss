@@ -9,6 +9,7 @@ $colorBlue: #3377C5;
     font-size: 16px;
 }
 
+@import '../../../assets/scss/responsive_variables';
 .sticky-top-sm{
   @media screen and (max-width: 767px){
     position: sticky;
@@ -19,7 +20,6 @@ $colorBlue: #3377C5;
   backdrop-filter: blur(10px);
 }
 
-@import '../../../assets/scss/responsive_variables';
 .stepper-road-sm{
   position: relative;
   width: 100%;

@@ -69,9 +69,9 @@ export class SharedService {
     }
 
   }
-  getNoAuth(path, setParams = {}) {
+  getNoAuth(path: string, params = {}) {
     const url = this.rootUrl + path;
-    return this.http.get(url);
+    return this.http.get(url, { params });
   }
   post(body, path) {
     const headers = this.getAuthorizationHeader();

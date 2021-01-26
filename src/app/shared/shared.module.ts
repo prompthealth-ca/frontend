@@ -13,6 +13,9 @@ import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-
 import { StarRateComponent } from './star-rate/star-rate.component';
 import { PostDummyComponent } from './post-dummy/post-dummy.component';
 import { FocusDirective } from './focus.directive';
+import { CategoryService } from './services/category.service';
+import { ClickOutsideDirective } from './click-outside.directive';
+import { ScrollDetectorDirective } from './scroll-detector.directive';
 
 @NgModule({
   imports: [
@@ -22,7 +25,8 @@ import { FocusDirective } from './focus.directive';
   ],
   providers: [
     PreviousRouteService,
-    SharedService
+    SharedService,
+    CategoryService
   ],
   declarations: [
     UserSidebarComponent,
@@ -33,6 +37,8 @@ import { FocusDirective } from './focus.directive';
     StarRateComponent,
     PostDummyComponent,
     FocusDirective,
+    ClickOutsideDirective,
+    ScrollDetectorDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -43,6 +49,8 @@ import { FocusDirective } from './focus.directive';
     StarRateComponent,
     PostDummyComponent,
     FocusDirective,
+    ClickOutsideDirective,
+    ScrollDetectorDirective,
   ]
 })
 export class SharedModule { }

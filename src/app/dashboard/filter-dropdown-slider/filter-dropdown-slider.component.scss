@@ -1,0 +1,10 @@
+.form-range{
+  display: block;
+  width: 100%; 
+
+  &::-webkit-slider-runnable-track{
+  }
+
+  &::-webkit-slider-thumb{
+  }
+}

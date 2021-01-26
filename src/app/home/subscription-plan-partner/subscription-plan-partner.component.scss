@@ -1,8 +1,8 @@
-.max-w-1000{ max-width: 1000px; }
 .text-blue{ color: #3377C5; }
+.bg-blue{ background: #3377C5; }
 .text-pink{ color: #A759B3; }
-.font-bigger{ font-size: 1.2em; }
 
+.text-md-nowrap{ @media screen and (min-width: 768px){ white-space: nowrap; } }
 :host{
   font-size: 16px;
 }
@@ -17,3 +17,20 @@
     }
   }
   
+.input-group{
+  flex: 1 1 30%;
+  &.email{ flex: 2 1 50%; }
+}
+
+.input-submit{ 
+  flex: 0 0 auto;
+  padding: 8px 35px;
+}
+.error{ 
+  color: red; 
+  position: absolute;
+  top: 100%;
+  @media screen and (min-width: 768px){
+    right: 0;
+  }
+}

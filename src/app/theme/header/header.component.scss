@@ -1,49 +1,42 @@
 @import "../../../assets/scss/mixins";
 
-@media screen and (max-width: 350px){
-  .plr-0-i5{
-    padding-right: 0;
-    padding-left: 0;
-  }
-  .pl-5-i5{
-    padding-left: 5px;
-  }
-  .pr-5-i5{
-    padding-right: 5px;
-  }
-}
-.nav-link{
-  color: inherit;
-  cursor: pointer;
-}
+
+.border-blue{ border-color: #3377C5 !important; }
+.text-blue{ color: #3377C5; }
+.w-160p{ width: 160px; }
+.h-40p{ height: 40px; }
+.top-10p{ top: 10px; }
 
 nav{
   transition: transform 400ms;
   &.hide{ transform: translateY(-100%); }
 }
 
-.btn{ padding: 4px 16px; }
-.btn-icon{
-  font-size: 28px;
-  padding: 0 10px;
+.nav-link{
+  color: inherit;
+  cursor: pointer;
 }
 
-.border-blue{ border-color: #3377C5 !important; }
-.text-blue{ color: #3377C5; }
-
-.nav-row{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
+.btn-signup{ padding: 4px 16px; }
+.btn-icon{
+  font-size: 28px;
 }
 
 .btn-signup{
   color: #00208F;
   border: 2px solid #00208F;
-  box-sizing: border-box;
   border-radius: 21px;
   line-height: 1em;
+  padding: 4px 16px;
+}
+
+.dashboard-menu-wrapper-md{
+  top: 60px;
+  right: 10px;
+  z-index: 10000;
+  border-radius: 15px;
+  border: solid 1px #d6d6d6;
+  overflow: hidden;
 }
 
 img.brand-sm{
@@ -52,18 +45,17 @@ img.brand-sm{
 }
 
 .searchbar{
-  background: #FFFFFF;
   border: 2px solid #4683CC;
-  box-sizing: border-box;
-  border-radius: 40px;
-  width: 100%;
-  appearance: none;
   overflow: none;
   padding: 4px 15px;
 
   input{
+    display: block;
+    width: 100%;
     border: none;
     outline: none;
+    appearance: none;
+    background: none;
   }
 }
 
@@ -75,12 +67,19 @@ img.brand-sm{
   width: 100%;
   box-sizing: border-box;
 
-  .menu-close{
+  .close-menu-full{
     position: fixed;
     width: 100vw;
     height: 120vh;
     top: 0;
     left: 0;
+  }
+
+  button.close-menu{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 10;
   }
 
   .menu_inner{
@@ -218,18 +217,20 @@ img.brand-sm{
   ul.menu-item{
     position: absolute;
     left: 0;
-    top: 50%;
+    top: 0;
     width: 100%;
-    list-style: none;
-    padding: 0;
+    height: 100vh;
+    padding: 50px 0 0;
     box-sizing: border-box;
+    overflow: auto;
+
+    list-style: none;
     font-size: 1.4em;
     background: #E0EFFF;
     transition: transform 300ms ease;
-    transform: translate(0, -50%);
 
-    &.before{ transform: (translate(-100%, -50%)); }
-    &.after{ transform: translate(100%, -50%); }
+    &.before{ transform: (translate(-100%, 0)); }
+    &.after{ transform: translate(100%, 0); }
 
     li{
       text-align: center;
@@ -238,11 +239,25 @@ img.brand-sm{
       width: 70%;
       cursor: pointer;
     }
+
+    .dashboard-menu-wrapper{
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      dashboard-menu{
+        width: 100%;
+        box-sizing: content-box;
+        border-radius: 15px 15px 0 0;
+        border: solid 2px #bfbfbf;
+        border-bottom: none;
+        transform: translateX(-2px);
+      }
+   }
   }
   ul.menu-item.sub{
-    padding-top: 50px;
-    height: 100vh;
-    overflow: auto;
     li{
       text-align: left;
       margin: 30px auto;

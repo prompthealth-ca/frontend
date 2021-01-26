@@ -15,9 +15,11 @@
 </section>
 
 <!-- Pricing table -->
-<div class="container-fluid max-w-1200 my-5">
-  <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
-  <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-bigger d-block d-md-inline-block">save 20% with yearly subscription</span>
+<div class="container-fluid my-5">
+  <div class="max-w-1200">
+    <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
+    <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-big d-block d-md-inline-block">save 20% with yearly subscription</span>  
+  </div>
 </div>
 
 <div class="container-fluid max-w-1200">
@@ -27,6 +29,7 @@
       [data]="basicPlan"
       [isPriceMonthly]="isPriceMonthly"
       (select)="setSelectedFreePlan(basicPlan)"
+      [hideButton]="!this.profile || !this.profile.plan"
     ></subscription-plan-item-card>
 
     <subscription-plan-item-card class="col-md mt-5 mt-md-0"
@@ -42,11 +45,21 @@
       [isPriceMonthly]="isPriceMonthly"
       (select)="setSelectedPlan(cPlan)"
       ></subscription-plan-item-card>
-  </div>
 </div>
 
-<div class="container-fluid max-w-1200">
+
+<div class="container-fluid max-w-1200" *ngIf="addOnPlans.length>0" id="addon">
   <h3 class="text-pink mt-5 mb-3">Add-ons for Provider and Centre</h3>
-  <subscription-plan-addon-card type="op1" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
-  <subscription-plan-addon-card type="op2" class="mt-5" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card>
+  <div 
+  *ngFor="let addOnPlan of addOnPlans"
+  class="mb-3"
+   >
+
+   <subscription-plan-addon-card type="op1" 
+   [data]="addOnPlan"
+   [isPriceMonthly]="isPriceMonthly"
+   (select)="buyAddOnPlan($event)"
+   ></subscription-plan-addon-card>
+  </div>
+   <!-- <subscription-plan-addon-card type="op2" class="mt-5" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card> -->
 </div> 

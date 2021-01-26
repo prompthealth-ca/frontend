@@ -1,5 +1,5 @@
 <div class="tab shadow font-weight-bold" 
-    [class]="'colorset-' + color" 
+    [class]="isPriceMonthly? 'colorset-' + color : 'colorset-' + color + '-yearly'"
 >
     {{getTabName()}}
     <span class="save-annualy font-weight-normal text-center d-inline-block font-italic"
@@ -102,7 +102,7 @@
         <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
     </a>
 
-    <button *ngIf="isLoggedIn"
+    <button *ngIf="isLoggedIn && !hideButton"
         class="btn btn-more"
         (click)="triggerButtonClick()"
     >

@@ -415,6 +415,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
         res.data.forEach((d: any) => {
           const professional = new Professional(d.userId, d.userData, d.ans);
+          professional.setMapIcon();
           if (languageSet && languageSet.length > 0) { professional.populate('languages', languageSet); }
           professionals.push(professional);
         });

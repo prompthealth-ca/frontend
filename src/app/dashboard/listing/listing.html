@@ -171,12 +171,12 @@
         ></agm-circle>
 
         <agm-marker *ngFor="let p of (pages.data? pages.data[pages.current - 1] : []); let i = index;" 
-          [longitude]="p.location[0]" 
-          [latitude]="p.location[1]" 
-          [iconUrl]="'/assets/img/agm-map-icon.png'" 
-          [title]="p.mapLabel" 
-          [label]="{text: p.mapLabel, fontWeight: 'bold', fontSize: '16px' }"
-          [zIndex]="pages.itemsPerPage - i"
+        [longitude]="p.location[0]" 
+        [latitude]="p.location[1]" 
+        [iconUrl]="p.mapIconUrl" 
+        [title]="p.mapLabel" 
+        [zIndex]="pages.itemsPerPage - i"
+        [visible]="p.isMapIconReady"
         >
           <agm-info-window>
             <div class="agm-info-window">
@@ -188,7 +188,8 @@
   
                 <p class="font-weight-bold font-bigger mb-0">{{p.name}}</p>
                 <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
-                <p class="mb-1" *ngIf="!p.isCentre">This is my title</p>
+                <p class="mb-1 clamp-1line" *ngIf="!p.isCentre">{{p.organization}}</p>
+
                 <p class="mb-1" *ngIf="p.isCentre && p.phone">{{p.phone}}</p>
                 <p class="mb-3 address">{{p.address}}</p>
                 <div>

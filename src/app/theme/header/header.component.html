@@ -142,6 +142,7 @@
       <dashboard-menu class="bg-white overflow-hidden"
         [user]="user"
         [styleMenu]="{ color: '#6d6e71'}"
+        (close)="hideMenu()"
         (logout)="logout()"
       ></dashboard-menu>
     </li>

@@ -52,8 +52,8 @@ export interface IProfessional {
 */
 export class Professional implements IProfessional {
 
-//  private _baseURLImage = environment.config.AWS_S3;
-  private _baseURLImage = 'https://api.prompthealth.ca/users/';
+  private _baseURLImage = environment.config.AWS_S3;
+  // private _baseURLImage = 'https://api.prompthealth.ca/users/';
 
   private _rowUserData: any; /** for compatibility with old UI */
   private _rowAns: any;  /** for compatibility with old UI */
@@ -116,13 +116,13 @@ export class Professional implements IProfessional {
   private _endosements: any[]; // todo: impliment correctly. currently, this property not used;
 
   private _mapIconUrl: string;
-  private _isMapIconReady: boolean = false;
+  private _isMapIconReady = false;
 
   get id() { return this._id; }
   get name() { return this._name; }
   get firstname() { return this._firstname; }
-  get image() { return this._image? this._baseURLImage + this._image : '/assets/img/no-image.jpg'; }
-  get banner() { return this._banner? this._baseURLImage + this._banner : '/assets/img/professional-banner.png'; }
+  get image() { return this._image ? this._baseURLImage + this._image : '/assets/img/no-image.jpg'; }
+  get banner() { return this._banner ? this._baseURLImage + this._banner : '/assets/img/professional-banner.png'; }
   get role() { return this._roles.toString(); }
   get description() { return this._description; }
   get phone() { return this._phone; }
@@ -164,8 +164,8 @@ export class Professional implements IProfessional {
   get professionals() { return this._professionals; }
 
   get mapLabel() { return (this.price ? this.price : null); }
-  get mapIconUrl(){ return (this._mapIconUrl && this._mapIconUrl.length > 0)? this._mapIconUrl : null; }
-  get isMapIconReady(){ return this._isMapIconReady; }
+  get mapIconUrl() { return (this._mapIconUrl && this._mapIconUrl.length > 0) ? this._mapIconUrl : null; }
+  get isMapIconReady() { return this._isMapIconReady; }
 
   get typeOfProvider() {
     const result = [];
@@ -296,58 +296,58 @@ export class Professional implements IProfessional {
     }
   }
 
-  async setMapIcon(){
+  async setMapIcon() {
     const img = new Image;
 
     const radCircle = 32;
     const gap = 5;
     const wLabel = 125;
     const hLabel = 28;
-    
+
     const c = document.createElement('canvas');
     const ctx = c.getContext('2d');
 
-    var needLabel = !!this.mapLabel;
+    let needLabel = !!this.mapLabel;
 
-    c.width = needLabel? wLabel : radCircle * 2;
-    c.height = needLabel? radCircle * 2 + gap + hLabel : radCircle * 2; 
+    c.width = needLabel ? wLabel : radCircle * 2;
+    c.height = needLabel ? radCircle * 2 + gap + hLabel : radCircle * 2;
 
-    if(needLabel){
+    if (needLabel) {
       ctx.beginPath();
       const x = 0;
       const y = radCircle * 2 + gap;
       const w = wLabel;
       const h = hLabel;
       const r = hLabel / 2;
-      
+
       ctx.moveTo(x + r, y);
       ctx.lineTo(x + w - r, y);
       ctx.arc(x + w - r, y + r, r, Math.PI * (3 / 2), Math.PI * (1 / 2), false);
-      ctx.lineTo(x + r, y + h);       
+      ctx.lineTo(x + r, y + h);
       ctx.arc(x + r, y + h - r, r, Math.PI * (1 / 2), Math.PI * (3 / 2), false);
       ctx.closePath();
 
-      ctx.fillStyle = 'white';  
+      ctx.fillStyle = 'white';
       ctx.fill();
-      
+
       ctx.fillStyle = 'black';
       ctx.font = '16px bold -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
-      var wText = ctx.measureText(this.mapLabel).width;
+      let wText = ctx.measureText(this.mapLabel).width;
       ctx.fillText(this.mapLabel, (wLabel - wText) / 2, radCircle * 2 + gap + hLabel - 8);
     }
-  
-    img.onload = ()=>{
+
+    img.onload = () => {
       const w = img.width;
       const h = img.height;
-      const rect = (w > h)? h : w;
+      const rect = (w > h) ? h : w;
 
-      const x = (w > h)? (w - h) / 2 : 0;
-      const y = (w > h)? 0 : (h - w) / 2;
+      const x = (w > h) ? (w - h) / 2 : 0;
+      const y = (w > h) ? 0 : (h - w) / 2;
 
       ctx.beginPath();
-      ctx.arc( c.width / 2, radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
+      ctx.arc(c.width / 2, radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
       ctx.fillStyle = 'white';
-      ctx.strokeStyle="grey";
+      ctx.strokeStyle = 'grey';
       ctx.lineWidth = 1;
       ctx.fill();
       ctx.stroke();
@@ -356,9 +356,9 @@ export class Professional implements IProfessional {
       ctx.drawImage(img, x, y, rect, rect, c.width / 2 - radCircle, 0, radCircle * 2, radCircle * 2);
       this._mapIconUrl = c.toDataURL();
       this._isMapIconReady = true;
-    }
+    };
     img.crossOrigin = '';
-    img.src = this._image? this.image : '/assets/img/logo-sm.png';
+    img.src = this._image ? this.image : '/assets/img/logo-sm.png';
   }
 }
 
@@ -374,7 +374,7 @@ interface ServiceCategory {
 interface Video {
   _id: string;
   title: string;
-  url: string;50
+  url: string; 50;
 }
 
 interface Amenity {

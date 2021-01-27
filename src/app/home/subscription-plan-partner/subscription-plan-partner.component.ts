@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-subscription-plan-partner',
@@ -15,17 +18,25 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   public form: FormGroup;
 
   private isLoggedIn = false;
+  private subscription: Subscription;
 
   constructor(
     private _sharedService: SharedService,
+    private _toastr: ToastrService,
+    private _spinner: NgxSpinnerService,
     _fb: FormBuilder
   ) {
     this.form = _fb.group({
-      first: new FormControl('', Validators.required),
-      last: new FormControl('', Validators.required),
+      firstname: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email])
     });
   }
+
+  ngOnDestroy(): void {
+    if (this.subscription) { this.subscription.unsubscribe(); }
+  }
+
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) { this.isLoggedIn = true; }
@@ -66,7 +77,7 @@ if (this.isLoggedIn === true) {
   submitRegister(){    
     var f = this.form.controls;
 
-    if(f.first.invalid || f.last.invalid || (f.email.invalid && f.email.errors.required)){
+    if(f.firstname.invalid || f.lastname.invalid || (f.email.invalid && f.email.errors.required)){
       this.errorForm = 'Please fill all items.';
     }else if( f.email.invalid && f.email.errors.email ){
       this.errorForm = 'Please input correct email address.';
@@ -76,7 +87,16 @@ if (this.isLoggedIn === true) {
     
     if(this.errorForm){ return; }
     else{
-      console.log(this.form.value)
+      this._spinner.show();
+      this.subscription = this._sharedService.sendEmailSubscribers(this.form.value).subscribe((res: any) => {
+        this._spinner.hide();
+        if (res.statusCode === 200) { this._toastr.success(res.message); } 
+        else { this._toastr.error(res.error.message); }
+      },
+      error => {
+        this._spinner.hide();
+        this._toastr.error(error);
+      });
     }
   }
 

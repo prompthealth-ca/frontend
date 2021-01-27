@@ -17,7 +17,7 @@
     <div class="col-md-12 text-center my-3">
       <div class="d-inline-block profileeditbox">
         <img
-          [src]="profile?.profileImage ? 'https://api.prompthealth.ca/users/'+profile?.profileImage : defaultImage" />
+          [src]="profile?.profileImage ? AWS_S3+profile?.profileImage : defaultImage" />
         <!-- <img [src]="defaultImage" /> -->
         <!-- <input type="file" *ngIf="editFields"/> -->
         <input class="d-block " type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"

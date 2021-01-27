@@ -1,0 +1,18 @@
+:host{ white-space: nowrap; }
+
+.star-container{
+    display: inline-block;
+    height: 1em;
+
+    font-size: 20px;
+    &.simple{ font-size: 18px;}
+    &.size-s{  font-size: 16px; }
+    &.size-l{  font-size: 24px; }
+}
+
+.fa-star{
+    font-size: 1em;
+    color: #EFCA2E;
+}
+
+.rate{ font-size: 16px; }

@@ -40,7 +40,7 @@
             </td>
             <td>
                 <div class="img-list" *ngFor="let img of prod.images; let i=index">
-                    <img [src]="'https://api.prompthealth.ca/products/' + img" />
+                    <img [src]="AWS_S3 + img" />
                 </div>
             </td>
             <td>
@@ -106,7 +106,7 @@
         <div class="form-group col-sm-12">
             
             <div *ngFor='let url of imagesList' class="multipleImage">
-                <img [src]="'https://api.prompthealth.ca/products/' + url" height="200"> <br/>
+                <img [src]=" AWS_S3 + '' + url" height="200"> <br/>
                 <a (click)="removefromList(url)" class="fa fa-times"></a>
             </div>
             <div>
@@ -180,7 +180,7 @@
         <div class="form-group col-sm-12">
             <div *ngIf="imagesList?.length">
                 <div *ngFor='let url of imagesList' class="multipleImage">
-                    <img [src]="'https://api.prompthealth.ca/products/' + url" height="200"> <br/>
+                    <img [src]="AWS_S3 + url" height="200"> <br/>
                     <a (click)="removefromList(url)" class="fa fa-times"></a>
                 </div>
             </div>

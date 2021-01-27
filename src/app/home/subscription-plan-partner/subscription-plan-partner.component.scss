@@ -1,0 +1,36 @@
+.text-blue{ color: #3377C5; }
+.bg-blue{ background: #3377C5; }
+.text-pink{ color: #A759B3; }
+
+.text-md-nowrap{ @media screen and (min-width: 768px){ white-space: nowrap; } }
+:host{
+  font-size: 16px;
+}
+
+.hero{ 
+    background-image: url('/assets/img/hero-subscription-plan-partner-s.png');
+    h2{ font-size: 20px; }
+  
+    @media screen and (min-width: 768px){
+      background-image: url("/assets/img/hero-subscription-plan-partner.png");
+      h2{ font-size: 35px; }
+    }
+  }
+  
+.input-group{
+  flex: 1 1 30%;
+  &.email{ flex: 2 1 50%; }
+}
+
+.input-submit{ 
+  flex: 0 0 auto;
+  padding: 8px 35px;
+}
+.error{ 
+  color: red; 
+  position: absolute;
+  top: 100%;
+  @media screen and (min-width: 768px){
+    right: 0;
+  }
+}

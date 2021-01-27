@@ -1,626 +1,282 @@
-<section
-  class="bg-cover detailbanner"
-  style="background-image: url(assets/img/professional-banner.png);"
-></section>
-<div class="container pb-4">
-  <div class="shadow bg-white">
-    <div class="p-3">
-      <div class="row align-items-center">
-        <div class="col-md-4">
-          <div class="d-inline-flex">
-            <img
-              [src]="'https://api.prompthealth.ca/users/'+userInfo?.profileImage"
-              class="rounded-circle border detailprofileimg"
-            />
-            <div class="p-2">
-              <div class="text-uppercase font-weight-bold text-primary">
-                {{userInfo?.firstName}} {{userInfo?.lastName}}
-              </div>
-              <div class="text-primary" *ngIf="userInfo?.gender">({{userInfo?.gender}})</div>
-              
-              <div class="text-review mb-2" *ngIf="userInfo?.ratingAvg">
-                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 5">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 4">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 3">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 2">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-                <div class="text-rating mb-2" *ngIf="userInfo?.ratingAvg === 1">
-                  <i class="fa fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <i class="far fa-star"></i>
-                </div>
-              </div>
+<div class="container-fluid banner position-relative" 
+  [style]="(userInfo? 'background-image: url(' + userInfo?.banner + ')': '')"
+></div>
+<div class='intersection-observer' intersectionObserver (changeStatus)="changeStickyStatusTabbar($event)"></div>
+<div class="container-fluid borderb-grey sticky-top bg-white">
+  <div class="max-w-1200 position-relative tabbar" [ngClass]="{sticked: isTabSticked}">
+    <div class="d-flex-column d-md-flex d-wrap d-md-nowrap ml-for-avoid-image profile-info"
+      [ngClass]="{sticked: isTabSticked}"
+    >
+      <div class="d-flex align-items-start title-wrapper">
+        <i class="fas fa-clinic-medical pr-2" *ngIf="userInfo?.isCentre"></i>
+        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden ' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">
+          {{userInfo?.name}}
+        <i class="fas fa-video px-1" *ngIf="userInfo && userInfo.provideVirtual"></i>
+      </h3>  
+      </div>
+      <!-- <p class="mt-1 mt-md-0 ml-md-3 mb-0  overflow-hidden" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">summary here. if it's too long. you can see only 3 lines. </p> -->
+    </div>
+
+    <div class="profile-image rounded-circle">
+      <img *ngIf="userInfo" [src]="userInfo?.image" [alt]="userInfo?.name">
+    </div>
+    <ul class="p-0 mb-0 ml-for-avoid-image list-unstyled d-inline-flex align-items-center position-relative">
+      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+        [ngClass]='{active: (indexTabItem == 0)}'
+        (click)="changeTabTo(0)"
+      >About</li>
+      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+        [ngClass]='{active: (indexTabItem == 1)}'
+        (click)='changeTabTo(1)'
+      >Reviews</li>
+  
+      <li class='ml-2 ml-md-5'>
+        <star-rate class="d-none d-md-block" [rate]="(userInfo? userInfo.rating : 0)"></star-rate>
+        <star-rate class="d-md-none" [rate]="(userInfo? userInfo.rating : 0)" [simple]="true"></star-rate>
+      </li>
+      <li class="tab-item tab-highlighter bg-blue" [class]="'pos-' + indexTabItem"></li>
+    </ul>
+  </div>
+</div>
+
+<!-- section review -->
+<section class="container-fluid bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 1">
+  <div class="max-w-1200">
+    <div class='my-5'>
+      <star-rate [rate]="((userInfo)? userInfo.rating : 0)" margin='big'></star-rate>
+      <span class='text-blue pl-4'>{{(userInfo && userInfo.reviews.length > 0)? ('(' + userInfo.reviews.length + ')') : 'No review yet'}}</span>
+    </div>
+    <div *ngIf="userInfo && userInfo.reviews.length > 0">
+      <div class="my-5">
+        <ul class="review-controller list-unstyled d-inline-flex mb-3">
+          <li class="btn text-blue mr-2 mr-md-4 font-regular "
+            (click)="sortReviewsBy(0)" 
+            [ngClass]="{active: indexSortReviews == 0}"
+          >Highest Rated</li>
+          <li class="btn text-blue mr-2 mr-md-4 font-regular"
+            (click)="sortReviewsBy(1)" 
+            [ngClass]="{active: indexSortReviews == 1}" 
+          >Lowest Rated</li>
+          <li class="btn text-blue font-regular"
+            (click)="sortReviewsBy(2)" 
+            [ngClass]="{active: indexSortReviews == 2}"
+          >Most Recent</li>
+        </ul>
+    
+        <ul class="reviews p-0 m-0 list-unstyled">
+          <li class="d-md-flex flex-md-nowrap p-3 p-md-4 mb-4" *ngFor="let r of userInfo.reviews">
+            <div class="mb-3 mb-md-0 col-md-5 col-lg-3 d-flex">
+              <div class="review-image rounded-circle overflow-hidden mr-3"></div>
+              <p class="font-weight-bold mt-3 font-big mb-0">{{r.name}}</p>
             </div>
-          </div>
+            <div class="col-md-7 col-lg-9">
+              <star-rate [rate]="r.rate" margin='big'></star-rate>
+              <div class="borderb-grey pt-2"></div>
+              <p class='pt-3 pb-0'>{{r.desc}}</p>
+              <div>{{r.updatedAt | date:'longDate'}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- section about -->
+
+<section class="container-fluid bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 0">
+  <div class="max-w-1200">
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <!-- main column -->
+      <div class="col-md-6 col-lg-7">
+  
+        <!-- basic section -->
+        <div class="row mb-5" *ngIf="userInfo && userInfo.practicePhilosophy">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Practice Philosophy:</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.practicePhilosophy}}</p>
         </div>
-        <div class="col-md-4">
-          <ul class="check_ul font-weight-normal">
-            <li class="fas fa-map-marker" *ngIf="userInfo?.address">
-              <span>{{userInfo?.address}}</span>
-            </li>
-            <a *ngIf="isLoggedIn && userInfo?.email"
-              href="mailto:{{userInfo?.email}}"
-              class="fas fa-envelope text-primary mr-2"
-            >
-            <span>{{userInfo?.email}}</span>
-            </a>
-            <a
-              href="tel:{{userInfo?.phone}}"
-              class="fas fa-phone text-primary"
-              *ngIf="userInfo?.phone"
-              >
-              <span>{{userInfo?.phone}}</span>
-              </a>
+        <div class="row mb-5">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Specialty Age Group</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.ageRange}}</p>
+        </div>
+        <div class="row mb-5" *ngIf="!userInfo?.isCentre">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Professional organization</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.organization}}</p>
+        </div>
+        <div class="row mb-5" *ngIf="!userInfo?.isCentre">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Certification</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.certification}}</p>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Language</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.languages}}</p>
+        </div>
+        <div class="row mb-5">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Years Of Experience</div>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.yearsOfExperience}}</p>
+        </div>
+  
+        <!-- blue section -->
+        <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Type of Provider:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.typeOfProvider">{{item}}</li>
           </ul>
         </div>
-        <div class="col-md-4 text-right">
-          <div class="font-weight-bold mb-2">
-            Standard Hourly Fees: <span class="text-primary">{{userInfo?.price_per_hours}}</span>
-          </div>
-            <div *ngIf="userInfo?.booking === 'no' && isLoggedIn">
-              <a class="btn btn-outline-primary" data-toggle="modal" data-target="#bookingmodal">Request booking</a>  
-            </div> 
-            <div *ngIf="userInfo?.booking === 'yes' && isLoggedIn">
-              <a href="{{userInfo?.bookingURL}}" target="_blank" class="btn btn-outline-primary">Book Now</a> 
-            </div> 
-            <div *ngIf="!isLoggedIn">
-              <a
-              [routerLink]="['/auth/login', 'u']" class="btn btn-outline-primary">Login to Book Now</a> 
-            </div> 
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Treatment Modalities: </div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.treatmentModality">{{item}}</li>
+          </ul>
         </div>
-      </div>
-    </div>
-    <!-- Nav tabs -->
-    <ul class="nav bg-light font-weight-normal" id="pills-tab" role="tablist">
-      <li class="nav-item">
-        <a
-          class="nav-link active"
-          id="information-tab"
-          data-toggle="pill"
-          href="#pills-information"
-          role="tab"
-          aria-controls="pills-information"
-          aria-selected="true"
-          >Basic Information</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          id="service-tab"
-          data-toggle="pill"
-          href="#pills-service"
-          role="tab"
-          aria-controls="pills-service"
-          aria-selected="false"
-          (click) = "getCategoryServices()"
-          >Service Information</a
-        >
-      </li>
-      <li class="nav-item" 
-      *ngIf="userInfo?.roles === 'U'">
-        <a
-          class="nav-link"
-          id="professional-tab"
-          data-toggle="pill"
-          href="#pills-professional"
-          role="tab"
-          aria-controls="pills-professional"
-          aria-selected="false"
-          >Professional Background</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C' || userInfo.roles === 'SP'">
-        <a
-          class="nav-link"
-          id="videos-tab"
-          data-toggle="pill"
-          href="#pills-videos"
-          role="tab"
-          aria-controls="pills-Videos"
-          aria-selected="false"
-          >Videos</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
-        <a
-          class="nav-link"
-          id="products-tab"
-          data-toggle="pill"
-          href="#pills-products"
-          role="tab"
-          aria-controls="pills-product"
-          aria-selected="false"
-          (click) ="getProductList()"
-          >Product</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
-        <a
-          class="nav-link"
-          id="Activity-tab"
-          data-toggle="pill"
-          href="#pills-amenity"
-          role="tab"
-          aria-controls="pills-amenity"
-          aria-selected="false"
-          (click) ="getSavedAmenties()"
-          >Amenities</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C'">
-        <a
-        class="nav-link"
-        id="doctors-tab"
-        data-toggle="pill"
-        href="#pills-doctors"
-        role="tab"
-        aria-controls="pills-doctors"
-        aria-selected="false"
-        (click) ="getSaveddoctors()"
-        >Professionals</a
-      >
-      </li>
-      <li class="nav-item" *ngIf="userInfo?.roles === 'C' || userInfo?.roles === 'SP' ">
-        <a
-        class="nav-link"
-        id="rating-tab"
-        data-toggle="pill"
-        href="#pills-rating"
-        role="tab"
-        aria-controls="pills-rating"
-        aria-selected="false"
-        (click) ="getSavedRating()"
-        >Reviews</a
-      >
-      </li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content p-3">
-      <div
-        class="tab-pane active"
-        id="pills-information"
-        role="tabpanel"
-        aria-labelledby="information-tab"
-      >
-        <table class="table table-borderless informationtable">
-          <tbody>
-            <tr>
-              <th>Practice Philosophy:</th>
-              <td>
-                {{userInfo?.product_description}}
-              </td>
-            </tr>
-            <tr *ngIf="userInfo.age_range?.length >0">
-              <th>Specialty Age Group:</th>
-              <td>
-                <span *ngIf="userInfo?.age_range.length === 5">
-
-                  <span *ngIf="(ageRangeList[0].id == userInfo?.age_range[0])">{{ageRangeList[0].name}} </span>
-                </span>
-                <span *ngIf="userInfo?.age_range.length !== 5">
-                  <span *ngFor="let item of ageRangeList">
-                    <span *ngFor="let profileItem of userInfo?.age_range; let i = index">
-                        <span *ngIf="item.id === profileItem">{{item.name}},  </span>
-                    </span>
-                  </span>
-                </span>
-              </td>
-            </tr>
-            <!-- -- {{ userInfo | json}} -->
-            <tr *ngIf="userInfo?.roles === 'SP'">
-              <th>Professional organization:</th>
-              <td>
-                <span>{{userInfo?.professional_organization}}  </span>
-              </td>
-            </tr>
-            <tr *ngIf="userInfo?.roles === 'SP'">
-              <th>Certification:</th>
-              <td>
-                <span>{{userInfo?.certification}}  </span>
-              </td>
-            </tr>
-            <tr *ngIf="userInfo.languages?.length">
-              <th>Language:</th>
-              <td>
-                <span *ngFor="let item of languageQuestion?.answers">
-                  <span *ngFor="let profileItem of userInfo?.languages; let i = index">
-                      <span *ngIf="item._id === profileItem">{{item.item_text}},  </span>
-                  </span>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <th>Years Of Experience:</th>
-              <td>
-                {{userInfo?.years_of_experience}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div
-        class="tab-pane"
-        id="pills-service"
-        role="tabpanel"
-        aria-labelledby="service-tab"
-      >
-        <table class="table table-borderless informationtable">
-          <tbody>
-            <tr *ngIf="serviceData.length">
-              <th>Type of Provider:</th>
-              <td>
-                <div class="row">
-                <div *ngFor="let special of serviceData" class="col-sm-4 services">
-                  {{special.item_text}}
-                </div>
-                </div>
-              </td>
-            </tr>
-            <tr *ngIf="treatmentModalities.length">
-              <th>Treatment Modalities:</th>
-              <td>
-                <div class="row">
-                <div *ngFor="let special of treatmentModalities" class="col-sm-4 services">
-                  {{special.item_text}},
-                </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Services:</th>
-              <td>
-                <div class="row">
-                  <div *ngFor="let special of serviceType" class="col-sm-4 services">
-                    {{special}},
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Standard Hourly Price:</th>
-              <td>
-                {{userInfo?.price_per_hours}}
-              </td>
-            </tr>
-            <!-- <tr>
-              <th>Serices Type:</th>
-              <td>
-                <div class="row">
-                  <div *ngFor="let special of serviceType" class="col-sm-4 services">
-                    {{special}}
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Standard Hourly Price:</th>
-              <td>
-                {{userInfo?.price_per_hours}}
-              </td>
-            </tr> -->
-          </tbody>
-        </table>
-      </div>
-      <div
-        *ngIf="userInfo?.roles === 'U'"
-        class="tab-pane"
-        id="pills-professional"
-        role="tabpanel"
-        aria-labelledby="professional-tab"
-      >
-      <!-- <h3>Work in progress...</h3> -->
-        <table class="table table-borderless informationtable">
-          <tbody>
-            <tr>
-              <th>Booking URL:</th>
-              <td>{{ userInfo?.bookingURL}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div
-        class="tab-pane"
-        id="pills-videos"
-        role="tabpanel"
-        aria-labelledby="videos-tab"
-      >
-        <h5 class="mb-0">Videos</h5>
-        <hr />
-        <div class="row" *ngIf="videos.length > 0">
-          <!-- <div class="col-sm-4 mb-3" *ngFor="let video of userInfo?.videos"> -->
-            <div class="col-sm-4 mb-3" *ngFor="let video of iframe">
-            <h6  class="text-primary text-uppercase">{{ video.title }}</h6>
-            <div  [innerHtml]="video"></div>
-            <!-- <iframe width="100%" height="200" src="https://www.youtube.com/embed/DxIDKZHW3-E" frameborder="0" allowfullscreen></iframe> -->
-            <!-- <iframe *ngIf="video.url" width="100%" height="200" [src]="video.url | embededUrl" frameborder="0" allowfullscreen></iframe> -->
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Service Delivery:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.serviceDelivery">{{item}}</li>
+          </ul>
+          <p class="font-small" *ngIf="userInfo?.provideVirtual">**Virtual/Online services may not be available to all locations. Please inquire the service provider for confirmation.</p>
         </div>
+        <div class="row bg-lightblue pt-5 pb-0" *ngIf="userInfo?.amenity && userInfo?.amenity.length>0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenities: </div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.amenity">{{item}}</li>
+          </ul>
 
         </div>
-        <!-- <div class="text-center">
-          <div
-            class="px-3 py-2 bg-primary rounded d-inline-block h4 text-light"
-          >
-            <i class="fa fa-question"></i>
-          </div>
-          <h4>No records found.</h4>
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Services:</div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.service">{{item}}</li>
+          </ul>
+        </div>
+        <!-- <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="userInfo?.isCentre">
+          <div class="col-12 col-lg-4 mb-2 mb-lg-0 text-blue">Product:</div>
+          <p class="col-12 col-lg-8 mb-0">{{userInfo?.product}}</p>
         </div> -->
-      </div>
-      <div
-        class="tab-pane product-list"
-        id="pills-products"
-        role="tabpanel"
-        aria-labelledby="products-tab"
-      >
+        <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
+  
+        <!-- professionals at centre-->
+        <div *ngIf="userInfo?.isCentre">
+          <div class="row bg-grey rounded-top py-4 mt-5 justify-content-start justify-content-md-between align-items-center">
+            <div class="col text-blue font-big font-md-bigger">Meet our professionals</div>
+          </div>
+          <ul class='list-unstyled row text-center bg-grey py-4 mb-0'>
+            <li class='col-12 col-md-6 mb-5' *ngFor="let pro of userInfo.professionals; let i = index;">
+              <img class="professional-image rounded-circle overflow-hidden" 
+              [src]="pro.image" 
+              [alt]="pro.name"
+              >
 
-        <input  *ngIf="productList && productList.length" type="text" [(ngModel)]="productSearch" placeholder="Serach.." class="form-control searchBar"/>
-        <table class="table table-hover comparetable" *ngIf="productList && productList.length; else noProduct">
-          <thead>
-            <tr>
-              <th>
-                  <h5>Title</h5>
-              </th>
-              <th>
-                  <h5>Description</h5>
-              </th>
-              <th>
-                  <h5>Price</h5>
-              </th>
-              <th>
-                  <h5>Images</h5>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let prod of productList | customFilter:productSearch: 'slug';let i = index">
-                <td>
-                    {{ prod.slug }}
-                </td>
-                <td>
-                    {{ prod.description }}
-                </td>
-                <td>
-                    {{ prod.price }}
-                </td>
-                <td>
-                  <a data-toggle="modal" [attr.data-target]="'#' + prod.slug" class="list-wrap">
-                    <div class="img-list" *ngFor="let img of prod.images; let i=index" >
-                        <img [src]="'https://api.prompthealth.ca/products/' + img" />
-                        
-                    </div>
-                  </a>
-                    <!-- Image slider modal -->
-                  <div class="modal fade imageslidermodal" [id]="prod.slug" tabindex="-1" role="dialog" [attr.aria-labelledby]="prod.slug" aria-hidden="true">
-                    <div class="modal-dialog w-100">
-                      <div class="modal-content bg-transparent border-0">
-                        <div class="modal-header border-0 p-0">
-                          <h5 class="modal-title"></h5>
-                          <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body pt-0 px-4">
-                          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                              <li data-target="#carouselExampleControls" [attr.data-slide-to]="i" *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                  <img  [src]="'https://api.prompthealth.ca/products/' + img" alt="...">
-                              </li>
-                            </ol>
-                            <div class="carousel-inner">
-                              <div class="carousel-item"  *ngFor="let img of prod.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                                <img  [src]="'https://api.prompthealth.ca/products/' + img" class="d-block w-100" alt="...">
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> 
-                </td>
+              <h6 class="font-smallest mb-3 professional-name">{{pro.name}}</h6>
+              <p class="professional-desc" [ngClass]="{clamp: !isExpandProfessionals}">{{pro.description}}</p> 
+              <button class="btn" style="color: inherit;" (click)="toggleExpandProfessionalDesc()">
+                <span *ngIf="!isExpandProfessionals">- show more -</span>
+                <span *ngIf="isExpandProfessionals">- show less -</span>
+              </button> 
+            </li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
+          </ul>
+          <div class="bg-grey row pb-4 rounded-bottom mb-5">
+            <div class="col text-center">
+              <button class="btn border-blue text-blue"
+              *ngIf="userInfo && userInfo.professionals && userInfo.professionals.length > 0 && isProfessionalsMoreExist"
+              type="button"
+              (click)="getProfessionals()"
+              >Explore More</button>  
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- side column -->
+      <div class="col-md-5 col-lg-4">
+        <!-- contact info-->
+        <div class="rounded shadow text-center pb-3 overflow-hidden mb-5">
+          <div class="card-title">Contact Information</div>
+          <table class="table table-borderless table-hover px-2">
+            <tbody>
+              <tr>
+                <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
+                <td class="text-left">{{userInfo?.address}}</td>
               </tr>
-          </tbody>
-        </table>
-        <ng-template #noProduct>
-          <h5>No product listed...</h5>
-        </ng-template>
-      </div>
-      <div
-        class="tab-pane"
-        id="pills-amenity"
-        role="tabpanel"
-        aria-labelledby="Activity-tab"
-      >
-        <h5 class="mb-0">Amenities</h5>
-        <hr />
-        <div class="d-flex mb-4">
-          <div class="col-sm-4">
-            <h6 class="text-primary text-uppercase">Amenities</h6>
+              <tr>
+                <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
+                <td class="text-left">{{userInfo?.phone}}</td>
+              </tr>
+              <tr>
+                <td class="pr-0"><i class="fas fa-dollar-sign color-card-icon"></i></td>
+                <td class="text-left">Standard Hourly Fees: {{userInfo?.priceFull}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button *ngIf="isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
+          <button *ngIf="!isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#messagemodal">Login to Book</button>
+        </div>
+  
+        <!-- videos-->
+        <div class="rounded shadow overflow-hidden pb-3 mb-5">
+          <div class="m-3 d-flex align-items-center justify-content-between">
+            <h5 class='m-0'>
+              <span class="text-blue">Video</span>
+              <span class="ml-2 font-small" *ngIf="userInfo && userInfo.videos.length>0">{{userInfo.videos.length}}</span>
+            </h5> 
+            <div *ngIf="userInfo && userInfo.videos.length > 0" class="text-right">
+              <button *ngIf="iframe.length > countVideoShown" 
+                (click)="showMoreVideo()"
+                class="btn border-blue text-blue font-small" 
+                type="button"
+              >Load more videos</button>
+
+              <button *ngIf="iframe.length <= countVideoShown && iframe.length > defaultVideoCount"
+                (click)="showLessVideo()"
+                class="btn border-blue text-blue font-small" 
+                type="button"
+              >Show less videos</button>
+            </div>
           </div>
-          <div class="col-sm-8">
-            <h6 class="text-primary text-uppercase">Reference Image</h6>
+
+          <post-dummy *ngIf="!userInfo"></post-dummy>
+
+          <div *ngIf="userInfo" class="px-3">
+            <ul *ngIf="userInfo.videos.length>0" class="list-unstyled m-0 p-0">
+              <li *ngFor="let v of iframe; let i = index;" class="mb-3">
+                <div class="video" *ngIf="i<countVideoShown" [innerHTML]="v"></div>
+              </li>
+            </ul>
+
+            <p *ngIf="userInfo.videos.length == 0" class="m-0">No videos</p>
           </div>
         </div>
-        <div class="d-flex mb-4" *ngFor="let amenity of savedAminities">
-          <div class="col-sm-4">
-            <h6 class="text-primary text-uppercase">{{ amenity.defaultamenityId.item_text }}</h6>
-          </div>
-          <div class="col-sm-8">
-            <a data-toggle="modal" [attr.data-target]="'#' + amenity.defaultamenityId.item_text" class="list-wrap" *ngIf="amenity.images.length">
-              <span *ngFor="let uimg of amenity.images" class="amenityList">
-                <img [src]="'https://api.prompthealth.ca/amenities/' + uimg" />
-              </span>
-            </a>
-            <span *ngIf="!amenity.images.length">No Images added</span>
-            <!-- Image slider modal -->
-            <div class="modal fade imageslidermodal" [id]="amenity.defaultamenityId.item_text" tabindex="-1" role="dialog" [attr.aria-labelledby]="amenity._id" aria-hidden="true">
-              <div class="modal-dialog w-100">
-                <div class="modal-content bg-transparent border-0">
-                  <div class="modal-header border-0 p-0">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="close text-white h2" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body pt-0 px-4">
-                    <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
+      
+        <!-- endosements -->
+        <div class="rounded shadow overflow-hidden mb-5">
+          <div class="card-title font-big font-md-regular text-center m-0">Endosement</div>
+          <div class="px-3 py-5 font-italic coming-soon-gradient font-bigger font-weight-bold">Coming soon...</div>
 
-                            <li data-target="#carouselExampleControls2" [attr.data-slide-to]="i" *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}">
-                                <img  [src]="'https://api.prompthealth.ca/amenities/' + img" alt="...">
-                            </li>
-                          </ol>
-
-                        <div class="carousel-inner">
-                          <div class="carousel-item"  *ngFor="let img of amenity.images; let i=index;let isFirstRow=first" [ngClass]="{'active' : isFirstRow}" >
-                            <img  [src]="'https://api.prompthealth.ca/amenities/' + img" class="d-block w-100" alt="...">
-                          </div>
-                        </div>
-
-                        <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-
-                    </div>
-                  </div>
-                </div>
+          <!-- <post-dummy *ngIf="!userInfo ||!userInfo.endosements"></post-dummy>
+          <div class="px-3">
+            <div class="endosement-wrapper py-4" *ngFor="let endosement of userInfo?.endosements;">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="font-weight-bold m-0">
+                  {{endosement.name}}
+                  <star-rate class="ml-1 d-lg-display" [rate]="endosement.rate" size='small' margin="none"></star-rate>
+                </p>
+                <button class='btn' type='button'><i class="fas fa-share-alt text-blue font-big"></i></button>
               </div>
-            </div> 
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane product-list"
-        id="pills-doctors"
-        role="tabpanel"
-        aria-labelledby="doctors-tab"
-      >
-        <h5 class="mb-0" *ngIf="doctors && doctors.length">Professional Listed</h5>
-        <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length; else noDoctor">
-          <thead>
-            <tr>
-              <th>
-                  <h5>Images</h5>
-              </th>
-              <th>
-                  <h5>Name</h5>
-              </th>
-              <th>
-                  <h5>Description</h5>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let prod of doctors; let i = index">
-              <td>
-                <img class="pro-img" [src]="'https://api.prompthealth.ca/users/' + prod.image" />
-              </td>
-              <td>
-                {{ prod.fname }} {{ prod.lname }}
-              </td>
-              <td>
-                {{ prod.description }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <ng-template #noDoctor>
-          <h5>No doctor listed...</h5>
-        </ng-template>
-      </div>
-      <div class="tab-pane product-list"
-        id="pills-rating"
-        role="tabpanel"
-        aria-labelledby="rating-tab"
-      >
-        <h5 class="mb-0">Reviews</h5>
-        <hr />
-        <div class="p-3 shadow mb-3 d-flex Reviewsbox" *ngFor="let rate of rating">
-          <img style="max-width: 80px" [src]="rate.customerId.profileImage ? 'https://api.prompthealth.ca/users/'+rate.customerId.profileImage : defaultImage" />
-          <!-- <img src="/assets/img/man-testimonial.jpg" class="shadow" /> -->
-          <div class="pl-3 w-100">
-            <div class="d-flex justify-content-between mb-2">
-              <b class="font-weight-bold">{{ rate.customerId.firstName }}</b>
-            </div>
-            <div class="text-rating mb-2" *ngIf="rate.rating===5">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-            <div class="text-rating mb-2" *ngIf="rate.rating===4">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-            <div class="text-rating mb-2" *ngIf="rate.rating===3">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-            <div class="text-rating mb-2" *ngIf="rate.rating===2">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-            <div class="text-rating mb-2" *ngIf="rate.rating===1">
-              <i class="fa fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-
-            <div class="review">
-              {{ rate.review }}
+              <a class="btn border-blue text-blue mb-3" type="button">view website</a>
+              <div class="endosement-images mb-3"></div>
+              <p class="m-0">{{endosement.desc}}</p>  
             </div>
           </div>
+          <div class="text-center my-3">
+            <button class="btn text-blue border-blue">Load more</button>
+          </div> -->
         </div>
       </div>
     </div>
+  </div>
+</section>
 
 <!-- Modal login -->
 <div
@@ -764,6 +420,7 @@
             <div class="col-md-12 mb-3">
               <label>Timing <span class="text-danger">*</span></label>
               <div class="row">
+<!--
                 <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
                   <label for="{{item.id}}">
                       <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="timingSelected($event)"
@@ -772,6 +429,7 @@
                       
                   </label>
                 </div>
+-->
                 <div class="col-sm-12">
                   <div *ngIf="submitted" class="error-msg">
                     <small *ngIf="f.timing.errors"  class="text-danger">

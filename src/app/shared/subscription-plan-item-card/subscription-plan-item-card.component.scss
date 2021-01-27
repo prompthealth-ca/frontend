@@ -1,0 +1,100 @@
+$basic-green: #95C38B;
+$darker-green: #82B378;
+
+$monthly-red: #F25249;//FF9797 too light
+$yearly-red: #F25249;
+
+$monthly-blue: #3377C5;//A5B9F9 too light
+$yearly-blue: #3377C5;
+
+.title{
+    .colorset-red & {   color: $monthly-red; border-color: $monthly-red;} 
+    .colorset-green & { color: $basic-green; border-color: $darker-green;} 
+    .colorset-blue & {  color: $monthly-blue; border-color: $monthly-blue;} 
+
+    .colorset-red-yearly & {   color: $yearly-red; border-color: $yearly-red;} 
+    .colorset-green-yearly & { color: $basic-green; border-color: $darker-green;} 
+    .colorset-blue-yearly & {  color: $monthly-blue; border-color: $monthly-blue;} 
+}
+
+.btn-more{
+    color: white;
+    .colorset-red & {   background: $monthly-red; }
+    .colorset-green & { background: $basic-green; } 
+    .colorset-blue & {  background: $monthly-blue; } 
+}
+
+.feature i{
+    .colorset-red & {   color: $monthly-red; }
+    .colorset-green & { color: $basic-green; } 
+    .colorset-blue & {  color: $monthly-blue; } 
+}
+
+.tab{
+    color: white;
+    &.colorset-red{   background: $monthly-red;}
+    &.colorset-green { background: $basic-green; }
+    &.colorset-blue {  background: $monthly-blue; }
+
+    &.colorset-red-yearly{   background: $yearly-red;}
+    &.colorset-green-yearly { background: $basic-green; }
+    &.colorset-blue-yearly {  background: $yearly-blue; }
+}
+
+
+:host{
+    position: relative;
+    padding-top: 50px;
+}
+
+.tab{
+    position: absolute;
+    z-index: 1;
+    width: 80%;
+    max-width: 250px;
+    box-sizing: border-box;
+    padding: 15px 25px 35px;
+    top: 50px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    transform: translateY(calc(-100% + 20px));
+
+
+    .save-annualy{
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateY(calc(-50% - 10px));
+        font-size: 0.8em;
+    }
+    
+}
+
+.plan-card{
+    position: relative;
+    z-index: 2;
+    padding: 20px 10px 60px; 
+    border-radius: 10px;
+    background: white;
+}
+
+.title{
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 0 20px 5px;
+    font-size: 2.3em;
+}
+
+.feature{
+    list-style: none;
+
+    li:not(:last-child){ margin-bottom: 10px; }
+}
+
+.btn-more{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+}

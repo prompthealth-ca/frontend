@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-professional',
@@ -22,6 +23,7 @@ export class AddProfessionalComponent implements OnInit {
   totalItems
   pageSize: 10
   userId: '';
+  public AWS_S3='';
   constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
@@ -41,6 +43,7 @@ export class AddProfessionalComponent implements OnInit {
       description: ['', [Validators.required]],
     });
     this.getStaffList();
+    this.AWS_S3 = environment.config.AWS_S3
   }
 
   get f() { return this.addDoctorForm.controls; }

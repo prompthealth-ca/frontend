@@ -1,6 +1,6 @@
 
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivationStart } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
@@ -11,10 +11,22 @@ export class ScrollTopService {
     private router: Router) {
   }
 
+  private isInitial = true;
+
   setScrollTop() {
     if (isPlatformBrowser(this.platformId)) {
       this.router.events.subscribe((event: NavigationEnd) => {
-        window.scroll(0, 0);
+        if (event instanceof ActivationStart) { this.isInitial = false; }
+
+        if (event instanceof NavigationEnd && event.url.match(/#addon/)) {
+          if (event.url.match(/#addon/)) {
+            const timer = this.isInitial ? 1000 : 400;
+            setTimeout(() => {
+              const el = document.querySelector('#addon');
+              window.scrollBy(0, el.getBoundingClientRect().top - 100);
+            }, timer);
+          } else { window.scroll(0, 0); }
+        }
       });
     }
   }

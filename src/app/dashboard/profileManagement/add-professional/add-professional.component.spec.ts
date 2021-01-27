@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AddProfessionalComponent } from './add-professional.component';
 
 describe('AddProfessionalComponent', () => {

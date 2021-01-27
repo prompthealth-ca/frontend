@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { SharedService } from '../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ListingcompareComponent implements OnInit {
 
   public data = [];
   loggedInUser: string;
+  public AWS_S3='';
 
   constructor(
     private behaviorService: BehaviorService,
@@ -28,6 +30,7 @@ export class ListingcompareComponent implements OnInit {
   ngOnInit(): void {
     this.loggedInUser = localStorage.getItem('loginID');
     this.getProfileQuestion();
+    this.AWS_S3 = environment.config.AWS_S3
     // this.data = this.compareIds[i];
   }
 

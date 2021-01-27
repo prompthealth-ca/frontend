@@ -7,7 +7,7 @@ import { PreviousRouteService } from './previousUrl.service';
 
 // import { SocialAuthService } from 'angularx-social-login';
 
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 
 // import 'rxjs/add/operator/toPromise';
 import { catchError, map } from 'rxjs/operators';
@@ -41,7 +41,6 @@ export class SharedService {
     @Inject(DOCUMENT) private document,
     private http: HttpClient) {
     this.type = localStorage.getItem('roles');
-
   }
 
 
@@ -70,9 +69,9 @@ export class SharedService {
     }
 
   }
-  getNoAuth(path, setParams = {}) {
+  getNoAuth(path: string, params = {}) {
     const url = this.rootUrl + path;
-    return this.http.get(url);
+    return this.http.get(url, { params });
   }
   post(body, path) {
     const headers = this.getAuthorizationHeader();

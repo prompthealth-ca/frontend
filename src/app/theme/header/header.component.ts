@@ -3,15 +3,36 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
+import { fadeAnimation, fadeFastAnimation } from '../../_helpers/animations';
+import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/shared/services/category.service';
+
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [fadeAnimation, fadeFastAnimation]
 })
 export class HeaderComponent implements OnInit {
 
+  constructor(
+    private _router: Router,
+    private _sharedService: SharedService,
+    private _bs: BehaviorService,
+    private toastr: ToastrService,
+    private _headerStatusService: HeaderStatusService,
+    public catService: CategoryService,
+    _el: ElementRef
+  ) {
+    // this.fetchUser();
+    this.elHost = _el.nativeElement;
+  }
+
+  private elHost: HTMLElement;
 
   @ViewChild('signup') signup: ElementRef;
   @ViewChild('signin') signin: ElementRef;
@@ -21,9 +42,16 @@ export class HeaderComponent implements OnInit {
   public role = '';
   public payment = 'true';
 
+  public isHeaderShown = true;
+  public isNavMenuShown = false;
+  public isDashboardMenuShown = false;
+  public levelMenuSm = 0;
+  public activeCategory = 0;
+
+  public AWS_S3 = '';
+
   user: any = {};
   updateData: any;
-  categoryList = [];
   cities = [];
   Items = [];
   showCities = false;
@@ -36,17 +64,18 @@ export class HeaderComponent implements OnInit {
   uname: any;
   userType = '';
   professionalOption = false;
-  constructor(
-    private _router: Router,
-    private _sharedService: SharedService,
-    private _bs: BehaviorService,
-    private toastr: ToastrService,
-  ) {
-    // this.fetchUser();
-  }
+
+
+  public classSubcategory = '';
+  public classSubcategoryItem = '';
+  // End Ngoninit
+  public keyword: string;
+
 
   // Start ngOninit
   ngOnInit() {
+
+    this.AWS_S3 = environment.config.AWS_S3;
 
     this._bs.getUserData().subscribe((res: any) => {
       this.updateData = res;
@@ -56,7 +85,6 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    this.getCategoryServices();
     this.token = localStorage.getItem('token');
     this.role = localStorage.getItem('roles');
     // this.payment = localStorage.getItem(isPayment);
@@ -76,7 +104,7 @@ export class HeaderComponent implements OnInit {
       this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
       if (this.token && this.user) {
         const roles = this.user.roles;
-        this.dashboard = roles == 'B' ? 'dashboard/home' : 'dashboard/welcome';
+        this.dashboard = roles === 'B' ? 'dashboard/home' : 'dashboard/welcome';
       }
     });
 
@@ -91,6 +119,9 @@ export class HeaderComponent implements OnInit {
       : {};
     this.user.firstName = this.user.firstName ? this.user.firstName + ' ' + this.user.lastName : '';
 
+    this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
+      this[key] = val;
+    });
     // if(this.token) {
     //   if(this.role === 'U') {
     //     this.showDashboard = true;
@@ -101,31 +132,24 @@ export class HeaderComponent implements OnInit {
     //   }
     // }
   }
-  // End Ngoninit
-
   route(path) {
     this._router.navigate([path]);
   }
 
-
+  keywordSearch() {
+    this._router.navigate(['/dashboard/listing'], {
+      queryParams: {
+        keyword: this.keyword
+      }
+    });
+  }
   logout() {
     this.token = '';
     this.user = {};
     this._sharedService.logout();
   }
 
-  getCategoryServices() {
-    this._sharedService.getNoAuth('questionare/get-service').subscribe((res: any) => {
-      this._sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.categoryList = res.data;
-      }
-    }, (error) => {
-      console.error(error);
-      this.toastr.error('There are some error please try after some time.');
-      this._sharedService.loader('hide');
-    });
-  }
+
   isSelectedURL(path) {
     if ((this.currentUrl === '/' || this.currentUrl === '') && path === '/') {
       return true;
@@ -133,7 +157,10 @@ export class HeaderComponent implements OnInit {
   }
 
   handleChange(url, type) {
-    this._router.navigate([url, type]);
+    console.log(url);
+    this._router.navigate([url, type]).then(res => {
+      console.log(res);
+    });
     if (url === '/auth/login') {
       this.signin.nativeElement.click();
     } else {
@@ -147,5 +174,39 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  hideMenu() { this._headerStatusService.hideNavMenu(); }
+  showMenu(slow: boolean = false) {
+    setTimeout(() => {
+      this._headerStatusService.showNavMenu(false);
+    });
+  }
 
+  scrollMenuSm(n: number) { this._headerStatusService.changeLevelMenuSm(n); }
+
+  changeMenuCategory(i: number) {
+    this.activeCategory = i;
+    this.setClassForSubcategory(i);
+  }
+  setClassForSubcategory(i: number) {
+    let clname = ['', ''];
+    switch (this.catService.categoryList[i].label) {
+      //      case 'skin_rejuvination': clname = ['', '']; break;
+      case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
+      case 'pain_management': clname = ['', 'lower narrowest']; break;
+      case 'women_mens_health': clname = ['h-100', 'lower']; break;
+      case 'mood_mental_health': clname = ['h-100', 'lowest narrower']; break;
+      case 'fitness': clname = ['h-100', '']; break;
+      //      case 'nutrition': clname = ['h-60', '']; break;
+    }
+    this.classSubcategory = clname[0];
+    this.classSubcategoryItem = clname[1];
+  }
+
+  onClickOutsideOfDashboardMenuMd(e: Event) {
+    const target = e.target as HTMLElement;
+    const dashboardMenuButton = this.elHost.querySelector('#dashboardMenuButton');
+    if (!dashboardMenuButton.contains(target)) {
+      this.isDashboardMenuShown = false;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-reviews-ratings',
   templateUrl: './reviews-ratings.component.html',
@@ -10,11 +11,11 @@ export class ReviewsRatingsComponent implements OnInit {
   rating;
   ru
   defaultImage = 'assets/img/no-image.jpg';
-  imageBaseURL = 'https://api.prompthealth.ca/users/';
   earnedPoint = 0
   currentPage;
   totalItems
   pageSize: 10
+  public AWS_S3='';
   constructor(
     private _sharedService: SharedService,
   ) { }
@@ -25,6 +26,8 @@ export class ReviewsRatingsComponent implements OnInit {
 
     // this. s = localStorage.getItem('roles');
     this.getProfileDetails();
+    this.AWS_S3 = environment.config.AWS_S3
+
   }
   getProfileDetails() {
     let path = `booking/get-all-review?userId=${this.userInfo._id}&count=10&page=1&search=/`;

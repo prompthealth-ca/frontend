@@ -1,0 +1,66 @@
+.title{ color: #D461B7; }
+
+.btn-more{
+    color: white;
+    background: #B149AB;
+}
+
+.feature i{
+    color: #D461B7;
+}
+
+.tab{
+    color: white;
+    background: #B149AB;
+}
+
+
+:host{
+    position: relative;
+    padding-top: 50px;
+    display: block;
+}
+
+.title{
+    @media screen and (max-width: 767px){ font-size: 1.3em; }
+}
+.tab{
+    position: absolute;
+    z-index: 1;
+    width: 80%;
+    max-width: 250px;
+    box-sizing: border-box;
+    padding: 15px 25px 35px;
+    top: 50px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 10px;
+    transform: translateY(calc(-100% + 20px));
+
+    .save-annualy{
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateY(calc(-50% - 10px));
+        font-size: 0.8em;
+    }
+}
+
+.addon-card{
+    position: relative;
+    z-index: 2;
+    padding: 20px; 
+    border-radius: 10px;
+    background: white;
+}
+
+
+.feature{
+    list-style: none;
+    li:not(:last-child){ margin-bottom: 10px; }
+}
+
+.btn-more{
+    border-radius: 20px;
+    white-space: nowrap;
+}

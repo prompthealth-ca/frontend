@@ -18,6 +18,8 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
+import { SubscriptionPlanPartnerComponent } from "./subscription-plan-partner/subscription-plan-partner.component";
+
 const routes: Routes = [
   {
     path: "home",
@@ -86,7 +88,9 @@ const routes: Routes = [
   {
     path:'unsubscribe/:email',
     component: UnsubscribeComponent
-  }
+  },
+
+  { path: 'subscriptionplan-partner', component: SubscriptionPlanPartnerComponent },
 ];
 
 @NgModule({

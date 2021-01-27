@@ -1,80 +1,105 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { animate, trigger, state, style, transition } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
+import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
+import{ Professional } from '../../models/professional';
+import { QuestionnaireAnswer } from '../questionnaire.service'
+
+
+const expandTitleAnimation = trigger('expandTitle', [
+  state('shrink', style({height: '1.2em'})),
+  state('expand', style({height: 'auto'})),
+  transition('shrink=>expand', animate('600ms ease', style({ height: '*' })) ),
+  transition('expand=>shrink', style({height: '1.2em'}) )
+]);
+
+const expandSubtitleAnimation = trigger('expandSubtitle', [
+  state('shrink', style({display: 'none'})),
+  state('expand', style({height: 'auto', display: 'block'})),
+  transition('shrink=>expand', [
+    style({ display: 'block', height: 0, opacity: 0}),
+    animate('600ms ease', style({ height: '*', opacity: 1 }))
+  ] ),
+  transition('expand=>shrink', style({display: 'none'}) )  
+])
+
+
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
+  animations: [expandTitleAnimation, expandSubtitleAnimation]
 })
 export class DetailComponent implements OnInit {
 
   @ViewChild('closebutton') closebutton;
 
-  defaultImage = 'assets/img/no-image.jpg';
-  bookingForm: FormGroup;
-  doctors = [];
+  /** for Tab */
+  public indexTabItem: number = 0;
+  public isTabSticked: boolean = false;
 
-  profileQuestions = [];
-  isLoggedIn = '';
-  id: number;
-  myId = '';
-  private sub: any;
-  productList = [];
-  rating = [];
+  /** for reviews */
+  public indexSortReviews: number = 0;
+  public ratingSorted = [];
 
-  savedAminities = [];
+  /** for about */
+  public isExpandProfessionals: boolean = false;
+  public products: string[]; /* array for products object at centre */
+  public providerTypes: any[]; /* array for type of providers that the user offers */
+  public treatmentModalities = []; /* array for treatment modalities the user offers */
+  public services: string[]; /* array for service type that the user offers */
 
-  ageRangeList = [
-    { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
-    { id: '5eb1a4e199957471610e6cd8', name: 'Child (<12)', checked: false },
-    { id: '5eb1a4e199957471610e6cd9', name: 'Adolescent (12-18)', checked: false },
-    { id: '5eb1a4e199957471610e6cda', name: 'Adult (18+)', checked: false },
-    { id: '5eb1a4e199957471610e6cdb', name: 'Senior (>64)', checked: false },
-  ];
-  timingList = [
-    { id: 'timing1', name: 'Morning' },
-    { id: 'timing2', name: 'Afternoon' },
-    { id: 'timing3', name: 'Evening' },
-    { id: 'timing4', name: 'Anytime' },
-  ];
-  userInfo: any = {};
-  serviceData = [];
-  treatmentModalities = [];
-  serviceOffering = [];
-  serviceType = [];
-  roles;
-  productSearch: '';
-  startDate = new Date();
-  minDate = new Date();
-  timingSelectedValue = '';
-  submitted = false;
+  public iframe: any = []; /* for videos view */
+  public defaultVideoCount = 5; 
+  public countVideoShown: number = this.defaultVideoCount;
+  private videoCountPerPage = 5;
 
-  currentPage;
-  totalItems;
-  itemsPerPage = 5;
-  avalibilityQuestion;
-  languageQuestion;
-  serviceQuestion;
-  categoryList;
-  videos: any = [];
-  yt_iframe_html: any;
-  iframe: any = [];
+  /** professionals section */
+  public isGettingProfessional: boolean = false;
+  public isProfessionalsMoreExist: boolean = true;
+
+  /** for booking */
+  public bookingForm: FormGroup;
+  private myId = '';
+  public startDate = new Date(); /* used at booking form */
+  public minDate = new Date(); /* used at booking form */
+  public timingSelectedValue = ''; /* used at booking form */
+  public submitted = false; /* used for form verification */
+ 
+  /** for general use */
+  public userInfo: Professional = null;
+  public isLoggedIn = '';
+  private id: number;
+  private amenities: any[];
+  private languageSet: any[]; /* used to populate languages that the professional can provide */
+  private serviceDeliverySet: any[]; /* used to populate serviceDelivery that the professional can provide */
+  private availabilitySet: any[]; /* used to populate availability when the professional is available */
+  private host: HTMLElement;
+  
+  /** delete */
+  roles; /** not used anywhere. can be deleted */
+  public productSearch: ''; /* can be deleted */
 
   constructor(
-    private route: ActivatedRoute,
-    private sharedService: SharedService,
-    private toastr: ToastrService,
-    private formBuilder: FormBuilder,
-    private embedService: EmbedVideoService
-  ) { }
+    private _route: ActivatedRoute,
+    private _sharedService: SharedService,
+    private _toastr: ToastrService,
+    private _fb: FormBuilder,
+    private _embedService: EmbedVideoService,
+    private _headerStatusService: HeaderStatusService,
+    el: ElementRef,
+  ) {  this.host = el.nativeElement; }
 
   get f() { return this.bookingForm.controls; }
+
   ngOnInit(): void {
-    this.bookingForm = this.formBuilder.group({
+    this.bookingForm = this._fb.group({
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [Validators.required]),
@@ -82,101 +107,217 @@ export class DetailComponent implements OnInit {
       bookingDateTime: new FormControl('', [Validators.required]),
       note: new FormControl('')
     });
+
     this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : '';
     this.isLoggedIn = localStorage.getItem('token') ? localStorage.getItem('token') : '';
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params.id;
-    });
     this.myId = localStorage.getItem('loginID') ? localStorage.getItem('loginID') : '';
 
-    this.getUserProfile();
-    this.getProfileQuestion();
+    this._route.params.subscribe(params => {
+      this.id = params.id;
+      this.getUserProfile();
+      this.getProfileQuestion();
+      this.getProducts();
+      this.getAmenities();
+      this.getReviews();
+    });
   }
+
   getUserProfile() {
     const path = `user/get-profile/${this.id}`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.userInfo = res.data[0];
-        this.getCategoryServices();
-        if (this.userInfo) {
-          this.userInfo.ratingAvg = Math.floor(this.userInfo.ratingAvg);
-          this.videos = this.userInfo.videos ? this.userInfo.videos : [];
-          for (let i = 0; i < this.videos.length; i++) {
-            // console.log(this.videos[i].url);
-            // let  youtubeUrl = "https://www.youtube.com/watch?v=xcJtL7QggTI&t=130s";
-            // this.yt_iframe_html.push(this.embedService.embed(this.videos[i].url));
-            this.yt_iframe_html = this.embedService.embed(this.videos[i].url);
-            this.yt_iframe_html.title = this.videos[i].title;
-            this.iframe.push(this.yt_iframe_html);
-            // console.log(this.iframe);
-          }
-        }
-      } else {
-        this.toastr.error(res.message);
+        if(res.data && res.data.length > 0){
+          var user: any = res.data[0];
+          this.userInfo = new Professional(user._id, user);
 
+          if(this.languageSet){ this.userInfo.populate('languages', this.languageSet); }
+          if(this.serviceDeliverySet){ this.userInfo.populate('serviceDelivery', this.serviceDeliverySet); }
+          if(this.availabilitySet){ this.userInfo.populate('availability', this.availabilitySet); }
+          if(this.amenities){ this.userInfo.setAmenities(this.amenities); }
+//          this.userInfo.setReviews(reviewsDummy);
+
+          var ageRangeSet: QuestionnaireAnswer[] = [
+            { _id: '5eb1a4e199957471610e6cd7', item_text: 'Not Critical' },
+            { _id: '5eb1a4e199957471610e6cd8', item_text: 'Child (<12)' },
+            { _id: '5eb1a4e199957471610e6cd9', item_text: 'Adolescent (12-18)' },
+            { _id: '5eb1a4e199957471610e6cda', item_text: 'Adult (18+)' },
+            { _id: '5eb1a4e199957471610e6cdb', item_text: 'Senior (>64)' },
+          ]
+          this.userInfo.populate('ageRange', ageRangeSet);
+
+          this.getCategoryServices();
+          this.getEndosements();
+          if(this.userInfo.isCentre){ this.getProfessionals(); }
+          
+          this.userInfo.videos.forEach(v=> {
+            var ytIframeHtml = this._embedService.embed(v.url);
+            ytIframeHtml.title = v.title;
+            this.iframe.push(ytIframeHtml);
+          });  
+        }      
+      } else {
+        this._toastr.error(res.message);
       }
     }, err => {
-      this.sharedService.loader('hide');
+      this._sharedService.loader('hide');
     });
   }
+
   getProfileQuestion() {
     const path = `questionare/get-profile-questions`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.profileQuestions = res.data;
-        res.data.forEach(element => {
-          if (element.question_type === 'service' && element.slug === 'offer-your-services') {
-            this.serviceQuestion = element;
+        var questions = res.data;
+        questions.forEach((e: any) => {
+          if (e.question_type === 'service' && e.slug === 'offer-your-services') {
+            this.serviceDeliverySet = e.answers; // service offering
           }
-          if (element.question_type === 'service' && element.slug === 'languages-you-offer') {
-            this.languageQuestion = element;
+          if (e.question_type === 'service' && e.slug === 'languages-you-offer') {
+            this.languageSet = e.answers;
           }
-          if (element.question_type === 'availability') {
-            this.avalibilityQuestion = element;
+          if (e.question_type === 'availability') {
+            this.availabilitySet = e.answers;
           }
         });
+        if(this.userInfo){
+          this.userInfo.populate('languages', this.languageSet);
+          this.userInfo.populate('serviceDelivery', this.serviceDeliverySet);
+          this.userInfo.populate('availability', this.availabilitySet);
+        }
       } else {
-        this.toastr.error(res.message);
+        this._toastr.error(res.message);
 
       }
     }, err => {
-      this.sharedService.loader('hide');
+      this._sharedService.loader('hide');
     });
   }
-  getProductList() {
-    this.sharedService.loader('show');
+
+  getProducts() {
+    this.products = [];
+
+    this._sharedService.loader('show');
     const path = `product/get-all?userId=${this.id}&count=10&page=1&frontend=0/`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-        this.productList = res.data.data;
-        this.sharedService.loader('hide');
+        this.products = res.data.data;
+        console.log(this.products)
+        this._sharedService.loader('hide');
 
       } else {
-        this.sharedService.checkAccessToken(res.message);
+        this._sharedService.checkAccessToken(res.message);
       }
     }, err => {
 
-      this.sharedService.loader('hide');
-      this.sharedService.checkAccessToken(err);
+      this._sharedService.loader('hide');
+      this._sharedService.checkAccessToken(err);
     });
+
   }
-  getSavedAmenties() {
+
+  getAmenities() {
     const path = `amenity/get-all/?userId=${this.id}&count=10&page=1&frontend=0`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
-      this.sharedService.loader('hide');
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
       if (res.statusCode === 200) {
-        this.toastr.success(res.message);
-        this.savedAminities = res.data.data;
+        this.amenities = res.data.data;
+        if(this.userInfo){ this.userInfo.setAmenities(this.amenities); }
       } else {
-        this.sharedService.showAlert(res.message, 'alert-danger');
+        this._sharedService.showAlert(res.message, 'alert-danger');
       }
     }, (error) => {
-      this.sharedService.loader('hide');
+      this._sharedService.loader('hide');
+    });
+
+  }
+
+  getReviews() {
+
+//    this.sortReviewsBy(0);
+
+/*  todo: enable this code after api works
+    const path = `booking/get-all-review?userId=${this.id}&count=10&page=1&search=/`;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      if (res.statusCode === 200) {
+         this.rating = res.data.data;
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this._sharedService.checkAccessToken(err);
+    });
+ */
+  }
+
+  getCategoryServices() {
+    const path = `user/getService/${this.userInfo.id}`;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this._sharedService.loader('hide');
+  
+      if (res.statusCode === 200) {
+        var categories = {
+          typeOfProvider: [],
+          treatmentModality: [],
+          service: [],
+//          serviceOffering: [],
+        }
+
+        res.data.forEach((e: any) => {
+          switch(e.slug){
+            case 'providers-are-you': categories.typeOfProvider.push(e); break;
+            case 'treatment-modalities': categories.treatmentModality.push(e); break;
+            case 'your-goal-specialties': categories.service.push(e); break;
+ //           case 'your-offerings': categories.serviceOffering.push(e); break;
+          }
+        });
+        Object.keys(categories).forEach((k,i)=>{ this.userInfo.setServiceCategory(k, categories[k]); });
+      } 
+      else {}
+    }, (error) => {
+      this._toastr.error('There are some error please try after some time.');
+      this._sharedService.loader('hide');
     });
   }
+
+  getProfessionals() {
+    // default count is 20
+    var count = 4;
+    var lenProfessional = this.userInfo.professionals.length || 0;
+    var page = Math.floor(lenProfessional / count) + 1
+
+    const path = `staff/get-all?userId=${this.userInfo.id}&count=${count}&page=${page}&frontend=0/`;
+    this.isGettingProfessional = true;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      this.isGettingProfessional = false;
+    if (res.statusCode === 200) {
+        var professionals = [];
+
+        res.data.data.forEach((p: {userId: string, fName: string, lName: string, description: string})=>{
+          professionals.push(new Professional(p.userId, p));
+        })
+        this.userInfo.setProfessionals(professionals);
+        if(this.userInfo.professionals.length < page * count){ this.isProfessionalsMoreExist = false; }
+
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
+
+      this._sharedService.checkAccessToken(err);
+    });
+  }
+
+  getEndosements(){
+    this.userInfo.setEndosements(endosementsDummy);
+    //todo: access to api and get real data
+  }
+  
+
   timingSelected(evt) {
     this.timingSelectedValue = evt.target.value;
   }
+
   bookApointment() {
     this.submitted = true;
     if (this.bookingForm.invalid) {
@@ -186,93 +327,120 @@ export class DetailComponent implements OnInit {
         ...this.bookingForm.value,
       };
       const data = {
-        drId: this.userInfo._id,
+        drId: this.userInfo.id,
         customerId: this.myId,
         ...formData,
       };
       data.timing = this.timingSelectedValue;
       data.phone = data.phone.toString();
       data.bookingDateTime = data.bookingDateTime.toString();
-      this.sharedService.loader('show');
+      this._sharedService.loader('show');
       const path = `booking/create`;
-      this.sharedService.post(data, path).subscribe((res: any) => {
-        this.sharedService.loader('hide');
+      this._sharedService.post(data, path).subscribe((res: any) => {
+        this._sharedService.loader('hide');
         if (res.statusCode === 200) {
-          this.toastr.success(res.message);
+          this._toastr.success(res.message);
 
           this.closebutton.nativeElement.click();
         } else {
-          this.sharedService.showAlert(res.message, 'alert-danger');
+          this._sharedService.showAlert(res.message, 'alert-danger');
         }
       }, (error) => {
-        this.sharedService.loader('hide');
+        this._sharedService.loader('hide');
       });
     }
   }
-  getSavedRating() {
-    const path = `booking/get-all-review?userId=${this.id}&count=10&page=1&search=/`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode === 200) {
-        this.rating = res.data.data;
-      } else {
-        this.sharedService.checkAccessToken(res.message);
-      }
-    }, err => {
 
-      this.sharedService.checkAccessToken(err);
-    });
+  changeStickyStatusTabbar(isSticked: boolean){
+    if(isSticked){ this._headerStatusService.hideHeader(); }
+    else{ this._headerStatusService.showHeader(); }
+    this.isTabSticked = isSticked;
   }
-  getSaveddoctors() {
-    const path = `staff/get-all?userId=${this.id}&count=10&page=1&frontend=0/`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (res.statusCode === 200) {
-        this.doctors = res.data.data;
 
-      } else {
-        this.sharedService.checkAccessToken(res.message);
-      }
-    }, err => {
+  // filterProfessionals(isExpandForcibly?: boolean){ 
+  //   if(!this.professionals){ return; }
 
-      this.sharedService.checkAccessToken(err);
-    });
+  //   if(typeof isExpandForcibly != 'boolean'){
+  //     this.isExpandProfessionals = !this.isExpandProfessionals; 
+  //   }
+
+  //   var pros = [];
+  //   if(this.isExpandProfessionals){
+  //     pros = this.professionals;
+  //   }else{
+  //     for(var i=0; i<this.professionals.length; i++){
+  //       pros.push(this.professionals[i]);
+  //       if(i >= 2){ break; }
+  //     }
+  //   }
+  //   this.professionalsFiltered = pros;
+  //   return;
+  // }
+
+  showMoreVideo(){
+    var count = this.countVideoShown + this.videoCountPerPage;
+    if(count > this.iframe.length){  }
+    this.countVideoShown = (count > this.iframe.length)? this.iframe.length : count;
   }
-  getCategoryServices() {
-    this.serviceData = [];
-    this.treatmentModalities = [];
-    this.serviceType = [];
-    this.serviceOffering = [];
-    const path = `user/getService/${this.userInfo._id}`;
-    this.sharedService.getNoAuth(path).subscribe((res: any) => {
-      this.sharedService.loader('hide');
-      if (res.statusCode === 200) {
-        this.categoryList = res.data;
-        this.categoryList.forEach(element => {
-          if (element.slug === 'providers-are-you') {
-            if (this.serviceData.indexOf(element.item_text) === -1) {
-              this.serviceData.push(element);
-            }
-          }
-          if (element.slug === 'treatment-modalities') {
-            if (this.treatmentModalities.indexOf(element.item_text) === -1) {
-              this.treatmentModalities.push(element);
-            }
-          }
-          if (element.slug === 'your-goal-specialties') {
-            if (this.serviceType.indexOf(element) === -1) {
-              this.serviceType.push(element.item_text);
-            }
-          }
-          if (element.slug === 'your-offerings') {
-            if (this.serviceOffering.indexOf(element) === -1) {
-              this.serviceOffering.push(element.item_text);
-            }
-          }
-        });
-      } else {
-      }
-    }, (error) => {
-      this.toastr.error('There are some error please try after some time.');
-      this.sharedService.loader('hide');
-    });
+
+  showLessVideo(){
+    this.countVideoShown = this.defaultVideoCount;
   }
+
+  changeTabTo(i: number){
+    this.indexTabItem = i;
+    var banner = this.host.querySelector('.banner');
+    var rect = banner.getBoundingClientRect();
+    window.scrollBy({top: rect.top + rect.height, left: 0, behavior: 'smooth'})
+  }
+
+  sortReviewsBy(i: number){
+    this.indexSortReviews = i;
+    this.userInfo.sortReviewBy(i);
+  }
+
+  toggleExpandProfessionalDesc(){ this.isExpandProfessionals = !this.isExpandProfessionals; }
 }
+
+
+const endosementsDummy = [
+  {
+    _id: '',
+    name: 'Modern Mint',
+    rate: 4.3,
+    images: [],
+    desc: "this vegan product is great for blablabla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque"
+  },
+  {
+    _id: '',
+    name: 'Modern Mint',
+    rate: 1.53,
+    images: [],
+    desc: "this vegan product is great for blablabla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque"
+  }
+];
+
+const reviewsDummy = [
+  {
+    _id: '',
+    name: 'Justin Timber',
+    desc: 'I am an energetic & enthusiasm person, I have my passionate in fitness industry, I like to motivate peoples to have active living because I believe that exercises can helps human beings lives healthy, lower the risks in getting chronic diseases. Less suffers from diseases, enjoy the life.',
+    rate: 2,
+    updatedAt: new Date('2019-12-25T00:17:01.924Z'),
+  },
+  {
+    _id: '',
+    name: 'Justin Timber',
+    desc: 'I am an energetic & enthusiasm person, I have my passionate in fitness industry, I like to motivate peoples to have active living because I believe that exercises can helps human beings lives healthy, lower the risks in getting chronic diseases. Less suffers from diseases, enjoy the life.',
+    rate: 5,
+    updatedAt: new Date('2018-12-25T00:17:01.924Z'),
+  },  
+  {
+    _id: '',
+    name: 'Justin Timber',
+    desc: 'I am an energetic & enthusiasm person, I have my passionate in fitness industry, I like to motivate peoples to have active living because I believe that exercises can helps human beings lives healthy, lower the risks in getting chronic diseases. Less suffers from diseases, enjoy the life.',
+    rate: 4,
+    updatedAt: new Date('2027-12-25T00:17:01.924Z'),
+  }
+];
+

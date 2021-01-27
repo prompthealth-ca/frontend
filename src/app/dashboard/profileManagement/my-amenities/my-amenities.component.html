@@ -45,7 +45,7 @@
       <td width="60%">
         <div class="img-list" *ngFor="let img of aminity.images; let i = index">
           <img
-            [src]="'https://api.prompthealth.ca/amenities/' + img"
+            [src]="AWS_S3 + img"
           />
         </div>
       </td>
@@ -86,7 +86,7 @@
         />
         <img
           [src]="
-            'https://api.prompthealth.ca/amenities/' + amenity.icon
+            AWS_S3 + amenity.icon
           "
           class="am-icons"
         />
@@ -97,7 +97,7 @@
         <div class="mt-3 mb-3">
           <div *ngFor="let url of imagesList" class="multipleImage">
             <img
-              [src]="'https://api.prompthealth.ca/amenities/' + url"
+              [src]="AWS_S3 + url"
               height="200"
             />
             <br />

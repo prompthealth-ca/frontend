@@ -125,6 +125,13 @@ $slideLeftRightPaddding: 80px;
   min-height: 40vh;
 }
 
+.link-ask-us{
+  position: relative;
+  font-size: 16px;
+  $shadow: #daeafb;
+  text-shadow: 1px 1px 0 $shadow, -1px 1px 0 $shadow, 1px -1px 0 $shadow, -1px -1px 0 $shadow;
+}
+
 .about-us-body-font {
   font-family: Roboto;
   font-style: normal;

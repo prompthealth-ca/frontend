@@ -1,152 +1,191 @@
 <header>
-  <nav class="blur navbar navbar-expand-lg main-header position-fixed navbar-light shadow-sm w-100">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="assets/img/logo.png" /></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">By Category <b class="caret"></b></a>
-            <ul class="dropdown-menu multi-level">
-              <li class="dropdown-submenu" *ngFor="let cat of categoryList">
-                <a class="dropdown-toggle dropdown-item" data-toggle="dropdown">{{ cat.category_type  }}</a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <div *ngFor="let answers of cat.category">
-                      <div *ngIf="answers.subCategory.length">
-                        <h6>{{answers.item_text}}</h6>
-                        <a *ngFor="let subanswers of answers.subCategory" class="dropdown-item"
-                          [routerLink]="['/dashboard/listing']"
-                          [queryParams]=" {id: subanswers._id, type:  cat.category_type }">
-                          {{subanswers.item_text}}
-                        </a>
-                      </div>
-                      <div *ngIf="answers.subCategory.length === 0">
-                        <a class="dropdown-item" [routerLink]="['/dashboard/listing']"
-                          [queryParams]=" {id: answers._id, type:  cat.category_type }" data-toggle="dropdown">
-                          {{answers.item_text}}
-                        </a>
+  <nav class="blur main-header position-fixed navbar-light shadow w-100 p-md-2"
+    [ngClass]="{hide: !isHeaderShown}"
+  >
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="ml-2 flex-grow-0 flex-shrink-0">
+        <a class="navbar-brand" ref="#" [routerLink]="['/']">
+          <img class="d-none d-md-block" src="assets/img/logo.png" />
+          <img class="d-md-none brand-sm" src="assets/img/logo-sm.png" />
+        </a>
+      </div>
+      <div class="mx-2 mx-md-4 flex-grow-1 flex-shrink-1">
+        <form (submit)="keywordSearch()">
+          <div class="searchbar rounded-pill">
+            <input type="text"  aria-describedby="Search for anything" placeholder="Search for anything" [(ngModel)]="keyword" name="keyword" />
+          </div>
+        </form>
 
-                        <ul class="dropdown-menu" *ngIf="answers.subCategory.length">
-                          <li>
-                            <div *ngFor="let sub of answers.subCategory">
-                              <hr>
-                              <h6>{{sub.item_text}}</h6>
-                              <a class="dropdown-item" [routerLink]="['/dashboard/listing']"
-                                [queryParams]=" {id: sub._id }">
-                                {{sub.item_text}}
-                              </a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+      </div>
+      <div *ngIf="!token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
+        <div class="d-flex align-items-center flex-nowrap">
+          <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a>
+          <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign up</a>
+        </div>
+      </div>
+
+      <ng-template #logoutblock>
+        <div class="ml-auto d-none d-md-block w-160p position-relative">
+          <dashboard-menu id="dashboardMenuButton"
+            ui="button"
+            buttonDirection="right"
+            [styleButton]="{background: '#ffffff33'}"
+            [user]="user"
+            (click)="isDashboardMenuShown = !isDashboardMenuShown"
+          ></dashboard-menu>
+          <div class="position-absolute top-10p dashboard-menu-wrapper-md">
+          </div>
+        </div>
+      </ng-template>
+
+        <div class="d-md-none flex-grow-0">
+        <button class="btn btn-icon text-blue" (click)="showMenu()">
+          <i class="fas fa-bars text-darkblue"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="d-none d-md-block w-100">
+      <div class="d-flex justify-content-center align-items-center w-100">
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
+        </div>
+        <div class="nav-item" (click)="showMenu()">
+          <a class="nav-link">Category</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan']">Pricing</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan-partner']">Partner</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" class="nav-link" [routerLink]="['/blogs']">Blogs</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- menu for medium view or more-->
+    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && catService.categoryList && catService.categoryList.length>0" [@fade]>
+      <div class="close-menu-full" (click)="hideMenu()"></div>
+
+      <div class="shadow menu_inner position-relative">
+        <button class="btn close-menu btn-icon text-blue" (click)="hideMenu()">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <div class="menu-title center">Service/Goal</div>
+        <div class="menu-category-group w-100">
+          <div class="col-4 menu-category">
+            <ul class="category">
+              <li *ngFor="let cat of catService.categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">
+                <div class="highlighter"></div>
+                <span>{{cat.item_text}}</span>
               </li>
             </ul>
-          </li>
-
-
-
-          <!-- 
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              data-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >By Category</a
+          </div>
+          <div class="col-8 menu-subcategory">
+            <img [src]="'assets/img/services_' + catService.categoryList[activeCategory].label + '.png'"/>
+            <ul class="category sub"
+              [class]="classSubcategory"
             >
-            <div class="dropdown-menu">
-              <a class="dropdown-item">Fitness</a>
-              <a class="dropdown-item">Sleep</a>
-              <a class="dropdown-item">Yoga</a> 
-            </div>
-          </li> -->
-
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-              aria-expanded="false">Solutions</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" [routerLink]="['/client']"><i class="fa fa-user"></i> Client</a>
-              <a class="dropdown-item" [routerLink]="['/professional']"><i class="fa fa-user-tie"></i>
-                Professional</a>
-              <a class="dropdown-item" [routerLink]="['/enterprise']"><i class="fa fa-building"></i> Enterprise</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/subscriptionplan']">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/affiliate']">Affiliate</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/blogs']">Blogs</a>
-          </li>
-
-
-          <li class="nav-item dropdown user-dropdown" *ngIf="token">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-              aria-expanded="false">
-
-              <!-- if no image -->
-              <!-- <i class="fa fa-user-circle mr-2"></i> -->
-
-              <!-- if image -->
-              <img *ngIf="!user.profileImage" src="assets/img/default_user.jpg" class="user-img mr-2" />
-              <img *ngIf="user.profileImage"
-                src="https://api.prompthealth.ca/users/{{updateData.profileImage?updateData.profileImage:user.profileImage}}"
-                class="user-img mr-2" />
-              <!-- <img src="https://api.prompthealth.ca/users/1598659473722buYK-monea.jpg" class="user-img mr-2"> -->
-
-              Welcome, {{user.firstName ? user.firstName: user.email }}
-            </a>
-
-            <div class="dropdown-menu">
-              <a class="dropdown-item" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
-              <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Logout</a>
-            </div>
-          </li>
-
-          <!-- <li *ngIf="token" class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashboard/profilemanagement/my-profile']">My Dashboard</a>
-          </li>
-
-          <li *ngIf="token" class="nav-item">
-              <a class="nav-link" href="javascript:void(0)" (click)="logout()">Logout</a>
-          </li> -->
-
-          <li class="nav-item" *ngIf="!token">
-            <a class="nav-link" href="" data-toggle="modal" data-target="#loginmodal">Login</a>
-
-          </li>
-
-          <li *ngIf="!token" class="nav-item">
-            <a class="nav-link">OR</a>
-          </li>
-          <li *ngIf="!token" class="nav-item">
-            <a class="nav-link btn btn-primary mr-2 ml-2 pl-3 pr-3" href="" data-toggle="modal"
-              data-target="#exampleModal">Join network</a>
-          </li>
-        </ul>
+              <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory"
+                [class]="classSubcategoryItem"
+              >
+                <a [routerLink]="['/dashboard/listing']"
+                  [queryParams]=" {id: sub._id, type: 'goal'}"
+                  (click)="hideMenu()"
+                >{{sub.item_text}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 </header>
-<div class="spacer-top"></div>
+<div class="spacer-top" [ngClass]="{loggedin: token}"></div>
+
+<dashboard-menu class="d-none d-md-block position-fixed dashboard-menu-wrapper-md"
+  *ngIf="isDashboardMenuShown"
+  [@fadeFast]
+  [user]="user"
+  [scrollDetector]="isDashboardMenuShown" 
+  [offset]="50" 
+  (detect)="isDashboardMenuShown = false;"
+  (logout)="logout()"
+  (clickOutside)="onClickOutsideOfDashboardMenuMd($event)"
+  (close)="isDashboardMenuShown = false"
+></dashboard-menu> 
+
+<!-- Menu for Small view-->
+<div class="menu-sm d-md-none" id="menu_sm" *ngIf="isNavMenuShown" [@fade]>
+  <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
+    <i class="fas fa-times"></i>
+  </button>
+  <ul class="menu-item font-weight-bold"
+    [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
+  >
+    <li><a class="text-blue" [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
+    <li><a class="text-blue" (click)="scrollMenuSm(1)">Category</a></li>
+    <li><a class="text-blue" [routerLink]="['/subscriptionplan-partner']" (click)="hideMenu()">Partner</a></li>
+    <li><a class="text-blue" [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
+
+    <li *ngIf="!token">
+      <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a>
+      <span class="display-inline-block mx-2">/</span>
+      <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
+    </li>
+
+    <li class="dashboard-menu-wrapper" *ngIf="token">
+      <dashboard-menu class="bg-white overflow-hidden"
+        [user]="user"
+        [styleMenu]="{ color: '#6d6e71'}"
+        (logout)="logout()"
+      ></dashboard-menu>
+    </li>
+  </ul>
+
+  <ul class="menu-item sub"
+    [ngClass]="{before: (levelMenuSm > 1), after: (levelMenuSm < 1)}"
+  >
+    <li class="menu-subtitle font-weight-bold">
+      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(0)">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      Category
+    </li>
+    <li *ngFor="let cat of catService.categoryList; let i = index">
+      <span (click)="changeMenuCategory(i); scrollMenuSm(2)">{{cat.item_text}}</span>
+    </li>
+  </ul>
+
+  <ul class="menu-item sub"
+    *ngIf="catService.categoryList && catService.categoryList.length > 0"
+    [ngClass]="{before: (levelMenuSm > 2), after: (levelMenuSm < 2)}"
+  >
+    <li class="menu-subtitle font-weight-bold d-flex align-items-center">
+      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(1)">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <span class="d-inline-block">
+        {{catService.categoryList[activeCategory].item_text}}
+      </span>
+    </li>
+    <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
+      <a [routerLink]="['/dashboard/listing']"
+        [queryParams]=" {id: sub._id, type: 'goal'}"
+        (click)="hideMenu()"
+      >{{sub.item_text}}</a>
+    </li>
+  </ul>
+</div>
+
+
 
 <!-- Modal signup -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">

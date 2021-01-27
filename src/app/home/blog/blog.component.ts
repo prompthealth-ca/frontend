@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blog',
@@ -12,6 +13,7 @@ export class BlogComponent implements OnInit {
   categoryList = [];
   categories: any = []
   defaultImage = 'assets/img/no-image.jpg';
+  public AWS_S3='';
 
   constructor(
     private _sharedService: SharedService,
@@ -21,6 +23,7 @@ export class BlogComponent implements OnInit {
   ngOnInit(): void {
     this.getBlogList();
     this.getAllCategories();
+    this.AWS_S3 = environment.config.AWS_S3
   }
 
   getBlogList() {

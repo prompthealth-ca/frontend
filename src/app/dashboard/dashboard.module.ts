@@ -21,10 +21,22 @@ import { SharedModule } from '../shared/shared.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+/** slider for filter in listing page */
+import { NpnSliderModule } from 'npn-slider';
+
 import { AgmCoreModule } from '@agm/core';
-import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { AddOnCardComponent } from './add-on-card/add-on-card.component';
 import { environment } from 'src/environments/environment';
+import { DetailTabbarIntersectionObserverDirective } from './detail-tabbar-intersection-observer.directive';
+
+import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
+import { QuestionnaireItemSelectComponent } from './questionnaire-item-select/questionnaire-item-select.component';
+import { QuestionnaireItemCheckboxComponent } from './questionnaire-item-checkbox/questionnaire-item-checkbox.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
+import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
+import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';
+import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +50,15 @@ import { environment } from 'src/environments/environment';
     ProfessionalHomeComponent,
     ProfessionalRegisterComponent,
     EmbededURLPipe,
-    UserQuestionaireComponent,
     AddOnCardComponent,
+    DetailTabbarIntersectionObserverDirective,
+    UserQuestionaireComponent,
+    QuestionnaireItemSelectComponent,
+    QuestionnaireItemCheckboxComponent,
+    AddonSelectCategoryComponent,
+    FilterDropdownComponent,
+    FilterDropdownSelectComponent,
+    FilterDropdownSliderComponent,
   ],
   imports: [
     AutocompleteLibModule,
@@ -59,6 +78,8 @@ import { environment } from 'src/environments/environment';
     NgxStripeModule.forRoot(environment.config.stripeKey),
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
+    NgbModalModule,
+    NpnSliderModule
   ]
 })
 export class DashboardModule { }

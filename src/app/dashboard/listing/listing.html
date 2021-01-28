@@ -157,6 +157,7 @@
         [disableDefaultUI]="false"
         [zoomControl]="false"
         (centerChange)="onChangeMapCenter($event)"
+        (zoomChange)="onChangeMapZoom($event)"
       >
 
         <!-- <agm-marker [longitude]="mapdata.lng" [latitude]="mapdata.lat"></agm-marker> -->
@@ -170,12 +171,12 @@
         [strokeWeight]="1"
         ></agm-circle>
 
-        <agm-marker *ngFor="let p of (pages.data? pages.data[pages.current - 1] : []); let i = index;" 
+        <agm-marker *ngFor="let p of (professionals? professionals : []); let i = index;" 
         [longitude]="p.location[0]" 
         [latitude]="p.location[1]" 
         [iconUrl]="p.mapIconUrl" 
         [title]="p.mapLabel" 
-        [zIndex]="pages.itemsPerPage - i"
+        [zIndex]="(professionals? professionals.length : 100) - i"
         [visible]="p.isMapIconReady"
         >
           <agm-info-window>
@@ -203,12 +204,24 @@
         </agm-marker>
       </agm-map>
 
-      <button class="btn switch-change-map-size d-none d-lg-block text-blue font-biggest" (click)="toggleMapSize()">
-        <i *ngIf="!isMapSizeBig" class="fas fa-expand"></i>
-        <i *ngIf="isMapSizeBig" class="fas fa-compress"></i>
-      </button>
+      <ul class="map-controller-right list-unstyled mb-0">
+        <li>
+          <button class="btn d-none d-lg-block text-blue font-biggest" (click)="toggleMapSize()">
+            <i *ngIf="!isMapSizeBig" class="fas fa-expand"></i>
+            <i *ngIf="isMapSizeBig" class="fas fa-compress"></i>
+          </button>  
+        </li>
+        <li>
+          <button class="btn text-blue font-biggest btn-get-location" 
+          *ngIf="isGetLocationButtonShown"
+          [disabled]="isGettingCurrentLocation"
+          (click)="onClickGetLocationButton()" 
+          [ngClass]="{active: isGettingCurrentLocation}"
+          ><i class="fas fa-crosshairs"></i></button>
+        </li>
+      </ul>
 
-      <button class="btn btn-search-in-this-area blur rounded" (click)="searchInThisArea()">Search in this area</button>
+      <button class="btn btn-search-in-this-area bg-white font-small rounded-pill" (click)="searchInThisArea()">Search in this area</button>
     </div>
   </div>
   

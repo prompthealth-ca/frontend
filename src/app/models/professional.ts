@@ -154,9 +154,9 @@ export class Professional implements IProfessional {
     return ageRange.join(', ');
   }
   get availability() {
-    const availability = [];
-    this._availability.forEach(a => { availability.push(a.item_text); });
-    return availability.join(', ');
+    const result = [];
+    this._availability.forEach(a => { result.push(a.item_text); });
+    return result;
   }
   get isCentre() { return !!(this.role.toLocaleLowerCase().match(/c/)); }
   get endosements() { return this._endosements; }

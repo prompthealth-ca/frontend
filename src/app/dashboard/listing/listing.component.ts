@@ -1,7 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener, OnDestroy } from '@angular/core';
-import { animate, state, trigger, transition, style } from '@angular/animations';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+// import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
@@ -10,25 +9,17 @@ import { environment } from 'src/environments/environment';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { _FEATURE_CONFIGS } from '@ngrx/store/src/tokens';
 import { Questionnaire, QuestionnaireAnswer } from '../questionnaire.service';
-import { rootEffectsInit } from '@ngrx/effects';
-import { FitBoundsService } from '@agm/core/services/fit-bounds';
+// import { rootEffectsInit } from '@ngrx/effects';
+// import { FitBoundsService } from '@agm/core/services/fit-bounds';
 import { Professional } from '../../models/professional';
-import { slideVerticalAnimation } from '../../_helpers/animations';
+import { slideVerticalAnimation, expandVerticalAnimation } from '../../_helpers/animations';
 
-const animation = trigger('expandVertical', [
-  transition(':enter', [
-    style({ display: 'block', height: 0, opacity: 0 }),
-    animate('300ms ease', style({ height: '*', opacity: 1 }))
-  ]),
-  transition(':leave', [
-    animate('300ms ease', style({ height: '0', opacity: 0 }))
-  ])
-]);
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.html',
   styleUrls: ['./listing.scss'],
-  animations: [animation, slideVerticalAnimation],
+  animations: [expandVerticalAnimation, slideVerticalAnimation],
 
 })
 export class ListingComponent implements OnInit, OnDestroy {
@@ -36,37 +27,32 @@ export class ListingComponent implements OnInit, OnDestroy {
   constructor(
     private behaviorService: BehaviorService,
     private route: ActivatedRoute,
-    private mapsAPILoader: MapsAPILoader,
     private router: Router,
-    private ngZone: NgZone,
     private _sharedService: SharedService,
     private toastr: ToastrService,
     private _headerService: HeaderStatusService,
     _el: ElementRef,
   ) {
     this.host = _el.nativeElement;
-
-    this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
   }
 
   @ViewChild('searchGlobal')
   public searchGlobalElementRef: ElementRef;
   public AWS_S3 = '';
 
-  public lat: number; /** todo: if not needed, delete */
-  public long: number; /** todo: if not needed, delete */
-
   public isVirtual = false;
 
   public mapdata: { lat: number, lng: number, zoom: number } = { lat: 53.89, lng: -111.25, zoom: 3 };
   public searchCenter: { lat: number, lng: number, radius: number} = {lat: 53.89, lng: -111.25, radius: 0 };
+  public isGettingCurrentLocation = false;
+  public isGetLocationButtonShown = true;
 
   public isFinderSticked = false;
   public isMapView = false;
   public isMapSizeBig = false;
   public filterTarget: Filter = null;
   public currentPage = 1;
-  private professionals: Professional[] = null;
+  public professionals: Professional[] = null;
   public pages: { current: number, itemsPerPage: number, data: Professional[][] } = {
     current: 1,
     itemsPerPage: 12,
@@ -108,54 +94,16 @@ export class ListingComponent implements OnInit, OnDestroy {
     price_per_hours: '',
     gender: '',
     typical_hours: [],
-    keyword: ''
+    keyword: '',
+    virtual: false,
   };
 
 
-  public filters: Filter[] = [
-    { _id: 'distance', item_text: 'distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
-    {
-      _id: 'gender', item_text: 'gender', type: 'radio', payloadName: 'gender', active: false, options: [
-        // {_id: 'all', item_text: 'All', active: false, subans: false},
-        { _id: 'male', item_text: 'Male', active: false, subans: false },
-        { _id: 'female', item_text: 'Female', active: false, subans: false }
-      ]
-    },
-    {
-      _id: 'rating', item_text: 'rating', type: 'radio', payloadName: 'rating', active: false, options: [
-        // {_id: '0', item_text: 'All', active: false, subans: false},
-        { _id: '5', item_text: '5 Stars', active: false, subans: false },
-        { _id: '4', item_text: '4 Stars', active: false, subans: false },
-        { _id: '3', item_text: '3 Stars', active: false, subans: false },
-      ]
-    },
-    { _id: 'language', item_text: 'Language', type: 'radio', payloadName: 'languageId', active: false, options: [/** use server data */] },
-    { _id: 'availability', item_text: 'availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
-    { _id: 'service', item_text: 'service type', type: 'radio', payloadName: 'serviceOfferId', active: false, options: [/** use server data */] },
-    {
-      _id: 'pricing', item_text: 'pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
-        { _id: '< $50', item_text: '$ < 50', active: false, subans: false },
-        { _id: '$50-100', item_text: '$ 50-100', active: false, subans: false },
-        { _id: '$100-200', item_text: '$ 100-200', active: false, subans: false },
-        { _id: '$200-500', item_text: '$ 200-500', active: false, subans: false },
-        { _id: '$500-1000', item_text: '$ 500-1000', active: false, subans: false },
-        { _id: '$1000', item_text: '$ > 1000', active: false, subans: false },
-      ]
-    },
-    {
-      _id: 'age', item_text: 'age range', type: 'checkbox', payloadName: 'age_range', active: false, options: [
-        { _id: '5eb1a4e199957471610e6cd7', item_text: 'Not Critical', active: false, subans: false },
-        { _id: '5eb1a4e199957471610e6cd8', item_text: 'Child (<12)', active: false, subans: false },
-        { _id: '5eb1a4e199957471610e6cd9', item_text: 'Adolescent (12-18)', active: false, subans: false },
-        { _id: '5eb1a4e199957471610e6cda', item_text: 'Adult (18+)', active: false, subans: false },
-        { _id: '5eb1a4e199957471610e6cdb', item_text: 'Senior (>64)', active: false, subans: false },
-      ]
-    },
-  ];
-
+  public filters: Filter[] = filtersPreset;
 
   private host: HTMLElement;
-  private timerListing: any;
+  private timerMapCenterChange: any;
+  private timerMapZoomChange: any;
 
   get listingContainerClass() {
     let c = '';
@@ -175,159 +123,110 @@ export class ListingComponent implements OnInit, OnDestroy {
     localStorage.removeItem('typical_hours');
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.AWS_S3 = environment.config.AWS_S3;
 
     this.getProfileQuestion();
+
+    /** init geo location */
+    const [latDefault, lngDefault] = [53.89, -111.25];
+    const [ipLat, ipLng] = [localStorage.getItem('ipLat'), localStorage.getItem('ipLong')];
+    let [lat, lng]: [number, number] = [null, null];
+
+    if(ipLat && ipLng){ [lat, lng] = [Number(ipLat), Number(ipLng)]; }
+    else{
+      try{ [lat, lng] = await this.getCurrentLocation(); }
+      catch(err){ }
+    }
+
+    this.searchCenter = (lat & lng)? {lat: lat, lng: lng, radius: 100 * 1000} : {lat: null, lng: null, radius: 0 };
+    this.setMapdata((lat && lng)? {lat: lat, lng: lng, zoom: 10} : {lat: latDefault, lng: lngDefault, zoom: 3});
+    this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
+
     const personalMatch = this._sharedService.getPersonalMatch();
+    if(personalMatch){
+      this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
+      this.listingPayload.age_range = personalMatch.age_range;
+      this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
+      this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
+      this.listingPayload.type = personalMatch.type;
 
-    /** init mapdata */
-    // let lat: number, lng: number;
-    // if (personalMatch && !personalMatch.latLong.match(/null/)) {
-    //   const latLong = personalMatch.latLong.split(',');
-    //   lat = Number(latLong[0].trim());
-    //   lng = Number(latLong[1].trim());
-    // } else {
-    //   const latStr = localStorage.getItem('ipLat');
-    //   const lngStr = localStorage.getItem('ipLong');
-    //   if (latStr && lngStr) {
-    //     lat = Number(latStr);
-    //     lng = Number(lngStr);
-    //   }
-    // }
-    // if (lat && lng) { this.setMapdata({ lat, lng, zoom: 10 }); }
-
+      this.setFilterByPersonalMatch();
+    }
 
     this.route.queryParams.subscribe(queryParams => {
       this.isVirtual = (queryParams.virtual == 'true') ? true : false;
       this.id = queryParams.id;
       this.type = queryParams.type;
       this.keyword = queryParams.keyword;
+
+      this.listingPayload.virtual = this.isVirtual;
       this.listingPayload.keyword = this.keyword;
-      if (queryParams.id && queryParams.type) {
-        this.loggedInUser = localStorage.getItem('loginID');
-        this.loggedInRole = localStorage.getItem('roles');
-        if (localStorage.getItem('typical_hours')) {
-          this.typical_hours = localStorage.getItem('typical_hours').split(',');
-        }
-        this.listingPayload.ids = [];
-        this.listingPayload.ids.push(queryParams.id);
-        this.listingPayload.type = queryParams.type;
 
-        const lng = Number(this.lat? this.long : localStorage.getItem('ipLong'));
-        const lat = Number(this.long? this.lat : localStorage.getItem('ipLat'));
-        if(lat && lng){ 
-          this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000};
-          this.mapdata = {lat: lat, lng: lng, zoom: 10};
-        };
-        
-        this.listing({ // this has to use this.listingPayload
-          ids: this.id ? [this.id] : [],
-          type: this.type,
-          latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-          miles: this.listingPayload.miles,
-          keyword: this.keyword
-          // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-        });
-      } else {
-        this.loggedInUser = localStorage.getItem('loginID');
-        if (personalMatch) {
-          this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-          this.listingPayload.age_range = personalMatch.age_range;
-          this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
-
-          this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
-
-          this.listingPayload.type = personalMatch.type;
-          this.listingPayload.latLong = personalMatch.latLong;
-
-          const location = personalMatch.latLong.split(',');
-          const lat = Number(location[1].trim());
-          const lng = Number(location[0].trim());
-          if(lat && lng){ 
-            this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000}
-            this.mapdata = {lat: lat, lng: lng, zoom: 10};
-          };
-
-          this.setFilterByPersonalMatch();
-
-          this.listing(this.listingPayload);
-        } else {
-
-          const lng = Number(this.lat? this.long : localStorage.getItem('ipLong'));
-          const lat = Number(this.long? this.lat : localStorage.getItem('ipLat'));
-          if(lat && lng){ 
-            this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000}
-            this.mapdata = {lat: lat, lng: lng, zoom: 10};
-          };
-
-          this.listing({
-            ids: this.id ? [this.id] : [],
-            type: this.listingPayload.type,
-            latLong: (this.lat && this.long) ? `${this.long}, ${this.lat}` : `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-            miles: this.listingPayload.miles,
-            keyword: this.keyword
-
-            // latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-          });
-        }
+      this.loggedInUser = localStorage.getItem('loginID');
+      this.loggedInRole = localStorage.getItem('roles');
+      if (localStorage.getItem('typical_hours')) {
+        this.typical_hours = localStorage.getItem('typical_hours').split(',');
       }
+
+      if(this.id && this.type){
+        this.listingPayload.ids = [this.id];
+        this.listingPayload.type = this.type;
+      }else{
+        this.listingPayload.ids = (this.id)? [this.id] : [];
+        this.listingPayload.type = this.type;
+      } 
+
+      this.listing(this.listingPayload);
     });
-
-    // this.mapsAPILoader.load().then(() => {
-    //   this.geoCoder = new google.maps.Geocoder;
-    //   this.mapsAPILoader.load().then(() => {
-    //     this.geoCoder = new google.maps.Geocoder;
-    //     const autocomplete = new google.maps.places.Autocomplete(this.searchGlobalElementRef.nativeElement);
-    //     autocomplete.addListener('place_changed', () => {
-    //       this.ngZone.run(() => {
-    //         // get the place result
-
-    //         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-    //         console.log(place);
-
-    //         // verify result
-    //         if (place.geometry === undefined || place.geometry === null) {
-    //           return;
-    //         }
-    //         this.lat = place.geometry.location.lat();
-    //         this.long = place.geometry.location.lng();
-
-    //         if (personalMatch) {
-    //           this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
-    //           this.listingPayload.age_range = personalMatch.age_range;
-    //           this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
-
-    //           this.listingPayload.typical_hours = personalMatch.typical_hours.length > 1 ? personalMatch.typical_hours : [];
-    //           this.listingPayload.type = personalMatch.type;
-    //           this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-
-    //           this.listing(this.listingPayload);
-    //         } else {
-    //           this.listing(
-    //             {
-    //               ids: this.id ? [this.id] : [],
-    //               latLong: `${this.long}, ${this.lat}`,
-    //               miles: this.listingPayload.miles,
-    //               type: this.listingPayload.type
-    //             }
-    //           );
-    //         }
-    //         // this.listing({latLong: `${this.long}, ${this.lat}`});
-    //       });
-    //     });
-    //   });
-
-    // });
   }
+
+  async onClickGetLocationButton(){
+    console.log('onclick')
+    this.isGettingCurrentLocation = true;
+
+    try{ 
+      const [lat, lng] = await this.getCurrentLocation(); 
+      this.setMapdata({lat: lat, lng: lng, zoom: 12});
+    }
+    catch(err){
+      const message = (err.code == 1)? 'Please allow geo location' : 'Could not get current location';
+      this.toastr.error(message);
+    }
+
+    this.isGettingCurrentLocation = false;
+  }
+
+  getCurrentLocation(): Promise<[number,number]>{
+    return new Promise((resolve, reject)=>{
+      navigator.geolocation.getCurrentPosition(resp => {
+        const [lat, lng] = [resp.coords.latitude, resp.coords.longitude];
+        localStorage.setItem('ipLat',  lat.toString());
+        localStorage.setItem('ipLong', lng.toString());
+        resolve([lat, lng]);
+      },
+      err => { 
+        this.isGetLocationButtonShown = false;
+        reject(err); 
+      }, 
+      {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});    
+    })
+  }
+
   onChangeMapCenter(e: { lat: number, lng: number }) {
-    if (this.timerListing) { clearTimeout(this.timerListing); }
-    this.timerListing = setTimeout(() => { this.setMapdata(e, false); }, 500);
+    if (this.timerMapCenterChange) { clearTimeout(this.timerMapCenterChange); }
+    this.timerMapCenterChange = setTimeout(() => { this.setMapdata(e, false); }, 500);
   }
-  setMapdata(data: { lat: number, lng: number, zoom?: number }, updateListing: boolean = false) {
-    this.mapdata.lat = data.lat;
-    this.mapdata.lng = data.lng;
-    if (data.zoom) { this.mapdata.zoom = data.zoom; }
+
+  onChangeMapZoom(e: number){
+    if (this.timerMapZoomChange) { clearTimeout(this.timerMapZoomChange); }
+    this.timerMapZoomChange = setTimeout(() => { this.setMapdata({zoom: e}, false); }, 500);
+  }
+
+  setMapdata(data: { lat?: number, lng?: number, zoom?: number }, updateListing: boolean = false) {
+    if(data.lat && this.mapdata.lat != data.lat){ this.mapdata.lat = data.lat; }
+    if(data.lng && this.mapdata.lng != data.lng){ this.mapdata.lng = data.lng; }
+    if(data.zoom && this.mapdata.zoom != data.zoom) { this.mapdata.zoom = data.zoom; }    
 
 //    this.listingPayload.latLong = data.lng + ', ' + data.lat;
 //    if (updateListing) { this.listing(this.listingPayload, false); }
@@ -426,6 +325,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 //        this.createNameList(this.doctorsListing); // todo: can be deleted
 
         this.filterProfessionalsByPage();
+        this.pages.current = 1;
 
         this._sharedService.loader('hide');
       } else {
@@ -436,38 +336,39 @@ export class ListingComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**todo: if needed, have to test. currently it's not good for map. if not needed, delete it */
-  removeFilter() {
-    this._sharedService.loader('show');
-    this.lat = null;
-    this.long = null;
-    this.currentAddress = '';
-    this.listingPayload = {
-      ids: [],
-      zipcode: '',
-      languageId: '',
-      typicalHoursId: '',
-      rating: 0,
-      miles: 100,
-      latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-      age_range: [],
-      name: '',
-      type: this.type,
-      serviceOfferId: '',
-      gender: '',
-      price_per_hours: '',
-      typical_hours: [],
-      keyword: ''
-    };
+  /**todo: delete if not needed. currently it's not used */
+  // removeFilter() {
+  //   this._sharedService.loader('show');
+  //   this.lat = null;
+  //   this.long = null;
+  //   this.currentAddress = '';
+  //   this.listingPayload = {
+  //     ids: [],
+  //     zipcode: '',
+  //     languageId: '',
+  //     typicalHoursId: '',
+  //     rating: 0,
+  //     miles: 100,
+  //     latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+  //     age_range: [],
+  //     name: '',
+  //     type: this.type,
+  //     serviceOfferId: '',
+  //     gender: '',
+  //     price_per_hours: '',
+  //     typical_hours: [],
+  //     keyword: '',
+  //     virtual: this.isVirtual
+  //   };
 
-    this.listing({
-      ids: this.id ? [this.id] : [],
-      miles: this.listingPayload.miles,
-      latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
-      type: this.type,
-    });
-    this._sharedService.loader('hide');
-  }
+  //   this.listing({
+  //     ids: this.id ? [this.id] : [],
+  //     miles: this.listingPayload.miles,
+  //     latLong: `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`,
+  //     type: this.type,
+  //   });
+  //   this._sharedService.loader('hide');
+  // }
 
   /** set default value to selected listingPayload property */
   removeFilterOne(payloadName: string) {
@@ -510,30 +411,6 @@ export class ListingComponent implements OnInit, OnDestroy {
     } else { this.listingPayload[payloadName] = val; }
   }
 
-  /** todo: can be deleted */
-  onOptionsSelected(value, type) {
-    console.log(value, type);
-    if (type === 'language') {
-      this.listingPayload.languageId = value;
-    }
-    if (type === 'hours') {
-      this.listingPayload.typicalHoursId = value;
-    }
-    if (type === 'rating') {
-      this.listingPayload.rating = value ? parseInt(value) : 0;
-    }
-    if (type === 'serviceType') {
-      this.listingPayload.serviceOfferId = value;
-    }
-    if (type === 'gender') {
-      this.listingPayload.gender = value;
-    }
-    if (type === 'price') {
-      this.listingPayload.price_per_hours = value;
-    }
-    this.listing(this.listingPayload);
-  }
-
   /**todo: can be deleted because new ui doesn't have feature to search by doctor name */
   createNameList(data) {
     this.allDoctorList = [];
@@ -545,36 +422,6 @@ export class ListingComponent implements OnInit, OnDestroy {
         });
       }
     }
-  }
-
-  /** todo: can be deleted */
-  changeMiles(evt) {
-    this.listingPayload.miles = Math.round(Math.ceil(evt.target.value / 5) * 5);
-    if (this.long && this.lat) {
-      this.listingPayload.latLong = `${this.long}, ${this.lat}`;
-    } else {
-      this.listingPayload.latLong = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`;
-    }
-    this.listing(this.listingPayload);
-  }
-
-  /** todo: can be deleted */
-  changeAge(evt) {
-    this.listingPayload.age_range = evt.target.id ? [evt.target.id] : [];
-    this.listing(this.listingPayload);
-  }
-  // changePrice(price){
-  //   this.listingPayload.price_per_hours = price === 'Not Critical' ? '' : price;
-  //   this.listing(this.listingPayload);
-  // }
-
-  selectEvent(item) {
-    this.listingPayload.name = item.name;
-    this.listing(this.listingPayload);
-  }
-  resetNames() {
-    this.listingPayload.name = '';
-    this.listing(this.listingPayload);
   }
 
   removeProfessionalFromCompare(id: string) {
@@ -605,7 +452,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     this._sharedService.loader('show');
     Promise.all(promiseAll).then(() => {
-      console.log(this.compareList);
 
       /** make compareList compatible with other pages */
       const compareList = [];
@@ -619,6 +465,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       .catch(err => { console.log(err); })
       .finally(() => { this._sharedService.loader('hide'); });
   }
+
   getServiceCategories(p: Professional): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const path = `user/getService/${p.id}`;
@@ -644,89 +491,6 @@ export class ListingComponent implements OnInit, OnDestroy {
       },
         (error) => { reject(error); });
     });
-  }
-  //  addProfessionalToCompare(p: Professional, e: Event){ this.compareFields(p.rowdata, e); }
-  /**todo: can be deleted */
-  compareFields(doc, evt) {
-    if (evt.target.checked) {
-      const index = this.compareList.findIndex((e) => e.userId === doc.userId);
-
-      this.getCategoryServices(doc.userId);
-      doc.serviceData = this.serviceData;
-      doc.treatmentModalities = this.treatmentModalities;
-      doc.serviceType = this.serviceType;
-      doc.serviceOffering = this.serviceOffering;
-
-      setTimeout(() => {
-        if (index === -1) {
-          this.compareList.push(doc);
-        }
-      }, 1000);
-
-      console.log('compareList ----', this.compareList);
-      this.behaviorService;
-    } else {
-      this.removefromCopare(doc.userId);
-    }
-  }
-
-  /**todo: can be deleted */
-  getCategoryServices(userId) {
-    this.serviceData = [];
-    this.treatmentModalities = [];
-    this.serviceType = [];
-    this.serviceOffering = [];
-    const path = `user/getService/${userId}`;
-    this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      if (this.professionals) { this._sharedService.loader('hide'); }
-
-      if (res.statusCode === 200) {
-        this.categoryList = res.data;
-        this.categoryList.forEach(element => {
-          if (element.slug === 'providers-are-you') {
-            if (this.serviceData.indexOf(element.item_text) === -1) {
-              this.serviceData.push(element);
-            }
-          }
-          if (element.slug === 'treatment-modalities') {
-            if (this.treatmentModalities.indexOf(element.item_text) === -1) {
-              this.treatmentModalities.push(element);
-            }
-          }
-          if (element.slug === 'your-goal-specialties') {
-            if (this.serviceType.indexOf(element) === -1) {
-              this.serviceType.push(element.item_text);
-            }
-          }
-          if (element.slug === 'your-offerings') {
-            if (this.serviceOffering.indexOf(element) === -1) {
-              this.serviceOffering.push(element.item_text);
-            }
-          }
-        });
-      } else {
-      }
-    }, (error) => {
-      if (this.professionals) { this._sharedService.loader('hide'); }
-    });
-  }
-
-  /**todo: can be deteled */
-  clearCompareList() {
-    this.compareList = [];
-  }
-
-  /**todo: can be deteled */
-  removefromCopare(userId) {
-    this.compareList.forEach((ele, index) => {
-      if (ele.userId === userId) { this.compareList.splice(index, 1); }
-    });
-  }
-
-  /**todo: can be deteled */
-  compareDoc() {
-    this.behaviorService.changeCompareIds(this.compareList);
-    this.router.navigate(['/dashboard/listingCompare']);
   }
 
   likeProfile(evt, drId) {
@@ -846,8 +610,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   /** trigger when click save / clear in filter menu and update filter */
   updateFilter(id: string) {
-    // this.setFilterTarget(null);
-
     const f = this.getFilter(id);
 
     if (f.type === 'radio') {
@@ -872,6 +634,8 @@ export class ListingComponent implements OnInit, OnDestroy {
       f.active = (f.range.current !== f.range.default);
     }
     this.listing(this.listingPayload);
+    this.setFilterTarget(null);
+
   }
 
   changePage(i: number) {
@@ -896,9 +660,10 @@ export class ListingComponent implements OnInit, OnDestroy {
         prosInPage = [];
       }
 
-      if (i === this.professionals.length - 1) { pages.push(prosInPage); }
+      if (i === this.professionals.length - 1 && prosInPage.length > 0) { pages.push(prosInPage); }
 
     });
+
     this.pages.data = pages;
   }
 }
@@ -912,3 +677,44 @@ interface Filter {
   options?: QuestionnaireAnswer[];
   range?: { min: number; max: number; current: number; default: number };
 }
+
+const filtersPreset = [
+  { _id: 'distance', item_text: 'distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
+  {
+    _id: 'gender', item_text: 'gender', type: 'radio', payloadName: 'gender', active: false, options: [
+      // {_id: 'all', item_text: 'All', active: false, subans: false},
+      { _id: 'male', item_text: 'Male', active: false, subans: false },
+      { _id: 'female', item_text: 'Female', active: false, subans: false }
+    ]
+  },
+  {
+    _id: 'rating', item_text: 'rating', type: 'radio', payloadName: 'rating', active: false, options: [
+      // {_id: '0', item_text: 'All', active: false, subans: false},
+      { _id: '5', item_text: '5 Stars', active: false, subans: false },
+      { _id: '4', item_text: '4 Stars', active: false, subans: false },
+      { _id: '3', item_text: '3 Stars', active: false, subans: false },
+    ]
+  },
+  { _id: 'language', item_text: 'Language', type: 'radio', payloadName: 'languageId', active: false, options: [/** use server data */] },
+  { _id: 'availability', item_text: 'availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
+  { _id: 'service', item_text: 'service type', type: 'radio', payloadName: 'serviceOfferId', active: false, options: [/** use server data */] },
+  {
+    _id: 'pricing', item_text: 'pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
+      { _id: '< $50', item_text: '$ < 50', active: false, subans: false },
+      { _id: '$50-100', item_text: '$ 50-100', active: false, subans: false },
+      { _id: '$100-200', item_text: '$ 100-200', active: false, subans: false },
+      { _id: '$200-500', item_text: '$ 200-500', active: false, subans: false },
+      { _id: '$500-1000', item_text: '$ 500-1000', active: false, subans: false },
+      { _id: '$1000', item_text: '$ > 1000', active: false, subans: false },
+    ]
+  },
+  {
+    _id: 'age', item_text: 'age range', type: 'checkbox', payloadName: 'age_range', active: false, options: [
+      { _id: '5eb1a4e199957471610e6cd7', item_text: 'Not Critical', active: false, subans: false },
+      { _id: '5eb1a4e199957471610e6cd8', item_text: 'Child (<12)', active: false, subans: false },
+      { _id: '5eb1a4e199957471610e6cd9', item_text: 'Adolescent (12-18)', active: false, subans: false },
+      { _id: '5eb1a4e199957471610e6cda', item_text: 'Adult (18+)', active: false, subans: false },
+      { _id: '5eb1a4e199957471610e6cdb', item_text: 'Senior (>64)', active: false, subans: false },
+    ]
+  },
+];

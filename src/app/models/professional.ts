@@ -331,6 +331,9 @@ export class Professional implements IProfessional {
       ctx.closePath();
 
       ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'grey';
+      ctx.lineWidth = 1;
+      ctx.stroke();
       ctx.fill();
 
       ctx.fillStyle = 'black';
@@ -381,7 +384,7 @@ export class Professional implements IProfessional {
       ctx.beginPath();
       ctx.arc(padding + radCircle, padding + radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
       ctx.fillStyle = 'white';
-      ctx.strokeStyle = 'white';
+      ctx.strokeStyle = 'grey';
       ctx.lineWidth = 1;
       ctx.fill();
       ctx.stroke();
@@ -398,33 +401,12 @@ export class Professional implements IProfessional {
       this._mapIconUrl = c.toDataURL();
       this._isMapIconReady = true;
 
-      //     const w = img.width;
-      //     const h = img.height;
-      //     const rect = (w > h)? h : w;
-
-      //     const x = (w > h)? (w - h) / 2 : 0;
-      //     const y = (w > h)? 0 : (h - w) / 2;
-
-      //     ctx.beginPath();
-      //     ctx.arc( c.width / 2, radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
-      //     ctx.fillStyle = 'white';
-      //     ctx.strokeStyle="grey";
-      //     ctx.lineWidth = 1;
-      //     ctx.fill();
-      //     ctx.stroke();
-      //     ctx.clip();
-
-      //     ctx.drawImage(img, x, y, rect, rect, c.width / 2 - radCircle, 0, radCircle * 2, radCircle * 2);
-      //     this._mapIconUrl = c.toDataURL();
-      //     this._isMapIconReady = true;
+      img.addEventListener('error', () => { img.src = '/assets/img/logo-sm.png'; });
+      img.crossOrigin = '';
+      img.src = this._image ? this.image : '/assets/img/logo-sm.png';
     };
-
-    img.addEventListener('error', (e) => { console.log(e); });
-    // img.crossOrigin = 'anonymous';
-    img.src = this._image ? this.image : '/assets/img/logo-sm.png';
   }
 }
-
 interface ServiceCategory {
   item_text: string;
   id?: string;
@@ -437,7 +419,7 @@ interface ServiceCategory {
 interface Video {
   _id: string;
   title: string;
-  url: string; 50;
+  url: string;
 }
 
 interface Amenity {

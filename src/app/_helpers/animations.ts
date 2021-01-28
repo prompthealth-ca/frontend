@@ -32,3 +32,13 @@ export const slideVerticalAnimation = trigger('slideVertical', [
     animate('300ms ease', style({opacity: 0, transform: 'translateY(50px)'}))
   ])
 ]);
+
+export const expandVerticalAnimation = trigger('expandVertical', [
+  transition(':enter', [
+    style({ display: 'block', height: 0, opacity: 0 }),
+    animate('300ms ease', style({ height: '*', opacity: 1 }))
+  ]),
+  transition(':leave', [
+    animate('300ms ease', style({ height: '0', opacity: 0 }))
+  ])
+]);

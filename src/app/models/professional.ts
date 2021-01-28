@@ -116,7 +116,7 @@ export class Professional implements IProfessional {
   private _endosements: any[]; // todo: impliment correctly. currently, this property not used;
 
   private _mapIconUrl: string;
-  private _isMapIconReady: boolean = true;
+  private _isMapIconReady: boolean = false;
 
   get id() { return this._id; }
   get name() { return this._name; }
@@ -298,9 +298,7 @@ export class Professional implements IProfessional {
   }
 
   async setMapIcon(){
-    console.log('start create map icon');
     const img = new Image;
-    console.log(img);
     const c = document.createElement('canvas');
     const ctx = c.getContext('2d');
     const needLabel = !!this.mapLabel;
@@ -382,8 +380,7 @@ export class Professional implements IProfessional {
     // }
   
     img.onload = ()=>{
-      console.log('image loaded. create canvas');
-      
+     
       ctx.beginPath();
       ctx.arc( padding + radCircle, padding + radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
       ctx.fillStyle = 'white';
@@ -426,9 +423,14 @@ export class Professional implements IProfessional {
     }
 
     img.addEventListener('error', ()=>{ 
-      console.log('cannot load image. set default img');
-      img.src = '/assets/img/logo-sm.png'; 
+      if(!img.src.match(/assets/)){
+        img.src = '/assets/img/logo-sm.png'; 
+      }else{
+        console.log('default image for custom map icon load error.')
+        this._isMapIconReady = true;
+      }
     });
+
     img.crossOrigin = '';
     img.src = this._image? this.image : '/assets/img/logo-sm.png';
   }

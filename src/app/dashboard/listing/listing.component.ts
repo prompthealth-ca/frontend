@@ -141,7 +141,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     this.searchCenter = (lat & lng)? {lat: lat, lng: lng, radius: 100 * 1000} : {lat: null, lng: null, radius: 0 };
     this.setMapdata((lat && lng)? {lat: lat, lng: lng, zoom: 10} : {lat: latDefault, lng: lngDefault, zoom: 3});
-    this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
     const personalMatch = this._sharedService.getPersonalMatch();
     if(personalMatch){
@@ -160,8 +159,9 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.type = queryParams.type;
       this.keyword = queryParams.keyword;
 
-      this.listingPayload.virtual = this.isVirtual;
       this.listingPayload.keyword = this.keyword;
+      this.listingPayload.virtual = this.isVirtual;
+      this.listingPayload.latLong = this.isVirtual? '' : `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
       this.loggedInUser = localStorage.getItem('loginID');
       this.loggedInRole = localStorage.getItem('roles');
@@ -628,14 +628,14 @@ export class ListingComponent implements OnInit, OnDestroy {
       f.options.forEach(o => { if (o.active) { vals.push(o._id); } });
 
       f.active = (vals.length > 0) ? true : false;
-      if (vals.length > 0) { this.removeFilterOne(f.payloadName); } else { this.setFilterOne(vals, f.payloadName); }
+      if (vals.length > 0) { this.setFilterOne(vals, f.payloadName); } else { this.removeFilterOne(f.payloadName); }
     } else if (f.type === 'slider') {
       this.setFilterOne(f.range.current, f.payloadName);
       f.active = (f.range.current !== f.range.default);
     }
+
     this.listing(this.listingPayload);
     this.setFilterTarget(null);
-
   }
 
   changePage(i: number) {

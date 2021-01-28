@@ -330,7 +330,10 @@ export class Professional implements IProfessional {
       ctx.arc(x + r, y + h - r, r, Math.PI * (1 / 2), Math.PI * (3 / 2), false);
       ctx.closePath();
 
-      ctx.fillStyle = 'white';  
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle="grey";
+      ctx.lineWidth = 1;
+      ctx.stroke();
       ctx.fill();
 
       ctx.fillStyle = 'black';
@@ -381,7 +384,7 @@ export class Professional implements IProfessional {
       ctx.beginPath();
       ctx.arc( padding + radCircle, padding + radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
       ctx.fillStyle = 'white';
-      ctx.strokeStyle="white";
+      ctx.strokeStyle="grey";
       ctx.lineWidth = 1;
       ctx.fill();
       ctx.stroke();
@@ -419,8 +422,8 @@ export class Professional implements IProfessional {
   //     this._isMapIconReady = true;
     }
 
-    img.addEventListener('error', (e)=>{ console.log(e); })
-    // img.crossOrigin = 'anonymous';
+    img.addEventListener('error', ()=>{ img.src = '/assets/img/logo-sm.png'; });
+    img.crossOrigin = '';
     img.src = this._image? this.image : '/assets/img/logo-sm.png';
   }
 }
@@ -437,7 +440,7 @@ interface ServiceCategory {
 interface Video {
   _id: string;
   title: string;
-  url: string;50
+  url: string;
 }
 
 interface Amenity {

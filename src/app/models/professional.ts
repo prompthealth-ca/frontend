@@ -154,9 +154,9 @@ export class Professional implements IProfessional {
     return ageRange.join(', ');
   }
   get availability() {
-    const availability = [];
-    this._availability.forEach(a => { availability.push(a.item_text); });
-    return availability.join(', ');
+    const result = [];
+    this._availability.forEach(a => { result.push(a.item_text); });
+    return result;
   }
   get isCentre() { return !!(this.role.toLocaleLowerCase().match(/c/)); }
   get endosements() { return this._endosements; }
@@ -252,7 +252,7 @@ export class Professional implements IProfessional {
     this._ageRangeId = p.age_range || [];
     this._ageRange = p.age_range || [];
     this._serviceDeliveryId = p.serviceOfferIds || [];
-    this._location = p.location || null;
+    this._location = p.location || [null, null];
     this._distance = p.calcDistance || null;
     this._provideVirtual = p.provideVirtual || false;
 
@@ -401,10 +401,38 @@ export class Professional implements IProfessional {
       this._mapIconUrl = c.toDataURL();
       this._isMapIconReady = true;
 
-      img.addEventListener('error', () => { img.src = '/assets/img/logo-sm.png'; });
-      img.crossOrigin = '';
-      img.src = this._image ? this.image : '/assets/img/logo-sm.png';
+      //     const w = img.width;
+      //     const h = img.height;
+      //     const rect = (w > h)? h : w;
+
+      //     const x = (w > h)? (w - h) / 2 : 0;
+      //     const y = (w > h)? 0 : (h - w) / 2;
+
+      //     ctx.beginPath();
+      //     ctx.arc( c.width / 2, radCircle, radCircle, 0 * Math.PI / 180, 360 * Math.PI / 180);
+      //     ctx.fillStyle = 'white';
+      //     ctx.strokeStyle="grey";
+      //     ctx.lineWidth = 1;
+      //     ctx.fill();
+      //     ctx.stroke();
+      //     ctx.clip();
+
+      //     ctx.drawImage(img, x, y, rect, rect, c.width / 2 - radCircle, 0, radCircle * 2, radCircle * 2);
+      //     this._mapIconUrl = c.toDataURL();
+      //  this._isMapIconReady = true;
     };
+
+    img.addEventListener('error', () => {
+      if (!img.src.match(/assets/)) {
+        img.src = '/assets/img/logo-sm.png';
+      } else {
+        console.log('default image for custom map icon load error.');
+        this._isMapIconReady = true;
+      }
+    });
+
+    img.crossOrigin = '';
+    img.src = this._image ? this.image : '/assets/img/logo-sm.png';
   }
 }
 interface ServiceCategory {

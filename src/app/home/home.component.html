@@ -181,9 +181,10 @@
               </div>
               
               <div *ngIf="this.introBannerItems[allIntroBannerKeys[currentKeyIndex]].features.length===0" >
-                <div class="col-6 col-md-3" [routerLink]="['/subscriptionplan']" fragment="addon">
-                  <img src="assets/img/get-featured.png" class="w-100" />
-                </div>
+                <a class="col-6 col-md-3" [routerLink]="['/subscriptionplan']" fragment="addon">
+                  Get featured
+                  <!-- <img src="assets/img/get-featured.png" class="w-100" /> -->
+                </a>
               </div>
             </div>
           </div>

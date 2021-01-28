@@ -14,14 +14,14 @@
 
       <div>
         <div class="banner d-flex flex-column flex-md-row flex-md-nowrap align-items-md-center" [ngClass]="{sticked: isFinderSticked}">
-          <span class="text-light font-mg-big pr-3 pr-lg-5">we provide online services!!!!!</span>
+          <span class="text-light font-mg-big pr-3 pr-lg-5">We provide online/virtual services</span>
           <span class="bg-orange px-3 py-2 mt-2 mt-md-0 rounded font-italic">
             Look for
             <i class="fas fa-video px-1"></i>
             to find virtural services
           </span>
         </div>
-        <p *ngIf="isVirtual" class="mt-2 mb-0 text-light">(go back to view with map)</p>
+        <p *ngIf="isVirtual" class="mt-2 mb-0 text-light">(Go back to view all services)</p>
       </div>
   
       <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>  
@@ -115,7 +115,7 @@
               <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
               <div class="button-compare form-check">
                 <input type="checkbox" class="form-check-input" [id]="'compare-' + p.id" [(ngModel)]="p.isCheckedForCompare" (change)="updateCompareList()">
-                <label class="form-check-label" [for]="'compare-' + p.id">compare</label>
+                <label class="form-check-label" [for]="'compare-' + p.id">Compare</label>
               </div>
 
               <p class="font-weight-bold font-bigger mb-0">

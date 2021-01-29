@@ -420,13 +420,13 @@ export class Professional implements IProfessional {
   //     ctx.drawImage(img, x, y, rect, rect, c.width / 2 - radCircle, 0, radCircle * 2, radCircle * 2);
   //     this._mapIconUrl = c.toDataURL();
       //  this._isMapIconReady = true;
-    }
+    };
 
-    img.addEventListener('error', ()=>{ 
-      if(!img.src.match(/assets/)){
-        img.src = '/assets/img/logo-sm.png'; 
-      }else{
-        console.log('default image for custom map icon load error.')
+    img.addEventListener('error', () => {
+      if (!img.src.match(/assets/)) {
+        img.src = '/assets/img/logo-sm.png';
+      } else {
+        console.log('default image for custom map icon load error.');
         this._isMapIconReady = true;
       }
     });

@@ -160,7 +160,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
       this.listingPayload.keyword = this.keyword;
       this.listingPayload.virtual = this.isVirtual;
-      this.listingPayload.latLong = this.isVirtual? '' : `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
+      this.listingPayload.latLong = this.isVirtual ? '' : `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
       this.loggedInUser = localStorage.getItem('loginID');
       this.loggedInRole = localStorage.getItem('roles');
@@ -694,8 +694,8 @@ const filtersPreset = [
     ]
   },
   { _id: 'language', item_text: 'Language', type: 'radio', payloadName: 'languageId', active: false, options: [/** use server data */] },
-  { _id: 'availability', item_text: 'availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
-  { _id: 'service', item_text: 'service type', type: 'radio', payloadName: 'serviceOfferId', active: false, options: [/** use server data */] },
+  { _id: 'availability', item_text: 'Availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
+  { _id: 'service', item_text: 'Service type', type: 'radio', payloadName: 'serviceOfferId', active: false, options: [/** use server data */] },
   {
     _id: 'pricing', item_text: 'Pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
       { _id: '< $50', item_text: '$ < 50', active: false, subans: false },

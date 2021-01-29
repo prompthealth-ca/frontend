@@ -43,7 +43,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   public isVirtual = false;
 
   public mapdata: { lat: number, lng: number, zoom: number } = { lat: 53.89, lng: -111.25, zoom: 3 };
-  public searchCenter: { lat: number, lng: number, radius: number} = {lat: 53.89, lng: -111.25, radius: 0 };
+  public searchCenter: { lat: number, lng: number, radius: number } = { lat: 53.89, lng: -111.25, radius: 0 };
   public isGettingCurrentLocation = false;
   public isGetLocationButtonShown = true;
 
@@ -133,17 +133,16 @@ export class ListingComponent implements OnInit, OnDestroy {
     const [ipLat, ipLng] = [localStorage.getItem('ipLat'), localStorage.getItem('ipLong')];
     let [lat, lng]: [number, number] = [null, null];
 
-    if(ipLat && ipLng){ [lat, lng] = [Number(ipLat), Number(ipLng)]; }
-    else{
-      try{ [lat, lng] = await this.getCurrentLocation(); }
-      catch(err){ }
+    if (ipLat && ipLng) { [lat, lng] = [Number(ipLat), Number(ipLng)]; } else {
+      try { [lat, lng] = await this.getCurrentLocation(); } catch (err) { }
     }
 
-    this.searchCenter = (lat & lng)? {lat: lat, lng: lng, radius: 100 * 1000} : {lat: null, lng: null, radius: 0 };
-    this.setMapdata((lat && lng)? {lat: lat, lng: lng, zoom: 10} : {lat: latDefault, lng: lngDefault, zoom: 3});
+    this.searchCenter = (lat & lng) ? { lat, lng, radius: 100 * 1000 } : { lat: null, lng: null, radius: 0 };
+    this.setMapdata((lat && lng) ? { lat, lng, zoom: 10 } : { lat: latDefault, lng: lngDefault, zoom: 3 });
+    this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
     const personalMatch = this._sharedService.getPersonalMatch();
-    if(personalMatch){
+    if (personalMatch) {
       this.listingPayload.ids = personalMatch.ids ? personalMatch.ids : [];
       this.listingPayload.age_range = personalMatch.age_range;
       this.listingPayload.typicalHoursId = personalMatch.typical_hours.length > 1 ? '' : personalMatch.typical_hours[0];
@@ -169,48 +168,47 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.typical_hours = localStorage.getItem('typical_hours').split(',');
       }
 
-      if(this.id && this.type){
+      if (this.id && this.type) {
         this.listingPayload.ids = [this.id];
         this.listingPayload.type = this.type;
-      }else{
-        this.listingPayload.ids = (this.id)? [this.id] : [];
+      } else {
+        this.listingPayload.ids = (this.id) ? [this.id] : [];
         this.listingPayload.type = this.type;
-      } 
+      }
 
       this.listing(this.listingPayload);
     });
   }
 
-  async onClickGetLocationButton(){
-    console.log('onclick')
+  async onClickGetLocationButton() {
+    console.log('onclick');
     this.isGettingCurrentLocation = true;
 
-    try{ 
-      const [lat, lng] = await this.getCurrentLocation(); 
-      this.setMapdata({lat: lat, lng: lng, zoom: 12});
-    }
-    catch(err){
-      const message = (err.code == 1)? 'Please allow geo location' : 'Could not get current location';
+    try {
+      const [lat, lng] = await this.getCurrentLocation();
+      this.setMapdata({ lat, lng, zoom: 12 });
+    } catch (err) {
+      const message = (err.code === 1) ? 'Please allow geo location' : 'Could not get current location';
       this.toastr.error(message);
     }
 
     this.isGettingCurrentLocation = false;
   }
 
-  getCurrentLocation(): Promise<[number,number]>{
-    return new Promise((resolve, reject)=>{
+  getCurrentLocation(): Promise<[number, number]> {
+    return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
         const [lat, lng] = [resp.coords.latitude, resp.coords.longitude];
-        localStorage.setItem('ipLat',  lat.toString());
+        localStorage.setItem('ipLat', lat.toString());
         localStorage.setItem('ipLong', lng.toString());
         resolve([lat, lng]);
       },
-      err => { 
-        this.isGetLocationButtonShown = false;
-        reject(err); 
-      }, 
-      {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});    
-    })
+        err => {
+          this.isGetLocationButtonShown = false;
+          reject(err);
+        },
+        { enableHighAccuracy: true, maximumAge: 0, timeout: 1000000 });
+    });
   }
 
   onChangeMapCenter(e: { lat: number, lng: number }) {
@@ -218,28 +216,28 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.timerMapCenterChange = setTimeout(() => { this.setMapdata(e, false); }, 500);
   }
 
-  onChangeMapZoom(e: number){
+  onChangeMapZoom(e: number) {
     if (this.timerMapZoomChange) { clearTimeout(this.timerMapZoomChange); }
-    this.timerMapZoomChange = setTimeout(() => { this.setMapdata({zoom: e}, false); }, 500);
+    this.timerMapZoomChange = setTimeout(() => { this.setMapdata({ zoom: e }, false); }, 500);
   }
 
   setMapdata(data: { lat?: number, lng?: number, zoom?: number }, updateListing: boolean = false) {
-    if(data.lat && this.mapdata.lat != data.lat){ this.mapdata.lat = data.lat; }
-    if(data.lng && this.mapdata.lng != data.lng){ this.mapdata.lng = data.lng; }
-    if(data.zoom && this.mapdata.zoom != data.zoom) { this.mapdata.zoom = data.zoom; }    
+    if (data.lat && this.mapdata.lat != data.lat) { this.mapdata.lat = data.lat; }
+    if (data.lng && this.mapdata.lng != data.lng) { this.mapdata.lng = data.lng; }
+    if (data.zoom && this.mapdata.zoom != data.zoom) { this.mapdata.zoom = data.zoom; }
 
-//    this.listingPayload.latLong = data.lng + ', ' + data.lat;
-//    if (updateListing) { this.listing(this.listingPayload, false); }
+    //    this.listingPayload.latLong = data.lng + ', ' + data.lat;
+    //    if (updateListing) { this.listing(this.listingPayload, false); }
   }
 
-  searchInThisArea(){
+  searchInThisArea() {
     this.searchCenter.lat = this.mapdata.lat;
     this.searchCenter.lng = this.mapdata.lng;
     this.searchCenter.radius = this.listingPayload.miles * 1000;
     this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
     this.listing(this.listingPayload);
   }
-  
+
 
   /** get filter by id */
   getFilter(id: string): Filter {
@@ -322,7 +320,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.professionals = professionals;
         this.professionals = this.professionals.sort((a, b) => a.distance - b.distance);
 
-//        this.createNameList(this.doctorsListing); // todo: can be deleted
+        //        this.createNameList(this.doctorsListing); // todo: can be deleted
 
         this.filterProfessionalsByPage();
         this.pages.current = 1;
@@ -554,19 +552,19 @@ export class ListingComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.filters.length; i++) {
       if (this.filters[i]._id == this.filterTarget._id) { idxCurrentFilter = i; break; }
     }
-    let filters = this.host.querySelectorAll('.filters li button');
-    let filter = (filters) ? filters[idxCurrentFilter] : null;
+    const filters = this.host.querySelectorAll('.filters li button');
+    const filter = (filters) ? filters[idxCurrentFilter] : null;
     if (!filter) { return; }
 
-    let rectF = filter.getBoundingClientRect();
+    const rectF = filter.getBoundingClientRect();
 
-    let style: { top: string, left?: string, width?: string } = { top: Math.floor(rectF.bottom + 20) + 'px' };
+    const style: { top: string, left?: string, width?: string } = { top: Math.floor(rectF.bottom + 20) + 'px' };
     if (dropdownWidth + 30 <= window.innerWidth) {
       style.width = dropdownWidth + 'px';
 
-      let centerF = rectF.left + rectF.width / 2;
-      let leftD = centerF - dropdownWidth / 2;
-      let rightD = centerF + dropdownWidth / 2;
+      const centerF = rectF.left + rectF.width / 2;
+      const leftD = centerF - dropdownWidth / 2;
+      const rightD = centerF + dropdownWidth / 2;
 
       if (leftD >= 15 && rightD <= window.innerWidth - 15) { style.left = Math.floor(leftD) + 'px'; } else if (leftD < 15) { style.left = '15px'; } else { style.left = (window.innerWidth - 15 - dropdownWidth) + 'px'; }
     }
@@ -679,16 +677,16 @@ interface Filter {
 }
 
 const filtersPreset = [
-  { _id: 'distance', item_text: 'distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
+  { _id: 'distance', item_text: 'Distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
   {
-    _id: 'gender', item_text: 'gender', type: 'radio', payloadName: 'gender', active: false, options: [
+    _id: 'gender', item_text: 'Gender', type: 'radio', payloadName: 'gender', active: false, options: [
       // {_id: 'all', item_text: 'All', active: false, subans: false},
       { _id: 'male', item_text: 'Male', active: false, subans: false },
       { _id: 'female', item_text: 'Female', active: false, subans: false }
     ]
   },
   {
-    _id: 'rating', item_text: 'rating', type: 'radio', payloadName: 'rating', active: false, options: [
+    _id: 'rating', item_text: 'Rating', type: 'radio', payloadName: 'rating', active: false, options: [
       // {_id: '0', item_text: 'All', active: false, subans: false},
       { _id: '5', item_text: '5 Stars', active: false, subans: false },
       { _id: '4', item_text: '4 Stars', active: false, subans: false },
@@ -699,7 +697,7 @@ const filtersPreset = [
   { _id: 'availability', item_text: 'availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
   { _id: 'service', item_text: 'service type', type: 'radio', payloadName: 'serviceOfferId', active: false, options: [/** use server data */] },
   {
-    _id: 'pricing', item_text: 'pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
+    _id: 'pricing', item_text: 'Pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
       { _id: '< $50', item_text: '$ < 50', active: false, subans: false },
       { _id: '$50-100', item_text: '$ 50-100', active: false, subans: false },
       { _id: '$100-200', item_text: '$ 100-200', active: false, subans: false },
@@ -709,7 +707,7 @@ const filtersPreset = [
     ]
   },
   {
-    _id: 'age', item_text: 'age range', type: 'checkbox', payloadName: 'age_range', active: false, options: [
+    _id: 'age', item_text: 'Age Group', type: 'checkbox', payloadName: 'age_range', active: false, options: [
       { _id: '5eb1a4e199957471610e6cd7', item_text: 'Not Critical', active: false, subans: false },
       { _id: '5eb1a4e199957471610e6cd8', item_text: 'Child (<12)', active: false, subans: false },
       { _id: '5eb1a4e199957471610e6cd9', item_text: 'Adolescent (12-18)', active: false, subans: false },

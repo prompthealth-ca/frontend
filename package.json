@@ -11,6 +11,8 @@
     "dev:ssr": "ng run wellness-frontend:serve-ssr",
     "serve:ssr": "node dist/wellness-frontend/server/main.js",
     "build:ssr": "ng build --prod && ng run wellness-frontend:server:production",
+    "build-staging:ssr": "ng build --configuration staging && ng run wellness-frontend:server:staging",
+    "build-staging": "ng build --configuration staging",
     "prerender": "ng run wellness-frontend:prerender"
   },
   "private": true,

@@ -177,8 +177,7 @@
           "options": {
             "outputPath": "dist/wellness-frontend/server",
             "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "disableHostCheck": true
+            "tsConfig": "tsconfig.server.json"
           },
           "configurations": {
             "production": {
@@ -187,6 +186,17 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            },
+            "staging": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
                 }
               ],
               "sourceMap": false,
@@ -204,6 +214,10 @@
             "production": {
               "browserTarget": "wellness-frontend:build:production",
               "serverTarget": "wellness-frontend:server:production"
+            },
+            "staging": {
+              "browserTarget": "wellness-frontend:build:staging",
+              "serverTarget": "wellness-frontend:server:staging"
             }
           }
         },

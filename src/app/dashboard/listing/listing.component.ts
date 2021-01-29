@@ -121,6 +121,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     localStorage.removeItem('typical_hours');
+    this._headerService.showHeader();
   }
 
   async ngOnInit() {
@@ -151,6 +152,10 @@ export class ListingComponent implements OnInit, OnDestroy {
 
       this.setFilterByPersonalMatch();
     }
+
+    this.filters.forEach(f=>{ this.updateFilter(f._id, false); })
+
+
 
     this.route.queryParams.subscribe(queryParams => {
       this.isVirtual = (queryParams.virtual == 'true') ? true : false;
@@ -302,7 +307,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     if (filter.latLong === 'null, null') {
       filter.latLong = '';
     }
-    if (this.isVirtual) { filter.virtual = true; }
+//    if (this.isVirtual) { filter.virtual = true; }
     if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filter, path).subscribe((res: any) => {
@@ -607,7 +612,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   /** trigger when click save / clear in filter menu and update filter */
-  updateFilter(id: string) {
+  updateFilter(id: string, listing: boolean = true) {
     const f = this.getFilter(id);
 
     if (f.type === 'radio') {
@@ -632,8 +637,10 @@ export class ListingComponent implements OnInit, OnDestroy {
       f.active = (f.range.current !== f.range.default);
     }
 
-    this.listing(this.listingPayload);
-    this.setFilterTarget(null);
+    if(listing){
+      this.listing(this.listingPayload);
+      this.setFilterTarget(null);  
+    }
   }
 
   changePage(i: number) {

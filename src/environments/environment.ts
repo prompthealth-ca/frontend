@@ -7,17 +7,17 @@ export const environment = {
   config: {
     APP_NAME: 'Wellness',
 
-    //    BASE_URL: "https://prompthealth.ca/",
-    //    API_URL: "https://prompthealth.ca:3000/api/v1/",
+       BASE_URL: "https://prompthealth.ca/",
+       API_URL: "https://api.prompthealth.ca/api/v1/",
 
     // BASE_URL: 'http://198.251.65.146:4200/',
     // API_URL: 'http://198.251.65.146:4202/api/v1/',
 
-    BASE_URL: 'http://localhost:3000/',
-    API_URL: 'http://localhost:3000/api/v1/',
+    // BASE_URL: 'http://localhost:3000/',
+    // API_URL: 'http://localhost:3000/api/v1/',
     //   // API_URL: "https://c79aeae3034a.ngrok.io/api/v1/",
     stripeKey: 'pk_test_51HMSVQHzvKsIv7FcySpZJiaqJEpFyeV4T1fqzmTaIMKAt8VoIcSFNOoy0xChuIec3fotWjF00FAMMNI5MZRvr10X00NqhMqjLR',
-    AWS_S3: 'https://prompt-images-test.s3.us-east-2.amazonaws.com/'
+    AWS_S3: 'https://prompt-images.s3.us-east-2.amazonaws.com/'
   },
   api_routes: {
     LOGIN: 'login',

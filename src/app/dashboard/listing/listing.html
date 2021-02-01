@@ -159,7 +159,8 @@
         [zoomControl]="false"
         (centerChange)="onChangeMapCenter($event)"
         (zoomChange)="onChangeMapZoom($event)"
-      >
+        (click)="onClickMap()"
+    >
 
         <!-- <agm-marker [longitude]="mapdata.lng" [latitude]="mapdata.lat"></agm-marker> -->
         <agm-circle [radius]="searchCenter.radius" 

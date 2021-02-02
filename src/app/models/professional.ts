@@ -121,8 +121,8 @@ export class Professional implements IProfessional {
   get id() { return this._id; }
   get name() { return this._name; }
   get firstname() { return this._firstname; }
-  get image() { return this._image ? this._baseURLImage + '350x220/' + this._image + '?ver=1.0.1': '/assets/img/no-image.jpg'; }
-  get imageFull() { return this._image ? this._baseURLImage + this._image +  '?ver=1.0.1' : '/assets/img/no-image.jpg'; }
+  get image() { return this._image ? this._baseURLImage + '350x220/' + this._image + '?ver=1.0.1' : '/assets/img/no-image.jpg'; }
+  get imageFull() { return this._image ? this._baseURLImage + this._image + '?ver=1.0.1' : '/assets/img/no-image.jpg'; }
   get banner() { return this._banner ? this._baseURLImage + this._banner : '/assets/img/professional-banner.png'; }
   get role() { return this._roles.toString(); }
   get description() { return this._description; }
@@ -213,7 +213,7 @@ export class Professional implements IProfessional {
     this._name = name.trim();
     this._firstname = first;
 
-    this._image = (p.profileImage && p.profileImage.length > 0) ? p.profileImage : null;
+    this._image = (p.profileImage && p.profileImage.length > 0) ? p.profileImage : (p.image && p.image.length > 0) ? p.image : null;
     this._banner = null;
 
     this._roles = !p.roles ? ['SP'] : (typeof p.roles === 'string') ? [p.roles] : p.roles;

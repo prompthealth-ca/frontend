@@ -18,7 +18,7 @@
     </div>
 
     <div class="profile-image rounded-circle">
-      <img *ngIf="userInfo" [src]="userInfo?.image" [alt]="userInfo?.name">
+      <img *ngIf="userInfo" [src]="userInfo?.image" [alt]="userInfo?.name" crossorigin="anonymous">
     </div>
     <ul class="p-0 mb-0 ml-for-avoid-image list-unstyled d-inline-flex align-items-center position-relative">
       <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
@@ -176,6 +176,7 @@
               <img class="professional-image rounded-circle overflow-hidden" 
               [src]="pro.image" 
               [alt]="pro.name"
+              crossorigin="anonymous"
               >
 
               <h6 class="font-smallest mb-3 professional-name">{{pro.name}}</h6>

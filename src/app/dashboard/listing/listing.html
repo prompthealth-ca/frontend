@@ -48,7 +48,7 @@
       <div class="compare d-flex">
         <ul class="pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
           <li class="position-relative mr-3" *ngFor="let p of compareList">
-            <img class="rounded" [src]="p.image" [alt]="p.name">
+            <img class="rounded" [src]="p.image" [alt]="p.name" crossorigin="anonymous">
             <button class="btn position-absolute" (click)="removeProfessionalFromCompare(p.id)"><i class="fas fa-times font-bigger"></i></button>
           </li>
         </ul>
@@ -110,7 +110,7 @@
             <!-- todo: create component to reuse this card in google map -->
             <div class="card p-3 text-center border-blue rounded-15p font-small">
               <div class="img-wrapper mb-3">
-                <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}">
+                <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}" crossorigin="anonymous">
                 <i class="icon-video fas fa-video font-biggest" *ngIf="p.provideVirtual"></i>
               </div>
               <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
@@ -159,7 +159,8 @@
         [zoomControl]="false"
         (centerChange)="onChangeMapCenter($event)"
         (zoomChange)="onChangeMapZoom($event)"
-      >
+        (click)="onClickMap()"
+    >
 
         <!-- <agm-marker [longitude]="mapdata.lng" [latitude]="mapdata.lat"></agm-marker> -->
         <agm-circle [radius]="searchCenter.radius" 
@@ -186,7 +187,7 @@
             <div class="agm-info-window">
               <div class="p-3 text-center">
                 <div class="img-wrapper mb-3">
-                  <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}">
+                  <img [src]="p.image" [alt]="p.name" [ngClass]="{full: p.isCentre,'rounded-circle': (!p.isCentre)}" crossorigin="anonymous">
                 </div>
                 <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
   
@@ -236,6 +237,3 @@
   <i *ngIf="!isMapView" class="fas fa-map-marked-alt"></i>
   <i *ngIf="isMapView" class="fas fa-list"></i>
 </button>
-
-
-

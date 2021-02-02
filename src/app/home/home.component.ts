@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit {
     },
     {
       imgUrl: 'assets/img/how-ph-works/book.png',
-      title: 'Book',
+      title: 'Booking',
       body: 'Directly request a booking with your preferred availability.',
     },
     {

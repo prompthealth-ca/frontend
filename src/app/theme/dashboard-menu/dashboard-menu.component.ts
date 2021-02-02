@@ -32,13 +32,15 @@ export class DashboardMenuComponent {
   }
 
   getName() {
+    // console.log(this.user);
     const noname = 'Anonymous';
-    if (this.user) { return noname; }
+    if (!this.user) { return noname; }
+    else { return this.user.firstName; }
 
-    const name = [];
-    if (this.user.firstName && this.user.firstName.length > 0) { name.push(this.user.firstName); }
-    if (this.user.lastName && this.user.lastName.length > 0) { name.push(this.user.lastName); }
-    return (name.length > 0) ? name.join(' ') : noname;
+    // const name = [];
+    // if (this.user.firstName && this.user.firstName.length > 0) { name.push(this.user.firstName); }
+    // if (this.user.lastName && this.user.lastName.length > 0) { name.push(this.user.lastName); }
+    // return (name.length > 0) ? name.join(' ') : noname;
   }
   getImage() {
     return (this.user && this.user.profileImage) ? environment.config.AWS_S3 + this.user.profileImage : 'assets/img/default_user.jpg';

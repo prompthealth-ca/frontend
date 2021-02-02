@@ -571,13 +571,9 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   /** calculate filter menu position */
   getFilterDropdownPosition() {
-    let idxCurrentFilter: number;
+
     const dropdownWidth = 350;
-    for (let i = 0; i < this.filters.length; i++) {
-      if (this.filters[i]._id == this.filterTarget._id) { idxCurrentFilter = i; break; }
-    }
-    const filters = this.host.querySelectorAll('.filters li button');
-    const filter = (filters) ? filters[idxCurrentFilter] : null;
+    const filter = this.host.querySelector('#filter-' + this.filterTarget._id);
     if (!filter) { return; }
 
     const rectF = filter.getBoundingClientRect();

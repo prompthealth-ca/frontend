@@ -628,7 +628,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** trigger when click save / clear in filter menu and start listing */
+  /** trigger when click save / clear in filter menu and update listingPayload. then start listing (optional) */
   updateFilter(id: string, listing: boolean = true) {
     const f = this.getFilter(id);
 
@@ -658,6 +658,22 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.listing(this.listingPayload);
       this.setFilterTarget(null);  
     }
+  }
+
+  removeFilterAll(){
+    const o = this.listingPayload;
+//    o.ids = [];
+//    o.type = 'service';
+//    o.keyword = '';
+
+    this.filters.forEach(f=>{
+      if(f.range){ f.range.current = f.range.default; }
+      if(f.options){
+        f.options.forEach(o=>{ o.active = false; });
+      }
+      this.updateFilter(f._id, false);
+    });
+    this.listing(this.listingPayload);
   }
 
   changePage(i: number) {

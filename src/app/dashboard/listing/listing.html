@@ -42,6 +42,7 @@
           (click)="setFilterTarget(i)"
         >{{f.item_text}}</button>
       </li>
+      <li><button class="btn text-under text-nowrap py-2" (click)="removeFilterAll()"><u>Clear All</u></button></li>
     </ul>
 
     <div class="overflow-hidden" [@expandVertical] *ngIf="compareList && compareList.length > 0">

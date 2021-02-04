@@ -32,7 +32,6 @@ export class DashboardMenuComponent {
   }
 
   getName() {
-    // console.log(this.user);
     const noname = 'Anonymous';
     if (!this.user) { return noname; }
     else { return this.user.firstName; }

@@ -1,4 +1,3 @@
-import { stringify } from '@angular/compiler/src/util';
 import { environment } from 'src/environments/environment';
 import { QuestionnaireAnswer } from '../dashboard/questionnaire.service';
 import { Category } from '../shared/services/category.service';
@@ -220,6 +219,9 @@ export class Professional implements IProfessional {
     if(this._healthStatus){ this._healthStatus.forEach(o=>{ result.push(o.item_text); }); }
     return result;
   }
+
+  get allServiceId(){ return this._allServiceId; }
+
 
   get isCheckedForCompare() { return this._isCheckedForCompared; }
   set isCheckedForCompare(checked: boolean) { this._isCheckedForCompared = checked; }

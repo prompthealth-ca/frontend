@@ -86,6 +86,16 @@ export class WrapperComponent implements OnInit {
   }
   setListing(profile) {
     if (profile) {
+      if(profile.roles !== 'U'){
+        this.listing.push(
+          {
+            title: 'Service',
+            link: 'my-service',
+            active: true,
+          }
+        );
+      }
+
       if (profile.isVipAffiliateUser) {
         if (profile.roles === 'SP') {
           this.listing.push({
@@ -210,6 +220,7 @@ export class WrapperComponent implements OnInit {
           }
         }
       }
+
       if (profile.roles === 'U') {
         this.listing.push(...this.uListing);
       }

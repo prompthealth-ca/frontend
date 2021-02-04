@@ -11,6 +11,7 @@ import { PreviousRouteService } from '../../shared/services/previousUrl.service'
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '../../_helpers/must-match.validator';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-registration',
@@ -21,9 +22,10 @@ export class RegistrationComponent implements OnInit {
   public registerForm: FormGroup;
   private user: SocialUser;
   public submitted = false;
-  public professionalSignup = false
+  public professionalSignup = false;
   private userType = 'U';
   private returnUrl = '';
+  public APPLE_CLIENT_ID = environment.config.APPLE_CLIENT_ID;
 
   constructor(
     private authService: SocialAuthService,
@@ -43,9 +45,9 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.route.queryParamMap
-      .subscribe(params => { 
+      .subscribe(params => {
         const routeParams = +params.get('previousPath');
-    });
+      });
 
     const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     this.registerForm = this.formBuilder.group({
@@ -56,17 +58,17 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirm_password: ['', Validators.required]
     },
-    {
-      validator: MustMatch('password', 'confirm_password')
-    });
+      {
+        validator: MustMatch('password', 'confirm_password')
+      });
 
-    this.route.params.subscribe(param=>{
+    this.route.params.subscribe(param => {
       const type = param.type;
-      this.professionalSignup = (type.toLowerCase() == 'u')? false : true;
-      switch(type.toLowerCase()){
-        case 'u':  this.userType = 'U';  break;
+      this.professionalSignup = (type.toLowerCase() == 'u') ? false : true;
+      switch (type.toLowerCase()) {
+        case 'u': this.userType = 'U'; break;
         case 'sp': this.userType = 'SP'; break;
-        case 'c':  this.userType = 'C';  break;
+        case 'c': this.userType = 'C'; break;
       }
 
       this.registerForm.controls.roles.setValue(this.userType);
@@ -81,8 +83,7 @@ export class RegistrationComponent implements OnInit {
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
         termsCondition: true
-  
-      }
+      };
 
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
@@ -104,6 +105,10 @@ export class RegistrationComponent implements OnInit {
         this._sharedService.loader('hide');
       });
     });
+  }
+
+  signInWithApple(): void {
+
   }
 
   signInWithFB(): void {
@@ -114,8 +119,8 @@ export class RegistrationComponent implements OnInit {
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
         termsCondition: true
-  
-      }
+
+      };
 
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
@@ -136,19 +141,17 @@ export class RegistrationComponent implements OnInit {
         // this.toastr.error("There are some error please try after some time.")
         this._sharedService.loader('hide');
       });
-    
+
     });
   }
   registerUser() {
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
-    }
-
-    else {
+    } else {
       this.submitted = true;
       const payload = this.registerForm.value;
-      let dataReg = JSON.stringify(payload);
+      const dataReg = JSON.stringify(payload);
 
       this._sharedService.loader('show');
       this._sharedService.register(dataReg).subscribe((res: any) => {

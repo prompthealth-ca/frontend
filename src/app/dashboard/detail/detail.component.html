@@ -434,10 +434,8 @@
                 </small>
               </div>
             </div>
-            <div class="col-md-12 mb-3">
-              <label>Timing <span class="text-danger">*</span></label>
+            <!-- <div class="col-md-12 mb-3">
               <div class="row">
-<!--
                 <div  class="col-md-6" *ngFor="let item of timingList; let i = index"> 
                   <label for="{{item.id}}">
                       <input class="radio" type="checkbox" value="{{item.name}}" required id="{{item.id}}" (change)="timingSelected($event)"
@@ -446,24 +444,18 @@
                       
                   </label>
                 </div>
--->
-                <div class="col-sm-12">
-                  <div *ngIf="submitted" class="error-msg">
-                    <small *ngIf="f.timing.errors"  class="text-danger">
-                        Booking timing is required
-                    </small>
-                  </div>
-                </div>
+               
               </div>
-            </div>
+            </div> -->
             <div class="col-md-12 mb-3">
+              <label>Date & Time<span class="text-danger">*</span></label>
               <input 
               class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
               formControlName="bookingDateTime">
               <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
               <div *ngIf="submitted" class="error-msg">
                 <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
-                  Booking Date is required
+                  Booking Date&time is required
                 </small>
               </div>
             </div>

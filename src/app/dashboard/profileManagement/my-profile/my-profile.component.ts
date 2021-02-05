@@ -408,7 +408,8 @@ export class MyProfileComponent implements OnInit {
     const data = JSON.parse(JSON.stringify(this.profile));
 
     this._sharedService.loader('show');
-    this.profile.bookingURL = this.profile.bookingURL.trim();
+
+    if(this.profile.bookingURL){ this.profile.bookingURL = this.profile.bookingURL.trim(); }
     if (this.profile.bookingURL) {
       this.profile.booking = 'yes';
     } else {

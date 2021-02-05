@@ -163,7 +163,6 @@ export class WrapperComponent implements OnInit {
         }
       } else {
         if (profile.roles === 'SP') {
-          console.log('userType', profile);
           if (profile?.plan?.userType.length == 2) {
             this.listing.push({
               title: 'Subscription',

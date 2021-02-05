@@ -283,7 +283,6 @@ export class MyProfileComponent implements OnInit {
           this.hoursSelected = this.profile.typical_hours;
           this.age_rangeSelected = this.profile.age_range;
         }
-        console.log(this.profile);
       } else {
         this._sharedService.checkAccessToken(res.message);
       }

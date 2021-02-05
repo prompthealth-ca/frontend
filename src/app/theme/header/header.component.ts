@@ -117,7 +117,6 @@ export class HeaderComponent implements OnInit {
     this.payment = localStorage.getItem('isPayment');
     this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))
       : {};
-    this.user.firstName = this.user.firstName ? this.user.firstName + ' ' + this.user.lastName : '';
 
     this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
       this[key] = val;

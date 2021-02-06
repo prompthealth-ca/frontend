@@ -74,6 +74,7 @@ export class MyProfileComponent implements OnInit {
     email: '',
     phone: '',
     address: '',
+    hideAddress: false,
     state: '',
     city: '',
     zipcode: '',

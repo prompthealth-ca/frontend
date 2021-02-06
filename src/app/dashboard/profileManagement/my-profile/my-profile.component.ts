@@ -80,7 +80,7 @@ export class MyProfileComponent implements OnInit {
     zipcode: '',
     booking: '',
     bookingURL: '',
-    profileImage: {},
+    profileImage: null,
     latitude: 0,
     longitude: 0,
     languages: [],

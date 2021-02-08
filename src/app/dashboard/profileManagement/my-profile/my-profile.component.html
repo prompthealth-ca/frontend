@@ -79,11 +79,13 @@
       </div>
 
       <div class="form-row mb-3">
-        <label class="col-md-3">Phone Number <span class="text-danger" *ngIf="editFields">*</span></label>
+        <label class="col-md-3">Phone Number 
+          <!-- <span class="text-danger" *ngIf="editFields">*</span> -->
+        </label>
         <div class="col-md-9">
           <input [disabled]="!editFields" type="text" autocomplete="off" id="phone" name="phone" #phone="ngModel"
             [(ngModel)]="profile.phone" class="form-control" maxlength="12" minlength="10"
-            (ngModelChange)="profile.phone = $event" required pattern="^[0-9]*$" />
+            (ngModelChange)="profile.phone = $event" pattern="^[0-9]*$" />
           <div class="error-block" *ngIf="editFields">
             <small *ngIf="phone.errors?.required && phone.touched" class="text-danger">
               Phone Number is required.

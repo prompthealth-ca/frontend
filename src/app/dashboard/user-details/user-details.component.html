@@ -165,6 +165,17 @@
           </small>
         </div>
       </div>
+      <div class="col-md-6 mb-3" *ngIf="roles !== 'U'">
+        <label>Website</label>
+        <input type="text" id="website" name="website" class="form-control" [placeholder]="'https://example.com'"
+        [(ngModel)]="userDetails.website" pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" #website="ngModel">
+
+        <div class="error-block">
+          <small *ngIf="website.invalid && website.touched && website.errors?.pattern" class="text-danger">
+            URL must be a valid URL
+          </small>
+        </div>        
+      </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
             <label>What is your professional association<span class="text-danger">*</span></label>
@@ -216,14 +227,14 @@
       <div class="col-md-6 mb-3" *ngIf="userDetails.booking === 'yes'">
         <label>Booking Url <span class="text-danger">*</span></label>
         <input autofocus type="text" id="bookingURL" name="URL" class="form-control" placeholder="" (keyup)="trim('bookingURL')" #URL="ngModel" [ngModel]="userDetails.bookingURL"
-          (ngModelChange)="userDetails.bookingURL = $event" required />
+          pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" (ngModelChange)="userDetails.bookingURL = $event" required />
 
         <div class="error-block">
           <small *ngIf="URL.errors?.required && URL.touched" class="text-danger">
             Booking URL is required.
           </small>
-          <small *ngIf="URL.errors?.minlength && URL.touched" class="text-danger">
-            Minumum length should be 3.
+          <small *ngIf="URL.errors?.pattern && URL.touched" class="text-danger">
+              Booking URL must be a valid URL
           </small>
         </div>
       </div>

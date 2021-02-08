@@ -80,6 +80,7 @@ export class MyProfileComponent implements OnInit {
     zipcode: '',
     booking: '',
     bookingURL: '',
+    website: '',
     profileImage: null,
     latitude: 0,
     longitude: 0,
@@ -405,7 +406,6 @@ export class MyProfileComponent implements OnInit {
     const payload = this.profile;
     payload._id = localStorage.getItem('loginID');
     if (payload.phone) { payload.phone.toString(); }
-    const data = JSON.parse(JSON.stringify(this.profile));
 
     this._sharedService.loader('show');
 
@@ -415,6 +415,10 @@ export class MyProfileComponent implements OnInit {
     } else {
       this.profile.booking = 'no';
     }
+    if(this.profile.website){ this.profile.website = this.profile.website.trim(); }
+
+    const data = JSON.parse(JSON.stringify(this.profile));
+
     this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.profile = res.data;

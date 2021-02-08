@@ -125,6 +125,22 @@
           </div>
         </div>
       </div>
+
+      <div class="form-row mb-3" *ngIf="roles !== 'U'">
+        <label class="col-md-3">Website</label>
+        <div class="col-md-9">
+          <input type="text" [disabled]="!editFields" id="website" name="website" [(ngModel)]="profile.website"
+          pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" #website="ngModel" [placeholder]="editFields ? 'https://example.com' : ''"
+          class="form-control" />
+
+          <div class="error-block" *ngIf="editFields">
+            <small *ngIf="website.invalid && website.touched && website.errors?.pattern" class="text-danger">
+              URL must be a valid URL
+            </small>
+          </div>
+        </div>
+      </div>
+      
       <div *ngIf="roles === 'SP'" class=" form-row mb-3">
         <label class="col-md-3">Professional Association <span class="text-danger" *ngIf="editFields">*</span></label>
         <div class="col-md-9">
@@ -149,10 +165,10 @@
         <!-- <label class="col-md-3">Booking URL <span class="text-danger"  *ngIf="editFields">*</span></label> -->
         <div class="col-md-9">
           <input type="url" [disabled]="!editFields" autocomplete="off" id="bookingURL" name="bookingURL"
-            pattern="https://.*" #bookingURL="ngModel" [placeholder]="editFields ? 'https://example.com' : ''"
+            pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?"  #bookingURL="ngModel" [placeholder]="editFields ? 'https://example.com' : ''"
             [(ngModel)]="profile.bookingURL" (onFocus)="profile.bookingURL = ''" class="form-control" />
           <div class="error-block" *ngIf="editFields">
-            <small *ngIf="bookingURL.errors" class="text-danger">
+            <small *ngIf="bookingURL.errors?.pattern && bookingURL.touched" class="text-danger">
               Booking URL must be a valid URL
             </small>
           </div>

@@ -215,11 +215,17 @@
             <tbody>
               <tr *ngIf="userInfo?.address">
                 <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
-                <td class="text-left">{{userInfo?.address}}</td>
+                <td class="text-left">{{userInfo.address}}</td>
               </tr>
-              <tr>
+              <tr *ngIf="userInfo?.phone">
                 <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
-                <td class="text-left">{{userInfo?.phone}}</td>
+                <td class="text-left">{{userInfo.phone}}</td>
+              </tr>
+              <tr *ngIf="userInfo?.website">
+                <td class="pr-0"><i class="fas fa-compass color-card-icon"></i></td>
+                <td class="text-left">
+                  <a class="url" [href]="userInfo.website" target="_blank">{{userInfo.websiteLabel}}</a>
+                </td>
               </tr>
               <tr>
                 <td class="pr-0"><i class="fas fa-dollar-sign color-card-icon"></i></td>

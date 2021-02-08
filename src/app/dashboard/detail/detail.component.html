@@ -213,7 +213,7 @@
           <div class="card-title">Contact Information</div>
           <table class="table table-borderless table-hover px-2">
             <tbody>
-              <tr>
+              <tr *ngIf="userInfo?.address">
                 <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
                 <td class="text-left">{{userInfo?.address}}</td>
               </tr>

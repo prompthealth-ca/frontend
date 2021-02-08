@@ -86,6 +86,7 @@ export class Professional implements IProfessional {
   private _priceRange: number[] = [];
   private _gender: string;
   private _address: string;
+  private _hideAddress: boolean;
   private _location: number[];
   private _distance: number;
   private _provideVirtual: boolean;
@@ -140,7 +141,7 @@ export class Professional implements IProfessional {
   }
   get priceFull() { return (this._priceRange.length === 0) ? 'N/A' : '$' + this._priceRange.join(' - '); }
   get gender() { return this._gender; }
-  get address() { return this._address; }
+  get address() { return (!this._hideAddress && this._address.length > 0) ? this._address : null; }
   get location() { return this._location; }
   get distance() { return this._distance; }
   get provideVirtual() { return this._provideVirtual; }
@@ -270,6 +271,7 @@ export class Professional implements IProfessional {
 
     this._gender = p.gender || null;
     this._address = p.address || null;
+    this._hideAddress = p.hideAddress || false;
     this._videos = p.videos || [];
     this._yearsOfExperience = p.years_of_experience || null;
     this._languagesId = p.languages || [];

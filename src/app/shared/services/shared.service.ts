@@ -139,7 +139,7 @@ export class SharedService {
   socialRegister(body) {
 
     const headers = this.getDefaultHeader();
-    return this.http.post(this.rootUrl + 'user/social-login', body, { headers });
+    return this.http.post(this.rootUrl + 'user/social-login-2', body, { headers });
   }
   logingOut() {
     const headers = this.getAuthorizationHeader();
@@ -223,8 +223,8 @@ export class SharedService {
   getPersonalMatch() {
     return this.personalMatch;
   }
-  clearPersonalMatch(){ this.personalMatch = null; }
-  
+  clearPersonalMatch() { this.personalMatch = null; }
+
   /*This function is use to get access token from cookie. */
   getAccessToken(): string {
     const token = localStorage.getItem('token');

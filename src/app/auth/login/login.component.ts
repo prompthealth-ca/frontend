@@ -70,8 +70,13 @@ export class LoginComponent implements OnInit {
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
+        social_id: x.id,
+        profileImage: x.photoUrl,
+        firstName: x.firstName,
+        lastName: x.lastName
 
       };
+      console.log(x);
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {
@@ -99,8 +104,11 @@ export class LoginComponent implements OnInit {
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
-        termsCondition: true
-
+        termsCondition: true,
+        social_id: x.id,
+        profileImage: x.photoUrl,
+        firstName: x.firstName,
+        lastName: x.lastName
       };
 
       this._sharedService.socialRegister(payload).subscribe((res: any) => {

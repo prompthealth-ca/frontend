@@ -82,11 +82,16 @@ export class RegistrationComponent implements OnInit {
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
-        termsCondition: true
+        termsCondition: true,
+        social_id: x.id,
+        profileImage: x.photoUrl,
+        firstName: x.firstName,
+        lastName: x.lastName
       };
-
+      console.log(x);
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
+        console.log(res);
         if (res.statusCode === 200) {
 
           this.toastr.success('Thanks for the registeration we have sent a welcome email to the address provided');
@@ -118,8 +123,11 @@ export class RegistrationComponent implements OnInit {
         email: x.email,
         roles: this.userType,
         loginType: x.provider.toLowerCase(),
-        termsCondition: true
-
+        termsCondition: true,
+        social_id: x.id,
+        profileImage: x.photoUrl,
+        firstName: x.firstName,
+        lastName: x.lastName
       };
 
       this._sharedService.socialRegister(payload).subscribe((res: any) => {

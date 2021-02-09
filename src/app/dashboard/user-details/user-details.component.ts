@@ -32,6 +32,7 @@ export class UserDetailsComponent {
     email: '',
     phone: '',
     address: '',
+    website: '',
     hideAddress: false,
     state: '',
     city: '',

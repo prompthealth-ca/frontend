@@ -25,6 +25,8 @@
 .font-md-bigger{ @media screen and (min-width: 768px){ font-size: 1.4em; }}
 .font-md-biggest{ @media screen and (min-width: 768px){ font-size: 1.6em; }}
 
+.url{ white-space: pre; }
+
 
 $transDurTabStick: 600ms;
 $imageSize: 100, 120;

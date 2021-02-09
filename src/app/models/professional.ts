@@ -142,12 +142,12 @@ export class Professional implements IProfessional {
   }
   get priceFull() { return (this._priceRange.length === 0) ? 'N/A' : '$' + this._priceRange.join(' - '); }
   get gender() { return this._gender; }
-  get address() { return (!this._hideAddress && this._address.length > 0) ? this._address : null; }
+  get address() { return (!this._hideAddress && this._address && this._address.length > 0) ? this._address : null; }
   get website() { return this._website; }
-  get websiteLabel(){
+  get websiteLabel() {
     let label = '';
     const match = this._website.match(/https?:\/\/(?:www\.)?([^/]+)/);
-    if(this._website && match){ label = match[1]; }
+    if (this._website && match) { label = match[1]; }
     return label;
   }
   get location() { return this._location; }
@@ -196,17 +196,17 @@ export class Professional implements IProfessional {
   /** [ mainCategoryString, subCategoryString[] ] [] */
   get service() {
     const result = [];
-    if (this._service) { 
+    if (this._service) {
       this._service.forEach(o => {
         const cat = [];
         cat.push(o.item_text);
-        if(o.hasSubAns){
+        if (o.hasSubAns) {
           const catSub = [];
-          o.subAnsData.forEach(sub=>{ catSub.push(sub.item_text); });
+          o.subAnsData.forEach(sub => { catSub.push(sub.item_text); });
           cat.push(catSub);
         }
-        result.push(cat)
-      }); 
+        result.push(cat);
+      });
     }
     return result;
   }
@@ -225,11 +225,11 @@ export class Professional implements IProfessional {
 
   get healthStatus() {
     const result = [];
-    if(this._healthStatus){ this._healthStatus.forEach(o=>{ result.push(o.item_text); }); }
+    if (this._healthStatus) { this._healthStatus.forEach(o => { result.push(o.item_text); }); }
     return result;
   }
 
-  get allServiceId(){ return this._allServiceId; }
+  get allServiceId() { return this._allServiceId; }
 
 
   get isCheckedForCompare() { return this._isCheckedForCompared; }
@@ -311,18 +311,18 @@ export class Professional implements IProfessional {
       }
     });
   }
-  populateService(dataSet: Category[]){
+  populateService(dataSet: Category[]) {
     const service = [];
-    dataSet.forEach(c=>{
-      if(this._allServiceId.indexOf(c._id) > -1){
+    dataSet.forEach(c => {
+      if (this._allServiceId.indexOf(c._id) > -1) {
         const subCat = [];
         c.subCategory.forEach(cSub => {
-          if(this._allServiceId.indexOf(cSub._id) > -1){
+          if (this._allServiceId.indexOf(cSub._id) > -1) {
             subCat.push({
               _id: cSub._id,
               item_text: cSub.item_text,
               isSubAns: true
-            })
+            });
           }
         });
         service.push({
@@ -333,7 +333,7 @@ export class Professional implements IProfessional {
           subAnsData: subCat
         });
       }
-    })
+    });
     this._service = service;
   }
 
@@ -460,7 +460,7 @@ export interface ServiceCategory {
   subAns?: boolean;   /** true if this category has subcategory */
   isSubAns?: boolean; /** true if this category is subcategory */
   hasSubAns?: boolean;
-  subAnsData?: ServiceCategory[]
+  subAnsData?: ServiceCategory[];
 
 }
 

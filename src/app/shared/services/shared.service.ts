@@ -98,8 +98,11 @@ export class SharedService {
   }
 
   imgUpload(body, path) {
-    // let headers = this.getAuthorizationHeader();
-    return this.http.post(this.rootUrl + path, body);
+    const headers =
+      this.getAuthorizationHeader()
+        .set('Content-Type', 'mutipart/form-data');
+
+    return this.http.post(this.rootUrl + path, body, { headers });
   }
   put(body, path) {
     const headers = this.getAuthorizationHeader();
@@ -232,9 +235,9 @@ export class SharedService {
   }
 
   /*This function is use to get header with Authorization or without Authorization. */
-  getAuthorizationHeader(access = true) {
+  getAuthorizationHeader(access = true): HttpHeaders {
     const token = this.getAccessToken();
-    let headers = {};
+    let headers: HttpHeaders = null;
 
     if (access) {
       headers = new HttpHeaders()

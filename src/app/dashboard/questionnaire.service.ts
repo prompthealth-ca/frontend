@@ -17,8 +17,8 @@ export class QuestionnaireService {
 
   private questionnaireTypes: QuestionnaireType[] = [
     { id: 'age', label: 'Age', slug: 'age-range-of-clients', personalMatchTarget: 'age_range' },
-    { id: 'background', label: 'Health Background', slug: 'who-are-your-customers', personalMatchTarget: 'ids' },
-    { id: 'goal', label: 'Goal', slug: 'your-goal-specialties', personalMatchTarget: 'ids' },
+    { id: 'background', label: 'Health Background', slug: 'who-are-your-customers', personalMatchTarget: 'customer_health' },
+    { id: 'goal', label: 'Goal', slug: 'your-goal-specialties', personalMatchTarget: 'services' },
     { id: 'availability', label: 'Availability', slug: 'typical-hours', personalMatchTarget: 'typical_hours' },
   ];
 

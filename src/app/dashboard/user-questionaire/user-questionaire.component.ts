@@ -38,6 +38,8 @@ export class UserQuestionaireComponent implements OnInit {
   };
   personalMatch = {
     ids: [],
+    services: [],
+    customer_health: [],
     age_range: [],
     type: 'service',
     typical_hours: [],

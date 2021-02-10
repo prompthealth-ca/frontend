@@ -189,14 +189,12 @@ export class HeaderComponent implements OnInit {
   }
   setClassForSubcategory(i: number) {
     let clname = ['', ''];
-    switch (this.catService.categoryList[i].label) {
-      //      case 'skin_rejuvination': clname = ['', '']; break;
-      case 'rehab_pain_management': clname = ['', 'lower narrowest']; break;
-      case 'pain_management': clname = ['', 'lower narrowest']; break;
-      case 'women_mens_health': clname = ['h-100', 'lower']; break;
-      case 'mood_mental_health': clname = ['h-100', 'lowest narrower']; break;
-      case 'fitness': clname = ['h-100', '']; break;
-      //      case 'nutrition': clname = ['h-60', '']; break;
+    switch (this.catService.categoryList[i]._id) {
+      case '5eb1a4e199957471610e6ce7': clname = ['', 'lower narrowest']; break;       /** pain_management */
+      case '5eb1a4e199957471610e6ce8': clname = ['h-100', 'lower']; break;            /** women_mens_health */
+      case '5eb1a4e199957471610e6ce1': clname = ['h-100', 'lowest narrower']; break;  /** mood_mental_health*/
+      case '5eb1a4e199957471610e6ce4':                                                /** sleep */
+      case '5eb1a4e199957471610e6ce3': clname = ['h-100', '']; break;                 /** fitness */
     }
     this.classSubcategory = clname[0];
     this.classSubcategoryItem = clname[1];

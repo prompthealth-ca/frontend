@@ -45,11 +45,6 @@ export class CategoryService {
             break;
           }
         }
-        this.categoryList.forEach((cat, i) => {
-          let label = cat.item_text.toLowerCase();
-          label = label.replace(/[\/\s]/g, '_');
-          this.categoryList[i].label = label.replace(/[^0-9a-zA-Z_]/g, '');
-        });
         this.emitCategoryService();
       }
     }, (error) => {
@@ -66,7 +61,7 @@ export class CategoryService {
 export interface Category {
   _id: string;
   item_text: string;
-  label: string;
+  image: string;
   subCategory: SubCategory[];
   userType?: any; /** to avoid error on subscription-plan.component (it doesn't exist.)*/
 }

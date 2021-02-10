@@ -99,7 +99,7 @@ export class SharedService {
 
   imgUpload(body, path) {
     // let headers = this.getAuthorizationHeader();
-    return this.http.post(this.rootUrl + path, body);
+    return this.http.post(this.rootUrl + path, body, {withCredentials: false});
   }
   put(body, path) {
     const headers = this.getAuthorizationHeader();

@@ -102,7 +102,8 @@ export class SharedService {
       new HttpHeaders()
         .set('Access-Control-Allow-Origin', '*');
 
-    return this.http.post(this.rootUrl + path, body, { headers });
+    // let headers = this.getAuthorizationHeader();
+    return this.http.post(this.rootUrl + path, body, { headers, withCredentials: false });
   }
   put(body, path) {
     const headers = this.getAuthorizationHeader();

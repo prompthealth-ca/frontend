@@ -456,6 +456,7 @@ export class MyProfileComponent implements OnInit {
             this.toastr.error(res.message);
           }
         }, err => {
+          console.log(err);
           this._sharedService.loader('hide');
           this.toastr.error('There are some errors, please try again after some time !', 'Error');
         });

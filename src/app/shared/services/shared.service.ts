@@ -291,11 +291,8 @@ export class SharedService {
 
 
   loginUser(res, type) {
-    console.log(res);
-    console.log(res.data.roles);
     let route;
     if (res.data.roles === 'U') {
-      console.log(res.data.roles);
       // this._router.navigate(['/']);
       route = res.data.roles === 'U' ? '/' : '';
     } else {

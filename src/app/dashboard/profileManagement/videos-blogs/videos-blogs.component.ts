@@ -17,7 +17,8 @@ export class VideosBlogsComponent implements OnInit {
   totalItems;
   pageSize: 10;
 
-  reg = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
+  // reg = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
+  reg = /^http(s)?:\/\/(w{3}\.)?((youtube|vimeo)\.com|youtu.be)\/.+/;
 
   constructor(
     private _fb: FormBuilder,

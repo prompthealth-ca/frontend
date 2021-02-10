@@ -119,8 +119,9 @@
                 <input class="radio" type="checkbox" id="do-not-show-address"
                 name="hideAddress" [(ngModel)]="profile.hideAddress">
 
-                <span class="">Do not show my address</span>  
+                <span class="">Do not show my address</span>
               </label>
+              <div *ngIf="profile.hideAddress == true" class="mt-2 mb-3 font-italic">You'll not be shown on the location based listing page</div>
             </div>
           </div>
         </div>

@@ -100,7 +100,8 @@ export class SharedService {
   imgUpload(body, path) {
     const headers =
       this.getAuthorizationHeader()
-        .set('Content-Type', 'mutipart/form-data');
+        .set('Content-Type', 'mutipart/form-data')
+        .set('Access-Control-Allow-Origin', '*');
 
     return this.http.post(this.rootUrl + path, body, { headers });
   }

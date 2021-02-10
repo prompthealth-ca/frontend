@@ -98,8 +98,12 @@ export class SharedService {
   }
 
   imgUpload(body, path) {
+    const headers = new HttpHeaders();
+    headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('Access-Control-Allow-Methods', 'POST');
+    headers.delete('Content-Type');
     // let headers = this.getAuthorizationHeader();
-    return this.http.post(this.rootUrl + path, body, {withCredentials: false});
+    return this.http.post(this.rootUrl + path, body, {headers: headers});
   }
   put(body, path) {
     const headers = this.getAuthorizationHeader();

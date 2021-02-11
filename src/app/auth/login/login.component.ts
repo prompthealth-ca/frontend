@@ -125,7 +125,7 @@ export class LoginComponent implements OnInit {
           this.toastr.error(res.message);
         }
       }, (error) => {
-        this.toastr.error('There are some error please try after some time.');
+        this.toastr.error(error.message);
         this._sharedService.loader('hide');
       });
     });

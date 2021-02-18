@@ -297,6 +297,9 @@ export class UserDetailsComponent {
     this.defaultImage = reader.result;
   }
   save() {
+    if(!this.userDetails.age_range || this.userDetails.age_range.length == 0){
+      this.userDetails.age_range = [this.ageRangeList[0].id];
+    }
     if (this.userDetails.typical_hours.length == 0) {
       this.toastr.error("Please select the typical hours!");
       return;

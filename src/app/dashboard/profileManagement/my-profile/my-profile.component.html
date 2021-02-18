@@ -141,7 +141,7 @@
 
           <div *ngIf="editFields">
             <input type="text" class="form-control" [disabled]="!editFields" (keydown.enter)="$event.preventDefault()"
-              (ngModelChange)="profile.address = $event.toLowerCase()" [ngModel]="profile.address" id="address"
+              (ngModelChange)="onChangeAddress($event)" [ngModel]="profile.address" id="address"
               name="address" (onFocus)="profile.address = ''" autocomplete="off" autocorrect="off" autocapitalize="off"
               spellcheck="off" type="text" #search2 #address="ngModel" required>
             <div class="error-block">

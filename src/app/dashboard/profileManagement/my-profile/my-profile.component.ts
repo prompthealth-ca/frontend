@@ -29,7 +29,7 @@ export class MyProfileComponent implements OnInit {
   profileQuestions;
   formData = new FormData();
   public AWS_S3 = '';
-  public isAddressSetByGooglemap: boolean = false;
+  public isAddressSetByGooglemap: boolean = true;
 
   ageRangeList = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
@@ -182,6 +182,11 @@ export class MyProfileComponent implements OnInit {
     } else {
       this.submitted = false;
     }
+  }
+
+  onChangeAddress(e: string){
+    this.isAddressSetByGooglemap = false;
+    this.profile.address = e.toLowerCase();
   }
 
   getAddress(latitude, longitude, place = {}) {
@@ -406,7 +411,7 @@ export class MyProfileComponent implements OnInit {
       this.toastr.error('Please select suggested Google address');
       return;
     }
-    
+
     if (this.roles === 'C' || this.roles === 'SP') {
       if(!this.profile.age_range || this.profile.age_range.length == 0){
         this.profile.age_range = [this.ageRangeList[0].id];

@@ -110,7 +110,9 @@
       <div class="col-md-6 mb-3">
         <label>Address (<b>Please select suggested Google address</b>)<span class="text-danger">*</span></label>
         <input type="text" id="address" name="address" class="form-control" placeholder="" (keyup)="trim('address')"
-          #address="ngModel" #search [ngModel]="userDetails.address" required />
+          #address="ngModel" #search [ngModel]="userDetails.address" required 
+          (keydown.enter)="$event.preventDefault()"
+        />
 
         <div class="error-block">
           <small *ngIf="address.errors?.required && address.touched" class="text-danger">

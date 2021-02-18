@@ -271,7 +271,7 @@ export class MyProfileComponent implements OnInit {
     const path = `user/get-profile/${this.userInfo._id}`;
     this._sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
-
+        
         this.profile = res.data[0];
 
         if (this.profile) {
@@ -398,6 +398,9 @@ export class MyProfileComponent implements OnInit {
 
   save() {
     if (this.roles === 'C' || this.roles === 'SP') {
+      if(!this.profile.age_range || this.profile.age_range.length == 0){
+        this.profile.age_range = [this.ageRangeList[0].id];
+      }
       if (this.profile.typical_hours.length === 0) {
         this.toastr.error('Please select the available time!');
         return;
@@ -424,7 +427,7 @@ export class MyProfileComponent implements OnInit {
         this.profile = res.data;
         this.toastr.success(res.message);
         this.editFields = false;
-        console.log('proressssssss', res.data);
+        // console.log('proressssssss', res.data);
         this._bs.setUserData(res.data);
       } else {
         this.toastr.error(res.message);
@@ -532,4 +535,7 @@ export class MyProfileComponent implements OnInit {
     );
   }
 
+  trim(key) {
+    if (this.profile[key] && this.profile[key][0] == ' ') this.profile[key] = this.profile[key].trim();
+  }
 }

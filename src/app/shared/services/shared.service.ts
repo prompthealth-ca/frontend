@@ -55,6 +55,7 @@ export class SharedService {
     // this.authService.signOut();
     this.showAlert('Logout Sucessfully', 'alert-success');
 
+    localStorage.setItem('userType', 'U');
     this._router.navigate(['/auth/login', 'u']);
   }
 
@@ -303,7 +304,7 @@ export class SharedService {
       }
     }
 
-
+    
     this.showAlert(res.message, 'alert-success');
     this.addCookie('token', res.data.loginToken);
     this.addCookie('roles', res.data.roles);

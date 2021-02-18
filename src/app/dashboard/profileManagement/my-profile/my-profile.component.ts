@@ -29,6 +29,7 @@ export class MyProfileComponent implements OnInit {
   profileQuestions;
   formData = new FormData();
   public AWS_S3 = '';
+  public isAddressSetByGooglemap: boolean = false;
 
   ageRangeList = [
     { id: '5eb1a4e199957471610e6cd7', name: 'Not Critical', checked: false },
@@ -240,6 +241,10 @@ export class MyProfileComponent implements OnInit {
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
+
+      if(this.profile.city.length > 0 && this.profile.state.length > 0 && this.profile.zipcode.length > 0){
+        this.isAddressSetByGooglemap = true;
+      }
     });
   }
   getProfileQuestion() {
@@ -397,6 +402,11 @@ export class MyProfileComponent implements OnInit {
   }
 
   save() {
+    if(!this.isAddressSetByGooglemap){
+      this.toastr.error('Please select suggested Google address');
+      return;
+    }
+    
     if (this.roles === 'C' || this.roles === 'SP') {
       if(!this.profile.age_range || this.profile.age_range.length == 0){
         this.profile.age_range = [this.ageRangeList[0].id];

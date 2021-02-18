@@ -185,8 +185,8 @@ export class MyProfileComponent implements OnInit {
 
   getAddress(latitude, longitude, place = {}) {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log('place', place);
-      console.log('results', results);
+      // console.log('place', place);
+      // console.log('results', results);
       this.profile.city = '';
       this.profile.state = '';
       this.profile.zipcode = '';

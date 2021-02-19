@@ -440,10 +440,10 @@
                 placeholder="Enter Your Phone Number"
               />
               <div *ngIf="submitted && f.phone.invalid" class="error-msg">
-                <small *ngIf="f.phone.errors.required"  class="text-danger">Phone is required</small>
-                <small *ngIf="f.phone.errors.pattern"   class="text-danger">Please input number</small>
-                <small *ngIf="f.phone.errors.minlength" class="text-danger">Phone number too short</small>
-                <small *ngIf="f.phone.errors.maxlength" class="text-danger">Phone number too long</small>
+                <small *ngIf="f.phone.errors.required"  class="text-danger">Phone number is required</small>
+                <small *ngIf="f.phone.errors.pattern"   class="text-danger">Phone number invalid</small>
+                <small *ngIf="!f.phone.errors.pattern && f.phone.errors.minlength" class="text-danger">Phone number too short</small>
+                <small *ngIf="!f.phone.errors.pattern && f.phone.errors.maxlength" class="text-danger">Phone number too long</small>
               </div>
             </div>
             <!-- <div class="col-md-12 mb-3">

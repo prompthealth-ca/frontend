@@ -424,6 +424,10 @@ export class DetailComponent implements OnInit {
   }
 
   toggleExpandProfessionalDesc() { this.isExpandProfessionals = !this.isExpandProfessionals; }
+
+  public isAmenityViewerShown = false;
+  openAmenityViewer(){ this.isAmenityViewerShown = true; }
+  closeAmenityViewer(){ console.log('close'); this.isAmenityViewerShown = false; }
 }
 
 

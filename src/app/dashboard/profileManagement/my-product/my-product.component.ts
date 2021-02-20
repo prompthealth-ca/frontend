@@ -118,7 +118,7 @@ export class MyProductComponent implements OnInit {
       return;
     }
 
-    if(this.imagesList || this.imagesList.length == 0){
+    if(!this.imagesList || this.imagesList.length == 0){
       this.toastr.error('Please upload at least 1 image');
       return;
     }
@@ -190,7 +190,7 @@ export class MyProductComponent implements OnInit {
       return;
     }
 
-    if(this.imagesList || this.imagesList.length == 0){
+    if(!this.imagesList || this.imagesList.length == 0){
       this.toastr.error('Please upload at least 1 image');
       return;
     }

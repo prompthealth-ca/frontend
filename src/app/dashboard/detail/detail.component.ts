@@ -69,8 +69,8 @@ export class DetailComponent implements OnInit {
   /** for booking */
   public bookingForm: FormGroup;
   private myId = '';
-  public startDate = new Date(); /* used at booking form */
-  public minDate = new Date(); /* used at booking form */
+  public startDate: Date; /* used at booking form */
+  public minDate: Date; /* used at booking form */
   // public timingSelectedValue = ''; /* used at booking form */
   public submitted = false; /* used for form verification */
 
@@ -109,12 +109,21 @@ export class DetailComponent implements OnInit {
   }
   
   async ngOnInit(): Promise<void> {
+    const now = new Date();
+    this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9,0,0);
+    this.minDate = new Date(  now.getFullYear(), now.getMonth(), now.getDate() + 1, 0,0,0);
+
     this.bookingForm = this._fb.group({
-      name: new FormControl('', [Validators.required]),
+      name:  new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern(/\S+/)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required, 
+        Validators.minLength(10), 
+        Validators.maxLength(12),
+        Validators.pattern(/^[0-9][0-9\-]+[0-9]$/)
+      ]),
       bookingDateTime: new FormControl('', [Validators.required]),
-      note: new FormControl('')
+      note: new FormControl('', [Validators.maxLength(250)])
     });
 
     this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : '';
@@ -222,7 +231,9 @@ export class DetailComponent implements OnInit {
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.products = res.data.data;
-        console.log(this.products);
+        if(res.data.data){
+          this.userInfo.setProducts(res.data.data);
+        }
         this._sharedService.loader('hide');
 
       } else {
@@ -256,21 +267,18 @@ export class DetailComponent implements OnInit {
 
   getReviews() {
 
-    //    this.sortReviewsBy(0);
+    const path = `booking/get-all-review?userId=${this.id}&count=10&page=1&search=/`;
+    this._sharedService.getNoAuth(path).subscribe((res: any) => {
+      if (res.statusCode === 200 && res.data.data.length > 0) {
+        this.userInfo.setReviews(res.data.data)
+               
+      } else {
+        this._sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
 
-    /*  todo: enable this code after api works
-        const path = `booking/get-all-review?userId=${this.id}&count=10&page=1&search=/`;
-        this._sharedService.getNoAuth(path).subscribe((res: any) => {
-          if (res.statusCode === 200) {
-             this.rating = res.data.data;
-          } else {
-            this._sharedService.checkAccessToken(res.message);
-          }
-        }, err => {
-
-          this._sharedService.checkAccessToken(err);
-        });
-     */
+      this._sharedService.checkAccessToken(err);
+    });
   }
 
   getCategoryServices(): Promise<boolean> {
@@ -420,6 +428,14 @@ export class DetailComponent implements OnInit {
   }
 
   toggleExpandProfessionalDesc() { this.isExpandProfessionals = !this.isExpandProfessionals; }
+
+  public isAmenityViewerShown = false;
+  openAmenityViewer(){ this.isAmenityViewerShown = true; }
+  closeAmenityViewer(){ console.log('close'); this.isAmenityViewerShown = false; }
+
+  public isProductViewerShown = false;
+  openProductViewer(){ this.isProductViewerShown = true; }
+  closeProductViewer(){ this.isProductViewerShown = false; }
 }
 
 

@@ -66,14 +66,16 @@
         <ul class="reviews p-0 m-0 list-unstyled">
           <li class="d-md-flex flex-md-nowrap p-3 p-md-4 mb-4" *ngFor="let r of userInfo.reviews">
             <div class="mb-3 mb-md-0 col-md-5 col-lg-3 d-flex">
-              <div class="review-image rounded-circle overflow-hidden mr-3"></div>
+              <div class="review-image rounded-circle overflow-hidden mr-3">
+                <img [src]="r.image" [alt]="r.name">
+              </div>
               <p class="font-weight-bold mt-3 font-big mb-0">{{r.name}}</p>
             </div>
             <div class="col-md-7 col-lg-9">
               <star-rate [rate]="r.rate" margin='big'></star-rate>
               <div class="borderb-grey pt-2"></div>
-              <p class='pt-3 pb-0'>{{r.desc}}</p>
-              <div>{{r.updatedAt | date:'longDate'}}</div>
+              <p class='pt-3 pb-0'>{{r.review}}</p>
+              <div>{{r.createdAt | date:'longDate'}}</div>
             </div>
           </li>
         </ul>
@@ -115,6 +117,33 @@
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Years Of Experience</div>
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.yearsOfExperience}}</p>
         </div>
+
+        <div class="row mt-5" *ngIf="userInfo?.amenityPreview && userInfo.amenityPreview.length > 0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenity</div>
+          <div class="col-12 col-lg-8">
+            <app-image-row [images]="userInfo.amenityPreview" [option]="{col: 3}"></app-image-row>
+            <button class="btn text-blue border-blue rounded" (click)="openAmenityViewer()">Show detail</button>
+            <app-product-viewer 
+            *ngIf="isAmenityViewerShown" 
+            [data]="userInfo.amenity"
+            (close)="closeAmenityViewer()"
+            ></app-product-viewer>
+          </div>
+        </div>
+
+        <div class="row mt-5" *ngIf="userInfo?.productPreview && userInfo.productPreview.length > 0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Product</div>
+          <div class="col-12 col-lg-8">
+            <app-image-row [images]="userInfo.productPreview" [option]="{col: 3}"></app-image-row>
+            <button class="btn text-blue border-blue rounded" (click)="openProductViewer()">Show detail</button>
+            <app-product-viewer 
+            *ngIf="isProductViewerShown"
+            [data]="userInfo.product"
+            (close)="closeProductViewer()"
+            ></app-product-viewer>
+          </div>
+        </div>
+
   
         <!-- blue section -->
         <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
@@ -137,13 +166,6 @@
             <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.serviceDelivery">{{item}}</li>
           </ul>
           <p class="font-small col-12 mb-0 " *ngIf="userInfo?.provideVirtual">**Virtual/Online services may not be available to all locations. Please inquire the service provider for confirmation.</p>
-        </div>
-
-        <div class="row bg-lightblue pt-5 pb-0" *ngIf="userInfo?.amenity && userInfo?.amenity.length>0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenities: </div>
-          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
-            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.amenity">{{item}}</li>
-          </ul>
         </div>
 
         <div class="row bg-lightblue pt-5 pb-0">
@@ -172,7 +194,7 @@
         <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
   
         <!-- professionals at centre-->
-        <div *ngIf="userInfo?.isCentre">
+        <div *ngIf="userInfo?.isCentre && userInfo.professionals && userInfo.professionals.length > 0">
           <div class="row bg-grey rounded-top py-4 mt-5 justify-content-start justify-content-md-between align-items-center">
             <div class="col text-blue font-big font-md-bigger">Meet our professionals</div>
           </div>
@@ -406,10 +428,10 @@
                 formControlName="name"
                 placeholder="Enter Your Name"
               />
-              <div *ngIf="submitted" class="error-msg">
-                <small *ngIf="f.name.errors"  class="text-danger">
-                    Name is required
-                </small>
+              <div *ngIf="submitted && f.name.invalid"  class="error-msg">
+                <small *ngIf="f.name.errors.required"   class="text-danger">Name is required</small>
+                <small *ngIf="f.name.errors.maxlength"  class="text-danger">Name too long</small>
+                <small *ngIf="f.name.errors.pattern"    class="text-danger">Invalid name</small>
               </div>
             </div>
             <div class="col-md-12 mb-3">
@@ -420,24 +442,24 @@
                 formControlName="email"
                 placeholder="Enter Your Email Address"
               />
-              <div *ngIf="submitted" class="error-msg">
-                <small *ngIf="f.email.errors"  class="text-danger">
-                    Email is required
-                </small>
+              <div *ngIf="submitted && f.email.invalid" class="error-msg">
+                <small *ngIf="f.email.errors.required"  class="text-danger">Email is required</small>
+                <small *ngIf="f.email.errors.email"     class="text-danger">Email must be a valid email address</small>
               </div>
             </div>
             <div class="col-md-12 mb-3">
               <label>Phone <span class="text-danger">*</span></label>
               <input
-                type="number"
+                type="tel"
                 formControlName="phone"
                 class="form-control"
                 placeholder="Enter Your Phone Number"
               />
-              <div *ngIf="submitted" class="error-msg">
-                <small *ngIf="f.phone.errors"  class="text-danger">
-                    Phone is required
-                </small>
+              <div *ngIf="submitted && f.phone.invalid" class="error-msg">
+                <small *ngIf="f.phone.errors.required"  class="text-danger">Phone number is required</small>
+                <small *ngIf="f.phone.errors.pattern"   class="text-danger">Phone number invalid</small>
+                <small *ngIf="!f.phone.errors.pattern && f.phone.errors.minlength" class="text-danger">Phone number too short</small>
+                <small *ngIf="!f.phone.errors.pattern && f.phone.errors.maxlength" class="text-danger">Phone number too long</small>
               </div>
             </div>
             <!-- <div class="col-md-12 mb-3">
@@ -470,8 +492,11 @@
               <textarea
                 class="form-control"
                 type="text"
-                formControlName="note"></textarea>
-              
+                formControlName="note"
+              ></textarea>
+              <div *ngIf="submitted && f.note.invalid" class="error-msg">
+                <small *ngIf="f.note.errors.maxlength"  class="text-danger">Please enter within 250 characters</small>
+              </div>
             </div>
 
             <div class="col-md-12 text-right">

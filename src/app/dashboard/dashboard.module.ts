@@ -37,6 +37,8 @@ import { AddonSelectCategoryComponent } from './addon-select-category/addon-sele
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';
 import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
+import { AmenityViewerComponent } from './amenity-viewer/amenity-viewer.component';
+import { ProductViewerComponent } from './product-viewer/product-viewer.component';
 
 @NgModule({
   declarations: [
@@ -59,11 +61,14 @@ import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-d
     FilterDropdownComponent,
     FilterDropdownSelectComponent,
     FilterDropdownSliderComponent,
+    AmenityViewerComponent,
+    ProductViewerComponent,
   ],
   imports: [
     AutocompleteLibModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCbRhC6h9Pp43-5t_Knyrd_ewAdLMIJtCg',
+      language: 'en',
       libraries: ['places']
     }),
     OwlDateTimeModule,

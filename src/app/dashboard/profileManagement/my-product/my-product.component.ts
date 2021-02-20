@@ -34,14 +34,14 @@ export class MyProductComponent implements OnInit {
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.addProductForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/\S+/)]],
       price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(500), Validators.pattern(/\S+/)]],
     });
     this.editProductForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/\S+/)]],
       price: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(500), Validators.pattern(/\S+/)]],
     });
     this.getProductList();
   }

@@ -110,7 +110,7 @@
                 <a (click)="removefromList(url)" class="fa fa-times"></a>
             </div>
             <div>
-                <label class="col-md-12">Upload Images</label>
+                <label class="col-md-12">Upload Images<span class="text-danger">*</span></label>
                 <!-- <img [src]="profile.images ? 'https://api.prompthealth.ca/users/'+profile.profileImage : defaultImage" /> -->
                 <input type="file" name="profile" 
                 class="form-control col-md-12" (change)="onFileSelect($event)" multiple/>

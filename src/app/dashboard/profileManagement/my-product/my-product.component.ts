@@ -117,6 +117,12 @@ export class MyProductComponent implements OnInit {
     if (this.addProductForm.invalid) {
       return;
     }
+
+    if(this.imagesList || this.imagesList.length > 0){
+      this.toastr.error('Please upload at least 1 image');
+      return;
+    }
+    
     else {
       const formData = {
         ...this.addProductForm.value,
@@ -169,6 +175,7 @@ export class MyProductComponent implements OnInit {
     });
   }
   editProduct(prod) {
+    this.submitted = false;
     this.editProductCheck = true
     this.editProductForm.controls.title.setValue(prod.slug);
     this.editProductForm.controls.description.setValue(prod.description);
@@ -177,7 +184,14 @@ export class MyProductComponent implements OnInit {
     this.editProductId = prod._id;
   }
   updateProduct() {
+    this.submitted = true;
+
     if (this.editProductForm.invalid) {
+      return;
+    }
+
+    if(this.imagesList || this.imagesList.length > 0){
+      this.toastr.error('Please upload at least 1 image');
       return;
     }
     else {

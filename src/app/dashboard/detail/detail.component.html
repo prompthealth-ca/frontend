@@ -192,7 +192,7 @@
         <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
   
         <!-- professionals at centre-->
-        <div *ngIf="userInfo?.isCentre">
+        <div *ngIf="userInfo?.isCentre && userInfo.professionals && userInfo.professionals.length > 0">
           <div class="row bg-grey rounded-top py-4 mt-5 justify-content-start justify-content-md-between align-items-center">
             <div class="col text-blue font-big font-md-bigger">Meet our professionals</div>
           </div>

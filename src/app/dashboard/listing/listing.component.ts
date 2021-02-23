@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, NgZone, OnDestroy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-// import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
@@ -33,6 +33,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
     private _qService: QuestionnaireService,
+    private _maps: MapsAPILoader,
     _el: ElementRef,
   ) {
     this.host = _el.nativeElement;
@@ -161,7 +162,11 @@ export class ListingComponent implements OnInit, OnDestroy {
     let [lat, lng]: [number, number] = [null, null];
 
     if (ipLat && ipLng) { [lat, lng] = [Number(ipLat), Number(ipLng)]; } else {
-      try { [lat, lng] = await this.getCurrentLocation(); } catch (err) { }
+      try { [lat, lng] = await this.getCurrentLocation(); } 
+      catch (err) {
+        const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
+        this.toastr.error(message);
+      }
     }
 
     this.searchCenter = (lat & lng) ? { lat, lng, radius: 100 * 1000 } : { lat: null, lng: null, radius: 0 };
@@ -238,7 +243,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       const [lat, lng] = await this.getCurrentLocation();
       this.setMapdata({ lat, lng, zoom: 12 });
     } catch (err) {
-      const message = (err.code === 1) ? 'Please allow geo location' : 'Could not get current location';
+      const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
       this.toastr.error(message);
     }
 
@@ -671,6 +676,61 @@ export class ListingComponent implements OnInit, OnDestroy {
     }
   }
 
+  getLocationFromZipcode(zipcode: string): Promise<[number, number]>{
+    return new Promise((resolve, reject)=>{
+      this._maps.load().then(()=>{
+        new google.maps.Geocoder().geocode({'address': zipcode}, (results, status)=>{
+          if(status !== 'OK'){ reject(); }
+          else{
+            const data = results[0].geometry.location;
+            resolve([data.lat(), data.lng()]);
+          }
+        });
+      })
+    })  
+  }
+
+  /** trigger when click save / clear in zipcode filter menu and update listingPayload & map. then start listing */
+  async updateFilterZipcode(){
+    const f = this.getFilter('zipcode');
+    const zipcode = f.data.value.replace(/\s{2,}/g, '');
+    if(zipcode && zipcode.length > 0){
+      let latLng: [number, number];
+      try { 
+        latLng = await this.getLocationFromZipcode(zipcode); 
+        f.active = true;
+        this.listingPayload.latLong = latLng.join(',');
+        this.searchCenter = {lat: latLng[0], lng: latLng[1], radius: this.listingPayload.miles * 1000 }
+        this.setMapdata({lat: latLng[0], lng: latLng[1], zoom: 10});
+        this.filterTarget = null;
+        this.listing(this.listingPayload);
+      }
+      catch(err){
+        f.active = false;
+        f.data.value = '';
+        this.toastr.error('Please enter valid zip code.');
+      }
+    }
+    /** if user click 'clear' or 'save' without value */
+    else{ 
+      f.active = false; 
+      this.filterTarget = null;
+      try{
+        const latLng = await this.getCurrentLocation();
+
+        this.listingPayload.latLong = latLng.join(',');
+        this.searchCenter = {lat: latLng[0], lng: latLng[1], radius: this.listingPayload.miles * 1000 }
+        this.setMapdata({lat: latLng[0], lng: latLng[1], zoom: 10});
+      }catch(err){
+        this.listingPayload.latLong = '';
+        this.searchCenter = {lat: 53.89, lng: -111.25, radius: 0}
+        this.setMapdata({lat: 53.89, lng: -111.25, zoom: 3});
+      }
+
+      this.listing(this.listingPayload);
+    }    
+  }
+
   /** trigger when click save / clear in filter menu and update listingPayload. then start listing (optional) */
   updateFilter(id: string, listing: boolean = true) {
     const f = this.getFilter(id);
@@ -788,9 +848,11 @@ interface Filter {
   active: boolean;
   options?: QuestionnaireAnswer[];
   range?: { min: number; max: number; current: number; default: number };
+  data?: {value: string; placeholder: string} /** for inputText */
 }
 
 const filtersPreset = [
+  { _id: 'zipcode', item_text: 'Zip Code', type: 'input', payloadName: 'zipcode', active: false, data: {value: '', placeholder: 'Please input zip code'} },
   { _id: 'distance', item_text: 'Distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
   {
     _id: 'gender', item_text: 'Gender', type: 'radio', payloadName: 'gender', active: false, options: [

@@ -182,8 +182,8 @@
         <div class="col-md-9">
 
           <input type="text" [disabled]="!editFields" autocomplete="off" id="association" name="association"
-            #association="ngModel" [ngModel]="profile.professional_organization"
-            (onFocus)="profile.professional_organization = ''" class="form-control" 
+            #association="ngModel" [(ngModel)]="profile.professional_organization"
+            class="form-control" 
             maxlength="50" />
         </div>
       </div>
@@ -192,7 +192,7 @@
         <div class="col-md-9">
 
           <input type="text" [disabled]="!editFields" autocomplete="off" id="certification" name="certification"
-            #certification="ngModel" [(ngModel)]="profile.certification" (onFocus)="profile.certification = ''"
+            #certification="ngModel" [(ngModel)]="profile.certification"
             maxlength="50"
             class="form-control" />
         </div>

@@ -159,7 +159,9 @@ export class DetailComponent implements OnInit {
         });
 
         this.getEndosements();
-
+        this.getProducts();
+        this.getReviews();
+  
         if(this.userInfo.isCentre){ this.getProfessionals(); }
       })
       .catch(err=>{ 
@@ -171,8 +173,6 @@ export class DetailComponent implements OnInit {
 
       // this.getUserProfile();
       // this.getProfileQuestion();
-      this.getProducts();
-      this.getReviews();
     });
   }
 

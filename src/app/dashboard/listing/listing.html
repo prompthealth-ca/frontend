@@ -99,14 +99,13 @@
     [target]="filterTarget._id"
   ></filter-dropdown> --> <!-- multiple slider which is not built yet. (for price) -->
 
-  <filter-dropdown-input class="position-fixed shadow rounded-15p blur filter-dropdown"
-    *ngIf="filterTarget && (filterTarget._id == 'zipcode')" 
+  <filter-dropdown-location class="position-fixed shadow rounded-15p blur filter-dropdown"
+    *ngIf="filterTarget && (filterTarget._id == 'location')" 
     [@slideVertical]
     [ngStyle]="getFilterDropdownPosition()"
-    [target]="filterTarget._id"
     [data]="filterTarget.data"
-    (changeState)="updateFilterZipcode()"
-  ></filter-dropdown-input>
+    (changeState)="updateFilterLocation($event)"
+  ></filter-dropdown-location>
 
   <filter-dropdown-select class="position-fixed shadow rounded-15p blur filter-dropdown"
     *ngIf="filterTarget && (filterTarget.type == 'radio' || filterTarget.type == 'checkbox')" 
@@ -269,7 +268,6 @@
         </li>
         <li>
           <button class="btn text-blue font-biggest btn-get-location" 
-          *ngIf="isGetLocationButtonShown"
           [disabled]="isGettingCurrentLocation"
           (click)="onClickGetLocationButton()" 
           [ngClass]="{active: isGettingCurrentLocation}"

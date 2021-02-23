@@ -40,6 +40,7 @@ import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-d
 import { AmenityViewerComponent } from './amenity-viewer/amenity-viewer.component';
 import { ProductViewerComponent } from './product-viewer/product-viewer.component';
 import { FilterDropdownInputComponent } from './filter-dropdown-input/filter-dropdown-input.component';
+import { FilterDropdownLocationComponent } from './filter-dropdown-location/filter-dropdown-location.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { FilterDropdownInputComponent } from './filter-dropdown-input/filter-dro
     AmenityViewerComponent,
     ProductViewerComponent,
     FilterDropdownInputComponent,
+    FilterDropdownLocationComponent,
   ],
   imports: [
     AutocompleteLibModule,

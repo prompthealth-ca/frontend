@@ -36,7 +36,7 @@
                 [routerLink]="list.link"
                 [routerLinkActive]="['active']"
                 >{{ list.title }}
-                <div *ngIf="list.title == 'Profile'" class="icon-vip font-small rounded ml-3">
+                <div *ngIf="list.title == 'Profile' && profile?.isVipAffiliateUser" class="icon-vip font-small rounded ml-3">
                   <i class="fas fa-ribbon"></i>
                   <span class="pl-2">VIP</span>
                 </div>

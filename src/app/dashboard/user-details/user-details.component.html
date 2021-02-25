@@ -185,7 +185,7 @@
             <input type="text" id="professional_organization" name="professional_organization" class="form-control"
               (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
               (ngModelChange)="userDetails.professional_organization = $event" 
-              maxlength="50" />
+              maxlength="200" />
             <div class="error-block">
               <small *ngIf="professional_organization.errors?.required && professional_organization.touched" class="text-danger">
                 Professional is required.
@@ -199,7 +199,7 @@
           <input type="text" id="certification" name="certification" class="form-control"
             (keyup)="trim('certification')" #certification="ngModel" [ngModel]="userDetails.certification" number
             (ngModelChange)="userDetails.certification = $event" 
-            maxlength="50" />
+            maxlength="200" />
           <div class="error-block">
             <small *ngIf="certification.errors?.required && certification.touched" class="text-danger">
               Certitification is required.

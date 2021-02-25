@@ -184,7 +184,7 @@
           <input type="text" [disabled]="!editFields" autocomplete="off" id="association" name="association"
             #association="ngModel" [(ngModel)]="profile.professional_organization"
             class="form-control" 
-            maxlength="50" />
+            maxlength="200" />
         </div>
       </div>
       <div *ngIf="roles === 'SP'" class="form-row mb-3">
@@ -193,7 +193,7 @@
 
           <input type="text" [disabled]="!editFields" autocomplete="off" id="certification" name="certification"
             #certification="ngModel" [(ngModel)]="profile.certification"
-            maxlength="50"
+            maxlength="200"
             class="form-control" />
         </div>
       </div>

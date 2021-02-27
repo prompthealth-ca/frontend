@@ -102,6 +102,13 @@ export class WrapperComponent implements OnInit {
 
     });
   }
+
+  addMenuItem(title: string, isActive: boolean){
+    switch(title){
+      case 'social': this.listing.push({title: 'Social', link: 'my-social', active: isActive}); break;
+    }
+  }
+
   setListing(profile) {
     if (profile) {
       if(profile.roles !== 'U'){
@@ -116,6 +123,8 @@ export class WrapperComponent implements OnInit {
 
       if (profile.isVipAffiliateUser) {
         if (profile.roles === 'SP') {
+          this.addMenuItem('social', true); 
+
           this.listing.push({
             title: 'Subscription',
             link: 'my-subscription',
@@ -147,7 +156,10 @@ export class WrapperComponent implements OnInit {
             active: true,
           });
 
+
         } else if (profile.roles === 'C') {
+          this.addMenuItem('social', true); 
+
           this.listing.push({
             title: 'Booking',
             link: 'my-booking',
@@ -202,6 +214,8 @@ export class WrapperComponent implements OnInit {
               link: 'my-payment',
               active: true,
             });
+            this.addMenuItem('social', false); 
+
             this.listing.push({
               title: 'Booking',
               link: 'my-booking',
@@ -218,6 +232,8 @@ export class WrapperComponent implements OnInit {
               active: false,
             });
           } else {
+            this.addMenuItem('social', true); 
+
             this.listing.push({
               title: 'Booking',
               link: 'my-booking',
@@ -263,6 +279,8 @@ export class WrapperComponent implements OnInit {
             link: 'my-payment',
             active: true,
           });
+          this.addMenuItem('social', false); 
+
           this.listing.push({
             title: 'Booking',
             link: 'my-booking',
@@ -280,6 +298,8 @@ export class WrapperComponent implements OnInit {
             active: false,
           });
         } else {
+          this.addMenuItem('social', true); 
+
           this.listing.push({
             title: 'Booking',
             link: 'my-booking',

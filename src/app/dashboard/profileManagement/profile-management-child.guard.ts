@@ -65,6 +65,7 @@ export class ProfileManagementChildGuard implements CanActivateChild {
         break;
 
       case 'videos-blogs':
+      case 'my-social':
         /** if user role is not U && premium account, true  */
         if(role !== 'U'){
           if(profile.isVipAffiliateUser){ return true; }

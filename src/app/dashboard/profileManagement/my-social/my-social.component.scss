@@ -1,0 +1,31 @@
+.border-blue{ border: solid 1px var(--ph-blue); }
+.text-blue{ color: var(--ph-blue); }
+
+
+ul li:not(:last-child){ 
+  margin-right: 15px;
+  @media screen and (min-width: 768px){ margin-right: 20px; }
+}
+
+.icon-sns{
+  flex: 0 0 40px;
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+  background: grey;
+  overflow: hidden;
+  border-radius: 40px;
+
+  &:first-child.active{  background: #5d68e1; } 
+  &:nth-child(2).active{ background: #7e65c0; }
+  &:nth-child(3).active{ background: #9f639f; }
+  &:nth-child(4).active{ background: #c0607e; }
+  &:nth-child(5).active{ background: #e15d5d; }  
+
+  a{
+    cursor: pointer;
+  }
+}
+
+.btn{ border-width: 0; }

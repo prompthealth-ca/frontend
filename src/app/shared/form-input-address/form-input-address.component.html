@@ -1,0 +1,14 @@
+<div class="input-group">
+  <input 
+  [id]="name" 
+  class="form-control" 
+  [formControl]="controller"
+  (keydown.enter)="$event.preventDefault()"
+  >
+</div>
+<div class="d-flex justify-content-end mt-1 font-small">
+  <ul class="errors text-danger flex-grow-1" *ngIf="(controller.invalid || !place) && submitted">
+    <li *ngIf="controller.errors?.required">{{label}} is required.</li>
+    <li *ngIf="!controller.invalid && !place">Please select address from suggestion.</li>
+  </ul> 
+</div>

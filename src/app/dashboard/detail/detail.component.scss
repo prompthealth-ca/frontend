@@ -67,7 +67,7 @@ $imageSize: 100, 120;
   z-index: 2;
   bottom: calc(100% + 10px);
   transform-origin: left bottom;
-  text-shadow: 3px 3px 3px grey;
+  text-shadow: 0 0 3px #4c4c4c, 0 0 10px #afafaf, 0 0 5px #ffffff;
   color: white;
 
   width: calc(100% - #{nth($imageSize, 1) + 30px});
@@ -86,12 +86,19 @@ $imageSize: 100, 120;
         margin-top: 0.41em; 
       }
     }
-    h3{ max-height: 3.6em; }  
+    h3{ 
+      max-height: 3.6em; 
+      font-weight: 500;
+      padding: 0 5px;
+    }  
   }
 
   p{
     flex: 1 0 40%;
     max-height: 3.6em;
+    font-size: 1.1em;
+    font-weight: 500;
+    padding: 0 5px;
   }
 
   .sticked &{
@@ -99,6 +106,7 @@ $imageSize: 100, 120;
     text-shadow: none;
     color: inherit;
     
+    h3, p{ padding: 0; }    
     /* animation for h3 height is controlled by angular animation */
   }
 }

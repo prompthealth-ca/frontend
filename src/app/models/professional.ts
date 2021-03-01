@@ -176,6 +176,7 @@ export class Professional implements IProfessional {
   get endosements() { return this._endosements; }
   get organization() { return this._organization; }
   get certification() { return this._certification; }
+  get title() { return this.p.professional_title || null; }
   get professionals() { return (this.p.plan && this.p.plan.ListOfProviders) ? this._professionals : []; } /** showing professional is only for premium user */
 
   get mapLabel() { return (this.price ? this.price : null); }

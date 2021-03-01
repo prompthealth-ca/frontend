@@ -54,6 +54,7 @@ export class UserDetailsComponent {
     longitude: 0,
     licence_type_degree: '',
     professional_organization: '',
+    professional_title: '',
     accredited_provide_canada: false
   };
   userId = ''

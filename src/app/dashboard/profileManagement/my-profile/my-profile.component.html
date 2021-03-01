@@ -177,6 +177,16 @@
         </div>
       </div>
       
+      <div *ngIf="roles !== 'U'" class=" form-row mb-3">
+        <label class="col-md-3">Professional Title <span class="text-danger" *ngIf="editFields"></span></label>
+        <div class="col-md-9">
+
+          <input type="text" [disabled]="!editFields" autocomplete="off" id="title" name="title"
+            #title="ngModel" [(ngModel)]="profile.professional_title"
+            class="form-control" 
+            maxlength="200" />
+        </div>
+      </div>
       <div *ngIf="roles === 'SP'" class=" form-row mb-3">
         <label class="col-md-3">Professional Association <span class="text-danger" *ngIf="editFields"></span></label>
         <div class="col-md-9">

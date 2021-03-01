@@ -107,6 +107,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-6 mb-3">
         <label>Address (<b>Please select suggested Google address</b>)<span class="text-danger">*</span></label>
         <input type="text" id="address" name="address" class="form-control" placeholder="" (keyup)="trim('address')"
@@ -129,6 +130,7 @@
           <div *ngIf="userDetails.hideAddress == true" class="mt-2 mb-3 font-italic">You'll not be shown on the location based listing page</div>
         </div>
       </div>
+
       <div class="col-md-6 mb-3">
         <label>City <span class="text-danger">*</span></label>
         <input type="text" id="city" name="city" class="form-control" placeholder="" minlength="3" maxlength="50"
@@ -179,6 +181,17 @@
           </small>
         </div>        
       </div>
+
+      <div class="col-md-6 mb-3">
+        <div class="radio form-row mb-3">
+            <label>What is your professional title<span class="text-danger"></span></label>
+            <input type="text" id="professional_title" name="professional_title" class="form-control"
+              (keyup)="trim('professional_title')" #professional_title="ngModel" [ngModel]="userDetails.professional_title" number
+              (ngModelChange)="userDetails.professional_title = $event" 
+              maxlength="200" />
+        </div>
+
+      </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
         <div class="radio form-row mb-3">
             <label>What is your professional association<span class="text-danger"></span></label>
@@ -186,11 +199,11 @@
               (keyup)="trim('professional_organization')" #professional_organization="ngModel" [ngModel]="userDetails.professional_organization" number
               (ngModelChange)="userDetails.professional_organization = $event" 
               maxlength="200" />
-            <div class="error-block">
+            <!-- <div class="error-block">
               <small *ngIf="professional_organization.errors?.required && professional_organization.touched" class="text-danger">
                 Professional is required.
               </small>
-            </div>
+            </div> -->
         </div>
       </div>
       <div class="col-md-6 mb-3" *ngIf="roles === 'SP'">
@@ -200,11 +213,11 @@
             (keyup)="trim('certification')" #certification="ngModel" [ngModel]="userDetails.certification" number
             (ngModelChange)="userDetails.certification = $event" 
             maxlength="200" />
-          <div class="error-block">
+          <!-- <div class="error-block">
             <small *ngIf="certification.errors?.required && certification.touched" class="text-danger">
               Certitification is required.
             </small>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-md-6 mb-3">

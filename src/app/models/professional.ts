@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { QuestionnaireAnswer } from '../dashboard/questionnaire.service';
 import { Category } from '../shared/services/category.service';
-
+import { SocialLinkData } from '../shared/social-buttons/social-buttons.component';
 export interface IProfessional {
   id: string;
 
@@ -119,6 +119,17 @@ export class Professional implements IProfessional {
 
   private _banner: string; // todo: implement correctly. currently, this property not used.
   private _endosements: any[]; // todo: impliment correctly. currently, this property not used;
+  private _socialLink: {isAvailable: boolean, data: SocialLinkData} = {
+    isAvailable: false, 
+    data: {
+      facebook: null,
+      twitter: null,
+      instagram: null,
+      linkedin: null,
+      tiktok: null,
+      youtube: null,
+    }
+  }
 
   protected _allServiceId: string[];
 
@@ -251,6 +262,8 @@ export class Professional implements IProfessional {
 
   get allServiceId() { return this._allServiceId; }
 
+  get socialLink() { return this._socialLink; }
+
 
   get isCheckedForCompare() { return this._isCheckedForCompared; }
   set isCheckedForCompare(checked: boolean) { this._isCheckedForCompared = checked; }
@@ -316,6 +329,13 @@ export class Professional implements IProfessional {
 
     this._healthStatus = p.serviceCategories || [];
     this._allServiceId = p.services || [];
+
+    if(p.socialLinks && p.socialLinks.length > 0 && p.plan && p.plan.name !== 'Basic'){
+      this._socialLink.isAvailable = true;
+      p.socialLinks.forEach((d: {type: string; link: string})=>{
+        this._socialLink.data[d.type] = d.link;
+      });
+    }
   }
 
   populate(type: 'languages' | 'availability' | 'ageRange' | 'serviceDelivery', dataSet: QuestionnaireAnswer[]) {

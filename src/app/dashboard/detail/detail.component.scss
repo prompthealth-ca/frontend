@@ -29,7 +29,7 @@
 
 
 $transDurTabStick: 600ms;
-$imageSize: 100, 120;
+$imageSize: 100, 130;
 
 .ml-for-avoid-image{ 
   margin-left: #{nth($imageSize, 1) + 10px};
@@ -95,7 +95,7 @@ $imageSize: 100, 120;
 
   p{
     flex: 1 0 40%;
-    max-height: 3.6em;
+    max-height: 3.3em;
     font-size: 1.1em;
     font-weight: 500;
     padding: 0 5px;

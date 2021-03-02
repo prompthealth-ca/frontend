@@ -118,6 +118,7 @@ export class MySocialComponent implements OnInit {
 
       this._sharedService.loader('hide');
     }, err => {
+      this._sharedService.loader('hide');
       this._toastr.error('There are some errors, please try again after some time !', 'Error');
     });
 

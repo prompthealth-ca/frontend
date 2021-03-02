@@ -77,26 +77,25 @@ $imageSize: 100, 130;
 
   .title-wrapper{
     flex-basis: auto;
+    padding: 0 5px;
 
     .fa-clinic-medical { 
       font-size: 1em;
-      margin-top: 0.34em;
+      margin-top: 0.2em;
       @media screen and (min-width: 768px){ 
         font-size: 1.1em;
-        margin-top: 0.41em; 
+        margin-top: 0.35em; 
       }
     }
     h3{ 
       max-height: 3.6em; 
       font-weight: 500;
-      padding: 0 5px;
     }  
   }
 
   p{
     flex: 1 0 40%;
     max-height: 3.3em;
-    font-size: 1.1em;
     font-weight: 500;
     padding: 0 5px;
   }
@@ -106,7 +105,7 @@ $imageSize: 100, 130;
     text-shadow: none;
     color: inherit;
     
-    h3, p{ padding: 0; }    
+    .title-wrapper, p{ padding: 0; }    
     /* animation for h3 height is controlled by angular animation */
   }
 }

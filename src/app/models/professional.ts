@@ -162,6 +162,7 @@ export class Professional implements IProfessional {
     if (this._website && match) { label = match[1]; }
     return label;
   }
+  get bookingUrl(){ return this.p.bookingURL || null; }
   get location() { return this._location; }
   get distance() { return this._distance; }
   get provideVirtual() { return this._provideVirtual; }

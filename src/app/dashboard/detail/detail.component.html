@@ -7,10 +7,10 @@
     <div class="d-flex-column d-wrap ml-for-avoid-image profile-info"
       [ngClass]="{sticked: isTabSticked}"
     >
-      <p *ngIf="userInfo?.title" class="mb-2 overflow-hidden" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">{{userInfo?.title}} </p> 
+      <p *ngIf="userInfo?.title" class="mb-2 overflow-hidden fong-regular font-mg-big" [@expandSubtitle]="(isTabSticked? 'shrink' : 'expand')">{{userInfo?.title}} </p> 
       <div class="d-flex align-items-start title-wrapper">
         <i class="fas fa-clinic-medical pr-2" *ngIf="userInfo?.isCentre"></i>
-        <h3 class='mb-0 font-bigger font-md-biggest overflow-hidden' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">
+        <h3 class='mb-0 font-big font-mg-biggest overflow-hidden' [@expandTitle]="(isTabSticked? 'shrink' : 'expand')">
           {{userInfo?.name | titlecase}}
         <i class="fas fa-video px-1" *ngIf="userInfo && userInfo.provideVirtual"></i>
       </h3>  
@@ -258,8 +258,11 @@
               </tr>
             </tbody>
           </table>
-          <button *ngIf="isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
-          <button *ngIf="!isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#messagemodal">Login to Book</button>
+          <ng-container *ngIf="userInfo">
+            <a *ngIf="userInfo.bookingUrl" class="btn border-blue text-blue px-5" [href]="userInfo.bookingUrl" target="_blank">Book</a>
+            <button *ngIf="!userInfo.bookingUrl && isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
+            <button *ngIf="!userInfo.bookingUrl && !isLoggedIn" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#messagemodal">Login to Book</button>  
+          </ng-container>
         </div>
   
         <!-- videos-->

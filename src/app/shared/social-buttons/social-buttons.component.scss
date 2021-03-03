@@ -16,11 +16,13 @@ ul li:not(:last-child){
   overflow: hidden;
   border-radius: 40px;
 
-  .svg-twitter{
+  .svg-twitter, .svg-spotify{
     width: 70%;
     height: 70%;
     margin: 15%;
   }
+
+
 
   &:first-child{  background: #5d68e1; } 
   &:nth-child(2){ background: #9d5acc; }

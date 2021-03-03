@@ -12,6 +12,7 @@ export class SocialButtonsComponent implements OnInit {
     twitter: null,
     linkedin: 'https://www.linkedin.com/company/prompthealth/',
     instagram: 'https://www.instagram.com/prompthealth/',
+    spotify: 'https://open.spotify.com/show/41ZlPBco8J5LNyrVE5Zg5k',
     tiktok: 'https://www.tiktok.com/@prompthealth',
     youtube: 'https://www.youtube.com/channel/UCnMigPMOdit9i6koo3-VSMg',
   }
@@ -41,6 +42,7 @@ export interface SocialLinkData {
   twitter: string;
   linkedin: string;
   instagram: string;
+  spotify?: string;
   tiktok: string;
   youtube: string;
 }

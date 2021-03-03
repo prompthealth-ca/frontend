@@ -14,6 +14,7 @@ export class StepperComponent implements OnInit {
     {label: 'Availability'}
   ];
 
+  @Input() type: string = 'regular';
   @Input() current: number = 0;
 
   constructor() { }
@@ -25,4 +26,5 @@ export class StepperComponent implements OnInit {
 
 export interface StepperItem {
   label: string;
+  route?: string;
 }

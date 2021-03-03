@@ -98,6 +98,53 @@ export class SharedService {
     return throwError(error);
   }
 
+  async shrinkImage(file: File, maxFileSize: number = 10 * 1000 * 1000, ratioSize: number = 0.8, ratioQuality: number = 0.8): Promise<{file: Blob, filename: string}>{
+    return new Promise((resolve, reject)=>{
+      if(file.size > maxFileSize){
+        const img = new Image();
+        img.onload = (e: any)=>{
+          const t = e.target;
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(t.width * ratioSize); 
+          canvas.height = Math.round(t.height * ratioSize);
+          const ctx = canvas.getContext('2d');
+  
+          ctx.drawImage(t, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((b: Blob) => {
+            if(b.size >= maxFileSize){ reject('size is too big'); }
+            else{ 
+              const filename = Date.now().toString() + '.' + b.type.replace('image/', '');
+              resolve({file: b, filename: filename}); 
+            }
+          }, file.type, ratioQuality);  
+        }
+        img.src = URL.createObjectURL(file);
+      }else{
+        resolve({file: file, filename: file.name});
+      }
+    });
+  }
+
+  async shrinkImageByFixedHeight(file: File, height: number = 100): Promise<{file: Blob, filename: string}>{
+    return new Promise((resolve, reject)=>{
+      const img = new Image();
+      img.onload = (e: any)=>{
+        const t = e.target;
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * height / img.height; 
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((b: Blob) => {
+          const filename = Date.now().toString() + '.' + b.type.replace('image/', '');
+          resolve({file: b, filename: filename});
+        }, file.type);
+      }
+      img.src = URL.createObjectURL(file);
+    })
+  }
+
   imgUpload(body, path) {
     let headers = this.getAuthorizationHeader();
     headers = headers.delete('Content-Type');

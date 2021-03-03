@@ -1,5 +1,6 @@
 $colorBlueInactive: #8EB5E2;
 
+/** stepper for medium view or more */
 .stepper-road{
   position: absolute;
   width: 100%;
@@ -32,6 +33,7 @@ $colorBlueInactive: #8EB5E2;
 
 
   .point{
+    position: relative;
     width: 24px;
     height: 24px;
     margin: 0 auto 15px;
@@ -53,6 +55,7 @@ $colorBlueInactive: #8EB5E2;
       transform: scale(1.1);
       transform-origin: center;
     }
+
   }
 }
 
@@ -60,4 +63,31 @@ $colorBlueInactive: #8EB5E2;
   .stepper-item{
     flex: 0 0 25%;
   }
+}
+
+
+/** stepper for small view */
+.stepper-simple-road{
+  position: relative;
+  width: 100%;
+  height: 15px;
+  background: $colorBlueInactive;
+
+  &::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--ph-blue);
+    transition: transform 300ms;
+    transform-origin: left;
+  }
+}
+.item-count-simple-4{
+  .pos-0::after{ transform: scaleX(0.25); }
+  .pos-1::after{ transform: scaleX(0.50); }
+  .pos-2::after{ transform: scaleX(0.75); }
+  .pos-3::after{ transform: scaleX(1); }
 }

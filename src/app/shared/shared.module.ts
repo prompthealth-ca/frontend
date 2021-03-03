@@ -23,6 +23,8 @@ import { StepperComponent } from './stepper/stepper.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormTextareaComponent } from './form-textarea/form-textarea.component';
 import { FormInputAddressComponent } from './form-input-address/form-input-address.component';
+import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
+import { FormErrorsComponent } from './form-errors/form-errors.component';
 
 @NgModule({
   imports: [
@@ -53,6 +55,8 @@ import { FormInputAddressComponent } from './form-input-address/form-input-addre
     FormInputComponent,
     FormTextareaComponent,
     FormInputAddressComponent,
+    FormCheckboxComponent,
+    FormErrorsComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -71,6 +75,8 @@ import { FormInputAddressComponent } from './form-input-address/form-input-addre
     FormInputComponent,
     FormTextareaComponent,
     FormInputAddressComponent,
+    FormCheckboxComponent,
+    FormErrorsComponent
   ]
 })
 export class SharedModule { }

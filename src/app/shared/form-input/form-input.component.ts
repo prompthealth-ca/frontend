@@ -12,7 +12,9 @@ export class FormInputComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
+  @Input() disabled: boolean = false;
   @Input() submitted: boolean = false;
+  @Input() prepend: string = null;
 
   @Input() controller: FormControl;
   @Input() max: number = null;
@@ -21,6 +23,7 @@ export class FormInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

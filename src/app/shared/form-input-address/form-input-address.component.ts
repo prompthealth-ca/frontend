@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 
 @Component({
@@ -13,11 +13,14 @@ export class FormInputAddressComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() submitted: boolean = false;
-  @Input() controller: FormControl;
+  @Input() controllerGroup: FormGroup;
 
-  @Output() selectAddress = new EventEmitter<AddressData>();
 
-  public place: AddressData = null;
+  get address(){ return this.controllerGroup.controls.address; }
+  get errorGoogleSuggestion(){
+    const cs = this.controllerGroup.controls;
+    return !!(cs.state.invalid || cs.city.invalid || cs.zipcode.invalid || cs.latitude.invalid || cs.longitude.invalid);
+  }
 
   private host: HTMLElement;
 
@@ -40,33 +43,27 @@ export class FormInputAddressComponent implements OnInit {
   }
 
   setAddress(p: google.maps.places.PlaceResult){
+    const cs = this.controllerGroup.controls;
+    cs.address.patchValue(p.name);
+
     if(p.geometry){
-      this.place = {
-        location: { lat: p.geometry.location.lat(), lng: p.geometry.location.lng() },
-        address: p.name, 
-        city: null,
-        state: null,
-        zipcode: null
-      }
+      cs.latitude.patchValue(p.geometry.location.lat());
+      cs.longitude.patchValue(p.geometry.location.lng());
 
       p.address_components.forEach(c=>{
-        if(c.types.indexOf('administrative_area_level_2') >= 0){ this.place.state = c.long_name; }
-        else if(c.types.indexOf('postal_code') >= 0){ this.place.zipcode = c.long_name; }
-        else if(c.types.indexOf('locality')){ this.place.city = c.long_name; }
+        if(c.types.indexOf('administrative_area_level_2') >= 0){ cs.state.patchValue(c.long_name); }
+        else if(c.types.indexOf('postal_code') >= 0){ cs.zipcode.patchValue(c.long_name); }
+        else if(c.types.indexOf('locality')){ cs.city.patchValue(c.long_name); }
       });
-
-      this.controller.patchValue(this.place.address);
+      
       this._changeDetector.markForCheck();
-      this.selectAddress.emit(this.place);
     }
-    else{ this.place = null; }
+    else{
+      cs.latitude.patchValue(0);
+      cs.longitude.patchValue(0);
+      cs.state.patchValue('');
+      cs.city.patchValue('');
+      cs.zipcode.patchValue('');
+    }
   }
-}
-
-export interface AddressData {
-  address: string;
-  location: {lat: number, lng: number};
-  city: string;
-  state: string;
-  zipcode: string;    
 }

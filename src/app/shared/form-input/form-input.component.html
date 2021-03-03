@@ -1,18 +1,15 @@
 <div class="input-group">
+  <div class="input-group-prepend" *ngIf="prepend">
+    <span class="input-group-text">{{prepend}}</span>
+  </div>
   <input [type]="type" [id]="name" class="form-control" 
-  [formControl]="controller"
+  [formControl]="controller" [attr.disabled]="disabled ? 'disabled' : null"
+  [placeholder]="placeholder"
   >
 </div>
-<div class="d-flex justify-content-end mt-1 font-small">
-  <ul class="errors text-danger flex-grow-1" *ngIf="controller.invalid && submitted">
-    <li *ngIf="controller.errors.required">{{label}} is required.</li>
-    <li *ngIf="controller.errors.minlength">{{label}} too short.</li>
-    <li *ngIf="controller.errors.maxlength">{{label}} too long.</li>
-    <li *ngIf="controller.errors.email">{{label}} is invalid.</li>
-    <li *ngIf="controller.errors.pattern">{{label}} is invalid.</li>
-  </ul> 
-
-  <span *ngIf="max > 0" class="flex-grow-0" 
+<div class="d-flex justify-content-end mt-1">
+  <form-errors class="flex-grow-1" [controller]="controller" [submitted]="submitted" [label]="label"></form-errors>
+  <span *ngIf="max > 0" class="flex-grow-0 font-small" 
   [ngClass]="!controller.dirty ? 'text-secondary' : controller.errors ? 'text-danger' : 'text-success'"
   >{{controller.value.length}}/{{max}}</span>
 </div>

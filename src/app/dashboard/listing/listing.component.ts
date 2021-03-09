@@ -430,10 +430,11 @@ export class ListingComponent implements OnInit, OnDestroy {
           professional.setMapIcon();
           if (languageSet && languageSet.length > 0) { professional.populate('languages', languageSet); }
           professionals.push(professional);
+          console.log(professional.name, professional.isVerified);
         });
 
         this.professionals = professionals;
-        this.professionals = this.professionals.sort((a, b) => a.distance - b.distance);
+        // this.professionals = this.professionals.sort((a, b) => a.distance - b.distance);
 
         //        this.createNameList(this.doctorsListing); // todo: can be deleted
 

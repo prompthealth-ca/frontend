@@ -430,7 +430,6 @@ export class ListingComponent implements OnInit, OnDestroy {
           professional.setMapIcon();
           if (languageSet && languageSet.length > 0) { professional.populate('languages', languageSet); }
           professionals.push(professional);
-          console.log(professional.name, professional.isVerified);
         });
 
         this.professionals = professionals;

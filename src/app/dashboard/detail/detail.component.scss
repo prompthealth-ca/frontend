@@ -116,7 +116,6 @@ $imageSize: 100, 130;
   overflow: hidden;
   transform-origin: bottom left;
   transition: transform $transDurTabStick;
-  background: white;
 
   width: nth($imageSize, 1) + 0px;
   height: nth($imageSize, 1) + 0px;
@@ -133,7 +132,7 @@ $imageSize: 100, 130;
     }
   }
 
-  img{
+  user-image{
     position: absolute;
     top: 0;
     left: 0;
@@ -142,6 +141,16 @@ $imageSize: 100, 130;
     object-fit: cover;
   }
 }
+
+.profile-image.verified{
+  overflow: inherit;
+  border: none;
+
+  .sticked &{ 
+    border: none;
+  }
+}
+
 
 .tab-item{ 
   transition-duration: $transDurTabStick;

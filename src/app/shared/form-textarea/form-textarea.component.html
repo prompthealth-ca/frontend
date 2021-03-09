@@ -3,6 +3,8 @@
   class="form-control" 
   [id]="name"
   [formControl]="controller"
+  [attr.disabled]="disabled ? 'disabled' : null"
+  [placeholder]="placeholder"
   rows="3"
   ></textarea>
 </div>

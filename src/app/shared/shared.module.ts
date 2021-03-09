@@ -25,6 +25,8 @@ import { FormTextareaComponent } from './form-textarea/form-textarea.component';
 import { FormInputAddressComponent } from './form-input-address/form-input-address.component';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 import { FormErrorsComponent } from './form-errors/form-errors.component';
+import { BadgeVerifiedComponent } from './badge-verified/badge-verified.component';
+import { UserImageComponent } from './user-image/user-image.component';
 
 @NgModule({
   imports: [
@@ -57,6 +59,8 @@ import { FormErrorsComponent } from './form-errors/form-errors.component';
     FormInputAddressComponent,
     FormCheckboxComponent,
     FormErrorsComponent,
+    BadgeVerifiedComponent,
+    UserImageComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -76,7 +80,9 @@ import { FormErrorsComponent } from './form-errors/form-errors.component';
     FormTextareaComponent,
     FormInputAddressComponent,
     FormCheckboxComponent,
-    FormErrorsComponent
+    FormErrorsComponent,
+    BadgeVerifiedComponent,
+    UserImageComponent,
   ]
 })
 export class SharedModule { }

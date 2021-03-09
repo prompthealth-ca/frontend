@@ -188,7 +188,7 @@
             <input type="text" id="professional_title" name="professional_title" class="form-control"
               (keyup)="trim('professional_title')" #professional_title="ngModel" [ngModel]="userDetails.professional_title" number
               (ngModelChange)="userDetails.professional_title = $event" 
-              maxlength="200" />
+              maxlength="30" />
         </div>
 
       </div>

@@ -106,6 +106,7 @@ export class WrapperComponent implements OnInit {
   addMenuItem(title: string, isActive: boolean){
     switch(title){
       case 'social': this.listing.push({title: 'Social', link: 'my-social', active: isActive}); break;
+      case 'badge': this.listing.push({title: 'Badges', link: 'my-badge', active: isActive}); break;
     }
   }
 
@@ -124,6 +125,7 @@ export class WrapperComponent implements OnInit {
       if (profile.isVipAffiliateUser) {
         if (profile.roles === 'SP') {
           this.addMenuItem('social', true); 
+          this.addMenuItem('badge', true);
 
           this.listing.push({
             title: 'Subscription',
@@ -159,6 +161,7 @@ export class WrapperComponent implements OnInit {
 
         } else if (profile.roles === 'C') {
           this.addMenuItem('social', true); 
+          this.addMenuItem('badge', true);
 
           this.listing.push({
             title: 'Booking',
@@ -215,6 +218,7 @@ export class WrapperComponent implements OnInit {
               active: true,
             });
             this.addMenuItem('social', false); 
+            this.addMenuItem('badge', false);
 
             this.listing.push({
               title: 'Booking',
@@ -233,6 +237,7 @@ export class WrapperComponent implements OnInit {
             });
           } else {
             this.addMenuItem('social', true); 
+            this.addMenuItem('badge', true);
 
             this.listing.push({
               title: 'Booking',
@@ -280,6 +285,7 @@ export class WrapperComponent implements OnInit {
             active: true,
           });
           this.addMenuItem('social', false); 
+          this.addMenuItem('badge', false);
 
           this.listing.push({
             title: 'Booking',
@@ -299,6 +305,7 @@ export class WrapperComponent implements OnInit {
           });
         } else {
           this.addMenuItem('social', true); 
+          this.addMenuItem('badge', true);
 
           this.listing.push({
             title: 'Booking',

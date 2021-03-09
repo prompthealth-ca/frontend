@@ -139,9 +139,10 @@ export class Professional implements IProfessional {
   get id() { return this._id; }
   get name() { return this._name; }
   get firstname() { return this._firstname; }
-  get image() { return this._image ? this._baseURLImage + '350x220/' + this._image + '?ver=1.0.1' : '/assets/img/no-image.jpg'; }
-  get imageFull() { return this._image ? this._baseURLImage + this._image + '?ver=1.0.1' : '/assets/img/no-image.jpg'; }
+  get image() { return this._image ? this._baseURLImage + '350x220/' + this._image + '?ver=1.0.2' : '/assets/img/no-image.jpg'; }
+  get imageFull() { return this._image ? this._baseURLImage + this._image + '?ver=1.0.2' : '/assets/img/no-image.jpg'; }
   get banner() { return this._banner ? this._baseURLImage + this._banner : '/assets/img/professional-banner.png'; }
+  get isVerified() { return this.p.verifiedBadge || false; }
   get role() { return this._roles.toString(); }
   get description() { return this._description; }
   get phone() { return this._phone; }

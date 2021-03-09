@@ -74,6 +74,29 @@ export class SharedService {
     const url = this.rootUrl + path;
     return this.http.get(url, { params });
   }
+  
+  downloadFile(filepath: string, filename: string = null): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const headers = this.getAuthorizationHeader();
+      return this.http.post(this.rootUrl + '/common/file-download', {fileKey: filepath}, { headers, responseType: 'blob' }).subscribe((res: any) => {
+
+        if(!filename){
+          const array = filepath.split('/');
+          filename = array[array.length - 1];
+        }
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(res);        
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(res);
+        resolve(true);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
   post(body, path) {
     const headers = this.getAuthorizationHeader();
     return this.http.post(this.rootUrl + path, body, { headers }).pipe(
@@ -150,6 +173,13 @@ export class SharedService {
     headers = headers.delete('Content-Type');
     return this.http.post(this.rootUrl + path, body, { headers });
   }
+
+  imgUploadPut(body, path) {
+    let headers = this.getAuthorizationHeader();
+    headers = headers.delete('Content-Type');
+    return this.http.put(this.rootUrl + path, body, { headers });
+  }
+  
   put(body, path) {
     const headers = this.getAuthorizationHeader();
     return this.http.put(this.rootUrl + path, body, { headers });

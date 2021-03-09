@@ -12,6 +12,7 @@ export class FormTextareaComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() submitted: boolean = false;
+  @Input() disabled: boolean = false;
 
   @Input() controller: FormControl;
   @Input() max: number = null;

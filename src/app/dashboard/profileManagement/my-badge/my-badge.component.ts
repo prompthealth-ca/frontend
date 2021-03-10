@@ -169,16 +169,18 @@ export class MyBadgeComponent implements OnInit {
     }
 
     if(this.data){
-      this._sharedService.loader('show');
-      try { 
-        await this.addFiles(filesUploading);
-        this._toastr.success(`Success! ${filesUploading.length} ${(filesUploading.length > 1) ? 'files' : 'file'} added.`);
-      } 
-      catch(error) {
-        console.log(error);
-        this._toastr.error('There are some errors, please try again after some time !');
+      if(filesUploading.length > 0){
+        this._sharedService.loader('show');
+        try { 
+          await this.addFiles(filesUploading);
+          this._toastr.success(`Success! ${filesUploading.length} ${(filesUploading.length > 1) ? 'files' : 'file'} added.`);
+        } 
+        catch(error) {
+          console.log(error);
+          this._toastr.error('There are some errors, please try again after some time !');
+        }
+        this._sharedService.loader('hide');
       }
-      this._sharedService.loader('hide');
     }
     else{
       this.files = filesUploading;

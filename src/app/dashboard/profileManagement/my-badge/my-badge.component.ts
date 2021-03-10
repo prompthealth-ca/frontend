@@ -168,8 +168,8 @@ export class MyBadgeComponent implements OnInit {
       }
     }
 
-    if(this.data){
-      if(filesUploading.length > 0){
+    if(filesUploading.length > 0){
+      if(this.data){
         this._sharedService.loader('show');
         try { 
           await this.addFiles(filesUploading);
@@ -181,9 +181,11 @@ export class MyBadgeComponent implements OnInit {
         }
         this._sharedService.loader('hide');
       }
-    }
-    else{
-      this.files = filesUploading;
+      else{
+        filesUploading.forEach(f => {
+          this.files.push(f);
+        });
+      }
     }
 
     if(filesTooBig.length > 0){

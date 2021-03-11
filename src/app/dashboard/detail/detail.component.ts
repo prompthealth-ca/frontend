@@ -444,7 +444,7 @@ export class DetailComponent implements OnInit {
     };
     // console.log(type);
     this._sharedService.postNoAuth(data, 'user/update-social-count').subscribe(res => {
-      console.log(res);
+      // console.log(res);
     });
   }
 }

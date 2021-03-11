@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
         lastName: x.lastName
 
       };
-      console.log(x);
+      // console.log(x);
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
         if (res.statusCode === 200) {

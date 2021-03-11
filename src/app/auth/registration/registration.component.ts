@@ -88,7 +88,7 @@ export class RegistrationComponent implements OnInit {
         firstName: x.firstName,
         lastName: x.lastName
       };
-      console.log(x);
+      // console.log(x);
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
         this._sharedService.loader('hide');
         console.log(res);

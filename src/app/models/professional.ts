@@ -119,8 +119,8 @@ export class Professional implements IProfessional {
 
   private _banner: string; // todo: implement correctly. currently, this property not used.
   private _endosements: any[]; // todo: impliment correctly. currently, this property not used;
-  private _socialLink: {isAvailable: boolean, data: SocialLinkData} = {
-    isAvailable: false, 
+  private _socialLink: { isAvailable: boolean, data: SocialLinkData } = {
+    isAvailable: false,
     data: {
       facebook: null,
       twitter: null,
@@ -129,7 +129,7 @@ export class Professional implements IProfessional {
       tiktok: null,
       youtube: null,
     }
-  }
+  };
 
   protected _allServiceId: string[];
 
@@ -163,12 +163,12 @@ export class Professional implements IProfessional {
     if (this._website && match) { label = match[1]; }
     return label;
   }
-  get bookingUrl(){ return this.p.bookingURL || null; }
+  get bookingUrl() { return this.p.bookingURL || null; }
   get location() { return this._location; }
   get distance() { return this._distance; }
   get provideVirtual() { return this._provideVirtual; }
   get practicePhilosophy() { return this._practicePhilosophy; }
-  get videos() { return (this.p.plan && this.p.plan.videoUpload)? this._videos : []; } /** showing videos are available only for premium user */
+  get videos() { return (this.p.plan && this.p.plan.videoUpload) ? this._videos : []; } /** showing videos are available only for premium user */
   get yearsOfExperience() { return this._yearsOfExperience; }
   get languages() {
     const languages = [];
@@ -237,24 +237,24 @@ export class Professional implements IProfessional {
     return (this._amenities && this._amenities.length > 0 && this.p.plan && this.p.plan.ListAmenities) ? this._amenities : [];
   }
 
-  get amenityPreview(){ /** showing amenity is only for premium feature */
-    const result = []
-    if(this._amenities && this._amenities.length > 0 && this.p.plan && this.p.plan.ListAmenities){
-      this._amenities.forEach(a => { a.images.forEach(image=>{ result.push(image); }) });
+  get amenityPreview() { /** showing amenity is only for premium feature */
+    const result = [];
+    if (this._amenities && this._amenities.length > 0 && this.p.plan && this.p.plan.ListAmenities) {
+      this._amenities.forEach(a => { a.images.forEach(image => { result.push(image); }); });
     }
-    return (result.length > 3) ? result.slice(0,3) : result;
+    return (result.length > 3) ? result.slice(0, 3) : result;
   }
-  
-  get product(){ /** showing product is only for premium feature */
+
+  get product() { /** showing product is only for premium feature */
     return (this._products && this._products.length > 0 && this.p.plan && this.p.plan.ListProductsOption) ? this._products : [];
   }
-  
-  get productPreview(){ /** showing product is only for premium feature */
+
+  get productPreview() { /** showing product is only for premium feature */
     const result = [];
-    if(this._products && this._products.length > 0 && this.p.plan && this.p.plan.ListProductsOption){
+    if (this._products && this._products.length > 0 && this.p.plan && this.p.plan.ListProductsOption) {
       this._products.forEach(p => { result.push(p.images[0]); });
     }
-    return (result.length > 3) ? result.slice(0,3) : result;
+    return (result.length > 3) ? result.slice(0, 3) : result;
   }
 
   get healthStatus() {
@@ -273,7 +273,7 @@ export class Professional implements IProfessional {
   uncheckForCompare() { this._isCheckedForCompared = false; }
 
   constructor(id: string, private p: any, ans?: any) {
-    console.log(p);
+    // console.log(p);
     this._id = id;
     this._rowUserData = p;
     this._rowAns = ans;
@@ -334,9 +334,9 @@ export class Professional implements IProfessional {
     this._healthStatus = p.serviceCategories || [];
     this._allServiceId = p.services || [];
 
-    if(p.socialLinks && p.socialLinks.length > 0 && ( (p.plan && p.plan.name !== 'Basic') || p.isVipAffiliateUser )){
+    if (p.socialLinks && p.socialLinks.length > 0 && ((p.plan && p.plan.name !== 'Basic') || p.isVipAffiliateUser)) {
       this._socialLink.isAvailable = true;
-      p.socialLinks.forEach((d: {type: string; link: string})=>{
+      p.socialLinks.forEach((d: { type: string; link: string }) => {
         this._socialLink.data[d.type] = d.link;
       });
     }
@@ -388,26 +388,26 @@ export class Professional implements IProfessional {
     const a = [];
     amenities.forEach(amenity => {
       const images: ImageData[] = [];
-      amenity.images.forEach((image: string)=>{ 
+      amenity.images.forEach((image: string) => {
         images.push({
-          url: this._baseURLImage + image, 
+          url: this._baseURLImage + image,
           name: amenity.defaultamenityId.item_text
-        }); 
+        });
       });
       a.push({
         id: amenity.defaultamenityId._id,
         item_text: amenity.defaultamenityId.item_text,
-        images: images
+        images
       });
     });
     this._amenities = a;
   }
 
-  setProducts(products: any[]){
+  setProducts(products: any[]) {
     this._products = [];
-    products.forEach(p=>{
+    products.forEach(p => {
       const images: ImageData[] = [];
-      p.images.forEach((image: string)=>{ 
+      p.images.forEach((image: string) => {
         images.push({
           name: p.title,
           url: this._baseURLImage + image,
@@ -418,20 +418,20 @@ export class Professional implements IProfessional {
         id: p._id,
         item_text: p.title,
         desc: p.description,
-        images: images,
+        images,
         price: p.price
       });
     });
   }
 
-  setReviews(reviews: any[]) { 
-    this.p.ratingBy.forEach((r0: any)=>{
-      for(let r1 of reviews){
-        if(r1._id == r0.bookingId){
+  setReviews(reviews: any[]) {
+    this.p.ratingBy.forEach((r0: any) => {
+      for (const r1 of reviews) {
+        if (r1._id == r0.bookingId) {
           const name = [];
-          if(r1.customerId.firstName){ name.push(r1.customerId.firstName); }
-          if(r1.customerId.lastName){  name.push(r1.customerId.lastName); }
-    
+          if (r1.customerId.firstName) { name.push(r1.customerId.firstName); }
+          if (r1.customerId.lastName) { name.push(r1.customerId.lastName); }
+
           this._reviews.push({
             name: (name.length > 0) ? name.join(' ') : 'Anonymous',
             image: (r1.customerId.profileImage) ? this._baseURLImage + '350x220/' + r1.customerId.profileImage : '/assets/img/no-image.jpg',
@@ -584,8 +584,8 @@ export interface ImageData {
 }
 
 export interface Review {
-  name: string, 
-  image: string,
+  name: string;
+  image: string;
   rate: number;
   review: string;
   createdAt: Date;

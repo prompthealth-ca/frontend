@@ -108,7 +108,13 @@ export class WrapperComponent implements OnInit, OnDestroy {
     link: 'my-product',
     active,
   })
-
+  public performanceTab = (active) => ({
+    description: 'Your stats at a glance',
+    title: 'Performance',
+    link: 'my-performance',
+    active,
+  })
+  
   // tslint:disable-next-line: member-ordering
   listing: any[] = [
     this.profileTab(true),
@@ -199,6 +205,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
 
       if (profile.isVipAffiliateUser) {
         if (profile.roles === 'SP') {
+          this.listing.unshift(this.performanceTab(true));
           this.addMenuItem('social', true);
           this.addMenuItem('badge', true);
 
@@ -217,6 +224,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
 
 
         } else if (profile.roles === 'C') {
+          this.listing.unshift(this.performanceTab(true));
           this.addMenuItem('social', true);
           this.addMenuItem('badge', true);
 
@@ -234,6 +242,8 @@ export class WrapperComponent implements OnInit, OnDestroy {
           if (!profile.plan || profile.plan.name.toLowerCase() === 'basic') {
             this.listing.push(this.subscriptionTab(true));
             this.listing.push(this.paymentTab(true));
+
+            this.listing.push(this.performanceTab(false));
             this.addMenuItem('social', false);
             this.addMenuItem('badge', false);
 
@@ -241,6 +251,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
             this.listing.push(this.videoTab(false));
             this.listing.push(this.reviewTab(false));
           } else {
+            this.listing.unshift(this.performanceTab(true));
             this.addMenuItem('social', true);
             this.addMenuItem('badge', true);
 
@@ -261,6 +272,8 @@ export class WrapperComponent implements OnInit, OnDestroy {
         if (!profile.plan || profile.plan.name.toLowerCase() === 'basic') {
           this.listing.push(this.subscriptionTab(true));
           this.listing.push(this.paymentTab(true));
+
+          this.listing.push(this.performanceTab(false));
           this.addMenuItem('social', false);
           this.addMenuItem('badge', false);
 
@@ -273,6 +286,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
 
           this.listing.push(this.reviewTab(false));
         } else {
+          this.listing.unshift(this.performanceTab(true));
           this.addMenuItem('social', true);
           this.addMenuItem('badge', true);
 

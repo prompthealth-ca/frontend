@@ -78,7 +78,7 @@ export class HeaderComponent implements OnInit {
   // Start ngOninit
   ngOnInit() {
 
-    const isTouchEnabled = ('ontouchstart' in window) ? 'touchEnable' : 'touchDisable';
+    const isTouchEnabled = !!('ontouchstart' in window);
     if(navigator.userAgent.toLowerCase().match('ipad|android|iphone') || (isTouchEnabled && navigator.userAgent.toLowerCase().match('mac')) ){
       this.isMenuMobileForcibly = true;
     }

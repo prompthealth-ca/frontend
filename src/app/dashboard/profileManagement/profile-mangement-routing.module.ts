@@ -32,8 +32,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'my-profile',
-        component: MyProfileComponent
+        redirectTo: 'my-performance',
       },
       {
         path: 'my-profile',

@@ -157,7 +157,7 @@ export class DetailComponent implements OnInit {
 
 
         this.userInfo.videos.forEach(v => {
-          var ytIframeHtml = this._embedService.embed(v.url);
+          const ytIframeHtml = this._embedService.embed(v.url);
           ytIframeHtml.title = v.title;
           this.iframe.push(ytIframeHtml);
         });
@@ -189,17 +189,16 @@ export class DetailComponent implements OnInit {
       this._sharedService.getNoAuth(path).subscribe((res: any) => {
         if (res.statusCode === 200) {
           if (res.data && res.data.length > 0) {
-            var user: any = res.data[0];
+            const user: any = res.data[0];
             this.userInfo = new Professional(user._id, user);
             resolve(true);
-          }
-          else { reject('There are some error please try after some time.'); }
+          } else { reject('There are some error please try after some time.'); }
         } else { reject(res.message); }
       }, err => {
         console.log(err);
         reject('There are some error please try after some time.');
-      })
-    })
+      });
+    });
   }
 
 
@@ -208,7 +207,7 @@ export class DetailComponent implements OnInit {
       const path = `questionare/get-profile-questions`;
       this._sharedService.getNoAuth(path).subscribe((res: any) => {
         if (res.statusCode === 200) {
-          var questions = res.data;
+          const questions = res.data;
           questions.forEach((e: any) => {
             if (e.question_type === 'service' && e.slug === 'offer-your-services') {
               this.serviceDeliverySet = e.answers;
@@ -220,14 +219,13 @@ export class DetailComponent implements OnInit {
               this.availabilitySet = e.answers;
             }
           });
-          resolve(true)
-        }
-        else { reject(res.message); }
+          resolve(true);
+        } else { reject(res.message); }
       }, err => {
         console.log(err);
         reject('There are some error please try after some time.');
       });
-    })
+    });
   }
 
   getProducts() {
@@ -269,7 +267,7 @@ export class DetailComponent implements OnInit {
         console.log(error);
         reject('There are some error please try after some time.');
       });
-    })
+    });
   }
 
   getReviews() {
@@ -277,7 +275,7 @@ export class DetailComponent implements OnInit {
     const path = `booking/get-all-review?userId=${this.id}&count=10&page=1&search=/`;
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
       if (res.statusCode === 200 && res.data.data.length > 0) {
-        this.userInfo.setReviews(res.data.data)
+        this.userInfo.setReviews(res.data.data);
 
       } else {
         this._sharedService.checkAccessToken(res.message);
@@ -306,13 +304,12 @@ export class DetailComponent implements OnInit {
             }
           });
           resolve(true);
-        }
-        else { reject('There are some error please try after some time.') }
+        } else { reject('There are some error please try after some time.'); }
       }, (error) => {
         console.log(error);
         this._toastr.error('There are some error please try after some time.');
       });
-    })
+    });
 
   }
 

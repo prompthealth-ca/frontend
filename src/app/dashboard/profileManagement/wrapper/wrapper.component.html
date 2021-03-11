@@ -36,7 +36,7 @@
                 [routerLink]="list.link"
                 [routerLinkActive]="['active']"
                 >
-                <div class="flex-grow-1">
+                <div class="flex-grow-1 d-flex align-items-center flex-wrap">
                   <span class="lead">
                     <b>{{ list.title }}</b>
                   </span>
@@ -44,7 +44,7 @@
                     <i class="fas fa-ribbon"></i>
                     <span class="pl-2">VIP</span>
                   </div>
-                  <div *ngIf="list.description" style=" font-size: 12px;" >
+                  <div *ngIf="list.description" style=" font-size: 12px;" class="w-100">
                     {{list.description}}
                   </div>  
                 </div>

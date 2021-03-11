@@ -50,8 +50,8 @@
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
         </div>
-        <div class="nav-item" (click)="showMenu()">
-          <a class="nav-link">Category</a>
+        <div class="nav-item" (click)="showMenu(true)">
+          <a class="nav-link">Categories</a>
         </div>
         <div class="nav-item">
           <a class="nav-link" class="nav-link" [routerLink]="['/subscriptionplan']">Pricing</a>
@@ -67,7 +67,10 @@
 
 
     <!-- menu for medium view or more-->
-    <div class="menu d-none d-md-block" *ngIf="isNavMenuShown && catService.categoryList && catService.categoryList.length>0" [@fade]>
+    <div class="menu d-none"
+    [ngClass]="(isMenuMobileForcibly) ? '' : 'd-md-block'"
+    *ngIf="isNavMenuShown && catService.categoryList && catService.categoryList.length>0" [@fade]
+    >
       <div class="close-menu-full" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner position-relative">
@@ -77,9 +80,13 @@
 
         <div class="menu-title center">Service/Goal</div>
         <div class="menu-category-group w-100">
-          <div class="col-4 menu-category">
+          <div class="col-4 menu-category" (mousemove)="onMouseOverRootMenuCategory($event)">
             <ul class="category">
-              <li *ngFor="let cat of catService.categoryList; let i = index" [ngClass]="{active: (activeCategory == i)}" (click)="changeMenuCategory(i)">
+              <li *ngFor="let cat of catService.categoryList; let i = index" 
+              [ngClass]="{active: (activeCategory == i)}" 
+              (mouseover)="onMouseOverMenuMd(i)"
+              (click)="onClickMenuMd(i)"
+              >
                 <div class="highlighter"></div>
                 <span>{{cat.item_text}}</span>
               </li>
@@ -120,7 +127,10 @@
 ></dashboard-menu> 
 
 <!-- Menu for Small view-->
-<div class="menu-sm d-md-none" id="menu_sm" *ngIf="isNavMenuShown" [@fade]>
+<div class="menu-sm" id="menu_sm"
+[ngClass]="(!isMenuMobileForcibly) ? 'd-md-none' : ''"
+*ngIf="isNavMenuShown" [@fade]
+>
   <button class="btn close-menu-sm btn-icon text-blue" (click)="hideMenu()">
     <i class="fas fa-times"></i>
   </button>
@@ -128,7 +138,7 @@
     [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}"
   >
     <li><a class="text-blue" [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
-    <li><a class="text-blue" (click)="scrollMenuSm(1)">Category</a></li>
+    <li><a class="text-blue" (click)="scrollMenuSm(1)">Categories</a></li>
     <li><a class="text-blue" [routerLink]="['/subscriptionplan']" (click)="hideMenu()">Pricing</a></li>
     <li><a class="text-blue" [routerLink]="['/subscriptionplan-partner']" (click)="hideMenu()">Partner</a></li>
     <li><a class="text-blue" [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
@@ -139,7 +149,7 @@
       <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
     </li>
 
-    <li class="dashboard-menu-wrapper" *ngIf="token">
+    <li class="dashboard-menu-wrapper d-md-none" *ngIf="token">
       <dashboard-menu class="bg-white overflow-hidden"
         [user]="user"
         [styleMenu]="{ color: '#6d6e71'}"
@@ -159,7 +169,10 @@
       Category
     </li>
     <li *ngFor="let cat of catService.categoryList; let i = index">
-      <span (click)="changeMenuCategory(i); scrollMenuSm(2)">{{cat.item_text}}</span>
+      <span (click)="changeMenuCategory(i); scrollMenuSm(2)" class="d-flex justify-content-between">
+        <span>{{cat.item_text}}</span>
+        <i class="fas fa-chevron-right"></i>
+      </span>
     </li>
   </ul>
 
@@ -175,6 +188,16 @@
         {{catService.categoryList[activeCategory].item_text}}
       </span>
     </li>
+    
+    <li>
+      <a
+      class="font-weight-bold"
+      [routerLink]="['/dashboard/listing']"
+      [queryParams]="{id: catService.categoryList[activeCategory]._id, type: 'goal'}"
+      (click)="hideMenu()"
+      >{{catService.categoryList[activeCategory].item_text}}</a>
+    </li>
+
     <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
       <a [routerLink]="['/dashboard/listing']"
         [queryParams]=" {id: sub._id, type: 'goal'}"

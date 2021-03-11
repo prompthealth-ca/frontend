@@ -81,7 +81,7 @@ export class DetailComponent implements OnInit {
 
   /** for booking */
   public bookingForm: FormGroup;
-  private myId = '';
+  public myId = '';
   public startDate: Date; /* used at booking form */
   public minDate: Date; /* used at booking form */
   // public timingSelectedValue = ''; /* used at booking form */

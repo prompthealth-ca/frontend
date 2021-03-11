@@ -247,7 +247,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
             this.addMenuItem('social', false);
             this.addMenuItem('badge', false);
 
-            this.listing.push(this.bookingTab(true));
+            this.listing.push(this.bookingTab(false));
             this.listing.push(this.videoTab(false));
             this.listing.push(this.reviewTab(false));
           } else {

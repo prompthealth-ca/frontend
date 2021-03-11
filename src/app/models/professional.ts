@@ -186,6 +186,7 @@ export class Professional implements IProfessional {
     return result;
   }
   get isCentre() { return !!(this.role.toLocaleLowerCase().match(/c/)); }
+  get isApproved() { return this.p.isApproved; }
   get endosements() { return this._endosements; }
   get organization() { return this._organization; }
   get certification() { return this._certification; }
@@ -272,6 +273,7 @@ export class Professional implements IProfessional {
   uncheckForCompare() { this._isCheckedForCompared = false; }
 
   constructor(id: string, private p: any, ans?: any) {
+    console.log(p);
     this._id = id;
     this._rowUserData = p;
     this._rowAns = ans;

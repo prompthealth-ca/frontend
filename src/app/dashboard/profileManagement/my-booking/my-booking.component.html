@@ -30,7 +30,9 @@
         itemsPerPage: itemsPerPage,
         currentPage: currentPage,
         totalItems: totalItems 
-        }">
+        }"
+        [ngClass]="{'bg-lightgrey': !(book.drId)}"
+        >
           <td>
             {{ book.drId.firstName }} - {{ book.drId.lastName }}<br>
             {{ book.drId.email }}

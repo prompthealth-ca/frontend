@@ -62,7 +62,6 @@ export class MyBookingComponent implements OnInit {
 
     this._sharedService.loader('show');
     this._sharedService.get(path).subscribe((res: any) => {
-      console.log(res);
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.bookingList = res.data.data;

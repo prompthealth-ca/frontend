@@ -5,7 +5,7 @@
 </ngx-spinner>
 
 <section class="container-fluid bg-blue py-3 py-md-4" [routerLink]="['/dashboard/listing']"
-  [queryParams]="{virtual: !isVirtual}" style="user-select: none">
+  [queryParams]="{virtual: !isVirtual}" queryParamsHandling='merge' style="user-select: none">
   <div class="max-w-1200">
     <div class="d-flex flex-nowwrap align-items-center">
 

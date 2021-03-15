@@ -116,6 +116,17 @@ img.brand-sm{
     padding: 0 0 0 35px;
     overflow: auto;
     height: 100%;
+    scrollbar-color: #b6d5f8 var(--ph-blue);
+    scrollbar-width: 7px;
+    
+    &::-webkit-scrollbar{
+      width: 7px;
+      background: #b6d5f8;
+    }
+    &::-webkit-scrollbar-thumb{
+      background: var(--ph-blue);
+      border-radius: 7px;
+    }
   }
 
   .menu-subcategory{ padding: 0 0 0 50px; }

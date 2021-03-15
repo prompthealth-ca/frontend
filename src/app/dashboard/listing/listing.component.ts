@@ -831,9 +831,10 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   setQueryParams() {
-    const params: { id?: string, keyword?: string } = {};
+    const params: { id?: string, keyword?: string, virtual?: boolean } = {};
     if (this.keyword && this.keyword.length > 0) { params.keyword = this.keyword; }
     if (this.id && this.id.length > 0) { params.id = this.id; }
+    if (!!this.isVirtual) { params.virtual = true; }
 
     this.router.navigate(['./'], {
       queryParams: params,

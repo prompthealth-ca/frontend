@@ -18,7 +18,8 @@
       </div>
       <div *ngIf="!token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
         <div class="d-flex align-items-center flex-nowrap">
-          <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a>
+          <!-- <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a> -->
+          <a class="btn" [routerLink]="['/auth/login/u']">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign
             up</a>
         </div>
@@ -118,7 +119,8 @@
     <li><a class="text-blue" [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
 
     <li *ngIf="!token">
-      <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a>
+      <!-- <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a> -->
+      <a class="px-2 text-blue" [routerLink]="['/auth/login/u']" (click)="hideMenu()">Log in</a>
       <span class="display-inline-block mx-2">/</span>
       <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
     </li>
@@ -209,7 +211,7 @@
 </div>
 
 <!-- Modal login -->
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
+<!-- <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="loginmodal" aria-hidden="true">
   <div class="modal-dialog" role="document" style="margin: auto !important;width:100%">
     <div class="modal-content mk-border">
       <div class="modal-header">
@@ -245,7 +247,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- Modal pricing -->

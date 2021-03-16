@@ -164,8 +164,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     let [lat, lng]: [number, number] = [null, null];
 
     if (ipLat && ipLng) { [lat, lng] = [Number(ipLat), Number(ipLng)]; } else {
-      try { [lat, lng] = await this.getCurrentLocation(); }
-      catch (err) {
+      try { [lat, lng] = await this.getCurrentLocation(); } catch (err) {
         const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
         this.toastr.success(message);
       }
@@ -474,7 +473,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         break;
     }
 
-    if (payloadName == 'typical_hours') { this.listingPayload.typicalHoursId = ''; }
+    if (payloadName === 'typical_hours') { this.listingPayload.typicalHoursId = ''; }
     this.listingPayload[payloadName] = val;
   }
 
@@ -705,7 +704,7 @@ export class ListingComponent implements OnInit, OnDestroy {
           }
         });
       });
-    })
+    });
   }
   getZipcodeFromLocation(location: [number, number]): Promise<string> {
     return new Promise((resolve, reject) => {

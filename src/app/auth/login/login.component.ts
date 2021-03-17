@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(()=>{ this.nextSlide(); },3000);
+    setInterval(()=>{ this.nextSlide(); },8000);
 
     this.authService.authState.subscribe((user) => {
       this.user = user;

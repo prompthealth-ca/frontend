@@ -83,7 +83,7 @@ img.brand-sm{
   }
 
   .menu_inner{
-    border-radius: 0 0 20px 20px;
+    border-radius: 20px;
     overflow: hidden;
     background: white;
     width: calc(100% - 36px);
@@ -93,7 +93,6 @@ img.brand-sm{
 
   .menu-title{
     position: relative;
-    border-bottom: 4px solid #3377C5;
     color: #3377C5;
     line-height: 2em;
     text-align: center;
@@ -201,7 +200,7 @@ img.brand-sm{
     position: absolute;
     bottom: 50px;
     right: 50px;
-    width: 50%;
+    width: 30%;
   }
 }
 

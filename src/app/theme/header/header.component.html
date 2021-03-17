@@ -66,14 +66,14 @@
     <!-- menu for medium view or more-->
     <div class="menu d-none" [ngClass]="(isMenuMobileForcibly) ? '' : 'd-md-block'"
       *ngIf="isNavMenuShown && catService.categoryList && catService.categoryList.length>0" [@fade]>
-      <div class="close-menu-full" (click)="hideMenu()"></div>
 
       <div class="shadow menu_inner position-relative">
         <button class="btn close-menu btn-icon text-blue" (click)="hideMenu()">
           <i class="fas fa-times"></i>
         </button>
+        <div class="close-menu-full" (click)="hideMenu()"></div>
 
-        <div class="menu-title center">Service/Goal</div>
+        <!-- <div class="menu-title center">Service/Goal</div> -->
         <div class="menu-category-group w-100">
           <div class="col-4 menu-category" (mousemove)="onMouseOverRootMenuCategory($event)">
             <ul class="category">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { animate, transition, style, trigger } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,10 +10,20 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 
+const animation = trigger('carousel', [
+  transition(':enter', [
+    style({opacity: 0, transform: 'translateX(100%)'}),
+    animate('500ms ease', style({ opacity: 1, transform: 'translateX(0)'})),
+  ]),
+  transition(':leave', [
+    animate('500ms ease', style({ opacity: 0, transform: 'translateX(-100%'})),
+  ]),
+]);
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [animation],
 })
 export class LoginComponent implements OnInit {
   user: SocialUser;
@@ -22,6 +33,8 @@ export class LoginComponent implements OnInit {
   userType = 'U';
   public submitted = false;
   public loginUserType: any;
+
+  public currentSlide = 0;
 
   constructor(
     private authService: SocialAuthService,
@@ -33,7 +46,13 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
   ) { }
 
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % 3;
+  }
+
   ngOnInit(): void {
+    setInterval(()=>{ this.nextSlide(); },3000);
+
     this.authService.authState.subscribe((user) => {
       this.user = user;
     });

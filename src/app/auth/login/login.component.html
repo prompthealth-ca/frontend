@@ -98,29 +98,35 @@
           </form>
         </div>
       </div>
-      <div class="col-md-8 order-md-1 pt-5 pb-0 px-5 bg"
-      [ngClass]="{ 'bg-user': !professionalLogin, 'bg-professional': professionalLogin }"
-      >
-        <div
-          class="h-100"
-        >
-          <div class="w-100" *ngIf="!professionalLogin">
-            <h3 class="">Client</h3>
-            <p class="p-sd-for-image pb-md-0">
+      <div class="overflow-hidden col-md-8 order-md-1 pt-5 pb-0 px-5">
+        <div class="carousel">
+          <div class="slide" *ngIf="currentSlide == 0" [@carousel]>
+            <img class="user" src="/assets/img/login-client.png" alt="">
+            <h3 class="position-relative">Client</h3>
+            <p class="position-relative pb-md-0">
               Prompt Health empowers you with the convenience and accessibility you need to better manage
               your health and the health of your family.<br><br>
               No more guesswork. We’ve got you!
             </p>
-
           </div>
-          <div class="w-100" *ngIf="professionalLogin">
-            <h3 class="">Professional</h3>
-            <p class="p-sd-for-image pb-md-0">
+          <div class="slide" *ngIf="currentSlide == 1" [@carousel]>
+            <img class="professional" src="/assets/img/login-professional.png" alt="">
+            <h3 class="position-relative">Professional</h3>
+            <p class="position-relative pb-md-0">
               Join the growing network of Canadian health and wellness professionals.
               Together, we will change the health and wellness experience.<br><br>
 
               Prompt Health for every practice:
               Medical / Dental / Allied Health / Holistic / Wellness / Nutrition / Fitness
+            </p>
+          </div>
+          <div class="slide" *ngIf="currentSlide == 2" [@carousel]>
+            <img class="partner" src="/assets/img/login-partner.png" alt="">
+            <h3 class="position-relative">Partner</h3>
+            <p class="position-relative pb-md-0">
+              Do you want your current clients to have access to more individualized options for their health? 
+              <br><br>
+              Partner with Prompt Health to extend the reach of both parties via cross-platform visibility to get in front of both clients and health and wellness providers.
             </p>
           </div>
         </div>

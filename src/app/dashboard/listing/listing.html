@@ -61,19 +61,23 @@
       </li>
       <li>
         <button class="btn text-under text-nowrap py-1" (click)="removeFilterAll()"><u>Clear All</u></button>
-        <button class="btn btn-primary py-1">Apply</button>
+      </li>
+      <li class="pl-3 sticky-right bg-white">
+        <button class="btn btn-primary py-1" (click)="updateFilterAll()">Apply</button>
       </li>
     </ul>
     <ul *ngIf="!!isVirtual" class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
       <li *ngFor="let f of filters; let i = index;">
-        <button [id]="'filter-' + f._id" *ngIf="f._id !== 'distance'"
+        <button [id]="'filter-' + f._id" *ngIf="f._id !== 'location'"
           class="btn border-darkblue text-darkblue text-nowrap py-1 px-4 rounded-pill mr-3"
           [ngClass]="{focus: (filterTarget && filterTarget._id == f._id), active: f.active}"
           (click)="setFilterTarget(i)">{{f.item_text}}</button>
       </li>
       <li>
         <button class="btn text-under text-nowrap py-1" (click)="removeFilterAll()"><u>Clear All</u></button>
-        <button class="btn btn-primary py-1">Apply</button>
+      </li>
+      <li class="pl-3 sticky-right bg-white">
+        <button class="btn btn-primary py-1" (click)="updateFilterAll()">Apply</button>
       </li>
     </ul>
 
@@ -107,18 +111,20 @@
 
   <filter-dropdown-location class="position-fixed shadow rounded-15p blur filter-dropdown"
     *ngIf="filterTarget && (filterTarget._id == 'location')" [@slideVertical] [ngStyle]="getFilterDropdownPosition()"
-    [data]="filterTarget.data" (changeState)="updateFilterLocation($event)"></filter-dropdown-location>
+    [data]="filterTarget.data" (changeValue)="updateFilterActiveStatus(filterTarget)"
+  ></filter-dropdown-location>
 
   <filter-dropdown-select class="position-fixed shadow rounded-15p blur filter-dropdown"
     *ngIf="filterTarget && (filterTarget.type == 'radio' || filterTarget.type == 'checkbox')" [@slideVertical]
     [ngStyle]="getFilterDropdownPosition()" [target]="filterTarget._id"
     [multiple]="(filterTarget.type == 'checkbox')? true: false" [options]="filterTarget.options"
-    (changeState)="updateFilter($event)"></filter-dropdown-select>
+    (changeValue)="updateFilterActiveStatus(filterTarget)"
+  ></filter-dropdown-select>
 
-  <filter-dropdown-slider class="position-fixed shadow rounded-15p blur filter-dropdown"
+  <!-- <filter-dropdown-slider class="position-fixed shadow rounded-15p blur filter-dropdown"
     *ngIf="filterTarget && (filterTarget.type == 'slider')" [@slideVertical] [ngStyle]="getFilterDropdownPosition()"
-    [target]="filterTarget._id" [range]="filterTarget.range" (changeState)="updateFilter($event)">
-  </filter-dropdown-slider>
+    [target]="filterTarget._id" [range]="filterTarget.range" (changeState)="updateFilter($event, false)">
+  </filter-dropdown-slider> -->
 </div>
 
 <section class="container-fluid bg-lightblue" id="professionalList">

@@ -181,11 +181,11 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.initialLocation.radius = 100 * 1000;
       this.initialLocation.isLocationEnabled = true;
 
-      this.getZipcodeFromLocation([lat, lng]).then(zipcode => {
-        this.initialLocation.address = zipcode;
+      this.getAddressFromLocation([lat, lng]).then(address => {
+        this.initialLocation.address = address;
 
         const f = this.getFilter('location');
-        f.data.address = zipcode;
+        f.data.defaultAddress = address;
       });
     }
 
@@ -330,9 +330,11 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.searchCenter.radius = this.listingPayload.miles * 1000;
 
     try {
-      const zipcode = await this.getZipcodeFromLocation([this.mapdata.lat, this.mapdata.lng]);
+      const address = await this.getAddressFromLocation([this.mapdata.lat, this.mapdata.lng]);
       const f = this.getFilter('location');
-      f.data.address = zipcode;
+      f.data.address = address;
+      f.data.latLng = [this.mapdata.lat, this.mapdata.lng];
+      this.updateFilterActiveStatus(f);
     } catch (err) { console.log('error'); }
 
     this.listingPayload.latLong = `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
@@ -659,11 +661,31 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   /** determine which filter menu will be shown up or hide filter menu */
   setFilterTarget(i: number) {
-    if (i === null) { this.filterTarget = null; } else if (this.filterTarget) {
-      if (this.filters[i]._id == this.filterTarget._id) { this.filterTarget = null; } else { this.filterTarget = this.filters[i]; }
+    if (i === null) { 
+      this.filterTarget = null; 
+    } else if (this.filterTarget) {
+      if (this.filters[i]._id == this.filterTarget._id) { 
+        this.filterTarget = null; 
+      } else { 
+        this.filterTarget = this.filters[i]; 
+      }
     } else {
       this.filterTarget = this.filters[i];
     }
+  }
+
+  updateFilterActiveStatus(f: Filter){
+    let isActive = false;
+    switch(f.type){
+      case 'radio':
+      case 'checkbox':
+        f.options.forEach(option => { if(option.active){ isActive = true; }});
+        break;
+      case 'location':
+        isActive = (f.data.distance == f.data.distanceMax && (!f.data.latLng)) ? false : true;
+        break;
+    }
+    f.active = isActive;
   }
 
   /** if personalMatch exists, filter menu will be set by the personalMatch information and then clear personalMatch*/
@@ -706,20 +728,13 @@ export class ListingComponent implements OnInit, OnDestroy {
       });
     });
   }
-  getZipcodeFromLocation(location: [number, number]): Promise<string> {
+  getAddressFromLocation(location: [number, number]): Promise<string> {
     return new Promise((resolve, reject) => {
       this._maps.load().then(() => {
         new google.maps.Geocoder().geocode({ location: { lat: location[0], lng: location[1] } }, (results, status) => {
           if (status == 'OK' && results.length > 0) {
-            const data = results[0].address_components;
-            let zipcode: string;
-            for (const d of data) {
-              if (d.types.indexOf('postal_code') != -1) {
-                zipcode = d.long_name;
-                break;
-              }
-            }
-            if (zipcode) { resolve(zipcode); } else { reject(); }
+            const address = results[0].formatted_address;
+            resolve(address);
           } else { reject(); }
         });
       });
@@ -727,36 +742,15 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   /** trigger when click save / clear in zipcode filter menu and update listingPayload & map. then start listing */
-  async updateFilterLocation(type: string) {
+  async updateFilterLocation(listing: boolean = false) {
     const f = this.getFilter('location');
     this.listingPayload.miles = f.data.distance;
+    const [lat,lng] = (f.data.latLng) ? f.data.latLng : [this.initialLocation.lat, this.initialLocation.lng];
+    this.listingPayload.latLong = lng + ', ' + lat;
+    this.searchCenter = {lat: lat, lng: lng, radius: this.listingPayload.miles * 1000 };
+    this.setMapdata({lat: lat, lng: lng, zoom: 10});
 
-    const zipcode = f.data.address.replace(/\s{2,}/g, '');
-    this._sharedService.loader('show');
-    if (zipcode.length > 0) {
-      let latLng: [number, number];
-      try {
-        latLng = await this.getLocationFromZipcode(zipcode);
-        f.active = true;
-        this.listingPayload.latLong = latLng[1] + ',' + latLng[0];
-        this.searchCenter = { lat: latLng[0], lng: latLng[1], radius: this.listingPayload.miles * 1000 };
-        this.setMapdata({ lat: latLng[0], lng: latLng[1], zoom: 10 });
-        this.filterTarget = null;
-        this.listing(this.listingPayload);
-      } catch (err) {
-        f.active = false;
-        this._sharedService.loader('hide');
-        this.toastr.error('Please enter valid zip code.');
-      }
-    } else {
-      this.filterTarget = null;
-      f.active = (f.data.distance == 100) ? false : true;
-      f.data.address = this.initialLocation.address;
-
-      this.listingPayload.latLong = (this.initialLocation.isLocationEnabled) ? (this.initialLocation.lng + ',' + this.initialLocation.lat) : '';
-      this.searchCenter = { lat: this.initialLocation.lat, lng: this.initialLocation.lng, radius: this.initialLocation.radius };
-      this.setMapdata({ lat: this.initialLocation.lat, lng: this.initialLocation.lng, zoom: this.initialLocation.zoom });
-
+    if(listing){
       this.listing(this.listingPayload);
     }
   }
@@ -764,28 +758,46 @@ export class ListingComponent implements OnInit, OnDestroy {
   /** trigger when click save / clear in filter menu and update listingPayload. then start listing (optional) */
   updateFilter(id: string, listing: boolean = true) {
     const f = this.getFilter(id);
-
-    if (f.type === 'radio') {
-      let val: string = null;
-      let selected: QuestionnaireAnswer;
-      for (let i = 0; i < f.options.length; i++) {
-        if (f.options[i].active) { selected = f.options[i]; break; }
+    if(f.active){
+      if(f.type == 'radio'){
+        for (let i = 0; i < f.options.length; i++) {
+          if (f.options[i].active) { 
+            this.setFilterOne(f.options[i]._id, f.payloadName); 
+            break; 
+          }
+        }
+      }else if(f.type == 'checkbox'){
+        const vals: string[] = [];
+        f.options.forEach(o => { if (o.active) { vals.push(o._id); } });
+        this.setFilterOne(vals, f.payloadName);
+      }else if(f.type == 'slider'){
+        this.setFilterOne(f.range.current, f.payloadName);
+      }else if(f.type == 'location'){
+        // this.updateFilterLocation(false);
       }
-      val = selected ? selected._id : null;
-
-      f.active = val ? true : false;
-      if (!val) { this.removeFilterOne(f.payloadName); } else { this.setFilterOne(val, f.payloadName); }
-
-    } else if (f.type === 'checkbox') {
-      const vals: string[] = [];
-      f.options.forEach(o => { if (o.active) { vals.push(o._id); } });
-
-      f.active = (vals.length > 0) ? true : false;
-      if (vals.length > 0) { this.setFilterOne(vals, f.payloadName); } else { this.removeFilterOne(f.payloadName); }
-    } else if (f.type === 'slider') {
-      this.setFilterOne(f.range.current, f.payloadName);
-      f.active = (f.range.current !== f.range.default);
     }
+    else{
+      this.removeFilterOne(f.payloadName);
+    }
+
+    // if (f.type === 'radio') {
+    //   let val: string = null;
+    //   let selected: QuestionnaireAnswer;
+    //   for (let i = 0; i < f.options.length; i++) {
+    //     if (f.options[i].active) { selected = f.options[i]; break; }
+    //   }
+    //   val = selected ? selected._id : null;
+
+    //   if (!val) { this.removeFilterOne(f.payloadName); } else { this.setFilterOne(val, f.payloadName); }
+
+    // } else if (f.type === 'checkbox') {
+    //   const vals: string[] = [];
+    //   f.options.forEach(o => { if (o.active) { vals.push(o._id); } });
+
+    //   if (vals.length > 0) { this.setFilterOne(vals, f.payloadName); } else { this.removeFilterOne(f.payloadName); }
+    // } else if (f.type === 'slider') {
+    //   this.setFilterOne(f.range.current, f.payloadName);
+    // }
 
     if (listing) {
       this.listing(this.listingPayload);
@@ -793,20 +805,31 @@ export class ListingComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeFilterAll() {
-    const o = this.listingPayload;
-    //    o.ids = [];
-    //    o.type = 'service';
-    //    o.keyword = '';
+  updateFilterAll(){
+    this.filters.forEach(f=> {this.updateFilter(f._id, false);});
+    this.updateFilterLocation(true);
+    this.setFilterTarget(null);
+  }
 
+  removeFilterAll() {
     this.filters.forEach(f => {
-      if (f.range) { f.range.current = f.range.default; }
-      if (f.options) {
-        f.options.forEach(o => { o.active = false; });
+      if (f.range) { 
+        f.range.current = f.range.default; 
+        this.removeFilterOne(f.payloadName);
       }
-      this.updateFilter(f._id, false);
+      else if (f.options) {
+        f.options.forEach(o => { o.active = false; });
+        this.removeFilterOne(f.payloadName);
+      }else if(f.type == 'location'){
+        f.data.address = f.data.defaultAddress;
+        f.data.distance = f.data.distanceMax;
+        f.data.latLng = null;
+        this.updateFilterLocation(false);
+      }
+      this.updateFilterActiveStatus(f);
     });
     this.listing(this.listingPayload);
+    this.setFilterTarget(null);
   }
 
   removeService(i: number) {
@@ -878,19 +901,20 @@ interface Filter {
   payloadName: string;
   active: boolean;
   options?: QuestionnaireAnswer[];
-  range?: { min: number; max: number; current: number; default: number };
-  data?: { distance: number, address: string }; /** for location */
+  range?: { min: number; max: number; current: number; default: number }; /** not used currently. */
+  data?: { distance: number, address: string, defaultAddress: string, latLng: number[], distanceMin: number, distanceMax: number }; /** for location */
 }
 
 const filtersPreset: Filter[] = [
-  { _id: 'location', item_text: 'Location', type: '', payloadName: '', active: false, data: { distance: 100, address: '' } },
+  { _id: 'location', item_text: 'Location', type: 'location', payloadName: '', active: false, data: { distance: 100, address: '', defaultAddress: '', latLng: null, distanceMin: 5, distanceMax: 100, } },
   // { _id: 'zipcode', item_text: 'Zip Code', type: 'input', payloadName: 'zipcode', active: false, data: {value: '', placeholder: 'Please input zip code'} },
   // { _id: 'distance', item_text: 'Distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
   {
     _id: 'gender', item_text: 'Gender', type: 'radio', payloadName: 'gender', active: false, options: [
       // {_id: 'all', item_text: 'All', active: false, subans: false},
       { _id: 'male', item_text: 'Male', active: false, subans: false },
-      { _id: 'female', item_text: 'Female', active: false, subans: false }
+      { _id: 'female', item_text: 'Female', active: false, subans: false },
+      { _id: 'nonbinary', item_text: 'Non-Binary', active: false, subans: false}
     ]
   },
   {

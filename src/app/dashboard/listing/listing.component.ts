@@ -910,7 +910,7 @@ const filtersPreset: Filter[] = [
   // { _id: 'zipcode', item_text: 'Zip Code', type: 'input', payloadName: 'zipcode', active: false, data: {value: '', placeholder: 'Please input zip code'} },
   // { _id: 'distance', item_text: 'Distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
   {
-    _id: 'gender', item_text: 'Gender', type: 'radio', payloadName: 'gender', active: false, options: [
+    _id: 'gender', item_text: 'Gender', type: 'checkbox', payloadName: 'gender', active: false, options: [
       // {_id: 'all', item_text: 'All', active: false, subans: false},
       { _id: 'male', item_text: 'Male', active: false, subans: false },
       { _id: 'female', item_text: 'Female', active: false, subans: false },
@@ -925,11 +925,11 @@ const filtersPreset: Filter[] = [
       { _id: '3', item_text: '3 Stars', active: false, subans: false },
     ]
   },
-  { _id: 'language', item_text: 'Language', type: 'radio', payloadName: 'languageId', active: false, options: [/** use server data */] },
+  { _id: 'language', item_text: 'Language', type: 'checkbox', payloadName: 'languageId', active: false, options: [/** use server data */] },
   { _id: 'availability', item_text: 'Availability', type: 'checkbox', payloadName: 'typical_hours', active: false, options: [/** use server data */] },
   { _id: 'serviceOffer', item_text: 'Service type', type: 'checkbox', payloadName: 'serviceOfferIds', active: false, options: [/** use server data */] },
   {
-    _id: 'pricing', item_text: 'Pricing', type: 'radio', payloadName: 'price_per_hours', active: false, options: [
+    _id: 'pricing', item_text: 'Pricing', type: 'checkbox', payloadName: 'price_per_hours', active: false, options: [
       { _id: '< $50', item_text: '$ < 50', active: false, subans: false },
       { _id: '$50-100', item_text: '$ 50-100', active: false, subans: false },
       { _id: '$100-200', item_text: '$ 100-200', active: false, subans: false },
@@ -955,7 +955,7 @@ const payloadInitial = {
   serviceOfferIds: [],
   customer_health: [],
   zipcode: '',
-  languageId: '',
+  languageId: [],
   typicalHoursId: '',
   rating: 0,
   miles: 100,
@@ -963,8 +963,8 @@ const payloadInitial = {
   age_range: [],
   name: '',
   // type: 'service',
-  price_per_hours: '',
-  gender: '',
+  price_per_hours: [],
+  gender: [],
   typical_hours: [],
   keyword: '',
   virtual: false,

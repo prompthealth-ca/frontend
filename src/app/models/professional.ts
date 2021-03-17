@@ -325,7 +325,7 @@ export class Professional implements IProfessional {
     this._ageRange = [];
     this._serviceDeliveryId = p.serviceOfferIds || [];
     this._location = p.location || [null, null];
-    this._distance = p.calcDistance || null;
+    this._distance = p.calcDistance;
     this._provideVirtual = p.provideVirtual || false;
 
     this._organization = p.professional_organization || null;

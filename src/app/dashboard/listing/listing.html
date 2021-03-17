@@ -21,7 +21,8 @@
             to find virtual services
           </span>
         </div>
-        <p *ngIf="isVirtual" class="mt-2 mb-0 text-light">(Go back to view all services)</p>
+        <p *ngIf="isVirtual" class="mt-2 mb-0 text-light">Go back to view all services</p>
+        <p *ngIf="!isVirtual" class="mt-2 mb-0 text-light">Click to view Virtual options only</p>
       </div>
 
       <div class="arrow-right flex-shrink-0 flex-grow-0 ml-3 ml-lg-5"></div>
@@ -170,7 +171,14 @@
                 <star-rate class="my-3" [rate]="p.rating" margin="small" size="small"></star-rate>
                 <p class="mb-2 clamp-1line font-big" *ngIf="!p.isCentre">{{p.organization}}</p>
                 <p class="mb-2 clamp-1line font-big" *ngIf="p.isCentre">{{p.phone}}</p>
-                <p class="mb-3 address">{{p.address}}</p>
+                <p class="mb-2 address">{{p.address}}</p>
+                <p class="mb-3" *ngIf="p.distance !== null || p.distance !== undefined">
+                  <b>
+                    {{p.distance | number :
+                    '1.1-2'}}
+                    km away from you
+                  </b>
+                </p>
                 <div>
                   <a class="btn border-darkblue text-darkblue rounded-10p" [routerLink]="['../detail', p.id]">Check
                     Profile</a>

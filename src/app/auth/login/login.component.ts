@@ -12,11 +12,11 @@ import { BehaviorService } from '../../shared/services/behavior.service';
 
 const animation = trigger('carousel', [
   transition(':enter', [
-    style({opacity: 0, transform: 'translateX(100%)'}),
-    animate('500ms ease', style({ opacity: 1, transform: 'translateX(0)'})),
+    style({ opacity: 0, transform: 'translateX(100%)' }),
+    animate('500ms ease', style({ opacity: 1, transform: 'translateX(0)' })),
   ]),
   transition(':leave', [
-    animate('500ms ease', style({ opacity: 0, transform: 'translateX(-100%'})),
+    animate('500ms ease', style({ opacity: 0, transform: 'translateX(-100%' })),
   ]),
 ]);
 @Component({
@@ -35,6 +35,13 @@ export class LoginComponent implements OnInit {
   public loginUserType: any;
 
   public currentSlide = 0;
+  slideConfig = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    dots: true
+  };
 
   constructor(
     private authService: SocialAuthService,
@@ -51,7 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(()=>{ this.nextSlide(); },8000);
+    setInterval(() => { this.nextSlide(); }, 8000);
 
     this.authService.authState.subscribe((user) => {
       this.user = user;

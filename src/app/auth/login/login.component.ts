@@ -39,8 +39,9 @@ export class LoginComponent implements OnInit {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
-    dots: true
+    autoplaySpeed: 5000,
+    dots: true,
+    cssEase: 'ease'
   };
 
   constructor(
@@ -70,15 +71,15 @@ export class LoginComponent implements OnInit {
 
     this.loginUserType = localStorage.getItem('userType');
 
-    this._route.params.subscribe(param => {
-      const type = param.type;
-      this.professionalLogin = (type.toLowerCase() == 'u') ? false : true;
-      switch (type.toLowerCase()) {
-        case 'u': this.userType = 'U'; break;
-        case 'sp': this.userType = 'SP'; break;
-        case 'c': this.userType = 'C'; break;
-      }
-    });
+    // this._route.params.subscribe(param => {
+    //   const type = param.type;
+    //   this.professionalLogin = (type.toLowerCase() == 'u') ? false : true;
+    //   switch (type.toLowerCase()) {
+    //     case 'u': this.userType = 'U'; break;
+    //     case 'sp': this.userType = 'SP'; break;
+    //     case 'c': this.userType = 'C'; break;
+    //   }
+    // });
 
     const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     this.loginForm = this.formBuilder.group({
@@ -94,7 +95,6 @@ export class LoginComponent implements OnInit {
       const payload = {
         socialToken: x.idToken,
         email: x.email,
-        roles: this.userType,
         loginType: x.provider.toLowerCase(),
         social_id: x.id,
         profileImage: x.photoUrl,
@@ -128,7 +128,6 @@ export class LoginComponent implements OnInit {
       const payload = {
         socialToken: x.id,
         email: x.email,
-        roles: this.userType,
         loginType: x.provider.toLowerCase(),
         termsCondition: true,
         social_id: x.id,

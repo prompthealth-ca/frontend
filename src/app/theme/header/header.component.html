@@ -19,7 +19,7 @@
       <div *ngIf="!token; else logoutblock" class="d-none d-md-block flex-grow-0 glrex-shrink-0">
         <div class="d-flex align-items-center flex-nowrap">
           <!-- <a class="btn" data-toggle="modal" data-target="#loginmodal">Login</a> -->
-          <a class="btn" [routerLink]="['/auth/login/u']">Login</a>
+          <a class="btn" [routerLink]="['/auth/login']">Login</a>
           <a class="btn btn-signup text-darkblue border-darkblue" data-toggle="modal" data-target="#signupModal">Sign
             up</a>
         </div>
@@ -120,7 +120,7 @@
 
     <li *ngIf="!token">
       <!-- <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a> -->
-      <a class="px-2 text-blue" [routerLink]="['/auth/login/u']" (click)="hideMenu()">Log in</a>
+      <a class="px-2 text-blue" [routerLink]="['/auth/login']" (click)="hideMenu()">Log in</a>
       <span class="display-inline-block mx-2">/</span>
       <a class="px-2 text-blue" data-toggle="modal" data-target="#signupModal" (click)="hideMenu()">Sign up</a>
     </li>

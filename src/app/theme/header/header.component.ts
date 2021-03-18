@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
 
 
   // Start ngOninit
-  ngOnInit() {
+  async ngOnInit() {
 
     const isTouchEnabled = !!('ontouchstart' in window);
     if(navigator.userAgent.toLowerCase().match('ipad|android|iphone') || (isTouchEnabled && navigator.userAgent.toLowerCase().match('mac')) ){
@@ -98,9 +98,6 @@ export class HeaderComponent implements OnInit {
     this.role = localStorage.getItem('roles');
     // this.payment = localStorage.getItem(isPayment);
     this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
-    if(this.user._id){
-      this._profileService.getProfileDetail(this.user._id);
-    }
     
     // if (this.token && this.user) {
     //   let roles = this.user.roles;
@@ -134,6 +131,12 @@ export class HeaderComponent implements OnInit {
     this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
       this[key] = val;
     });
+
+    if(this.user._id){
+      //call getProfileDetail function to fetch latest data which is changed by admin including verifiedBadge
+      try { await this._profileService.getProfileDetail(this.user._id); }
+      catch(err){ console.log(err); }
+    }
     // if(this.token) {
     //   if(this.role === 'U') {
     //     this.showDashboard = true;

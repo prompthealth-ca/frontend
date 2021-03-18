@@ -53,7 +53,7 @@ export interface IProfessional {
 */
 export class Professional implements IProfessional {
 
-  private _baseURLImage = environment.config.AWS_S3;
+  protected _baseURLImage = environment.config.AWS_S3;
   // private _baseURLImage = 'https://api.prompthealth.ca/users/';
 
   private _rowUserData: any; /** for compatibility with old UI */
@@ -157,12 +157,7 @@ export class Professional implements IProfessional {
   get gender() { return this._gender; }
   get address() { return (!this._hideAddress && this._address && this._address.length > 0) ? this._address : null; }
   get website() { return this._website; }
-  get websiteLabel() {
-    let label = '';
-    const match = this._website.match(/https?:\/\/(?:www\.)?([^/]+)/);
-    if (this._website && match) { label = match[1]; }
-    return label;
-  }
+  get websiteLabel() { return this.getURLLabel(this._website); }
   get bookingUrl() { return this.p.bookingURL || null; }
   get location() { return this._location; }
   get distance() { return this._distance; }
@@ -271,6 +266,14 @@ export class Professional implements IProfessional {
   get isCheckedForCompare() { return this._isCheckedForCompared; }
   set isCheckedForCompare(checked: boolean) { this._isCheckedForCompared = checked; }
   uncheckForCompare() { this._isCheckedForCompared = false; }
+
+  getURLLabel(url: string = ''){
+    let label = ''
+    const match = url.match(/https?:\/\/(?:www\.)?([^/]+)/);
+    if(url && match){ label = match[1]; }
+    return label;
+  }
+
 
   constructor(id: string, private p: any, ans?: any) {
     // console.log(p);

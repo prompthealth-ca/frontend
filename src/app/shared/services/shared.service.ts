@@ -372,7 +372,14 @@ export class SharedService {
       route = res.data.roles === 'U' ? '/' : '';
     } else {
       if (type === 'reg') {
-        route = res.data.roles === 'U' ? '/dashboard/questions/User' : '/dashboard/professional-info';
+        switch(res.data.roles.toLowerCase()){
+          case 'u': route = '/dashboard/questions/User'; break;
+          case 'p': route = '/dashboard/register-partner'; break;
+          case 'sp':
+          case 'c': 
+            route = '/dashboard/professional-info';
+            break;
+        }
       } else {
         if (this.previousRouteService.getPreviousUrl() === '') {
 

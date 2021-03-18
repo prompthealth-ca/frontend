@@ -109,7 +109,7 @@
     </ul>
             
     <!-- if user is not loggedin, go to signin / login page -->
-    <a *ngIf="!isLoggedIn && type != 'partner'"
+    <a *ngIf="!isLoggedIn"
         class="btn btn-more"
         [routerLink]="getLinkToSignin()"
         >

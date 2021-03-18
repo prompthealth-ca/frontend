@@ -154,10 +154,10 @@
           </div>
         </div>
         <div class="col-md-8 order-md-1 pt-5 pb-0 px-5 bg"
-        [ngClass]="{ 'bg-professional': professionalSignup, 'bg-user': !professionalSignup }"
+        [ngClass]="{ 'bg-user': (!partnerSignup && !professionalSignup), 'bg-professional': (!partnerSignup && professionalSignup), 'bg-partner': !!partnerSignup }"
         >
           <div class="h-100">
-            <div class="w-100" *ngIf="professionalSignup">
+            <div class="w-100" *ngIf="!partnerSignup && professionalSignup">
               <h3>Join Our Canadian Network </h3>
               <p class="p-sd-for-image pb-md-0">
                 Join the growing network of Canadian health and wellness professionals.
@@ -167,12 +167,20 @@
                 Medical / Dental / Allied Health / Holistic / Wellness / Nutrition / Fitness
               </p>
             </div>
-            <div class="w-100" *ngIf="!professionalSignup">
+            <div class="w-100" *ngIf="!partnerSignup && !professionalSignup">
               <h3>Find The Right Care For You </h3>
               <p class="p-sd-for-image pb-md-0">
                 Prompt Health empowers you with the convenience and accessibility you need to better manage
                 your health and the health of your family.<br><br>
                 No more guesswork. We’ve got you! 
+              </p>
+            </div>
+            <div class="w-100" *ngIf="partnerSignup">
+              <h3>Join Our Canadian Network </h3>
+              <p class="p-sd-for-image pb-md-0 partner">
+                Do you want your current clients to have access to more individualized options for their health? 
+                <br><br>
+                Partner with Prompt Health to extend the reach of both parties via cross-platform visibility to get in front of both clients and health and wellness providers.
               </p>
             </div>
           </div>

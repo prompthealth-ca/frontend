@@ -434,6 +434,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filterCopy, path).subscribe((res: any) => {
+      console.log(res);
       if (res.statusCode === 200) {
         const professionals = [];
         const languageSet = this.getFilter('language').options;
@@ -458,6 +459,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.toastr.error(res.message);
       }
     }, err => {
+      console.log(err);
       this._sharedService.loader('hide');
     });
   }

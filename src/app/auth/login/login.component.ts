@@ -99,8 +99,8 @@ export class LoginComponent implements OnInit {
         social_id: x.id,
         profileImage: x.photoUrl,
         firstName: x.firstName,
-        lastName: x.lastName
-
+        lastName: x.lastName,
+        roles: 'U'
       };
       // console.log(x);
       this._sharedService.socialRegister(payload).subscribe((res: any) => {
@@ -134,7 +134,8 @@ export class LoginComponent implements OnInit {
         social_id: x.id,
         profileImage: x.photoUrl,
         firstName: x.firstName,
-        lastName: x.lastName
+        lastName: x.lastName,
+        roles: 'U'
       };
 
       this._sharedService.socialRegister(payload).subscribe((res: any) => {

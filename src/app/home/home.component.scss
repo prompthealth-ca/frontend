@@ -22,7 +22,9 @@ $testimonialsAvtarSize: 100px;
   object-fit: cover;
   object-position: top center;
 }
-
+.info-banner {
+  background-color: $primaryColor;
+}
 .testimonials-text {
   font-size: 16px;
   line-height: 28px;

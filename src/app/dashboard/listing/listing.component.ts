@@ -434,7 +434,6 @@ export class ListingComponent implements OnInit, OnDestroy {
     if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filterCopy, path).subscribe((res: any) => {
-      console.log(res);
       if (res.statusCode === 200) {
         const professionals = [];
         const languageSet = this.getFilter('language').options;

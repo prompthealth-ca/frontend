@@ -60,35 +60,55 @@
     adroll_pix_id = "YH3TS72M4RHIHLGDODVRWS";
     adroll_version = "2.0";
 
-      (function(w, d, e, o, a) {
-          w.__adroll_loaded = true;
-          w.adroll = w.adroll || [];
-          w.adroll.f = [ 'setProperties', 'identify', 'track' ];
-          var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
-                  + "/roundtrip.js";
-          for (a = 0; a < w.adroll.f.length; a++) {
-              w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
-                  return function() {
-                      w.adroll.push([ n, arguments ])
-                  }
-              })(w.adroll.f[a])
+    (function (w, d, e, o, a) {
+      w.__adroll_loaded = true;
+      w.adroll = w.adroll || [];
+      w.adroll.f = ['setProperties', 'identify', 'track'];
+      var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
+        + "/roundtrip.js";
+      for (a = 0; a < w.adroll.f.length; a++) {
+        w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function (n) {
+          return function () {
+            w.adroll.push([n, arguments])
           }
+        })(w.adroll.f[a])
+      }
 
-          e = d.createElement('script');
-          o = d.getElementsByTagName('script')[0];
-          e.async = 1;
-          e.src = roundtripUrl;
-          o.parentNode.insertBefore(e, o);
-      })(window, document);
-      adroll.track("pageView");
+      e = d.createElement('script');
+      o = d.getElementsByTagName('script')[0];
+      e.async = 1;
+      e.src = roundtripUrl;
+      o.parentNode.insertBefore(e, o);
+    })(window, document);
+    adroll.track("pageView");
   </script>
 
 
-<link rel="stylesheet" href="styles.0f250a750a425fdcedef.css"></head>
+<link rel="stylesheet" href="styles.79abadab4ea985860421.css"></head>
 
 <body>
   <app-root></app-root>
-  <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.4.1/webcomponents-bundle.min.js"></script>
-<script src="runtime.7d7e9038a1cdbceb3d53.js" defer></script><script src="polyfills-es5.9dec817692e632d11f47.js" nomodule defer></script><script src="polyfills.7d5297344d357218b937.js" defer></script><script src="scripts.6ebca8b46411feadfb08.js" defer></script><script src="main.c0011a18ba3089b3458c.js" defer></script></body>
+  <!-- Noscript content for added SEO -->
+  <noscript><a href="https://www.eventbrite.ca/e/prompt-health-information-session-tickets-146694387863"
+      rel="noopener noreferrer" target="_blank"></noscript>
+  <!-- You can customize this button any way you like -->
+  <noscript></a>Buy Tickets on Eventbrite</noscript>
+
+  <script src="https://www.eventbrite.ca/static/widgets/eb_widgets.js"></script>
+  <!-- 
+  <script type="text/javascript">
+    var exampleCallback = function () {
+      console.log('Order complete!');
+    };
+
+    window.EBWidgets.createWidget({
+      widgetType: 'checkout',
+      eventId: '146694387863',
+      modal: true,
+      modalTriggerElementId: 'eventbrite-widget-modal-trigger-146694387863',
+      onOrderComplete: exampleCallback
+    });
+  </script> -->
+<script src="runtime.7d7e9038a1cdbceb3d53.js" defer></script><script src="polyfills-es5.9dec817692e632d11f47.js" nomodule defer></script><script src="polyfills.7d5297344d357218b937.js" defer></script><script src="scripts.3974220049534cb9c762.js" defer></script><script src="main.998f759300e8dc042931.js" defer></script></body>
 
 </html>

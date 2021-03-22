@@ -12,10 +12,8 @@ import { BehaviorService } from '../../shared/services/behavior.service';
 })
 export class RegisterPartnerServiceComponent implements OnInit {
 
-  public isSubmitted: boolean = false;
-  public userid: string;
-  public selectedServices: string[] = [];
-  public uploadedImages: string[];
+  public user: any;
+  private selectedServices: string[] = [];
 
   private subscriptionNavigation: Subscription;
 
@@ -33,7 +31,8 @@ export class RegisterPartnerServiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initForm();
+    this.user = this._qService.getUser();
+    this.selectedServices = this.user.services || [];
 
     this.subscriptionNavigation = this._qService.observeNavigation().subscribe(type => {
       if(type == 'next'){ this.onSubmit(); }
@@ -46,15 +45,6 @@ export class RegisterPartnerServiceComponent implements OnInit {
   /** copy end */
 
   /** original start */
-  async initForm(){
-    const user = this._qService.getUser();
-    this.userid = user._id;
-
-    this.uploadedImages = user.image || [];
-    this.selectedServices = user.services || [];
-  }
-
-
   onChangeSelectedServices(services: string[]){
     this.selectedServices = services;
   }
@@ -65,19 +55,13 @@ export class RegisterPartnerServiceComponent implements OnInit {
   }
 
   onSubmit(){
-
     if(this.selectedServices.length == 0){
       this._toastr.error('Please select at least 1 service.');
       return;
     }
 
-    const data: {services: string[], image?: string[]} = { 
-      services: this.selectedServices,
-      image: this.uploadedImages, 
-    }
-
-    this._qService.updateUser(data);
+    /** update only services. image is updated right after it's uploaded */
+    this._qService.updateUser({services: this.selectedServices});
     this._qService.goNext(this._route);
   }
-
 }

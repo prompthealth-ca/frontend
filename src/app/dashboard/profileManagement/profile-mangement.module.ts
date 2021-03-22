@@ -32,6 +32,7 @@ import { MyBadgeComponent } from './my-badge/my-badge.component';
 import { MyPerformanceComponent } from './my-performance/my-performance.component';
 import { PartnerServiceComponent } from './partner-service/partner-service.component';
 import { PartnerGeneralComponent } from './partner-general/partner-general.component';
+import { PartnerOfferComponent } from './partner-offer/partner-offer.component';
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -55,6 +56,7 @@ import { PartnerGeneralComponent } from './partner-general/partner-general.compo
     MyPerformanceComponent,
     PartnerServiceComponent,
     PartnerGeneralComponent,
+    PartnerOfferComponent,
     
   ],
   schemas: [

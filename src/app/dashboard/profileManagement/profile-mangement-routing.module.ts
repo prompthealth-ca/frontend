@@ -24,6 +24,7 @@ import { PartnerServiceComponent } from './partner-service/partner-service.compo
 import { PartnerGeneralComponent } from './partner-general/partner-general.component';
 
 import { ProfileManagementChildGuard } from './profile-management-child.guard';
+import { PartnerOfferComponent } from './partner-offer/partner-offer.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,10 @@ const routes: Routes = [
       {
         path: 'partner-profile',
         component: PartnerGeneralComponent,
+      },
+      {
+        path: 'partner-offer',
+        component: PartnerOfferComponent,
       }
     ]
   },

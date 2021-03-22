@@ -15,8 +15,8 @@ export class PartnerServiceComponent implements OnInit {
   public categories: Category[];
   public isEditing = false;
   public profile: any;
-  public selectedServices: string[];
-  public uploadedImages: string[];
+  private selectedServices: string[];
+  private uploadedImages: string[];
 
   constructor(
     private _profileService: ProfileManagementService,
@@ -33,7 +33,8 @@ export class PartnerServiceComponent implements OnInit {
     try {
       const user = JSON.parse(localStorage.getItem('user')); 
       this.profile = await this._profileService.getProfileDetail(user);
-      this.selectedServices = this.profile.services
+      this.selectedServices = this.profile.services || [];
+      this.uploadedImages = this.profile.image || [];
     }
     catch(err) { console.log(err);}
   }

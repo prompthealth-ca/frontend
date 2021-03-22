@@ -101,6 +101,7 @@ export class ProfileManagementChildGuard implements CanActivateChild {
 
       case 'partner-service':
       case 'partner-profile':
+      case 'partner-offer':
         /** if user role is P, true */
         if(role == 'p'){ return true; }
         break;

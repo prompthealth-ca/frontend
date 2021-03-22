@@ -1,8 +1,6 @@
 <h3 class="mb-4">Company Services</h3>
 <form-partner-service
-[userid]="userid"
-[images]="uploadedImages"
-[services]="selectedServices"
+[data]="user"
 (changeService)="onChangeSelectedServices($event)"
 (changeImage)="onChangeUploadedImages($event)"
 ></form-partner-service>

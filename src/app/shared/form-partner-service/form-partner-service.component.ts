@@ -11,9 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FormPartnerServiceComponent implements OnInit {
 
-  @Input() services: string[] = [];
-  @Input() images: string[] = [];
-  @Input() userid: string;
+  @Input() data: any;
   @Input() disabled = false;
 
   @Output() changeService = new EventEmitter<string[]>();
@@ -21,7 +19,7 @@ export class FormPartnerServiceComponent implements OnInit {
 
   public formImages: FormArray;
   public baseURLImage = environment.config.AWS_S3;
-  
+
   constructor(
     private _toastr: ToastrService,
     private _sharedService: SharedService,
@@ -30,14 +28,15 @@ export class FormPartnerServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.formImages = new FormArray([]);
-    this.images.forEach(image => {
-      this.formImages.push(new FormControl(image));
-    });
+    if(this.data.image){
+      this.data.image.forEach((image: string) => {
+        this.formImages.push(new FormControl(image));
+      });  
+    }
   }
 
   onChangeSelectedServices(services: []){
-    this.services = services;
-    this.emitService();
+    this.emitService(services);
   }
 
   async onSelectProductImages(e: Event){
@@ -89,7 +88,7 @@ export class FormPartnerServiceComponent implements OnInit {
     return new Promise((resolve, reject) => {
       const uploadImage = new FormData();
       uploadImage.append('imgLocation', 'partner');
-      uploadImage.append('_id', this.userid);
+      uploadImage.append('_id', this.data._id);
       images.forEach(image => {
         uploadImage.append('images', image.file, image.filename);
       });
@@ -109,7 +108,7 @@ export class FormPartnerServiceComponent implements OnInit {
     });
   }
 
-  emitService(){ this.changeService.emit(this.services); }
+  emitService(services: string[]){ this.changeService.emit(services); }
 
   emitImage(){
     const images = [];

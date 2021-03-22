@@ -1,27 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfileManagementService } from '../profile-management.service';
 import { SharedService } from '../../../shared/services/shared.service';
-import { BehaviorService } from '../../../shared/services/behavior.service';
-import { FormPartnerGeneralComponent } from '../../../shared/form-partner-general/form-partner-general.component';
+import { FormPartnerOfferComponent } from '../../../shared/form-partner-offer/form-partner-offer.component';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorService } from '../../../shared/services/behavior.service';
+import { FormPartnerGeneralComponent } from 'src/app/shared/form-partner-general/form-partner-general.component';
 
 @Component({
-  selector: 'app-partner-general',
-  templateUrl: './partner-general.component.html',
-  styleUrls: ['./partner-general.component.scss']
+  selector: 'app-partner-offer',
+  templateUrl: './partner-offer.component.html',
+  styleUrls: ['./partner-offer.component.scss']
 })
-export class PartnerGeneralComponent implements OnInit {
+export class PartnerOfferComponent implements OnInit {
 
   public isEditing = false;
   public profile: any;
 
-  @ViewChild(FormPartnerGeneralComponent) private formComponent: FormPartnerGeneralComponent;
+  @ViewChild(FormPartnerOfferComponent) private formComponent: FormPartnerGeneralComponent;
 
   constructor(
     private _profileService: ProfileManagementService,
     private _sharedService: SharedService,
-    private _bs: BehaviorService,
     private _toastr: ToastrService,
+    private _bs: BehaviorService,
   ) { }
 
   async ngOnInit() {
@@ -33,10 +34,6 @@ export class PartnerGeneralComponent implements OnInit {
   }
 
   toggleEdit(){ this.isEditing = !this.isEditing; }
-
-  onChangeImage(imageURL: string){
-    /**nothing to do. */
-  }
 
   onSubmit(){
     this.formComponent.onSubmit();
@@ -59,5 +56,6 @@ export class PartnerGeneralComponent implements OnInit {
       console.log(error);
       this._toastr.error('There are some errors, please try again after some time.');
     });
+
   }
 }

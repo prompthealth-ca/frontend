@@ -128,6 +128,13 @@ export class WrapperComponent implements OnInit, OnDestroy {
     link: 'partner-profile',
     active,
   });
+
+  public partnerOfferTab = (active) => ({
+    description: 'Add & Edit your offer',
+    title: 'Offer',
+    link: 'partner-offer',
+    active,
+  })
   
   // tslint:disable-next-line: member-ordering
   listing: any[] = [
@@ -316,6 +323,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
             this.partnerProfileTab(true),
             this.passwordTab(true),
             this.partnerServiceTab(true),
+            this.partnerOfferTab(true),
           ];
           break;
       }

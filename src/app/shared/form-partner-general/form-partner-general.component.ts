@@ -15,7 +15,7 @@ export class FormPartnerGeneralComponent implements OnInit {
   @Input() disabled = false;
 
   @Output() changeImage = new EventEmitter<string>();
-  @Output() submitText = new EventEmitter<any>();
+  @Output() submitText = new EventEmitter<any>(); /** it does NOT return userID nor imageURL */
 
   public form: FormGroup;
   public isSubmitted: boolean = false;

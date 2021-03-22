@@ -32,6 +32,8 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { FormLoginComponent } from './form-login/form-login.component';
 import { ShareMenuComponent } from './share-menu/share-menu.component';
 import { FormServiceComponent } from './form-service/form-service.component';
+import { FormPartnerServiceComponent } from './form-partner-service/form-partner-service.component';
+import { FormPartnerGeneralComponent } from './form-partner-general/form-partner-general.component';
 
 @NgModule({
   imports: [
@@ -71,6 +73,8 @@ import { FormServiceComponent } from './form-service/form-service.component';
     ImageViewerComponent,
     FormLoginComponent,
     ShareMenuComponent,
+    FormPartnerServiceComponent,
+    FormPartnerGeneralComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -98,6 +102,8 @@ import { FormServiceComponent } from './form-service/form-service.component';
     ImageViewerComponent,
     FormLoginComponent,
     ShareMenuComponent,
+    FormPartnerServiceComponent,
+    FormPartnerGeneralComponent
   ]
 })
 export class SharedModule { }

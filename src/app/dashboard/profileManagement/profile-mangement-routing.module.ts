@@ -20,6 +20,8 @@ import { MyServiceComponent } from './my-service/my-service.component';
 import { MySocialComponent } from './my-social/my-social.component';
 import { MyBadgeComponent } from './my-badge/my-badge.component';
 import { MyPerformanceComponent } from './my-performance/my-performance.component';
+import { PartnerServiceComponent } from './partner-service/partner-service.component';
+import { PartnerGeneralComponent } from './partner-general/partner-general.component';
 
 import { ProfileManagementChildGuard } from './profile-management-child.guard';
 
@@ -101,6 +103,14 @@ const routes: Routes = [
       {
         path: 'my-performance',
         component: MyPerformanceComponent,
+      },
+      {
+        path: 'partner-service',
+        component: PartnerServiceComponent,
+      },
+      {
+        path: 'partner-profile',
+        component: PartnerGeneralComponent,
       }
     ]
   },

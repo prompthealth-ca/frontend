@@ -66,9 +66,7 @@
                 <ng-container *ngIf="profile.roles == 'P'">
                   <div *ngIf="!profile.phListedLink">
                     <p class="font-italic font-big">
-                      Please add the link 
-                      <b>"https//prompthealth.ca"</b>
-                      on your side to be listed on our platform.
+                      To get listed with us as a partner, please link Prompt Health to your website, social media, or other platform first. 
                     </p>
                     <button class="btn btn-ph-blue" (click)="isPhLinkFieldShown = true">I added the link</button>    
                   </div>
@@ -76,7 +74,7 @@
                   <div *ngIf="profile.phListedLink">
                     <p class="font-italic font-big">
                       Your profile is being reviewed by our administrator and won't be shown in listing just yet.<br><br>
-                      Meanwhile, you can edit the URL where the link to our website is placed.
+                      If needed, you can edit the URL where you have linked Prompt Health.
                     </p>
                     <button class="btn btn-ph-blue" (click)="isPhLinkFieldShown = true">Edit</button>    
                   </div>
@@ -85,7 +83,7 @@
                   <form-input
                   name="phListedLink"
                   label="Link"
-                  placeholder="Enter the URL where you put the link to our website"
+                  placeholder="Enter the URL to where you have linked Prompt Health"
                   [controller]="formPhListedLink"
                   [submitted]="isFormPhListedLinkSubmitted"
                   ></form-input>  

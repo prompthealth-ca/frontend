@@ -18,8 +18,10 @@ import { ProfessionalHomeComponent } from './professional-home/professional-home
 import { ProfessionalRegisterComponent } from './professional-register/professional-register.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { SharedModule } from '../shared/shared.module';
+import { AuthModule } from '../auth/auth.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 /** slider for filter in listing page */
 import { NpnSliderModule } from 'npn-slider';
@@ -89,6 +91,7 @@ import { RegisterPartnerTermComponent } from './register-partner-term/register-p
     OwlNativeDateTimeModule,
     CommonModule,
     SharedModule,
+    AuthModule,
     DashboardRoutingModule,
     NgxSpinnerModule,
     NgxPaginationModule,
@@ -98,7 +101,8 @@ import { RegisterPartnerTermComponent } from './register-partner-term/register-p
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
     NgbModalModule,
-    NpnSliderModule
+    NpnSliderModule,
+    ModalModule.forRoot()
   ]
 })
 export class DashboardModule { }

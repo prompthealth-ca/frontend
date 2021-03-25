@@ -32,10 +32,8 @@ export class ProfilePartnerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._meta.addTags([
-      {property: 'og:title', content: 'This is Test Title'},
-      {property: 'og:type', content: 'article'},
-    ])
+    this._meta.updateTag({property: 'og:title', content: 'This is test title'});
+
     this._route.params.subscribe(async params => {
       const id = params.id;
 

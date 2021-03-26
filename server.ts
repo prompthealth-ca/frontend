@@ -34,7 +34,9 @@ export function app() {
   }));
 
   //Test for OGP
-  server.use('/partners', (req, res) => {
+  server.use('/partners/:id', (req, res) => {
+    console.log('===TEST UNIVERSAL: OGP TEST===');
+
     const id = '600a5637998cd73c49680c04';
     req.body.id = id
     res.render(indexHtml, {req, providers: [
@@ -52,6 +54,9 @@ export function app() {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    console.log('====TEST UNIVERSAL===');
+    console.log('baseUrl: ' + req.baseUrl);
+    console.log('originalUrl: ' + req.originalUrl);
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 

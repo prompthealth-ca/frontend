@@ -34,7 +34,7 @@ export function app() {
   }));
 
   //Test for OGP
-  server.get('/secret-ogp-test', (req, res) => {
+  server.use('/secret-ogp-test', (req, res) => {
     const id = '600a5637998cd73c49680c04';
     req.body.id = id
     res.render(indexHtml, {req, providers: [

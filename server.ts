@@ -34,18 +34,18 @@ export function app() {
   }));
 
   //Test for OGP
-  server.use('/secret-ogp-test', (req, res) => {
+  server.use('/partners', (req, res) => {
     const id = '600a5637998cd73c49680c04';
     req.body.id = id
     res.render(indexHtml, {req, providers: [
-      {provide: APP_BASE_HREF, useValue: req.baseUrl + '/partners/' + id},
+      {provide: APP_BASE_HREF, useValue: req.baseUrl + '/partners/'},
       {provide: 'REQUEST', useValue: (req)},
       {provide: 'RESPONSE', useValue: (res)},
     ]}, (error, html) => {
       if(error){
         res.send(error);
       }else{
-        res.send(html);
+        res.send(id);
       }
     })
   });

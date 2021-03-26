@@ -33,6 +33,23 @@ export function app() {
     maxAge: '1y'
   }));
 
+  //Test for OGP
+  server.get('/secret-ogp-test', (req, res) => {
+    const id = '600a5637998cd73c49680c04';
+    req.body.id = id
+    res.render(indexHtml, {req, providers: [
+      {provide: APP_BASE_HREF, useValue: req.baseUrl + '/partners/' + id},
+      {provide: 'REQUEST', useValue: (req)},
+      {provide: 'RESPONSE', useValue: (res)},
+    ]}, (error, html) => {
+      if(error){
+        res.send(error);
+      }else{
+        res.send(html);
+      }
+    })
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });

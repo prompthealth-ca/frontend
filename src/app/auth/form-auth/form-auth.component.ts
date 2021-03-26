@@ -53,9 +53,15 @@ export class FormAuthComponent implements OnInit {
     }
 
     this._authService.signIn(providerId[type]).then(x => {
-      console.log(x);
+      // console.log(x);
+      let socialToken: string;
+      switch(type){
+        case 'google': socialToken = x.idToken; break;
+        case 'facebook': socialToken = x.id;
+      }
+  
       const data: SocialRegisterData = {
-        socialToken: x.idToken,
+        socialToken: socialToken,
         social_id: x.id,
         roles: this.userRole,
         profileImage: x.photoUrl,

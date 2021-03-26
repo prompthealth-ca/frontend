@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
+// import { isPlatformServer } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { SharedService } from '../../shared/services/shared.service';
@@ -22,8 +22,8 @@ export class ProfilePartnerComponent implements OnInit {
 
 
   constructor(
-    @Inject(PLATFORM_ID) private platform: Object,
-    private injector: Injector,
+    // @Inject(PLATFORM_ID) private platform: Object,
+    // private injector: Injector,
     private _headerService: HeaderStatusService,
     private _route: ActivatedRoute,
     private _sharedService: SharedService,
@@ -32,12 +32,12 @@ export class ProfilePartnerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(isPlatformServer(this.platform)){
-      const req: any = this.injector.get('REQUEST');
-      console.log(req.body.id);
-    }else{
-      console.log('browser');
-    }
+    // if(isPlatformServer(this.platform)){
+    //   const req: any = this.injector.get('REQUEST');
+    //   console.log(req.body.id);
+    // }else{
+    //   console.log('browser');
+    // }
 
     this._route.params.subscribe(async params => {
       const id = params.id;

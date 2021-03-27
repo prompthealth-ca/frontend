@@ -15,6 +15,7 @@ export class FormInputComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() submitted: boolean = false;
   @Input() prepend: string = null;
+  @Input() autocomplete: string = 'off';
 
   @Input() controller: FormControl;
   @Input() max: number = null;

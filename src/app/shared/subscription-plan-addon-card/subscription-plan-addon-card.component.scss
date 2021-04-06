@@ -1,25 +1,47 @@
-.title, .subtitle{ color: #D461B7; }
+$lightpinkBG: #D59DD4;
+$lightpinkText: #D461B7;
 
-.btn-more{
+$lightblueBG: #A5B9F9;
+$lightblueText: #728ad7;
+
+@mixin theme($color){
+  .title, 
+  .subtitle,
+  .feature i{
+    color: #{$color}Text;
+  }
+  .tab,
+  .btn-more,
+  .separator{
     color: white;
-    background: #B149AB;
+    background: #{$color}BG;
+  }  
 }
 
-.feature i{
-    color: #D461B7;
-}
+:host.theme-lightpink::ng-deep{@include theme(lightpink); }
 
-.tab{
+:host.theme-lightblue::ng-deep{
+  .title, 
+  .subtitle,
+  .feature i{
+    color: $lightblueText;
+  }
+  .tab,
+  .btn-more,
+  .separator{
     color: white;
-    background: #B149AB;
+    background: $lightblueBG;
+  }
 }
-
 
 :host{
-    position: relative;
-    padding-top: 50px;
-    display: block;
+  position: relative;
+  padding-top: 50px;
+  display: block;
 }
+
+
+
 
 
 .subtitle{
@@ -50,11 +72,18 @@
 .addon-card{
     position: relative;
     z-index: 2;
-    padding: 20px; 
+    padding: 20px;
     border-radius: 10px;
     background: white;
 }
 
+
+.separator{
+  width: 50%;
+  height: 1px;
+  margin: auto;
+  border: none;
+}
 
 .feature{
     list-style: none;

@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { IAddonPlan } from '../../models/addon-plan';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileManagementService } from '../../dashboard/profileManagement/profile-management.service'
 import { AddonSelectCategoryComponent } from '../../dashboard/addon-select-category/addon-select-category.component';
-import { Category, CategoryService } from '../services/category.service';
+import { CategoryService } from '../services/category.service';
 import { SharedService } from '../services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { StripeService } from 'ngx-stripe';
@@ -21,26 +21,55 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
 
   @Input() data: IAddonPlan;
   @Input() monthly = true;
+  @Input() theme: string = 'lightpink';
   @Input() flexibleButtonPosition = true;
 
   public isLoggedIn = false;
   public profile: IUserDetail;
 
-  constructor(
-    private _profileService: ProfileManagementService,
-    private _modalService: NgbModal,
-    private _catService: CategoryService,
-    private _sharedService: SharedService,
-    private _toastr: ToastrService,
-    private _stripeService: StripeService,
-  ) { }
-
-  async ngOnInit() {
-    if (localStorage.getItem('token')) { 
-      this.isLoggedIn = true;
-      const user = JSON.parse(localStorage.getItem('user'));
-      this.profile = await this._profileService.getProfileDetail(user);
+  get subtitle(): string {
+    let s: string = null;
+    if(this.data){
+      switch(this.data.name){
+        case 'The Networker': s = 'Be seen first. No work required.'; break;
+        case 'The Socialite': s = 'Do what you do best. We’ll take care of the rest.'; break;
+      }
     }
+    return s;
+  }
+
+  get summary(): string {
+    let s: string = null;
+    if(this.data){
+      switch(this.data.name){
+        case 'The Networker': 
+          s = "A higher tier of visibility. Be the first thing all clients see on PromptHealth."; 
+          break;
+        case 'The Socialite': 
+          s = "We’ll take care of the rest. Focus on what’s important – treating your clients. Let us take care of your recognition and growth.";
+          break;
+      }
+    }
+    return s;
+  }
+
+  get descriptionArray(): string[] {
+    const descriptionArray: string[] = [];
+    if(this.data.name == 'The Socialite'){
+      this.data.description = `Health content creation and management
+      - We design, schedule, and post strategic, quality content directly to your social media accounts. (3 posts weekly and 1 video or podcast yearly)`;  
+    }
+    if(this.data){
+      const descArray = this.data.description.split('\n');
+      descArray.forEach((d,i)=>{
+        if(d.trim().match(/^-/)){
+          descriptionArray[descriptionArray.length - 1] = descriptionArray[descriptionArray.length - 1] + d.trim().replace(/^\s*\-\s*/, '\n');
+        }else{
+          descriptionArray.push(d.trim());
+        }
+      });
+    }
+    return descriptionArray;
   }
 
   get tabName(): string {
@@ -69,25 +98,25 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     return link;
   }
 
-  get descriptionArray(): string[] {
-    const descriptionArray: string[] = [];
-    if(this.data.name == 'The Socialite'){
-      this.data.description = `Health content creation and management
-      - We design, schedule, and post strategic, quality content directly to your social media accounts. (3 posts weekly and 1 video or podcast yearly)`;  
-    }
-    if(this.data){
-      const descArray = this.data.description.split('\n');
-      descArray.forEach((d,i)=>{
-        if(d.trim().match(/^-/)){
-          descriptionArray[descriptionArray.length - 1] = descriptionArray[descriptionArray.length - 1] + d.trim().replace(/^\s*\-\s*/, '\n');
-        }else{
-          descriptionArray.push(d.trim());
-        }
-      });
-    }
-    return descriptionArray;
-  }
+  @HostBinding('class.theme-lightpink') get lightpink() { return (this.theme == 'lightpink'); }
+  @HostBinding('class.theme-lightblue') get lightblue() { return (this.theme == 'lightblue'); }
 
+  constructor(
+    private _profileService: ProfileManagementService,
+    private _modalService: NgbModal,
+    private _catService: CategoryService,
+    private _sharedService: SharedService,
+    private _toastr: ToastrService,
+    private _stripeService: StripeService,
+  ) { }
+
+  async ngOnInit() {
+    if (localStorage.getItem('token')) { 
+      this.isLoggedIn = true;
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.profile = await this._profileService.getProfileDetail(user);
+    }
+  }
 
   async triggerButtonClick() { 
     

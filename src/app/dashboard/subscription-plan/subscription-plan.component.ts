@@ -56,6 +56,9 @@ export class SubscriptionPlanComponent implements OnInit {
   public isPriceMonthly = true;
 
   public addOnPlans: IAddonPlan[] = [];
+  public addonNetworker: IAddonPlan;
+  public addonSocialite: IAddonPlan;
+
   public checkout = {
     email: 'this.userEmail.email',
     token: 'this.token'
@@ -136,13 +139,11 @@ export class SubscriptionPlanComponent implements OnInit {
       this._sharedService.loader('hide');
 
       if (res.statusCode === 200) {
-        const addons = [];
         res.data.forEach((data: IAddonPlan) => {
-          if(data.userType.includes('C') || data.userType.includes('SP')){
-            addons.push(data);
-          }
-        })
-        this.addOnPlans = addons;
+          if(data.name == 'The Networker') { this.addonNetworker = data; }
+          if(data.name == 'The Socialite') { this.addonSocialite = data; }
+        });
+        console.log(this.addonNetworker);
       } else {
         // this._commanService.checkAccessToken(res.error);
       }

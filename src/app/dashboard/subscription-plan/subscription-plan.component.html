@@ -46,17 +46,20 @@
   </div>
 </div>
 
-<div class="container-fluid max-w-1200" *ngIf="addOnPlans.length>0" id="addon">
+<div class="container-fluid max-w-1200" id="addon">
   <h3 class="text-pink mt-5 mb-3">Add-ons for Provider and Centre</h3>
-  <div 
-  *ngFor="let addOnPlan of addOnPlans"
-  class="mb-3"
-   >
-
-   <subscription-plan-addon-card
-   [data]="addOnPlan"
-   [monthly]="isPriceMonthly"
-   ></subscription-plan-addon-card>
+  <div class="row align-items-start">
+    <subscription-plan-addon-card
+    *ngIf="addonNetworker"
+    class="col-md-6 mb-3"
+    [data]="addonNetworker"
+    [monthly]="isPriceMonthly"
+    ></subscription-plan-addon-card>
+    <subscription-plan-addon-card
+    *ngIf="addonSocialite"
+    class="col-md-6 mb-3"
+    [data]="addonSocialite"
+    [monthly]="isPriceMonthly"
+    ></subscription-plan-addon-card>
   </div>
-   <!-- <subscription-plan-addon-card type="op2" class="mt-5" [isPriceMonthly]="isPriceMonthly"></subscription-plan-addon-card> -->
 </div> 

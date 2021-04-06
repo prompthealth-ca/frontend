@@ -6,10 +6,8 @@
 </div>
 
 <div class="addon-card shadow">
-  <div class="row flex-wrap"
-    [ngClass]="{'flex-md-nowrap': flexibleButtonPosition, 'align-items-md-center': flexibleButtonPosition}"
-  >
-    <div class='col-12' [ngClass]="{'col-md-9': flexibleButtonPosition, 'col-lg-9': flexibleButtonPosition}">
+  <div class="row flex-wrap">
+    <div class='col-12'>
       <h3 class="m-0 title">{{data?.name}}</h3>
       <div *ngIf="data.name == 'The Networker'" class="subtitle font-big mt-1 font-weight-400">Be seen first. No work required.</div>
       <div *ngIf="data.name == 'The Socialite'" class="subtitle font-big mt-1 font-weight-400">Do what you do best. We’ll take care of the rest.</div>
@@ -24,7 +22,7 @@
       </ul>
     </div>
 
-    <div class='col-12' [ngClass]="{'col-md-3': flexibleButtonPosition, 'col-lg-3': flexibleButtonPosition}">
+    <div class='col-12 mt-3 text-center'>
       <!-- if user is not loggedin, go to signin / login page -->
       <a *ngIf="!isLoggedIn && data?.stripeProductId"
         class="mt-3 btn btn-more"

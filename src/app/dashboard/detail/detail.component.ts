@@ -12,6 +12,8 @@ import { CategoryService, Category } from '../../shared/services/category.servic
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { Subscription } from 'rxjs';
+import { IUserDetail } from 'src/app/models/user-detail';
+
 
 const expandTitleAnimation = trigger('expandTitle', [
   state('shrink', style({ height: '1.2em' })),
@@ -101,6 +103,7 @@ export class DetailComponent implements OnInit {
   private ageRangeSet: QuestionnaireAnswer[] = ageRangeSet;
   private typeOfProvider: any[];
   private treatmentModality: any[];
+  private healthStatus: any[];
   private host: HTMLElement;
   private loginSubscription: Subscription;
 
@@ -161,7 +164,7 @@ export class DetailComponent implements OnInit {
         this.userInfo.populate('ageRange', this.ageRangeSet);
         this.userInfo.setServiceCategory('typeOfProvider', this.typeOfProvider);
         this.userInfo.setServiceCategory('treatmentModality', this.treatmentModality);
-
+        this.userInfo.setServiceCategory('healthStatus', this.healthStatus);
 
         this.userInfo.videos.forEach(v => {
           const ytIframeHtml = this._embedService.embed(v.url);
@@ -301,11 +304,13 @@ export class DetailComponent implements OnInit {
         if (res.statusCode === 200) {
           this.typeOfProvider = [];
           this.treatmentModality = [];
+          this.healthStatus = [];
 
           res.data.forEach((e: any) => {
             switch (e.slug) {
               case 'providers-are-you': this.typeOfProvider.push(e); break;
               case 'treatment-modalities': this.treatmentModality.push(e); break;
+              case 'who-are-your-customers': this.healthStatus.push(e); break;
               //            case 'your-goal-specialties': categories.service.push(e); break;
               //           case 'your-offerings': categories.serviceOffering.push(e); break;
             }
@@ -333,7 +338,7 @@ export class DetailComponent implements OnInit {
       if (res.statusCode === 200) {
         const professionals = [];
 
-        res.data.data.forEach((p: { userId: string, fName: string, lName: string, description: string }) => {
+        res.data.data.forEach((p: IUserDetail) => {
           professionals.push(new Professional(p.userId, p));
         });
         this.userInfo.setProfessionals(professionals);

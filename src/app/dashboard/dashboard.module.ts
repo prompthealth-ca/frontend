@@ -39,8 +39,8 @@ import { AddonSelectCategoryComponent } from './addon-select-category/addon-sele
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';
 import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
-import { AmenityViewerComponent } from './amenity-viewer/amenity-viewer.component';
-import { ProductViewerComponent } from './product-viewer/product-viewer.component';
+// import { AmenityViewerComponent } from './amenity-viewer/amenity-viewer.component';
+// import { ProductViewerComponent } from './product-viewer/product-viewer.component';
 import { FilterDropdownInputComponent } from './filter-dropdown-input/filter-dropdown-input.component';
 import { FilterDropdownLocationComponent } from './filter-dropdown-location/filter-dropdown-location.component';
 import { RegisterPartnerComponent } from './register-partner/register-partner.component';
@@ -71,8 +71,8 @@ import { RegisterPartnerCompleteComponent } from './register-partner-complete/re
     FilterDropdownComponent,
     FilterDropdownSelectComponent,
     FilterDropdownSliderComponent,
-    AmenityViewerComponent,
-    ProductViewerComponent,
+    // AmenityViewerComponent,
+    // ProductViewerComponent,
     FilterDropdownInputComponent,
     FilterDropdownLocationComponent,
     RegisterPartnerComponent,

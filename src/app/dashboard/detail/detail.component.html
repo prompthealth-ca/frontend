@@ -111,9 +111,9 @@ class="container-fluid bg-grey p-4"
       <div class="col-md-6 col-lg-7">
   
         <!-- basic section -->
-        <div class="row mb-5" *ngIf="userInfo && userInfo.practicePhilosophy">
+        <div class="row mb-5" *ngIf="userInfo && userInfo.description">
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Practice Philosophy:</div>
-          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.practicePhilosophy}}</p>
+          <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.description}}</p>
         </div>
         <div class="row mb-5">
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Specialty Age Group</div>
@@ -141,11 +141,11 @@ class="container-fluid bg-grey p-4"
           <div class="col-12 col-lg-8">
             <app-image-row [images]="userInfo.amenityPreview" [option]="{col: 3}"></app-image-row>
             <button class="btn text-blue border-blue rounded" (click)="openAmenityViewer()">Show detail</button>
-            <app-product-viewer 
-            *ngIf="isAmenityViewerShown" 
+            <image-viewer
+            *ngIf="isAmenityViewerShown"
             [data]="userInfo.amenity"
             (close)="closeAmenityViewer()"
-            ></app-product-viewer>
+            ></image-viewer>
           </div>
         </div>
 
@@ -154,11 +154,11 @@ class="container-fluid bg-grey p-4"
           <div class="col-12 col-lg-8">
             <app-image-row [images]="userInfo.productPreview" [option]="{col: 3}"></app-image-row>
             <button class="btn text-blue border-blue rounded" (click)="openProductViewer()">Show detail</button>
-            <app-product-viewer 
+            <image-viewer
             *ngIf="isProductViewerShown"
             [data]="userInfo.product"
             (close)="closeProductViewer()"
-            ></app-product-viewer>
+            ></image-viewer>
           </div>
         </div>
 
@@ -177,6 +177,14 @@ class="container-fluid bg-grey p-4"
             <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.treatmentModality">{{item}}</li>
           </ul>
         </div>
+
+        <div class="row bg-lightblue pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Health Status: </div>
+          <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
+            <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.healthStatus">{{item}}</li>
+          </ul>
+        </div>
+
         
         <div class="row bg-lightblue pt-5 pb-0">
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Service Delivery:</div>

@@ -11,9 +11,13 @@
   >
     <div class='col-12' [ngClass]="{'col-md-9': flexibleButtonPosition, 'col-lg-9': flexibleButtonPosition}">
       <h3 class="m-0 title">{{data?.name}}</h3>
-    
+      <div *ngIf="data.name == 'The Networker'" class="subtitle font-big mt-1 font-weight-400">Be seen first. No work required.</div>
+      <div *ngIf="data.name == 'The Socialite'" class="subtitle font-big mt-1 font-weight-400">Do what you do best. We’ll take care of the rest.</div>
+      
+      <p *ngIf="data.name == 'The Networker'" class="mt-3 mb-4 font-weight-400">A higher tier of visibility. Be the first thing all clients see on PromptHealth.</p>
+      <p *ngIf="data.name == 'The Socialite'" class="mt-3 mb-4 font-weight-400">We’ll take care of the rest. Focus on what’s important – treating your clients. Let us take care of your recognition and growth.</p>
       <ul class="mb-0 mt-3 feature fa-ul">
-        <li *ngFor="let desc of (data?.description.split('\n')); let i = index">
+        <li *ngFor="let desc of descriptionArray; let i = index">
           <span class="fa-li"><i class="far fa-check-circle" ></i></span>
           {{desc}}
         </li>

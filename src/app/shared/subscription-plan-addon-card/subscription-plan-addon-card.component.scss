@@ -1,4 +1,4 @@
-.title{ color: #D461B7; }
+.title, .subtitle{ color: #D461B7; }
 
 .btn-more{
     color: white;
@@ -21,8 +21,9 @@
     display: block;
 }
 
-.title{
-    @media screen and (max-width: 767px){ font-size: 1.3em; }
+
+.subtitle{
+    line-height: 1.3em;
 }
 .tab{
     position: absolute;
@@ -58,6 +59,7 @@
 .feature{
     list-style: none;
     li:not(:last-child){ margin-bottom: 10px; }
+    li{ white-space: pre-line; }
 }
 
 .btn-more{

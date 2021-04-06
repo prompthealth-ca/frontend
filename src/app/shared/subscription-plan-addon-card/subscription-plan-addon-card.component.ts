@@ -43,7 +43,7 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     }
   }
 
-  get tabName() {
+  get tabName(): string {
     let name = '';
 
     if (this.data) {
@@ -58,7 +58,7 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     return name;
   }
 
-  get linkToRegistration() {
+  get linkToRegistration(): string[] {
     const link = ['/auth', 'registration'];
     if(this.data.userType.includes('P')){
       link.push('p');
@@ -69,6 +69,24 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     return link;
   }
 
+  get descriptionArray(): string[] {
+    const descriptionArray: string[] = [];
+    if(this.data.name == 'The Socialite'){
+      this.data.description = `Health content creation and management
+      - We design, schedule, and post strategic, quality content directly to your social media accounts. (3 posts weekly and 1 video or podcast yearly)`;  
+    }
+    if(this.data){
+      const descArray = this.data.description.split('\n');
+      descArray.forEach((d,i)=>{
+        if(d.trim().match(/^-/)){
+          descriptionArray[descriptionArray.length - 1] = descriptionArray[descriptionArray.length - 1] + d.trim().replace(/^\s*\-\s*/, '\n');
+        }else{
+          descriptionArray.push(d.trim());
+        }
+      });
+    }
+    return descriptionArray;
+  }
 
 
   async triggerButtonClick() { 

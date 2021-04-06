@@ -27,6 +27,7 @@
   <div class="row align-items-stretch">
     <subscription-plan-item-card class="col-md"
       type="basic"
+      theme="green"
       [data]="basicPlan"
       [monthly]="isPriceMonthly"
       [hideButton]="!this.profile || !!this.profile.plan"
@@ -34,12 +35,14 @@
 
     <subscription-plan-item-card class="col-md mt-5 mt-md-0"
       type="provider"
+      theme="blue"
       [data]="spPlan"
       [monthly]="isPriceMonthly"
       ></subscription-plan-item-card>
 
     <subscription-plan-item-card class="col-md mt-5 mt-md-0"
       type="centre"
+      theme="red"
       [data]="cPlan"
       [monthly]="isPriceMonthly"
       ></subscription-plan-item-card>

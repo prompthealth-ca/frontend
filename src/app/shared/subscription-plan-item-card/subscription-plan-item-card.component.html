@@ -24,7 +24,9 @@
 
 <div class="plan-card h-100 shadow text-center" [class]="'colorset-' + color">
 
-    <h3 class="title d-inline-block" [innerText]="title"></h3>
+    <h3 class="title d-inline-block m-0" [innerText]="title"></h3>
+    <div class="separator"></div>
+
     <p class="my-4">
         <span *ngIf="type == 'basic'">Get listed with us for free so that the clients can find you.</span>
         <span *ngIf="type == 'provider'">This is for a solo health and wellness professional looking to boost their

@@ -21,8 +21,11 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
 
   @Input() data: IAddonPlan;
   @Input() monthly = true;
-  @Input() theme: string = 'lightpink';
+  @Input() theme: 'lightpink' | 'lightblue' = 'lightpink';
   @Input() flexibleButtonPosition = true;
+
+  @HostBinding('class.theme-lightpink') get lightpink() { return (this.theme == 'lightpink'); }
+  @HostBinding('class.theme-lightblue') get lightblue() { return (this.theme == 'lightblue'); }
 
   public isLoggedIn = false;
   public profile: IUserDetail;
@@ -97,9 +100,6 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     }
     return link;
   }
-
-  @HostBinding('class.theme-lightpink') get lightpink() { return (this.theme == 'lightpink'); }
-  @HostBinding('class.theme-lightblue') get lightblue() { return (this.theme == 'lightblue'); }
 
   constructor(
     private _profileService: ProfileManagementService,

@@ -166,23 +166,6 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.AWS_S3 = environment.config.AWS_S3;
     this.serviceSet = await this._catService.getCategoryAsync();
 
-    /** #reviews */
-    // this._maps.load().then(() => {
-    //   const latlng = {lat: 49.2115287, lng: -123.14353155};
-    //   const map = new google.maps.Map(document.createElement('div'), {
-    //     center: latlng,
-    //     zoom: 10,
-    //   } as google.maps.MapOptions);
-    //   const service = new google.maps.places.PlacesService(map);
-    //   service.getDetails({
-    //     placeId: 'ChIJqypcPcNzhlQRWdJ770ivnfg',
-    //     fields: ['rating', 'review', 'address_component', 'name']
-    //   }, (place, status)=>{
-    //     console.log(status);
-    //     console.log(place);
-    //   });  
-    // });
-
     // if options which has to be fetched from server is not set correctly, fetch.
     if (this.filters[3].options.length == 0 || this.filters[4].options.length == 0 || this.filters[4].options.length == 0) {
       this.getProfileQuestion();

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
 import { animate, trigger, state, style, transition } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
@@ -44,6 +45,7 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
+    private _map: MapsAPILoader,
     private _sharedService: SharedService,
     private _toastr: ToastrService,
     private _fb: FormBuilder,
@@ -171,6 +173,11 @@ export class DetailComponent implements OnInit {
           ytIframeHtml.title = v.title;
           this.iframe.push(ytIframeHtml);
         });
+
+        this._map.load().then(()=>{
+          this.userInfo.setGoogleReviews();
+        });
+    
 
         this.getEndosements();
         this.getProducts();
@@ -437,6 +444,7 @@ export class DetailComponent implements OnInit {
     const rect = banner.getBoundingClientRect();
     window.scrollBy({ top: rect.top + rect.height, left: 0, behavior: 'smooth' });
   }
+
 
   sortReviewsBy(i: number) {
     this.indexSortReviews = i;

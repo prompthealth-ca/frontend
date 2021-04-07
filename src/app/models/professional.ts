@@ -4,7 +4,7 @@ import { Category } from '../shared/services/category.service';
 import { SocialLinkData } from '../shared/social-buttons/social-buttons.component';
 import { ImageData, ImageGroupData, ImageViewerData } from '../shared/image-viewer/image-viewer.component';
 import { IUserDetail, IVideo } from './user-detail';
-import { async } from '@angular/core/testing';
+import { MapsAPILoader } from '@agm/core';
 
 export interface IProfessional {
   id: string;
@@ -61,6 +61,7 @@ export interface IProfessional {
   videos: IVideo[];
   endosements: any[];
   reviews: any[];
+  detailByGoogle: google.maps.places.PlaceResult;
 
   // not used anywhere yet
   gender: string;
@@ -135,6 +136,8 @@ export class Professional implements IProfessional {
       youtube: null,
     }
   };
+
+  private _detailByGoogle: google.maps.places.PlaceResult;
 
   // protected _allServiceId: string[];
 
@@ -264,6 +267,8 @@ export class Professional implements IProfessional {
 
   get socialLink() { return this._socialLink; }
 
+  get detailByGoogle(){ return this._detailByGoogle || null; }
+
 
   get isCheckedForCompare() { return this._isCheckedForCompared; }
   set isCheckedForCompare(checked: boolean) { this._isCheckedForCompared = checked; }
@@ -275,7 +280,6 @@ export class Professional implements IProfessional {
     if(url && match){ label = match[1]; }
     return label;
   }
-
 
   constructor(id: string, private p: IUserDetail, private ans?: any) {
     this._id = id;
@@ -427,6 +431,57 @@ export class Professional implements IProfessional {
     });
     this.sortReviewBy(0);
   }
+
+  async setGoogleReviews(): Promise<google.maps.places.PlaceResult>{
+    return new Promise( async (resolve, reject) => {
+
+      if(this._detailByGoogle){ resolve(this._detailByGoogle); }
+      
+      const placeId = await this.getGooglePlaceId();
+      const map = new google.maps.Map(document.createElement('div'));
+      const service = new google.maps.places.PlacesService(map);
+      service.getDetails({
+        fields: ['rating', 'review', 'name', 'formatted_address', 'photo'],
+        placeId,
+      }, (result, status)=>{
+        if(result){
+          this._detailByGoogle = result;
+          resolve(this._detailByGoogle);  
+        }else{
+          reject(status);
+        }
+      });
+    });
+  }
+
+  async getGooglePlaceId(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const map = new google.maps.Map(document.createElement('div'), {
+        center: {lat: this.p.location[1], lng: this.p.location[0]},
+        zoom: 10,
+      } as google.maps.MapOptions );
+      const service = new google.maps.places.PlacesService(map);
+
+      if(this.p.phone){
+        service.findPlaceFromPhoneNumber({phoneNumber: '+1' + this.p.phone, fields: ['place_id']}, (result, status)=>{
+          if(result){
+            resolve(result[0].place_id);
+          }else{
+            reject(status);
+          }
+        });    
+      }else{
+        service.findPlaceFromQuery({query: this.name, fields: ['place_id']}, (result, status)=>{
+          if(result){
+            resolve(result[0].place_id);
+          }else{
+            reject(status);
+          }
+        });
+      }
+    });
+  }
+
 
   sortReviewBy(i: number) {
     switch (i) {

@@ -35,6 +35,8 @@ import { FormServiceComponent } from './form-service/form-service.component';
 import { FormPartnerServiceComponent } from './form-partner-service/form-partner-service.component';
 import { FormPartnerGeneralComponent } from './form-partner-general/form-partner-general.component';
 import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-offer.component';
+import { FormCentreGeneralComponent } from './form-centre-general/form-centre-general.component';
+import { FormInputPlaceComponent } from './form-input-place/form-input-place.component';
 
 @NgModule({
   imports: [
@@ -77,6 +79,8 @@ import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-off
     FormPartnerServiceComponent,
     FormPartnerGeneralComponent,
     FormPartnerOfferComponent,
+    FormCentreGeneralComponent,
+    FormInputPlaceComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -106,7 +110,9 @@ import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-off
     ShareMenuComponent,
     FormPartnerServiceComponent,
     FormPartnerGeneralComponent,
-    FormPartnerOfferComponent
+    FormPartnerOfferComponent,
+    FormCentreGeneralComponent,
+    FormInputPlaceComponent,
   ]
 })
 export class SharedModule { }

@@ -13,17 +13,26 @@
   <button class="btn btn-primary pull-right mr-2" (click)="deleteProfile(content)">Delete Profile</button>
 </h4>
 <div class="form-container">
-  <form role="form" class=" form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
-    <div class="col-md-12 text-center my-3">
-      <div class="d-inline-block profileeditbox">
-        <img
-          [src]="profile?.profileImage ? AWS_S3+profile?.profileImage : defaultImage" crossorigin="anonymous"/>
-        <!-- <img [src]="defaultImage" /> -->
-        <!-- <input type="file" *ngIf="editFields"/> -->
-        <input class="d-block " type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"
-          accept="image/x-png,image/png,image/gif,image/jpeg,image/jpg" />
-      </div>
+  <div class="col-md-12 text-center my-3">
+    <div class="d-inline-block profileeditbox">
+      <img
+        [src]="profile?.profileImage ? AWS_S3+profile?.profileImage : defaultImage" crossorigin="anonymous"/>
+      <!-- <img [src]="defaultImage" /> -->
+      <!-- <input type="file" *ngIf="editFields"/> -->
+      <input class="d-block " type="file" name="profile" (change)="onFileSelect($event)" *ngIf="editFields"
+        accept="image/x-png,image/png,image/gif,image/jpeg,image/jpg" />
     </div>
+  </div>
+
+  <form-centre-general 
+  *ngIf="profile2 && roles == 'C'" 
+  [disabled]="!editFields" 
+  [data]="profile2" 
+  (submitForm)="onSubmitFormCentre($event)"
+  ></form-centre-general>
+
+
+  <form *ngIf="roles != 'C'" role="form" class=" form-row m-0 w-100" (ngSubmit)="save()" #updateDetailForm="ngForm">
     <div class="col-md-12">
       <div class="form-row mb-3">
         <label class="col-md-3" *ngIf="roles === 'C'; else firstNameLabel">Name <span class="text-danger" *ngIf="editFields">*</span></label>
@@ -70,7 +79,7 @@
       <div class="form-row mb-3" *ngIf="roles === 'C' || roles === 'SP'">
         <label class="col-md-3">Membership Type <span class="text-danger" *ngIf="editFields">*</span></label>
         <input *ngIf="roles === 'C'" type="text" [disabled]="true" autocomplete="off" id="email" name="email"
-          value="Center" class="form-control col-md-9" />
+          value="Centre" class="form-control col-md-9" />
         <input *ngIf="roles === 'SP'" type="text" [disabled]="true" autocomplete="off" id="email" name="email"
           value="Provider" class="form-control col-md-9" />
       </div>

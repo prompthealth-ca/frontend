@@ -8,7 +8,10 @@ import { FormControl } from '@angular/forms';
 })
 export class FormCheckboxComponent implements OnInit {
 
-  @Input() name: string = '';
+  @Input() type: 'checkbox' | 'radio' = 'checkbox';
+  @Input() name: string = ''; /** used for id */
+  @Input() value: string | number | boolean = ''; /** this is for radio */
+  @Input() group: string; /** this is for radio. group name */
   @Input() controller: FormControl;
   @Input() label: string = '';
 

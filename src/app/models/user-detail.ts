@@ -18,7 +18,9 @@ export interface IUserDetail {
   city?: string
   state?: string;
   zipcode?: string;
-  location?: number[]; /** [lat, lng] */
+  location?: number[]; /** [lng, lat] */
+  placeId?: string;
+  
   phone?: string;
 
   isApproved?: boolean;
@@ -35,6 +37,8 @@ export interface IUserDetail {
   /** for U | SP */
   gender?: string;
 
+  /** for C */
+  business_kind?: string;
 
   /** for SP | C */
   age_range?: string[];

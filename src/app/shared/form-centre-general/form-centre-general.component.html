@@ -1,0 +1,380 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form">
+  <div class="row mb-4">
+    <label class="col-md-4" for="firstName">
+      Name 
+      <span class="text-danger">*</span>
+    </label>
+    <div class="col-md-8">
+      <form-input-place 
+      name="firstName"
+      label="Name"
+      type="text"
+      [controllerGroup]="form"
+      [max]="maxName"
+      [submitted]="isSubmitted"
+      [disabled]="disabled"
+      (selectPlace)="onChangePlace()"
+      ></form-input-place>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="userType">
+      Membership Type 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="userType"
+      label="Membership type"
+      type="text"
+      [controller]="f.userType"
+      [disabled]="true"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="email">
+      Email Address 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="email"
+      label="Email Address"
+      type="text"
+      [controller]="f.email"
+      [disabled]="true"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="phone">
+      Phone Number 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="phone"
+      label="Phone number"
+      type="text"
+      [controller]="f.phone"
+      [submitted]="isSubmitted"
+      [disabled]="disabled || f.placeId.value"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="address">
+      Location 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input-address
+      name="address"
+      label="Location" 
+      [controllerGroup]="form"
+      [submitted]="isSubmitted"
+      [disabled]="disabled || f.placeId.value"
+      ></form-input-address>
+      <div class="mt-2">
+        <form-checkbox
+        *ngIf="!disabled && !f.placeId.value"
+        name="hideAddress"
+        label="Do not show address"
+        [controller]="f.hideAddress"
+        ></form-checkbox>
+      </div>
+      <div *ngIf="f.hideAddress.value" class="mt-2 mb-3 font-italic">You'll not be shown on the location based listing page</div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="website">
+      Website 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="website"
+      label="Website"
+      type="text"
+      [controller]="f.website"
+      [submitted]="isSubmitted"
+      [disabled]="disabled || f.placeId.value"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="bookingURL">
+      Booking URL 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="bookingURL"
+      label="Booking URL"
+      type="text"
+      [controller]="f.bookingURL"
+      [submitted]="isSubmitted"
+      [disabled]="disabled"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" for="professionalTitle">
+      Professional Title 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-input 
+      name="professionalTitle"
+      label="Professional title"
+      type="text"
+      [max]="maxProfessionalTitle"
+      [controller]="f.professional_title"
+      [submitted]="isSubmitted"
+      [disabled]="disabled"
+      ></form-input>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Available Time
+      <span class="text-danger">*</span>
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of typicalHourList; let i = index">
+          <li *ngIf="data?.typical_hours.includes(item.value)">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of typicalHourList; let i = index">
+          <form-checkbox
+          [name]="item.id"
+          [label]="item.label"
+          [controller]="fTypicalHourList[i]"
+          ></form-checkbox>
+        </li>
+      </ul>
+      <form-errors 
+      [controller]="f.typical_hours"
+      [submitted]="isSubmitted"
+      label="Avaliable time"
+      ></form-errors>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Languages
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of languageList; let i = index">
+          <li *ngIf="data?.languages.includes(item.value)">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of languageList; let i = index">
+          <form-checkbox
+          [name]="item.id"
+          [label]="item.label"
+          [controller]="fLanguageList[i]"
+          ></form-checkbox>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Service Type
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of serviceOfferList; let i = index">
+          <li *ngIf="data?.serviceOfferIds && data.serviceOfferIds.includes(item.value)">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of serviceOfferList; let i = index">
+          <form-checkbox
+          [name]="item.id"
+          [label]="item.label"
+          [controller]="fServiceOfferList[i]"
+          ></form-checkbox>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Age Range of Your Clients
+      <span class="text-danger">*</span>
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of ageRangeList; let i = index">
+          <li *ngIf="data?.age_range.includes(item.value)">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of ageRangeList; let i = index">
+          <form-checkbox
+          [name]="item.id"
+          [label]="item.label"
+          [controller]="fAgeRangeList[i]"
+          ></form-checkbox>
+        </li>
+      </ul>
+      <form-errors 
+      [controller]="f.age_range"
+      [submitted]="isSubmitted"
+      label="Age Range"
+      ></form-errors>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Total Years of Experience
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of experienceList; let i = index">
+          <li *ngIf="data?.years_of_experience == item.value">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of experienceList; let i = index">
+          <form-checkbox
+          type="radio"
+          group="experience"
+          [name]="item.id"
+          [label]="item.label"
+          [value]="item.value"
+          [controller]="f.years_of_experience"
+          ></form-checkbox>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4" [ngClass]="{'mt-0': (f.priceMode.value == 'select' && disabled)}">
+      Price Range Per Hour
+      <span class="text-danger">*</span>
+    </label>
+    <div class="col-md-8">
+      <div class="btn-group btn-group-toggle mb-3" *ngIf="!disabled">
+        <label class="btn btn-primary mt-0" [ngClass]="{active: f.priceMode.value == 'select'}">
+          <input type="radio" name="priceMode" id="option1" autocomplete="off" value="select" formControlName="priceMode">Select a price range
+        </label> 
+        <label class="btn btn-primary mt-0" [ngClass]="{active: f.priceMode.value == 'input'}">
+          <input type="radio" name="priceMode" id="option2" autocomplete="off" value="input"  formControlName="priceMode">Enter specific price
+        </label>
+      </div>
+
+      <div *ngIf="f.priceMode.value == 'input'">
+        <form-input 
+        name="exactPricing"
+        label="Price"
+        type="text"
+        prepend="$"
+        [controller]="f.exactPricing"
+        [submitted]="isSubmitted"
+        [disabled]="disabled"
+        ></form-input>
+      </div>
+
+      <div *ngIf="f.priceMode.value == 'select'">
+        <ul class="checkbox-group" *ngIf="disabled">
+          <ng-container *ngFor="let item of priceRangeList; let i = index">
+            <li *ngIf="data?.price_per_hours == item.value">{{item.label}}</li>
+          </ng-container>
+        </ul>
+        <ul class="checkbox-group" *ngIf="!disabled">
+          <li *ngFor="let item of priceRangeList; let i = index">
+            <form-checkbox
+            type="radio"
+            group="priceRange"
+            [name]="item.id"
+            [label]="item.label"
+            [value]="item.value"
+            [controller]="f.price_per_hours"
+            ></form-checkbox>
+          </li>
+        </ul>
+        <form-errors 
+        label="Price range"
+        [controller]="f.price_per_hours"
+        [submitted]="isSubmitted"
+        ></form-errors>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <label class="col-md-4 mt-0">
+      Kind of Business
+      <span class="text-danger">*</span>
+    </label>
+    <div class="col-md-8">
+      <ul class="checkbox-group" *ngIf="disabled">
+        <ng-container *ngFor="let item of businessList; let i = index">
+          <li *ngIf="data?.business_kind == item.value">{{item.label}}</li>
+        </ng-container>
+      </ul>
+      <ul class="checkbox-group" *ngIf="!disabled">
+        <li *ngFor="let item of businessList; let i = index">
+          <form-checkbox
+          type="radio"
+          group="businessKind"
+          [name]="item.id"
+          [label]="item.label"
+          [value]="item.value"
+          [controller]="f.business_kind"
+          ></form-checkbox>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="row mb-4">
+    <label class="col-md-4" for="productDescription">
+      Practice Philosophy 
+      <!-- <span class="text-danger">*</span> -->
+    </label>
+    <div class="col-md-8">
+      <form-textarea 
+      name="productDescription"
+      label="Practice philosophy"
+      placeholder="Tell us more about you in paragraph"
+      [max]="maxTextarea"
+      [controller]="f.product_description"
+      [submitted]="isSubmitted"
+      [disabled]="disabled"
+      ></form-textarea>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!disabled">
+    <div class="col text-right">
+      <button class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>

@@ -3,27 +3,24 @@ import { FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 
 @Component({
-  selector: 'form-input-address',
-  templateUrl: './form-input-address.component.html',
-  styleUrls: ['./form-input-address.component.scss']
+  selector: 'form-input-place',
+  templateUrl: './form-input-place.component.html',
+  styleUrls: ['./form-input-place.component.scss']
 })
-export class FormInputAddressComponent implements OnInit {
+export class FormInputPlaceComponent implements OnInit {
 
   @Input() name: string = '';
   @Input() label: string = '';
   @Input() placeholder: string = '';
+  @Input() max: number;
   @Input() submitted: boolean = false;
   @Input() controllerGroup: FormGroup;
   @Input() disabled: boolean = false;
 
-  @Output() selectAddress = new EventEmitter<void>();
+  @Output() selectPlace = new EventEmitter<void>();
 
-
-  get address(){ return this.controllerGroup.controls.address; }
-  get errorGoogleSuggestion(){
-    const cs = this.controllerGroup.controls;
-    return !!(cs.state.invalid || cs.city.invalid || cs.zipcode.invalid || cs.latitude.invalid || cs.longitude.invalid);
-  }
+  get fPlaceName() { return this.controllerGroup.controls.firstName; }
+  get fPlaceId() { return this.controllerGroup.controls.placeId; }
 
   private host: HTMLElement;
 
@@ -36,19 +33,34 @@ export class FormInputAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    const latStr = localStorage.getItem('ipLat');
+    const lngStr = localStorage.getItem('ipLong');
+    const lat = latStr ? Number(latStr) : 53.89;
+    const lng = lngStr ? Number(lngStr) : -111.25;
+    
     this._maps.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.host.querySelector('#' + this.name));
+      const options: google.maps.places.AutocompleteOptions = {
+        bounds: {north: lat + 0.1, south: lat - 0.1, east: lng + 0.1, west: lng - 0.1},
+        types: ['establishment'],
+        componentRestrictions: {country: 'ca'},
+        strictBounds: false
+      }
+      const autocomplete = new google.maps.places.Autocomplete(this.host.querySelector('#' + this.name), options);
       autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        this.setAddress(place);
+        this.setPlace(autocomplete.getPlace());
       });
     });
   }
 
-  setAddress(p: google.maps.places.PlaceResult){
+  setPlace(p: google.maps.places.PlaceResult): void {
     const cs = this.controllerGroup.controls;
+    cs.firstName.patchValue(p.name);
     cs.address.patchValue(p.formatted_address);
-
+    cs.phone.patchValue(p.formatted_phone_number);
+    cs.placeId.patchValue(p.place_id);
+    cs.website.patchValue(p.website);
+    
     if(p.geometry){
       cs.latitude.patchValue(p.geometry.location.lat());
       cs.longitude.patchValue(p.geometry.location.lng());
@@ -60,7 +72,7 @@ export class FormInputAddressComponent implements OnInit {
       });
       
       this._changeDetector.markForCheck();
-      this.selectAddress.emit();
+      this.selectPlace.emit();
     }
     else{
       cs.latitude.patchValue(0);
@@ -69,5 +81,14 @@ export class FormInputAddressComponent implements OnInit {
       cs.city.patchValue('');
       cs.zipcode.patchValue('');
     }
+
+    this._changeDetector.detectChanges();
   }
+
+  removePlace(): void {
+    const cs = this.controllerGroup.controls;
+    cs.placeId.patchValue('');
+    this.selectPlace.emit();
+  }
+
 }

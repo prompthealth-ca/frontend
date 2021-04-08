@@ -8,6 +8,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ThrowStmt } from '@angular/compiler';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
+import { ProfileManagementService } from '../profile-management.service';
+import { IUserDetail } from 'src/app/models/user-detail';
 
 @Component({
   selector: 'app-my-profile',
@@ -67,6 +69,7 @@ export class MyProfileComponent implements OnInit {
   languageQuestion;
   serviceQuestion;
 
+  public profile2: IUserDetail;
 
   public profile = {
     _id: '',
@@ -117,10 +120,11 @@ export class MyProfileComponent implements OnInit {
     private _bs: BehaviorService,
     private _sharedService: SharedService,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _profileService: ProfileManagementService,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
     this.userInfo = JSON.parse(localStorage.getItem('user'));
 
@@ -131,13 +135,15 @@ export class MyProfileComponent implements OnInit {
     // https:api.prompthealth.ca
     this.AWS_S3 = environment.config.AWS_S3;
 
+    this.profile2 = await this._profileService.getProfileDetail(this.userInfo);
   }
 
   google_address() {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
-
+      
+      if(!this.search2ElementRef){ return; }
       const autocomplete = new google.maps.places.Autocomplete(this.search2ElementRef.nativeElement, {});
 
       autocomplete.addListener('place_changed', () => {
@@ -409,6 +415,26 @@ export class MyProfileComponent implements OnInit {
       this.profile.age_range = this.age_rangeSelected;
     }
 
+  }
+
+  onSubmitFormCentre(data: IUserDetail) {
+    console.log(data);
+    this._sharedService.loader('show');
+    this._sharedService.post(data, 'user/updateProfile').subscribe((res: any) => {
+      this._sharedService.loader('hide');
+      if (res.statusCode === 200) {
+        this.profile = res.data;
+        this.profile2 = res.data;
+        this.toastr.success(res.message);
+        this.editFields = false;
+        this._bs.setUserData(res.data);
+      } else {
+        this.toastr.error(res.message);
+      }
+    }, err => {
+      this._sharedService.loader('hide');
+      this.toastr.error('There are some errors, please try again after some time !', 'Error');
+    });
   }
 
   save() {

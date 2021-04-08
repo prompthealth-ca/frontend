@@ -436,52 +436,24 @@ export class Professional implements IProfessional {
     return new Promise( async (resolve, reject) => {
 
       if(this._detailByGoogle){ resolve(this._detailByGoogle); }
-      
-      const placeId = await this.getGooglePlaceId();
-      const map = new google.maps.Map(document.createElement('div'));
-      const service = new google.maps.places.PlacesService(map);
-      service.getDetails({
-        fields: ['rating', 'review', 'name', 'formatted_address', 'photo'],
-        placeId,
-      }, (result, status)=>{
-        if(result){
-          this._detailByGoogle = result;
-          resolve(this._detailByGoogle);  
-        }else{
-          reject(status);
-        }
-      });
-    });
-  }
-
-  async getGooglePlaceId(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const map = new google.maps.Map(document.createElement('div'), {
-        center: {lat: this.p.location[1], lng: this.p.location[0]},
-        zoom: 10,
-      } as google.maps.MapOptions );
-      const service = new google.maps.places.PlacesService(map);
-
-      if(this.p.phone){
-        service.findPlaceFromPhoneNumber({phoneNumber: '+1' + this.p.phone, fields: ['place_id']}, (result, status)=>{
+      else if(!this.p.placeId) { resolve(null); }
+      else {
+        const map = new google.maps.Map(document.createElement('div'));
+        const service = new google.maps.places.PlacesService(map);
+        service.getDetails({
+          fields: ['rating', 'review', 'photo'],
+          placeId: this.p.placeId,
+        }, (result, status)=>{
           if(result){
-            resolve(result[0].place_id);
+            this._detailByGoogle = result;
+            resolve(this._detailByGoogle);  
           }else{
             reject(status);
           }
-        });    
-      }else{
-        service.findPlaceFromQuery({query: this.name, fields: ['place_id']}, (result, status)=>{
-          if(result){
-            resolve(result[0].place_id);
-          }else{
-            reject(status);
-          }
-        });
+        });  
       }
     });
   }
-
 
   sortReviewBy(i: number) {
     switch (i) {

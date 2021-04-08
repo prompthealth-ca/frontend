@@ -4,6 +4,12 @@
 >
   <div class="container text-center text-light">
     <h2>Profile Management</h2>
+
+    <button
+    *ngIf="profile.roles !== 'U'" 
+    class="btn btn-primary rounded-pill px-4" 
+    (click)="tutorialModal.show()"
+    >Tutorial</button>
   </div>
 </section>
 
@@ -99,6 +105,46 @@
             <router-outlet></router-outlet>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal pricing -->
+<div
+*ngIf="profile.roles !== 'U'" 
+class="modal fade" 
+bsModal
+#tutorialModal="bs-modal"
+tabindex="-1" 
+role="dialog"
+aria-labelledby="tutorialmodal" 
+aria-hidden="true"
+(onShown)="playVideo()"
+(onHidden)="pauseVideo()"
+>
+  <div 
+  class="modal-dialog" 
+  role="document" 
+  style="margin: auto !important; max-width: 800px;"
+  >
+    <div class="modal-content mk-border">
+      <div class="modal-header">
+        <h5 class="modal-title w-100 text-center" style="text-indent: 56px;">
+          How To Use Dashboard
+        </h5>
+        <button 
+        type="button" 
+        class="close" 
+        aria-label="Close" 
+        (click)="tutorialModal.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center pb-4">
+          <video class="w-100" src="https://prompt-images.s3.us-east-2.amazonaws.com/tutorial-dashboard.mp4" controls #videoPlayer></video>
       </div>
     </div>
   </div>

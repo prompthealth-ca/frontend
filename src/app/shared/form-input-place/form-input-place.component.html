@@ -3,7 +3,7 @@
   [id]="name" 
   class="form-control" 
   [formControl]="fPlaceName"
-  [attr.disabled]="disabled ? 'disabled' : null"
+  [attr.disabled]="(disabled || fPlaceId.value) ? 'disabled' : null"
   (keydown.enter)="$event.preventDefault()"
   >
 </div>

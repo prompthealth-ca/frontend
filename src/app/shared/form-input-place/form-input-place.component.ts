@@ -48,7 +48,10 @@ export class FormInputPlaceComponent implements OnInit {
       }
       const autocomplete = new google.maps.places.Autocomplete(this.host.querySelector('#' + this.name), options);
       autocomplete.addListener('place_changed', () => {
-        this.setPlace(autocomplete.getPlace());
+        const place = autocomplete.getPlace();
+        if(place.place_id){
+          this.setPlace(place);
+        }
       });
     });
   }
@@ -60,19 +63,16 @@ export class FormInputPlaceComponent implements OnInit {
     cs.phone.patchValue(p.formatted_phone_number);
     cs.placeId.patchValue(p.place_id);
     cs.website.patchValue(p.website);
+
+    p.address_components.forEach(c=>{
+      if(c.types.indexOf('administrative_area_level_2') >= 0){ cs.state.patchValue(c.long_name); }
+      else if(c.types.indexOf('postal_code') >= 0){ cs.zipcode.patchValue(c.long_name); }
+      else if(c.types.indexOf('locality')){ cs.city.patchValue(c.long_name); }
+    });
     
     if(p.geometry){
       cs.latitude.patchValue(p.geometry.location.lat());
-      cs.longitude.patchValue(p.geometry.location.lng());
-
-      p.address_components.forEach(c=>{
-        if(c.types.indexOf('administrative_area_level_2') >= 0){ cs.state.patchValue(c.long_name); }
-        else if(c.types.indexOf('postal_code') >= 0){ cs.zipcode.patchValue(c.long_name); }
-        else if(c.types.indexOf('locality')){ cs.city.patchValue(c.long_name); }
-      });
-      
-      this._changeDetector.markForCheck();
-      this.selectPlace.emit();
+      cs.longitude.patchValue(p.geometry.location.lng())
     }
     else{
       cs.latitude.patchValue(0);
@@ -82,7 +82,9 @@ export class FormInputPlaceComponent implements OnInit {
       cs.zipcode.patchValue('');
     }
 
+    this._changeDetector.markForCheck();
     this._changeDetector.detectChanges();
+    this.selectPlace.emit();
   }
 
   removePlace(): void {

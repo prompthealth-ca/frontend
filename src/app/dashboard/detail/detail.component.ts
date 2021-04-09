@@ -434,14 +434,16 @@ export class DetailComponent implements OnInit {
   }
 
   changeTabTo(i: number) {
-    this.indexTabItem = i;
-    const banner = this.host.querySelector('.banner');
-    const rect = banner.getBoundingClientRect();
-    window.scrollBy({ top: rect.top + rect.height, left: 0, behavior: 'smooth' });
-
-    this._map.load().then(()=>{
-      this.userInfo.setGoogleReviews();
-    });
+    if(this.userInfo){
+      this.indexTabItem = i;
+      const banner = this.host.querySelector('.banner');
+      const rect = banner.getBoundingClientRect();
+      window.scrollBy({ top: rect.top + rect.height, left: 0, behavior: 'smooth' });
+  
+      this._map.load().then(()=>{
+        this.userInfo.setGoogleReviews();
+      });  
+    }
   }
 
 

@@ -111,7 +111,7 @@ class="container-fluid bg-grey p-4"
               <img class="badge-google" src="/assets/img/logo-google.png" alt="">
             </div>
             <div class="py-3 px-3 ">
-              <h5>{{userInfo.detailByGoogle.name}}</h5>
+              <h5>{{userInfo.name}}</h5>
               <div>
                 <star-rate [rate]="userInfo.detailByGoogle.rating" size="small"></star-rate>
               </div>
@@ -120,11 +120,11 @@ class="container-fluid bg-grey p-4"
               <tbody>
                 <tr>
                   <td class="pr-0"><i class="fas fa-map-marker-alt"></i></td>
-                  <td>{{userInfo.detailByGoogle.formatted_address}}</td>
+                  <td>{{userInfo.address}}</td>
                 </tr>
                 <tr>
                   <td class="pr-0"><i class="fas fa-phone"></i></td>
-                  <td>{{userInfo.detailByGoogle.formatted_phone_number}}</td>
+                  <td>{{userInfo.phone}}</td>
                 </tr>
                 <tr>
                   <td class="pr-0"><i class="fas fa-compass color-card-icon"></i></td>

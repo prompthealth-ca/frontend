@@ -86,13 +86,13 @@
                   </div>
                 </ng-container> -->
                 <form (ngSubmit)="onSubmitPhListedLink()" *ngIf="isPhLinkFieldShown" class="mt-3">
-                  <form-input
+                  <form-item-input
                   name="phListedLink"
                   label="Link"
                   placeholder="Enter the URL to where you have linked Prompt Health"
                   [controller]="formPhListedLink"
                   [submitted]="isFormPhListedLinkSubmitted"
-                  ></form-input>  
+                  ></form-item-input>  
                   <div class="mt-3">
                     <input type="submit" class="btn btn-ph-blue" value="Submit">
                   </div>

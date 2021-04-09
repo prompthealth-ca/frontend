@@ -290,8 +290,8 @@ class="container-fluid bg-grey p-4"
                 <span *ngIf="isExpandProfessionals">- show less -</span>
               </button> 
             </li>
-            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
-            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><post-dummy class="bg-white"></post-dummy></li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><card-dummy class="bg-white"></card-dummy></li>
+            <li class="col-12 col-md-6 mb-5" *ngIf="isGettingProfessional"><card-dummy class="bg-white"></card-dummy></li>
           </ul>
           <div class="bg-grey row pb-4 rounded-bottom mb-5">
             <div class="col text-center">
@@ -370,7 +370,7 @@ class="container-fluid bg-grey p-4"
             </div>
           </div>
 
-          <post-dummy *ngIf="!userInfo"></post-dummy>
+          <card-dummy *ngIf="!userInfo"></card-dummy>
 
           <div *ngIf="userInfo" class="px-3">
             <ul *ngIf="userInfo.videos.length>0" class="list-unstyled m-0 p-0">
@@ -388,7 +388,7 @@ class="container-fluid bg-grey p-4"
           <div class="card-title font-big font-md-regular text-center m-0">Endorsement</div>
           <div class="px-3 py-5 font-italic coming-soon-gradient font-bigger font-weight-bold">Coming soon...</div>
 
-          <!-- <post-dummy *ngIf="!userInfo ||!userInfo.endosements"></post-dummy>
+          <!-- <card-dummy *ngIf="!userInfo ||!userInfo.endosements"></card-dummy>
           <div class="px-3">
             <div class="endosement-wrapper py-4" *ngFor="let endosement of userInfo?.endosements;">
               <div class="d-flex justify-content-between align-items-center mb-2">

@@ -8,7 +8,7 @@
     </div>
 
     <div class="col-md-8">
-      <form-input-place
+      <form-item-place
       *ngIf="isPremiumAccount" 
       name="firstName"
       label="Name"
@@ -18,9 +18,9 @@
       [submitted]="isSubmitted"
       [disabled]="disabled"
       (selectPlace)="onChangePlace()"
-      ></form-input-place>
+      ></form-item-place>
 
-      <form-input 
+      <form-item-input 
       *ngIf="!isPremiumAccount"
       name="firstName"
       label="Name"
@@ -29,7 +29,7 @@
       [controller]="f.firstName"
       [submitted]="isSubmitted"
       [disabled]="disabled"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -39,13 +39,13 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="userType"
       label="Membership type"
       type="text"
       [controller]="f.userType"
       [disabled]="true"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -55,13 +55,13 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="email"
       label="Email Address"
       type="text"
       [controller]="f.email"
       [disabled]="true"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -71,14 +71,14 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="phone"
       label="Phone number"
       type="text"
       [controller]="f.phone"
       [submitted]="isSubmitted"
       [disabled]="disabled || f.placeId.value"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -88,20 +88,20 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input-address
+      <form-item-address
       name="address"
       label="Location" 
       [controllerGroup]="form"
       [submitted]="isSubmitted"
       [disabled]="disabled || f.placeId.value"
-      ></form-input-address>
+      ></form-item-address>
       <div class="mt-2">
-        <form-checkbox
+        <form-item-checkbox
         *ngIf="!disabled && !f.placeId.value"
         name="hideAddress"
         label="Do not show address"
         [controller]="f.hideAddress"
-        ></form-checkbox>
+        ></form-item-checkbox>
       </div>
       <div *ngIf="f.hideAddress.value" class="mt-2 mb-3 font-italic">You'll not be shown on the location based listing page</div>
     </div>
@@ -113,14 +113,14 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="website"
       label="Website"
       type="text"
       [controller]="f.website"
       [submitted]="isSubmitted"
       [disabled]="disabled || f.placeId.value"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -130,14 +130,14 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="bookingURL"
       label="Booking URL"
       type="text"
       [controller]="f.bookingURL"
       [submitted]="isSubmitted"
       [disabled]="disabled"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -147,7 +147,7 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-input 
+      <form-item-input 
       name="professionalTitle"
       label="Professional title"
       type="text"
@@ -155,7 +155,7 @@
       [controller]="f.professional_title"
       [submitted]="isSubmitted"
       [disabled]="disabled"
-      ></form-input>
+      ></form-item-input>
     </div>
   </div>
 
@@ -172,18 +172,18 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of typicalHourList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           [name]="item.id"
           [label]="item.label"
           [controller]="fTypicalHourList[i]"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
-      <form-errors 
+      <form-item-errors 
       [controller]="f.typical_hours"
       [submitted]="isSubmitted"
       label="Avaliable time"
-      ></form-errors>
+      ></form-item-errors>
     </div>
   </div>
 
@@ -200,11 +200,11 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of languageList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           [name]="item.id"
           [label]="item.label"
           [controller]="fLanguageList[i]"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
     </div>
@@ -223,11 +223,11 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of serviceOfferList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           [name]="item.id"
           [label]="item.label"
           [controller]="fServiceOfferList[i]"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
     </div>
@@ -247,18 +247,18 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of ageRangeList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           [name]="item.id"
           [label]="item.label"
           [controller]="fAgeRangeList[i]"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
-      <form-errors 
+      <form-item-errors 
       [controller]="f.age_range"
       [submitted]="isSubmitted"
       label="Age Range"
-      ></form-errors>
+      ></form-item-errors>
     </div>
   </div>
 
@@ -275,14 +275,14 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of experienceList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           type="radio"
           group="experience"
           [name]="item.id"
           [label]="item.label"
           [value]="item.value"
           [controller]="f.years_of_experience"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
     </div>
@@ -304,7 +304,7 @@
       </div>
 
       <div *ngIf="f.priceMode.value == 'input'">
-        <form-input 
+        <form-item-input 
         name="exactPricing"
         label="Price"
         type="text"
@@ -312,7 +312,7 @@
         [controller]="f.exactPricing"
         [submitted]="isSubmitted"
         [disabled]="disabled"
-        ></form-input>
+        ></form-item-input>
       </div>
 
       <div *ngIf="f.priceMode.value == 'select'">
@@ -323,21 +323,21 @@
         </ul>
         <ul class="checkbox-group" *ngIf="!disabled">
           <li *ngFor="let item of priceRangeList; let i = index">
-            <form-checkbox
+            <form-item-checkbox
             type="radio"
             group="priceRange"
             [name]="item.id"
             [label]="item.label"
             [value]="item.value"
             [controller]="f.price_per_hours"
-            ></form-checkbox>
+            ></form-item-checkbox>
           </li>
         </ul>
-        <form-errors 
+        <form-item-errors 
         label="Price range"
         [controller]="f.price_per_hours"
         [submitted]="isSubmitted"
-        ></form-errors>
+        ></form-item-errors>
       </div>
     </div>
   </div>
@@ -355,14 +355,14 @@
       </ul>
       <ul class="checkbox-group" *ngIf="!disabled">
         <li *ngFor="let item of businessList; let i = index">
-          <form-checkbox
+          <form-item-checkbox
           type="radio"
           group="businessKind"
           [name]="item.id"
           [label]="item.label"
           [value]="item.value"
           [controller]="f.business_kind"
-          ></form-checkbox>
+          ></form-item-checkbox>
         </li>
       </ul>
     </div>
@@ -374,7 +374,7 @@
       <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
-      <form-textarea 
+      <form-item-textarea 
       name="productDescription"
       label="Practice philosophy"
       placeholder="Tell us more about you in paragraph"
@@ -382,7 +382,7 @@
       [controller]="f.product_description"
       [submitted]="isSubmitted"
       [disabled]="disabled"
-      ></form-textarea>
+      ></form-item-textarea>
     </div>
   </div>
 

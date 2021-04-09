@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormCheckboxComponent } from './form-checkbox.component';
+import { FormItemCheckboxComponent } from './form-item-checkbox.component';
 
-describe('FormCheckboxComponent', () => {
-  let component: FormCheckboxComponent;
-  let fixture: ComponentFixture<FormCheckboxComponent>;
+describe('FormItemCheckboxComponent', () => {
+  let component: FormItemCheckboxComponent;
+  let fixture: ComponentFixture<FormItemCheckboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormCheckboxComponent ]
+      declarations: [ FormItemCheckboxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormCheckboxComponent);
+    fixture = TestBed.createComponent(FormItemCheckboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

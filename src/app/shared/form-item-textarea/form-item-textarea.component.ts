@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'form-textarea',
-  templateUrl: './form-textarea.component.html',
-  styleUrls: ['./form-textarea.component.scss']
+  selector: 'form-item-textarea',
+  templateUrl: './form-item-textarea.component.html',
+  styleUrls: ['./form-item-textarea.component.scss']
 })
-export class FormTextareaComponent implements OnInit {
+export class FormItemTextareaComponent implements OnInit {
 
   @Input() name: string = '';
   @Input() label: string = '';

@@ -2,11 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'form-checkbox',
-  templateUrl: './form-checkbox.component.html',
-  styleUrls: ['./form-checkbox.component.scss']
+  selector: 'form-item-checkbox',
+  templateUrl: './form-item-checkbox.component.html',
+  styleUrls: ['./form-item-checkbox.component.scss']
 })
-export class FormCheckboxComponent implements OnInit {
+export class FormItemCheckboxComponent implements OnInit {
 
   @Input() type: 'checkbox' | 'radio' = 'checkbox';
   @Input() name: string = ''; /** used for id */

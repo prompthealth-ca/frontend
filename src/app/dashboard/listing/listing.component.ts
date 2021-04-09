@@ -199,6 +199,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
         const f = this.getFilter('location');
         f.data.defaultAddress = address;
+        f.data.defaultLatLng = [lat, lng];
       });
     }
 
@@ -761,6 +762,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     const [lat,lng] = (f.data.latLng) ? f.data.latLng : [this.initialLocation.lat, this.initialLocation.lng];
     this.listingPayload.latLong = (f.data.latLng)? (lng + ', ' + lat) : '';
+    if(f.data.distance) { this.listingPayload.miles = f.data.distance };
     this.searchCenter = {lat: lat, lng: lng, radius: (f.data.latLng ? this.listingPayload.miles * 1000 : 0) };
     this.setMapdata({lat: lat, lng: lng, zoom: f.data.latLng ? 10 : 3});
 
@@ -924,11 +926,11 @@ interface Filter {
   active: boolean;
   options?: QuestionnaireAnswer[];
   range?: { min: number; max: number; current: number; default: number }; /** not used currently. */
-  data?: { distance: number, address: string, defaultAddress: string, latLng: number[], distanceMin: number, distanceMax: number }; /** for location */
+  data?: { distance: number, address: string, defaultAddress: string, latLng: number[], defaultLatLng: number[], distanceMin: number, distanceMax: number }; /** for location */
 }
 
 const filtersPreset: Filter[] = [
-  { _id: 'location', item_text: 'Location', type: 'location', payloadName: '', active: false, data: { distance: 100, address: '', defaultAddress: '', latLng: null, distanceMin: 5, distanceMax: 100, } },
+  { _id: 'location', item_text: 'Location', type: 'location', payloadName: '', active: false, data: { distance: 100, address: '', defaultAddress: '', latLng: null, defaultLatLng: null, distanceMin: 5, distanceMax: 100, } },
   // { _id: 'zipcode', item_text: 'Zip Code', type: 'input', payloadName: 'zipcode', active: false, data: {value: '', placeholder: 'Please input zip code'} },
   // { _id: 'distance', item_text: 'Distance', type: 'slider', payloadName: 'miles', active: false, range: { min: 5, max: 100, current: 100, default: 100 } },
   {

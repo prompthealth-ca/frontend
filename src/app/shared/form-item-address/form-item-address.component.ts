@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
 
 @Component({
-  selector: 'form-input-address',
-  templateUrl: './form-input-address.component.html',
-  styleUrls: ['./form-input-address.component.scss']
+  selector: 'form-item-address',
+  templateUrl: './form-item-address.component.html',
+  styleUrls: ['./form-item-address.component.scss']
 })
-export class FormInputAddressComponent implements OnInit {
+export class FormItemAddressComponent implements OnInit {
 
   @Input() name: string = '';
   @Input() label: string = '';

@@ -93,7 +93,7 @@ const routes: Routes = [
     component: UnsubscribeComponent
   },
 
-  { path: 'subscriptionplan-partner', component: SubscriptionPlanPartnerComponent },
+  { path: 'plans/partner', component: SubscriptionPlanPartnerComponent },
   
   { path: 'partners', component: ListingPartnerComponent, },
   { path: 'partners/:id', component: ProfilePartnerComponent },

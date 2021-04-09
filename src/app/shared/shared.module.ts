@@ -12,7 +12,7 @@ import { SubscriptionPlanItemCardComponent } from './subscription-plan-item-card
 import { SubscriptionPlanAddonCardComponent } from './subscription-plan-addon-card/subscription-plan-addon-card.component';
 import { PriceRangeSwitcherComponent } from './price-range-switcher/price-range-switcher.component';
 import { StarRateComponent } from './star-rate/star-rate.component';
-import { PostDummyComponent } from './post-dummy/post-dummy.component';
+import { CardDummyComponent } from './card-dummy/card-dummy.component';
 import { FocusDirective } from './focus.directive';
 import { CategoryService } from './services/category.service';
 import { ClickOutsideDirective } from './click-outside.directive';
@@ -20,23 +20,22 @@ import { ScrollDetectorDirective } from './scroll-detector.directive';
 import { SocialButtonsComponent } from './social-buttons/social-buttons.component';
 import { ImageRowComponent } from './image-row/image-row.component';
 import { StepperComponent } from './stepper/stepper.component';
-import { FormInputComponent } from './form-input/form-input.component';
-import { FormTextareaComponent } from './form-textarea/form-textarea.component';
-import { FormInputAddressComponent } from './form-input-address/form-input-address.component';
-import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
-import { FormErrorsComponent } from './form-errors/form-errors.component';
+import { FormItemInputComponent } from './form-item-input/form-item-input.component';
+import { FormItemTextareaComponent } from './form-item-textarea/form-item-textarea.component';
+import { FormItemAddressComponent } from './form-item-address/form-item-address.component';
+import { FormItemCheckboxComponent } from './form-item-checkbox/form-item-checkbox.component';
+import { FormItemErrorsComponent } from './form-item-errors/form-item-errors.component';
 import { BadgeVerifiedComponent } from './badge-verified/badge-verified.component';
 import { UserImageComponent } from './user-image/user-image.component';
 import { IntersectionObserverDirective } from './intersection-observer.directive';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
-import { FormLoginComponent } from './form-login/form-login.component';
 import { ShareMenuComponent } from './share-menu/share-menu.component';
-import { FormServiceComponent } from './form-service/form-service.component';
+import { FormItemServiceComponent } from './form-item-service/form-item-service.component';
 import { FormPartnerServiceComponent } from './form-partner-service/form-partner-service.component';
 import { FormPartnerGeneralComponent } from './form-partner-general/form-partner-general.component';
 import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-offer.component';
+import { FormItemPlaceComponent } from './form-item-place/form-item-place.component';
 import { FormCentreGeneralComponent } from './form-centre-general/form-centre-general.component';
-import { FormInputPlaceComponent } from './form-input-place/form-input-place.component';
 import { CardCouponComponent } from './card-coupon/card-coupon.component';
 
 @NgModule({
@@ -58,30 +57,29 @@ import { CardCouponComponent } from './card-coupon/card-coupon.component';
     SubscriptionPlanAddonCardComponent,
     PriceRangeSwitcherComponent,
     StarRateComponent,
-    PostDummyComponent,
+    CardDummyComponent,
     FocusDirective,
     ClickOutsideDirective,
     ScrollDetectorDirective,
     SocialButtonsComponent,
     ImageRowComponent,
     StepperComponent,
-    FormInputComponent,
-    FormTextareaComponent,
-    FormInputAddressComponent,
-    FormCheckboxComponent,
-    FormErrorsComponent,
-    FormServiceComponent,
+    FormItemInputComponent,
+    FormItemTextareaComponent,
+    FormItemAddressComponent,
+    FormItemCheckboxComponent,
+    FormItemErrorsComponent,
+    FormItemServiceComponent,
     BadgeVerifiedComponent,
     UserImageComponent,
     IntersectionObserverDirective,
     ImageViewerComponent,
-    FormLoginComponent,
     ShareMenuComponent,
     FormPartnerServiceComponent,
     FormPartnerGeneralComponent,
     FormPartnerOfferComponent,
+    FormItemPlaceComponent,
     FormCentreGeneralComponent,
-    FormInputPlaceComponent,
     CardCouponComponent,
   ],
   exports: [
@@ -91,30 +89,29 @@ import { CardCouponComponent } from './card-coupon/card-coupon.component';
     SubscriptionPlanAddonCardComponent,
     PriceRangeSwitcherComponent,
     StarRateComponent,
-    PostDummyComponent,
+    CardDummyComponent,
     FocusDirective,
     ClickOutsideDirective,
     ScrollDetectorDirective,
     SocialButtonsComponent,
     ImageRowComponent,
     StepperComponent,
-    FormInputComponent,
-    FormTextareaComponent,
-    FormInputAddressComponent,
-    FormCheckboxComponent,
-    FormErrorsComponent,
-    FormServiceComponent,
+    FormItemInputComponent,
+    FormItemTextareaComponent,
+    FormItemAddressComponent,
+    FormItemCheckboxComponent,
+    FormItemErrorsComponent,
+    FormItemServiceComponent,
     BadgeVerifiedComponent,
     UserImageComponent,
     IntersectionObserverDirective,
     ImageViewerComponent,
-    FormLoginComponent,
     ShareMenuComponent,
     FormPartnerServiceComponent,
     FormPartnerGeneralComponent,
     FormPartnerOfferComponent,
+    FormItemPlaceComponent,
     FormCentreGeneralComponent,
-    FormInputPlaceComponent,
     CardCouponComponent,
   ]
 })

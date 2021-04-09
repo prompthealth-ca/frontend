@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostDummyComponent } from './post-dummy.component';
+import { FormItemAddressComponent } from './form-item-address.component';
 
-describe('PostDummyComponent', () => {
-  let component: PostDummyComponent;
-  let fixture: ComponentFixture<PostDummyComponent>;
+describe('FormItemAddressComponent', () => {
+  let component: FormItemAddressComponent;
+  let fixture: ComponentFixture<FormItemAddressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostDummyComponent ]
+      declarations: [ FormItemAddressComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostDummyComponent);
+    fixture = TestBed.createComponent(FormItemAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

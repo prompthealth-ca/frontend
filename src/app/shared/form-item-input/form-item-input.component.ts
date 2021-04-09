@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'form-input',
-  templateUrl: './form-input.component.html',
-  styleUrls: ['./form-input.component.scss']
+  selector: 'form-item-input',
+  templateUrl: './form-item-input.component.html',
+  styleUrls: ['./form-item-input.component.scss']
 })
-export class FormInputComponent implements OnInit {
+export class FormItemInputComponent implements OnInit {
 
   @Input() name: string = '';
   @Input() label: string = '';

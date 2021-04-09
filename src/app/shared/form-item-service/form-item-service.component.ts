@@ -3,11 +3,11 @@ import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Category, CategoryService } from '../services/category.service';
 
 @Component({
-  selector: 'form-service',
-  templateUrl: './form-service.component.html',
-  styleUrls: ['./form-service.component.scss']
+  selector: 'form-item-service',
+  templateUrl: './form-item-service.component.html',
+  styleUrls: ['./form-item-service.component.scss']
 })
-export class FormServiceComponent implements OnInit {
+export class FormItemServiceComponent implements OnInit {
 
   @Input() data: string[] = null; /** serviceId[] */
   @Input() col2: boolean = true;

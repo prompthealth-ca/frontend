@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormInputPlaceComponent } from './form-input-place.component';
+import { FormItemPlaceComponent } from './form-item-place.component';
 
-describe('FormInputPlaceComponent', () => {
-  let component: FormInputPlaceComponent;
-  let fixture: ComponentFixture<FormInputPlaceComponent>;
+describe('FormItemPlaceComponent', () => {
+  let component: FormItemPlaceComponent;
+  let fixture: ComponentFixture<FormItemPlaceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormInputPlaceComponent ]
+      declarations: [ FormItemPlaceComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormInputPlaceComponent);
+    fixture = TestBed.createComponent(FormItemPlaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

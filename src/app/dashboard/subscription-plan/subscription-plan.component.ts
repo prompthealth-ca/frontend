@@ -18,13 +18,15 @@ import { AddonSelectCategoryComponent } from '../addon-select-category/addon-sel
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { IAddonPlan } from '../../models/addon-plan';
 import { IDefaultPlan } from 'src/app/models/default-plan';
+import { slideHorizontalAnimation } from 'src/app/_helpers/animations';
 // declare var jQuery: any;
 
 
 @Component({
   selector: 'app-subscription-plan',
   templateUrl: './subscription-plan.component.html',
-  styleUrls: ['./subscription-plan.component.scss']
+  styleUrls: ['./subscription-plan.component.scss'],
+  animations: [slideHorizontalAnimation],
 })
 export class SubscriptionPlanComponent implements OnInit {
   // elements: Elements;
@@ -59,6 +61,10 @@ export class SubscriptionPlanComponent implements OnInit {
   public addonNetworker: IAddonPlan;
   public addonSocialite: IAddonPlan;
 
+  public couponCode: string = null;
+  public isCouponShown = false;
+  public isCouponShrink = false;
+
   public checkout = {
     email: 'this.userEmail.email',
     token: 'this.token'
@@ -85,7 +91,7 @@ export class SubscriptionPlanComponent implements OnInit {
     private fb: FormBuilder,
     private stripeService: StripeService,
     private _modalService: NgbModal,
-    public catService: CategoryService
+    public catService: CategoryService,
   ) { }
 
   ngOnInit() {
@@ -106,6 +112,12 @@ export class SubscriptionPlanComponent implements OnInit {
     if (this.isLoggedIn === true) {
       this.getProfileDetails();
     }
+
+    this.couponCode = sessionStorage.getItem('stripe_coupon_code');
+    if(this.couponCode){
+      setTimeout(()=>{ this.isCouponShown = true; }, 1000)
+    }
+    
   }
   getSubscriptionPlan(path) {
     this._sharedService.loader('show');
@@ -339,6 +351,12 @@ export class SubscriptionPlanComponent implements OnInit {
 //   }
   changePriceRange(isMonthly: boolean) {
     this.isPriceMonthly = isMonthly;
+  }
+
+  expandMessageCoupon() { this.isCouponShrink = false; }
+  shrinkMessageCoupon(e: Event) { 
+    this.isCouponShrink = true;
+    e.stopPropagation(); 
   }
 
 

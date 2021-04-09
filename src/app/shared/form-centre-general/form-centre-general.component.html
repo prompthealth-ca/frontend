@@ -1,11 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form">
   <div class="row mb-4">
-    <label class="col-md-4" for="firstName">
-      Name 
-      <span class="text-danger">*</span>
-    </label>
+    <div class="col-md-4">
+      <label for="firstName">
+        Name
+        <span class="text-danger">*</span>
+      </label>
+    </div>
+
     <div class="col-md-8">
-      <form-input-place 
+      <form-input-place
+      *ngIf="isPremiumAccount" 
       name="firstName"
       label="Name"
       type="text"
@@ -15,6 +19,17 @@
       [disabled]="disabled"
       (selectPlace)="onChangePlace()"
       ></form-input-place>
+
+      <form-input 
+      *ngIf="!isPremiumAccount"
+      name="firstName"
+      label="Name"
+      type="text"
+      [max]="maxName"
+      [controller]="f.firstName"
+      [submitted]="isSubmitted"
+      [disabled]="disabled"
+      ></form-input>
     </div>
   </div>
 

@@ -21,6 +21,7 @@ import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 import { SubscriptionPlanPartnerComponent } from "./subscription-plan-partner/subscription-plan-partner.component";
 import { ProfilePartnerComponent } from './profile-partner/profile-partner.component';
 import { ListingPartnerComponent } from './listing-partner/listing-partner.component';
+import { InvitationComponent } from './invitation/invitation.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,7 @@ const routes: Routes = [
   
   { path: 'partners', component: ListingPartnerComponent, },
   { path: 'partners/:id', component: ProfilePartnerComponent },
+  { path: 'invitation', component: InvitationComponent }
 ];
 
 @NgModule({

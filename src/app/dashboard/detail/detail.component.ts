@@ -172,12 +172,7 @@ export class DetailComponent implements OnInit {
           const ytIframeHtml = this._embedService.embed(v.url);
           ytIframeHtml.title = v.title;
           this.iframe.push(ytIframeHtml);
-        });
-
-        this._map.load().then(()=>{
-          this.userInfo.setGoogleReviews();
-        });
-    
+        });    
 
         this.getEndosements();
         this.getProducts();
@@ -443,6 +438,10 @@ export class DetailComponent implements OnInit {
     const banner = this.host.querySelector('.banner');
     const rect = banner.getBoundingClientRect();
     window.scrollBy({ top: rect.top + rect.height, left: 0, behavior: 'smooth' });
+
+    this._map.load().then(()=>{
+      this.userInfo.setGoogleReviews();
+    });
   }
 
 

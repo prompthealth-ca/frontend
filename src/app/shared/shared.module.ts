@@ -37,6 +37,7 @@ import { FormPartnerGeneralComponent } from './form-partner-general/form-partner
 import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-offer.component';
 import { FormCentreGeneralComponent } from './form-centre-general/form-centre-general.component';
 import { FormInputPlaceComponent } from './form-input-place/form-input-place.component';
+import { CardCouponComponent } from './card-coupon/card-coupon.component';
 
 @NgModule({
   imports: [
@@ -81,6 +82,7 @@ import { FormInputPlaceComponent } from './form-input-place/form-input-place.com
     FormPartnerOfferComponent,
     FormCentreGeneralComponent,
     FormInputPlaceComponent,
+    CardCouponComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -113,6 +115,7 @@ import { FormInputPlaceComponent } from './form-input-place/form-input-place.com
     FormPartnerOfferComponent,
     FormCentreGeneralComponent,
     FormInputPlaceComponent,
+    CardCouponComponent,
   ]
 })
 export class SharedModule { }

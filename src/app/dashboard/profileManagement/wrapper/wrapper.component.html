@@ -6,7 +6,7 @@
     <h2>Profile Management</h2>
 
     <button
-    *ngIf="profile.roles !== 'U'" 
+    *ngIf="profile?.roles !== 'U'" 
     class="btn btn-primary rounded-pill px-4" 
     (click)="tutorialModal.show()"
     >Tutorial</button>
@@ -113,7 +113,7 @@
 
 <!-- Modal pricing -->
 <div
-*ngIf="profile.roles !== 'U'" 
+*ngIf="profile?.roles !== 'U'" 
 class="modal fade" 
 bsModal
 #tutorialModal="bs-modal"

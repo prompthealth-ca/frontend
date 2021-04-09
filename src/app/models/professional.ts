@@ -441,7 +441,7 @@ export class Professional implements IProfessional {
         const map = new google.maps.Map(document.createElement('div'));
         const service = new google.maps.places.PlacesService(map);
         service.getDetails({
-          fields: ['rating', 'review', 'photo'],
+          fields: ['rating', 'review', 'photo', 'name', 'formatted_address', 'url', 'formatted_phone_number'],
           placeId: this.p.placeId,
         }, (result, status)=>{
           if(result){

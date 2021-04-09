@@ -25,7 +25,7 @@ export class FormCentreGeneralComponent implements OnInit {
 
   public form: FormGroup;
   public isSubmitted = false;
-  public isGooglePlaceSelected = false;
+  public isPremiumAccount: boolean;
 
   public maxName = minmax.nameMax;
   public maxProfessionalTitle = minmax.professionalTitleMax;
@@ -48,6 +48,7 @@ export class FormCentreGeneralComponent implements OnInit {
 
   async ngOnInit() {
 
+    this.isPremiumAccount = (this.data.isVipAffiliateUser || (this.data.plan && this.data.plan.name.toLowerCase() !== 'basic')) ? true : false;
     try { await this.getQuestions(); }
     catch(error){ this._toastr.error(error); }
 

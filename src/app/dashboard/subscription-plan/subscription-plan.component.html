@@ -16,12 +16,21 @@
 
 <!-- Pricing table -->
 <div class="container-fluid my-5">
-  <div class="max-w-1200">
+  <div class="max-w-1200 d-md-flex align-items-center">
     <price-range-switcher (change)="changePriceRange($event)"></price-range-switcher>
-    <span class="pt-3 pt-md-0 pl-md-5 font-italic text-blue font-big d-block d-md-inline-block">save 20% with yearly subscription</span>  
+    <span class="pt-3 pt-md-0 pl-md-3 pl-lg-5 font-italic text-blue font-big d-block d-md-inline-block">save 20% with yearly subscription</span>
 
+    <div class="d-inline-block mt-3 mt-md-0 ml-md-3 ml-lg-5">
+      <button-tutorial
+      type="signup"
+      label="How To Signup"
+      title="How To signup"
+      ></button-tutorial>
+    </div>
   </div>
 </div>
+
+
 
 <div class="container-fluid max-w-1200">
   <div class="row align-items-stretch">

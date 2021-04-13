@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { SharedService } from './services/shared.service';
 import { PreviousRouteService } from './services/previousUrl.service';
@@ -37,12 +38,15 @@ import { FormPartnerOfferComponent } from './form-partner-offer/form-partner-off
 import { FormItemPlaceComponent } from './form-item-place/form-item-place.component';
 import { FormCentreGeneralComponent } from './form-centre-general/form-centre-general.component';
 import { CardCouponComponent } from './card-coupon/card-coupon.component';
+import { ButtonTutorialComponent } from './button-tutorial/button-tutorial.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
+
     // FlashMessagesModule,
   ],
   providers: [
@@ -81,6 +85,7 @@ import { CardCouponComponent } from './card-coupon/card-coupon.component';
     FormItemPlaceComponent,
     FormCentreGeneralComponent,
     CardCouponComponent,
+    ButtonTutorialComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -113,6 +118,7 @@ import { CardCouponComponent } from './card-coupon/card-coupon.component';
     FormItemPlaceComponent,
     FormCentreGeneralComponent,
     CardCouponComponent,
+    ButtonTutorialComponent,
   ]
 })
 export class SharedModule { }

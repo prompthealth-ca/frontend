@@ -33,6 +33,9 @@ export interface IUserDetail {
   accredited_provide_canada?: boolean;
   t_c?: boolean;
   hear_from?: string;
+  
+  customer_health?: string[];
+  services?: string[];
 
   /** for U | SP */
   gender?: string;
@@ -63,7 +66,6 @@ export interface IUserDetail {
 
 
   /** for SP | C | P */
-  services?: string[];
   product_description?: string; /** practicePhilosophy */
   description?: string; /** partner description | description of professional belonging at centre */
   website?: string;
@@ -107,7 +109,6 @@ export interface IUserDetail {
   paymentMethod?: string[];
 
   /** not used in front end? */
-  // customer_health?: string[]
   // exp_date?: any;
 
   /** points info */

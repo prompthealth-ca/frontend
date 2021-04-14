@@ -39,6 +39,11 @@ import { FormItemPlaceComponent } from './form-item-place/form-item-place.compon
 import { FormCentreGeneralComponent } from './form-centre-general/form-centre-general.component';
 import { CardCouponComponent } from './card-coupon/card-coupon.component';
 import { ButtonTutorialComponent } from './button-tutorial/button-tutorial.component';
+import { FormProviderGeneralComponent } from './form-provider-general/form-provider-general.component';
+import { FormItemCheckboxGroupComponent } from './form-item-checkbox-group/form-item-checkbox-group.component';
+import { FormItemPricingComponent } from './form-item-pricing/form-item-pricing.component';
+import { FormClientGeneralComponent } from './form-client-general/form-client-general.component';
+import { FormItemCustomerHealthComponent } from './form-item-customer-health/form-item-customer-health.component';
 
 @NgModule({
   imports: [
@@ -86,6 +91,11 @@ import { ButtonTutorialComponent } from './button-tutorial/button-tutorial.compo
     FormCentreGeneralComponent,
     CardCouponComponent,
     ButtonTutorialComponent,
+    FormProviderGeneralComponent,
+    FormItemCheckboxGroupComponent,
+    FormItemPricingComponent,
+    FormClientGeneralComponent,
+    FormItemCustomerHealthComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -117,8 +127,12 @@ import { ButtonTutorialComponent } from './button-tutorial/button-tutorial.compo
     FormPartnerOfferComponent,
     FormItemPlaceComponent,
     FormCentreGeneralComponent,
+    FormProviderGeneralComponent,
+    FormClientGeneralComponent,
     CardCouponComponent,
     ButtonTutorialComponent,
+    FormItemCheckboxGroupComponent,
+    FormItemCustomerHealthComponent,
   ]
 })
 export class SharedModule { }

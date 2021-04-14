@@ -164,7 +164,7 @@ export class FormAuthComponent implements OnInit {
               next = '/subscriptionplan';
               break;
             case 'p':
-              next = '/plans/partner';
+              next = '/plans/product';
               break;
           }
         }
@@ -178,7 +178,7 @@ export class FormAuthComponent implements OnInit {
             next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/professional-info';
             break;
           case 'p':
-            next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/register-partner';
+            next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/register-product';
             break;
         }  
       }

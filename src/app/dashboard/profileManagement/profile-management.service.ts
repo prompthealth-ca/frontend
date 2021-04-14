@@ -11,6 +11,7 @@ export class ProfileManagementService {
 
   private profileDetail: IUserDetail;
 
+
   constructor( 
     private http: HttpClient,
     private _bs: BehaviorService,

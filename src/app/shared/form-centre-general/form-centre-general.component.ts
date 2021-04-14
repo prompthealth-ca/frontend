@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { IUserDetail } from 'src/app/models/user-detail';
-import { minmax, pattern, validators } from 'src/app/_helpers/form-settings';
+import { minmax, validators } from 'src/app/_helpers/form-settings';
+import { FormItemCheckboxGroupComponent, CheckboxSelectionItem } from '../form-item-checkbox-group/form-item-checkbox-group.component';
+import { FormItemPricingComponent } from '../form-item-pricing/form-item-pricing.component';
 import { SharedService } from '../services/shared.service';
 
 @Component({
@@ -30,13 +32,12 @@ export class FormCentreGeneralComponent implements OnInit {
   public maxName = minmax.nameMax;
   public maxProfessionalTitle = minmax.professionalTitleMax;
   public maxTextarea = minmax.textareaMax;
-  public ageRangeList = ageRangeList;
-  public experienceList = experienceList;
-  public businessList = businessList;
-  public serviceOfferList: SelectionItem[];
-  public typicalHourList: SelectionItem[];
-  public languageList: SelectionItem[];
-  public priceRangeList = priceRangeList;
+  public serviceOfferList: CheckboxSelectionItem[];
+  public typicalHourList: CheckboxSelectionItem[];
+  public languageList: CheckboxSelectionItem[];
+
+  @ViewChildren(FormItemCheckboxGroupComponent) formItemCheckboxGroupComponents: QueryList<FormItemCheckboxGroupComponent>;
+  @ViewChild(FormItemPricingComponent) formItemPricingComponent: FormItemPricingComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -86,39 +87,6 @@ export class FormCentreGeneralComponent implements OnInit {
 
       product_description: new FormControl( this.data.product_description ? this.data.product_description : '', validators.productDescription),
     });
-
-    ageRangeList.forEach(item => {
-      (this.form.controls.age_range as FormArray).push( new FormControl( (this.data.age_range && this.data.age_range.includes(item.value) ? true : false ) ) );
-    });
-
-    this.typicalHourList.forEach(item => {
-      (this.form.controls.typical_hours as FormArray).push( new FormControl( (this.data.typical_hours && this.data.typical_hours.includes(item.value) ? true : false ) ));
-    });
-
-    this.languageList.forEach(item => {
-      (this.form.controls.languages as FormArray).push( new FormControl( (this.data.languages && this.data.languages.includes(item.value) ? true : false ) ));
-    });
-
-    this.serviceOfferList.forEach(item => {
-      (this.form.controls.serviceOfferIds as FormArray).push( new FormControl( (this.data.serviceOfferIds && this.data.serviceOfferIds.includes(item.value) ? true : false ) ));
-    });
-
-    /** set validator for price */
-    if(this.f.priceMode.value == 'input') {
-      this.f.exactPricing.setValidators(validators.exactPricingRequired);
-    }else{
-      this.f.exactPricing.setValidators(validators.exactPricing);
-      this.f.price_per_hours.setValidators(Validators.required);
-    }
-    this.f.priceMode.valueChanges.subscribe(value=>{
-      if(value == 'input'){
-        this.f.exactPricing.setValidators(validators.exactPricingRequired);
-        this.f.price_per_hours.clearValidators();
-      }else{
-        this.f.price_per_hours.setValidators(Validators.required);
-        this.f.exactPricing.setValidators(validators.exactPricing);
-      }
-    });
   }
 
   async getQuestions(): Promise<boolean> {
@@ -127,7 +95,7 @@ export class FormCentreGeneralComponent implements OnInit {
       this._sharedService.getNoAuth(path).subscribe((res: any) => {
         if (res.statusCode === 200) {
           res.data.forEach((element: any) => {
-            const selectionList: SelectionItem[] = [];
+            const selectionList: CheckboxSelectionItem[] = [];
             element.answers.forEach((a: any) => {
               selectionList.push({
                 id: a._id,
@@ -158,89 +126,31 @@ export class FormCentreGeneralComponent implements OnInit {
   }
 
   onSubmit(){
-    this.isSubmitted = true;
     if(this.form.invalid){
+      this.isSubmitted = true;
       this._toastr.error('There are some items that require your attention.');
       return;
     }
 
-
-    /** format pricePerHours and exactPricing */
-    if(this.f.priceMode.value == 'input'){
-      const price = Number(this.f.exactPricing.value);
-      for(let p of priceRangeList){
-        if(p.minmax[0] <= price && price <= p.minmax[1]){
-          this.f.price_per_hours.setValue(price);
-        }
-      }
-    }else{
-      this.f.exactPricing.setValue('');
-    }
-
+    this.formItemPricingComponent.setValue();
+    
     const data: IUserDetail = {};
     data._id = this.data._id;
     for(const key in this.form.controls){
       const f = this.form.controls[key];
-      if(key == 'priceMode'){
+      if(key == 'priceMode' || key == 'userType'){
         //nothing to do
       }else if(f instanceof FormControl){
         data[key] = f.value;
       }else if(f instanceof FormArray) {
-        const value = [];
-        let list: SelectionItem[];
-        switch(key){
-          case 'typical_hours': list = this.typicalHourList; break;
-          case 'languages': list = this.languageList; break;
-          case 'serviceOfferIds': list = this.serviceOfferList; break;
-          case 'age_range': list = ageRangeList; break;
-        }
-        (f.value as boolean[]).forEach((isSelected, i) => {
-          if(isSelected){
-            value.push(list[i].value);
+        this.formItemCheckboxGroupComponents.forEach(component => {
+          if(component.id == key){
+            data[key] = component.getSelected();
           }
         });
-        data[key] = value;
       }
     }
 
     this.submitForm.emit(data);
   }
 }
-
-interface SelectionItem {
-  id: string;
-  label: string;
-  value: string;
-  minmax?: number[];
-}
-
-const ageRangeList: SelectionItem[] = [
-  { id: 'age1', label: 'Not Critical', value: '5eb1a4e199957471610e6cd7'  },
-  { id: 'age2', label: 'Child (<12)', value: '5eb1a4e199957471610e6cd8' },
-  { id: 'age3', label: 'Adolescent (12-18)', value: '5eb1a4e199957471610e6cd9' },
-  { id: 'age4', label: 'Adult (18+)', value: '5eb1a4e199957471610e6cda' },
-  { id: 'age5', label: 'Senior (>64)', value: '5eb1a4e199957471610e6cdb' },
-];
-const experienceList: SelectionItem[] = [
-  { id: 'exp1', label: '<5 Years', value: '< 5' },
-  { id: 'exp2', label: '5-10 Years', value: '5-10' },
-  { id: 'exp3', label: '10-20 Years', value: '10-20' },
-  { id: 'exp4', label: '>20 Years', value: '> 20' },
-];
-const priceRangeList: SelectionItem[] = [
-  { id: 'price1', label: 'Not Critical', value: 'Not Critical', minmax: [-100, 0] },
-  { id: 'price2', label: '< $50', value: '< $50', minmax: [0, 50] },
-  { id: 'price3', label: '$50-100', value: '$50-100', minmax: [50, 100] },
-  { id: 'price4', label: '$100-200', value: '$100-200', minmax: [100, 200] },
-  { id: 'price5', label: '$200-500', value: '$200-500', minmax: [200, 500] },
-  { id: 'price6', label: '$500-1000', value: '$500-1000', minmax: [500, 1000] },
-  { id: 'price7', label: '> $1000', value: '$1000', minmax: [1000, 1000000] },
-];
-const businessList: SelectionItem[] = [
-  { id: 'business1', label: 'Clinic', value: 'clinic' },
-  { id: 'business2', label: 'Health Center', value: 'health_center' },
-  { id: 'business3', label: 'Health Club', value: 'health_club' },
-  { id: 'business4', label: 'Gym', value: 'gym' },
-  { id: 'business5', label: 'Studio', value: 'studio' },
-  { id: 'business6', label: 'Pharmacy', value: 'pharmacy' },
-];

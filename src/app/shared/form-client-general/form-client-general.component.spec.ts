@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AmenityViewerComponent } from './amenity-viewer.component';
+import { FormClientGeneralComponent } from './form-client-general.component';
 
-describe('AmenityViewerComponent', () => {
-  let component: AmenityViewerComponent;
-  let fixture: ComponentFixture<AmenityViewerComponent>;
+describe('FormClientGeneralComponent', () => {
+  let component: FormClientGeneralComponent;
+  let fixture: ComponentFixture<FormClientGeneralComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AmenityViewerComponent ]
+      declarations: [ FormClientGeneralComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AmenityViewerComponent);
+    fixture = TestBed.createComponent(FormClientGeneralComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

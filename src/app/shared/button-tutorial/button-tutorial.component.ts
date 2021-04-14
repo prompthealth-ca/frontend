@@ -22,7 +22,7 @@ export class ButtonTutorialComponent implements OnInit {
 
   ngOnInit(): void {
     switch(this.type){
-      case 'signup': this.videoUrl = 'https://prompt-images.s3.us-east-2.amazonaws.com/tutorial-dashboard.mp4'; break;
+      case 'signup': this.videoUrl = 'https://prompt-images.s3.us-east-2.amazonaws.com/tutorial-register-sp.MP4'; break;
       case 'dashboard': this.videoUrl = 'https://prompt-images.s3.us-east-2.amazonaws.com/tutorial-dashboard.mp4'; break;
     }
   }

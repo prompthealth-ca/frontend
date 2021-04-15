@@ -34,8 +34,11 @@ export class InvitationComponent implements OnInit {
           console.log(res);
         }, error => {
           console.log(error);
+          this._router.navigate(['/404'], {replaceUrl: true});
           this._toaster.error('The coupon is invalid');
         });
+      }else{
+        this._router.navigate(['/404'], {replaceUrl: true});
       }
     });
   }

@@ -23,6 +23,7 @@ import { ProfilePartnerComponent } from './profile-partner/profile-partner.compo
 import { ListingProductComponent } from './listing-product/listing-product.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { LandingClubhouseComponent } from "./landing-clubhouse/landing-clubhouse.component";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,8 @@ const routes: Routes = [
 
   { path: 'invitation', component: InvitationComponent },
   { path: 'clubhouse', component: LandingClubhouseComponent },
+
+  { path: '404', component: NotFoundComponent },
 ];
 
 @NgModule({

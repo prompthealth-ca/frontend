@@ -33,6 +33,7 @@ import { ListingProductComponent } from './listing-product/listing-product.compo
 import { CardPartnerComponent } from './card-partner/card-partner.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { LandingClubhouseComponent } from './landing-clubhouse/landing-clubhouse.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { LandingClubhouseComponent } from './landing-clubhouse/landing-clubhouse
     CardPartnerComponent,
     InvitationComponent,
     LandingClubhouseComponent,
+    NotFoundComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

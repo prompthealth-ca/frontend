@@ -1,5 +1,9 @@
-<section class="container mt-5" *ngIf="!user">
-  <h2 class="text-center">Welcome to PromptHealth!</h2>
+<section class="container mt-5">
+  <h2 class="text-center">
+    A Gift For You From Us
+  </h2>
+</section>
+<section class="container" *ngIf="!user">
 
   <div style="width: 100%; max-width: 400px; margin: 50px auto">
     <ng-container *ngTemplateOutlet="coupon"></ng-container>
@@ -19,18 +23,14 @@
       <div class="mb-3">
         <a [routerLink]="['/auth/registration/c']" class="btn btn-outline-primary w-100 font-regular">Sign up as Centre</a>
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <a [routerLink]="['/auth/registration/p']" [queryParams]="{nextKeyword: 'buyplan'}" class="btn btn-outline-primary w-100 font-regular">Sign up as Partner</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
 
-<section class="container mt-5" *ngIf="user">
-  <h2 class="text-center">
-    Welcome back to PromptHealth!
-  </h2>
-
+<section class="container" *ngIf="user">
   <div style="width: 100%; max-width: 400px; margin: 50px auto;">
     <ng-container *ngTemplateOutlet="coupon"></ng-container>
   </div>
@@ -50,9 +50,9 @@
       <div class="col-12 col-md-5 mb-3">
         <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('c')">Sign up as Centre</button>
       </div>
-      <div class="col-12 col-md-5">
+      <!-- <div class="col-12 col-md-5">
         <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('p')">Sign up as Partner</button>
-      </div>  
+      </div>   -->
     </div>
 
   </ng-template>
@@ -66,8 +66,7 @@
 
 <ng-template #coupon>
   <h4 class="text-center mb-3">
-    You have a coupon!<br>
-    Wanna buy plans?
+    sign up today and take an additional 30% off any PromptHealth plan
   </h4>
 
   <card-coupon [couponCode]="couponCode"></card-coupon>

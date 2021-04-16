@@ -155,13 +155,16 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
       cancel_url: location.href,
       success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
       userId: this.profile._id,
-      coupon: savedCoupon.id,
       userType: this.profile.roles,
       email: this.profile.email,
       plan: this.data,
       isMonthly: this.monthly,
       type: 'default',
     };
+    if (savedCoupon) {
+      payload.coupon = savedCoupon.id;
+      // payload.success_url += '?action=couponused';
+    }
     this.stripeCheckout(payload);
   }
 

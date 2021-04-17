@@ -59,7 +59,7 @@ export class SharedService {
     this._bs.setUserData({});
 
     localStorage.setItem('userType', 'U');
-    if(navigate){
+    if (navigate) {
       this._router.navigate(['/auth/login']);
     }
   }
@@ -376,11 +376,11 @@ export class SharedService {
       route = res.data.roles === 'U' ? '/' : '';
     } else {
       if (type === 'reg') {
-        switch(res.data.roles.toLowerCase()){
+        switch (res.data.roles.toLowerCase()) {
           case 'u': route = '/dashboard/questions/User'; break;
           case 'p': route = '/dashboard/register-product'; break;
           case 'sp':
-          case 'c': 
+          case 'c':
             route = '/dashboard/professional-info';
             break;
         }

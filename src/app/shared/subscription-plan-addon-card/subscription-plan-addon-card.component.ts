@@ -189,13 +189,16 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
         }
       } else {
         this._toastr.error(res.message, 'Error');
+
+        console.error(res);
       }
 
       this._sharedService.loader('hide');
     }, (error) => {
-      if (error.code === 'COUPON_INVALID') {
+      if (error.errorCode === 'COUPON_INVALID') {
         sessionStorage.removeItem('stripe_coupon_code');
       }
+      console.log(error);
       this._toastr.error(error);
       this._sharedService.loader('hide');
     });

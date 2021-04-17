@@ -31,14 +31,13 @@ export class InvitationComponent implements OnInit {
         this._sharedService.get('user/get-coupon/' + this.couponCode).subscribe((res: any) => {
           sessionStorage.setItem('stripe_coupon_code', JSON.stringify(res.data));
           this.couponData = res.data;
-          console.log(res);
         }, error => {
-          console.log(error);
-          this._router.navigate(['/404'], {replaceUrl: true});
+          console.error(error);
+          this._router.navigate(['/404'], { replaceUrl: true });
           this._toaster.error('The coupon is invalid');
         });
-      }else{
-        this._router.navigate(['/404'], {replaceUrl: true});
+      } else {
+        this._router.navigate(['/404'], { replaceUrl: true });
       }
     });
   }

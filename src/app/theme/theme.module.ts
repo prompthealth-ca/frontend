@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout/layout.component';
 import { FlashMessagesModule } from 'ngx-flash-messages';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -49,7 +50,8 @@ import { BannerTopComponent } from './banner-top/banner-top.component';
     NgxStripeModule.forRoot(environment.config.stripeKey),
     SharedModule,
     FlashMessagesModule,
-    FormsModule
+    FormsModule,
+    ModalModule.forRoot()
   ]
 })
 export class ThemeModule { }

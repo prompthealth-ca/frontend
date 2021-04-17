@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { SharedService } from '../../../shared/services/shared.service';
 import { ProfileManagementService } from '../profile-management.service';
 import { ToastrService } from 'ngx-toastr';
-import { pattern } from 'src/app/_helpers/form-settings';
+import { pattern } from '../../../_helpers/form-settings';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({

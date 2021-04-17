@@ -21,6 +21,7 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
   @Input() data: IDefaultPlan;
   @Input() hideButton = false;
   @Input() discounted: number = null;
+  @Input() showFeatureOnly: boolean = false;
 
   @Input() isPriceMonthly = true;
   @Input() monthly = true;
@@ -61,7 +62,7 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
       case 'partnerBasic': this.title = 'Product/Service'; break;
       case 'partnerEnterprise': this.title = 'Enterprise'; break;
       case 'basic': this.title = 'Basic'; break;
-      case 'provider': this.title = 'Provider'; break;
+      case 'provider': this.title = 'Professional'; break;
       case 'centre': this.title = 'Centre'; break;
       default: this.title = this.type;
     }

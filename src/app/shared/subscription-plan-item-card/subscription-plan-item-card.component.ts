@@ -172,9 +172,9 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
     const path = `user/checkoutSession`;
     this._sharedService.loader('show');
     this._sharedService.post(payload, path).subscribe((res: any) => {
-      console.log('there we go');
+      // console.log('there we go');
       if (res.statusCode === 200) {
-        console.log(res);
+        // console.log(res);
         this._stripeService.changeKey(environment.config.stripeKey);
 
         if (res.data.type === 'checkout') {

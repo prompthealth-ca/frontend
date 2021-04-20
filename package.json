@@ -44,6 +44,7 @@
     "angular-ng-autocomplete": "^2.0.1",
     "angularx-social-login": "^3.0.0",
     "bootstrap": "^4.4.1",
+    "domino": "^2.1.6",
     "express": "^4.15.2",
     "google-libphonenumber": "^3.2.7",
     "google-maps-ng2": "^1.0.10",

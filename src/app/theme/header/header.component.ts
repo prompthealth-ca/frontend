@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
-import { BehaviorService } from '../../shared/services/behavior.service';
+// import { BehaviorService } from '../../shared/services/behavior.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
 import { fadeAnimation, fadeFastAnimation, slideVerticalAnimation } from '../../_helpers/animations';
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private _router: Router,
     private _sharedService: SharedService,
-    private _bs: BehaviorService,
+    // private _bs: BehaviorService,
     private toastr: ToastrService,
     private _headerStatusService: HeaderStatusService,
     public catService: CategoryService,
@@ -90,28 +90,28 @@ export class HeaderComponent implements OnInit {
 
     this.AWS_S3 = environment.config.AWS_S3;
 
-    this._bs.getUserData().subscribe((res: any) => {
-      this.updateData = res;
-      // console.log('reeeeeeeeeee', this.updateData);
-      if (res.firstName) {
-        localStorage.setItem('user', JSON.stringify(this.updateData));
-        this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
-        this.token = localStorage.getItem('token');
-        this.role = localStorage.getItem('roles');
-      }
-      this.role = this.user.roles || null;
-      switch(this.user.roles){
-        case 'SP':
-        case 'C':
-          this.setPriceType('practitioner');
-          break;
-        case 'P':
-          this.setPriceType('product');
-          break;
-        default:
-          this.setPriceType();
-      }
-    });
+    // this._bs.getUserData().subscribe((res: any) => {
+    //   this.updateData = res;
+    //   // console.log('reeeeeeeeeee', this.updateData);
+    //   if (res.firstName) {
+    //     localStorage.setItem('user', JSON.stringify(this.updateData));
+    //     this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+    //     this.token = localStorage.getItem('token');
+    //     this.role = localStorage.getItem('roles');
+    //   }
+    //   this.role = this.user.roles || null;
+    //   switch(this.user.roles){
+    //     case 'SP':
+    //     case 'C':
+    //       this.setPriceType('practitioner');
+    //       break;
+    //     case 'P':
+    //       this.setPriceType('product');
+    //       break;
+    //     default:
+    //       this.setPriceType();
+    //   }
+    // });
 
     this.token = localStorage.getItem('token');
     this.role = localStorage.getItem('roles');
@@ -203,7 +203,7 @@ export class HeaderComponent implements OnInit {
   }
 
   optUserType(value) {
-    this._bs.setRole(value);
+    // this._bs.setRole(value);
     localStorage.setItem('userType', value);
   }
 

@@ -8,15 +8,22 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 
+import { existsSync } from 'fs';
+import * as domino from 'domino';
+
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/wellness-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+
+  const template = join(distFolder, 'index.html');
+  const win = domino.createWindow(template)
+  global['window'] = win;
+  global['document'] = win.document;
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({

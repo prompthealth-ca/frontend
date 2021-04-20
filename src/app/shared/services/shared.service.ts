@@ -1,7 +1,7 @@
 import { Injectable, Optional, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { FlashMessagesService } from 'ngx-flash-messages';
+// import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PreviousRouteService } from './previousUrl.service';
 import { BehaviorService } from './behavior.service';
@@ -35,7 +35,7 @@ export class SharedService {
     // private authService: SocialAuthService,
     private _router: Router,
     private rendererFactory: RendererFactory2,
-    private _flashMessagesService: FlashMessagesService,
+    // private _flashMessagesService: FlashMessagesService,
     private spinner: NgxSpinnerService,
     private previousRouteService: PreviousRouteService,
     private _bs: BehaviorService,
@@ -365,7 +365,7 @@ export class SharedService {
       classes: ['alert', alertClass],
       timeout: 1800
     };
-    this._flashMessagesService.show(message, obj);
+    // this._flashMessagesService.show(message, obj);
   }
 
 

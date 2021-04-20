@@ -13,8 +13,10 @@ export class AppComponent implements OnInit {
 
 async ngOnInit() {
   this.scrollTopService.setScrollTop();
-  try { await this.getPosition(); }
-  catch(error){ console.log(error); }
+  if(window.navigator.geolocation){
+    try { await this.getPosition(); }
+    catch(error){ console.log(error); }  
+  }
 }
 
 getPosition(): Promise<any> {
@@ -23,7 +25,6 @@ getPosition(): Promise<any> {
     navigator.geolocation.getCurrentPosition(resp => {
       resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
 
-    
       localStorage.setItem('ipLat', resp.coords.latitude.toString());
       localStorage.setItem('ipLong', resp.coords.longitude.toString());
     },

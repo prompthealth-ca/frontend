@@ -381,15 +381,15 @@
             </div>
             <div class="col-md-12 mb-3">
               <label>Date</label>
-              <input
+              <!-- <input
                 class="form-control"
                 [owlDateTime]="dt1"
                 [min]="minDate"
                 [owlDateTimeTrigger]="dt1"
                 placeholder="Date Time"
                 formControlName="bookingDateTime"
-              />
-              <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
+              /> -->
+              <!-- <owl-date-time #dt1 [startAt]="startDate"></owl-date-time> -->
               <div *ngIf="submitted" class="error-msg">
                 <small *ngIf="f.bookingDateTime.errors" class="text-danger">
                   Booking Date is required

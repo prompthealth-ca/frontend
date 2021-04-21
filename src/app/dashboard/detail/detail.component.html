@@ -547,6 +547,11 @@ class="container-fluid bg-grey p-4"
               class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
               formControlName="bookingDateTime"> -->
               <!-- <owl-date-time #dt1 [startAt]="startDate"></owl-date-time> -->
+              <input class="form-control" placeholder="yyyy-mm-dd"
+              name="dp" controlName="bookingDateTime" ngbDatepicker #d="ngbDatepicker">
+              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              <ngb-timepicker controlName="bookingDateTime"></ngb-timepicker>
+
               <div *ngIf="submitted" class="error-msg">
                 <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
                   Booking Date&time is required

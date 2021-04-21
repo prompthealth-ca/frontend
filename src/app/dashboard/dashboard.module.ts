@@ -22,6 +22,7 @@ import { AuthModule } from '../auth/auth.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 /** slider for filter in listing page */
 import { NpnSliderModule } from 'npn-slider';
@@ -100,7 +101,8 @@ import { UserQuestionnaireItemSelectMultipleComponent } from './user-questionnai
     UiSwitchModule,
     NgbModalModule,
     NpnSliderModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgbModule,
   ]
 })
 export class DashboardModule { }

@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 .text-blue{ color: #3377C5; }
 .bg-blue{ background: #3377C5; }
 .text-pink{ color: #A759B3; }
@@ -9,11 +11,11 @@
 }
 
 .hero{ 
-    background-image: url('/assets/img/hero-subscription-plan-partner-s.png');
-    h2{ font-size: 20px; }
+    background-image: url('/assets/img/hero-subscription-plan-product-s.png');
+    h2{ font-size: 25px; }
   
     @media screen and (min-width: 768px){
-      background-image: url("/assets/img/hero-subscription-plan-partner.png");
+      background-image: url("/assets/img/hero-subscription-plan-product.png");
       h2{ font-size: 35px; }
     }
   }
@@ -36,6 +38,33 @@
   }
 }
 
+
+/** copied from subscriptionPlanItemCardScss */
+/** start */
+$green: ('text': #95C38B, 'bg': #95C38B);
+@mixin theme($color){
+  .title,
+  .feature i{
+    color: map.get($color, 'text');
+  }
+
+  .tab,
+  .btn-more,
+  .separator{
+    color: white;
+    background: map.get($color, 'bg');
+  }
+}
+.theme-green{ @include theme($green); }
+.title{
+  font-size: 2.3em;
+}
+
+.separator{
+  height: 1px;
+  border: none;
+}
+/** end */
 
 .message-coupon {
   z-index: 1000;

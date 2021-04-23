@@ -9,8 +9,7 @@ import { fadeAnimation, fadeFastAnimation, slideVerticalAnimation } from '../../
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ProfileManagementService } from '../../dashboard/profileManagement/profile-management.service';
-
-
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +18,11 @@ import { ProfileManagementService } from '../../dashboard/profileManagement/prof
   animations: [fadeAnimation, fadeFastAnimation, slideVerticalAnimation]
 })
 export class HeaderComponent implements OnInit {
+
+  @ViewChild('signupModal') public signupModal: ModalDirective;
+  get onProductPage(){
+    return !!this._router.url.match('product');
+  }
 
   constructor(
     private _router: Router,
@@ -53,6 +57,8 @@ export class HeaderComponent implements OnInit {
 
   public AWS_S3 = '';
 
+  public priceType: PriceType = null;
+
   user: any = {};
   updateData: any;
   cities = [];
@@ -65,7 +71,7 @@ export class HeaderComponent implements OnInit {
   dashboard: any;
   currentUrl = '';
   uname: any;
-  userType = '';
+  public userType = '';
   professionalOption = false;
 
 
@@ -73,7 +79,6 @@ export class HeaderComponent implements OnInit {
   public classSubcategoryItem = '';
   // End Ngoninit
   public keyword: string;
-
 
   // Start ngOninit
   async ngOnInit() {
@@ -94,13 +99,25 @@ export class HeaderComponent implements OnInit {
         this.token = localStorage.getItem('token');
         this.role = localStorage.getItem('roles');
       }
+      this.role = this.user.roles || null;
+      switch(this.user.roles){
+        case 'SP':
+        case 'C':
+          this.setPriceType('practitioner');
+          break;
+        case 'P':
+          this.setPriceType('product');
+          break;
+        default:
+          this.setPriceType();
+      }
     });
 
     this.token = localStorage.getItem('token');
     this.role = localStorage.getItem('roles');
     // this.payment = localStorage.getItem(isPayment);
     this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
-    
+
     // if (this.token && this.user) {
     //   let roles = this.user.roles;
     //   this.dashboard = roles == "B" ? "dashboard/home" : "dashboard/welcome";
@@ -274,4 +291,10 @@ export class HeaderComponent implements OnInit {
       if(this.timerScrollCategory){ clearInterval(this.timerScrollCategory); }
     }
   }
+
+  setPriceType(type: PriceType = null){
+    this.priceType = type;
+  }
 }
+
+type PriceType = 'practitioner' | 'product';

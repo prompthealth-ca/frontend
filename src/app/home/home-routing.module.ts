@@ -18,7 +18,7 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogCategoryComponent } from './blog-category/blog-category.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
-import { SubscriptionPlanPartnerComponent } from "./subscription-plan-partner/subscription-plan-partner.component";
+import { subscriptionPlanProductComponent } from "./subscription-plan-product/subscription-plan-product.component";
 import { ProfilePartnerComponent } from './profile-partner/profile-partner.component';
 import { ListingProductComponent } from './listing-product/listing-product.component';
 import { InvitationComponent } from './invitation/invitation.component';
@@ -95,7 +95,7 @@ const routes: Routes = [
     component: UnsubscribeComponent
   },
 
-  { path: 'plans/product', component: SubscriptionPlanPartnerComponent },
+  { path: 'plans/product', component: subscriptionPlanProductComponent },
   
   { path: 'products', component: ListingProductComponent, },
   { path: 'products/:id', component: ProfilePartnerComponent },

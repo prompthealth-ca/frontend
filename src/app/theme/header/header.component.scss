@@ -431,3 +431,39 @@ ul.dropdown-menu.multi-level.show {
     margin-right: 5px;
   }
 }
+
+.modal-signup{
+  .modal-dialog {
+    width: 500px;
+    max-width: 90%;
+    margin: auto;
+  }
+  .image-container{
+    width: 50%;
+    top: 0;
+    left: 0;
+
+    transform: translate(-7%, -40%);
+    @media (min-width: 768px){ transform: translate(-5%, -50%); }
+
+    img {
+      position: absolute;
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+    }
+
+    &::after{
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+  }
+
+  h2{
+    margin-left: 55%;
+    .hidden-i5 {
+      @media (max-width: 374px){ display: none; }
+    }
+  }
+}

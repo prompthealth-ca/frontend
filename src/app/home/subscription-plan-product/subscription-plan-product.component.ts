@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { SharedService } from '../../shared/services/shared.service';
@@ -8,12 +8,12 @@ import { IDefaultPlan } from 'src/app/models/default-plan';
 import { slideHorizontalAnimation } from '../../_helpers/animations';
 
 @Component({
-  selector: 'app-subscription-plan-partner',
-  templateUrl: './subscription-plan-partner.component.html',
-  styleUrls: ['./subscription-plan-partner.component.scss'],
+  selector: 'app-subscription-plan-product',
+  templateUrl: './subscription-plan-product.component.html',
+  styleUrls: ['./subscription-plan-product.component.scss'],
   animations: [slideHorizontalAnimation],
 })
-export class SubscriptionPlanPartnerComponent implements OnInit {
+export class subscriptionPlanProductComponent implements OnInit {
 
   public isPriceMonthly = true;
   public partnerPlan: IDefaultPlan = null;
@@ -25,8 +25,10 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   public couponCode = {};
   public isCouponShown = false;
   public isCouponShrink = false;
-
+  
+  public isOnlyFeatureShown: boolean = false;
   public form: FormGroup;
+  
 
   private subscription: Subscription;
 
@@ -42,12 +44,18 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
     });
   }
 
+  @HostListener('window:resize') windowResize(){
+    this.isOnlyFeatureShown = (window.innerWidth >= 768) ? true : false;
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 
   async ngOnInit() {
+    this.isOnlyFeatureShown = (window.innerWidth >= 768) ? true : false;
+
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       this.userType = user.roles;
@@ -80,23 +88,23 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   getAddonPlan(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this._sharedService.getNoAuth('addonplans/get-all').subscribe((res: any) => {
-        if (res.statusCode === 200) {
+        if(res.statusCode === 200) {
           const addons = [];
           res.data.forEach((data: IAddonPlan) => {
-            if (data.userType.includes('P')) {
+            if(data.userType.includes('P')) {
               addons.push(data);
             }
           });
           this.addonPlans = addons;
           resolve(true);
-        } else {
+        }else{
           this._sharedService.checkAccessToken(res.error);
           reject(res.error);
         }
       }, error => {
         console.log(error);
         reject(error);
-      });
+      });  
     });
   }
 
@@ -128,16 +136,16 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   changePriceRange(isMonthly: boolean) { this.isPriceMonthly = isMonthly; }
 
   expandMessageCoupon() { this.isCouponShrink = false; }
-  shrinkMessageCoupon(e: Event) {
+  shrinkMessageCoupon(e: Event) { 
     this.isCouponShrink = true;
-    e.stopPropagation();
+    e.stopPropagation(); 
   }
 
 
   // public errorForm: string = null;
   // onInputForm(){ if(this.errorForm){ this.errorForm = null; } }
 
-  // submitRegister(){
+  // submitRegister(){    
   //   var f = this.form.controls;
 
   //   if(f.firstname.invalid || f.lastname.invalid || (f.email.invalid && f.email.errors.required)){
@@ -147,13 +155,13 @@ export class SubscriptionPlanPartnerComponent implements OnInit {
   //   }else{
   //     this.errorForm = null;
   //   }
-
+    
   //   if(this.errorForm){ return; }
   //   else{
   //     this._spinner.show();
   //     this.subscription = this._sharedService.sendEmailSubscribers(this.form.value).subscribe((res: any) => {
   //       this._spinner.hide();
-  //       if (res.statusCode === 200) { this._toastr.success(res.message); }
+  //       if (res.statusCode === 200) { this._toastr.success(res.message); } 
   //       else { this._toastr.error(res.error.message); }
   //     },
   //     error => {

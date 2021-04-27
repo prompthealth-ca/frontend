@@ -113,15 +113,18 @@ export class LandingClubhouseComponent implements OnInit {
 
 		const path = 'clubhouse/create';
 		this._sharedService.postNoAuth(this.form.value, path).subscribe((res: any) => {
-			if(res.satusCode == 200) {
+			if(res.statusCode == 200) {
 				this._toastr.success(res.message);
 			}else {
-				console.log(res);
-				this._toastr.error(res.message);
+				let message = 'Something went wrong. Please try again later.';
+				if(res.message.match(/^E11000/)){
+					message = 'This email is already registered. Please try different email address.';
+				}
+				this._toastr.error(message);
 			}
 		}, error => {
 			console.log(error);
-			this._toastr.error('Something went wrong. Please try again');
+			this._toastr.error('Something went wrong. Please try again later');
 		});
   }
 }

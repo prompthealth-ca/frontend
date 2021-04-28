@@ -4,6 +4,7 @@ import { BehaviorService } from '../../shared/services/behavior.service';
 import { RegisterQuestionnaireService } from '../register-questionnaire.service'; 
 import { Subscription } from 'rxjs';
 import { FormPartnerGeneralComponent } from '../../shared/form-partner-general/form-partner-general.component';
+import { IUserDetail } from 'src/app/models/user-detail';
 
 @Component({
   selector: 'app-register-partner-general',
@@ -13,7 +14,7 @@ import { FormPartnerGeneralComponent } from '../../shared/form-partner-general/f
 export class RegisterPartnerGeneralComponent implements OnInit {
 
 
-  public user: any;
+  public user: IUserDetail;
   @ViewChild(FormPartnerGeneralComponent) private formGeneralComponent: FormPartnerGeneralComponent;
 
   private subscriptionNavigation: Subscription;

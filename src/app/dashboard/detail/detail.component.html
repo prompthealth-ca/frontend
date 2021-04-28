@@ -61,10 +61,15 @@ class="container-fluid bg-grey p-4"
 <section class="container bg-white mt-5 mt-md-6" *ngIf="indexTabItem == 1">
     <div class="row justify-content-between my-5">
       <div class="col-12 col-md-6 col-lg-7">
-        <div>
-          <star-rate [rate]="((userInfo)? userInfo.rating : 0)" margin='big'></star-rate>
-          <span class='text-blue pl-4'>{{(userInfo && userInfo.reviews.length > 0)? ('(' + userInfo.reviews.length + ')') : 'No review yet'}}</span>
+        <div *ngIf="userInfo">
+          <ng-container *ngIf="userInfo.reviews.length > 0">
+            <star-rate [rate]="((userInfo)? userInfo.rating : 0)" margin='big'></star-rate>
+            <span class='text-blue pl-4'>({{userInfo.reviews.length}})</span>
+          </ng-container>
+
+          <span *ngIf="userInfo.reviews.length == 0 && !userInfo.detailByGoogle" class="text-blue pl-4">No review yet</span>
         </div>
+
         <div *ngIf="userInfo && userInfo.reviews.length > 0">
           <div class="my-5">
             <ul class="review-controller list-unstyled d-inline-flex mb-3">
@@ -100,11 +105,38 @@ class="container-fluid bg-grey p-4"
             </ul>
           </div>
         </div>
+
+        <div *ngIf="userInfo?.detailByGoogle">
+          <div class="mb-5">
+            <ul class="list-unstyled reviews p-0 m-0">
+              <li class="p-3 p-md-4 mb-4" *ngFor="let r of userInfo.detailByGoogle.reviews">
+                <div class="mb-3 d-flex">
+                  <div class="review-image rounded-circle overflow-hidden mr-3">
+                    <img [src]="r.profile_photo_url" [alt]="r.author_name">
+                  </div>
+                  <div class="mt-3">
+                    <p class="font-weight-bold font-big">{{r.author_name}}</p>
+                    <star-rate [rate]="r.rating" size='regular' margin="regular"></star-rate>
+                  </div>
+                </div>
+                <div class="">
+                  <div class="borderb-grey pt-2"></div>
+                  <p class='pt-3 pb-0'>{{r.text}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span>{{r.relative_time_description}}</span>
+                    <img class="badge-google" src="/assets/img/logo-google.png" alt="" width="30">
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+          </div>
+        </div>
     
       </div>
       <div class="col-12 col-md-5 col-lg-4">
         <div *ngIf="userInfo?.detailByGoogle">
-          <h5 class="text-ph-blue">Google Review</h5>
+          <!-- <h5 class="text-ph-blue">Google Review</h5> -->
           <div class="card card-google-place shadow overflow-hidden rounded-10p">
             <div class="image-container">
               <img class="atmosphere" [src]="userInfo?.detailByGoogle?.photos[0].getUrl()" alt="">
@@ -133,7 +165,7 @@ class="container-fluid bg-grey p-4"
               </tbody>
             </table>
 
-            <ul class="list-unstyled google-reviews">
+            <!-- <ul class="list-unstyled google-reviews">
               <li class="m-2" *ngFor="let r of userInfo.detailByGoogle.reviews">
                 <div class="d-flex flex-nowrap align-items-start mb-2">
                   <img class="user" [src]="r.profile_photo_url" alt="">
@@ -145,7 +177,7 @@ class="container-fluid bg-grey p-4"
                 <p class="font-small">{{r.text}}</p>
                 <div class="text-right font-small">{{r.relative_time_description}}</div>
               </li>
-            </ul>
+            </ul> -->
 
           </div>  
         </div>
@@ -543,15 +575,16 @@ class="container-fluid bg-grey p-4"
             </div> -->
             <div class="col-md-12 mb-3">
               <label>Date & Time<span class="text-danger">*</span></label>
-              <input 
+              <!-- <input 
               class="form-control" [owlDateTime]="dt1" [min]="minDate" [owlDateTimeTrigger]="dt1" placeholder="Date Time"
               formControlName="bookingDateTime">
-              <owl-date-time #dt1 [startAt]="startDate"></owl-date-time>
-              <div *ngIf="submitted" class="error-msg">
+              <owl-date-time #dt1 [startAt]="startDate"></owl-date-time> -->
+              <form-item-datetime [controller]="f.bookingDateTime" [minDateTime]="minDateTime"></form-item-datetime>
+              <!-- <div *ngIf="submitted" class="error-msg">
                 <small *ngIf="f.bookingDateTime.errors"  class="text-danger">
                   Booking Date&time is required
                 </small>
-              </div>
+              </div> -->
             </div>
             <div class="col-md-12 mb-3">
               <label>Notes</label>

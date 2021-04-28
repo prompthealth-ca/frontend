@@ -8,12 +8,13 @@ import { SharedService } from '../../shared/services/shared.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Professional } from '../../models/professional';
-import { QuestionnaireAnswer } from '../questionnaire.service';
+import { QuestionnaireAnswer } from '../../shared/services/questionnaire.service';
 import { CategoryService, Category } from '../../shared/services/category.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { Subscription } from 'rxjs';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { DateTimeData, FormItemDatetimeComponent } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 
 
 const expandTitleAnimation = trigger('expandTitle', [
@@ -32,9 +33,6 @@ const expandSubtitleAnimation = trigger('expandSubtitle', [
   ]),
   transition('expand=>shrink', style({ display: 'none' }))
 ]);
-
-
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -91,6 +89,7 @@ export class DetailComponent implements OnInit {
   public myId = '';
   public startDate: Date; /* used at booking form */
   public minDate: Date; /* used at booking form */
+  public minDateTime: DateTimeData;
   // public timingSelectedValue = ''; /* used at booking form */
   public submitted = false; /* used for form verification */
 
@@ -109,6 +108,8 @@ export class DetailComponent implements OnInit {
   private host: HTMLElement;
   private loginSubscription: Subscription;
 
+  @ViewChild(FormItemDatetimeComponent) formDateTimeComponent: FormItemDatetimeComponent;
+
   /** delete */
   roles; /** not used anywhere. can be deleted */
   public productSearch: ''; /* can be deleted */
@@ -126,6 +127,14 @@ export class DetailComponent implements OnInit {
     const now = new Date();
     this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
     this.minDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    this.minDateTime = {
+      year: now.getFullYear(), 
+      month: now.getMonth() + 1, 
+      day: now.getDate() + 1,
+      hour: 9,
+      minute: 0
+    };
+
 
     this.bookingForm = this._fb.group({
       name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern(/\S+/)]),
@@ -366,10 +375,11 @@ export class DetailComponent implements OnInit {
   }
 
   bookApointment() {
-    this.submitted = true;
+      this.submitted = true;
     if (this.bookingForm.invalid) {
       return;
     } else {
+        
       const formData = {
         ...this.bookingForm.value,
       };
@@ -380,7 +390,7 @@ export class DetailComponent implements OnInit {
       };
       // data.timing = this.timingSelectedValue;
       data.phone = data.phone.toString();
-      data.bookingDateTime = data.bookingDateTime.toString();
+      data.bookingDateTime = this.formDateTimeComponent.getFormattedValue().toString();
       this._sharedService.loader('show');
       const path = `booking/create`;
       this._sharedService.post(data, path).subscribe((res: any) => {

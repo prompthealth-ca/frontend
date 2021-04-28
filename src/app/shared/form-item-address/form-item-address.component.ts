@@ -20,11 +20,7 @@ export class FormItemAddressComponent implements OnInit {
 
 
   get address(){ return this.controllerGroup.controls.address; }
-  get errorGoogleSuggestion(){
-    const cs = this.controllerGroup.controls;
-    return !!(cs.state.invalid || cs.city.invalid || cs.zipcode.invalid || cs.latitude.invalid || cs.longitude.invalid);
-  }
-
+  
   private host: HTMLElement;
 
   constructor(
@@ -43,6 +39,15 @@ export class FormItemAddressComponent implements OnInit {
         this.setAddress(place);
       });
     });
+  }
+
+  onChangeAddress(){
+    const cs = this.controllerGroup.controls;
+    cs.latitude.patchValue(0);
+    cs.longitude.patchValue(0);
+    cs.state.patchValue('');
+    cs.city.patchValue('');
+    cs.zipcode.patchValue('');  
   }
 
   setAddress(p: google.maps.places.PlaceResult){

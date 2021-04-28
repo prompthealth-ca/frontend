@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { QuestionnaireAnswer } from '../dashboard/questionnaire.service';
+import { QuestionnaireAnswer } from '../shared/services/questionnaire.service';
 import { Category } from '../shared/services/category.service';
 import { SocialLinkData } from '../shared/social-buttons/social-buttons.component';
 import { ImageData, ImageGroupData, ImageViewerData } from '../shared/image-viewer/image-viewer.component';

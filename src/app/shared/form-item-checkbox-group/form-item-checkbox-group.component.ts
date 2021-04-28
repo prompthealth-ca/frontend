@@ -15,7 +15,7 @@ export class FormItemCheckboxGroupComponent implements OnInit {
   @Input() controller: FormArray | FormControl;
   @Input() submitted = false;
   @Input() disabled = false;
-  @Input() selections: CheckboxSelectionItem[] = [];
+  @Input() selections: CheckboxSelectionItem[];
   
   @Input() ageRangeType: 'simple' | 'detail' = 'simple';
   @Input() includePreferNotToSay = false;
@@ -39,9 +39,11 @@ export class FormItemCheckboxGroupComponent implements OnInit {
       case 'age_range': this.selectionList = (this.ageRangeType == 'simple') ? age_range : age_range_detail; break;
       case 'years_of_experience': this.selectionList = years_of_experience; break;
       case 'business_kind': this.selectionList = business_kind; break;
-      case 'gender': this.selectionList = gender; break;
-      default: this.selectionList = this.selections;
+      case 'gender': this.selectionList = this.selections ? this.selections : gender; break;
+      default: this.selectionList = this.selections || [];
     }
+    
+
     if(this.includePreferNotToSay){
       this.selectionList = this.selectionList.concat(preferNotToSay);
     }
@@ -121,6 +123,7 @@ const age_range: CheckboxSelectionItem[] = [
 const age_range_detail: CheckboxSelectionItem[] = [
   { id: 'age1', label: 'Under 12 years old',    value: '5eb1a4e199957471610e6cd8' },
   { id: 'age2', label: '12 - 17 years old',     value: '5eb1a4e199957471610e6cd9' },
+  { id: 'age3', label: '18 - 24 years old',     value: '5eb1a4e199957471610e6cda' },
   { id: 'age3', label: '25 - 34 years old',     value: '5eb1a4e199957471610e6cda' },
   { id: 'age4', label: '35 - 44 years old',     value: '5eb1a4e199957471610e6cda' },
   { id: 'age5', label: '45 - 54 years old',     value: '5eb1a4e199957471610e6cda' },

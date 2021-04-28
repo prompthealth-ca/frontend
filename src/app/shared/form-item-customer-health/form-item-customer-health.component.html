@@ -46,6 +46,11 @@
       </li>  
     </ng-container>
   </ul>
+  <form-item-errors
+  label="Health status"
+  [submitted]="submitted"
+  [controller]="controller"
+  ></form-item-errors>
 </ng-container>
 
 <ul class="tags-horizontal m-0 list-unstyled d-flex flex-nowrap" *ngIf="mode == 'tag' && data && data.length > 0">
@@ -57,5 +62,16 @@
       <label class="btn m-0" [for]="item.id"><i class="fas fa-times"></i></label>
       <input [id]="item.id" type="checkbox" class="d-none" [formControl]="getFormArray('root').controls[i]" (change)="onChange()">
     </li>
+    <ng-container *ngIf="item.child">
+      <ng-container *ngFor="let itemSub of item.child; let j = index">
+        <li *ngIf="getFormArray(item.id).controls[j].value"
+        class="main text-nowrap rounded mr-3 position-relative"
+        >
+          <span class="px-3">{{itemSub.label}}</span>
+          <label class="btn m-0" [for]="itemSub.id"><i class="fas fa-times"></i></label>
+          <input [id]="itemSub.id" type="checkbox" class="d-none" [formControl]="getFormArray(item.id).controls[j]" (change)="onChange()">
+        </li>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </ul>

@@ -92,8 +92,17 @@ section.sideview{
     transform: scaleX(1.155) skewY(-30deg) rotate(-30deg) translateY(-42.3%) skewX(-30deg) scaleY(.866) translateX(24%);
   }
 
+
+}
+
+.bubble-md.item-count-3 {
+  @for $i from 0 through 2{
+    .triangle.position-#{$i}{ left: calc(#{16.65% + 33.3% * $i} - 25px); }
+  }
+}
+.bubble-md.item-count-4 {
   @for $i from 0 through 3{
-    &.position-#{$i}{ left: calc(#{12.5% + 25% * $i} - 25px); }
+    .triangle.position-#{$i}{ left: calc(#{12.5% + 25% * $i} - 25px); }
   }
 }
 

@@ -8,14 +8,13 @@ import { environment } from 'src/environments/environment';
 
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { _FEATURE_CONFIGS } from '@ngrx/store/src/tokens';
-import { QuestionnaireService, Questionnaire, QuestionnaireAnswer } from '../questionnaire.service';
+import { Questionnaire, QuestionnaireAnswer, QuestionnaireService } from '../../shared/services/questionnaire.service';
 // import { rootEffectsInit } from '@ngrx/effects';
 // import { FitBoundsService } from '@agm/core/services/fit-bounds';
 import { Professional } from '../../models/professional';
 import { slideVerticalAnimation, expandVerticalAnimation } from '../../_helpers/animations';
 import { CategoryService, Category } from '../../shared/services/category.service';
 import { slideHorizontalAnimation } from '../../_helpers/animations';
-import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -34,8 +33,8 @@ export class ListingComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
-    private _qService: QuestionnaireService,
     private _maps: MapsAPILoader,
+    private _qService: QuestionnaireService,
     _el: ElementRef,
   ) {
     this.host = _el.nativeElement;
@@ -229,7 +228,10 @@ export class ListingComponent implements OnInit, OnDestroy {
         });
       }
 
-      this._sharedService.clearPersonalMatch();     
+      this._sharedService.clearPersonalMatch();
+      
+      const qs = await this._qService.getPersonalMatch();
+      this.customerHealthSet = qs.health.answers;
     }
 
 

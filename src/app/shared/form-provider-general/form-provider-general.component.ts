@@ -16,7 +16,9 @@ export class FormProviderGeneralComponent implements OnInit {
 
   @Input() data: IUserDetail = {};
   @Input() disabled = false;
+  @Input() hideSubmit: boolean = false;
   
+  @Output() changeImage = new EventEmitter<string>();
   @Output() submitForm = new EventEmitter<IUserDetail>();
 
   get f() { return this.form.controls; }
@@ -93,7 +95,7 @@ export class FormProviderGeneralComponent implements OnInit {
 
       product_description: new FormControl( this.data.product_description ? this.data.product_description : '', validators.productDescription),
 
-    });
+    }, {validators: validators.addressSelectedFromSuggestion});
 
   }
 
@@ -131,6 +133,10 @@ export class FormProviderGeneralComponent implements OnInit {
 
   onChangePlace() {
     this._changeDetector.detectChanges();
+  }
+
+  onChangeImage(imageURL: string) {
+    this.changeImage.emit(imageURL);
   }
 
   onSubmit(){

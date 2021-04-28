@@ -34,6 +34,7 @@ import { CardPartnerComponent } from './card-partner/card-partner.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { LandingClubhouseComponent } from './landing-clubhouse/landing-clubhouse.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LandingAmbassadorComponent } from './landing-ambassador/landing-ambassador.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     InvitationComponent,
     LandingClubhouseComponent,
     NotFoundComponent,
+    LandingAmbassadorComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [

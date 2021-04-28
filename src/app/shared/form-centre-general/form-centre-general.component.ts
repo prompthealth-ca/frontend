@@ -16,7 +16,9 @@ export class FormCentreGeneralComponent implements OnInit {
 
   @Input() data: IUserDetail = {};
   @Input() disabled = false;
+  @Input() hideSubmit: boolean = false;
   
+  @Output() changeImage = new EventEmitter<string>();
   @Output() submitForm = new EventEmitter<IUserDetail>();
 
   get f() { return this.form.controls; }
@@ -54,6 +56,7 @@ export class FormCentreGeneralComponent implements OnInit {
     catch(error){ this._toastr.error(error); }
 
     this.form = this._fb.group({
+      profileImage: new FormControl(this.data.profileImage ? this.data.profileImage : '', validators.profileImageProvider),
       firstName: new FormControl(this.data.firstName ? this.data.firstName : '', validators.nameCentre),
       userType: new FormControl('Centre'),
       email: new FormControl(this.data.email ? this.data.email : '', validators.email),
@@ -86,7 +89,7 @@ export class FormCentreGeneralComponent implements OnInit {
       business_kind: new FormControl( this.data.business_kind ? this.data.business_kind : '', validators.businessKind),
 
       product_description: new FormControl( this.data.product_description ? this.data.product_description : '', validators.productDescription),
-    });
+    }, {validators: validators.addressSelectedFromSuggestion});
   }
 
   async getQuestions(): Promise<boolean> {
@@ -123,6 +126,10 @@ export class FormCentreGeneralComponent implements OnInit {
 
   onChangePlace() {
     this._changeDetector.detectChanges();
+  }
+
+  onChangeImage(imageURL: string) {
+    this.changeImage.emit(imageURL);
   }
 
   onSubmit(){

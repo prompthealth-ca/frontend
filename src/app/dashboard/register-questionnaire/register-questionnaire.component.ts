@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterQuestionnaireService, QuestionnaireItemData } from '../register-questionnaire.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 
@@ -7,30 +7,28 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
+import { IUserDetail } from 'src/app/models/user-detail';
 
 @Component({
   selector: 'app-register-partner',
-  templateUrl: './register-partner.component.html',
-  styleUrls: ['./register-partner.component.scss']
+  templateUrl: './register-questionnaire.component.html',
+  styleUrls: ['./register-questionnaire.component.scss']
 })
-export class RegisterPartnerComponent implements OnInit {
+export class RegisterQuestionnaireComponent implements OnInit {
 
-  public data: QuestionnaireItemData[] = [
-    {label: 'General Information',     isComplete: false, route: 'general'},
-    {label: 'Company services',        isComplete: false, route: 'service'},
-    {label: 'Offer for PromptHealth',  isComplete: false, route: 'offer'},
-    {label: 'Terms and Conditions',    isComplete: false, route: 'term'},
-  ];
+  public data: QuestionnaireItemData[] = [];
+  public userRole: string = null;
   
   public currentIdx: number = 0;
 
   private subscriptionIndex: Subscription; 
   private subscriptionFinish: Subscription;
-
+  private registerType: RegisterType;
 
   constructor(
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
+    private _route: ActivatedRoute,
     private _qService: RegisterQuestionnaireService,
     private _headerService: HeaderStatusService,
     private _toastr: ToastrService,
@@ -45,12 +43,29 @@ export class RegisterPartnerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user: IUserDetail = JSON.parse(localStorage.getItem('user'));
+    this.userRole = user.roles;
+    this.data = 
+      (this.userRole == 'P') ? [
+        {label: 'General Information',     isComplete: false, route: 'general'},
+        {label: 'Company Services',        isComplete: false, route: 'service'},
+        {label: 'Offer for PromptHealth',  isComplete: false, route: 'offer'},
+        {label: 'Terms and Conditions',    isComplete: false, route: 'term'},
+      ] : 
+      (this.userRole == 'SP' || this.userRole == 'C') ? [
+        {label: 'General Information',     isComplete: false, route: 'general'},
+        {label: 'Services',        isComplete: false, route: 'service'},
+        {label: 'Terms and Conditions',    isComplete: false, route: 'term'},
+      ] : []
+  
     this._qService.init(this.data, {
       _id: user._id, 
-      email: user.email, 
-      // profileImage: user.profileImage,
-      // image: user.image
+      email: user.email,
+      roles: user.roles,
+    });
+
+    this._route.data.subscribe((data: {type: RegisterType}) => {
+      this.registerType = data.type;
     });
 
     this.subscriptionIndex = this._qService.observeIndex().subscribe((i: number) => {
@@ -66,7 +81,7 @@ export class RegisterPartnerComponent implements OnInit {
         this._sharedService.loader('show');
         try{
           this.save(); 
-          this._router.navigate(['/dashboard/register-product/complete']);
+          this._router.navigate(['/dashboard/register-product/complete'], {queryParams: {type: this.registerType}});
           
         }catch(err){
           this._toastr.error(err);
@@ -103,7 +118,7 @@ export class RegisterPartnerComponent implements OnInit {
     } else{ 
       this._headerService.showHeader(); 
     }
-  }
-
-  
+  }  
 }
+
+export type RegisterType = 'product' | 'practitioner';

@@ -2,28 +2,32 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { SubscriptionPlanComponent } from './subscription-plan/subscription-plan.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
+// import { UserDetailsComponent } from './user-details/user-details.component';
 import { SubscriptionProfessionalComponent } from './subscription-professional/subscription-professional.component';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { ListingComponent } from './listing/listing.component';
 import { ListingcompareComponent } from './listingcompare/listingcompare.component';
 import { DetailComponent } from './detail/detail.component';
 import { ProfileManagementModule } from './profileManagement/profile-mangement.module';
-import { ProfessionalRegisterComponent } from './professional-register/professional-register.component';
+// import { ProfessionalRegisterComponent } from './professional-register/professional-register.component';
 import { ProfessionalHomeComponent } from './professional-home/professional-home.component';
 
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
-import { RegisterPartnerComponent } from './register-partner/register-partner.component';
+import { RegisterQuestionnaireComponent } from './register-questionnaire/register-questionnaire.component';
 import { RegisterPartnerGeneralComponent } from './register-partner-general/register-partner-general.component';
 import { RegisterPartnerServiceComponent } from './register-partner-service/register-partner-service.component';
 import { RegisterPartnerOfferComponent } from './register-partner-offer/register-partner-offer.component';
 import { RegisterPartnerTermComponent } from './register-partner-term/register-partner-term.component';
-import { RegisterPartnerCompleteComponent } from './register-partner-complete/register-partner-complete.component';
-import { RegisterPartnerGuard } from './register-partner.guard';
-import { RegisterPartnerCompleteGuard } from './register-partner-complete.guard';
+import { RegisterQuestionnaireCompleteComponent } from './register-questionnaire-complete/register-questionnaire-complete.component';
+import { RegisterQuestionnaireGuard } from './register-questionnaire.guard';
+import { RegisterQuestionnaireCompleteGuard } from './register-questionnaire-complete.guard';
 import { AuthGuardService as AuthGuard } from '../auth/auth-gaurd.service';
 import { UserQuestionnaireItemSelectComponent } from './user-questionnaire-item-select/user-questionnaire-item-select.component';
 import { UserQuestionnaireItemSelectMultipleComponent } from './user-questionnaire-item-select-multiple/user-questionnaire-item-select-multiple.component';
+import { UserQuestionnaireItemGenderComponent } from './user-questionnaire-item-gender/user-questionnaire-item-gender.component';
+import { UserQuestionnaireItemBackgroundComponent } from './user-questionnaire-item-background/user-questionnaire-item-background.component';
+import { RegisterPractitionerGeneralComponent } from './register-practitioner-general/register-practitioner-general.component';
+import { RegisterPractitionerServiceComponent } from './register-practitioner-service/register-practitioner-service.component';
 
 const routes: Routes = [
   {
@@ -53,9 +57,9 @@ const routes: Routes = [
   {
     path: 'questions/User',
     component: UserQuestionaireComponent, children: [
-      { path: 'gender', component: UserQuestionnaireItemSelectComponent, data: {index: 0, q: 'gender'} },
+      { path: 'gender', component: UserQuestionnaireItemGenderComponent, data: {index: 0} },
       { path: 'age', component: UserQuestionnaireItemSelectComponent, data: {index: 1, q: 'age' } },
-      { path: 'background', component: UserQuestionnaireItemSelectMultipleComponent, data: {index: 2, q: 'background'} },
+      { path: 'background', component: UserQuestionnaireItemBackgroundComponent, data: {index: 2} },
       { path: 'goal', component: UserQuestionnaireItemSelectMultipleComponent, data: {index: 3, q: 'goal'} },
       { path: '**', redirectTo: 'gender' },
     ],
@@ -79,14 +83,42 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     // redirectTo: 'profilemanagement/my-profile'
   },
+  // {
+  //   path: 'professional-info',
+  //   component: ProfessionalRegisterComponent
+  // },
   {
-    path: 'professional-info',
-    component: ProfessionalRegisterComponent
+    path: 'register-practitioner',
+    component: RegisterQuestionnaireComponent,
+    canActivate: [RegisterQuestionnaireGuard],
+    data: {type: 'practitioner'},
+    children: [
+      {
+        path: '',
+        redirectTo: 'general',
+      },
+      {
+        path: 'general',
+        component: RegisterPractitionerGeneralComponent,
+        data: {index: 0}
+      },
+      {
+        path: 'service',
+        component: RegisterPractitionerServiceComponent,
+        data: {index: 1},
+      },
+      {
+        path: 'term',
+        component: RegisterPartnerTermComponent,
+        data: {index: 2}
+      }
+    ]
   },
   {
     path: 'register-product',
-    component: RegisterPartnerComponent,
-    canActivate: [RegisterPartnerGuard],
+    component: RegisterQuestionnaireComponent,
+    canActivate: [RegisterQuestionnaireGuard],
+    data: {type: 'product'},
     children: [
       {
         path: '', 
@@ -116,8 +148,8 @@ const routes: Routes = [
   },
   {
     path: 'register-product/complete',
-    component: RegisterPartnerCompleteComponent,
-    canActivate: [RegisterPartnerCompleteGuard,],
+    component: RegisterQuestionnaireCompleteComponent,
+    canActivate: [RegisterQuestionnaireCompleteGuard,],
   }
 ];
 

@@ -141,6 +141,7 @@ export class DetailComponent implements OnInit {
     });
 
     this.loginSubscription = this._bs.getUserData().subscribe((user: any) => {
+      console.log(user);
       this.roles = user.roles || '';
       this.myId = user._id || '';
       this.isLoggedIn = (user._id) ? true: false; 

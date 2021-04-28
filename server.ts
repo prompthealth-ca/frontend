@@ -24,6 +24,7 @@ export function app() {
   const win = domino.createWindow(template)
   global['window'] = win;
   global['document'] = win.document;
+  global['navigator'] = win.navigator;
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -59,12 +60,43 @@ export function app() {
   //   })
   // });
 
+  server.get('/', (req, res) => {
+    console.log('server side rendering');
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      console.log('=============== START');
+      console.log(html.match(/<title>.*<\/title>/)[0]);
+      var meta = [
+        'og:title','twitter:title',
+        'keyword',
+        'description', 'og:description', 'twitter:description',
+        'og:site_name', 'twitter:site',
+        'og:url',
+        'og:type',
+        'twitter:card',
+        'og:image', 'twitter:image'
+      ];
+      meta.forEach(m=>{
+        var regEx = new RegExp(`<meta name="${m}" content="(.*?)">`);
+        var match = html.match(regEx);
+        if(match){ console.log(m, ': ', match[1]); }
+      });
+      console.log('=============== END');
+      res.send(html);
+    });
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     // console.log('====TEST UNIVERSAL===');
     // console.log('baseUrl: ' + req.baseUrl);
     // console.log('originalUrl: ' + req.originalUrl);
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    console.log('client side rendering');
+    res.sendFile(join(distFolder, 'index.html'));
+
+    // res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 
   return server;

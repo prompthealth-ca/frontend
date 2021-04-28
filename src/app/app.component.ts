@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollTopService } from './scrolltop.service';
+import { SharedService } from './shared/services/shared.service';
+import { UniversalService } from './shared/services/universal.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +10,15 @@ import { ScrollTopService } from './scrolltop.service';
 })
 export class AppComponent implements OnInit {
   title = 'wellness-frontend';
-  constructor(private scrollTopService: ScrollTopService) {
+  constructor(
+    private scrollTopService: ScrollTopService,
+    private _uService: UniversalService,
+    ) {
 }
 
 async ngOnInit() {
   this.scrollTopService.setScrollTop();
-  if(window.navigator.geolocation){
+  if(!this._uService.isServer){
     try { await this.getPosition(); }
     catch(error){ console.log(error); }  
   }

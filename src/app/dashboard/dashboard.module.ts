@@ -22,7 +22,6 @@ import { AuthModule } from '../auth/auth.module';
 import { EmbededURLPipe } from '../shared/pipes/embeded-url';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 /** slider for filter in listing page */
 import { NpnSliderModule } from 'npn-slider';
@@ -34,7 +33,7 @@ import { environment } from 'src/environments/environment';
 
 import { UserQuestionaireComponent } from './user-questionaire/user-questionaire.component';
 import { UserQuestionnaireItemSelectComponent } from './user-questionnaire-item-select/user-questionnaire-item-select.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
 import { FilterDropdownComponent } from './filter-dropdown/filter-dropdown.component';
 import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-dropdown-select.component';

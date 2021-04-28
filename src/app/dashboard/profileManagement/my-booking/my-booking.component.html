@@ -390,6 +390,8 @@
                 formControlName="bookingDateTime"
               /> -->
               <!-- <owl-date-time #dt1 [startAt]="startDate"></owl-date-time> -->
+              <ngb-datepicker [formControl]="f.bookingDateTime"></ngb-datepicker>
+              <ngb-timepicker [formControl]="f.bookingDateTime"></ngb-timepicker>
               <div *ngIf="submitted" class="error-msg">
                 <small *ngIf="f.bookingDateTime.errors" class="text-danger">
                   Booking Date is required

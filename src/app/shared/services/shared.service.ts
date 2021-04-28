@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { PreviousRouteService } from './previousUrl.service';
 import { BehaviorService } from './behavior.service';
 
+
 // import { SocialAuthService } from 'angularx-social-login';
 
 import { throwError } from 'rxjs';
@@ -16,6 +17,7 @@ import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 import { DOCUMENT } from '@angular/common';
+import { UniversalService } from './universal.service';
 
 declare var jQuery: any;
 
@@ -39,26 +41,28 @@ export class SharedService {
     private spinner: NgxSpinnerService,
     private previousRouteService: PreviousRouteService,
     private _bs: BehaviorService,
+    private _uService: UniversalService,
 
     @Inject(DOCUMENT) private document,
     private http: HttpClient) {
-    this.type = localStorage.getItem('roles');
+    this.type = this._uService.localStorage.getItem('roles');
   }
 
 
   logout(navigate: boolean = true) {
-
-    localStorage.removeItem('token');
-    localStorage.removeItem('loginID');
+    const ls = this._uService.localStorage;
+  
+    ls.removeItem('token');
+    ls.removeItem('loginID');
     // localStorage.removeItem('isPayment');
-    localStorage.removeItem('user');
-    localStorage.removeItem('roles');
-    localStorage.removeItem('isVipAffiliateUser');
+    ls.removeItem('user');
+    ls.removeItem('roles');
+    ls.removeItem('isVipAffiliateUser');
     // this.authService.signOut();
     this.showAlert('Logout Sucessfully', 'alert-success');
     this._bs.setUserData({});
 
-    localStorage.setItem('userType', 'U');
+    ls.setItem('userType', 'U');
     if (navigate) {
       this._router.navigate(['/auth/login']);
     }
@@ -292,7 +296,7 @@ export class SharedService {
     const message = err.message;
 
     if ((code == 401 && message == 'authorization')) {
-      localStorage.removeItem('token');
+      this._uService.localStorage.removeItem('token');
       // this.showAlert('Session Expired.', 'alert-danger')
       // this._router.navigate(['/auth/business']);
     } else {
@@ -310,7 +314,7 @@ export class SharedService {
 
   /*This function is use to get access token from cookie. */
   getAccessToken(): string {
-    const token = localStorage.getItem('token');
+    const token = this._uService.localStorage.getItem('token');
     return token;
   }
 
@@ -335,23 +339,23 @@ export class SharedService {
     return headers;
   }
   addCookie(key, value) {
-    localStorage.setItem(key, value);
+    this._uService.localStorage.setItem(key, value);
   }
 
   getCookie(key) {
-    const item = localStorage.getItem(key);
+    const item = this._uService.localStorage.getItem(key);
     return item;
   }
   addCookieObject(key, obj) {
-    localStorage.setItem(key, JSON.stringify(obj));
+    this._uService.localStorage.setItem(key, JSON.stringify(obj));
   }
 
   getCookieObject(key) {
-    return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(this._uService.localStorage.getItem(key));
   }
 
   loginID() {
-    return localStorage.getItem('loginID');
+    return this._uService.localStorage.getItem('loginID');
   }
 
   loader(key) {

@@ -73,7 +73,7 @@ export class FormItemDatetimeComponent implements OnInit {
         month: month,
         day: day,
         hour: hour,
-        minute: minute,
+        minute: Math.floor((minute + 14) / 15) * 15,
       }
     }
 

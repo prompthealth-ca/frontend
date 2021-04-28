@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { animate, trigger, state, style, transition } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { Subscription } from 'rxjs';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 
 const expandTitleAnimation = trigger('expandTitle', [
@@ -44,6 +45,7 @@ const expandSubtitleAnimation = trigger('expandSubtitle', [
 export class DetailComponent implements OnInit {
 
   constructor(
+    private _router: Router,
     private _route: ActivatedRoute,
     private _map: MapsAPILoader,
     private _sharedService: SharedService,
@@ -53,6 +55,7 @@ export class DetailComponent implements OnInit {
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
     private _bs: BehaviorService,
+    private _uService: UniversalService,
     el: ElementRef,
   ) { this.host = el.nativeElement; }
 
@@ -141,7 +144,7 @@ export class DetailComponent implements OnInit {
     });
 
     this.loginSubscription = this._bs.getUserData().subscribe((user: any) => {
-      console.log(user);
+      // console.log(user);
       this.roles = user.roles || '';
       this.myId = user._id || '';
       this.isLoggedIn = (user._id) ? true: false; 
@@ -180,6 +183,14 @@ export class DetailComponent implements OnInit {
         this.getReviews();
 
         if (this.userInfo.isCentre) { this.getProfessionals(); }
+
+        this._uService.setMeta(this._router.url, {
+          title: `${this.userInfo.name}: ${this.userInfo.address} | PromptHealth`,
+          description: this.userInfo.description,
+          image: this.userInfo.image,
+          imageType: this.userInfo.imageType,
+          imageAlt: this.userInfo.name,  
+        });
       })
         .catch(err => {
           if (err && err.length > 0) {

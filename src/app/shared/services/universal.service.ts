@@ -9,6 +9,7 @@ import { Title, Meta } from '@angular/platform-browser';
 export class UniversalService {
 
   public localStorage: LocalStorage;
+  public sessionStorage: LocalStorage;
 
   constructor(
     @Inject(PLATFORM_ID) private p: Object,
@@ -17,48 +18,80 @@ export class UniversalService {
   ) {
     if(this.isServer){
       this.localStorage = new LocalStorage();
+      this.sessionStorage = new LocalStorage();
     }else{
       this.localStorage = localStorage;
+      this.sessionStorage = sessionStorage;
     }
   }
 
   get isServer(){ return isPlatformServer(this.p); }
 
-  setMeta(path: string, meta: MetaData = null){
-    if(meta){}
+  setMeta(path: string, meta: MetaData = {}){
+    console.log('path: ', path);
+    if(path.match(/\/dashboard\/listing/)){
+      meta = {
+        title: 'Find practitioners | PromptHealth',
+        keyword: '',
+        description: 'Find best practitioners in your area or virtual services',
+      }
+    }
+    else if(path.match( /\/dashboard\/detail/)) {
+      meta.pageType = 'article';
+    }
+    else if(path.match(/\/products/)) {
+
+    }
+    else if(path == '/blogs') {
+      meta = {
+        title: 'Blogs | PromptHealth',
+        keyword: '',
+        description: 'blogs from PromptHealth',
+      }
+    }
+    else if(path.match(/\/blog-category/)) {
+    }
+    else if(path.match(/\/blog-detail/)) {
+      meta.pageType = 'article';
+    }
     else if(path == '/'){
       meta = {
         title: 'PromptHealth | Your health and wellness personal assistant',
         keyword: '',
-        description: 'Test',
-        image: 'https://prompthealth.ca/assets/img/logo.png',
-        imageType: 'image/png',
-        imageWidth: 400,
-        imageHeight: 300,
-        imageAlt: 'PromptHealth',
-        pageType: 'website',
-        robots: 'index, follow',
+        description: 'Your health and wellness personal assistant',
       }
+    }
 
-      const baseUrl = 'https://prompthealth.ca';
-      this._title.setTitle(meta.title);
-      this._meta.updateTag({name: 'robots', content: meta.robots});
-      this._meta.updateTag({name: 'title', content: meta.title});
-      this._meta.updateTag({name: 'description', content: meta.description});
-      this._meta.updateTag({name: 'og:url', content: baseUrl + path});
-      this._meta.updateTag({name: 'og:type', content: meta.pageType});
-      this._meta.updateTag({name: 'og:title', content: meta.title});
-      this._meta.updateTag({name: 'og:description', content: meta.description});
-      this._meta.updateTag({name: 'og:image', content: meta.image});
-      this._meta.updateTag({name: 'og:image:width', content: meta.imageWidth.toString()});
-      this._meta.updateTag({name: 'og:image:height', content: meta.imageWidth.toString()});
-      this._meta.updateTag({name: 'og:image:alt', content: meta.imageAlt});
-      this._meta.updateTag({name: 'twitter:title', content: meta.title});
-      this._meta.updateTag({name: 'twitter:description', content: meta.description});
-      this._meta.updateTag({name: 'twitter:image', content: meta.image});
-   }
-  }
-  
+    if(!meta.image) { 
+      meta.image = 'https://prompthealth.ca/assets/img/logo.png'; 
+      meta.imageType = 'image/png';
+      meta.imageWidth = 400;
+      meta.imageHeight = 300;
+      meta.imageAlt = 'PromptHealth';
+    }
+    if(!meta.pageType) { meta.pageType = 'website'; }
+    if(!meta.robots) { meta.robots = 'index, follow'; }
+
+    console.log(meta)
+    const baseUrl = 'https://prompthealth.ca';
+    this._title.setTitle(meta.title);
+
+    /* Twitter have to be first otherwise it's not updated. (I don't know why) */
+    this._meta.updateTag({name: 'twitter:title', content: meta.title});
+    this._meta.updateTag({name: 'twitter:description', content: meta.description});
+    this._meta.updateTag({name: 'twitter:image', content: meta.image});
+    this._meta.updateTag({name: 'robots', content: meta.robots});
+    this._meta.updateTag({name: 'title', content: meta.title});
+    this._meta.updateTag({name: 'description', content: meta.description});
+    this._meta.updateTag({name: 'og:url', content: baseUrl + path});
+    this._meta.updateTag({name: 'og:type', content: meta.pageType});
+    this._meta.updateTag({name: 'og:title', content: meta.title});
+    this._meta.updateTag({name: 'og:description', content: meta.description});
+    this._meta.updateTag({name: 'og:image', content: meta.image});
+    // this._meta.updateTag({name: 'og:image:width', content: meta.imageWidth.toString()});
+    // this._meta.updateTag({name: 'og:image:height', content: meta.imageWidth.toString()});
+    this._meta.updateTag({name: 'og:image:alt', content: meta.imageAlt});
+  }  
 }
 
 class LocalStorage implements Storage {
@@ -71,17 +104,18 @@ class LocalStorage implements Storage {
   setItem(key: string, value: string): void {}
 }
 
+
 interface MetaData {
-  title: string;
-  keyword: string;
-  description: string;
-  image: string;
-  imageType: string;
-  imageWidth: number;
-  imageHeight: number;
-  imageAlt: string;
-  pageType: 'article' | 'website' | 'blog';
-  robots: string;
+  title?: string;
+  keyword?: string;
+  description?: string;
+  image?: string;
+  imageType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  pageType?: 'article' | 'website' | 'blog';
+  robots?: string;
 }
 
 type TwitterCardType = 'summary' | 'summary_large_image';

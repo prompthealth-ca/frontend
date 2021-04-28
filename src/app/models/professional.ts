@@ -13,6 +13,7 @@ export interface IProfessional {
   name: string;  /** firstname + lastname */
   firstname: string;
   image: string; /** profile image small size */
+  imageType: string /** profile image file type */
   imageFull: string; /** profile image original size */
   description: string; /** practicePhilosophy | description of professionals belonging at the center */
   role: string;
@@ -98,6 +99,7 @@ export class Professional implements IProfessional {
 
   private _id: string;
   private _image: string;
+  private _imageType: string;
   private _phone: string;
   private _ratingAvg: number;
   private _reviews: Review[] = [];
@@ -150,6 +152,7 @@ export class Professional implements IProfessional {
   get lastname() { return this.p.lastName || this.p.lname || ''; }
   get image() { return this._image ? this._baseURLImage + '350x220/' + this._image : this._defaultAvator; }
   get imageFull() { return this._image ? this._baseURLImage + this._image : this._defaultAvator; }
+  get imageType(){ return this._imageType; }
   get banner() { return this._banner ? this._baseURLImage + this._banner : this._defaultBanner; }
   get isVerified() { return this.p.verifiedBadge || false; } /* could be only premium account */
   get role() { return this.p.roles; }
@@ -286,6 +289,13 @@ export class Professional implements IProfessional {
 
     const image = (p.profileImage && p.profileImage.length > 0) ? p.profileImage : (p.image && typeof(p.image) == 'string' && p.image.length > 0) ? p.image: null;
     this._image = image ? image + '?ver=1.0.2' : null;
+    let imageType = '';
+    if(image) {
+      const regex = /\.(jpe?g|png)$/;
+      const match = image.match(regex);
+      imageType = match ? ('image/' + match[1]) : '';  
+    }
+    this._imageType = imageType;
     this._banner = null;
 
     let phone: string;

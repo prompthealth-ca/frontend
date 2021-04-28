@@ -41,59 +41,128 @@ export function app() {
     maxAge: '1y'
   }));
 
-  //Test for OGP
-  // server.use('/partners/:id', (req, res) => {
-  //   console.log('===TEST UNIVERSAL: OGP TEST===');
 
-  //   const id = '600a5637998cd73c49680c04';
-  //   req.body.id = id
-  //   res.render(indexHtml, {req, providers: [
-  //     {provide: APP_BASE_HREF, useValue: req.baseUrl + '/partners/' + id},
-  //     {provide: 'REQUEST', useValue: (req)},
-  //     {provide: 'RESPONSE', useValue: (res)},
-  //   ]}, (error, html) => {
-  //     if(error){
-  //       res.send(error);
-  //     }else{
-  //       res.send(html);
-  //     }
-  //   })
-  // });
-
-  server.get('/', (req, res) => {
-    console.log('server side rendering');
+  server.get('/blogs', (req, res) => {
     res.render(indexHtml, { req, providers: [
       { provide: APP_BASE_HREF, useValue: req.baseUrl }
     ]},
     (err, html) => {
-      console.log('=============== START');
-      console.log(html.match(/<title>.*<\/title>/)[0]);
-      var meta = [
-        'og:title','twitter:title',
-        'keyword',
-        'description', 'og:description', 'twitter:description',
-        'og:site_name', 'twitter:site',
-        'og:url',
-        'og:type',
-        'twitter:card',
-        'og:image', 'twitter:image'
-      ];
-      meta.forEach(m=>{
-        var regEx = new RegExp(`<meta name="${m}" content="(.*?)">`);
-        var match = html.match(regEx);
-        if(match){ console.log(m, ': ', match[1]); }
-      });
-      console.log('=============== END');
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });
+  });
+  server.get('/blog-category/:id', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });
+  });
+
+  server.get('/blog-detail/:slug', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });
+  });
+  server.get('/dashboard/detail/:id', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });      
+  });
+
+  server.get('/dashboard/listing', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });      
+  });
+
+  server.use('/products', (req,res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: '/products' + req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });
+  });
+
+  server.use('/plans', (req,res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: '/plans' + req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });
+  });
+  
+  server.get('/subscriptionplan', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
+      res.send(html);
+    });    
+  });
+
+  server.get('/', (req, res) => {
+    res.render(indexHtml, { req, providers: [
+      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+    ]},
+    (err, html) => {
+      if(err){
+        console.log(err);
+      }
+      showMeta(html);
       res.send(html);
     });
   });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    console.log('client side rendering');
     // console.log('====TEST UNIVERSAL===');
     // console.log('baseUrl: ' + req.baseUrl);
-    // console.log('originalUrl: ' + req.originalUrl);
-    console.log('client side rendering');
+    console.log('originalUrl: ' + req.originalUrl);
     res.sendFile(join(distFolder, 'index.html'));
 
     // res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
@@ -123,3 +192,24 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 }
 
 export * from './src/main.server';
+
+function showMeta(html: string) {
+  console.log('=============== SHOW META START');
+  console.log(html.match(/<title>.*<\/title>/)[0]);
+  var meta = [
+    'og:title','twitter:title',
+    'keyword',
+    'description', 'og:description', 'twitter:description',
+    'og:site_name', 'twitter:site',
+    'og:url',
+    'og:type',
+    'twitter:card',
+    'og:image', 'twitter:image'
+  ];
+  meta.forEach(m=>{
+    var regEx = new RegExp(`<meta name="${m}" content="(.*?)">`);
+    var match = html.match(regEx);
+    if(match){ console.log(m, ': ', match[1]); }
+  });
+  console.log('=============== SHOW META END');
+}

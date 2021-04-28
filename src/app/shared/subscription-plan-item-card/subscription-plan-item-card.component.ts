@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { IStripeCheckoutData } from 'src/app/models/stripe-checkout-data';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { IDefaultPlan } from 'src/app/models/default-plan';
+import { UniversalService } from '../services/universal.service';
 
 @Component({
   selector: 'subscription-plan-item-card',
@@ -45,10 +46,13 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
     private _sharedService: SharedService,
     private _toastr: ToastrService,
     private _stripeService: StripeService,
+    private _uService: UniversalService,
   ) { }
 
 
   async ngOnInit() {
+    const ls = this._uService.localStorage;
+
     switch (this.type) {
       case 'provider': this.color = 'blue'; break;
       case 'centre': this.color = 'red'; break;
@@ -67,9 +71,9 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
       default: this.title = this.type;
     }
 
-    if (localStorage.getItem('token')) {
+    if (!this._uService.isServer && ls.getItem('token')) {
       this.isLoggedIn = true;
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(ls.getItem('user'));
       this.profile = await this._profileService.getProfileDetail(user);
     }
   }

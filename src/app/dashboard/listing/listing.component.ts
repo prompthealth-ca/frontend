@@ -16,7 +16,7 @@ import { slideVerticalAnimation, expandVerticalAnimation } from '../../_helpers/
 import { CategoryService, Category } from '../../shared/services/category.service';
 import { slideHorizontalAnimation } from '../../_helpers/animations';
 import { ifStmt } from '@angular/compiler/src/output/output_ast';
-
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-listing',
@@ -36,6 +36,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     private _catService: CategoryService,
     private _qService: QuestionnaireService,
     private _maps: MapsAPILoader,
+    private _uService: UniversalService,
     _el: ElementRef,
   ) {
     this.host = _el.nativeElement;
@@ -158,7 +159,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('typical_hours');
+    this._uService.localStorage.removeItem('typical_hours');
     this._headerService.showHeader();
   }
 
@@ -170,6 +171,8 @@ export class ListingComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.AWS_S3 = environment.config.AWS_S3;
     this.serviceSet = await this._catService.getCategoryAsync();
+    const ls = this._uService.localStorage;
+    this._uService.setMeta(this.router.url);
 
     // if options which has to be fetched from server is not set correctly, fetch.
     if (this.filters[3].options.length == 0 || this.filters[4].options.length == 0 || this.filters[4].options.length == 0) {
@@ -178,13 +181,18 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     /** init geo location */
     const [latDefault, lngDefault] = [53.89, -111.25];
-    const [ipLat, ipLng] = [localStorage.getItem('ipLat'), localStorage.getItem('ipLong')];
+    const [ipLat, ipLng] = [ls.getItem('ipLat'), ls.getItem('ipLong')];
     let [lat, lng]: [number, number] = [null, null];
 
     if (ipLat && ipLng) { [lat, lng] = [Number(ipLat), Number(ipLng)]; } else {
-      try { [lat, lng] = await this.getCurrentLocation(); } catch (err) {
-        const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
-        this.toastr.success(message);
+      try { 
+        [lat, lng] = await this.getCurrentLocation(); 
+      } 
+      catch (err) {
+        if (!this._uService.isServer) {
+          const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
+          this.toastr.success(message);  
+        }
       }
     }
 
@@ -244,10 +252,10 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.listingPayload.virtual = this.isVirtual;
       this.listingPayload.latLong = this.isVirtual ? '' : `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
-      this.loggedInUser = localStorage.getItem('loginID');
-      this.loggedInRole = localStorage.getItem('roles');
-      if (localStorage.getItem('typical_hours')) {
-        this.typical_hours = localStorage.getItem('typical_hours').split(',');
+      this.loggedInUser = ls.getItem('loginID');
+      this.loggedInRole = ls.getItem('roles');
+      if (ls.getItem('typical_hours')) {
+        this.typical_hours = ls.getItem('typical_hours').split(',');
       }
 
       // if (this.id && this.type) {
@@ -280,11 +288,12 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   getCurrentLocation(): Promise<[number, number]> {
+    const ls = this._uService.localStorage;
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
         const [lat, lng] = [resp.coords.latitude, resp.coords.longitude];
-        localStorage.setItem('ipLat', lat.toString());
-        localStorage.setItem('ipLong', lng.toString());
+        ls.setItem('ipLat', lat.toString());
+        ls.setItem('ipLong', lng.toString());
         this.initialLocation.lat = lat;
         this.initialLocation.lng = lng;
         resolve([lat, lng]);
@@ -438,7 +447,9 @@ export class ListingComponent implements OnInit, OnDestroy {
 
         res.data.forEach((d: any) => {
           const professional = new Professional(d.userId, d.userData, d.ans);
-          professional.setMapIcon();
+          if(!this._uService.isServer){
+            professional.setMapIcon();            
+          }
           if (languageSet && languageSet.length > 0) { professional.populate('languages', languageSet); }
           professionals.push(professional);
         });
@@ -465,10 +476,11 @@ export class ListingComponent implements OnInit, OnDestroy {
   /** set default value to selected listingPayload property */
   removeFilterOne(payloadName: string) {
     let val: any;
+    const ls = this._uService.localStorage;
     switch (payloadName) {
       case 'rating': val = 0; break;
       case 'miles': val = 100; break;
-      case 'latLong': val = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`; break;
+      case 'latLong': val = `${ls.getItem('ipLong')}, ${ls.getItem('ipLat')}`; break;
       // case 'type': val = this.type; break;
       case 'ids':
       case 'age_range':

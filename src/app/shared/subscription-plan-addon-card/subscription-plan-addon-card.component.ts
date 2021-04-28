@@ -10,6 +10,7 @@ import { StripeService } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { IStripeCheckoutData } from 'src/app/models/stripe-checkout-data';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { UniversalService } from '../services/universal.service';
 
 
 @Component({
@@ -108,12 +109,14 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     private _sharedService: SharedService,
     private _toastr: ToastrService,
     private _stripeService: StripeService,
+    private _uService: UniversalService,
   ) { }
 
   async ngOnInit() {
-    if (localStorage.getItem('token')) {
+    const ls = this._uService.localStorage;
+    if (ls.getItem('token')) {
       this.isLoggedIn = true;
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(ls.getItem('user'));
       this.profile = await this._profileService.getProfileDetail(user);
     }
   }

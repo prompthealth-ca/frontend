@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { environment } from 'src/environments/environment';
+import { UniversalService } from 'src/app/shared/services/universal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -18,12 +20,16 @@ export class BlogComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
+    private _router: Router,
+    private _uService: UniversalService,
   ) { }
 
   ngOnInit(): void {
     this.getBlogList();
     this.getAllCategories();
-    this.AWS_S3 = environment.config.AWS_S3
+    this.AWS_S3 = environment.config.AWS_S3;
+
+    this._uService.setMeta(this._router.url);
   }
 
   getBlogList() {

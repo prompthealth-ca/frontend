@@ -17,4 +17,4 @@ artifacts:
     - '*'
     - '**/*'
   name: buildFile
-  base-directory: build
+  base-directory: dist

@@ -57,7 +57,9 @@ export class UserQuestionaireComponent implements OnInit {
       else{ 
         this._sharedService.loader('show');
         try{
-          this._sharedService.setPersonalMatch(this._qService.getUser());
+          const personalMatch = this._qService.getUser();
+          if(personalMatch.gender == 'Prefer Not To Say') { personalMatch.gender = null; }
+          this._sharedService.setPersonalMatch(personalMatch);
 
           const data = this._qService.getUserTracking();
 

@@ -217,13 +217,24 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.listingPayload.customer_health = (data.customer_health && data.customer_health.length > 0) ? data.customer_health : [];
       this.listingPayload.services = (data.services && data.services.length > 0) ? data.services : [];
       this.listingPayload.age_range = data.age_range ? [data.age_range] : [];
+      this.listingPayload.gender = data.gender ? [data.gender] : [];
 
       if(data.age_range){
         const f = this.getFilter('age');
         f.active = true;
         f.options.forEach(option => {
-          if(data.age_range.includes(option._id)){ 
+          if(data.age_range == option._id){ 
             option.active = true; 
+          }
+        });
+      }
+
+      if(data.gender) {
+        const f = this.getFilter('gender');
+        f.active = true;
+        f.options.forEach(option => {
+          if(data.gender == option.item_text){
+            option.active = true;
           }
         });
       }

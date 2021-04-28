@@ -57,6 +57,7 @@ export class FormProviderGeneralComponent implements OnInit {
     catch(error){ this._toastr.error(error); }
 
     this.form = this._fb.group({
+      profileImage: new FormControl(this.data.profileImage ? this.data.profileImage : '', validators.profileImageProvider),
       firstName: new FormControl(this.data.firstName ? this.data.firstName : '', validators.nameProvider),
       lastName: new FormControl(this.data.lastName ? this.data.lastName : '', validators.nameProvider),
       

@@ -17,4 +17,4 @@ artifacts:
     - '*'
     - '**/*'
   name: buildFile
-  base-directory: dist
+  base-directory: dist/wellness-frontend/browser

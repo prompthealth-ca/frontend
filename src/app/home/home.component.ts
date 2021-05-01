@@ -228,6 +228,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.getHomePageFeatures();
+    this.getPractitionersFeatured();
     this.getPartnersFeatured();
     this.timer();
     this.id = setInterval(() => {
@@ -244,6 +245,58 @@ export class HomeComponent implements OnInit {
           this.introBannerItems[item.category_id].features.push(item);
         }
       });
+    });
+  }
+
+  getPractitionersFeatured() {
+    this._sharedService.postNoAuth({},'user/filter').subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        const users: {userId: string, userData: any, ans: any[]}[] = res.data;
+        const usersPaid: {[k: string]: any[]} = {};
+        const usersFree: {[k: string]: any[]} = {};
+        for(const key of Object.keys(this.introBannerItems)) {
+          usersPaid[key] = [];
+          usersFree[key] = [];
+          for(const u of users){            
+            for(const ans of u.ans) {
+              if(ans._id == key) {
+                const userdata = {
+                  _id: u.userId,
+                  ...u.userData
+                }
+                if(u.userData.verifiedBadge){
+                  usersPaid[key].push(userdata);
+                } else {
+                  usersFree[key].push(userdata);
+                }
+                break;
+              }
+            }
+          }
+        }
+
+        const shuffle = (array: any[]) => {
+          for(let i = array.length - 1; i >= 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        }
+
+        Object.keys(this.introBannerItems).forEach(key => {
+          usersPaid[key] = shuffle(usersPaid[key]);
+          usersFree[key] = shuffle(usersFree[key]);
+          console.log(this.introBannerItems[key].name);
+
+          const usersAll = usersPaid[key].concat(usersFree[key]);
+          for(const u of usersAll) {
+            this.introBannerItems[key].features.push({userId: u});
+            if(this.introBannerItems[key].features.length >= 8) { break; }
+          }
+          console.log(this.introBannerItems[key].features.length)
+        });
+      }
+      console.log(this.introBannerItems);
     });
   }
 

@@ -286,17 +286,14 @@ export class HomeComponent implements OnInit {
         Object.keys(this.introBannerItems).forEach(key => {
           usersPaid[key] = shuffle(usersPaid[key]);
           usersFree[key] = shuffle(usersFree[key]);
-          console.log(this.introBannerItems[key].name);
 
           const usersAll = usersPaid[key].concat(usersFree[key]);
           for(const u of usersAll) {
             this.introBannerItems[key].features.push({userId: u});
             if(this.introBannerItems[key].features.length >= 8) { break; }
           }
-          console.log(this.introBannerItems[key].features.length)
         });
       }
-      console.log(this.introBannerItems);
     });
   }
 

@@ -59,9 +59,9 @@ export class FormItemAddressComponent implements OnInit {
       cs.longitude.patchValue(p.geometry.location.lng());
 
       p.address_components.forEach(c=>{
-        if(c.types.indexOf('administrative_area_level_2') >= 0){ cs.state.patchValue(c.long_name); }
+        if(c.types.indexOf('administrative_area_level_1') >= 0){ cs.state.patchValue(c.long_name); }
         else if(c.types.indexOf('postal_code') >= 0){ cs.zipcode.patchValue(c.long_name); }
-        else if(c.types.indexOf('locality')){ cs.city.patchValue(c.long_name); }
+        else if(c.types.indexOf('locality') >= 0){ cs.city.patchValue(c.long_name); }
       });
       
       this._changeDetector.markForCheck();

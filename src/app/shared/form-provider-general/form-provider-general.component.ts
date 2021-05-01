@@ -151,10 +151,17 @@ export class FormProviderGeneralComponent implements OnInit {
     
     const data: IUserDetail = {};
     data._id = this.data._id;
+    data.location = [null, null];
+
     for(const key in this.form.controls){
       const f = this.form.controls[key];
+
       if(key == 'priceMode' || key == 'userType'){
         //nothing to do
+      }else if(key == 'latitude'){ 
+        data.location[1] = f.value;
+      }else if(key == 'longitude') {
+        data.location[0] = f.value;
       }else if(f instanceof FormControl){
         data[key] = f.value;
       }else if(f instanceof FormArray) {

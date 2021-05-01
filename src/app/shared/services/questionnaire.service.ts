@@ -7,15 +7,17 @@ import { environment } from 'src/environments/environment';
 })
 export class QuestionnaireService {
 
-  private personalMatch: QuestionnairesPersonalMatch;
+
+  private personalMatch: QuestionnaireMapPersonalMatch;
   private profileService: QuestionnairesProfileService;
+  private profilePractitioner: QuestionnaireMapProfilePractitioner;
 
   constructor(
     private http: HttpClient,
   ) { }
 
   /** get questionnaire for myService tab in profileManagement */
-  getProfileService(role: RoleType): Promise<QuestionnairesProfileService> {
+  public getProfileService(role: RoleType): Promise<QuestionnairesProfileService> {
     return new Promise( async (resolve, reject) => {
       if(this.profileService) {
         resolve(this.profileService);
@@ -57,14 +59,77 @@ export class QuestionnaireService {
     })
   }
 
-  getPersonalMatch(): Promise<QuestionnairesPersonalMatch> {
+  /** get questionnaire for profile-practitioner page */
+  public getProfilePractitioner(role: RoleType): Promise<QuestionnaireMapProfilePractitioner> {
+    return new Promise( async (resolve, reject) => {
+      if(this.profilePractitioner) {
+        resolve(this.profilePractitioner);
+      }else {
+        const promiseAll = [
+          this.getQuestionnaires(role),
+          this.getProfileQuestionnaires(),
+        ];
+        Promise.all(promiseAll).then( async values => {
+          const data: QuestionnaireMapProfilePractitioner = {
+            typeOfProvider: null, 
+            treatmentModality: null, 
+            customerHealth: null, 
+            serviceDelivery: null, 
+            language: null, 
+            availability: null, 
+          }
+          
+          for(const qs of values){
+            let isSet = false;
+            for(const q of qs){
+              if(q.question_type == 'health' && q.slug == 'who-are-your-customers') {
+                data.customerHealth = q;
+                isSet = true;
+              }else if(q.question_type == 'service' && q.slug == 'treatment-modalities') {
+                data.treatmentModality = q;
+                isSet = true;
+              }else if(q.question_type == 'service' && q.slug == 'providers-are-you') {
+                data.typeOfProvider = q;
+                isSet = true;
+              }else if(q.question_type == 'service' && q.slug == 'offer-your-services') {
+                data.serviceDelivery = q;
+                isSet = true;
+              }else if(q.question_type == 'availability' && q.slug == 'typical-hours') {
+                data.availability = q;
+                isSet = true;
+              }else if(q.question_type == 'service' && q.slug == 'languages-you-offer') {
+                data.language = q;
+                isSet = true;
+              }
+
+              if(isSet) {
+                for (const a of q.answers) {
+                  if(a.subans) {
+                    const subAns = await this.getSubAnswers(a._id);
+                    a.subansData = subAns;
+                  }
+                }    
+              }
+            }            
+          }
+          this.profilePractitioner = data;
+          resolve(this.profilePractitioner);
+        }).catch(err => {
+          console.log(err);
+          reject(err);
+        });
+      }
+    });
+  }
+
+  public getPersonalMatch(): Promise<QuestionnaireMapPersonalMatch> {
     return new Promise( async (resolve, reject) => {
       if(this.personalMatch) {
         resolve(this.personalMatch);
       }else{
         try {
-          const qs = await this.getQuestionnaires();
-          const data: QuestionnairesPersonalMatch = {gender: null, spGender: null, health: null}
+          const qs = await this.getQuestionnaires('U');
+          const data: QuestionnaireMapPersonalMatch = {gender: null, spGender: null, health: null}
           qs.forEach(q => {
             switch(q.question_type){
               case 'health':
@@ -89,16 +154,17 @@ export class QuestionnaireService {
     });
   }
 
-  getQuestionnaires(type: RoleType = 'U', filter: QuestionnaireFilter = null): Promise<Questionnaire[]> {
+  private getQuestionnaires(type: RoleType = null, filter: QuestionnaireFilter = null): Promise<Questionnaire[]> {
     return new Promise((resolve, reject) => {
-      let path = `questionare/get-questions?type=${type}`;
+      let path = `questionare/get-questions`;
+      if(type) { path = path + `?type=${type}`}
       if(filter){
         path = path + '&filter=' + filter;
       }
       this.getNoAuth(path).subscribe((res: any) => {
         if (res.statusCode === 200) {
           resolve(res.data);
-        } else { 
+        } else {
           reject(res.message); 
         }
       }, (err: any) => {
@@ -108,7 +174,23 @@ export class QuestionnaireService {
     });
   }
 
-  getSubAnswers(parentId: string): Promise<QuestionnaireAnswer[]> {
+  private getProfileQuestionnaires(): Promise<Questionnaire[]> {
+    return new Promise((resolve, reject) => {
+      const path = `questionare/get-profile-questions`;
+      this.getNoAuth(path).subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          resolve(res.data);
+        } else { 
+          reject(res.message); 
+        }
+      }, err => {
+        console.log(err);
+        reject(err);
+      });
+    })
+  }
+
+  private getSubAnswers(parentId: string): Promise<QuestionnaireAnswer[]> {
     return new Promise((resolve, reject) => {
       const path = `questionare/get-answer/${parentId}`;
       this.getNoAuth(path).subscribe((res: any) => {
@@ -124,12 +206,8 @@ export class QuestionnaireService {
     });
   }
 
-  getNoAuth(path: string) {
-    const headers = new HttpHeaders()
-    .set('Authorization', localStorage.getItem('token'))
-    .set('Content-Type', 'application/json');
-
-    return this.http.get(environment.config.API_URL + path, {headers});
+  private getNoAuth(path: string) {
+    return this.http.get(environment.config.API_URL + path);
   }
 }
 
@@ -147,16 +225,33 @@ export interface QuestionnaireAnswer {
 export interface Questionnaire {
   _id: string;
   answers: QuestionnaireAnswer[];
+  type: RoleType[];
+
   slug: string;
   question_type?: string;
+  category_type: string;
+  choice_type: 'single' | 'multiple';
+
   c_question: string;
+  center_question: string;
+  sp_question: string;
 }
 
 
-type QuestionnairesPersonalMatch = {
+type QuestionnaireMapPersonalMatch = {
   gender: Questionnaire, /** customer gender */
   spGender: Questionnaire, /** prefered gender to see */
   health: Questionnaire, /** customer_health */
+  //service: it's not set here. it will be set in formItemService individually using categoryService.
+}
+
+export type QuestionnaireMapProfilePractitioner = {
+  typeOfProvider: Questionnaire; 
+  treatmentModality: Questionnaire; 
+  customerHealth: Questionnaire; 
+  serviceDelivery: Questionnaire; 
+  language: Questionnaire; 
+  availability: Questionnaire; 
   //service: it's not set here. it will be set in formItemService individually using categoryService.
 }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
+import { Questionnaire, QuestionnaireAnswer } from '../services/questionnaire.service';
 
 @Component({
   selector: 'form-item-checkbox-group',
@@ -16,6 +17,7 @@ export class FormItemCheckboxGroupComponent implements OnInit {
   @Input() submitted = false;
   @Input() disabled = false;
   @Input() selections: CheckboxSelectionItem[];
+  @Input() selectionsByQuestionnaire: Questionnaire;
   
   @Input() ageRangeType: 'simple' | 'detail' = 'simple';
   @Input() includePreferNotToSay = false;
@@ -35,6 +37,17 @@ export class FormItemCheckboxGroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(this.selectionsByQuestionnaire) {
+      this.selections = [];
+      this.selectionsByQuestionnaire.answers.forEach(a => {
+        this.selections.push({
+          id: a._id,
+          label: a.item_text,
+          value: a._id
+        });
+      });
+    }
+
     switch(this.id){
       case 'age_range': this.selectionList = (this.ageRangeType == 'simple') ? age_range : age_range_detail; break;
       case 'years_of_experience': this.selectionList = years_of_experience; break;
@@ -43,9 +56,11 @@ export class FormItemCheckboxGroupComponent implements OnInit {
       default: this.selectionList = this.selections || [];
     }
     
-
     if(this.includePreferNotToSay){
       this.selectionList = this.selectionList.concat(preferNotToSay);
+    }
+    if(!this.controller) {
+      this.controller = (this.type == 'checkbox') ? new FormArray([]) : new FormControl();
     }
     if(this.type == 'checkbox'){
       this.selectionList.forEach(item => {

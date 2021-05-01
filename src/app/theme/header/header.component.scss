@@ -47,7 +47,7 @@ img.brand-sm{
 .searchbar{
   border: 2px solid #4683CC;
   overflow: none;
-  padding: 4px 15px;
+  padding: 0 0 0 15px;
 
   input{
     display: block;
@@ -56,6 +56,15 @@ img.brand-sm{
     outline: none;
     appearance: none;
     background: none;
+    padding: 4px 0;
+  }
+
+  .btn-search {
+    border-radius: 0;
+    padding: 4px 12px;
+    @media (min-width: 768px) {
+      padding: 4px 12px 4px 8px;
+    }
   }
 }
 

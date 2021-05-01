@@ -1,15 +1,16 @@
 <ng-container *ngIf="mode == 'form'">
-  <ul class="list-unstyled" *ngIf="disabled">
+  <ul class="list-unstyled checkbox-group-root" *ngIf="disabled">
     <ng-container *ngFor="let item of selectionList; let i = index;">
-      <li class="mt-4 mb-0 root" *ngIf="getFormArray('root').controls[i].value">
+      <li *ngIf="getFormArray('root').controls[i].value">
         {{item.label}}
   
         <ul 
         *ngIf="getFormArray('root').controls[i].value && item.child"
-        class="checkbox-group mb-4 pl-3 list-unstyled"
+        class="checkbox-group-sub pl-3 list-unstyled"
+        [ngClass]="{col2: col2}"
         >
           <ng-container *ngFor="let itemSub of item.child; let j = index;">
-            <li class="sub mt-4 mb-0" [ngClass]="{col2: col2}" *ngIf="getFormArray(item.id).controls[j].value">
+            <li *ngIf="getFormArray(item.id).controls[j].value">
               {{itemSub.label}}
             </li>
           </ng-container>
@@ -18,9 +19,9 @@
     </ng-container>
   </ul>
   
-  <ul class="list-unstyled" *ngIf="!disabled">
+  <ul class="list-unstyled checkbox-group-root" *ngIf="!disabled">
     <ng-container *ngFor="let item of selectionList; let i = index;">
-      <li class="mt-4 mb-0 root">
+      <li>
         <form-item-checkbox 
         [name]="item.id"
         [controller]="getFormArray('root').controls[i]"
@@ -30,10 +31,11 @@
   
         <ul 
         *ngIf="getFormArray('root').controls[i].value"
-        class="checkbox-group mb-4 pl-3 list-unstyled"
+        class="checkbox-group-sub pl-3 list-unstyled"
+        [ngClass]="{col2: col2}"
         >
           <ng-container *ngFor="let itemSub of item.child; let j = index;">
-            <li class="sub mt-4 mb-0" [ngClass]="{col2: col2}">
+            <li>
               <form-item-checkbox 
               [name]="itemSub.id" 
               [controller]="getFormArray(item.id).controls[j]"

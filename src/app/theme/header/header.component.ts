@@ -5,7 +5,7 @@ import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { environment } from '../../../environments/environment';
-import { fadeAnimation, fadeFastAnimation, slideVerticalAnimation } from '../../_helpers/animations';
+import { fadeAnimation, fadeFastAnimation, slideHorizontalAnimation, slideVerticalAnimation } from '../../_helpers/animations';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ProfileManagementService } from '../../dashboard/profileManagement/profile-management.service';
@@ -15,7 +15,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  animations: [fadeAnimation, fadeFastAnimation, slideVerticalAnimation]
+  animations: [fadeAnimation, fadeFastAnimation, slideVerticalAnimation, slideHorizontalAnimation]
 })
 export class HeaderComponent implements OnInit {
 

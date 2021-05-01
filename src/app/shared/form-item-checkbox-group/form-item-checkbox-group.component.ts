@@ -170,7 +170,7 @@ const gender: CheckboxSelectionItem[] = [
 ];
 
 const preferNotToSay: CheckboxSelectionItem[] = [
-  {id: 'prefer-not-to-say', label: 'Prefer Not To Say', value: 'prefer-not-to-say'}
+  {id: 'prefer-not-to-say', label: 'Prefer Not To Say', value: 'Prefer Not To Say'}
 ];
 
 export interface CheckboxSelectionItem {

@@ -57,7 +57,6 @@ export class UserQuestionnaireItemGenderComponent implements OnInit {
     });
 
     const q = await this._questionnaireService.getPersonalMatch();
-    console.log(q)
     this.qGender = q.gender;
     this.qSpGender = q.spGender;
 

@@ -253,10 +253,10 @@ export class HomeComponent implements OnInit {
       if (res.statusCode === 200) {
         const users: {userId: string, userData: any, ans: any[]}[] = res.data;
         const usersPaid: {[k: string]: any[]} = {};
-        const usersFree: {[k: string]: any[]} = {};
+        // const usersFree: {[k: string]: any[]} = {};
         for(const key of Object.keys(this.introBannerItems)) {
           usersPaid[key] = [];
-          usersFree[key] = [];
+          // usersFree[key] = [];
           for(const u of users){            
             for(const ans of u.ans) {
               if(ans._id == key) {
@@ -266,9 +266,10 @@ export class HomeComponent implements OnInit {
                 }
                 if(u.userData.verifiedBadge){
                   usersPaid[key].push(userdata);
-                } else {
-                  usersFree[key].push(userdata);
-                }
+                } 
+                // else {
+                //   usersFree[key].push(userdata);
+                // }
                 break;
               }
             }
@@ -285,10 +286,10 @@ export class HomeComponent implements OnInit {
 
         Object.keys(this.introBannerItems).forEach(key => {
           usersPaid[key] = shuffle(usersPaid[key]);
-          usersFree[key] = shuffle(usersFree[key]);
+          // usersFree[key] = shuffle(usersFree[key]);
 
-          const usersAll = usersPaid[key].concat(usersFree[key]);
-          for(const u of usersAll) {
+          // const usersAll = usersPaid[key].concat(usersFree[key]);
+          for(const u of usersPaid[key]) {
             this.introBannerItems[key].features.push({userId: u});
             if(this.introBannerItems[key].features.length >= 8) { break; }
           }

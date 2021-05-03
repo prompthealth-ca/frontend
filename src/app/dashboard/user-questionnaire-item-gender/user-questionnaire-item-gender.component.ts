@@ -60,6 +60,9 @@ export class UserQuestionnaireItemGenderComponent implements OnInit {
     this.qGender = q.gender;
     this.qSpGender = q.spGender;
 
+    console.log(this.qGender);
+    console.log(this.qSpGender)
+
     this.dataGender = [];
     this.dataSpGender = [];
 

@@ -49,6 +49,7 @@ export class UserQuestionnaireItemBackgroundComponent implements OnInit {
     const q = await this._questionnaireService.getPersonalMatch();
     this.qBackground = q.health;
     this.selections = q.health.answers;
+    console.log(this.selections);
   }
 
   update(){

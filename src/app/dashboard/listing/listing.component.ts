@@ -216,8 +216,8 @@ export class ListingComponent implements OnInit, OnDestroy {
     if (data) {
       this.listingPayload.customer_health = (data.customer_health && data.customer_health.length > 0) ? data.customer_health : [];
       this.listingPayload.services = (data.services && data.services.length > 0) ? data.services : [];
-      this.listingPayload.age_range = data.age_range ? [data.age_range] : [];
-      this.listingPayload.gender = data.gender ? [data.gender] : [];
+      this.listingPayload.age_range = [];
+      this.listingPayload.gender = [];
 
       if(data.age_range){
         const f = this.getFilter('age');
@@ -225,6 +225,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         f.options.forEach(option => {
           if(data.age_range == option._id){ 
             option.active = true; 
+            this.listingPayload.age_range.push(option._id);
           }
         });
       }
@@ -235,6 +236,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         f.options.forEach(option => {
           if(data.gender == option.item_text){
             option.active = true;
+            this.listingPayload.gender.push(option._id);
           }
         });
       }
@@ -442,6 +444,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     }
     delete filterCopy.customer_health;
 
+    console.log(this.listingPayload);
     if (showLoader) { this._sharedService.loader('show'); }
     const path = 'user/filter';
     this._sharedService.postNoAuth(filterCopy, path).subscribe((res: any) => {

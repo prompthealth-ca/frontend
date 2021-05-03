@@ -47,7 +47,15 @@
       </li>
 
       <li *ngIf="isCustomerHealthOn" class="text-nowrap mx-3 main-group">Health status:</li>
-      <form-item-customer-health [data]="listingPayload?.customer_health" mode="tag" type="simple" (changeValue)="onChangeCustomerHealth($event)"></form-item-customer-health>
+      <form-item-customer-health 
+      *ngIf="customerHealthSet" 
+      [selections]="customerHealthSet" 
+      [data]="listingPayload?.customer_health"
+      [controller]=""
+      mode="tag" 
+      type="detail"
+      (changeValue)="onChangeCustomerHealth($event)"
+      ></form-item-customer-health>
     </ul>
     <ul *ngIf="!isVirtual" class="filters pt-2 pb-3 m-0 d-flex flex-nowrap list-unstyled">
       <li *ngFor="let f of filters; let i = index;">
@@ -166,7 +174,7 @@
                 <p class="mb-2 clamp-1line font-big" *ngIf="!p.isCentre">{{p.organization}}</p>
                 <p class="mb-2 clamp-1line font-big" *ngIf="p.isCentre">{{p.phone}}</p>
                 <p class="mb-2 address">{{p.address}}</p>
-                <p class="mb-3" *ngIf="p.distance !== null || p.distance !== undefined">
+                <p class="mb-3" *ngIf="!isVirtual && (p.distance !== null || p.distance !== undefined)">
                   <b>
                     {{p.distance | number :
                     '1.1-2'}}

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { FormControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { QuestionnaireAnswer } from '../questionnaire.service';
+import { QuestionnaireAnswer } from '../../shared/services/questionnaire.service';
 
 @Component({
   selector: 'filter-dropdown-select',

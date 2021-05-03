@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterPartnerComponent } from './register-partner.component';
+import { FormItemDatetimeComponent } from './form-item-datetime.component';
 
-describe('RegisterPartnerComponent', () => {
-  let component: RegisterPartnerComponent;
-  let fixture: ComponentFixture<RegisterPartnerComponent>;
+describe('FormItemDatetimeComponent', () => {
+  let component: FormItemDatetimeComponent;
+  let fixture: ComponentFixture<FormItemDatetimeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterPartnerComponent ]
+      declarations: [ FormItemDatetimeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterPartnerComponent);
+    fixture = TestBed.createComponent(FormItemDatetimeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

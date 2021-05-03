@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { _FEATURE_CONFIGS } from '@ngrx/store/src/tokens';
-import { QuestionnaireService, Questionnaire, QuestionnaireAnswer } from '../questionnaire.service';
+import { Questionnaire, QuestionnaireAnswer, QuestionnaireService } from '../../shared/services/questionnaire.service';
 // import { rootEffectsInit } from '@ngrx/effects';
 // import { FitBoundsService } from '@agm/core/services/fit-bounds';
 import { Professional } from '../../models/professional';
@@ -34,9 +34,9 @@ export class ListingComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
-    private _qService: QuestionnaireService,
     private _maps: MapsAPILoader,
     private _uService: UniversalService,
+    private _qService: QuestionnaireService,
     _el: ElementRef,
   ) {
     this.host = _el.nativeElement;
@@ -226,18 +226,32 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.listingPayload.customer_health = (data.customer_health && data.customer_health.length > 0) ? data.customer_health : [];
       this.listingPayload.services = (data.services && data.services.length > 0) ? data.services : [];
       this.listingPayload.age_range = data.age_range ? [data.age_range] : [];
+      this.listingPayload.gender = data.gender ? [data.gender] : [];
 
       if(data.age_range){
         const f = this.getFilter('age');
         f.active = true;
         f.options.forEach(option => {
-          if(data.age_range.includes(option._id)){ 
+          if(data.age_range == option._id){ 
             option.active = true; 
           }
         });
       }
 
-      this._sharedService.clearPersonalMatch();     
+      if(data.gender) {
+        const f = this.getFilter('gender');
+        f.active = true;
+        f.options.forEach(option => {
+          if(data.gender == option._id){
+            option.active = true;
+          }
+        });
+      }
+
+      this._sharedService.clearPersonalMatch();
+      
+      const qs = await this._qService.getPersonalMatch();
+      this.customerHealthSet = qs.health.answers;
     }
 
 

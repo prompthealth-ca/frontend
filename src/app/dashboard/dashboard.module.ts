@@ -40,13 +40,17 @@ import { FilterDropdownSelectComponent } from './filter-dropdown-select/filter-d
 import { FilterDropdownSliderComponent } from './filter-dropdown-slider/filter-dropdown-slider.component';
 import { FilterDropdownInputComponent } from './filter-dropdown-input/filter-dropdown-input.component';
 import { FilterDropdownLocationComponent } from './filter-dropdown-location/filter-dropdown-location.component';
-import { RegisterPartnerComponent } from './register-partner/register-partner.component';
+import { RegisterQuestionnaireComponent } from './register-questionnaire/register-questionnaire.component';
 import { RegisterPartnerGeneralComponent } from './register-partner-general/register-partner-general.component';
 import { RegisterPartnerServiceComponent } from './register-partner-service/register-partner-service.component';
 import { RegisterPartnerOfferComponent } from './register-partner-offer/register-partner-offer.component';
 import { RegisterPartnerTermComponent } from './register-partner-term/register-partner-term.component';
-import { RegisterPartnerCompleteComponent } from './register-partner-complete/register-partner-complete.component';
+import { RegisterQuestionnaireCompleteComponent } from './register-questionnaire-complete/register-questionnaire-complete.component';
 import { UserQuestionnaireItemSelectMultipleComponent } from './user-questionnaire-item-select-multiple/user-questionnaire-item-select-multiple.component';
+import { UserQuestionnaireItemGenderComponent } from './user-questionnaire-item-gender/user-questionnaire-item-gender.component';
+import { UserQuestionnaireItemBackgroundComponent } from './user-questionnaire-item-background/user-questionnaire-item-background.component';
+import { RegisterPractitionerGeneralComponent } from './register-practitioner-general/register-practitioner-general.component';
+import { RegisterPractitionerServiceComponent } from './register-practitioner-service/register-practitioner-service.component';
 
 @NgModule({
   declarations: [
@@ -70,13 +74,17 @@ import { UserQuestionnaireItemSelectMultipleComponent } from './user-questionnai
     FilterDropdownSliderComponent,
     FilterDropdownInputComponent,
     FilterDropdownLocationComponent,
-    RegisterPartnerComponent,
+    RegisterQuestionnaireComponent,
     RegisterPartnerGeneralComponent,
     RegisterPartnerServiceComponent,
     RegisterPartnerOfferComponent,
     RegisterPartnerTermComponent,
-    RegisterPartnerCompleteComponent,
+    RegisterQuestionnaireCompleteComponent,
     UserQuestionnaireItemSelectMultipleComponent,
+    UserQuestionnaireItemGenderComponent,
+    UserQuestionnaireItemBackgroundComponent,
+    RegisterPractitionerGeneralComponent,
+    RegisterPractitionerServiceComponent,
   ],
   imports: [
     AutocompleteLibModule,

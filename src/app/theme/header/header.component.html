@@ -10,9 +10,18 @@
       </div>
       <div class="mx-2 mx-md-4 flex-grow-1 flex-shrink-1">
         <form (submit)="keywordSearch()">
-          <div class="searchbar rounded-pill">
+          <div class="searchbar rounded-pill d-flex justify-content-between overflow-hidden">
             <input type="text" aria-describedby="Search for Provider name/email"
               placeholder="Search for Provider name/email" [(ngModel)]="keyword" name="keyword" />
+            <button
+            *ngIf="keyword && keyword.length > 0"
+            [@slideHorizontal]
+            type="submit"
+            class="btn btn-primary btn-search d-flex align-items-center"
+            >
+              <i class="fas fa-search"></i>
+              <span class="pl-2 d-none d-md-inline">Search</span>
+            </button>
           </div>
         </form>
 

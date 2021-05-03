@@ -24,6 +24,8 @@ import { ListingProductComponent } from './listing-product/listing-product.compo
 import { InvitationComponent } from './invitation/invitation.component';
 import { LandingClubhouseComponent } from "./landing-clubhouse/landing-clubhouse.component";
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LandingAmbassadorComponent } from "./landing-ambassador/landing-ambassador.component";
+import { AmbassadorProgramGuardGuard } from "./ambassador-program-guard.guard";
 
 const routes: Routes = [
   {
@@ -102,6 +104,13 @@ const routes: Routes = [
 
   { path: 'invitation', component: InvitationComponent },
   { path: 'clubhouse', component: LandingClubhouseComponent },
+  { path: 'ambassador', component: LandingAmbassadorComponent, data: {type: 'client'}},
+  { 
+    path: 'ambassador-program', 
+    component: LandingAmbassadorComponent, 
+    data: {type: 'provider'},
+    canActivate: [AmbassadorProgramGuardGuard],
+  },
 
   { path: '404', component: NotFoundComponent },
 ];

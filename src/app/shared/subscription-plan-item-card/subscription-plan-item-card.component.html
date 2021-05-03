@@ -163,6 +163,12 @@
             Get featured on the homepage of our web and App
         </li> -->
 
+        <li *ngIf="type == 'centre'">
+            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <span class="badge badge-info">NEW</span>
+            Link your google business profile and display your google reviews on your profile page
+        </li>
+
         <li *ngIf="type == 'provider' || type == 'centre'">
             <span class="fa-li"><i class="far fa-check-circle"></i></span>
             <span class="badge badge-info">NEW</span>

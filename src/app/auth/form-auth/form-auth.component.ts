@@ -175,7 +175,7 @@ export class FormAuthComponent implements OnInit {
             break;
           case 'sp':
           case 'c':
-            next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/professional-info';
+            next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/register-practitioner';
             break;
           case 'p':
             next = (this.authType == 'signin') ? '/dashboard/profilemanagement' : '/dashboard/register-product';

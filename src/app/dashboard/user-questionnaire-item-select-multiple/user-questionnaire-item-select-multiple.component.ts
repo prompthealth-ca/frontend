@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormItemCustomerHealthComponent } from 'src/app/shared/form-item-customer-health/form-item-customer-health.component';
@@ -16,6 +17,7 @@ export class UserQuestionnaireItemSelectMultipleComponent implements OnInit {
   public data: string[];
   public type: string;
   public title: string;
+  public form: FormGroup;
 
   private subscriptionSubmit: Subscription;
 
@@ -39,10 +41,6 @@ export class UserQuestionnaireItemSelectMultipleComponent implements OnInit {
       const user = this._qService.getUserTracking();
       this.type = data.q;
       switch(data.q){
-        case 'background':
-          this.data = user.customer_health ? user.customer_health : [];
-          this.title = 'Check the status of your health';
-          break;
         case 'goal':
           this.data = user.services ? user.services : [];
           this.title = 'What are your health interests and goals for enrolling with Prompt Health?';

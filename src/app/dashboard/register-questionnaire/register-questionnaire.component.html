@@ -25,7 +25,7 @@
       ></stepper>
 
       
-      <div class="bubble-md">
+      <div class="bubble-md" [ngClass]="'item-count-' + data.length">
         <div class="d-none d-md-block triangle" [ngClass]="'position-' + currentIdx"></div>
         <router-outlet></router-outlet>
         
@@ -42,11 +42,7 @@
     </section> 
   
     <section class="col-md-3 col-lg-4 sideview d-none d-md-block h100--header sticky-to-header">
-      <img 
-      *ngFor="let i of [0,1,2,3];" 
-      [ngClass]="{active: (currentIdx == i)}" 
-      [src]="'/assets/img/register-partner-' + i + '.jpg'"
-      >
+      <img [src]="'/assets/img/register-questionnaire-' + data[currentIdx].route + '.jpg'" class="active">
     </section> 
 
 

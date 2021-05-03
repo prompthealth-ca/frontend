@@ -8,13 +8,14 @@ import { SharedService } from '../../shared/services/shared.service';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Professional } from '../../models/professional';
-import { QuestionnaireAnswer } from '../questionnaire.service';
+import { QuestionnaireAnswer, QuestionnaireService, QuestionnaireMapProfilePractitioner } from '../../shared/services/questionnaire.service';
 import { CategoryService, Category } from '../../shared/services/category.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { Subscription } from 'rxjs';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { UniversalService } from 'src/app/shared/services/universal.service';
+import { DateTimeData, FormItemDatetimeComponent } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 
 
 const expandTitleAnimation = trigger('expandTitle', [
@@ -33,9 +34,6 @@ const expandSubtitleAnimation = trigger('expandSubtitle', [
   ]),
   transition('expand=>shrink', style({ display: 'none' }))
 ]);
-
-
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -56,6 +54,7 @@ export class DetailComponent implements OnInit {
     private _catService: CategoryService,
     private _bs: BehaviorService,
     private _uService: UniversalService,
+    private _qService: QuestionnaireService,
     el: ElementRef,
   ) { this.host = el.nativeElement; }
 
@@ -94,6 +93,7 @@ export class DetailComponent implements OnInit {
   public myId = '';
   public startDate: Date; /* used at booking form */
   public minDate: Date; /* used at booking form */
+  public minDateTime: DateTimeData;
   // public timingSelectedValue = ''; /* used at booking form */
   public submitted = false; /* used for form verification */
 
@@ -101,6 +101,7 @@ export class DetailComponent implements OnInit {
   public userInfo: Professional = null;
   public isLoggedIn = false;
   private id: number;
+  public questionnaires: QuestionnaireMapProfilePractitioner;
   private amenities: any[];
   private languageSet: QuestionnaireAnswer[]; /* used to populate languages that the professional can provide */
   private serviceDeliverySet: QuestionnaireAnswer[]; /* used to populate serviceDelivery that the professional can provide */
@@ -111,6 +112,8 @@ export class DetailComponent implements OnInit {
   private healthStatus: any[];
   private host: HTMLElement;
   private loginSubscription: Subscription;
+
+  @ViewChild(FormItemDatetimeComponent) formDateTimeComponent: FormItemDatetimeComponent;
 
   /** delete */
   roles; /** not used anywhere. can be deleted */
@@ -127,8 +130,16 @@ export class DetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const now = new Date();
-    this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
-    this.minDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    // this.startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
+    // this.minDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    this.minDateTime = {
+      year: now.getFullYear(), 
+      month: now.getMonth() + 1, 
+      day: now.getDate() + 1,
+      hour: 9,
+      minute: 0
+    };
+
 
     this.bookingForm = this._fb.group({
       name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern(/\S+/)]),
@@ -150,28 +161,30 @@ export class DetailComponent implements OnInit {
       this.isLoggedIn = (user._id) ? true: false; 
     });
 
-    this.category = await this._catService.getCategoryAsync();
+    // this.category = await this._catService.getCategoryAsync();
 
     this._route.params.subscribe(async params => {
       this.id = params.id;
 
       const promiseAll = [
         this.getUserProfile(),
-        this.getProfileQuestion(),
+        // this.getProfileQuestion(),
         this.getAmenities(),
-        this.getCategoryServices()
+        // this.getCategoryServices()
       ];
-      Promise.all(promiseAll).then(() => {
-        this.userInfo.populate('languages', this.languageSet);
-        this.userInfo.populate('serviceDelivery', this.serviceDeliverySet);
-        this.userInfo.populate('availability', this.availabilitySet);
-        this.userInfo.setAmenities(this.amenities);
-        this.userInfo.populateService(this.category);
-        this.userInfo.populate('ageRange', this.ageRangeSet);
-        this.userInfo.setServiceCategory('typeOfProvider', this.typeOfProvider);
-        this.userInfo.setServiceCategory('treatmentModality', this.treatmentModality);
-        this.userInfo.setServiceCategory('healthStatus', this.healthStatus);
+      Promise.all(promiseAll).then(async () => {
+        // this.userInfo.populate('languages', this.languageSet);
+        // this.userInfo.populate('serviceDelivery', this.serviceDeliverySet);
+        // this.userInfo.populate('availability', this.availabilitySet);
+        // this.userInfo.setAmenities(this.amenities);
+        // this.userInfo.populateService(this.category);
+        // this.userInfo.populate('ageRange', this.ageRangeSet);
+        // this.userInfo.setServiceCategory('typeOfProvider', this.typeOfProvider);
+        // this.userInfo.setServiceCategory('treatmentModality', this.treatmentModality);
+        // this.userInfo.setServiceCategory('healthStatus', this.healthStatus);
 
+        this.questionnaires = await this._qService.getProfilePractitioner(this.userInfo.role as ('SP' | 'C'));
+        
         this.userInfo.videos.forEach(v => {
           const ytIframeHtml = this._embedService.embed(v.url);
           ytIframeHtml.title = v.title;
@@ -226,31 +239,32 @@ export class DetailComponent implements OnInit {
   }
 
 
-  getProfileQuestion(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const path = `questionare/get-profile-questions`;
-      this._sharedService.getNoAuth(path).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          const questions = res.data;
-          questions.forEach((e: any) => {
-            if (e.question_type === 'service' && e.slug === 'offer-your-services') {
-              this.serviceDeliverySet = e.answers;
-            }
-            if (e.question_type === 'service' && e.slug === 'languages-you-offer') {
-              this.languageSet = e.answers;
-            }
-            if (e.question_type === 'availability') {
-              this.availabilitySet = e.answers;
-            }
-          });
-          resolve(true);
-        } else { reject(res.message); }
-      }, err => {
-        console.log(err);
-        reject('There are some error please try after some time.');
-      });
-    });
-  }
+  // getProfileQuestion(): Promise<boolean> {
+  //   return new Promise((resolve, reject) => {
+  //     const path = `questionare/get-profile-questions`;
+  //     this._sharedService.getNoAuth(path).subscribe((res: any) => {
+  //       if (res.statusCode === 200) {
+  //         const questions = res.data;
+  //         questions.forEach((e: any) => {
+  //           console.log(e)
+  //           if (e.question_type === 'service' && e.slug === 'offer-your-services') {
+  //             this.serviceDeliverySet = e.answers;
+  //           }
+  //           if (e.question_type === 'service' && e.slug === 'languages-you-offer') {
+  //             this.languageSet = e.answers;
+  //           }
+  //           if (e.question_type === 'availability') {
+  //             this.availabilitySet = e.answers;
+  //           }
+  //         });
+  //         resolve(true);
+  //       } else { reject(res.message); }
+  //     }, err => {
+  //       console.log(err);
+  //       reject('There are some error please try after some time.');
+  //     });
+  //   });
+  // }
 
   getProducts() {
     this.products = [];
@@ -310,34 +324,35 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  getCategoryServices(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const path = `user/getService/${this.id}`;
-      this._sharedService.getNoAuth(path).subscribe((res: any) => {
+  // getCategoryServices(): Promise<boolean> {
+  //   return new Promise((resolve, reject) => {
+  //     const path = `user/getService/${this.id}`;
+  //     this._sharedService.getNoAuth(path).subscribe((res: any) => {
 
-        if (res.statusCode === 200) {
-          this.typeOfProvider = [];
-          this.treatmentModality = [];
-          this.healthStatus = [];
+  //       if (res.statusCode === 200) {
+  //         this.typeOfProvider = [];
+  //         this.treatmentModality = [];
+  //         this.healthStatus = [];
 
-          res.data.forEach((e: any) => {
-            switch (e.slug) {
-              case 'providers-are-you': this.typeOfProvider.push(e); break;
-              case 'treatment-modalities': this.treatmentModality.push(e); break;
-              case 'who-are-your-customers': this.healthStatus.push(e); break;
-              //            case 'your-goal-specialties': categories.service.push(e); break;
-              //           case 'your-offerings': categories.serviceOffering.push(e); break;
-            }
-          });
-          resolve(true);
-        } else { reject('There are some error please try after some time.'); }
-      }, (error) => {
-        console.log(error);
-        this._toastr.error('There are some error please try after some time.');
-      });
-    });
+  //         res.data.forEach((e: any) => {
+  //           console.log(e);
+  //           switch (e.slug) {
+  //             case 'providers-are-you': this.typeOfProvider.push(e); break;
+  //             case 'treatment-modalities': this.treatmentModality.push(e); break;
+  //             case 'who-are-your-customers': this.healthStatus.push(e); break;
+  //             //            case 'your-goal-specialties': categories.service.push(e); break;
+  //             //           case 'your-offerings': categories.serviceOffering.push(e); break;
+  //           }
+  //         });
+  //         resolve(true);
+  //       } else { reject('There are some error please try after some time.'); }
+  //     }, (error) => {
+  //       console.log(error);
+  //       this._toastr.error('There are some error please try after some time.');
+  //     });
+  //   });
 
-  }
+  // }
 
   getProfessionals() {
     // default count is 20
@@ -378,10 +393,11 @@ export class DetailComponent implements OnInit {
   }
 
   bookApointment() {
-    this.submitted = true;
+      this.submitted = true;
     if (this.bookingForm.invalid) {
       return;
     } else {
+        
       const formData = {
         ...this.bookingForm.value,
       };
@@ -392,7 +408,7 @@ export class DetailComponent implements OnInit {
       };
       // data.timing = this.timingSelectedValue;
       data.phone = data.phone.toString();
-      data.bookingDateTime = data.bookingDateTime.toString();
+      data.bookingDateTime = this.formDateTimeComponent.getFormattedValue().toString();
       this._sharedService.loader('show');
       const path = `booking/create`;
       this._sharedService.post(data, path).subscribe((res: any) => {

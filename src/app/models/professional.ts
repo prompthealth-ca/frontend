@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { QuestionnaireAnswer } from '../dashboard/questionnaire.service';
+import { QuestionnaireAnswer } from '../shared/services/questionnaire.service';
 import { Category } from '../shared/services/category.service';
 import { SocialLinkData } from '../shared/social-buttons/social-buttons.component';
 import { ImageData, ImageGroupData, ImageViewerData } from '../shared/image-viewer/image-viewer.component';
@@ -28,7 +28,7 @@ export interface IProfessional {
   // used in listingComponent
   price: string; /** lower price ex: null | $150 / hr */
   priceFull: string; /** price range or exact price ex: N/A | $150 - 250 / hr */
-  location: number[]; /** [lat, lng] */
+  location: number[]; /** [long, lat] */
   distance: number;
   mapLabel: string;
   mapIcon?: any;
@@ -177,11 +177,13 @@ export class Professional implements IProfessional {
     this._languages.forEach(l => { languages.push(l.item_text); });
     return languages;
   }
+  get languagesId() { return this.p.languages || []; }
   get ageRange() {
     const ageRange = [];
     this._ageRange.forEach(a => { ageRange.push(a.item_text); });
     return ageRange;
   }
+  get age_range() { return this.p.age_range;  }
   get availability() {
     const result = [];
     this._availability.forEach(a => { result.push(a.item_text); });
@@ -265,8 +267,12 @@ export class Professional implements IProfessional {
     return result;
 
   }
+  get customerHealth() {
+    return this.p.customer_health;
+  }
 
   get allServiceId() { return this.p.services || []; }
+  get serviceOfferIds() { return this.p.serviceOfferIds || []};
 
   get socialLink() { return this._socialLink; }
 

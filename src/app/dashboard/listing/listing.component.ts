@@ -233,7 +233,7 @@ export class ListingComponent implements OnInit, OnDestroy {
         const f = this.getFilter('gender');
         f.active = true;
         f.options.forEach(option => {
-          if(data.gender == option._id){
+          if(data.gender == option.item_text){
             option.active = true;
           }
         });

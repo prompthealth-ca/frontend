@@ -30,30 +30,30 @@ import { RegisterPractitionerGeneralComponent } from './register-practitioner-ge
 import { RegisterPractitionerServiceComponent } from './register-practitioner-service/register-practitioner-service.component';
 
 const routes: Routes = [
-  {
-    path: 'subscriptionplan',
-    component: SubscriptionPlanComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'professional',
-    component: ProfessionalHomeComponent
-  },
-  {
-    path: 'subscriptionplan-professional',
-    component: SubscriptionProfessionalComponent
-  },
-  {
-    path: 'questionnaire/:type',
-    component: QuestionnaireComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'questionnaire/u',
-    component: UserQuestionaireComponent,
-    canActivate: [AuthGuard],
-    redirectTo: 'questions/User'
-  },
+  // {
+  //   path: 'subscriptionplan',
+  //   component: SubscriptionPlanComponent,
+  //   canActivate: [AuthGuard],
+  // },
+  // {
+  //   path: 'professional',
+  //   component: ProfessionalHomeComponent
+  // },
+  // {
+  //   path: 'subscriptionplan-professional',
+  //   component: SubscriptionProfessionalComponent
+  // },
+  // {
+  //   path: 'questionnaire/:type',
+  //   component: QuestionnaireComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'questionnaire/u',
+  //   component: UserQuestionaireComponent,
+  //   canActivate: [AuthGuard],
+  //   redirectTo: 'questions/User'
+  // },
   {
     path: 'questions/User',
     component: UserQuestionaireComponent, children: [

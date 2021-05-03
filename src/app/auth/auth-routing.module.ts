@@ -9,14 +9,14 @@ import { RegistrationComponent } from './registration/registration.component';
 import { EnterpriseContactComponent } from './enterprise-contact/enterprise-contact.component';
 
 const routes: Routes = [
-  {
-    path: 'contact-us',
-    component: ContactUspageComponent
-  },
-  {
-    path: 'get-in-touch',
-    component: EnterpriseContactComponent
-  },
+  // {
+  //   path: 'contact-us',
+  //   component: ContactUspageComponent
+  // },
+  // {
+  //   path: 'get-in-touch',
+  //   component: EnterpriseContactComponent
+  // },
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent

@@ -34,7 +34,10 @@
 <div class="intersection-observer" intersectionObserver (changeStatus)="changeStickyStatus($event)"></div>
 <section class="container-fluid mt-5 pt-2 sticky-top blur" id="expertFinder">
   <div class="max-w-1200">
-    <h2 class="text-blue-gradient font-weight-normal">Expert Finder</h2>
+    <div class="d-flex align-items-center mb-3">
+      <h2 class="text-blue-gradient font-weight-normal mb-0 expert-finder">Expert Finder</h2>
+      <a class="btn btn-outline-primary p-2 px-md-4 ml-md-3 rounded-10p link-to-personal-match" [routerLink]="['/dashboard/questions/User/']">Start <span class="text-nowrap">Personal Match</span></a>
+    </div>
     <ul *ngIf="isMainFilterOn" class="filters m-0 d-flex flex-nowrap list-unstyled pt-2 pb-3">
       <li *ngIf="keyword && keyword.length > 0" class="main text-nowrap rounded mr-3">
         <span class="px-3">{{keyword}}</span>

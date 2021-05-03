@@ -50,7 +50,7 @@ export class ContactUsComponent implements OnInit {
         this._sharedService.loader('hide');
         if (res.statusCode===200) {
           this.toastr.success(res.message);
-          this._router.navigate(['/home']);
+          this._router.navigate(['/']);
 
         } else {
           this._sharedService.loader('hide');

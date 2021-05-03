@@ -28,10 +28,10 @@ import { LandingAmbassadorComponent } from "./landing-ambassador/landing-ambassa
 import { AmbassadorProgramGuardGuard } from "./ambassador-program-guard.guard";
 
 const routes: Routes = [
-  {
-    path: "home",
-    component: HomeComponent
-  },
+  // {
+  //   path: "home",
+  //   component: HomeComponent
+  // },
   {
     path: "faq",
     component: FAQComponent
@@ -40,10 +40,10 @@ const routes: Routes = [
     path: "subscription",
     component: SubscriptionComponent
   },
-  {
-    path: "map",
-    component: MapComponent
-  },
+  // {
+  //   path: "map",
+  //   component: MapComponent
+  // },
   {
     path: "policy",
     component: PricvacyPolicyComponent
@@ -52,10 +52,10 @@ const routes: Routes = [
     path: "termConditions",
     component: TermsConditionsComponent
   },
-  {
-    path: "loyalty",
-    component: LoyalityProgramsComponent
-  },
+  // {
+  //   path: "loyalty",
+  //   component: LoyalityProgramsComponent
+  // },
   {
     path: "blogs",
     component: BlogComponent
@@ -72,26 +72,26 @@ const routes: Routes = [
     path: "contact-us",
     component: ContactUsComponent
   },
-  {
-    path: "client",
-    component: ClientComponent
-  },
-  {
-    path: "professional",
-    component: ProffesionalComponent
-  },
+  // {
+  //   path: "client",
+  //   component: ClientComponent
+  // },
+  // {
+  //   path: "professional",
+  //   component: ProffesionalComponent
+  // },
   {
     path: "enterprise",
     component: EnterpriceComponent
   },
-  {
-    path:'doctor-filter',
-    component: DoctorFilterComponent
-  },
-  {
-    path:'affiliate',
-    component: AffiliateComponent
-  },
+  // {
+  //   path:'doctor-filter',
+  //   component: DoctorFilterComponent
+  // },
+  // {
+  //   path:'affiliate',
+  //   component: AffiliateComponent
+  // },
   {
     path:'unsubscribe/:email',
     component: UnsubscribeComponent

@@ -29,7 +29,11 @@ export class BlogComponent implements OnInit {
     this.getAllCategories();
     this.AWS_S3 = environment.config.AWS_S3;
 
-    this._uService.setMeta(this._router.url);
+    this._uService.setMeta(this._router.url, {
+      title: 'Blogs | PromptHealth',
+      keyword: '',
+      description: 'Blogs from PromptHealth'
+    });
   }
 
   getBlogList() {

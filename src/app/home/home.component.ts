@@ -216,7 +216,11 @@ export class HomeComponent implements OnInit {
     })
   }
   ngOnInit() {
-    const meta = this._uService.setMeta(this.router.url);
+    const meta = this._uService.setMeta(this.router.url, {
+      title: 'PromptHealth | Your health and wellness personal assistant',
+      keyword: '',
+      description: 'Your health and wellness personal assistant',
+    });
 
     const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;

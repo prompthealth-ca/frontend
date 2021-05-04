@@ -29,34 +29,35 @@ export class UniversalService {
 
   setMeta(path: string, meta: MetaData = {}){
     console.log('path: ', path);
-    if(path.match(/\/dashboard\/listing/)){
-      
-    }
-    else if(path.match( /\/practitioners/)) {
+    
+    if(path.match( /\/practitioners/)) {
       meta.pageType = 'article';
     }
     else if(path.match(/\/products/)) {
-
-    }
-    else if(path == '/blogs') {
-      meta = {
-        title: 'Blogs | PromptHealth',
-        keyword: '',
-        description: 'blogs from PromptHealth',
-      }
-    }
-    else if(path.match(/\/blog-category/)) {
-    }
-    else if(path.match(/\/blog-detail/)) {
       meta.pageType = 'article';
     }
-    else if(path == '/'){
-      meta = {
-        title: 'PromptHealth | Your health and wellness personal assistant',
-        keyword: '',
-        description: 'Your health and wellness personal assistant',
+    else if(path.match(/\/personal-match/)) {
+      meta.pageType = 'website';
+      if(path.match(/\/personal-match\/[a-z]+/)) {
+        meta.robots = 'noindex';
       }
     }
+    else if(path.match(/\/plans/)) {
+      meta.pageType = 'article';
+    }
+    else if(path.match(/\/blogs/)) {
+      meta.pageType = 'article';
+    }
+    else if(path.match(/\/invitation/)) {
+      meta.robots = 'noindex';
+    }
+    else if(path.match(/\/dashboard/)) {
+      meta.robots = 'noindex';
+    }
+    else if(path.match(/\/auth/)) {
+      meta.robots = 'noindex';
+    }
+    else if(path == '/'){ }
 
     if(!meta.image) { 
       meta.image = 'https://prompthealth.ca/assets/img/logo.png'; 

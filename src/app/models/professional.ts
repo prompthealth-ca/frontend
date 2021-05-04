@@ -19,6 +19,8 @@ export interface IProfessional {
   role: string;
   phone: string;
   address: string;
+  city: string;
+  state: string;
   rating: string | number;
   provideVirtual: boolean;
   isCentre: boolean;
@@ -164,6 +166,8 @@ export class Professional implements IProfessional {
   get priceFull() { return (this._priceRange.length === 0) ? 'N/A' : '$' + this._priceRange.join(' - '); }
   get gender() { return this.p.gender || null; }
   get address() { return (!this.p.hideAddress && this.p.address && this.p.address.length > 0) ? this.p.address : null; }
+  get city() { return this.p.city; }
+  get state() { return this.p.state; }
   get website() { return this.p.website; }
   get websiteLabel() { return this.getURLLabel(this.p.website); }
   get bookingUrl() { return this.p.bookingURL || null; }

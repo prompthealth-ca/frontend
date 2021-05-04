@@ -24,7 +24,7 @@ export class RegisterQuestionnaireCompleteComponent implements OnInit {
     this._route.queryParams.subscribe((params: {type: RegisterType}) => {
       // let message: string;
 
-      this.routePlan = (params.type == 'practitioner') ? ['/subscriptionplan'] : ['/plans/product'];
+      this.routePlan = (params.type == 'practitioner') ? ['/plans'] : ['/plans/product'];
       // message = 'You will be redirected to plan page in 5 seconds.';
 
 

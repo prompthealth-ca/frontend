@@ -161,7 +161,7 @@ export class FormAuthComponent implements OnInit {
               break;
             case 'sp':
             case 'c':
-              next = '/subscriptionplan';
+              next = '/plans';
               break;
             case 'p':
               next = '/plans/product';

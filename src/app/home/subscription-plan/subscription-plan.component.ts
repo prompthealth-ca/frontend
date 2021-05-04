@@ -1,10 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-  OnInit
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { StripeService } from 'ngx-stripe';
 import { SharedService } from '../../shared/services/shared.service';
@@ -12,9 +6,9 @@ import { SharedService } from '../../shared/services/shared.service';
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
+// import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { IAddonPlan } from '../../models/addon-plan';
 import { IDefaultPlan } from 'src/app/models/default-plan';

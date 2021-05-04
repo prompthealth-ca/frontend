@@ -79,22 +79,10 @@ export function app() {
       res.send(html);
     });
   });
-  server.get('/dashboard/detail/:id', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });      
-  });
 
-  server.get('/dashboard/listing', (req, res) => {
+  server.use('/practitioners', (req, res) => {
     res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
+      { provide: APP_BASE_HREF, useValue: '/practitioners' + req.baseUrl }
     ]},
     (err, html) => {
       if(err){
@@ -131,18 +119,6 @@ export function app() {
     });
   });
   
-  server.get('/subscriptionplan', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });    
-  });
 
   server.get('/', (req, res) => {
     res.render(indexHtml, { req, providers: [

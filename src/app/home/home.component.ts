@@ -367,9 +367,9 @@ export class HomeComponent implements OnInit {
   }
   questionnaire() {
     if (this.token) {
-      this.router.navigate(['dashboard/questions/User']);
+      this.router.navigate(['/personal-match']);
     } else {
-      this.router.navigate(['dashboard/questions/User']);
+      this.router.navigate(['/personal-match']);
       // this.router.navigate(['auth/login/u']);
       // this.toastr.warning("Please login first.")
     }
@@ -418,9 +418,9 @@ export class HomeComponent implements OnInit {
 
   learnMore() {
     if (this.token) {
-      this.router.navigate(['dashboard/subscriptionplan']);
+      this.router.navigate(['plans']);
     } else {
-      this.router.navigate(['subscriptionplan']);
+      this.router.navigate(['plans']);
     }
   }
 

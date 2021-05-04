@@ -168,7 +168,7 @@ export class HeaderComponent implements OnInit {
   }
 
   keywordSearch() {
-    this._router.navigate(['/dashboard/listing'], {
+    this._router.navigate(['/practitioners'], {
       queryParams: {
         keyword: this.keyword
       }
@@ -230,7 +230,7 @@ export class HeaderComponent implements OnInit {
     }else{
       this.hideMenu();
       this._router.navigate(
-        ['/dashboard/listing'], 
+        ['/practitioners'], 
         {queryParams: {id: this.catService.categoryList[i]._id}});
     }
   }

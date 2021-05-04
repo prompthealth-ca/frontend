@@ -2,7 +2,7 @@ import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { IAddonPlan } from '../../models/addon-plan';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileManagementService } from '../../dashboard/profileManagement/profile-management.service';
-import { AddonSelectCategoryComponent } from '../../dashboard/addon-select-category/addon-select-category.component';
+import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
 import { CategoryService } from '../services/category.service';
 import { SharedService } from '../services/shared.service';
 import { ToastrService } from 'ngx-toastr';

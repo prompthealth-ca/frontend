@@ -174,7 +174,7 @@ export class WrapperComponent implements OnInit, OnDestroy {
     if(this.userInfo){
       try { 
         this.profile = await this._managementService.getProfileDetail(this.userInfo); 
-        this.linkToSubscription = (this.profile.roles == 'P') ? ['/plans/product'] : ['/subscriptionplan'];
+        this.linkToSubscription = (this.profile.roles == 'P') ? ['/plans/product'] : ['/plans'];
         this.formPhListedLink.setValue(this.profile.phListedLink);
         this.setUserPremiumStatus();
         this.setListing(this.profile);

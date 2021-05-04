@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
@@ -48,10 +48,12 @@ import { FormItemCustomerHealthComponent } from './form-item-customer-health/for
 import { FormPractitionerServiceComponent } from './form-practitioner-service/form-practitioner-service.component';
 import { FormItemDatetimeComponent } from './form-item-datetime/form-item-datetime.component';
 import { FormItemUploadImageButtonComponent } from './form-item-upload-image-button/form-item-upload-image-button.component';
+import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
     NgbModule,
@@ -103,6 +105,7 @@ import { FormItemUploadImageButtonComponent } from './form-item-upload-image-but
     FormPractitionerServiceComponent,
     FormItemDatetimeComponent,
     FormItemUploadImageButtonComponent,
+    AddonSelectCategoryComponent,
   ],
   exports: [
     UserSidebarComponent,

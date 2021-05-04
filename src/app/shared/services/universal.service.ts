@@ -30,13 +30,9 @@ export class UniversalService {
   setMeta(path: string, meta: MetaData = {}){
     console.log('path: ', path);
     if(path.match(/\/dashboard\/listing/)){
-      meta = {
-        title: 'Find practitioners | PromptHealth',
-        keyword: '',
-        description: 'Find best practitioners in your area or virtual services',
-      }
+      
     }
-    else if(path.match( /\/dashboard\/detail/)) {
+    else if(path.match( /\/practitioners/)) {
       meta.pageType = 'article';
     }
     else if(path.match(/\/products/)) {
@@ -72,7 +68,6 @@ export class UniversalService {
     if(!meta.pageType) { meta.pageType = 'website'; }
     if(!meta.robots) { meta.robots = 'index, follow'; }
 
-    console.log(meta)
     const baseUrl = 'https://prompthealth.ca';
     this._title.setTitle(meta.title);
 

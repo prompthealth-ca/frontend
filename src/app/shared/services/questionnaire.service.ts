@@ -113,7 +113,6 @@ export class QuestionnaireService {
             }            
           }
           this.profilePractitioner = data;
-          console.log(this.profilePractitioner);
           resolve(this.profilePractitioner);
         }).catch(err => {
           console.log(err);

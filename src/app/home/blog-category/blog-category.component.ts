@@ -70,7 +70,7 @@ export class BlogCategoryComponent implements OnInit {
         })
 
         this._uService.setMeta(this._router.url, {
-          title: cat.title + ' | PromtHealth',
+          title: 'Category - ' + cat.title + ' | PromtHealth',
           keyword: '',
           description: `Blog entries regarding ${cat.title}`
         });

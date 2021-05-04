@@ -226,7 +226,6 @@ export class ListingComponent implements OnInit, OnDestroy {
 
     /** if personal match exists, reset all filter menu and payload. then set filter menu and payload using personalMatch */
     const data = this._sharedService.getPersonalMatch();
-    console.log(data);
     if (data) {
       this.listingPayload.customer_health = (data.customer_health && data.customer_health.length > 0) ? data.customer_health : [];
       this.listingPayload.services = (data.services && data.services.length > 0) ? data.services : [];

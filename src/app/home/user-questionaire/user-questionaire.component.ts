@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { QuestionnaireItemData, RegisterQuestionnaireService } from 'src/app/dashboard/register-questionnaire.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-user-questionaire',
@@ -31,7 +32,8 @@ export class UserQuestionaireComponent implements OnInit {
     private _sharedService: SharedService,
     private _qService: RegisterQuestionnaireService,
     private _changeDetector: ChangeDetectorRef,
-    private _catService: CategoryService
+    private _catService: CategoryService,
+    private _uService: UniversalService,
   ) {}
 
   ngOnDestroy() {
@@ -40,6 +42,8 @@ export class UserQuestionaireComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url);
+    
     this._qService.init(this.data, {});
 
     /** get service list in advance so that goal tab in personal match can be rendered immediately */

@@ -41,107 +41,70 @@ export function app() {
     maxAge: '1y'
   }));
 
-
-  server.get('/blogs', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
-  server.get('/blog-category/:id', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
-
-  server.get('/blog-detail/:slug', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
-
-  server.use('/practitioners', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: '/practitioners' + req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });      
-  });
-
-  server.use('/products', (req,res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: '/products' + req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
-
-  server.use('/plans', (req,res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: '/plans' + req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
+  /** client side rendering */
+  server.use('/auth',                  (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/dashboard',             (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/personal-match',        (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/compare-practitioners', (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/unsubscribe',           (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  server.use('/404',                   (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   
+  // server.use('/practitioners', (req, res) => {
+  //   res.render(indexHtml, { req, providers: [ { provide: APP_BASE_HREF, useValue: '/practitioners' + req.baseUrl } ]},
+  //   (err, html) => {
+  //     showMeta(html);
+  //     res.send(html);
+  //   });      
+  // });
 
-  server.get('/', (req, res) => {
-    res.render(indexHtml, { req, providers: [
-      { provide: APP_BASE_HREF, useValue: req.baseUrl }
-    ]},
-    (err, html) => {
-      if(err){
-        console.log(err);
-      }
-      showMeta(html);
-      res.send(html);
-    });
-  });
+  // server.use('/products', (req,res) => {
+  //   res.render(indexHtml, { req, providers: [ { provide: APP_BASE_HREF, useValue: '/products' + req.baseUrl } ]},
+  //   (err, html) => {
+  //     showMeta(html);
+  //     res.send(html);
+  //   });
+  // });
+
+  // server.use('/plans', (req,res) => {
+  //   res.render(indexHtml, { req, providers: [ { provide: APP_BASE_HREF, useValue: '/plans' + req.baseUrl } ]},
+  //   (err, html) => {
+  //     showMeta(html);
+  //     res.send(html);
+  //   });
+  // });
+
+  // server.use('/blogs', (req, res) => {
+  //   res.render(indexHtml, { req, providers: [ { provide: APP_BASE_HREF, useValue: '/blogs' + req.baseUrl } ]},
+  //   (err, html) => {
+  //     showMeta(html);
+  //     res.send(html);
+  //   });
+  // });
+
+  // server.get('/', (req, res) => {
+  //   res.render(indexHtml, { req, providers: [ { provide: APP_BASE_HREF, useValue: req.baseUrl } ]},
+  //   (err, html) => {
+  //     showMeta(html);
+  //     res.send(html);
+  //   });
+  // });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    console.log('client side rendering');
-    // console.log('====TEST UNIVERSAL===');
-    // console.log('baseUrl: ' + req.baseUrl);
-    console.log('originalUrl: ' + req.originalUrl);
-    res.sendFile(join(distFolder, 'index.html'));
-
-    // res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    console.log('SERVER SIDE RENDERING: ', req.originalUrl);
+    res.render(
+      indexHtml, 
+      { req, providers: [ { provide: APP_BASE_HREF, useValue: req.baseUrl } ]},
+      (err, html) => {
+        if(err){
+          console.log('something went wrong: ');
+          console.log(err)
+        }
+        showMeta(html);
+        res.send(html);
+      }
+    );
   });
 
   return server;
@@ -180,7 +143,8 @@ function showMeta(html: string) {
     'og:url',
     'og:type',
     'twitter:card',
-    'og:image', 'twitter:image'
+    'og:image', 'twitter:image',
+    'robots'
   ];
   meta.forEach(m=>{
     var regEx = new RegExp(`<meta name="${m}" content="(.*?)">`);

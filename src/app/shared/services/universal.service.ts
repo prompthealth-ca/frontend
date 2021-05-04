@@ -28,7 +28,6 @@ export class UniversalService {
   get isServer(){ return isPlatformServer(this.p); }
 
   setMeta(path: string, meta: MetaData = {}){
-    console.log('path: ', path);
     
     if(path.match( /\/practitioners/)) {
       meta.pageType = 'article';
@@ -37,10 +36,12 @@ export class UniversalService {
       meta.pageType = 'article';
     }
     else if(path.match(/\/personal-match/)) {
-      meta.pageType = 'website';
-      if(path.match(/\/personal-match\/[a-z]+/)) {
-        meta.robots = 'noindex';
-      }
+      meta.robots = 'noindex';
+      meta.title = 'Personal Match | PromptHealth';
+    }
+    else if(path.match(/\/compare-practitioners/)) {
+      meta.title = 'Compare practitioners | PromptHealth';
+      meta.robots = 'noindex';
     }
     else if(path.match(/\/plans/)) {
       meta.pageType = 'article';
@@ -58,6 +59,10 @@ export class UniversalService {
       meta.robots = 'noindex';
     }
     else if(path == '/'){ }
+
+    if(!meta.title) { meta.title = 'PromptHealth'; }
+    if(!meta.description) { meta.description = ''; }
+    if(!meta.keyword) { meta.keyword = ''; }
 
     if(!meta.image) { 
       meta.image = 'https://prompthealth.ca/assets/img/logo.png'; 

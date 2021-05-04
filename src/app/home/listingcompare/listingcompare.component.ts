@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { SharedService } from '../../shared/services/shared.service';
 import { environment } from 'src/environments/environment';
-
+import { UniversalService } from "src/app/shared/services/universal.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-listingcompare",
@@ -23,8 +24,10 @@ export class ListingcompareComponent implements OnInit {
   public AWS_S3='';
 
   constructor(
+    private _router: Router,
     private behaviorService: BehaviorService,
     private sharedService: SharedService,
+    private _uService: UniversalService,
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +35,7 @@ export class ListingcompareComponent implements OnInit {
     this.getProfileQuestion();
     this.AWS_S3 = environment.config.AWS_S3
     // this.data = this.compareIds[i];
+    this._uService.setMeta(this._router.url);
   }
 
   getProfileQuestion() {

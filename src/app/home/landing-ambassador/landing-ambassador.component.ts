@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChi
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { environment } from 'src/environments/environment';
 
 declare let gtag: Function;
@@ -37,11 +38,15 @@ export class LandingAmbassadorComponent implements OnInit {
     private _route: ActivatedRoute,
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
+    private _uService: UniversalService,
   ) { 
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    const user = this._uService.localStorage.getItem('user');
+    if(user) {
+      this.user = JSON.parse(user);
+    }
     
     this.canvas = this._el.nativeElement.querySelector('.canvas');
 

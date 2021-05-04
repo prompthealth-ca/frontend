@@ -59,7 +59,7 @@ const routes: Routes = [
     component: PricvacyPolicyComponent
   },
   {
-    path: "termConditions",
+    path: "terms",
     component: TermsConditionsComponent
   },
   // {
@@ -71,12 +71,12 @@ const routes: Routes = [
     component: BlogComponent
   },
   {
-    path: "blog-detail/:id",
-    component: BlogDetailComponent
+    path: "blogs/category/:id",
+    component: BlogCategoryComponent
   },
   {
-    path: "blog-category/:id",
-    component: BlogCategoryComponent
+    path: "blogs/:id",
+    component: BlogDetailComponent
   },
   {
     path: "contact-us",
@@ -128,8 +128,8 @@ const routes: Routes = [
   { path: 'products/:id', component: ProfilePartnerComponent },
 
   { path: 'invitation', component: InvitationComponent },
+  { path: 'invitation/ambassador', component: LandingAmbassadorComponent, data: {type: 'client'}},
   { path: 'clubhouse', component: LandingClubhouseComponent },
-  { path: 'ambassador', component: LandingAmbassadorComponent, data: {type: 'client'}},
   { 
     path: 'ambassador-program', 
     component: LandingAmbassadorComponent, 

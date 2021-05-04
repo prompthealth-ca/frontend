@@ -1,0 +1,21 @@
+<form (submit)="save()">
+  <div class="p-3 form-group">
+    <p>Address</p>
+    <form-item-address
+    name="address"
+    label="Address"
+    placeholder="Please enter address"
+    [controllerGroup]="form"
+    ></form-item-address>
+  </div>
+
+  <div class="px-3 pt-0 pb-4 borderb-grey">
+    <p>Distance: {{form.controls.distance.value}} KM</p>
+    <input type="range" name="range" class="form-range" [min]="data.distanceMin" [max]="data.distanceMax" [formControl]="form.controls.distance">
+  </div>
+
+  <div class="p-2 d-flex align-items-center justify-content-between">
+    <button class="btn text-underline cancel" type="button" (click)="reset()">Clear</button>
+    <button class="btn submit" type="button" (click)="save()">Save</button>
+  </div>
+</form>

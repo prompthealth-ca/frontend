@@ -17,15 +17,15 @@ export class LandingClubhouseComponent implements OnInit {
   public idxCountryFocused = 0;
 
   private host: HTMLElement;
-  private canvas: HTMLElement;
+  // private canvas: HTMLElement;
 
   get f(){ return this.form.controls; }
 
-	@HostListener('window:scroll') windowScroll(){
-    if(this.canvas){
-      this.canvas.style.top = Math.floor(window.scrollY * 2 / 3) + 'px';
-    }
-  }
+	// @HostListener('window:scroll') windowScroll(){
+  //   if(this.canvas){
+  //     this.canvas.style.top = Math.floor(window.scrollY * 2 / 3) + 'px';
+  //   }
+  // }
 
   @HostListener('window:keydown', ['$event']) windowKeydown(e: KeyboardEvent) {
     if(this.countryList.length > 0){
@@ -66,7 +66,7 @@ export class LandingClubhouseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-		this.canvas = this.host.querySelector('.canvas');
+		// this.canvas = this.host.querySelector('.canvas');
     this.f.region.valueChanges.subscribe(value => {
       if(value.length > 0) {
         const list = [];

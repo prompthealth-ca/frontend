@@ -198,7 +198,7 @@ export class DetailComponent implements OnInit {
         if (this.userInfo.isCentre) { this.getProfessionals(); }
 
         this._uService.setMeta(this._router.url, {
-          title: `${this.userInfo.name} - Practitioner in ${this.userInfo.city}, ${this.userInfo.state} | PromptHealth`,
+          title: `${this.userInfo.name} in ${this.userInfo.city}, ${this.userInfo.state} | PromptHealth`,
           description: this.userInfo.description,
           image: this.userInfo.image,
           imageType: this.userInfo.imageType,

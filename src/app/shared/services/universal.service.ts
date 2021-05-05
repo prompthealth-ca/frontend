@@ -84,7 +84,7 @@ export class UniversalService {
     this._meta.updateTag({name: 'robots', content: meta.robots});
     this._meta.updateTag({name: 'title', content: meta.title});
     this._meta.updateTag({name: 'description', content: meta.description});
-    this._meta.updateTag({name: 'og:url', content: baseUrl + path});
+    this._meta.updateTag({name: 'og:url', content: (baseUrl + path)});
     this._meta.updateTag({name: 'og:type', content: meta.pageType});
     this._meta.updateTag({name: 'og:title', content: meta.title});
     this._meta.updateTag({name: 'og:description', content: meta.description});

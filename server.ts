@@ -47,7 +47,9 @@ export function app() {
   server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/personal-match',        (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/compare-practitioners', (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  // server.use('/subscribe-email',       (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/unsubscribe',           (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  // server.use('/contact-us',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/404',                   (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   
   // server.use('/practitioners', (req, res) => {

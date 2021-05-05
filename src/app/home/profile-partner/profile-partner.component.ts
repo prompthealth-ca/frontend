@@ -40,7 +40,7 @@ export class ProfilePartnerComponent implements OnInit {
 
       this._uService.setMeta(this._router.url, {
         title: `${this.profile.name} | PromptHealth`,
-        description: this.profile.description,
+        description: this.profile.description + ' Find coupons, free samples and reviews.',
         keyword: '',
         pageType: 'article',
         image: this.profile.image,

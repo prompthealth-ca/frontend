@@ -173,9 +173,9 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.serviceSet = await this._catService.getCategoryAsync();
     const ls = this._uService.localStorage;
     this._uService.setMeta(this.router.url, {
-      title: 'Find practitioners | PromptHealth',
+      title: 'Find best health care provider in Canada | PromptHealth',
       keyword: '',
-      description: 'Find best practitioners in your area or virtual services',
+      description: 'Use our Expart Finder to find a top-rated practitioner near you or offering virtual appointment.',
     });
 
     // if options which has to be fetched from server is not set correctly, fetch.

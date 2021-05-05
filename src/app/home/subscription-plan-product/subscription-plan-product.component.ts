@@ -57,7 +57,7 @@ export class subscriptionPlanProductComponent implements OnInit {
 
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
-      title: 'Products/Services Plan | PromptHealth',
+      title: 'Plans for products/services | PromptHealth',
       description: 'Get listed and advertise your products/services on PromptHealth.',
       keyword: '',
       image: 'https://prompthealth.ca/assets/img/hero-subscription-plan-product.png',

@@ -67,6 +67,18 @@ $heightFinder: 112px;
   height: 1em;
 }
 
+a.link-to-personal-match {
+  flex: 0 1 auto;
+  border: solid 1px $colorBlueDark;
+  color: $colorBlueDark!important;
+
+  &:hover{
+    background-color: $colorBlueDark;
+    color: white!important;
+  }
+}
+
+
 .filters{
   width: 100%;
   overflow: auto;

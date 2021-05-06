@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeData, FormItemDatetimeComponent } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
@@ -44,10 +46,17 @@ export class MyBookingComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private toastr: ToastrService,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private _router: Router,
+    private _uService: UniversalService,  
+  ) { }
 
   get f() { return this.bookingForm.controls; }
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url, {
+      title: 'Manage booking | PromptHealth',
+      robots: 'noindex',
+    });
 
     const now = new Date();
     this.minDateTime = {

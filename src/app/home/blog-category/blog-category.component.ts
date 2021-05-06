@@ -60,7 +60,6 @@ export class BlogCategoryComponent implements OnInit {
       this._sharedService.loader('hide');
       if (res.statusCode === 200) {
         this.categoryList = res.data;
-        console.log(this.categoryList);
 
         let cat: any;
         this.categoryList.forEach(c=>{
@@ -70,9 +69,9 @@ export class BlogCategoryComponent implements OnInit {
         })
 
         this._uService.setMeta(this._router.url, {
-          title: 'Category - ' + cat.title + ' | PromtHealth',
+          title: `${cat.title} - News & Media | PromptHealth`,
           keyword: '',
-          description: `Blog entries regarding ${cat.title}`
+          description: `Check out our latest news, podcast, videos and tips regarding to ${cat.title}.`
         });
 
       } else {

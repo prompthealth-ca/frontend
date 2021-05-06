@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { SharedService } from '../../../shared/services/shared.service';
 
 @Component({
@@ -13,10 +15,17 @@ export class MyPaymentComponent implements OnInit {
   totalItems;
   pageSize: 10;
   constructor(
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private _router: Router,
+    private _uService: UniversalService,  
   ) { }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url, {
+      title: 'Payment history | PromptHealth',
+      robots: 'noindex',
+    });    
+    
     this.getMyTransactions();
     this.getMyBalance();
   }

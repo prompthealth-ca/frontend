@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChi
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { UniversalService } from 'src/app/shared/services/universal.service';
+import { UniversalService, MetaData } from 'src/app/shared/services/universal.service';
 import { environment } from 'src/environments/environment';
 
 declare let gtag: Function;
@@ -46,12 +46,6 @@ export class LandingAmbassadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._uService.setMeta(this._router.url, {
-      title: 'Join Ambassador Program | PromptHealth',
-      keyword: 'ambassador, credits, reward, health care provider',
-      description: 'Join the movement to help people connect with medical and holistic services based on individualized needs quick and easily. You will also get credits from us.'
-    });
-
     const user = this._uService.localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);
@@ -62,6 +56,22 @@ export class LandingAmbassadorComponent implements OnInit {
     this._route.data.subscribe((data: { type: FaceType }) => {
       this.faceType = data.type;
 
+      this._uService.setMeta(
+        this._router.url, 
+        (this.faceType == 'provider') ? {
+          title: 'Join Ambassador Program | PromptHealth',
+          keyword: '',
+          description: 'Join the movement to help people connect with medical and holistic services based on individualized needs quick and easily. You will also get credits from us.',
+          robots: 'index, follow',
+        } : {
+          title: 'Welcome to PromptHealth',
+          keyword: '',
+          description: 'PromptHealth is an application that connects people to Canadian accredited medical and holistic health services.',
+          robots: 'noindex',
+        }
+      );
+
+
       // if(data.type == 'practitioner'){
       //   this.setCouponDetail(this.ambassadorCode);
       // }
@@ -71,7 +81,7 @@ export class LandingAmbassadorComponent implements OnInit {
       if (data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
-      }
+      }  
     });
   }
 

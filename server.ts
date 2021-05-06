@@ -37,6 +37,7 @@ export function app() {
   // Example Express Rest API endpoints
   // app.get('/api/**', (req, res) => { });
   // Serve static files from /browser
+  server.get('/bootstrap.min.css.map', (res, req) => { express.static(distFolder, {maxAge: '1y'}); }); /** nothing to do, but it's nessesary. */
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
@@ -94,7 +95,6 @@ export function app() {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    console.log('SERVER SIDE RENDERING: ', req.originalUrl);
     res.render(
       indexHtml, 
       { req, providers: [ { provide: APP_BASE_HREF, useValue: req.baseUrl } ]},
@@ -103,7 +103,7 @@ export function app() {
           console.log('something went wrong: ');
           console.log(err)
         }
-        showMeta(html);
+        showMeta(req.originalUrl, html);
         res.send(html);
       }
     );
@@ -134,18 +134,20 @@ if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
 
 export * from './src/main.server';
 
-function showMeta(html: string) {
+function showMeta(url: string, html: string) {
   console.log('=============== SHOW META START');
-  console.log(html.match(/<title>.*<\/title>/)[0]);
+  console.log(url);
+  console.log(html.match(/<title>(.*)<\/title>/)[1]);
   var meta = [
-    'og:title','twitter:title',
-    'keyword',
-    'description', 'og:description', 'twitter:description',
-    'og:site_name', 'twitter:site',
-    'og:url',
-    'og:type',
-    'twitter:card',
-    'og:image', 'twitter:image',
+    // 'og:title','twitter:title',
+    // 'keyword',
+    'description', 
+    // 'og:description', 'twitter:description',
+    // 'og:site_name', 'twitter:site',
+    // 'og:url',
+    // 'og:type',
+    // 'twitter:card',
+    // 'og:image', 'twitter:image',
     'robots'
   ];
   meta.forEach(m=>{

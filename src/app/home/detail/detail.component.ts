@@ -155,7 +155,6 @@ export class DetailComponent implements OnInit {
     });
 
     this.loginSubscription = this._bs.getUserData().subscribe((user: any) => {
-      // console.log(user);
       this.roles = user.roles || '';
       this.myId = user._id || '';
       this.isLoggedIn = (user._id) ? true: false; 
@@ -197,9 +196,12 @@ export class DetailComponent implements OnInit {
 
         if (this.userInfo.isCentre) { this.getProfessionals(); }
 
+        const typeOfProvider = this._qService.getSelectedLabel(this.questionnaires.typeOfProvider, this.userInfo.allServiceId);
+        const serviceDelivery = this._qService.getSelectedLabel(this.questionnaires.serviceDelivery, this.userInfo.serviceOfferIds);
+
         this._uService.setMeta(this._router.url, {
           title: `${this.userInfo.name} in ${this.userInfo.city}, ${this.userInfo.state} | PromptHealth`,
-          description: this.userInfo.description,
+          description: `${this.userInfo.name} is ${typeOfProvider.join(', ')} offering ${serviceDelivery.join(', ')}.`,
           image: this.userInfo.image,
           imageType: this.userInfo.imageType,
           imageAlt: this.userInfo.name,  

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../../shared/services/shared.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-my-affiliate',
@@ -19,10 +20,16 @@ export class MyAffiliateComponent implements OnInit {
     private _sharedService: SharedService,
     private toastr: ToastrService,
     private router: Router,
+    private _uService: UniversalService,
   ) { }
 
   get f() { return this.affiliateRequestForm.controls; }
   ngOnInit(): void {
+    this._uService.setMeta(this.router.url, {
+      title: 'Affiliate program | PromptHealth',
+      robots: 'noindex',
+    });
+
     this.affiliateRequestForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', []],

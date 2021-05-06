@@ -30,9 +30,9 @@ export class BlogComponent implements OnInit {
     this.AWS_S3 = environment.config.AWS_S3;
 
     this._uService.setMeta(this._router.url, {
-      title: 'Blogs | PromptHealth',
+      title: 'News & Media | PromptHealth',
       keyword: '',
-      description: 'Blogs from PromptHealth'
+      description: 'Check out our latest news, podcast, videos and tips regarding to health care services.'
     });
   }
 

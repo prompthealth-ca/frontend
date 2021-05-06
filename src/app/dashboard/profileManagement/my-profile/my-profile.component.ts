@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 import { ProfileManagementService } from '../profile-management.service';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { Router } from '@angular/router';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -33,9 +35,16 @@ export class MyProfileComponent implements OnInit {
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
     private _profileService: ProfileManagementService,
+    private _router: Router,
+    private _uService: UniversalService,
   ) { }
 
   async ngOnInit() {
+    this._uService.setMeta(this._router.url, {
+      title: 'Edit profile | PromptHealth',
+      robots: 'noindex',
+    });
+    
     this.AWS_S3 = environment.config.AWS_S3;
     const userInfo = JSON.parse(localStorage.getItem('user'));
     this.profile = await this._profileService.getProfileDetail(userInfo);

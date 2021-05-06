@@ -21,6 +21,7 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent
   },
+  { path: 'registration', redirectTo: 'registration/u' },
   {
     path: 'registration/:type',
     component: RegistrationComponent,

@@ -63,7 +63,7 @@ export class ListingProductComponent implements OnInit {
     this._uService.setMeta(this._router.url, {
       title: 'Products and Services | PromptHealth',
       keyword: '',
-      description: 'Our Favourite Health Products and Services.',
+      description: 'Discover our favorite innovative health apps, products and services. Find promo codes, free samples and reviews.',
       pageType: 'website',
       image: 'https://prompthealth.ca/assets/img/listing-product.png',
       imageType: 'image/png',

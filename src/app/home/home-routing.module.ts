@@ -47,7 +47,7 @@ const routes: Routes = [
     component: FAQComponent
   },
   {
-    path: "subscription",
+    path: "subscribe-email",
     component: SubscriptionComponent
   },
   // {

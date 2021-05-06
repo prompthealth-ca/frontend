@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../shared/services/shared.service';
 import { Router } from '@angular/router';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-pricvacy-policy',
@@ -12,8 +13,15 @@ export class PricvacyPolicyComponent implements OnInit {
   title: any;
   description: any;
 
-  constructor(private _router: Router,
-    private _sharedService: SharedService) {
+  constructor(
+    private _router: Router,
+    private _sharedService: SharedService,
+    private _uService: UniversalService,
+  ) {
+    this._uService.setMeta(this._router.url, {
+      title: 'Privacy policy | PromptHealth',
+      description: ''
+    });
     this._sharedService.loader('show');
     this._sharedService.get("Pages/fixTitle/privacy-policy").subscribe((res: any) => {
 

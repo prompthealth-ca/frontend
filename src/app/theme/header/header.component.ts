@@ -122,6 +122,8 @@ export class HeaderComponent implements OnInit {
       this.token = ls.getItem('token');
       this.role = ls.getItem('roles');
       this.user = ls.getItem('user') ? JSON.parse(ls.getItem('user')) : {};
+
+      this._bs.setUserData(this.user);
     }
 
     this._router.events.subscribe(evt => {

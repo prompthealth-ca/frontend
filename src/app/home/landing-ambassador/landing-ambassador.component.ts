@@ -46,6 +46,12 @@ export class LandingAmbassadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url, {
+      title: 'Join Ambassador Program | PromptHealth',
+      keyword: 'ambassador, credits, reward, health care provider',
+      description: 'Join the movement to help people connect with medical and holistic services based on individualized needs quick and easily. You will also get credits from us.'
+    });
+
     const user = this._uService.localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);

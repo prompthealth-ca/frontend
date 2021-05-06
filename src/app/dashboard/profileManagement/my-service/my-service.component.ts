@@ -14,6 +14,8 @@ import { CheckboxSelectionItem, FormItemCheckboxGroupComponent } from 'src/app/s
 import { validators } from 'src/app/_helpers/form-settings';
 import { FormItemCustomerHealthComponent } from 'src/app/shared/form-item-customer-health/form-item-customer-health.component';
 import { FormItemServiceComponent } from 'src/app/shared/form-item-service/form-item-service.component';
+import { Router } from '@angular/router';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-my-service',
@@ -31,12 +33,19 @@ export class MyServiceComponent implements OnInit {
     private _bs: BehaviorService,
     private _sharedService: SharedService,
     private _profileService: ProfileManagementService,
+    private _router: Router,
+    private _uService: UniversalService,
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this._uService.setMeta(this._router.url, {
+      title: 'Edit service | PromptHealth',
+      robots: 'noindex',
+    });
+
     this.roles = localStorage.getItem('roles');
     const user: IUserDetail = JSON.parse(localStorage.getItem('user'));
-    this.profile = await this._profileService.getProfileDetail(user);    
+    this.profile = await this._profileService.getProfileDetail(user);
   }
 
   updateFields() {

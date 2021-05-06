@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../../shared/services/shared.service';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-register-partner',
@@ -34,6 +35,7 @@ export class RegisterQuestionnaireComponent implements OnInit {
     private _toastr: ToastrService,
     private _sharedService: SharedService,
     private _bsService: BehaviorService,
+    private _uService: UniversalService,
   ){
   }
 
@@ -43,6 +45,11 @@ export class RegisterQuestionnaireComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url, {
+      title: 'Registration questionnaire | PromptHealth',
+      robots: 'noindex',
+    });
+
     const user: IUserDetail = JSON.parse(localStorage.getItem('user'));
     this.userRole = user.roles;
     this.data = 

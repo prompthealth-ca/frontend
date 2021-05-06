@@ -44,15 +44,21 @@
 
 
           <h4 class="text-dark-blue mb-3">What you get:</h4>
-          <p class="mb-md-5">
-            The more you share and higher the engagement, the more credits you get towards our premium services
-          </p>
+          <div class="mb-md-5">
+
+            <p class="mb-md-2">
+              The more you share and higher the engagement, the more credits you get towards our premium services
+            </p>
+            <a [routerLink]="'/dashboard/profilemanagement/my-payment'">
+              Check credit balance
+            </a>
+          </div>
 
           <div class="d-md-none"><img class="image-people-sm" src="/assets/img/ambassador-people.png"></div>
 
 
-          <h3 class="text-gradient-light-blue mb-4">Our services (valued at $320/month) including:</h3>
-          <h5 class="text-dark mb-3">Premium Membership (valued at $20/month):</h5>
+          <h3 class="text-gradient-light-blue mb-4">Our services including:</h3>
+          <h5 class="text-dark mb-3">Premium Membership (valued from $20~100/month):</h5>
           <p class="mb-4">
             Photo and video introduction
             Verified badge on your profile
@@ -60,6 +66,8 @@
             Receive requests for booking or integration with your own booking system option
             Performance dashboard
             Link your social media accounts on your PromptHealth profile page
+
+            Centers receive even more feature&benefits
           </p>
 
           <h5 class="text-dark mb-3">The Networker (valued at $100/month):</h5>
@@ -69,11 +77,13 @@
           </p>
 
           <h5 class="text-dark mb-3">The Socialite (Valued at $200/month):</h5>
-          <p class="mb-5">
+          <p class="mb-3">
             We will take care of creating three quality health content posts per week for your social media channels,
             and
             posting them for you with engaging captions.
           </p>
+          <a [routerLink]="'/plans'">Check out our services</a>
+
         </div>
       </div>
     </ng-container>
@@ -83,14 +93,19 @@
       <div class="d-flex justify-content-center">
         <!-- <img class="img-thumbnail rounded mr-4" style="width: 150px; height: 150px;" src="assets/img/logo-sm.png"
           alt="PromptHealth"> -->
-        <img class="img-thumbnail rounded" style="width: 150px; height: 150px;"
-          src="{{AWS_S3 + ambassador.profileImage}}" alt="{{ambassador.firstName}}">
+        <div>
+          <a [routerLink]="['/practitioners', practitionerId]">
+            <div class="mb-3">
+              <img class="img-thumbnail rounded" style="width: 150px; height: 150px;"
+                src="{{AWS_S3 + ambassador.profileImage}}" alt="{{ambassador.firstName}}">
+            </div>
+            <h3 class="font-big text-center pb-1 mr-2">{{ambassador.firstName +
+              ambassador.lastName}}</h3>
+          </a>
+        </div>
       </div>
       <h2 class="text-gradient-blue my-5 text-center">
-        <a [routerLink]="['/practitioners', practitionerId]">
-          <span class=" d-inline-block font-big text-center pb-1 mr-2">{{ambassador.firstName +
-            ambassador.lastName}}</span>
-        </a>
+
         Invites you to check out PromptHealth, your personalised health concierge
       </h2>
 

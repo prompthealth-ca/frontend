@@ -42,7 +42,7 @@ export class MyPaymentComponent implements OnInit {
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.balanceList = res.data.data;
-        console.log(this.balanceList);
+        // console.log(this.balanceList);
       } else {
         this.sharedService.checkAccessToken(res.message);
       }

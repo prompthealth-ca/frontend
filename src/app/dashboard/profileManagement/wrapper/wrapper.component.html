@@ -13,15 +13,15 @@
       <!-- -- {{ userInfo }} -->
       <!-- -- {{ profile | json }}  -->
       <div class="row upgrade-header align-items-center" *ngIf="userInfo.roles !== 'U' && profile && !isPremium">
-        <div class="col-sm-12 text-center d-inline">
-          <div style="color:#4a86ab" class="my-auto lead w-100">
-            <span class="mr-auto">
+        <div class="col-sm-12 text-center ">
+          <div style="color:#4a86ab" class="d-flex lead w-100">
+            <span class="m-auto">
               <i class="fas fa-fire"></i> Upgrade to
               Premium
               to get all the
               exclusive features <span><i class="fas fa-long-arrow-alt-right"></i></span>
             </span>
-            <a class=" btn btn-primary align-middle" [routerLink]="linkToSubscription">Upgrade to
+            <a class="ml-auto btn btn-primary align-middle" [routerLink]="linkToSubscription">Upgrade to
               Premium</a>
           </div>
         </div>

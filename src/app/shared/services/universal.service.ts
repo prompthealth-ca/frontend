@@ -106,7 +106,7 @@ class LocalStorage implements Storage {
 }
 
 
-interface MetaData {
+export interface MetaData {
   title?: string;
   keyword?: string;
   description?: string;

@@ -99,7 +99,7 @@
             <ul class="category sub" [class]="classSubcategory">
               <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory"
                 [class]="classSubcategoryItem">
-                <a [routerLink]="['/practitioners']" [queryParams]=" {id: sub._id, type: 'goal'}"
+                <a [routerLink]="['/practitioners/category', sub._id]"
                   (click)="hideMenu()">{{sub.item_text}}</a>
               </li>
             </ul>
@@ -171,13 +171,12 @@
     </li>
 
     <li>
-      <a class="font-weight-bold" [routerLink]="['/practitioners']"
-        [queryParams]="{id: catService.categoryList[activeCategory]._id, type: 'goal'}"
+      <a class="font-weight-bold" [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]"
         (click)="hideMenu()">{{catService.categoryList[activeCategory].item_text}}</a>
     </li>
 
     <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
-      <a [routerLink]="['/practitioners']" [queryParams]=" {id: sub._id, type: 'goal'}"
+      <a [routerLink]="['/practitioners/category', sub._id]"
         (click)="hideMenu()">{{sub.item_text}}</a>
     </li>
   </ul>

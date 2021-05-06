@@ -219,7 +219,7 @@ export class HomeComponent implements OnInit {
     const meta = this._uService.setMeta(this.router.url, {
       title: 'PromptHealth | Your health and wellness personal assistant',
       keyword: '',
-      description: 'Your health and wellness personal assistant',
+      description: 'Take control of your health with options tailored to you',
     });
 
     const ls = this._uService.localStorage;

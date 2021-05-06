@@ -172,17 +172,12 @@ export class ListingComponent implements OnInit, OnDestroy {
     this.AWS_S3 = environment.config.AWS_S3;
     this.serviceSet = await this._catService.getCategoryAsync();
     const ls = this._uService.localStorage;
-    this._uService.setMeta(this.router.url, {
-      title: 'Find best health care provider in Canada | PromptHealth',
-      keyword: '',
-      description: 'Use our Expart Finder to find a top-rated practitioner near you or offering virtual appointment.',
-    });
 
     // if options which has to be fetched from server is not set correctly, fetch.
     if (this.filters[3].options.length == 0 || this.filters[4].options.length == 0 || this.filters[4].options.length == 0) {
       this.getProfileQuestion();
     }
-
+    
     /** init geo location */
     const [latDefault, lngDefault] = [53.89, -111.25];
     const [ipLat, ipLng] = [ls.getItem('ipLat'), ls.getItem('ipLong')];
@@ -258,11 +253,40 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.customerHealthSet = qs.health.answers;
     }
 
+    // for the route '/practitioners'
+    this._uService.setMeta(this.router.url, {
+      title: 'Find best health care provider in Canada | PromptHealth',
+      keyword: '',
+      description: 'Use our Expart Finder to find a top-rated health care provider near you or offering virtual appointment.',
+    });
 
+    let isFirstAccess = true;
+    
+    // for the route '/practitioners/category/:categoryId'
+    this.route.params.subscribe((params: {categoryId: string}) => {
+      if(params.categoryId){
+        this.id = params.categoryId;
+        this.listingPayload.services = [this.id];
+  
+        const categoryName = this.getServiceName(params.categoryId);
+        this._uService.setMeta(this.router.url, {
+          title: `Find ${categoryName.toLowerCase()} specialist in Canada | PromptHealth`,
+          keyword: '',
+          description: `Use our Expart Finder to find a top-rated ${categoryName.toLowerCase()} specialist near you or offering virtual appointment.`
+        })  
+      }
 
-    this.route.queryParams.subscribe(queryParams => {
+      if(!isFirstAccess) {
+        this.listing(this.listingPayload);
+      }
+      isFirstAccess = false;
+
+    });
+    
+
+    this.route.queryParams.subscribe((queryParams: {virtual: string | boolean, keyword: string}) => {
       this.isVirtual = (queryParams.virtual == 'true') ? true : false;
-      this.id = queryParams.id;
+      // if(queryParams.id) { this.id = queryParams.id; }
       // this.type = queryParams.type;
       this.keyword = queryParams.keyword;
 
@@ -276,13 +300,15 @@ export class ListingComponent implements OnInit, OnDestroy {
         this.typical_hours = ls.getItem('typical_hours').split(',');
       }
 
+      console.log(this.id);
+
       // if (this.id && this.type) {
       //   this.listingPayload.ids = [this.id];
       //   this.listingPayload.type = this.type;
       // }
-      if (this.id) {
-        this.listingPayload.services = [this.id];
-      }
+      // if (this.id) {
+      //   this.listingPayload.services = [this.id];
+      // }
       // else if(this.type){
       //   this.listingPayload.type = this.type;
       // }

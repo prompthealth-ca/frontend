@@ -232,8 +232,8 @@ export class HeaderComponent implements OnInit {
     }else{
       this.hideMenu();
       this._router.navigate(
-        ['/practitioners'], 
-        {queryParams: {id: this.catService.categoryList[i]._id}});
+        ['/practitioners/category', this.catService.categoryList[i]._id], 
+      );
     }
   }
 

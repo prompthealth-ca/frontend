@@ -106,11 +106,13 @@ const routes: Routes = [
     path:'unsubscribe/:email',
     component: UnsubscribeComponent
   },
+  { path: 'unsubscribe', redirectTo: '/'},
 
   { path: 'plans', component: SubscriptionPlanComponent },
   { path: 'plans/product', component: subscriptionPlanProductComponent },
 
   { path: 'practitioners', component: ListingComponent },
+  { path: 'practitioners/category/:categoryId', component: ListingComponent },
   { path: 'practitioners/:id', component: DetailComponent }, 
   { path: 'compare-practitioners', component: ListingcompareComponent},
 

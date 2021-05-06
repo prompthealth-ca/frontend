@@ -16,18 +16,21 @@ export class LandingAmbassadorComponent implements OnInit {
 
   // public ambassadorCode = 'fyCfz2Hm';
   public faceType: FaceType = null;
-  public practitionerName: string =" ";
+  public practitionerName = ' ';
   public practitionerId: string;
   public user: IUserDetail;
-  public isLinkCopied: boolean = false;
+  public isLinkCopied = false;
+  public FRONTEND_URL = location.origin;
+  public ambassador: IUserDetail;
+  public AWS_S3 = environment.config.AWS_S3;
 
   private canvas: HTMLElement;
   private disableAnalytics: boolean = environment.config.disableAnalytics;
 
   @ViewChild('referralLink') private elLink: ElementRef;
 
-  @HostListener('window:scroll') windowScroll(){
-    if(this.canvas){
+  @HostListener('window:scroll') windowScroll() {
+    if (this.canvas) {
       this.canvas.style.top = Math.floor(window.scrollY * 2 / 3) + 'px';
     }
   }
@@ -39,18 +42,18 @@ export class LandingAmbassadorComponent implements OnInit {
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
     private _uService: UniversalService,
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {
     const user = this._uService.localStorage.getItem('user');
-    if(user) {
+    if (user) {
       this.user = JSON.parse(user);
     }
-    
+
     this.canvas = this._el.nativeElement.querySelector('.canvas');
 
-    this._route.data.subscribe((data: {type: FaceType})=> {
+    this._route.data.subscribe((data: { type: FaceType }) => {
       this.faceType = data.type;
 
       this._uService.setMeta(
@@ -74,14 +77,14 @@ export class LandingAmbassadorComponent implements OnInit {
       // }
     });
 
-    this._route.queryParams.subscribe((data: {id: string})=>{     
-      if(data.id && this.faceType == 'client'){
+    this._route.queryParams.subscribe((data: { id: string }) => {
+      if (data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
       }  
     });
   }
-  
+
   copyLink() {
     const el: HTMLInputElement = this.elLink.nativeElement;
     el.select();
@@ -89,10 +92,10 @@ export class LandingAmbassadorComponent implements OnInit {
     document.execCommand('copy');
     this.isLinkCopied = true;
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.isLinkCopied = false;
       this._changeDetector.detectChanges();
-    }, 3000)
+    }, 3000);
   }
 
   // setCouponDetail(code: string) {
@@ -108,16 +111,19 @@ export class LandingAmbassadorComponent implements OnInit {
   // }
 
   getUserDetail() {
-    const path = `user/get-profile/${this.practitionerId}`;
+    const path = `user/get-ambassador/${this.practitionerId}`;
+
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
-      if(res.statusCode === 200) {
-        const provider: IUserDetail = res.data[0];
-        if(provider.roles != 'U') {
-          this.practitionerName = provider.firstName;
-        }else{
+      if (res.statusCode === 200) {
+        if (res.data.length > 0) {
+          const provider: IUserDetail = res.data[0];
+          // console.log(provider);
+          this.ambassador = provider;
+          // console.log(this.practitionerName);
+        } else {
           this.navigate404();
         }
-      }else{
+      } else {
         this.navigate404();
         console.log(res.message);
       }
@@ -127,21 +133,25 @@ export class LandingAmbassadorComponent implements OnInit {
     });
   }
 
-  navigate404(){
+  navigate404() {
     this._router.navigate(['/404']);
   }
 
-  countup(){
-    if(!this.disableAnalytics){
-      gtag(
-        'event', 
-        'click', 
-        {
-          'event_category': 'link',
-          'event_label': 'ambassador_' + this.practitionerId,
-          'value': '1'
+  countup() {
+    const ambassadorKey = localStorage.getItem('ambassadorInvited');
+    if (!ambassadorKey) {
+      const path = `/user/gain-unique-invite`;
+      this._sharedService.postNoAuth({ _id: this.practitionerId }, path).subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          localStorage.setItem('ambassadorInvited', 'invited');
+        } else {
+          this.navigate404();
+          console.log(res.message);
         }
-      );  
+      }, err => {
+        this.navigate404();
+        console.log(err);
+      });
     }
   }
 }

@@ -10,9 +10,10 @@ import { SharedService } from '../../../shared/services/shared.service';
 })
 export class MyPaymentComponent implements OnInit {
   transactionList = [];
+  balanceList = [];
   currentPage;
-  totalItems
-  pageSize: 10
+  totalItems;
+  pageSize: 10;
   constructor(
     private sharedService: SharedService,
     private _router: Router,
@@ -26,10 +27,11 @@ export class MyPaymentComponent implements OnInit {
     });    
     
     this.getMyTransactions();
+    this.getMyBalance();
   }
   getMyTransactions() {
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    let path = `user/get-payment-details/${userInfo._id}`;
+    const path = `user/get-payment-details/${userInfo._id}`;
     this.sharedService.get(path).subscribe((res: any) => {
       if (res.statusCode === 200) {
         this.transactionList = res.data;
@@ -39,6 +41,21 @@ export class MyPaymentComponent implements OnInit {
       }
     }, err => {
 
+      this.sharedService.checkAccessToken(err);
+    });
+
+  }
+  getMyBalance() {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    const path = `user/get-balance/${userInfo._id}`;
+    this.sharedService.get(path).subscribe((res: any) => {
+      if (res.statusCode === 200) {
+        this.balanceList = res.data.data;
+        console.log(this.balanceList);
+      } else {
+        this.sharedService.checkAccessToken(res.message);
+      }
+    }, err => {
       this.sharedService.checkAccessToken(err);
     });
 

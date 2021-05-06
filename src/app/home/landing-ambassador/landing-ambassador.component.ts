@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChi
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { UniversalService, MetaData } from 'src/app/shared/services/universal.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { environment } from 'src/environments/environment';
 
 declare let gtag: Function;
@@ -57,7 +57,7 @@ export class LandingAmbassadorComponent implements OnInit {
       this.faceType = data.type;
 
       this._uService.setMeta(
-        this._router.url, 
+        this._router.url,
         (this.faceType == 'provider') ? {
           title: 'Join Ambassador Program | PromptHealth',
           keyword: '',
@@ -81,7 +81,7 @@ export class LandingAmbassadorComponent implements OnInit {
       if (data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
-      }  
+      }
     });
   }
 

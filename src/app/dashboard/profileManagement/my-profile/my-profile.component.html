@@ -10,33 +10,20 @@
 <hr *ngIf="profile?.isPlanExpired">
 <h4 class="mb-3">Personal Information
   <button class="btn btn-primary pull-right" (click)="updateFields()">Edit Profile</button>
-  <button class="btn btn-primary pull-right mr-2" (click)="deleteProfile(content)">Delete Profile</button>
+  <!-- <button class="btn btn-primary pull-right mr-2" (click)="deleteProfile(content)">Delete Profile</button> -->
 </h4>
 
 <div class="form-container">
-  
 
-  <form-client-general
-  *ngIf="profile && profile.roles == 'U'"
-  [disabled]="!editFields" 
-  [data]="profile" 
-  (submitForm)="onSubmit($event)"
-  ></form-client-general>
 
-  <form-provider-general 
-  *ngIf="profile && profile.roles == 'SP'" 
-  [disabled]="!editFields" 
-  [data]="profile" 
-  (submitForm)="onSubmit($event)"
-  ></form-provider-general>
+  <form-client-general *ngIf="profile && profile.roles == 'U'" [disabled]="!editFields" [data]="profile"
+    (submitForm)="onSubmit($event)"></form-client-general>
 
-  <form-centre-general 
-  *ngIf="profile && profile.roles == 'C'" 
-  [disabled]="!editFields" 
-  [data]="profile" 
-  (changeImage)="onChangeImage($event)"
-  (submitForm)="onSubmit($event)"
-  ></form-centre-general>
+  <form-provider-general *ngIf="profile && profile.roles == 'SP'" [disabled]="!editFields" [data]="profile"
+    (submitForm)="onSubmit($event)"></form-provider-general>
+
+  <form-centre-general *ngIf="profile && profile.roles == 'C'" [disabled]="!editFields" [data]="profile"
+    (changeImage)="onChangeImage($event)" (submitForm)="onSubmit($event)"></form-centre-general>
 
 </div>
 

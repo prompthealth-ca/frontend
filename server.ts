@@ -346,7 +346,7 @@ function getBlogEntries(): Promise<{type: string, data: string[]}> {
     axios.get(root + 'blog/get-all?frontend=1').then(res => {
       if(res.status == 200) {
         for(let d of res.data.data.data) {
-          result.data.push(d._id)
+          result.data.push(d.slug)
         }
       }
       resolve(result);

@@ -77,7 +77,6 @@ const routes: Routes = [
   //   path: 'detail/:id',
   //   component: DetailComponent
   // },
-  { path: 'detail/:id', redirectTo: '/practitioners/:id'},
   {
     path: 'profilemanagement',
     loadChildren: () => ProfileManagementModule,
@@ -152,7 +151,16 @@ const routes: Routes = [
     component: RegisterQuestionnaireCompleteComponent,
     canActivate: [RegisterQuestionnaireCompleteGuard,],
   },
-  {path: '**', redirectTo: 'profilemanagement'}
+
+  { path: 'subscriptionplan',   redirectTo: '/plans' },
+  { path: 'questionnaire/u',    redirectTo: '/personal-match/gender' },
+  { path: 'questions/User',     redirectTo: '/personal-match/gender' },
+  { path: 'listing',            redirectTo: '/practitioners' },
+  { path: 'listingCompare',     redirectTo: '/compare-practitioners' },
+  { path: 'detail/:id',         redirectTo: '/practitioners/:id' },
+  { path: 'register-partner',   redirectTo: '/dashboard/register-product/general' },
+  { path: 'professional-info',  redirectTo: '/dashboard/register-practitioner/general' },
+  { path: '**',                 redirectTo: '/dashboard/profilemanagement/my-performance' }
 ];
 
 @NgModule({

@@ -2,8 +2,13 @@
   <div class="container text-center text-light">
     <h2>Profile Management</h2>
 
-    <button-tutorial *ngIf="profile?.role != 'U'" type="dashboard" label="tutorial" title="How To Use Dashboard"
-      buttonClass="btn-primary rounded-10p py-2 px-4"></button-tutorial>
+    <button-tutorial
+    *ngIf="profile?.roles != 'U'"
+    type="dashboard"
+    label="tutorial"
+    title="How To Use Dashboard"
+    buttonClass="btn-primary rounded-10p py-2 px-4"
+    ></button-tutorial>
   </div>
 </section>
 

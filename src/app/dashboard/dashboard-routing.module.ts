@@ -77,6 +77,7 @@ const routes: Routes = [
   //   path: 'detail/:id',
   //   component: DetailComponent
   // },
+  { path: 'detail/:id', redirectTo: '/practitioners/:id'},
   {
     path: 'profilemanagement',
     loadChildren: () => ProfileManagementModule,

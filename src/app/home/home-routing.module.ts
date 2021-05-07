@@ -110,6 +110,7 @@ const routes: Routes = [
 
   { path: 'plans', component: SubscriptionPlanComponent },
   { path: 'plans/product', component: subscriptionPlanProductComponent },
+  { path: 'subscriptionplan', redirectTo: '/plans'},
 
   { path: 'practitioners', component: ListingComponent },
   { path: 'practitioners/category/:categoryId', component: ListingComponent },
@@ -128,6 +129,7 @@ const routes: Routes = [
 
   { path: 'products', component: ListingProductComponent, },
   { path: 'products/:id', component: ProfilePartnerComponent },
+  { path: 'partners/:id', redirectTo: '/products/:id'},
 
   { path: 'invitation', component: InvitationComponent },
   { path: 'invitation/ambassador', component: LandingAmbassadorComponent, data: {type: 'client'}},

@@ -55,6 +55,28 @@ $heightFinder: 112px;
   -webkit-box-orient: vertical;
   line-height: 1em;
 }
+
+h2.expert-finder {
+  @media (max-width: 767px) { 
+    font-size: 25px;
+    flex: 1 0 50%;
+  }
+  @media (max-width: 350px) {
+    flex: 1 0 56%;
+  }
+}
+
+a.link-to-personal-match {
+  flex: 0 1 auto;
+  border: solid 1px $colorBlueDark;
+  color: $colorBlueDark!important;
+
+  &:hover{
+    background-color: $colorBlueDark;
+    color: white!important;
+  }
+}
+
 :host{ font-size: 16px; }
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUserDetail } from '../models/user-detail';
+import { UniversalService } from '../shared/services/universal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { IUserDetail } from '../models/user-detail';
 export class AmbassadorProgramGuardGuard implements CanActivate {
   constructor(
     private _router: Router,
+    private _uService: UniversalService,
   ){}
 
   canActivate(
@@ -16,8 +18,8 @@ export class AmbassadorProgramGuardGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 
   {
-    const user: IUserDetail = JSON.parse(localStorage.getItem('user'));
-    if(user && user.roles == 'U') {
+    const lsUser: string = this._uService.localStorage.getItem('user');
+    if(lsUser && (JSON.parse(lsUser) as IUserDetail).roles == 'U') {
       this._router.navigate(['/']);
       return false;
     }else{

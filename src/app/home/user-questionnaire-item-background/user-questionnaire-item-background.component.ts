@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { RegisterQuestionnaireService } from 'src/app/dashboard/register-questionnaire.service';
 import { FormItemCustomerHealthComponent, CustomerHealthSelectionItem } from 'src/app/shared/form-item-customer-health/form-item-customer-health.component';
 import { Questionnaire, QuestionnaireAnswer, QuestionnaireService } from 'src/app/shared/services/questionnaire.service';
-import { RegisterQuestionnaireService } from '../register-questionnaire.service';
 
 @Component({
   selector: 'app-user-questionnaire-item-background',

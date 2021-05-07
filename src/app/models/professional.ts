@@ -13,11 +13,14 @@ export interface IProfessional {
   name: string;  /** firstname + lastname */
   firstname: string;
   image: string; /** profile image small size */
+  imageType: string /** profile image file type */
   imageFull: string; /** profile image original size */
   description: string; /** practicePhilosophy | description of professionals belonging at the center */
   role: string;
   phone: string;
   address: string;
+  city: string;
+  state: string;
   rating: string | number;
   provideVirtual: boolean;
   isCentre: boolean;
@@ -98,6 +101,7 @@ export class Professional implements IProfessional {
 
   private _id: string;
   private _image: string;
+  private _imageType: string;
   private _phone: string;
   private _ratingAvg: number;
   private _reviews: Review[] = [];
@@ -150,6 +154,7 @@ export class Professional implements IProfessional {
   get lastname() { return this.p.lastName || this.p.lname || ''; }
   get image() { return this._image ? this._baseURLImage + '350x220/' + this._image : this._defaultAvator; }
   get imageFull() { return this._image ? this._baseURLImage + this._image : this._defaultAvator; }
+  get imageType(){ return this._imageType; }
   get banner() { return this._banner ? this._baseURLImage + this._banner : this._defaultBanner; }
   get isVerified() { return this.p.verifiedBadge || false; } /* could be only premium account */
   get role() { return this.p.roles; }
@@ -161,6 +166,8 @@ export class Professional implements IProfessional {
   get priceFull() { return (this._priceRange.length === 0) ? 'N/A' : '$' + this._priceRange.join(' - '); }
   get gender() { return this.p.gender || null; }
   get address() { return (!this.p.hideAddress && this.p.address && this.p.address.length > 0) ? this.p.address : null; }
+  get city() { return this.p.city; }
+  get state() { return this.p.state; }
   get website() { return this.p.website; }
   get websiteLabel() { return this.getURLLabel(this.p.website); }
   get bookingUrl() { return this.p.bookingURL || null; }
@@ -292,6 +299,13 @@ export class Professional implements IProfessional {
 
     const image = (p.profileImage && p.profileImage.length > 0) ? p.profileImage : (p.image && typeof(p.image) == 'string' && p.image.length > 0) ? p.image: null;
     this._image = image ? image + '?ver=1.0.2' : null;
+    let imageType = '';
+    if(image) {
+      const regex = /\.(jpe?g|png)$/;
+      const match = image.match(regex);
+      imageType = match ? ('image/' + match[1]) : '';  
+    }
+    this._imageType = imageType;
     this._banner = null;
 
     let phone: string;

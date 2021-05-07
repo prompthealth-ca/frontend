@@ -16,6 +16,34 @@ export class QuestionnaireService {
     private http: HttpClient,
   ) { }
 
+  /** get selected answer labels (subanswers are NOT nested) */
+  public getSelectedLabel(q: Questionnaire, ids: string[], includeSub: boolean = true): string[] {
+    const selected = this.getSelectedAnswers(q, ids, includeSub);
+    const selectedLabels = [];
+    selected.forEach(a => {
+      selectedLabels.push(a.item_text);
+    });
+    return selectedLabels;
+  }
+
+  /** get selected answers (subanswers are NOT nested) */
+  private getSelectedAnswers(q: Questionnaire, ids: string[], includeSub: boolean = true) {
+    const selected: QuestionnaireAnswer[] = []
+    q.answers.forEach(a => {
+      if(ids.includes(a._id)) {
+        selected.push(a);
+        if(includeSub && a.subans && a.subansData) {
+          a.subansData.forEach(aSub => {
+            if(ids.includes(aSub._id)) {
+              selected.push(a);
+            }
+          });
+        }
+      }
+    });
+    return selected
+  }
+
   /** get questionnaire for myService tab in profileManagement */
   public getProfileService(role: RoleType): Promise<QuestionnairesProfileService> {
     return new Promise( async (resolve, reject) => {
@@ -113,7 +141,6 @@ export class QuestionnaireService {
             }            
           }
           this.profilePractitioner = data;
-          console.log(this.profilePractitioner);
           resolve(this.profilePractitioner);
         }).catch(err => {
           console.log(err);
@@ -213,6 +240,7 @@ export class QuestionnaireService {
 }
 
 type QuestionnaireFilter = 'health' | 'gender' | 'age' | 'goal';
+type QuestionnaireType = 'typeOfProvider';
 type RoleType = 'U' | 'SP' | 'C';
 
 export interface QuestionnaireAnswer {

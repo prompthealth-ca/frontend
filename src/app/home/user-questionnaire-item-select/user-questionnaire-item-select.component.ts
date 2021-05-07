@@ -3,8 +3,8 @@ import { FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { RegisterQuestionnaireService } from 'src/app/dashboard/register-questionnaire.service';
 import { validators } from 'src/app/_helpers/form-settings';
-import { RegisterQuestionnaireService } from '../register-questionnaire.service';
 
 @Component({
   selector: 'app-user-questionnaire-item-select',

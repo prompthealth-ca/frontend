@@ -1,11 +1,11 @@
-import { Component, OnInit, Injector, Inject, PLATFORM_ID } from '@angular/core';
-// import { isPlatformServer } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderStatusService } from '../../shared/services/header-status.service';
 import { SharedService } from '../../shared/services/shared.service';
 import { Partner } from '../../models/partner';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../shared/services/category.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-profile-partner',
@@ -22,28 +22,31 @@ export class ProfilePartnerComponent implements OnInit {
 
 
   constructor(
-    // @Inject(PLATFORM_ID) private platform: Object,
-    // private injector: Injector,
+    private _router: Router,
     private _headerService: HeaderStatusService,
     private _route: ActivatedRoute,
     private _sharedService: SharedService,
     private _catService: CategoryService,
     private _toastr: ToastrService,
+    private _uService: UniversalService,
   ) { }
 
   ngOnInit() {
-    // if(isPlatformServer(this.platform)){
-    //   const req: any = this.injector.get('REQUEST');
-    //   console.log(req.body.id);
-    // }else{
-    //   console.log('browser');
-    // }
-
     this._route.params.subscribe(async params => {
       const id = params.id;
 
       try { await this.getProfile(id); }
       catch(err){ this._toastr.error(err); }
+
+      this._uService.setMeta(this._router.url, {
+        title: `${this.profile.name} | PromptHealth`,
+        description: this.profile.description + ' Find coupons, free samples and reviews.',
+        keyword: '',
+        pageType: 'article',
+        image: this.profile.image,
+        imageType: this.profile.imageType,
+        imageAlt: this.profile.name,
+      });
 
       if(this.profile){
         const cat = await this._catService.getCategoryAsync();

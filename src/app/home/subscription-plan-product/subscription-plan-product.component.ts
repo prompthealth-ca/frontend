@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { IAddonPlan } from '../../models/addon-plan';
 import { IDefaultPlan } from 'src/app/models/default-plan';
 import { slideHorizontalAnimation } from '../../_helpers/animations';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-subscription-plan-product',
@@ -35,6 +36,7 @@ export class subscriptionPlanProductComponent implements OnInit {
   constructor(
     private _sharedService: SharedService,
     private _router: Router,
+    private _uService: UniversalService,
     _fb: FormBuilder,
   ) {
     this.form = _fb.group({
@@ -54,18 +56,29 @@ export class subscriptionPlanProductComponent implements OnInit {
 
 
   async ngOnInit() {
+    this._uService.setMeta(this._router.url, {
+      title: 'Plans for products/services | PromptHealth',
+      description: 'Join us to get exposed to clients. You can upload your products photos and also show your promotions.',
+      keyword: '',
+      image: 'https://prompthealth.ca/assets/img/hero-subscription-plan-product.png',
+      imageType: 'image/png',
+      imageAlt: 'PromptHealth',
+    });
+
     this.isOnlyFeatureShown = (window.innerWidth >= 768) ? true : false;
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      this.userType = user.roles;
+    if(!this._uService.isServer) {
+      const user = JSON.parse(this._uService.localStorage.getItem('user'));
+      if (user) {
+        this.userType = user.roles;
+      }
+      
+      this.couponCode = JSON.parse(this._uService.sessionStorage.getItem('stripe_coupon_code'));
+      if (this.couponCode) {
+        setTimeout(() => { this.isCouponShown = true; }, 1000);
+      }        
     }
-
-    this.couponCode = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
-    if (this.couponCode) {
-      setTimeout(() => { this.isCouponShown = true; }, 1000);
-    }
-
+    
     const promiseAll = [
       this.getSubscriptionPlan(),
       this.getAddonPlan(),

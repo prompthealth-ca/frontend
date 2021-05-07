@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { RegisterQuestionnaireService } from 'src/app/dashboard/register-questionnaire.service';
 import { FormItemCustomerHealthComponent } from 'src/app/shared/form-item-customer-health/form-item-customer-health.component';
 import { FormItemServiceComponent } from 'src/app/shared/form-item-service/form-item-service.component';
-import { RegisterQuestionnaireService } from '../register-questionnaire.service';
 
 
 @Component({

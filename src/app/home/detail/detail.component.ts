@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { animate, trigger, state, style, transition } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BehaviorService } from '../../shared/services/behavior.service';
 import { Subscription } from 'rxjs';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { DateTimeData, FormItemDatetimeComponent } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 
 
@@ -42,6 +43,7 @@ const expandSubtitleAnimation = trigger('expandSubtitle', [
 export class DetailComponent implements OnInit {
 
   constructor(
+    private _router: Router,
     private _route: ActivatedRoute,
     private _map: MapsAPILoader,
     private _sharedService: SharedService,
@@ -51,6 +53,7 @@ export class DetailComponent implements OnInit {
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
     private _bs: BehaviorService,
+    private _uService: UniversalService,
     private _qService: QuestionnaireService,
     el: ElementRef,
   ) { this.host = el.nativeElement; }
@@ -192,6 +195,17 @@ export class DetailComponent implements OnInit {
         this.getReviews();
 
         if (this.userInfo.isCentre) { this.getProfessionals(); }
+
+        const typeOfProvider = this._qService.getSelectedLabel(this.questionnaires.typeOfProvider, this.userInfo.allServiceId);
+        const serviceDelivery = this._qService.getSelectedLabel(this.questionnaires.serviceDelivery, this.userInfo.serviceOfferIds);
+
+        this._uService.setMeta(this._router.url, {
+          title: `${this.userInfo.name} in ${this.userInfo.city}, ${this.userInfo.state} | PromptHealth`,
+          description: `${this.userInfo.name} is ${typeOfProvider.join(', ')} offering ${serviceDelivery.join(', ')}.`,
+          image: this.userInfo.image,
+          imageType: this.userInfo.imageType,
+          imageAlt: this.userInfo.name,  
+        });
       })
         .catch(err => {
           if (err && err.length > 0) {

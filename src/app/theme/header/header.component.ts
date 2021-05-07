@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ProfileManagementService } from '../../dashboard/profileManagement/profile-management.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
     private _headerStatusService: HeaderStatusService,
     public catService: CategoryService,
     private _profileService: ProfileManagementService,
+    private _uService: UniversalService,
     _el: ElementRef
   ) {
     // this.fetchUser();
@@ -82,55 +84,57 @@ export class HeaderComponent implements OnInit {
 
   // Start ngOninit
   async ngOnInit() {
-
-    const isTouchEnabled = !!('ontouchstart' in window);
-    if(navigator.userAgent.toLowerCase().match('ipad|android|iphone') || (isTouchEnabled && navigator.userAgent.toLowerCase().match('mac')) ){
-      this.isMenuMobileForcibly = true;
-    }
-
+    const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;
 
-    this._bs.getUserData().subscribe((res: any) => {
-      this.updateData = res;
-      // console.log('reeeeeeeeeee', this.updateData);
-      if (res.firstName) {
-        localStorage.setItem('user', JSON.stringify(this.updateData));
-        this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
-        this.token = localStorage.getItem('token');
-        this.role = localStorage.getItem('roles');
+    if (!this._uService.isServer) {
+      const isTouchEnabled = !!('ontouchstart' in window);
+      if(navigator.userAgent.toLowerCase().match('ipad|android|iphone') || (isTouchEnabled && navigator.userAgent.toLowerCase().match('mac')) ){
+        this.isMenuMobileForcibly = true;
       }
-      this.role = this.user.roles || null;
-      switch(this.user.roles){
-        case 'SP':
-        case 'C':
-          this.setPriceType('practitioner');
-          break;
-        case 'P':
-          this.setPriceType('product');
-          break;
-        default:
-          this.setPriceType();
-      }
-    });
 
-    this.token = localStorage.getItem('token');
-    this.role = localStorage.getItem('roles');
-    // this.payment = localStorage.getItem(isPayment);
-    this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+      this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
+        this[key] = val;
+      });
 
-    // if (this.token && this.user) {
-    //   let roles = this.user.roles;
-    //   this.dashboard = roles == "B" ? "dashboard/home" : "dashboard/welcome";
-    // }
+      this._bs.getUserData().subscribe((res: any) => {
+        this.updateData = res;
+        if (res.firstName) {
+          ls.setItem('user', JSON.stringify(this.updateData));
+          this.user = ls.getItem('user') ? JSON.parse(ls.getItem('user')) : {};
+          this.token = ls.getItem('token');
+          this.role = ls.getItem('roles');
+        }
+        this.role = this.user.roles || null;
+        switch(this.user.roles){
+          case 'SP':
+          case 'C':
+            this.setPriceType('practitioner');
+            break;
+          case 'P':
+            this.setPriceType('product');
+            break;
+          default:
+            this.setPriceType();
+        }
+      });
+
+      this.token = ls.getItem('token');
+      this.role = ls.getItem('roles');
+      this.user = ls.getItem('user') ? JSON.parse(ls.getItem('user')) : {};
+
+      this._bs.setUserData(this.user);
+    }
+
     this._router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
       this.currentUrl = evt.url;
-      this.token = localStorage.getItem('token');
-      this.role = localStorage.getItem('roles');
-      this.payment = localStorage.getItem('isPayment');
-      this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+      this.token = ls.getItem('token');
+      this.role = ls.getItem('roles');
+      this.payment = ls.getItem('isPayment');
+      this.user = ls.getItem('user') ? JSON.parse(ls.getItem('user')) : {};
       if (this.token && this.user) {
         const roles = this.user.roles;
         this.dashboard = roles === 'B' ? 'dashboard/home' : 'dashboard/welcome';
@@ -141,15 +145,10 @@ export class HeaderComponent implements OnInit {
     //   this.user = obj ? (obj["user"] ? obj["user"] : []) : [];
     // });
 
-    this.token = localStorage.getItem('token');
-    this.role = localStorage.getItem('roles');
-    this.payment = localStorage.getItem('isPayment');
-    this.user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))
-      : {};
-
-    this._headerStatusService.observeHeaderStatus().subscribe(([key, val]: [string, any]) => {
-      this[key] = val;
-    });
+    this.token = ls.getItem('token');
+    this.role = ls.getItem('roles');
+    this.payment = ls.getItem('isPayment');
+    this.user = ls.getItem('user') ? JSON.parse(ls.getItem('user')) : {};
 
     if(this.user._id){
       //call getProfileDetail function to fetch latest data which is changed by admin including verifiedBadge
@@ -171,7 +170,7 @@ export class HeaderComponent implements OnInit {
   }
 
   keywordSearch() {
-    this._router.navigate(['/dashboard/listing'], {
+    this._router.navigate(['/practitioners'], {
       queryParams: {
         keyword: this.keyword
       }
@@ -203,8 +202,8 @@ export class HeaderComponent implements OnInit {
   }
 
   optUserType(value) {
-    this._bs.setRole(value);
-    localStorage.setItem('userType', value);
+    // this._bs.setRole(value);
+    this._uService.localStorage.setItem('userType', value);
   }
 
 
@@ -233,8 +232,8 @@ export class HeaderComponent implements OnInit {
     }else{
       this.hideMenu();
       this._router.navigate(
-        ['/dashboard/listing'], 
-        {queryParams: {id: this.catService.categoryList[i]._id}});
+        ['/practitioners/category', this.catService.categoryList[i]._id], 
+      );
     }
   }
 

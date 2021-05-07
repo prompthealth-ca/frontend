@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { RegisterType } from '../register-questionnaire/register-questionnaire.component';
 
 @Component({
@@ -14,17 +15,21 @@ export class RegisterQuestionnaireCompleteComponent implements OnInit {
     private _toastr: ToastrService,
     private _router: Router,
     private _route: ActivatedRoute,
+    private _uService: UniversalService,
   ) { }
 
   public routePlan: string[];
   private timer: any;
 
   ngOnInit(): void {
-
+    this._uService.setMeta(this._router.url, {
+      title: 'Registration complete | PromptHealth',
+      robots: 'noindex',
+    });
     this._route.queryParams.subscribe((params: {type: RegisterType}) => {
       // let message: string;
 
-      this.routePlan = (params.type == 'practitioner') ? ['/subscriptionplan'] : ['/plans/product'];
+      this.routePlan = (params.type == 'practitioner') ? ['/plans'] : ['/plans/product'];
       // message = 'You will be redirected to plan page in 5 seconds.';
 
 

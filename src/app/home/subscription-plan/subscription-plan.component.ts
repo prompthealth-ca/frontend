@@ -1,10 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-  OnInit
-} from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { StripeService } from 'ngx-stripe';
 import { SharedService } from '../../shared/services/shared.service';
@@ -12,13 +6,14 @@ import { SharedService } from '../../shared/services/shared.service';
 import { PreviousRouteService } from '../../shared/services/previousUrl.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
+// import { AddonSelectCategoryComponent } from '../addon-select-category/addon-select-category.component';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { IAddonPlan } from '../../models/addon-plan';
 import { IDefaultPlan } from 'src/app/models/default-plan';
 import { slideHorizontalAnimation } from 'src/app/_helpers/animations';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 // declare var jQuery: any;
 
 
@@ -92,13 +87,25 @@ export class SubscriptionPlanComponent implements OnInit {
     private stripeService: StripeService,
     private _modalService: NgbModal,
     public catService: CategoryService,
+    private _uService: UniversalService,
   ) { }
 
   ngOnInit() {
-    if (localStorage.getItem('token')) { this.isLoggedIn = true; }
-    this.userEmail = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))
+    const ls = this._uService.localStorage;
+    const ss = this._uService.sessionStorage;
+    this._uService.setMeta(this._router.url, {
+      title: 'Plans for practitioners | PromptHealth',
+      description: 'Join us to get exposed to clients. Subscribe premium plan to get more feature such as booking system, connect to google reviews / social medias, performance dashboard and more!',
+      keyword: '',
+      image: 'https://prompthealth.ca/assets/img/hero-subscription-plan-s.png',
+      imageType: 'image/png',
+      imageAlt: 'PromptHealth',
+    });
+
+    if (ls.getItem('token')) { this.isLoggedIn = true; }
+    this.userEmail = ls.getItem('user') ? JSON.parse(ls.getItem('user'))
       : {};
-    this.roles = localStorage.getItem('roles');
+    this.roles = ls.getItem('roles');
     this.checkout.email = this.userEmail.email;
 
     this.stripeTest = this.fb.group({
@@ -113,12 +120,12 @@ export class SubscriptionPlanComponent implements OnInit {
       this.getProfileDetails();
     }
 
-    this.couponCode = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
-    if (this.couponCode) {
+    if (ss.getItem('stripe_coupon_code')) {
+      this.couponCode = JSON.parse(ss.getItem('stripe_coupon_code'));
       setTimeout(() => { this.isCouponShown = true; }, 1000);
     }
-
   }
+
   getSubscriptionPlan(path) {
     this._sharedService.loader('show');
     this._sharedService.getNoAuth(path).subscribe((res: any) => {
@@ -155,7 +162,6 @@ export class SubscriptionPlanComponent implements OnInit {
           if (data.name == 'The Networker') { this.addonNetworker = data; }
           if (data.name == 'The Socialite') { this.addonSocialite = data; }
         });
-        console.log(this.addonNetworker);
       } else {
         // this._commanService.checkAccessToken(res.error);
       }

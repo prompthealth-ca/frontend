@@ -1,13 +1,15 @@
 import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../shared/services/shared.service';
 import { HeaderStatusService } from '../shared/services/header-status.service';
 import { environment } from 'src/environments/environment';
 import { Partner } from '../models/partner';
 import { PartnerSearchFilterQuery } from '../models/partner-search-filter-query';
+import { UniversalService } from '../shared/services/universal.service';
+
 declare function registerEvent(eventId, action): void;
 
 @Component({
@@ -18,6 +20,7 @@ declare function registerEvent(eventId, action): void;
 export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
+    private _route: ActivatedRoute,
     private formBuilder: FormBuilder,
     // tslint:disable-next-line: variable-name
     private _sharedService: SharedService,
@@ -25,6 +28,7 @@ export class HomeComponent implements OnInit {
     private toastr: ToastrService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
+    private _uService: UniversalService,
     _el: ElementRef,
   ) { 
     this.elHost = _el.nativeElement;
@@ -208,14 +212,22 @@ export class HomeComponent implements OnInit {
   }
   eventbriteCheckout(event) {
     registerEvent(146694387863, (res) => {
-      console.log(res);
+      // console.log(res);
     })
   }
   ngOnInit() {
+    console.log(this.router);
+    const meta = this._uService.setMeta(this.router.url, {
+      title: 'PromptHealth | Your health and wellness personal assistant',
+      keyword: '',
+      description: 'Take control of your health with options tailored to you',
+    });
+
+    const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;
-    this.roles = localStorage.getItem('roles') ? localStorage.getItem('roles') : '';
-    localStorage.removeItem('searchedAddress');
-    this.token = localStorage.getItem('token');
+    this.roles = ls.getItem('roles') ? ls.getItem('roles') : '';
+    ls.removeItem('searchedAddress');
+    this.token = ls.getItem('token');
     if (this.token) {
       if (this.roles === 'SP' || this.roles === 'C') {
         this.showPersonalMatch = false;
@@ -231,10 +243,13 @@ export class HomeComponent implements OnInit {
     this.getPractitionersFeatured();
     this.getPartnersFeatured();
     this.timer();
-    this.id = setInterval(() => {
-      this.timer();
-      this.currentKeyIndex = (this.currentKeyIndex + 1) % 9;
-    }, 10000);
+
+    if(!this._uService.isServer){
+      this.id = setInterval(() => {
+        this.timer();
+        this.currentKeyIndex = (this.currentKeyIndex + 1) % 9;
+      }, 10000);  
+    }
   }
 
   async getHomePageFeatures() {
@@ -339,7 +354,7 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       const partner = target2.querySelector('.carousel-partner-item');
       const wPartner = partner.getBoundingClientRect().width;
-      console.log(wPartner);
+      // console.log(wPartner);
       this.timerCarouselPartner = setInterval(() => {
         target2.scrollBy({left: wPartner * ((window.innerWidth < 768) ? 2 : 4), behavior: 'smooth'});
       }, 5000);        
@@ -351,15 +366,15 @@ export class HomeComponent implements OnInit {
     this.currentKeyIndex = this.allIntroBannerKeys.indexOf(selectedKey);
   }
   findDoctor() {
-    this.lat = 0 + localStorage.getItem('ipLat');
-    this.long = 0 + localStorage.getItem('ipLong');
+    this.lat = 0 + this._uService.localStorage.getItem('ipLat');
+    this.long = 0 + this._uService.localStorage.getItem('ipLong');
     this.router.navigate(['/doctor-filter'], { queryParams: { lat: this.lat, long: this.long } });
   }
   questionnaire() {
     if (this.token) {
-      this.router.navigate(['dashboard/questions/User']);
+      this.router.navigate(['/personal-match']);
     } else {
-      this.router.navigate(['dashboard/questions/User']);
+      this.router.navigate(['/personal-match']);
       // this.router.navigate(['auth/login/u']);
       // this.toastr.warning("Please login first.")
     }
@@ -408,9 +423,9 @@ export class HomeComponent implements OnInit {
 
   learnMore() {
     if (this.token) {
-      this.router.navigate(['dashboard/subscriptionplan']);
+      this.router.navigate(['plans']);
     } else {
-      this.router.navigate(['subscriptionplan']);
+      this.router.navigate(['plans']);
     }
   }
 

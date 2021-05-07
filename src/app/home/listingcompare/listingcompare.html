@@ -26,7 +26,7 @@
             <th class="table-active">Feature</th>
             <th *ngFor="let user of data">
               <a 
-                [routerLink]="['/dashboard/detail', user.userId]"
+                [routerLink]="['/practitioners/', user.userId]"
               >{{user.userData.firstName}} {{user.userData.lastName}}</a></th>
           </tr>
         </thead>

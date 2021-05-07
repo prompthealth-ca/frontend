@@ -15,7 +15,8 @@ import { Professional } from '../../models/professional';
 import { slideVerticalAnimation, expandVerticalAnimation } from '../../_helpers/animations';
 import { CategoryService, Category } from '../../shared/services/category.service';
 import { slideHorizontalAnimation } from '../../_helpers/animations';
-
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-listing',
@@ -34,6 +35,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     private _headerService: HeaderStatusService,
     private _catService: CategoryService,
     private _maps: MapsAPILoader,
+    private _uService: UniversalService,
     private _qService: QuestionnaireService,
     _el: ElementRef,
   ) {
@@ -157,7 +159,7 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('typical_hours');
+    this._uService.localStorage.removeItem('typical_hours');
     this._headerService.showHeader();
   }
 
@@ -169,21 +171,27 @@ export class ListingComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.AWS_S3 = environment.config.AWS_S3;
     this.serviceSet = await this._catService.getCategoryAsync();
+    const ls = this._uService.localStorage;
 
     // if options which has to be fetched from server is not set correctly, fetch.
     if (this.filters[3].options.length == 0 || this.filters[4].options.length == 0 || this.filters[4].options.length == 0) {
       this.getProfileQuestion();
     }
-
+    
     /** init geo location */
     const [latDefault, lngDefault] = [53.89, -111.25];
-    const [ipLat, ipLng] = [localStorage.getItem('ipLat'), localStorage.getItem('ipLong')];
+    const [ipLat, ipLng] = [ls.getItem('ipLat'), ls.getItem('ipLong')];
     let [lat, lng]: [number, number] = [null, null];
 
     if (ipLat && ipLng) { [lat, lng] = [Number(ipLat), Number(ipLng)]; } else {
-      try { [lat, lng] = await this.getCurrentLocation(); } catch (err) {
-        const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
-        this.toastr.success(message);
+      try { 
+        [lat, lng] = await this.getCurrentLocation(); 
+      } 
+      catch (err) {
+        if (!this._uService.isServer) {
+          const message = (err.code === 1) ? 'You need to enable your location in order to see options in your geographical area. Alternatively you can only view virtual options!' : 'Could not get current location';
+          this.toastr.success(message);  
+        }
       }
     }
 
@@ -247,11 +255,40 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.customerHealthSet = qs.health.answers;
     }
 
+    // for the route '/practitioners'
+    this._uService.setMeta(this.router.url, {
+      title: 'Find best health care provider in Canada | PromptHealth',
+      keyword: '',
+      description: 'Use our Expart Finder to find a top-rated health care provider near you or offering virtual appointment.',
+    });
 
+    let isFirstAccess = true;
+    
+    // for the route '/practitioners/category/:categoryId'
+    this.route.params.subscribe((params: {categoryId: string}) => {
+      if(params.categoryId){
+        this.id = params.categoryId;
+        this.listingPayload.services = [this.id];
+  
+        const categoryName = this.getServiceName(params.categoryId);
+        this._uService.setMeta(this.router.url, {
+          title: `Find ${categoryName.toLowerCase()} specialist in Canada | PromptHealth`,
+          keyword: '',
+          description: `Use our Expart Finder to find a top-rated ${categoryName.toLowerCase()} specialist near you or offering virtual appointment.`
+        })  
+      }
 
-    this.route.queryParams.subscribe(queryParams => {
+      if(!isFirstAccess) {
+        this.listing(this.listingPayload);
+      }
+      isFirstAccess = false;
+
+    });
+    
+
+    this.route.queryParams.subscribe((queryParams: {virtual: string | boolean, keyword: string}) => {
       this.isVirtual = (queryParams.virtual == 'true') ? true : false;
-      this.id = queryParams.id;
+      // if(queryParams.id) { this.id = queryParams.id; }
       // this.type = queryParams.type;
       this.keyword = queryParams.keyword;
 
@@ -259,19 +296,21 @@ export class ListingComponent implements OnInit, OnDestroy {
       this.listingPayload.virtual = this.isVirtual;
       this.listingPayload.latLong = this.isVirtual ? '' : `${this.searchCenter.lng}, ${this.searchCenter.lat}`;
 
-      this.loggedInUser = localStorage.getItem('loginID');
-      this.loggedInRole = localStorage.getItem('roles');
-      if (localStorage.getItem('typical_hours')) {
-        this.typical_hours = localStorage.getItem('typical_hours').split(',');
+      this.loggedInUser = ls.getItem('loginID');
+      this.loggedInRole = ls.getItem('roles');
+      if (ls.getItem('typical_hours')) {
+        this.typical_hours = ls.getItem('typical_hours').split(',');
       }
+
+      console.log(this.id);
 
       // if (this.id && this.type) {
       //   this.listingPayload.ids = [this.id];
       //   this.listingPayload.type = this.type;
       // }
-      if (this.id) {
-        this.listingPayload.services = [this.id];
-      }
+      // if (this.id) {
+      //   this.listingPayload.services = [this.id];
+      // }
       // else if(this.type){
       //   this.listingPayload.type = this.type;
       // }
@@ -295,11 +334,12 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   getCurrentLocation(): Promise<[number, number]> {
+    const ls = this._uService.localStorage;
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
         const [lat, lng] = [resp.coords.latitude, resp.coords.longitude];
-        localStorage.setItem('ipLat', lat.toString());
-        localStorage.setItem('ipLong', lng.toString());
+        ls.setItem('ipLat', lat.toString());
+        ls.setItem('ipLong', lng.toString());
         this.initialLocation.lat = lat;
         this.initialLocation.lng = lng;
         resolve([lat, lng]);
@@ -454,7 +494,9 @@ export class ListingComponent implements OnInit, OnDestroy {
 
         res.data.forEach((d: any) => {
           const professional = new Professional(d.userId, d.userData, d.ans);
-          professional.setMapIcon();
+          if(!this._uService.isServer){
+            professional.setMapIcon();            
+          }
           if (languageSet && languageSet.length > 0) { professional.populate('languages', languageSet); }
           professionals.push(professional);
         });
@@ -481,10 +523,11 @@ export class ListingComponent implements OnInit, OnDestroy {
   /** set default value to selected listingPayload property */
   removeFilterOne(payloadName: string) {
     let val: any;
+    const ls = this._uService.localStorage;
     switch (payloadName) {
       case 'rating': val = 0; break;
       case 'miles': val = 100; break;
-      case 'latLong': val = `${localStorage.getItem('ipLong')}, ${localStorage.getItem('ipLat')}`; break;
+      case 'latLong': val = `${ls.getItem('ipLong')}, ${ls.getItem('ipLat')}`; break;
       // case 'type': val = this.type; break;
       case 'ids':
       case 'age_range':
@@ -578,7 +621,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       });
 
       this.behaviorService.changeCompareIds(compareList);
-      this.router.navigate(['/dashboard/listingCompare']);
+      this.router.navigate(['/compare-practitioners']);
     })
       .catch(err => { console.log(err); })
       .finally(() => { this._sharedService.loader('hide'); });

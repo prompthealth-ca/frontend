@@ -3,9 +3,10 @@ import { SharedService } from '../../shared/services/shared.service';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { QuestionnaireItemData, RegisterQuestionnaireService } from '../register-questionnaire.service';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { CategoryService } from 'src/app/shared/services/category.service';
+import { QuestionnaireItemData, RegisterQuestionnaireService } from 'src/app/dashboard/register-questionnaire.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-user-questionaire',
@@ -31,7 +32,8 @@ export class UserQuestionaireComponent implements OnInit {
     private _sharedService: SharedService,
     private _qService: RegisterQuestionnaireService,
     private _changeDetector: ChangeDetectorRef,
-    private _catService: CategoryService
+    private _catService: CategoryService,
+    private _uService: UniversalService,
   ) {}
 
   ngOnDestroy() {
@@ -40,6 +42,8 @@ export class UserQuestionaireComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url);
+    
     this._qService.init(this.data, {});
 
     /** get service list in advance so that goal tab in personal match can be rendered immediately */
@@ -69,7 +73,7 @@ export class UserQuestionaireComponent implements OnInit {
           const user:IUserDetail = JSON.parse(localStorage.getItem('user'));
           data.roles = user ? user.roles : 'U';
 
-          this._router.navigate(['/dashboard/listing']);          
+          this._router.navigate(['/practitioners']);          
         }catch(err){
           this._toastr.error(err);
         }finally{

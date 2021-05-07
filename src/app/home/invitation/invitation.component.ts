@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 
 @Component({
   selector: 'app-invitation',
@@ -20,9 +21,17 @@ export class InvitationComponent implements OnInit {
     private _router: Router,
     private _toaster: ToastrService,
     private _sharedService: SharedService,
+    private _uService: UniversalService,
   ) { }
 
   ngOnInit(): void {
+    this._uService.setMeta(this._router.url, {
+      title: 'Welcome to PromptHealth',
+      keyword: '',
+      description: 'We are inviting you with coupon that gives you discount.',
+      robots: 'noindex',
+    });
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this._route.queryParams.subscribe((data: QueryParams) => {
       if (data.code) {

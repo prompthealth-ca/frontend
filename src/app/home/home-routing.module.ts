@@ -62,6 +62,8 @@ const routes: Routes = [
     path: "terms",
     component: TermsConditionsComponent
   },
+  { path: 'termConditions', redirectTo: '/terms'},
+
   // {
   //   path: "loyalty",
   //   component: LoyalityProgramsComponent
@@ -74,10 +76,15 @@ const routes: Routes = [
     path: "blogs/category/:id",
     component: BlogCategoryComponent
   },
+  { path: 'blogs/category', redirectTo: '/blogs'},
+
   {
     path: "blogs/:id",
     component: BlogDetailComponent
   },
+  { path: 'blog-detail/:id', redirectTo: '/blogs/:id'}, /** this id is not objectId. it's slug */
+  { path: 'blog-category/:id', redirectTo: '/blogs/category/:id'},
+
   {
     path: "contact-us",
     component: ContactUsComponent
@@ -142,6 +149,9 @@ const routes: Routes = [
   },
 
   { path: '404', component: NotFoundComponent },
+
+  { path: '**', redirectTo: '/'},
+
 ];
 
 @NgModule({

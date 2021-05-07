@@ -81,8 +81,15 @@ export class LandingAmbassadorComponent implements OnInit {
       // }
     });
 
-    this._route.queryParams.subscribe((data: { id: string }) => {
-      if (data.id && this.faceType == 'client') {
+    // this._route.queryParams.subscribe((data: { id: string }) => {
+    //   if (data.id && this.faceType == 'client') {
+    //     this.practitionerId = data.id;
+    //     this.getUserDetail();
+    //   }
+    // });
+
+    this._route.params.subscribe((data: {id: string}) => {
+      if(data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
       }

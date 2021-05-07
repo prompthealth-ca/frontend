@@ -10,10 +10,15 @@ import { join } from 'path';
 
 import { existsSync } from 'fs';
 import * as domino from 'domino';
+import * as helmet from 'helmet';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
+import { environment } from './src/environments/environment';
+import { default as axios } from 'axios';
 
+import { IUserDetail } from 'src/app/models/user-detail';
+ 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = express();
@@ -25,6 +30,11 @@ export function app() {
   global['window'] = win;
   global['document'] = win.document;
   global['navigator'] = win.navigator;
+
+  if(server.get('env') == 'production'){
+    server.set('trust proxy', 1);
+    server.use(helmet());
+  }
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -93,6 +103,12 @@ export function app() {
   //   });
   // });
 
+  server.get('/sitemap', async (req, res) => { 
+    const sitemap = await getSitemap(server.get('env') == 'production');
+    res.set('Content-Type', 'text/xml');
+    res.send(sitemap);
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     res.render(
@@ -156,4 +172,187 @@ function showMeta(url: string, html: string) {
     if(match){ console.log(m, ': ', match[1]); }
   });
   console.log('=============== SHOW META END');
+}
+
+function getSitemap(isProductionMode: boolean): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const promiseAll = [
+      getCategories(),
+      getAllPractitioners(),
+      getAllProducts(),
+      getBlogCategories(),
+      getBlogEntries(),
+    ];
+    Promise.all(promiseAll).then(vals => {
+      let xml = `<?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance">
+          <url>
+            <loc>https://prompthealth.ca</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/practitioners</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/products</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/plans</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/plans/product</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/blogs</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/ambassador-program</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/clubhouse</loc>
+          </url>
+          <url>
+            <loc>https://prompthealth.ca/faq</loc>
+          </url>       
+          <url>
+            <loc>https://prompthealth.ca/subscribe-email</loc>
+          </url>   
+          <url>
+            <loc>https://prompthealth.ca/contact-us</loc>
+          </url>          
+          <url>
+            <loc>https://prompthealth.ca/policy</loc>
+          </url>              
+          <url>
+            <loc>https://prompthealth.ca/terms</loc>
+          </url>     
+      `;
+
+      vals.forEach(vs => {
+        vs.data.forEach(v => {
+          xml += `
+            <url>
+              <loc>https://prompthealth.ca/${vs.type}/${v}</loc>
+            </url>
+          `
+        });
+      });
+
+      xml += '</urlset>'
+      resolve(xml);
+    })
+  })
+}
+
+function getCategories(): Promise<{type: string, data: string[]}> {
+  return new Promise((resolve) => {
+    const result = {
+      type: 'practitioners/category',
+      data: [],
+    };
+    const root = environment.config.API_URL;
+    axios.get(root + 'questionare/get-service').then(res => {
+      if(res.status == 200) {
+        for(let data of res.data.data) {
+          if(data.category_type.toLowerCase() == 'goal') {
+            const cats = data.category;
+            cats.forEach(c => {
+              result.data.push(c._id);
+              c.subCategory.forEach(cSub => {
+                result.data.push(cSub._id);
+              });
+            })
+            break;
+          }
+        }
+      }
+      resolve(result);
+    }).catch(error => {
+      console.log(error);
+      resolve(result);
+    });  
+  });
+}
+
+function getAllPractitioners(): Promise<{type: string, data: string[]}> {
+  return new Promise((resolve) => {
+    const result = {
+      type: 'practitioners',
+      data: []
+    }
+    const root = environment.config.API_URL;
+    axios.post(root + 'user/filter', {}).then(res => {
+      if(res.status == 200) {
+        res.data.data.forEach((d: {userId: string, userData: IUserDetail}) => {
+          result.data.push(d.userId);
+        });
+      }
+      resolve(result);
+    }).catch(error => {
+      console.log(error);
+      resolve(result);
+    });
+  });
+}
+
+function getAllProducts(): Promise<{type: string, data: string[]}> {
+  return new Promise((resolve) => {
+    const result = {
+      type: 'products',
+      data: []
+    }
+    const root = environment.config.API_URL;
+    axios.post(root + 'partner/get-all', {}).then(res => {
+      if(res.status == 200) {
+        res.data.data.data.forEach((d: IUserDetail) => {
+          result.data.push(d._id);
+        });
+      }
+      resolve(result);
+    }).catch(error => {
+      console.log(error);
+      resolve(result);
+    });
+  });
+}
+
+function getBlogCategories(): Promise<{type: string, data: string[]}>  {
+  return new Promise((resolve) => {
+    const result = {
+      type: 'blogs/category',
+      data: [],
+    };
+    const root = environment.config.API_URL;
+    axios.get(root + 'category/get-categories').then(res => {
+      if(res.status == 200) {
+        for(let d of res.data.data) {
+          result.data.push(d._id)
+        }
+      }
+      resolve(result);
+    }).catch(error => {
+      console.log(error);
+      resolve(result);
+    });  
+  });
+}
+
+function getBlogEntries(): Promise<{type: string, data: string[]}> {
+  return new Promise((resolve) => {
+    const result = {
+      type: 'blogs',
+      data: [],
+    };
+    const root = environment.config.API_URL;
+    axios.get(root + 'blog/get-all?frontend=1').then(res => {
+      if(res.status == 200) {
+        for(let d of res.data.data.data) {
+          result.data.push(d._id)
+        }
+      }
+      resolve(result);
+    }).catch(error => {
+      console.log(error);
+      resolve(result);
+    });  
+  });
 }

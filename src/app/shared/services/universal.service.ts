@@ -78,9 +78,9 @@ export class UniversalService {
     this._title.setTitle(meta.title);
 
     /* Twitter have to be first otherwise it's not updated. (I don't know why) */
-    this._meta.updateTag({property: 'twitter:title', content: meta.title});
-    this._meta.updateTag({property: 'twitter:description', content: meta.description});
-    this._meta.updateTag({property: 'twitter:image', content: meta.image});
+    this._meta.updateTag({name: 'twitter:title', content: meta.title});
+    this._meta.updateTag({name: 'twitter:description', content: meta.description});
+    this._meta.updateTag({name: 'twitter:image', content: meta.image});
     this._meta.updateTag({name: 'robots', content: meta.robots});
     this._meta.updateTag({name: 'title', content: meta.title});
     this._meta.updateTag({name: 'description', content: meta.description});

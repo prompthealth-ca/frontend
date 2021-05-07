@@ -1,0 +1,26 @@
+:host{
+  font-size: 16px;
+}
+
+.share-menu{
+  position: absolute;
+  left: calc(50% - 100px);
+  width: 200px;
+  overflow: hidden;
+  box-shadow: 0 0 5px #d1d1d1, 0 0 10px white;
+}
+
+a{
+  cursor: pointer;
+  color: #4274BA;
+
+  transition: color 200ms;
+  &:hover{
+    color: #0056b3;
+  }
+}
+
+.facebook{
+  background: #4267B2;
+  color: white;
+}

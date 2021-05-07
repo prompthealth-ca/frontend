@@ -49,6 +49,7 @@ import { FormPractitionerServiceComponent } from './form-practitioner-service/fo
 import { FormItemDatetimeComponent } from './form-item-datetime/form-item-datetime.component';
 import { FormItemUploadImageButtonComponent } from './form-item-upload-image-button/form-item-upload-image-button.component';
 import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
+import { ButtonShareComponent } from './button-share/button-share.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -106,6 +107,7 @@ import { AddonSelectCategoryComponent } from './addon-select-category/addon-sele
     FormItemDatetimeComponent,
     FormItemUploadImageButtonComponent,
     AddonSelectCategoryComponent,
+    ButtonShareComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -146,6 +148,7 @@ import { AddonSelectCategoryComponent } from './addon-select-category/addon-sele
     FormPractitionerServiceComponent,
     FormItemDatetimeComponent,
     FormItemUploadImageButtonComponent,
+    ButtonShareComponent,
   ]
 })
 export class SharedModule { }

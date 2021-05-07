@@ -28,7 +28,7 @@ export class UniversalService {
   get isServer(){ return isPlatformServer(this.p); }
 
   setMeta(path: string, meta: MetaData = {}){
-    
+    console.log(path);
     if(path.match( /\/practitioners/)) {
       meta.pageType = 'article';
     }

@@ -96,9 +96,16 @@
         <div>
           <a [routerLink]="['/practitioners', practitionerId]">
             <div class="mb-3">
-              <img class="img-thumbnail rounded intro-thumbnail" style="width: 150px; height: 150px;"
-                src="{{ambassador.profileImage ? AWS_S3 + ambassador.profileImage: 'assets/img/default_user.jpg'}}"
-                alt="{{ambassador.firstName}}">
+              <div class="text-center">
+                <user-image
+                style="width: 120px;"
+                [image]="ambassador.profileImage ? AWS_S3 + ambassador.profileImage: 'assets/img/default_user.jpg'"
+                [alt]="ambassador.firstName"
+                [verifiedUser]="ambassador.verifiedBadge"
+                shadowVerified="0 0 5px #307dd6"
+                badgeSize="35"
+                ></user-image>  
+              </div>
             </div>
             <h3 class="font-big text-center pb-1 mr-2">{{ambassador.firstName +
               ambassador.lastName}}</h3>

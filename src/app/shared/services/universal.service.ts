@@ -78,20 +78,20 @@ export class UniversalService {
     this._title.setTitle(meta.title);
 
     /* Twitter have to be first otherwise it's not updated. (I don't know why) */
-    this._meta.updateTag({name: 'twitter:title', content: meta.title});
-    this._meta.updateTag({name: 'twitter:description', content: meta.description});
-    this._meta.updateTag({name: 'twitter:image', content: meta.image});
+    this._meta.updateTag({property: 'twitter:title', content: meta.title});
+    this._meta.updateTag({property: 'twitter:description', content: meta.description});
+    this._meta.updateTag({property: 'twitter:image', content: meta.image});
     this._meta.updateTag({name: 'robots', content: meta.robots});
     this._meta.updateTag({name: 'title', content: meta.title});
     this._meta.updateTag({name: 'description', content: meta.description});
-    this._meta.updateTag({name: 'og:url', content: (baseUrl + path)});
-    this._meta.updateTag({name: 'og:type', content: meta.pageType});
-    this._meta.updateTag({name: 'og:title', content: meta.title});
-    this._meta.updateTag({name: 'og:description', content: meta.description});
-    this._meta.updateTag({name: 'og:image', content: meta.image});
-    // this._meta.updateTag({name: 'og:image:width', content: meta.imageWidth.toString()});
-    // this._meta.updateTag({name: 'og:image:height', content: meta.imageWidth.toString()});
-    this._meta.updateTag({name: 'og:image:alt', content: meta.imageAlt});
+    this._meta.updateTag({property: 'og:url', content: (baseUrl + path)});
+    this._meta.updateTag({property: 'og:type', content: meta.pageType});
+    this._meta.updateTag({property: 'og:title', content: meta.title});
+    this._meta.updateTag({property: 'og:description', content: meta.description});
+    this._meta.updateTag({property: 'og:image', content: meta.image});
+    // this._meta.updateTag({property: 'og:image:width', content: meta.imageWidth.toString()});
+    // this._meta.updateTag({property: 'og:image:height', content: meta.imageWidth.toString()});
+    this._meta.updateTag({property: 'og:image:alt', content: meta.imageAlt});
   }  
 }
 

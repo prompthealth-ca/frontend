@@ -10,7 +10,7 @@ import { join } from 'path';
 
 import { existsSync } from 'fs';
 import * as domino from 'domino';
-import * as helmet from 'helmet';
+// import * as helmet from 'helmet';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -32,8 +32,8 @@ export function app() {
   global['navigator'] = win.navigator;
 
   if(server.get('env') == 'production'){
-    server.set('trust proxy', 1);
-    server.use(helmet());
+    // server.set('trust proxy', 1);
+    // server.use(helmet());
   }
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)

@@ -32,7 +32,7 @@ export class ButtonShareComponent implements OnInit {
     switch(type){
       case 'facebook'  : link = 'https://www.facebook.com/share.php?u=' + this.url ; break;
       case 'twitter'   : link = 'https://twitter.com/share?url=' + this.url; break;
-      case 'linkedin'  : link = 'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url; break;
+      case 'linkedin'  : link = 'https://www.linkedin.com/sharing/share-offsite/?url=' + this.url; break;
       case 'pinterest' : link = `https://www.pinterest.com/pin/create/button/?url=${this.url}&media=${this.media}&description=${this.text}`
     }
     return link;

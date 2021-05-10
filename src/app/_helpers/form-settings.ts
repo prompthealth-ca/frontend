@@ -73,6 +73,20 @@ const validatorAddressSelectedFromSuggestion = (): ValidatorFn => {
   }
 }
 
+const validatorPatternPassword = (): ValidatorFn => {
+  return function validate(formControl: FormControl) {
+    const regex = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}');
+    if(formControl.value.match(regex)) {
+      console.log('password ok');
+      return null;
+    }else{
+      console.log('password error');
+      const errors = {'matchPatternPassword': true};
+      return errors;
+    }
+  }
+}
+
 const validatorFirstNameClient = [Validators.maxLength(minmax.nameMax), Validators.required];
 const validatorLastNameClient = [Validators.maxLength(minmax.nameMax)];
 const validatorNameSP = [Validators.required, Validators.minLength(3), Validators.maxLength(minmax.nameMax)];
@@ -120,6 +134,7 @@ export const validators = {
   personalMatchGender: validatorRequired,
   personalMatchAgeRange: validatorRequired,
   
+  password: validatorPatternPassword(),
   accredit: validatorRequiredTrue,
   
 }

@@ -61,7 +61,7 @@ export function app() {
   /** client side rendering */
   server.use('/auth',                  (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/dashboard',             (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
-  server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  // server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/personal-match',        (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/compare-practitioners', (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   // server.use('/subscribe-email',       (req, res) => { res.sendFile(join(distFolder, 'index.html')); })

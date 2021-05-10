@@ -216,7 +216,6 @@ export class HomeComponent implements OnInit {
     })
   }
   ngOnInit() {
-    console.log(this.router);
     const meta = this._uService.setMeta(this.router.url, {
       title: 'PromptHealth | Your health and wellness personal assistant',
       keyword: '',

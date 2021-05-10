@@ -30,13 +30,14 @@ export class HomeComponent implements OnInit {
     private ngZone: NgZone,
     private _uService: UniversalService,
     _el: ElementRef,
-  ) { 
+  ) {
     this.elHost = _el.nativeElement;
   }
 
   get f() {
     return this.homeForm.controls;
   }
+
   @ViewChild('searchGlobal')
   public searchGlobalElementRef: ElementRef;
 
@@ -190,30 +191,32 @@ export class HomeComponent implements OnInit {
     // },
   ];
   public homePageFeatures = {};
-  public keepOriginalOrder = (a, b) => a.key;
   public partnersFeatured: Partner[];
 
   private timerResize: any;
   public featuredImageData = {
     badgeSize: 20,
     borderWidthVerified: 3,
-  }
+  };
+
+  private timerCarouselPartner: any;
+  public keepOriginalOrder = (a, b) => a.key;
   @HostListener('window:resize', ['$event']) windowResize(e: Event) {
     if (this.timerResize) { clearTimeout(this.timerResize); }
     this.timerResize = setTimeout(() => {
       if (window.innerWidth < 992) {
         this.featuredImageData.badgeSize = 35,
-          this.featuredImageData.borderWidthVerified = 5
+          this.featuredImageData.borderWidthVerified = 5;
       } else {
         this.featuredImageData.badgeSize = 30,
-          this.featuredImageData.borderWidthVerified = 4
+          this.featuredImageData.borderWidthVerified = 4;
       }
     }, 500);
   }
   eventbriteCheckout(event) {
     registerEvent(146694387863, (res) => {
       // console.log(res);
-    })
+    });
   }
   ngOnInit() {
     const meta = this._uService.setMeta(this.router.url, {
@@ -243,11 +246,11 @@ export class HomeComponent implements OnInit {
     this.getPartnersFeatured();
     this.timer();
 
-    if(!this._uService.isServer){
+    if (!this._uService.isServer) {
       this.id = setInterval(() => {
         this.timer();
         this.currentKeyIndex = (this.currentKeyIndex + 1) % 9;
-      }, 10000);  
+      }, 10000);
     }
   }
 
@@ -263,24 +266,24 @@ export class HomeComponent implements OnInit {
   }
 
   getPractitionersFeatured() {
-    this._sharedService.postNoAuth({},'user/filter').subscribe((res: any) => {
+    this._sharedService.postNoAuth({}, 'user/filter').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        const users: {userId: string, userData: any, ans: any[]}[] = res.data;
-        const usersPaid: {[k: string]: any[]} = {};
+        const users: { userId: string, userData: any, ans: any[] }[] = res.data;
+        const usersPaid: { [k: string]: any[] } = {};
         // const usersFree: {[k: string]: any[]} = {};
-        for(const key of Object.keys(this.introBannerItems)) {
+        for (const key of Object.keys(this.introBannerItems)) {
           usersPaid[key] = [];
           // usersFree[key] = [];
-          for(const u of users){            
-            for(const ans of u.ans) {
-              if(ans._id == key) {
+          for (const u of users) {
+            for (const ans of u.ans) {
+              if (ans._id == key) {
                 const userdata = {
                   _id: u.userId,
                   ...u.userData
-                }
-                if(u.userData.verifiedBadge){
+                };
+                if (u.userData.verifiedBadge) {
                   usersPaid[key].push(userdata);
-                } 
+                }
                 // else {
                 //   usersFree[key].push(userdata);
                 // }
@@ -291,21 +294,21 @@ export class HomeComponent implements OnInit {
         }
 
         const shuffle = (array: any[]) => {
-          for(let i = array.length - 1; i >= 0; i--) {
+          for (let i = array.length - 1; i >= 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
           }
           return array;
-        }
+        };
 
         Object.keys(this.introBannerItems).forEach(key => {
           usersPaid[key] = shuffle(usersPaid[key]);
           // usersFree[key] = shuffle(usersFree[key]);
 
           // const usersAll = usersPaid[key].concat(usersFree[key]);
-          for(const u of usersPaid[key]) {
-            this.introBannerItems[key].features.push({userId: u});
-            if(this.introBannerItems[key].features.length >= 8) { break; }
+          for (const u of usersPaid[key]) {
+            this.introBannerItems[key].features.push({ userId: u });
+            if (this.introBannerItems[key].features.length >= 8) { break; }
           }
         });
       }
@@ -314,21 +317,21 @@ export class HomeComponent implements OnInit {
 
   async getPartnersFeatured() {
     return new Promise((resolve, reject) => {
-      const query = new PartnerSearchFilterQuery({featured: true, count: 7});
+      const query = new PartnerSearchFilterQuery({ featured: true, count: 7 });
       const path = 'partner/get-all';
       this._sharedService.postNoAuth(query.json, path).subscribe((res: any) => {
-        if(res.statusCode == 200){
+        if (res.statusCode == 200) {
           const partners = [];
 
           res.data.data.forEach((data: any) => {
             partners.push(new Partner(data));
-          });  
+          });
 
           this.partnersFeatured = partners;
           // this.startCarouselPartners();
           resolve(true);
-        }else{
-          reject(res.message)
+        } else {
+          reject(res.message);
         }
       }, error => {
         console.log(error);
@@ -336,10 +339,8 @@ export class HomeComponent implements OnInit {
       });
     });
   }
-
-  private timerCarouselPartner: any;
   startCarouselPartners() {
-    if(this.timerCarouselPartner){ clearInterval(this.timerCarouselPartner); }
+    if (this.timerCarouselPartner) { clearInterval(this.timerCarouselPartner); }
 
     const target = this.elHost.querySelector('#carousel-partner-1') as HTMLElement;
     const partners = target.querySelectorAll('.carousel-partner-item');
@@ -355,11 +356,10 @@ export class HomeComponent implements OnInit {
       const wPartner = partner.getBoundingClientRect().width;
       // console.log(wPartner);
       this.timerCarouselPartner = setInterval(() => {
-        target2.scrollBy({left: wPartner * ((window.innerWidth < 768) ? 2 : 4), behavior: 'smooth'});
-      }, 5000);        
+        target2.scrollBy({ left: wPartner * ((window.innerWidth < 768) ? 2 : 4), behavior: 'smooth' });
+      }, 5000);
     }, 1000);
-  };
-
+  }
 
   switchTab(selectedKey: string) {
     this.currentKeyIndex = this.allIntroBannerKeys.indexOf(selectedKey);

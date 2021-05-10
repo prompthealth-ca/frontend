@@ -22,7 +22,12 @@ import { IUserDetail } from 'src/app/models/user-detail';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/wellness-frontend/browser');
+
+  const isProductionMode = !!(server.get('env') == 'production');
+  const distFolder = isProductionMode ?
+    join(process.cwd(), '../browser') :
+    join(process.cwd(), 'dist/wellness-frontend/browser');
+
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   const template = join(distFolder, 'index.html');
@@ -30,11 +35,12 @@ export function app() {
   global['window'] = win;
   global['document'] = win.document;
   global['navigator'] = win.navigator;
+  global['location'] = win.location;
 
-  if(server.get('env') == 'production'){
-    server.set('trust proxy', 1);
-    server.use(helmet());
-  }
+  // if(server.get('env') == 'production'){
+  //   server.set('trust proxy', 1);
+  //   server.use(helmet());
+  // }
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -129,7 +135,7 @@ export function app() {
 }
 
 function run() {
-  const port = process.env.PORT || 4200 ;
+  const port = process.env.PORT || 4300 ;
 
   // Start up the Node server
   const server = app();

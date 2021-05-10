@@ -33,7 +33,7 @@ export class ButtonShareComponent implements OnInit {
       case 'facebook'  : link = 'https://www.facebook.com/share.php?u=' + this.url ; break;
       case 'twitter'   : link = 'https://twitter.com/share?url=' + this.url; break;
       case 'linkedin'  : link = 'https://www.linkedin.com/sharing/share-offsite/?url=' + this.url; break;
-      case 'pinterest' : link = `https://www.pinterest.com/pin/create/button/?url=${this.url}&media=${this.media}&description=${this.text}`
+      case 'pinterest' : link = `https://www.pinterest.com/pin/create/button/?url=${this.url}&media=${this.media}&description=${this.text}`; break;
     }
     return link;
   }
@@ -98,11 +98,10 @@ type WebShareOption = {
   url?: string,
 }
 
-type ShareType = 'facebook' | 'twitter' | 'pinterest' | 'linkedin' | 'copy';
+type ShareType = 'facebook' | 'twitter' | 'pinterest' | 'linkedin';
 type ShareItem = {id: ShareType, label: string};
 
 const facebook: ShareItem = {id: 'facebook', label: 'Facebook'};
 const twitter: ShareItem = {id: 'twitter', label: 'Twitter'};
 const pinterest: ShareItem = {id: 'pinterest', label: 'Pinterest'};
 const linkedin: ShareItem = {id: 'linkedin', label: 'LinkedIn'};
-const copy: ShareItem = {id: 'copy', label: 'Copy'};

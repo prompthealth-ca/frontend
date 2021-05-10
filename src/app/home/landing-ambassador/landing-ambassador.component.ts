@@ -20,7 +20,7 @@ export class LandingAmbassadorComponent implements OnInit {
   public practitionerId: string;
   public user: IUserDetail;
   public isLinkCopied = false;
-  public FRONTEND_URL = location.origin;
+  public FRONTEND_URL = location.origin || 'https://prompthealth.ca';
   public ambassador: IUserDetail;
   public AWS_S3 = environment.config.AWS_S3;
 

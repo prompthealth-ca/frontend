@@ -202,7 +202,7 @@ export class DetailComponent implements OnInit {
         this._uService.setMeta(this._router.url, {
           title: `${this.userInfo.name} in ${this.userInfo.city}, ${this.userInfo.state} | PromptHealth`,
           description: `${this.userInfo.name} is ${typeOfProvider.join(', ')} offering ${serviceDelivery.join(', ')}.`,
-          image: this.userInfo.image,
+          image: this.userInfo.imageFull,
           imageType: this.userInfo.imageType,
           imageAlt: this.userInfo.name,  
         });

@@ -138,8 +138,8 @@ const routes: Routes = [
   { path: 'products/:id', component: ProfilePartnerComponent },
   { path: 'partners/:id', redirectTo: '/products/:id'},
 
-  { path: 'invitation', component: InvitationComponent },
-  { path: 'invitation/ambassador', component: LandingAmbassadorComponent, data: {type: 'client'}},
+  { path: 'invitation', component: InvitationComponent }, /** invitation for webinars */
+  { path: 'invitation/:id', component: LandingAmbassadorComponent, data: {type: 'client'}}, /** invitation for clients by ambassador */
   { path: 'clubhouse', component: LandingClubhouseComponent },
   { 
     path: 'ambassador-program', 

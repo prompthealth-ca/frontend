@@ -3,8 +3,8 @@
 }
 
 .checkbox-group-root {
-
   >li {
+    white-space: pre-wrap;
     flex: 1 0 100%;
 
     &:not(:first-child){
@@ -15,6 +15,7 @@
 
 .checkbox-group-sub {
   margin-top: 1em;
+  white-space: pre-wrap;
 
   &.col2 {
     display: flex;

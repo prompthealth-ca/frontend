@@ -14,23 +14,35 @@
 
           <h4 class="text-dark-blue mb-3">Eligibility Criteria:</h4>
           <p class="mb-4">
-            You must be a provider on our network.<br>
+            You must be signed up as a practitioner on our platform.<br>
             You must be an accredited health or wellness professional within Canada.
           </p>
 
           <h4 class="text-dark-blue mb-3">What you do:</h4>
           <p class="mb-4">
-            Share this referral link on your social media accounts or your website.<br>
+            Share our referral link on your social media accounts or your website.<br>
             Also, tag us <b>#prompthealth</b> on your social media accounts.
           </p>
 
           <div class="border rounded-lg px-3 py-2 mb-3 blur d-flex align-items-center justify-content-end" *ngIf="user">
             <input class="flex-grow-1 input-link" #referralLink
-              [value]="FRONTEND_URL +'/invitation/ambassador?id=' + user._id" readonly>
-            <button class="btn btn-primary" (click)="copyLink()" [disabled]="isLinkCopied">
-              <span *ngIf="!isLinkCopied">copy</span>
-              <span *ngIf="isLinkCopied">copied</span>
-            </button>
+              [value]="FRONTEND_URL +'/invitation/' + user._id" readonly>
+            <!-- <button *ngIf="!isSharePalletAvailable" class="btn btn-primary" (click)="copyLink()" [disabled]="isLinkCopied"> -->
+              <!-- <span *ngIf="!isLinkCopied">copy</span>
+              <span *ngIf="isLinkCopied">copied</span> -->
+              <!-- <i class="fas fa-share-alt"></i> -->
+              <!-- <span class="pl-2">Share</span> -->
+            <!-- </button> -->
+            <!-- <button *ngIf="isSharePalletAvailable" (click)="showSharePallet()" class="btn btn-primary">
+              <i class="fas fa-share-alt"></i>
+              <span class="pl-2">Share</span>
+            </button> -->
+            <button-share
+            facebook twitter
+            label="Share"
+            [url]="FRONTEND_URL +'/invitation/' + user._id"
+            text="Join PromptHealth to take control your health!"
+            ></button-share>
           </div>
 
           <div *ngIf="!user">
@@ -59,16 +71,18 @@
 
           <h3 class="text-gradient-light-blue mb-4">Our services includes:</h3>
           <h5 class="text-dark mb-3">Premium Membership (valued from $20~100/month):</h5>
-          <p class="mb-4">
-            Photo and video introduction
-            Verified badge on your profile
-            Genuine reviews and feedback
-            Receive requests for booking or integration with your own booking system option
-            Performance dashboard
-            Link your social media accounts on your PromptHealth profile page
+          <div class="mb-4">
+            <ul class="mb-3">
+              <li class="mb-1">and video introduction</li>
+              <li class="mb-1">Verified badge on your profile</li>
+              <li class="mb-1">Genuine reviews and feedback</li>
+              <li class="mb-1">Receive requests for booking or integration with your own booking system option</li>
+              <li class="mb-1">Performance dashboard</li>
+              <li>Link your social media accounts on your PromptHealth profile page</li>
+            </ul>
+            <p class="">* Centres receive even more feature&benefits</p>  
+          </div>
 
-            Centers receive even more feature&benefits
-          </p>
 
           <h5 class="text-dark mb-3">The Networker (valued at $100/month):</h5>
           <p class="mb-4">

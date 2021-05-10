@@ -26,6 +26,7 @@ export class LandingAmbassadorComponent implements OnInit {
 
   private canvas: HTMLElement;
   private disableAnalytics: boolean = environment.config.disableAnalytics;
+  public isSharePalletAvailable: boolean;
 
   @ViewChild('referralLink') private elLink: ElementRef;
 
@@ -46,6 +47,9 @@ export class LandingAmbassadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const nav: any = window.navigator;
+    this.isSharePalletAvailable = !!(nav && nav.share);
+
     const user = this._uService.localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);
@@ -77,8 +81,15 @@ export class LandingAmbassadorComponent implements OnInit {
       // }
     });
 
-    this._route.queryParams.subscribe((data: { id: string }) => {
-      if (data.id && this.faceType == 'client') {
+    // this._route.queryParams.subscribe((data: { id: string }) => {
+    //   if (data.id && this.faceType == 'client') {
+    //     this.practitionerId = data.id;
+    //     this.getUserDetail();
+    //   }
+    // });
+
+    this._route.params.subscribe((data: {id: string}) => {
+      if(data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
       }

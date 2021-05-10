@@ -22,7 +22,8 @@
         target="_blank"
         [href]="socialLink(social.id)"
         >
-          <i class="fab font-big" [ngClass]="'fa-' + social.id"></i>
+          <i class="fab font-big" [ngClass]="'fa-' + social.id" *ngIf="social.id != 'envelope'"></i>
+          <i class="far font-big" [ngClass]="'fa-' + social.id" *ngIf="social.id == 'envelope'"></i>
           <span class="ml-2">{{social.label}}</span>
         </a>
       </li>

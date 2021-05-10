@@ -26,7 +26,7 @@ export function app() {
   const isProductionMode = !!(server.get('env') == 'production');
   const distFolder = isProductionMode ?
     join(process.cwd(), '../browser') :
-    join(process.cwd(), 'dist/wellness-frontend/browser');
+    join(process.cwd(), './dist/wellness-frontend/browser');
 
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
@@ -61,7 +61,7 @@ export function app() {
   /** client side rendering */
   server.use('/auth',                  (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/dashboard',             (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
-  server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
+  // server.use('/invitation',            (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/personal-match',        (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   server.use('/compare-practitioners', (req, res) => { res.sendFile(join(distFolder, 'index.html')); })
   // server.use('/subscribe-email',       (req, res) => { res.sendFile(join(distFolder, 'index.html')); })

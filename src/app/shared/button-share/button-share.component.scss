@@ -2,12 +2,29 @@
   font-size: 16px;
 }
 
+.btn-share {
+  &.color-inherit {
+    color: inherit;
+  }
+}
+
 .share-menu{
   position: absolute;
-  left: calc(50% - 100px);
   width: 200px;
   overflow: hidden;
   box-shadow: 0 0 5px #d1d1d1, 0 0 10px white;
+
+  &.center {
+    left: calc(50% - 100px);
+  }
+
+  &.right {
+    right: 0;
+  }
+
+  &.left {
+    left: 0;
+  }
 }
 
 a{

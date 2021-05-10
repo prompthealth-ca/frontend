@@ -20,6 +20,8 @@ export class ProfilePartnerComponent implements OnInit {
   public imageViewerTarget = null;
   public isDescriptionClamped = true;
 
+  public urlCurrent: string;
+
 
   constructor(
     private _router: Router,
@@ -32,8 +34,10 @@ export class ProfilePartnerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this._route.params.subscribe(async params => {
       const id = params.id;
+      this.urlCurrent = (location.href) ? location.href : ('https://prompthealth.ca/products/' + id);
 
       try { await this.getProfile(id); }
       catch(err){ this._toastr.error(err); }

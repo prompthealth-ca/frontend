@@ -24,19 +24,13 @@
             Also, tag us <b>#prompthealth</b> on your social media accounts.
           </p>
 
-          <div class="border rounded-lg px-3 py-2 mb-3 blur d-flex align-items-center justify-content-end" *ngIf="user">
+          <div 
+          *ngIf="user"
+          class="border rounded-lg px-3 py-2 mb-3 d-flex align-items-center justify-content-end" 
+          style="background: #ffffffcc;" 
+          >
             <input class="flex-grow-1 input-link" #referralLink
               [value]="FRONTEND_URL +'/invitation/' + user._id" readonly>
-            <!-- <button *ngIf="!isSharePalletAvailable" class="btn btn-primary" (click)="copyLink()" [disabled]="isLinkCopied"> -->
-              <!-- <span *ngIf="!isLinkCopied">copy</span>
-              <span *ngIf="isLinkCopied">copied</span> -->
-              <!-- <i class="fas fa-share-alt"></i> -->
-              <!-- <span class="pl-2">Share</span> -->
-            <!-- </button> -->
-            <!-- <button *ngIf="isSharePalletAvailable" (click)="showSharePallet()" class="btn btn-primary">
-              <i class="fas fa-share-alt"></i>
-              <span class="pl-2">Share</span>
-            </button> -->
             <button-share
             facebook twitter linkedin email
             label="Share"

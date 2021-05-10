@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {expandVerticalAnimation } from '../../_helpers/animations';
 
 @Component({
@@ -11,6 +11,7 @@ export class ButtonShareComponent implements OnInit {
 
   @Input() label: string = "Share";
   @Input() btnClass: string = 'btn btn-primary';
+  @Input() menuPosition: 'center' | 'right' | 'left' = 'center'
 
   /** used for Web Share API */
   @Input() url: string;

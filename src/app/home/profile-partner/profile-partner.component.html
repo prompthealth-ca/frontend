@@ -102,10 +102,15 @@
           </div>
   
           <div class="share-menu-container" *ngIf="profile">
-            <share-menu
-            [media]="(profile.productImages && profile.productImages[0]) ? profile.productImages[0].url : null"
-            [description]="profile.description"
-            ></share-menu>
+            <button-share
+            facebook twitter linkedin pinterest email
+            label=""
+            btnClass="btn font-big color-inherit"
+            menuPosition="right"
+            [url]="urlCurrent"
+            [title]="'Check out our favorite product ' + profile?.name" 
+            [text]="profile?.name + ' is offering special deals!'"
+            ></button-share>
           </div>
         </div>
 

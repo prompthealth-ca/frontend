@@ -26,7 +26,7 @@ export function app() {
   const isProductionMode = !!(server.get('env') == 'production');
   const distFolder = isProductionMode ?
     join(process.cwd(), '../browser') :
-    join(process.cwd(), 'dist/wellness-frontend/browser');
+    join(process.cwd(), './dist/wellness-frontend/browser');
 
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 

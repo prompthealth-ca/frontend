@@ -27,7 +27,6 @@ export class MyPasswordComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Change password | PromptHealth',
-      robots: 'noindex',
     });
   }
 

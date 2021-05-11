@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
     
     this._uService.setMeta(this._router.url, {
       title: 'Login | PromptHealth',
-      robots: 'noindex',
     })
   }
 }

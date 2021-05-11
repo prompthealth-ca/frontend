@@ -258,7 +258,6 @@ export class ListingComponent implements OnInit, OnDestroy {
     // for the route '/practitioners'
     this._uService.setMeta(this.router.url, {
       title: 'Find best health care provider in Canada | PromptHealth',
-      keyword: '',
       description: 'Use our Expart Finder to find a top-rated health care provider near you or offering virtual appointment.',
     });
 
@@ -273,7 +272,6 @@ export class ListingComponent implements OnInit, OnDestroy {
         const categoryName = this.getServiceName(params.categoryId);
         this._uService.setMeta(this.router.url, {
           title: `Find ${categoryName.toLowerCase()} specialist in Canada | PromptHealth`,
-          keyword: '',
           description: `Use our Expart Finder to find a top-rated ${categoryName.toLowerCase()} specialist near you or offering virtual appointment.`
         })  
       }

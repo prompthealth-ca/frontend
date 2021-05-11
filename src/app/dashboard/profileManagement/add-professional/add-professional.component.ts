@@ -37,7 +37,6 @@ export class AddProfessionalComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Manage professionals | PromptHealth',
-      robots: 'noindex',
     });
     
     this.userId = JSON.parse(localStorage.getItem('user'))._id;

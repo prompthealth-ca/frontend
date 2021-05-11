@@ -62,8 +62,8 @@ export class BlogDetailComponent implements OnInit {
 
         this._uService.setMeta(this.router.url, {
           title: this.blogList.title + ' | PromptHealth',
-          keyword: '',
           description: des,
+          pageType: 'article',
           image: img,
           imageType: 'image/png',
           imageAlt: this.blogList.title,

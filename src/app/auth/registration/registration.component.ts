@@ -34,7 +34,6 @@ export class RegistrationComponent implements OnInit {
 
     this._uService.setMeta(this._router.url, {
       title: 'Registration | PromptHealth',
-      robots: 'noindex',
     })
   }
 }

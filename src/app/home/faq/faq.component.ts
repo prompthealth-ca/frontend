@@ -17,7 +17,6 @@ export class FAQComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Frequently Asked Questions (FAQ) | PromptHealth',
-      keyword: '',
       description: 'Here are some of the most frequently asked questions we get about PromptHealth.'
     });
   }

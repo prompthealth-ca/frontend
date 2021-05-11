@@ -25,7 +25,6 @@ export class MyFavouriteComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Favorite Practitioners | PromptHealth',
-      robots: 'noindex',
     });
 
     this.getFavList();

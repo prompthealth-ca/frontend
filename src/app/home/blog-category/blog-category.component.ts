@@ -70,8 +70,8 @@ export class BlogCategoryComponent implements OnInit {
 
         this._uService.setMeta(this._router.url, {
           title: `${cat.title} - News & Media | PromptHealth`,
-          keyword: '',
-          description: `Check out our latest news, podcast, videos and tips regarding to ${cat.title}.`
+          description: `Check out our latest news, podcast, videos and tips regarding to ${cat.title}.`,
+          pageType: 'blog',
         });
 
       } else {

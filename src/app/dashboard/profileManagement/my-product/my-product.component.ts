@@ -38,7 +38,6 @@ export class MyProductComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Manage products | PromptHealth',
-      robots: 'noindex',
     });
     
     this.userId = JSON.parse(localStorage.getItem('user'))._id;

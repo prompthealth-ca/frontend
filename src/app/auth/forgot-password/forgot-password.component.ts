@@ -36,7 +36,6 @@ export class ForgotPasswordComponent implements OnInit {
 
     this._uService.setMeta(this._router.url, {
       title: 'Forgot password? | PromptHealth',
-      robots: 'noindex',
     });
   }
 

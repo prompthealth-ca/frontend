@@ -19,9 +19,6 @@ export class TermsConditionsComponent implements OnInit {
     private _sharedService: SharedService,
     private _uService: UniversalService,
   ) {
-    this._uService.setMeta(this._router.url, {
-      title: 'Terms and Conditions',
-    });
     this._sharedService.loader('show');
     this._sharedService.get("Pages/fixTitle/t-c").subscribe((res: any) => {
 
@@ -35,7 +32,9 @@ export class TermsConditionsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this._uService.setMeta(this._router.url, {
+      title: 'Terms and Conditions',
+    });
   }
 
 }

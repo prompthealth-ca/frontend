@@ -24,7 +24,6 @@ export class RegisterQuestionnaireCompleteComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Registration complete | PromptHealth',
-      robots: 'noindex',
     });
     this._route.queryParams.subscribe((params: {type: RegisterType}) => {
       // let message: string;

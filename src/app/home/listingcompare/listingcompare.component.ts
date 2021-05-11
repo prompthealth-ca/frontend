@@ -35,7 +35,9 @@ export class ListingcompareComponent implements OnInit {
     this.getProfileQuestion();
     this.AWS_S3 = environment.config.AWS_S3
     // this.data = this.compareIds[i];
-    this._uService.setMeta(this._router.url);
+    this._uService.setMeta(this._router.url), {
+      title: 'Compare practitioners | PromptHealth',
+    };
   }
 
   getProfileQuestion() {

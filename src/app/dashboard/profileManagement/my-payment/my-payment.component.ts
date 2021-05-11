@@ -23,7 +23,6 @@ export class MyPaymentComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Payment history | PromptHealth',
-      robots: 'noindex',
     });    
     
     this.getMyTransactions();

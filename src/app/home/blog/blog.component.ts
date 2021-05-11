@@ -31,8 +31,8 @@ export class BlogComponent implements OnInit {
 
     this._uService.setMeta(this._router.url, {
       title: 'News & Media | PromptHealth',
-      keyword: '',
-      description: 'Check out our latest news, podcast, videos and tips regarding to health care services.'
+      description: 'Check out our latest news, podcast, videos and tips regarding to health care services.',
+      pageType: 'blog',
     });
   }
 

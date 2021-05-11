@@ -28,41 +28,15 @@ export class UniversalService {
   get isServer(){ return isPlatformServer(this.p); }
 
   setMeta(path: string, meta: MetaData = {}){
-    console.log(path);
-    if(path.match( /\/practitioners/)) {
-      meta.pageType = 'article';
-    }
-    else if(path.match(/\/products/)) {
-      meta.pageType = 'article';
-    }
-    else if(path.match(/\/personal-match/)) {
-      meta.robots = 'noindex';
-      meta.title = 'Personal Match | PromptHealth';
-    }
-    else if(path.match(/\/compare-practitioners/)) {
-      meta.title = 'Compare practitioners | PromptHealth';
-      meta.robots = 'noindex';
-    }
-    else if(path.match(/\/plans/)) {
-      meta.pageType = 'article';
-    }
-    else if(path.match(/\/blogs/)) {
-      meta.pageType = 'article';
-    }
-    else if(path.match(/\/invitation/)) {
-      meta.robots = 'noindex';
-    }
-    else if(path.match(/\/dashboard/)) {
-      meta.robots = 'noindex';
-    }
-    else if(path.match(/\/auth/)) {
-      meta.robots = 'noindex';
-    }
-    else if(path == '/'){ }
 
-    if(!meta.title) { meta.title = 'PromptHealth'; }
+    if(!meta.title) {       meta.title = 'PromptHealth'; }
     if(!meta.description) { meta.description = ''; }
-    if(!meta.keyword) { meta.keyword = ''; }
+    if(!meta.keyword) {     meta.keyword = ''; }
+    if(!meta.pageType) {    meta.pageType = 'website'; }
+
+    meta.robots = 
+      (path.match(/\/(dashboard|auth|personal-match|compare-practitioners|invitation|unsubscribe|404|thankyou)/)) ? 'noindex' :
+      'index, follow';
 
     if(!meta.image) { 
       meta.image = 'https://prompthealth.ca/assets/img/logo.png'; 
@@ -71,8 +45,6 @@ export class UniversalService {
       meta.imageHeight = 300;
       meta.imageAlt = 'PromptHealth';
     }
-    if(!meta.pageType) { meta.pageType = 'website'; }
-    if(!meta.robots) { meta.robots = 'index, follow'; }
 
     const baseUrl = 'https://prompthealth.ca';
     this._title.setTitle(meta.title);

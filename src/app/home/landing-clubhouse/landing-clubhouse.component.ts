@@ -62,7 +62,6 @@ export class LandingClubhouseComponent implements OnInit {
   ) {
 		this._uService.setMeta(this._router.url, {
 			title: 'Join us on Clubhouse - HealthLoop | PromptHealth',
-			keyword: '',
 			description: 'We are on Clubhouse where we spark conversations in this forum on challenges of both health and wellness seekers and providers',
 			image: 'https://prompthealth.ca/assets/img/clubhouse.png',
 			imageAlt: 'HealthLoop on Clubhouse',

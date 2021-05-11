@@ -42,7 +42,9 @@ export class UserQuestionaireComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._uService.setMeta(this._router.url);
+    this._uService.setMeta(this._router.url, {
+      title: 'Personal Match | PromptHealth',
+    });
     
     this._qService.init(this.data, {});
 

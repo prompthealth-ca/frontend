@@ -55,7 +55,6 @@ export class MyBookingComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Manage booking | PromptHealth',
-      robots: 'noindex',
     });
 
     const now = new Date();

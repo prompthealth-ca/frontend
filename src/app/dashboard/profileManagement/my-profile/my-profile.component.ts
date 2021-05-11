@@ -42,7 +42,6 @@ export class MyProfileComponent implements OnInit {
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
       title: 'Edit profile | PromptHealth',
-      robots: 'noindex',
     });
     
     this.AWS_S3 = environment.config.AWS_S3;

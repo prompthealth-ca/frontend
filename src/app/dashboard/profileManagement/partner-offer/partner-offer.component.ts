@@ -32,7 +32,6 @@ export class PartnerOfferComponent implements OnInit {
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
       title: 'Manage offer | PromptHealth',
-      robots: 'noindex',
     });
     
     try {

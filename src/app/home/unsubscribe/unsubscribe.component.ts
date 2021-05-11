@@ -26,7 +26,6 @@ export class UnsubscribeComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this.router.url, {
       title: 'Unsbscribe Email | PromptHealth',
-      robots: 'noindex',
     });
     this.spinner.show();
     this.route.paramMap

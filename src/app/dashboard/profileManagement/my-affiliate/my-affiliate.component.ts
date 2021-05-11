@@ -27,7 +27,6 @@ export class MyAffiliateComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this.router.url, {
       title: 'Affiliate program | PromptHealth',
-      robots: 'noindex',
     });
 
     this.affiliateRequestForm = this.formBuilder.group({

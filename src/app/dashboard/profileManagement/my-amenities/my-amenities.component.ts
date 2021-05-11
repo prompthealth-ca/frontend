@@ -44,7 +44,6 @@ export class MyAmenitiesComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Manage amenities | PromptHealth',
-      robots: 'noindex',
     });
     this.userId = JSON.parse(localStorage.getItem('user'))._id;
     this.getDefaultAmenities();

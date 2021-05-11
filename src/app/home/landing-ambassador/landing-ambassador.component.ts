@@ -64,14 +64,10 @@ export class LandingAmbassadorComponent implements OnInit {
         this._router.url,
         (this.faceType == 'provider') ? {
           title: 'Join Ambassador Program | PromptHealth',
-          keyword: '',
           description: 'Join the movement to help people connect with medical and holistic services based on individualized needs quick and easily. You will also get credits from us.',
-          robots: 'index, follow',
         } : {
           title: 'Welcome to PromptHealth',
-          keyword: '',
           description: 'PromptHealth is an application that connects people to Canadian accredited medical and holistic health services.',
-          robots: 'noindex',
         }
       );
 

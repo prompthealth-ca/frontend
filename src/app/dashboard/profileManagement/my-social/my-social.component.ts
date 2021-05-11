@@ -35,7 +35,6 @@ export class MySocialComponent implements OnInit {
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
       title: 'Connect social media | PromptHealth',
-      robots: 'noindex',
     });
     
     const userInfo = JSON.parse(localStorage.getItem('user'));

@@ -52,7 +52,6 @@ export class MyBadgeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this._uService.setMeta(this._router.url, {
       title: 'Manage verified badge | PromptHealth',
-      robots: 'noindex',
     });
 
     this._sharedService.loader('show');

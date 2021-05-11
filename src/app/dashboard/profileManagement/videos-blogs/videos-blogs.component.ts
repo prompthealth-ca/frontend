@@ -36,7 +36,6 @@ export class VideosBlogsComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Manage videos | PromptHealth',
-      robots: 'noindex',
     });
 
     this.userId = JSON.parse(localStorage.getItem('user'))._id;

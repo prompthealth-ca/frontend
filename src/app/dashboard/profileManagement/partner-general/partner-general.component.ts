@@ -31,7 +31,6 @@ export class PartnerGeneralComponent implements OnInit {
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
       title: 'Edit profile | PromptHealth',
-      robots: 'noindex',
     });    
     try {
       const user = JSON.parse(localStorage.getItem('user')); 

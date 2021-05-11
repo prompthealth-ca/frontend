@@ -47,7 +47,6 @@ export class RegisterQuestionnaireComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Registration questionnaire | PromptHealth',
-      robots: 'noindex',
     });
 
     const user: IUserDetail = JSON.parse(localStorage.getItem('user'));

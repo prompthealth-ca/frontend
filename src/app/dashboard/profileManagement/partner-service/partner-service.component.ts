@@ -33,7 +33,6 @@ export class PartnerServiceComponent implements OnInit {
   async ngOnInit() {
     this._uService.setMeta(this._router.url, {
       title: 'Edit service | PromptHealth',
-      robots: 'noindex',
     });
     try { this.categories = await this._catService.getCategoryAsync(); }
     catch(err){ console.log(err); }

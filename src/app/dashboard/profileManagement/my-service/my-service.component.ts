@@ -40,7 +40,6 @@ export class MyServiceComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this._uService.setMeta(this._router.url, {
       title: 'Edit service | PromptHealth',
-      robots: 'noindex',
     });
 
     this.roles = localStorage.getItem('roles');

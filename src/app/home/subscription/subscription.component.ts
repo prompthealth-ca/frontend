@@ -43,7 +43,6 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Subscribe Email | PromptHealth',
-      keyword: '',
       description: 'Subscribe to our newsletter and get latest news from PromptHealth.',
     });
   }

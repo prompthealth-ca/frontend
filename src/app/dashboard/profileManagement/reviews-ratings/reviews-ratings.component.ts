@@ -27,7 +27,6 @@ export class ReviewsRatingsComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Reviews and Ratings | PromptHealth',
-      robots: 'noindex',
     });
 
     this.userInfo = JSON.parse(localStorage.getItem('user'));

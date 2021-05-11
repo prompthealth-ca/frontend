@@ -59,7 +59,6 @@ export class subscriptionPlanProductComponent implements OnInit {
     this._uService.setMeta(this._router.url, {
       title: 'Plans for products/services | PromptHealth',
       description: 'Join us to get exposed to clients. You can upload your products photos and also show your promotions.',
-      keyword: '',
       image: 'https://prompthealth.ca/assets/img/hero-subscription-plan-product.png',
       imageType: 'image/png',
       imageAlt: 'PromptHealth',

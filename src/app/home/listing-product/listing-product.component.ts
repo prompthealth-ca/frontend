@@ -62,7 +62,6 @@ export class ListingProductComponent implements OnInit {
     this.isViewSmall = (window.innerWidth < 768) ? true: false; 
     this._uService.setMeta(this._router.url, {
       title: 'Products and Services | PromptHealth',
-      keyword: '',
       description: 'Discover our favorite innovative health apps, products and services. Find promo codes, free samples and reviews.',
       pageType: 'website',
       image: 'https://prompthealth.ca/assets/img/listing-product.png',

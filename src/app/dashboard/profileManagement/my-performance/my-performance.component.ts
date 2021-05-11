@@ -31,7 +31,6 @@ export class MyPerformanceComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this._uService.setMeta(this._router.url, {
       title: 'Dashboard | PromptHealth',
-      robots: 'noindex',
     });
     
     const user = JSON.parse(localStorage.getItem('user'));

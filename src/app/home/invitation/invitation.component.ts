@@ -27,9 +27,7 @@ export class InvitationComponent implements OnInit {
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
       title: 'Welcome to PromptHealth',
-      keyword: '',
       description: 'We are inviting you with coupon that gives you discount.',
-      robots: 'noindex',
     });
 
     this.user = JSON.parse(localStorage.getItem('user'));

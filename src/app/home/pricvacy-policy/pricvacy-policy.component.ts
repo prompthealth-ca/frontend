@@ -18,10 +18,6 @@ export class PricvacyPolicyComponent implements OnInit {
     private _sharedService: SharedService,
     private _uService: UniversalService,
   ) {
-    this._uService.setMeta(this._router.url, {
-      title: 'Privacy policy | PromptHealth',
-      description: ''
-    });
     this._sharedService.loader('show');
     this._sharedService.get("Pages/fixTitle/privacy-policy").subscribe((res: any) => {
 
@@ -35,7 +31,9 @@ export class PricvacyPolicyComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this._uService.setMeta(this._router.url, {
+      title: 'Privacy policy | PromptHealth',
+    });
   }
 
 }

@@ -89,6 +89,7 @@ export class UniversalService {
     this._meta.updateTag({property: 'og:title', content: meta.title});
     this._meta.updateTag({property: 'og:description', content: meta.description});
     this._meta.updateTag({property: 'og:image', content: meta.image});
+    this._meta.updateTag({property: 'og:image:type', content: meta.imageType});
     // this._meta.updateTag({property: 'og:image:width', content: meta.imageWidth.toString()});
     // this._meta.updateTag({property: 'og:image:height', content: meta.imageWidth.toString()});
     this._meta.updateTag({property: 'og:image:alt', content: meta.imageAlt});

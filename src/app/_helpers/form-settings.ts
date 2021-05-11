@@ -78,10 +78,8 @@ const validatorPatternPassword = (): ValidatorFn => {
   return function validate(formControl: FormControl) {
     const regex = new RegExp(pattern.password);
     if(formControl.value.match(regex)) {
-      console.log('password ok');
       return null;
     }else{
-      console.log('password error');
       const errors = {'matchPatternPassword': true};
       return errors;
     }

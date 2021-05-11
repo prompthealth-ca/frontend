@@ -14,6 +14,7 @@ export const pattern = {
   url: 'http(s)?:\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&=]*)?',
   phone: '^[0-9\\-\\(\\)\\s]+$',
   price: '^[0-9]{1,}(\\.[0-9]{1,2})?$',
+  password: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^\\.\\-_&]).{8,}',
 }
 
 const validatorCheckboxSelectedAtLeast = (minRequired: number = 1): ValidatorFn => {
@@ -75,7 +76,7 @@ const validatorAddressSelectedFromSuggestion = (): ValidatorFn => {
 
 const validatorPatternPassword = (): ValidatorFn => {
   return function validate(formControl: FormControl) {
-    const regex = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}');
+    const regex = new RegExp(pattern.password);
     if(formControl.value.match(regex)) {
       console.log('password ok');
       return null;

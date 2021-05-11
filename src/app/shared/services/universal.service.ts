@@ -28,7 +28,7 @@ export class UniversalService {
   get isServer(){ return isPlatformServer(this.p); }
 
   setMeta(path: string, meta: MetaData = {}){
-    console.log(path);
+    // console.log(path);
     if(path.match( /\/practitioners/)) {
       meta.pageType = 'article';
     }
@@ -74,6 +74,7 @@ export class UniversalService {
     if(!meta.pageType) { meta.pageType = 'website'; }
     if(!meta.robots) { meta.robots = 'index, follow'; }
 
+    console.log(meta);
     const baseUrl = 'https://prompthealth.ca';
     this._title.setTitle(meta.title);
 

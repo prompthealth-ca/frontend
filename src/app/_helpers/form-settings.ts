@@ -14,7 +14,7 @@ export const pattern = {
   url: 'http(s)?:\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&=]*)?',
   phone: '^[0-9\\-\\(\\)\\s]+$',
   price: '^[0-9]{1,}(\\.[0-9]{1,2})?$',
-  password: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^\\.\\-_&]).{8,}',
+  password: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^\\.&\\-]).{8,}'
 }
 
 const validatorCheckboxSelectedAtLeast = (minRequired: number = 1): ValidatorFn => {

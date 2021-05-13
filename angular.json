@@ -26,8 +26,7 @@
             "assets": [
               "src/robots.txt",
               "src/assets",
-              "src/manifest.webmanifest",
-              "src/sw.js"
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",

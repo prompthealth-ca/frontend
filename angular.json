@@ -25,7 +25,8 @@
             "aot": true,
             "assets": [
               "src/robots.txt",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",

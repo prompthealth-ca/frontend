@@ -2,6 +2,7 @@
   <input 
   [id]="name" 
   class="form-control" 
+  [ngClass]="{error: ((address.errors || controllerGroup.errors) && submitted)}"
   [formControl]="address"
   [attr.disabled]="disabled ? 'disabled' : null"
   (input)="onChangeAddress()"

@@ -1,10 +1,29 @@
-@import "mixins";
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap");
+@import "variables";
 
 :root{
   --ph-blue: #3377C5;
   --ph-black-bold: #1A1A1A;
 }
 
+@import "mixins";
+@import "typography";
+@import "button";
+
+a {
+  color: $colorPrimary;
+  &:hover {
+    color: $colorPrimaryDark;
+    text-decoration: none;
+  }
+
+  //   &:not([href]) {
+  //     color: initial;
+  //     text-decoration: none;
+  //   }
+}
+
+  
 ui-switch{
   .switch{
     &:not(.checked){
@@ -44,16 +63,16 @@ input.InputElement{
   float: right;
 }
 
-a {
-  color: $primaryColor;
-  &:hover {
-    text-decoration: none;
-  }
-  &:not([href]) {
-    color: initial;
-    text-decoration: none;
-  }
-}
+// a {
+//   color: $primaryColor;
+//   &:hover {
+//     text-decoration: none;
+//   }
+//   &:not([href]) {
+//     color: initial;
+//     text-decoration: none;
+//   }
+// }
 
 .text-rating {
   color: gold;
@@ -110,36 +129,36 @@ label {
   padding-bottom: $p6 !important;
 }
 
-.h2,
-h2,
-.h4,
-h4 {
-  font-weight: 500;
-  line-height: normal !important;
-}
+// .h2,
+// h2,
+// .h4,
+// h4 {
+//   font-weight: 500;
+//   line-height: normal !important;
+// }
 
-.h2,
-h2 {
-  font-size: 35px;
-}
+// .h2,
+// h2 {
+//   font-size: 35px;
+// }
 
-h4,
-.h4 {
-  font-size: 22px;
-  line-height: 35px !important;
-}
+// h4,
+// .h4 {
+//   font-size: 22px;
+//   line-height: 35px !important;
+// }
 
-h5,
-.h5 {
-  font-size: 20px !important;
-  line-height: 30px !important;
-}
+// h5,
+// .h5 {
+//   font-size: 20px !important;
+//   line-height: 30px !important;
+// }
 
-h6,
-.h6 {
-  font-size: 18px !important;
-  line-height: normal;
-}
+// h6,
+// .h6 {
+//   font-size: 18px !important;
+//   line-height: normal;
+// }
 
 .intro-thumbnail {
   min-width:110px;
@@ -264,13 +283,13 @@ textarea.form-control {
   background-color: $accentColor !important;
 }
 
-.btn-secondary {
-  color: #fff !important;
-  background-color: $secondaryColor !important;
-  border: $secondaryColor !important;
-  &:hover {
-  }
-}
+// .btn-secondary {
+//   color: #fff !important;
+//   background-color: $secondaryColor !important;
+//   border: $secondaryColor !important;
+//   &:hover {
+//   }
+// }
 
 .btn-facebook {
   background-color: $facebookColor !important;
@@ -294,17 +313,17 @@ textarea.form-control {
   }
 }
 
-.btn-primary {
-  color: #fff !important;
-  background-color: $primaryColor !important;
-  border-color: $primaryColor !important;
-  &:hover,
-  &:focus {
-    color: #fff !important;
-    background-color: $primaryColorhover !important;
-    border-color: $primaryColorhover !important;
-  }
-}
+// .btn-primary {
+//   color: #fff !important;
+//   background-color: $primaryColor !important;
+//   border-color: $primaryColor !important;
+//   &:hover,
+//   &:focus {
+//     color: #fff !important;
+//     background-color: $primaryColorhover !important;
+//     border-color: $primaryColorhover !important;
+//   }
+// }
 
 .btn-light {
   color: #212529 !important;

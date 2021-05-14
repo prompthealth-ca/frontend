@@ -1,9 +1,36 @@
+@import "../../../assets/scss/variables";
+
 :host{
   font-size: 16px;
 }
 
 .form-control{
   font-size: 1em;
+
+  color: $colorGsBlack;
+  background: $colorPrimaryLight;
+  border-color: rgba($colorPrimary, 0.12);  
+
+  &:disabled {
+    color: $colorGsPlaceholder;
+  }
+
+  &::placeholder {
+    color: $colorGsPlaceholder;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 1.5px $colorPrimary;
+  }
+}
+
+.form-control.error {
+  background: $colorEerrorLight;
+  border-color: $colorError;
+
+  &:focus {
+    box-shadow: 0 0 0 1.5px $colorError;
+  }
 }
 
 .errors{

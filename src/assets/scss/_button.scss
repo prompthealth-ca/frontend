@@ -1,0 +1,67 @@
+@import "variables";
+
+/** new button design */
+@mixin btnInner() {
+  font-size: 16px;
+  line-height: 17.6px;
+  padding: 16.5px 25px;
+  &.large {
+    font-size: 18px;
+    line-height: 19.8px;
+    padding: 21.5px 30px;
+  }
+  &.small {
+    font-size: 15px;
+    line-height: 16.5px;
+    padding: 8.5px 15px;
+  }
+}
+@mixin btn($color, $bg, $bgHover) {
+  color: $color;
+  background: $bg;
+  border-radius: 5px;
+  border: 1px solid $bg;
+  @include btnInner();
+  
+  &:hover:not(:disabled) {
+    background: $bgHover;
+    border-color: $bgHover;
+  }
+}
+
+.btn.btn-primary {
+  @include btn($colorGsWhite, $colorPrimary, $colorPrimaryDark);
+}
+.btn.btn-secondary {
+  @include btn($colorGsWhite, $colorSecondary, $colorSecondaryDark);
+}
+
+.btn.btn-outline {
+  color: $colorPrimary;
+  border: 1px solid $colorPrimary;
+  @include btnInner();
+
+  &:hover:not(:disabled) {
+    color: $colorGsWhite;
+    background: $colorPrimary;
+    border-color: $colorPrimary;
+  }
+}
+
+// .btn.btn-outline-secondary (if needed)
+
+.btn.btn-text {
+  color: $colorPrimary;
+  border: 1px solid transparent;
+  @include btnInner();
+
+  &:hover:not(:disabled) {
+    color: $colorPrimaryDark;    
+  }
+}
+
+// .btn.btn-text-secondary (if needed)
+
+.btn:disabled {
+  opacity: 0.6;
+}

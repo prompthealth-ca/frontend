@@ -1,6 +1,35 @@
-//fonts
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap");
+$colorPrimary: #0C74FF;
+$colorPrimaryDark: #0055C7;
+$colorPrimaryLight: #E9F2FF;
 
+$colorSecondary: #00C2FF;
+$colorSecondaryDark: #00B2EA;
+$colorSecondaryLight: #E8FBFF;
+
+$colorYellow: #FDB813;
+$colorYellowDark: #A47300;
+$colorYellowLight: #FCEBC2;
+
+$colorError: #EA4242;
+$colorErrorDark: #BB1313;
+$colorEerrorLight: #FBECEC;
+
+$colorSuccess: #12C132;
+$colorSuccessDark: #079020;
+$colorSuccessLight: #E8F9EB;
+
+/** greyscale */
+$colorGsBlack: #04122D;
+$colorGsBody: #293148;
+$colorGsLabel: #838790;
+$colorGsPlaceholder: #A0A3BD;
+$colorGsLine: #D6D8E7;
+$colorGsBackground: #EFF3F7;
+$colorGsWhite: #FFFFFF;
+
+
+
+//fonts (previous design)
 $accentColor: #B7D3F3;
 $primaryColor: #4274BA;
 $primaryColorhover: #5683c2;

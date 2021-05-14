@@ -59,8 +59,25 @@ export class ButtonShareComponent implements OnInit {
   }
 
   onClickButton() {
+
+    /** if mobile, show native action sheet */
+    /** if desktop, show sharePalette */
+    /** desktop is not good to use native action sheet, because people don't install social apps in desktop */
+
+    /** TODO: userAgentData is still draft in 2021. might have to change later. */
+
     const nav: any = window.navigator;
-    if(nav.share) {
+    let isDesktop = true;
+    if("userAgentData" in nav && nav.userAgentData.mobile) {
+      isDesktop = false;
+    }else{
+      const ua = navigator.userAgent.toLowerCase();
+      if(ua.match('ipad|iphone|android') || ( ua.match('mac') && ('ontouchstart' in window) )) {
+        isDesktop = false;
+      }
+    }
+
+    if(nav.share && !isDesktop) {
       const options: WebShareOption = {};
       if(this.url) { options.url = this.url; }
       if(this.text) { options.text = this.text; }

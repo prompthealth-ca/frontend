@@ -26,7 +26,6 @@ export class LandingAmbassadorComponent implements OnInit {
 
   private canvas: HTMLElement;
   private disableAnalytics: boolean = environment.config.disableAnalytics;
-  public isSharePalletAvailable: boolean;
 
   @ViewChild('referralLink') private elLink: ElementRef;
 
@@ -47,9 +46,6 @@ export class LandingAmbassadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const nav: any = window.navigator;
-    this.isSharePalletAvailable = !!(nav && nav.share);
-
     const user = this._uService.localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);

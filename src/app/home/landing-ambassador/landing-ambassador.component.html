@@ -7,21 +7,20 @@
           <h3 class="text-ph-blue mb-4">Open to All Accredited Health and Wellness Professionals in Canada</h3>
           <p class="mb-4">
             Join the movement to help people connect with medical and holistic services based on individualized needs
-            quick
-            and easily. Help spread our mission with your clients to help spread the importance of personalized
-            healthcare.
+            quickly
+            and easily. Help spread our mission of the importance of personalized healthcare with your clients. 
           </p>
 
           <h4 class="text-dark-blue mb-3">Eligibility Criteria:</h4>
-          <p class="mb-4">
-            You must be signed up as a practitioner on our platform.<br>
-            You must be an accredited health or wellness professional within Canada.
-          </p>
+          <ol class="mb-4">
+            <li>You must be signed up as a practitioner on our platform.</li>
+            <li>You must be an accredited health or wellness professional within Canada.</li>
+          </ol>
 
           <h4 class="text-dark-blue mb-3">What you do:</h4>
           <p class="mb-4">
-            Share our referral link on your social media accounts or your website.<br>
-            Also, tag us <b>#prompthealth</b> on your social media accounts.
+            Share our referral link on your social media accounts, on your website, and anywhere else you can.<br>
+            Also, tag us <b>@prompthealth</b> on your social media accounts!<br>
           </p>
 
           <div 
@@ -41,7 +40,7 @@
           </div>
 
           <div *ngIf="!user">
-            <p>To get referral link, sign up first.</p>
+            <p>To get the referral link, you must sign up first.</p>
             <div class="mb-5 d-flex flex-column align-items-start">
               <a class="btn btn-outline-primary rounded-10p" [routerLink]="['/plans']">Sign up as Practitioner</a>
               <a class="btn btn-outline-primary rounded-10p mt-3" [routerLink]="['/plans/product']">Sign up as
@@ -54,7 +53,7 @@
           <div class="mb-md-5">
 
             <p class="mb-md-2">
-              The more you share and higher the engagement, the more credits you get towards our premium services
+              The more engagement your shared referral link gets, the more credits you are awarded. The credits can then be used towards our premium services. 
             </p>
             <a [routerLink]="'/dashboard/profilemanagement/my-payment'">
               Check credit balance
@@ -64,33 +63,31 @@
           <div class="d-md-none"><img class="image-people-sm" src="/assets/img/ambassador-people.png"></div>
 
 
-          <h3 class="text-gradient-light-blue mb-4">Our services includes:</h3>
+          <h3 class="text-gradient-light-blue mb-3">Our services include:</h3>
           <h5 class="text-dark mb-3">Premium Membership (valued from $20~100/month):</h5>
           <div class="mb-4">
             <ul class="mb-3">
-              <li class="mb-1">and video introduction</li>
+              <li class="mb-1">Photo and video introduction</li>
               <li class="mb-1">Verified badge on your profile</li>
               <li class="mb-1">Genuine reviews and feedback</li>
               <li class="mb-1">Receive requests for booking or integration with your own booking system option</li>
               <li class="mb-1">Performance dashboard</li>
               <li>Link your social media accounts on your PromptHealth profile page</li>
             </ul>
-            <p class="">* Centres receive even more feature&benefits</p>  
+            <p class="">* Centres receive even more features and benefits</p>  
           </div>
 
 
+          <h5 class="text-gradient-light-blue mb-3">Add-Ons:</h5>
           <h5 class="text-dark mb-3">The Networker (valued at $100/month):</h5>
-          <p class="mb-4">
-            A feature on the homepage of our website to display your main service for the ultimate exposure toward
-            clients.
-          </p>
+          <ul class="mb-4">
+            <li>A feature displaying your main services on the homepage of our website for the ultimate exposure toward clients. </li>
+          </ul>
 
           <h5 class="text-dark mb-3">The Socialite (Valued at $200/month):</h5>
-          <p class="mb-3">
-            We will take care of creating three quality health content posts per week for your social media channels,
-            and
-            posting them for you with engaging captions.
-          </p>
+          <ul class="mb-3">
+            <li>We will take care of your recognition and growth by creating and posting quality health content three times a week for your social media channels, allowing you to focus on what’s important – treating your clients. </li>
+          </ul>
           <a [routerLink]="'/plans'">Check out our services</a>
 
         </div>

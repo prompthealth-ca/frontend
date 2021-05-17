@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { ToastrService } from 'ngx-toastr';
 // import { SharedService } from '../../shared/services/shared.service';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
-declare var FB: any;
+// declare var FB: any;
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  email: any;
+  // email: any;
   constructor(
     // private formBuilder: FormBuilder,
-    private _router: Router,
+    // private _router: Router,
     // private _sharedService: SharedService,
     // private toastr: ToastrService,
   ) { }

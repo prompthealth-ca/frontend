@@ -293,7 +293,7 @@ export class ListingComponent implements OnInit, OnDestroy {
       description: 'Use our Expart Finder to find a top-rated health care provider near you or offering virtual appointment.',
     });
 
-    let isFirstAccess = true;
+    let isFirstAccess = true; 
     
     // for the route '/practitioners/category/:categoryId'
     // for the route '/practitioners/category/:categoryId/:city'
@@ -323,7 +323,6 @@ export class ListingComponent implements OnInit, OnDestroy {
           this.initialLocation.isLocationEnabled = true;
   
           const f = this.getFilter('location');
-          f.active = true;
           f.data.defaultLatLng = [lat, lng];
   
           this.getAddressFromLocation([lat, lng]).then(address => {

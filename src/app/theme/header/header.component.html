@@ -125,7 +125,7 @@
 <div class="spacer-top" [ngClass]="{loggedin: token}"></div>
 
 <dashboard-menu class="d-none d-md-block position-fixed dashboard-menu-wrapper-md" *ngIf="isDashboardMenuShown"
-  [@slideVertical] [user]="user" [scrollDetector]="isDashboardMenuShown" [offset]="50"
+  [@fadeFast] [user]="user" [scrollDetector]="isDashboardMenuShown" [offset]="50"
   [ngStyle]="positionDashboardMenuMd"
   (detect)="isDashboardMenuShown = false;" (logout)="logout()" (clickOutside)="onClickOutsideOfDashboardMenuMd($event)"
   (close)="isDashboardMenuShown = false"></dashboard-menu>

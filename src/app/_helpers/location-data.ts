@@ -13,7 +13,7 @@ class LocationData {
 }
 
 export const locations: {[k:string]: LocationData} = {
-  vancouver: new LocationData(49.278794,-123.128201, 12, 15),
+  vancouver: new LocationData(49.282393,-123.120074, 12, 14),
   burnaby: new LocationData(49.247913,-122.982399, 10, 12),
   richmond: new LocationData( 49.165375,-123.133464, 9, 13),
   victoria: new LocationData(48.428116,-123.367138, 20, 12),

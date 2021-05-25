@@ -631,15 +631,15 @@ export class ListingComponent implements OnInit, OnDestroy {
       case 'age_range':
       case 'typical_hours':
       case 'serviceOfferIds':
+      case 'gender':
+      case 'languageId':
+      case 'price_per_hours':
         val = [];
         break;
 
       case 'zipcode':
-      case 'languageId':
       case 'typicalHoursId':
       case 'name':
-      case 'gender':
-      case 'price_per_hours':
         val = '';
         break;
     }

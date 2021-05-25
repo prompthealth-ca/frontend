@@ -193,8 +193,10 @@ export class ListingComponent implements OnInit, OnDestroy {
   }
 
   calcMapBoundingRect() {
-    this.expertFinderHeight = this.expertFinder.nativeElement.getBoundingClientRect().height;
-    this.mapHeight = window.innerHeight - this.expertFinderHeight;
+    if(!this._uService.isServer){
+      this.expertFinderHeight = this.expertFinder.nativeElement.getBoundingClientRect().height;
+      this.mapHeight = window.innerHeight - this.expertFinderHeight;  
+    }
     return;
   }
 
@@ -1029,7 +1031,7 @@ export class ListingComponent implements OnInit, OnDestroy {
 
   scrollToTop() {
     const practitionersContainer = this.host.querySelector('#practitionersContainer');
-    if(practitionersContainer) {
+    if(practitionersContainer && !this._uService.isServer) {
       const rectL = practitionersContainer.getBoundingClientRect();
       const rectF = this.expertFinder.nativeElement.getBoundingClientRect();
       window.scrollBy(

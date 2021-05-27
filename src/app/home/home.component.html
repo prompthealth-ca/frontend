@@ -1,3 +1,52 @@
+<section class="color-bg-primary-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <h6 class="h6 color-primary mt-90p mb-20p">Personalize. Compare. Connect.</h6>
+        <h2 class="h2 mb-30p">Your health and wellness personal assistant</h2>
+        <h6 class="h6 opacity-70pc mb-50p">Take control of your health with options tailored to you</h6>
+        
+        <div class="color-bg-white color-border-primary-light-dark border rounded-lg mb-50p">
+          <search-bar></search-bar>
+        </div>
+      </div>
+    </div>  
+  </div>
+</section>
+<section class="container">
+  <ul class="row list-unstyled p-0">
+    <li class="col-12 col-md-4">
+      <list-item
+      leading="icon-women-men-health"
+      [leadingStyle]="{fontSize: '30px'}"
+      action="icon-chevron-right"
+      (onTap)="onTap()"
+      (onTapAction)="onTapAction()"
+      [option]="{actionHasOriginalFunction: true}"
+      >
+        <h5 class="subtitle1 mb-0">Women/Men's Health</h5>
+        <div class="body2 color-gs-label">Hormens / PMS / ...</div>  
+      </list-item>  
+    </li>
+    <li class="col-12 col-md-4">
+      <list-item
+      leading="icon-women-men-health"
+      [leadingStyle]="{fontSize: '30px'}"
+      action="icon-chevron-right"
+      (onTap)="onTap()"
+      (onTapAction)="onTapAction()"
+      [option]="{actionHasOriginalFunction: true}"
+      >
+        <h5 class="subtitle1 mb-0">Women/Men's Health</h5>
+        <div class="body2 color-gs-label">Hormens / PMS / ...</div>  
+      </list-item>  
+    </li>
+
+  </ul>
+
+</section>
+
+
 <section class="bg-accent ">
 
   <agm-map [latitude]="lat" [longitude]="long" [scrollwheel]="true" [fullscreenControl]="true" [mapTypeId]="'hybrid'">
@@ -15,7 +64,7 @@
           Your health and wellness personal assistant
         </h4>
         <h1 class="ph-title text-gradient-on-blue mb-4">
-          Take control of your health with options tailored to you
+          Take control of your health with options tailored to you          
         </h1>
 
         <div class="mt-3">

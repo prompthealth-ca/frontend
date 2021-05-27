@@ -1,0 +1,29 @@
+@import './variables';
+
+.color-primary {
+  color: $colorPrimary;
+}
+
+.color-gs-body {
+  color: $colorGsBody;
+}
+.color-gs-label {
+  color: $colorGsLabel;
+}
+
+
+.color-border-primary-light-dark {
+  border-color: rgba($colorPrimary, 0.12)!important;
+}
+
+.color-border-gs-line {
+  border-color: $colorGsLine!important;
+}
+
+.color-bg-primary-light {
+  background-color: $colorPrimaryLight!important;
+}
+
+.color-bg-white {
+  background-color: white;
+}

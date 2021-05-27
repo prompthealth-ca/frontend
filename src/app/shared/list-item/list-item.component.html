@@ -1,0 +1,30 @@
+<div 
+class="d-flex align-items-center justify-content-between list-item-inner color-border-gs-line py-3"
+[ngClass]="{'cursor-pointer': _option.isListClickable}"
+(click)="_onTap($event)"
+>
+  <div class="d-flex align-items-center">
+    <div *ngIf="leading">
+      <i 
+      class="leading"
+      [ngClass]="[leading, (leadingClass ? leadingClass : '') ]"
+      [ngStyle]="leadingStyle"
+      ></i>
+    </div>
+    
+    <div>
+      <ng-content></ng-content>
+    </div>  
+  </div>
+
+  <div *ngIf="action">
+    <i 
+    class="action btn btn-icon"
+    [ngClass]="[action]"
+    (click)="_onTapAction($event)"
+    >
+    <span class="path1"></span>
+    <span class="path2"></span>
+    </i>
+  </div>
+</div>

@@ -34,6 +34,9 @@ export class HomeComponent implements OnInit {
     this.elHost = _el.nativeElement;
   }
 
+  onTapAction() {console.log('onTapAction'); }
+  onTap() {console.log('onTap'); }
+
   get f() {
     return this.homeForm.controls;
   }

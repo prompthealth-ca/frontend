@@ -50,6 +50,8 @@ import { FormItemDatetimeComponent } from './form-item-datetime/form-item-dateti
 import { FormItemUploadImageButtonComponent } from './form-item-upload-image-button/form-item-upload-image-button.component';
 import { AddonSelectCategoryComponent } from './addon-select-category/addon-select-category.component';
 import { ButtonShareComponent } from './button-share/button-share.component';
+import { ListItemComponent } from './list-item/list-item.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -108,6 +110,8 @@ import { ButtonShareComponent } from './button-share/button-share.component';
     FormItemUploadImageButtonComponent,
     AddonSelectCategoryComponent,
     ButtonShareComponent,
+    ListItemComponent,
+    SearchBarComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -149,6 +153,8 @@ import { ButtonShareComponent } from './button-share/button-share.component';
     FormItemDatetimeComponent,
     FormItemUploadImageButtonComponent,
     ButtonShareComponent,
+    ListItemComponent,
+    SearchBarComponent,
   ]
 })
 export class SharedModule { }

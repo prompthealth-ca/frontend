@@ -60,6 +60,28 @@
   }
 }
 
+/** primary icon button */
+.btn.btn-icon {
+  // color: $colorPrimary;
+  font-size: 18px;
+  line-height: 1em;
+  padding: 7px;
+
+  &.large {
+    font-size: 22px;
+  }
+  &.small {
+    font-size: 14px;
+  }
+
+  &:before {
+    color: $colorPrimary;
+  }
+  .path1:before, .path2:before {
+    color: $colorPrimary;
+  }
+}
+
 // .btn.btn-text-secondary (if needed)
 
 .btn:disabled {

@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap");
 @import "variables";
 
-:root{
-  --ph-blue: #3377C5;
-  --ph-black-bold: #1A1A1A;
-}
-
 @import "mixins";
 @import "typography";
+@import "spacing";
 @import "button";
+@import "color";
+
 
 a {
   color: $colorPrimary;
@@ -23,7 +21,16 @@ a {
   //   }
 }
 
-  
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@for $i from 1 through 9 {
+  .opacity-#{$i * 10}pc { 
+    opacity: $i / 10
+  }
+}
+
 ui-switch{
   .switch{
     &:not(.checked){
@@ -90,7 +97,7 @@ input.InputElement{
 }
 
 body {
-  color: $secondaryColor;
+  color: $colorGsBody;
   font-family: $themeFont;
   font-size: $themeFontSize;
   line-height: $themeLignHeight;

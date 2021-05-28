@@ -11,42 +11,33 @@
 $fontWeightBold: 700;
 $fontWeightMedium: 500;
 $fontWeightRegular: 400;
-.h1 { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
-.h2 { @include typography(48px, 54px, $fontWeightBold, 0px); }
-.h3 { @include typography(34px, 42px, $fontWeightBold, 0.25px); }
-.h4 { @include typography(24px, 32px, $fontWeightBold, 0px); }
-.h5 { @include typography(20px, 26px, $fontWeightBold, 0.2px); }
-.h6 { @include typography(18px, 24px, $fontWeightMedium, 0.2px); }
+
+h1, .h1 { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
+h2, .h2 { @include typography(48px, 54px, $fontWeightBold, 0px); }
+h3, .h3 { @include typography(34px, 42px, $fontWeightBold, 0.25px); }
+h4, .h4 { @include typography(24px, 32px, $fontWeightBold, 0px); }
+h5, .h5 { @include typography(20px, 26px, $fontWeightBold, 0.2px); }
+h6, .h6 { @include typography(18px, 24px, $fontWeightMedium, 0.2px); }
 .subtitle1 { @include typography(16px, 24px, $fontWeightMedium, 0.25px); }
 .subtitle2 { @include typography(14px, 18px, $fontWeightMedium, 0.1px); }
+p,
 .body1 { @include typography(16px, 24px, $fontWeightRegular, 0.1px); }
 .body2 { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
 .small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
-.caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
-.icon { @include typography(18px, 18px, $fontWeightRegular, 0px); }
-.icon-lg { @include typography(22px, 22px, $fontWeightRegular, 0px); }
+caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
 
-.h1, .h2, .h3, .h4, .h5 .h6, .subtitle1, .subtitle2, 
-.body1, .body2, .small, .caption {
+
+i { @include typography(18px, 1, $fontWeightRegular, 0px); }
+i.icon-lg { @include typography(22px, 1, $fontWeightRegular, 0px); }
+i.icon-sm { @include typography(16px, 1, $fontWeightRegular, 0px); }
+
+/** if icon is used in some sentence, it should be aligned with text */
+h1, h2, h3, h4, h5, h6, 
+p, span, caption, 
+.h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2,
+.small, .caption {
   i {
-    font-size: 
-    vertical-align: middle;
+    font-size: 1.15em;
+    vertical-align: text-top; 
   }
-}
-
-.text-danger {
-  color: $colorError !important;
-}
-
-.text-success {
-  color: $colorSuccess !important;
-}
-
-.text-dark {
-  color: $colorGsBlack !important;
-}
-
-.text-light {
-  color: $colorGsWhite !important;
-  
 }

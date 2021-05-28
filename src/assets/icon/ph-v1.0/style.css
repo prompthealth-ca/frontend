@@ -26,711 +26,573 @@ i {
 
 .icon-briefcase-doctor:before {
   content: "\ec4e";
-  color: #a0a3bd;
 }
 .icon-toggle-on .path1:before {
   content: "\e900";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-toggle-on .path2:before {
   content: "\e901";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-search .path1:before {
   content: "\e902";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-search .path2:before {
   content: "\e903";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-receipt .path1:before {
   content: "\e904";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-receipt .path2:before {
   content: "\e905";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-activity-2:before {
   content: "\e906";
 }
 .icon-bulb .path1:before {
   content: "\e907";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bulb .path2:before {
   content: "\e908";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-megaphone .path1:before {
   content: "\e909";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-megaphone .path2:before {
   content: "\e90a";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-briefcase-2 .path1:before {
   content: "\e90b";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-briefcase-2 .path2:before {
   content: "\e90c";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bed .path1:before {
   content: "\e90d";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bed .path2:before {
   content: "\e90e";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-target .path1:before {
   content: "\e90f";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-target .path2:before {
   content: "\e910";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-crosshair .path1:before {
   content: "\e911";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-crosshair .path2:before {
   content: "\e912";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-airplay .path1:before {
   content: "\e913";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-airplay .path2:before {
   content: "\e914";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-inbox-out .path1:before {
   content: "\e915";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-inbox-out .path2:before {
   content: "\e916";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sliders-horiz-2 .path1:before {
   content: "\e917";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sliders-horiz-2 .path2:before {
   content: "\e918";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-wifi-slash:before {
   content: "\e919";
 }
 .icon-tag-2 .path1:before {
   content: "\e91a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tag-2 .path2:before {
   content: "\e91b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-umbrella .path1:before {
   content: "\e91c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-umbrella .path2:before {
   content: "\e91d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emotion-sad .path1:before {
   content: "\e91e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emotion-sad .path2:before {
   content: "\e91f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-checkbox-square .path1:before {
   content: "\e920";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-checkbox-square .path2:before {
   content: "\e921";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-home .path1:before {
   content: "\e922";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-home .path2:before {
   content: "\e923";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-copyright .path1:before {
   content: "\e924";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-copyright .path2:before {
   content: "\e925";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-smartphone .path1:before {
   content: "\e926";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-smartphone .path2:before {
   content: "\e927";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-watch-2 .path1:before {
   content: "\e928";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-watch-2 .path2:before {
   content: "\e929";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-shopping-cart-2 .path1:before {
   content: "\e92a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-shopping-cart-2 .path2:before {
   content: "\e92b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-flag-2 .path1:before {
   content: "\e92c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-flag-2 .path2:before {
   content: "\e92d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-flag-3 .path1:before {
   content: "\e92e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-flag-3 .path2:before {
   content: "\e92f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-ticket .path1:before {
   content: "\e930";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-ticket .path2:before {
   content: "\e931";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-brackets:before {
   content: "\e932";
 }
 .icon-tag .path1:before {
   content: "\e933";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tag .path2:before {
   content: "\e934";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-briefcase .path1:before {
   content: "\e935";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-briefcase .path2:before {
   content: "\e936";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-inbox .path1:before {
   content: "\e937";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-inbox .path2:before {
   content: "\e938";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-plus-square .path1:before {
   content: "\e939";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-plus-square .path2:before {
   content: "\e93a";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-power:before {
   content: "\e93b";
 }
 .icon-devices .path1:before {
   content: "\e93c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-devices .path2:before {
   content: "\e93d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-terminal .path1:before {
   content: "\e93e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-terminal .path2:before {
   content: "\e93f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-presentation-chart .path1:before {
   content: "\e940";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-presentation-chart .path2:before {
   content: "\e941";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-keyboard .path1:before {
   content: "\e942";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-keyboard .path2:before {
   content: "\e943";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-fire .path1:before {
   content: "\e944";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-fire .path2:before {
   content: "\e945";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-shopping-bag .path1:before {
   content: "\e946";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-shopping-bag .path2:before {
   content: "\e947";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sliders-horiz .path1:before {
   content: "\e948";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sliders-horiz .path2:before {
   content: "\e949";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-toggle-off .path1:before {
   content: "\e94a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-toggle-off .path2:before {
   content: "\e94b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sort-text:before {
   content: "\e94c";
 }
 .icon-box-2 .path1:before {
   content: "\e94d";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-box-2 .path2:before {
   content: "\e94e";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-brush .path1:before {
   content: "\e94f";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-brush .path2:before {
   content: "\e950";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-at:before {
   content: "\e951";
 }
 .icon-thumbs-down .path1:before {
   content: "\e952";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-thumbs-down .path2:before {
   content: "\e953";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-archive .path1:before {
   content: "\e954";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-archive .path2:before {
   content: "\e955";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bulb-slash .path1:before {
   content: "\e956";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bulb-slash .path2:before {
   content: "\e957";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-keyboard-show .path1:before {
   content: "\e958";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-keyboard-show .path2:before {
   content: "\e959";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-tags-2 .path1:before {
   content: "\e95a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tags-2 .path2:before {
   content: "\e95b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-planet .path1:before {
   content: "\e95c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-planet .path2:before {
   content: "\e95d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-book-open .path1:before {
   content: "\e95e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-book-open .path2:before {
   content: "\e95f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-glasses-vr .path1:before {
   content: "\e960";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-glasses-vr .path2:before {
   content: "\e961";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-battery-charging .path1:before {
   content: "\e962";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery-charging .path2:before {
   content: "\e963";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bed-2 .path1:before {
   content: "\e964";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bed-2 .path2:before {
   content: "\e965";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-inbox-in .path1:before {
   content: "\e966";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-inbox-in .path2:before {
   content: "\e967";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bookmark-minus .path1:before {
   content: "\e968";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmark-minus .path2:before {
   content: "\e969";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-layers .path1:before {
   content: "\e96a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-layers .path2:before {
   content: "\e96b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-slash .path1:before {
   content: "\e96c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-slash .path2:before {
   content: "\e96d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-book .path1:before {
   content: "\e96e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-book .path2:before {
   content: "\e96f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-heart-slash .path1:before {
   content: "\e970";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-heart-slash .path2:before {
   content: "\e971";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-plug .path1:before {
   content: "\e972";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-plug .path2:before {
   content: "\e973";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-dashboard .path1:before {
   content: "\e974";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-dashboard .path2:before {
   content: "\e975";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-thermometer .path1:before {
   content: "\e976";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-thermometer .path2:before {
   content: "\e977";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cast .path1:before {
   content: "\e978";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cast .path2:before {
   content: "\e979";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-flag .path1:before {
   content: "\e97a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-flag .path2:before {
   content: "\e97b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-battery-1 .path1:before {
   content: "\e97c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery-1 .path2:before {
   content: "\e97d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-battery .path1:before {
   content: "\e97e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery .path2:before {
   content: "\e97f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sliders-vert-2 .path1:before {
   content: "\e980";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sliders-vert-2 .path2:before {
   content: "\e981";
   margin-left: -1em;
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sliders-vert-2 .path3:before {
   content: "\e982";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-newspaper .path1:before {
   content: "\e983";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-newspaper .path2:before {
   content: "\e984";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emotion-smile .path1:before {
   content: "\e985";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emotion-smile .path2:before {
   content: "\e986";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sliders-vert .path1:before {
   content: "\e987";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sliders-vert .path2:before {
   content: "\e988";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bed-1 .path1:before {
   content: "\e989";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bed-1 .path2:before {
   content: "\e98a";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emotion-neutral .path1:before {
   content: "\e98b";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emotion-neutral .path2:before {
   content: "\e98c";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-trophy .path1:before {
   content: "\e98d";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-trophy .path2:before {
   content: "\e98e";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-plus:before {
   content: "\e98f";
@@ -740,1581 +602,1274 @@ i {
 }
 .icon-battery-3 .path1:before {
   content: "\e991";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery-3 .path2:before {
   content: "\e992";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-nut .path1:before {
   content: "\e993";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-nut .path2:before {
   content: "\e994";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-more-vert .path1:before {
   content: "\e995";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-more-vert .path2:before {
   content: "\e996";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-hard-drive .path1:before {
   content: "\e997";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-hard-drive .path2:before {
   content: "\e998";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bluetooth:before {
   content: "\e999";
 }
 .icon-headphones .path1:before {
   content: "\e99a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-headphones .path2:before {
   content: "\e99b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-filter-2 .path1:before {
   content: "\e99c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-filter-2 .path2:before {
   content: "\e99d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-email .path1:before {
   content: "\e99e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-email .path2:before {
   content: "\e99f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-wifi:before {
   content: "\e9a0";
 }
 .icon-watch .path1:before {
   content: "\e9a1";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-watch .path2:before {
   content: "\e9a2";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-battery-2 .path1:before {
   content: "\e9a3";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery-2 .path2:before {
   content: "\e9a4";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-flashcard .path1:before {
   content: "\e9a5";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-flashcard .path2:before {
   content: "\e9a6";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-loader:before {
   content: "\e9a7";
 }
 .icon-gear .path1:before {
   content: "\e9a8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-gear .path2:before {
   content: "\e9a9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-memory-card .path1:before {
   content: "\e9aa";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-memory-card .path2:before {
   content: "\e9ab";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-copy .path1:before {
   content: "\e9ac";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-copy .path2:before {
   content: "\e9ad";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-zoom-in .path1:before {
   content: "\e9ae";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-zoom-in .path2:before {
   content: "\e9af";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-glasses .path1:before {
   content: "\e9b0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-glasses .path2:before {
   content: "\e9b1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sort-number:before {
   content: "\e9b2";
 }
 .icon-bookmarks .path1:before {
   content: "\e9b3";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmarks .path2:before {
   content: "\e9b4";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-rocket-2 .path1:before {
   content: "\e9b5";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-rocket-2 .path2:before {
   content: "\e9b6";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-broadcast:before {
   content: "\e9b7";
 }
 .icon-inbox-filled .path1:before {
   content: "\e9b8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-inbox-filled .path2:before {
   content: "\e9b9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sticker .path1:before {
   content: "\e9ba";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sticker .path2:before {
   content: "\e9bb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-award .path1:before {
   content: "\e9bc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-award .path2:before {
   content: "\e9bd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-zoom-out .path1:before {
   content: "\e9be";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-zoom-out .path2:before {
   content: "\e9bf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-baby-carriage .path1:before {
   content: "\e9c0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-baby-carriage .path2:before {
   content: "\e9c1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-box .path1:before {
   content: "\e9c2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-box .path2:before {
   content: "\e9c3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-thumbs-up .path1:before {
   content: "\e9c4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-thumbs-up .path2:before {
   content: "\e9c5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-checkbox-circle .path1:before {
   content: "\e9c6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-checkbox-circle .path2:before {
   content: "\e9c7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emotion-happy .path1:before {
   content: "\e9c8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emotion-happy .path2:before {
   content: "\e9c9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-send .path1:before {
   content: "\e9ca";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-send .path2:before {
   content: "\e9cb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-speaker .path1:before {
   content: "\e9cc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-speaker .path2:before {
   content: "\e9cd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-loading-trolley .path1:before {
   content: "\e9ce";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-loading-trolley .path2:before {
   content: "\e9cf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-truck .path1:before {
   content: "\e9d0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-truck .path2:before {
   content: "\e9d1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-more-horiz .path1:before {
   content: "\e9d2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-more-horiz .path2:before {
   content: "\e9d3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-infinity:before {
   content: "\e9d4";
 }
 .icon-diskette .path1:before {
   content: "\e9d5";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-diskette .path2:before {
   content: "\e9d6";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-dashboard-2 .path1:before {
   content: "\e9d7";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-dashboard-2 .path2:before {
   content: "\e9d8";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-trash .path1:before {
   content: "\e9d9";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-trash .path2:before {
   content: "\e9da";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emails .path1:before {
   content: "\e9db";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emails .path2:before {
   content: "\e9dc";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-hashtag:before {
   content: "\e9dd";
 }
 .icon-star .path1:before {
   content: "\e9de";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-star .path2:before {
   content: "\e9df";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-barchart .path1:before {
   content: "\e9e0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-barchart .path2:before {
   content: "\e9e1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-wrench .path1:before {
   content: "\e9e2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-wrench .path2:before {
   content: "\e9e3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-loader-2:before {
   content: "\e9e4";
 }
 .icon-anchor .path1:before {
   content: "\e9e5";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-anchor .path2:before {
   content: "\e9e6";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-wheelchair .path1:before {
   content: "\e9e7";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-wheelchair .path2:before {
   content: "\e9e8";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-lifebuoy .path1:before {
   content: "\e9e9";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-lifebuoy .path2:before {
   content: "\e9ea";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bookmark-plus .path1:before {
   content: "\e9eb";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmark-plus .path2:before {
   content: "\e9ec";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-weighter-2 .path1:before {
   content: "\e9ed";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-weighter-2 .path2:before {
   content: "\e9ee";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-star-slash .path1:before {
   content: "\e9ef";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-star-slash .path2:before {
   content: "\e9f0";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-plus-circle .path1:before {
   content: "\e9f1";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-plus-circle .path2:before {
   content: "\e9f2";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-shopping-bag-2 .path1:before {
   content: "\e9f3";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-shopping-bag-2 .path2:before {
   content: "\e9f4";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-battery-slash .path1:before {
   content: "\e9f5";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-battery-slash .path2:before {
   content: "\e9f6";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-trash-2 .path1:before {
   content: "\e9f7";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-trash-2 .path2:before {
   content: "\e9f8";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-emotion-wow .path1:before {
   content: "\e9f9";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-emotion-wow .path2:before {
   content: "\e9fa";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-gift .path1:before {
   content: "\e9fb";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-gift .path2:before {
   content: "\e9fc";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-share .path1:before {
   content: "\e9fd";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-share .path2:before {
   content: "\e9fe";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-tags .path1:before {
   content: "\e9ff";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tags .path2:before {
   content: "\ea00";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-gear-2 .path1:before {
   content: "\ea01";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-gear-2 .path2:before {
   content: "\ea02";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-modules .path1:before {
   content: "\ea03";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-modules .path2:before {
   content: "\ea04";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-activity .path1:before {
   content: "\ea05";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-activity .path2:before {
   content: "\ea06";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-filter:before {
   content: "\ea07";
 }
 .icon-dumbell .path1:before {
   content: "\ea08";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-dumbell .path2:before {
   content: "\ea09";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cross:before {
   content: "\ea0a";
 }
 .icon-hashtag-circle .path1:before {
   content: "\ea0b";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-hashtag-circle .path2:before {
   content: "\ea0c";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-minus-circle .path1:before {
   content: "\ea0d";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-minus-circle .path2:before {
   content: "\ea0e";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-laptop .path1:before {
   content: "\ea0f";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-laptop .path2:before {
   content: "\ea10";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sort-text-reverse:before {
   content: "\ea11";
 }
 .icon-presentation-line .path1:before {
   content: "\ea12";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-presentation-line .path2:before {
   content: "\ea13";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cut .path1:before {
   content: "\ea14";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cut .path2:before {
   content: "\ea15";
   margin-left: -1em;
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cut .path3:before {
   content: "\ea16";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-plug-slash .path1:before {
   content: "\ea17";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-plug-slash .path2:before {
   content: "\ea18";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-invoice .path1:before {
   content: "\ea19";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-invoice .path2:before {
   content: "\ea1a";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bookmark-check .path1:before {
   content: "\ea1b";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmark-check .path2:before {
   content: "\ea1c";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-keyboard-hide .path1:before {
   content: "\ea1d";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-keyboard-hide .path2:before {
   content: "\ea1e";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bookmark .path1:before {
   content: "\ea1f";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmark .path2:before {
   content: "\ea20";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-rocket .path1:before {
   content: "\ea21";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-rocket .path2:before {
   content: "\ea22";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-tablet .path1:before {
   content: "\ea23";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tablet .path2:before {
   content: "\ea24";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-atom .path1:before {
   content: "\ea25";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-atom .path2:before {
   content: "\ea26";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-yin-yang .path1:before {
   content: "\ea27";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-yin-yang .path2:before {
   content: "\ea28";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-menu:before {
   content: "\ea29";
 }
 .icon-processor .path1:before {
   content: "\ea2a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-processor .path2:before {
   content: "\ea2b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-weighter .path1:before {
   content: "\ea2c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-weighter .path2:before {
   content: "\ea2d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-shopping-cart .path1:before {
   content: "\ea2e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-shopping-cart .path2:before {
   content: "\ea2f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-mouse .path1:before {
   content: "\ea30";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-mouse .path2:before {
   content: "\ea31";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-shopping-basket .path1:before {
   content: "\ea32";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-shopping-basket .path2:before {
   content: "\ea33";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bookmark-slash .path1:before {
   content: "\ea34";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bookmark-slash .path2:before {
   content: "\ea35";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-monitor .path1:before {
   content: "\ea36";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-monitor .path2:before {
   content: "\ea37";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-minus:before {
   content: "\ea38";
 }
 .icon-headphones-2 .path1:before {
   content: "\ea39";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-headphones-2 .path2:before {
   content: "\ea3a";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-weight .path1:before {
   content: "\ea3b";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-weight .path2:before {
   content: "\ea3c";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sort-number-reverse:before {
   content: "\ea3d";
 }
 .icon-swatchbook .path1:before {
   content: "\ea3e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-swatchbook .path2:before {
   content: "\ea3f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-send-2 .path1:before {
   content: "\ea40";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-send-2 .path2:before {
   content: "\ea41";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-heart .path1:before {
   content: "\ea42";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-heart .path2:before {
   content: "\ea43";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user .path1:before {
   content: "\ea44";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user .path2:before {
   content: "\ea45";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-square .path1:before {
   content: "\ea46";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-square .path2:before {
   content: "\ea47";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-arrow-top .path1:before {
   content: "\ea48";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-arrow-top .path2:before {
   content: "\ea49";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-arrow-bottom .path1:before {
   content: "\ea4a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-arrow-bottom .path2:before {
   content: "\ea4b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-cross .path1:before {
   content: "\ea4c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-cross .path2:before {
   content: "\ea4d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-arrow-bl .path1:before {
   content: "\ea4e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-arrow-bl .path2:before {
   content: "\ea4f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-plus .path1:before {
   content: "\ea50";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-plus .path2:before {
   content: "\ea51";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-arrow-tr .path1:before {
   content: "\ea52";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-arrow-tr .path2:before {
   content: "\ea53";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-minus .path1:before {
   content: "\ea54";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-minus .path2:before {
   content: "\ea55";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-alert .path1:before {
   content: "\ea56";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-alert .path2:before {
   content: "\ea57";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-circle .path1:before {
   content: "\ea58";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-circle .path2:before {
   content: "\ea59";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-check .path1:before {
   content: "\ea5a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-check .path2:before {
   content: "\ea5b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-user-arrow-right .path1:before {
   content: "\ea5c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-user-arrow-right .path2:before {
   content: "\ea5d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-users .path1:before {
   content: "\ea5e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-users .path2:before {
   content: "\ea5f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-zzz .path1:before {
   content: "\ea60";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-zzz .path2:before {
   content: "\ea61";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-minus .path1:before {
   content: "\ea62";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-minus .path2:before {
   content: "\ea63";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-stopwatch-slash .path1:before {
   content: "\ea64";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-stopwatch-slash .path2:before {
   content: "\ea65";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-plus .path1:before {
   content: "\ea66";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-plus .path2:before {
   content: "\ea67";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-person .path1:before {
   content: "\ea68";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-person .path2:before {
   content: "\ea69";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-speed .path1:before {
   content: "\ea6a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-speed .path2:before {
   content: "\ea6b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-cross .path1:before {
   content: "\ea6c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-cross .path2:before {
   content: "\ea6d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-event .path1:before {
   content: "\ea6e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-event .path2:before {
   content: "\ea6f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-plus .path1:before {
   content: "\ea70";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-plus .path2:before {
   content: "\ea71";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-stopwatch .path1:before {
   content: "\ea72";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-stopwatch .path2:before {
   content: "\ea73";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-dates .path1:before {
   content: "\ea74";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-dates .path2:before {
   content: "\ea75";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-time .path1:before {
   content: "\ea76";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-time .path2:before {
   content: "\ea77";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-note .path1:before {
   content: "\ea78";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-note .path2:before {
   content: "\ea79";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-number .path1:before {
   content: "\ea7a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-number .path2:before {
   content: "\ea7b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-slash .path1:before {
   content: "\ea7c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-slash .path2:before {
   content: "\ea7d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock-check .path1:before {
   content: "\ea7e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock-check .path2:before {
   content: "\ea7f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-timer-2 .path1:before {
   content: "\ea80";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-timer-2 .path2:before {
   content: "\ea81";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clock .path1:before {
   content: "\ea82";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clock .path2:before {
   content: "\ea83";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-minus .path1:before {
   content: "\ea84";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-minus .path2:before {
   content: "\ea85";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar .path1:before {
   content: "\ea86";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar .path2:before {
   content: "\ea87";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-history .path1:before {
   content: "\ea88";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-history .path2:before {
   content: "\ea89";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-timer .path1:before {
   content: "\ea8a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-timer .path2:before {
   content: "\ea8b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-arrow-right .path1:before {
   content: "\ea8c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-arrow-right .path2:before {
   content: "\ea8d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-calendar-cross .path1:before {
   content: "\ea8e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-calendar-cross .path2:before {
   content: "\ea8f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-globe-2 .path1:before {
   content: "\ea90";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-globe-2 .path2:before {
   content: "\ea91";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-gps-slash .path1:before {
   content: "\ea92";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-gps-slash .path2:before {
   content: "\ea93";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-2 .path1:before {
   content: "\ea94";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-2 .path2:before {
   content: "\ea95";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-3 .path1:before {
   content: "\ea96";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-3 .path2:before {
   content: "\ea97";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-check .path1:before {
   content: "\ea98";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-check .path2:before {
   content: "\ea99";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-direction-2 .path1:before {
   content: "\ea9a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-direction-2 .path2:before {
   content: "\ea9b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-slash .path1:before {
   content: "\ea9c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-slash .path2:before {
   content: "\ea9d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin .path1:before {
   content: "\ea9e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin .path2:before {
   content: "\ea9f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-gps .path1:before {
   content: "\eaa0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-gps .path2:before {
   content: "\eaa1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-direction .path1:before {
   content: "\eaa2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-direction .path2:before {
   content: "\eaa3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-map-view .path1:before {
   content: "\eaa4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-map-view .path2:before {
   content: "\eaa5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-degrees .path1:before {
   content: "\eaa6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-degrees .path2:before {
   content: "\eaa7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-cross .path1:before {
   content: "\eaa8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-cross .path2:before {
   content: "\eaa9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-minus .path1:before {
   content: "\eaaa";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-minus .path2:before {
   content: "\eaab";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-compass .path1:before {
   content: "\eaac";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-compass .path2:before {
   content: "\eaad";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-globe .path1:before {
   content: "\eaae";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-globe .path2:before {
   content: "\eaaf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-route .path1:before {
   content: "\eab0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-route .path2:before {
   content: "\eab1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pin-plus .path1:before {
   content: "\eab2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pin-plus .path2:before {
   content: "\eab3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bell-minus .path1:before {
   content: "\eab4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bell-minus .path2:before {
   content: "\eab5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-question .path1:before {
   content: "\eab6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-question .path2:before {
   content: "\eab7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bell-plus .path1:before {
   content: "\eab8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bell-plus .path2:before {
   content: "\eab9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-notification-identifier .path1:before {
   content: "\eaba";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-notification-identifier .path2:before {
   content: "\eabb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bell .path1:before {
   content: "\eabc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bell .path2:before {
   content: "\eabd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cross-octangle .path1:before {
   content: "\eabe";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cross-octangle .path2:before {
   content: "\eabf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-info .path1:before {
   content: "\eac0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-info .path2:before {
   content: "\eac1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-check-circle .path1:before {
   content: "\eac2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-check-circle .path2:before {
   content: "\eac3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-minus-octangle .path1:before {
   content: "\eac4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-minus-octangle .path2:before {
   content: "\eac5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-alert-circle .path1:before {
   content: "\eac6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-alert-circle .path2:before {
   content: "\eac7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bell-check .path1:before {
   content: "\eac8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bell-check .path2:before {
   content: "\eac9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-bell-slash .path1:before {
   content: "\eaca";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-bell-slash .path2:before {
   content: "\eacb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-alert-triangle .path1:before {
   content: "\eacc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-alert-triangle .path2:before {
   content: "\eacd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cross-circle .path1:before {
   content: "\eace";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cross-circle .path2:before {
   content: "\eacf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-alert-octangle .path1:before {
   content: "\ead0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-alert-octangle .path2:before {
   content: "\ead1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-redo-2:before {
   content: "\ec26";
@@ -2438,1689 +1993,1349 @@ i {
 }
 .icon-import-2 .path1:before {
   content: "\ead2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-import-2 .path2:before {
   content: "\ead3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-right-curved-circle .path1:before {
   content: "\ead4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-right-curved-circle .path2:before {
   content: "\ead5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-import-3 .path1:before {
   content: "\ead6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-import-3 .path2:before {
   content: "\ead7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrows-move .path1:before {
   content: "\ead8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrows-move .path2:before {
   content: "\ead9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-top-circle .path1:before {
   content: "\eada";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-top-circle .path2:before {
   content: "\eadb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrows-expand-2 .path1:before {
   content: "\eadc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrows-expand-2 .path2:before {
   content: "\eadd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-export .path1:before {
   content: "\eade";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-export .path2:before {
   content: "\eadf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrows-move-2 .path1:before {
   content: "\eae0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrows-move-2 .path2:before {
   content: "\eae1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-rotate-cw .path1:before {
   content: "\eae2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-rotate-cw .path2:before {
   content: "\eae3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-bottom-circle .path1:before {
   content: "\eae4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-bottom-circle .path2:before {
   content: "\eae5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-log-in .path1:before {
   content: "\eae6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-log-in .path2:before {
   content: "\eae7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-refresh-cw .path1:before {
   content: "\eae8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-refresh-cw .path2:before {
   content: "\eae9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-refresh-cw-alert .path1:before {
   content: "\eaea";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-refresh-cw-alert .path2:before {
   content: "\eaeb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-log-out .path1:before {
   content: "\eaec";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-log-out .path2:before {
   content: "\eaed";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-left-circle .path1:before {
   content: "\eaee";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-left-circle .path2:before {
   content: "\eaef";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-import .path1:before {
   content: "\eaf0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-import .path2:before {
   content: "\eaf1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-bottom-left-circle .path1:before {
   content: "\eaf2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-bottom-left-circle .path2:before {
   content: "\eaf3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-rotate-ccw .path1:before {
   content: "\eaf4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-rotate-ccw .path2:before {
   content: "\eaf5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-bottom-right-circle .path1:before {
   content: "\eaf6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-bottom-right-circle .path2:before {
   content: "\eaf7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-scale .path1:before {
   content: "\eaf8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-scale .path2:before {
   content: "\eaf9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-refresh-ccw .path1:before {
   content: "\eafa";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-refresh-ccw .path2:before {
   content: "\eafb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-right-circle .path1:before {
   content: "\eafc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-right-circle .path2:before {
   content: "\eafd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-external-link-2 .path1:before {
   content: "\eafe";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-external-link-2 .path2:before {
   content: "\eaff";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-left-curved-circle .path1:before {
   content: "\eb00";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-left-curved-circle .path2:before {
   content: "\eb01";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrows-expand .path1:before {
   content: "\eb02";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrows-expand .path2:before {
   content: "\eb03";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-export-3 .path1:before {
   content: "\eb04";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-export-3 .path2:before {
   content: "\eb05";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-export-2 .path1:before {
   content: "\eb06";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-export-2 .path2:before {
   content: "\eb07";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-top-left-circle .path1:before {
   content: "\eb08";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-top-left-circle .path2:before {
   content: "\eb09";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sign-out .path1:before {
   content: "\eb0a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sign-out .path2:before {
   content: "\eb0b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-external-link .path1:before {
   content: "\eb0c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-external-link .path2:before {
   content: "\eb0d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-sign-in .path1:before {
   content: "\eb0e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-sign-in .path2:before {
   content: "\eb0f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-refresh-ccw-alert .path1:before {
   content: "\eb10";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-refresh-ccw-alert .path2:before {
   content: "\eb11";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-arrow-top-right-circle .path1:before {
   content: "\eb12";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-arrow-top-right-circle .path2:before {
   content: "\eb13";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-play-slowmotion .path1:before {
   content: "\eb14";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-play-slowmotion .path2:before {
   content: "\eb15";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pause-circle .path1:before {
   content: "\eb16";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pause-circle .path2:before {
   content: "\eb17";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-film-tape .path1:before {
   content: "\eb18";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-film-tape .path2:before {
   content: "\eb19";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-play-circle .path1:before {
   content: "\eb1a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-play-circle .path2:before {
   content: "\eb1b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-repeat .path1:before {
   content: "\eb1c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-repeat .path2:before {
   content: "\eb1d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-play-previous .path1:before {
   content: "\eb1e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-play-previous .path2:before {
   content: "\eb1f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-fast-rewind .path1:before {
   content: "\eb20";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-fast-rewind .path2:before {
   content: "\eb21";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-captions-1 .path1:before {
   content: "\eb22";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-captions-1 .path2:before {
   content: "\eb23";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-verified .path1:before {
   content: "\eb24";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-verified .path2:before {
   content: "\eb25";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-captions .path1:before {
   content: "\eb26";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-captions .path2:before {
   content: "\eb27";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-repeat-on .path1:before {
   content: "\eb28";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-repeat-on .path2:before {
   content: "\eb29";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-games .path1:before {
   content: "\eb2a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-games .path2:before {
   content: "\eb2b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-maximize .path1:before {
   content: "\eb2c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-maximize .path2:before {
   content: "\eb2d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-webcam-slash .path1:before {
   content: "\eb2e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-webcam-slash .path2:before {
   content: "\eb2f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-queue .path1:before {
   content: "\eb30";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-queue .path2:before {
   content: "\eb31";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-video-library .path1:before {
   content: "\eb32";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-video-library .path2:before {
   content: "\eb33";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-stop-circle .path1:before {
   content: "\eb34";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-stop-circle .path2:before {
   content: "\eb35";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-minimize .path1:before {
   content: "\eb36";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-minimize .path2:before {
   content: "\eb37";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-volume-cross .path1:before {
   content: "\eb38";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-volume-cross .path2:before {
   content: "\eb39";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-replay-15 .path1:before {
   content: "\eb3a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-replay-15 .path2:before {
   content: "\eb3b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-forward-5 .path1:before {
   content: "\eb3c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-forward-5 .path2:before {
   content: "\eb3d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-plus .path1:before {
   content: "\eb3e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-plus .path2:before {
   content: "\eb3f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-webcam .path1:before {
   content: "\eb40";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-webcam .path2:before {
   content: "\eb41";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-tv .path1:before {
   content: "\eb42";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-tv .path2:before {
   content: "\eb43";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-book-queue .path1:before {
   content: "\eb44";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-book-queue .path2:before {
   content: "\eb45";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-video-plus .path1:before {
   content: "\eb46";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-video-plus .path2:before {
   content: "\eb47";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-radio .path1:before {
   content: "\eb48";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-radio .path2:before {
   content: "\eb49";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-replay-10 .path1:before {
   content: "\eb4a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-replay-10 .path2:before {
   content: "\eb4b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-playlist .path1:before {
   content: "\eb4c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-playlist .path2:before {
   content: "\eb4d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-label-hd .path1:before {
   content: "\eb4e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-label-hd .path2:before {
   content: "\eb4f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-stop .path1:before {
   content: "\eb50";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-stop .path2:before {
   content: "\eb51";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-library .path1:before {
   content: "\eb52";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-library .path2:before {
   content: "\eb53";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-record .path1:before {
   content: "\eb54";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-record .path2:before {
   content: "\eb55";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-note .path1:before {
   content: "\eb56";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-note .path2:before {
   content: "\eb57";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-label-hq .path1:before {
   content: "\eb58";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-label-hq .path2:before {
   content: "\eb59";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-replay .path1:before {
   content: "\eb5a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-replay .path2:before {
   content: "\eb5b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-mic .path1:before {
   content: "\eb5c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-mic .path2:before {
   content: "\eb5d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-volume-mute .path1:before {
   content: "\eb5e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-volume-mute .path2:before {
   content: "\eb5f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-fast-forward .path1:before {
   content: "\eb60";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-fast-forward .path2:before {
   content: "\eb61";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-label-explicit .path1:before {
   content: "\eb62";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-label-explicit .path2:before {
   content: "\eb63";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-play .path1:before {
   content: "\eb64";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-play .path2:before {
   content: "\eb65";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-forward-10 .path1:before {
   content: "\eb66";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-forward-10 .path2:before {
   content: "\eb67";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-book-plus .path1:before {
   content: "\eb68";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-book-plus .path2:before {
   content: "\eb69";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-film-reel .path1:before {
   content: "\eb6a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-film-reel .path2:before {
   content: "\eb6b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-forward-15 .path1:before {
   content: "\eb6c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-forward-15 .path2:before {
   content: "\eb6d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-book-library .path1:before {
   content: "\eb6e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-book-library .path2:before {
   content: "\eb6f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-cd .path1:before {
   content: "\eb70";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-cd .path2:before {
   content: "\eb71";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-video-queue .path1:before {
   content: "\eb72";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-video-queue .path2:before {
   content: "\eb73";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-play-next .path1:before {
   content: "\eb74";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-play-next .path2:before {
   content: "\eb75";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-note-3 .path1:before {
   content: "\eb76";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-note-3 .path2:before {
   content: "\eb77";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-volume-high .path1:before {
   content: "\eb78";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-volume-high .path2:before {
   content: "\eb79";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-equalizer .path1:before {
   content: "\eb7a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-equalizer .path2:before {
   content: "\eb7b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-music-note-2 .path1:before {
   content: "\eb7c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-music-note-2 .path2:before {
   content: "\eb7d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-film-board .path1:before {
   content: "\eb7e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-film-board .path2:before {
   content: "\eb7f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-video-camera-slash .path1:before {
   content: "\eb80";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-video-camera-slash .path2:before {
   content: "\eb81";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-replay-5 .path1:before {
   content: "\eb82";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-replay-5 .path2:before {
   content: "\eb83";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-video-camera .path1:before {
   content: "\eb84";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-video-camera .path2:before {
   content: "\eb85";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-playlist-play .path1:before {
   content: "\eb86";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-playlist-play .path2:before {
   content: "\eb87";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-volume-low .path1:before {
   content: "\eb88";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-volume-low .path2:before {
   content: "\eb89";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-mic-slash .path1:before {
   content: "\eb8a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-mic-slash .path2:before {
   content: "\eb8b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pause .path1:before {
   content: "\eb8c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-pause .path2:before {
   content: "\eb8d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-label-4k .path1:before {
   content: "\eb8e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-label-4k .path2:before {
   content: "\eb8f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-new-release .path1:before {
   content: "\eb90";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-new-release .path2:before {
   content: "\eb91";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-volume-slash .path1:before {
   content: "\eb92";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-volume-slash .path2:before {
   content: "\eb93";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-miniplayer .path1:before {
   content: "\eb94";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-miniplayer .path2:before {
   content: "\eb95";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-pain-management:before {
   content: "\eb96";
-  color: #0055c7;
 }
 .icon-sleep:before {
   content: "\eb97";
-  color: #0055c7;
 }
 .icon-nutritutan:before {
   content: "\eb98";
-  color: #0055c7;
 }
 .icon-immune-system:before {
   content: "\eb99";
-  color: #0055c7;
 }
 .icon-delay-aging:before {
   content: "\eb9a";
-  color: #0055c7;
 }
 .icon-preventative-health:before {
   content: "\eb9b";
-  color: #0055c7;
 }
 .icon-fitness:before {
   content: "\eb9c";
-  color: #0055c7;
 }
 .icon-women-men-health:before {
   content: "\eb9d";
-  color: #0055c7;
 }
 .icon-comment-dots .path1:before {
   content: "\eb9e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-dots .path2:before {
   content: "\eb9f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-cancel .path1:before {
   content: "\eba0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-cancel .path2:before {
   content: "\eba1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comments-2 .path1:before {
   content: "\eba2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comments-2 .path2:before {
   content: "\eba3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-alert .path1:before {
   content: "\eba4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-alert .path2:before {
   content: "\eba5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-dots .path1:before {
   content: "\eba6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-dots .path2:before {
   content: "\eba7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comments .path1:before {
   content: "\eba8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comments .path2:before {
   content: "\eba9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-info .path1:before {
   content: "\ebaa";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-info .path2:before {
   content: "\ebab";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-check .path1:before {
   content: "\ebac";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-check .path2:before {
   content: "\ebad";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-plus .path1:before {
   content: "\ebae";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-plus .path2:before {
   content: "\ebaf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-minus .path1:before {
   content: "\ebb0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-minus .path2:before {
   content: "\ebb1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-slash .path1:before {
   content: "\ebb2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-slash .path2:before {
   content: "\ebb3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-plus .path1:before {
   content: "\ebb4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-plus .path2:before {
   content: "\ebb5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-text .path1:before {
   content: "\ebb6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-text .path2:before {
   content: "\ebb7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-alert .path1:before {
   content: "\ebb8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-alert .path2:before {
   content: "\ebb9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-cancel .path1:before {
   content: "\ebba";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-cancel .path2:before {
   content: "\ebbb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-text .path1:before {
   content: "\ebbc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-text .path2:before {
   content: "\ebbd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-question .path1:before {
   content: "\ebbe";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-question .path2:before {
   content: "\ebbf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-slash .path1:before {
   content: "\ebc0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-slash .path2:before {
   content: "\ebc1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-minus .path1:before {
   content: "\ebc2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-minus .path2:before {
   content: "\ebc3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2-check .path1:before {
   content: "\ebc4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2-check .path2:before {
   content: "\ebc5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment .path1:before {
   content: "\ebc6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment .path2:before {
   content: "\ebc7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-comment-2 .path1:before {
   content: "\ebc8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-comment-2 .path2:before {
   content: "\ebc9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-plus .path1:before {
   content: "\ebca";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-plus .path2:before {
   content: "\ebcb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-upload .path1:before {
   content: "\ebcc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-upload .path2:before {
   content: "\ebcd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-slash .path1:before {
   content: "\ebce";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-slash .path2:before {
   content: "\ebcf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-heart .path1:before {
   content: "\ebd0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-heart .path2:before {
   content: "\ebd1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-minus .path1:before {
   content: "\ebd2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-minus .path2:before {
   content: "\ebd3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-check .path1:before {
   content: "\ebd4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-check .path2:before {
   content: "\ebd5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-cross .path1:before {
   content: "\ebd6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-cross .path2:before {
   content: "\ebd7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file .path1:before {
   content: "\ebd8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file .path2:before {
   content: "\ebd9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-scan .path1:before {
   content: "\ebda";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-scan .path2:before {
   content: "\ebdb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-text .path1:before {
   content: "\ebdc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-text .path2:before {
   content: "\ebdd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-open .path1:before {
   content: "\ebde";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-open .path2:before {
   content: "\ebdf";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-music .path1:before {
   content: "\ebe0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-music .path2:before {
   content: "\ebe1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard .path1:before {
   content: "\ebe2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard .path2:before {
   content: "\ebe3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-note-text .path1:before {
   content: "\ebe4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-note-text .path2:before {
   content: "\ebe5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-note .path1:before {
   content: "\ebe6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-note .path2:before {
   content: "\ebe7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-cross .path1:before {
   content: "\ebe8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-cross .path2:before {
   content: "\ebe9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-note-2 .path1:before {
   content: "\ebea";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-note-2 .path2:before {
   content: "\ebeb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-compressed .path1:before {
   content: "\ebec";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-compressed .path2:before {
   content: "\ebed";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-draft .path1:before {
   content: "\ebee";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-draft .path2:before {
   content: "\ebef";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-minus .path1:before {
   content: "\ebf0";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-minus .path2:before {
   content: "\ebf1";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-plus .path1:before {
   content: "\ebf2";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-plus .path2:before {
   content: "\ebf3";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-download .path1:before {
   content: "\ebf4";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-download .path2:before {
   content: "\ebf5";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-move .path1:before {
   content: "\ebf6";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-move .path2:before {
   content: "\ebf7";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-slash .path1:before {
   content: "\ebf8";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-slash .path2:before {
   content: "\ebf9";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-photo .path1:before {
   content: "\ebfa";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-photo .path2:before {
   content: "\ebfb";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-heart .path1:before {
   content: "\ebfc";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-heart .path2:before {
   content: "\ebfd";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-check .path1:before {
   content: "\ebfe";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-check .path2:before {
   content: "\ebff";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-minus .path1:before {
   content: "\ec00";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-minus .path2:before {
   content: "\ec01";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-cross .path1:before {
   content: "\ec02";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-cross .path2:before {
   content: "\ec03";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-download .path1:before {
   content: "\ec04";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-download .path2:before {
   content: "\ec05";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-cloud .path1:before {
   content: "\ec06";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-cloud .path2:before {
   content: "\ec07";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-shredder .path1:before {
   content: "\ec08";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-shredder .path2:before {
   content: "\ec09";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-plus .path1:before {
   content: "\ec0a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-plus .path2:before {
   content: "\ec0b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-invoice .path1:before {
   content: "\ec0c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-invoice .path2:before {
   content: "\ec0d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder-move .path1:before {
   content: "\ec0e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder-move .path2:before {
   content: "\ec0f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-code .path1:before {
   content: "\ec10";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-code .path2:before {
   content: "\ec11";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-slash .path1:before {
   content: "\ec12";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-slash .path2:before {
   content: "\ec13";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-note-2-text .path1:before {
   content: "\ec14";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-note-2-text .path2:before {
   content: "\ec15";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-upload .path1:before {
   content: "\ec16";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-upload .path2:before {
   content: "\ec17";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-file-agreement .path1:before {
   content: "\ec18";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-file-agreement .path2:before {
   content: "\ec19";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-folder .path1:before {
   content: "\ec1a";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-folder .path2:before {
   content: "\ec1b";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-check .path1:before {
   content: "\ec1c";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-check .path2:before {
   content: "\ec1d";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-notebook .path1:before {
   content: "\ec1e";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-notebook .path2:before {
   content: "\ec1f";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-clipboard-text .path1:before {
   content: "\ec20";
-  color: rgb(99, 111, 126);
   opacity: 0.16;
 }
 .icon-clipboard-text .path2:before {
   content: "\ec21";
   margin-left: -1em;
-  color: rgb(34, 40, 47);
 }
 .icon-radio1:before {
   content: "\ec22";
-  color: #a0a3bd;
 }
 .icon-checkbox:before {
   content: "\ec23";
-  color: #a0a3bd;
 }
 .icon-checkbox-filled:before {
   content: "\ec24";
-  color: #0c74ff;
 }
 .icon-radio-filled:before {
   content: "\ec25";
-  color: #0c74ff;
 }

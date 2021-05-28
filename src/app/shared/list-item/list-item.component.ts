@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IconName } from 'src/app/models/icon-ph';
 
 @Component({
   selector: 'list-item',
@@ -7,10 +8,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ListItemComponent implements OnInit {
 
-  @Input() leading: string; /* icon before content */
+  @Input() leading: IconName; /* icon before content */
   @Input() leadingStyle: {[k:string]: string} | string /* icon style before content */
   @Input() leadingClass: string /* icon class before content */
-  @Input() action: string; /* icon after content */
+  @Input() action: IconName; /* icon after content */
   @Input() actionStyle:  {[k:string]: string} | string /* icon style after content */
   @Input() actionClass: string /* icon class before content */
 

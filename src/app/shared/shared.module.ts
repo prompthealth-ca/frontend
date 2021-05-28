@@ -52,6 +52,7 @@ import { AddonSelectCategoryComponent } from './addon-select-category/addon-sele
 import { ButtonShareComponent } from './button-share/button-share.component';
 import { ListItemComponent } from './list-item/list-item.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { IconDirective } from './icon.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -112,6 +113,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     ButtonShareComponent,
     ListItemComponent,
     SearchBarComponent,
+    IconDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -155,6 +157,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     ButtonShareComponent,
     ListItemComponent,
     SearchBarComponent,
+    IconDirective,
   ]
 })
 export class SharedModule { }

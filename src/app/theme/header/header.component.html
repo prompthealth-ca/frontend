@@ -1,3 +1,40 @@
+<header class="bg-primary-light sticky-top py-15p">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <img class="image-logo" src="assets/img/logo.png" alt="PromptHealth">
+      </div>
+      <nav 
+      class="d-md-block nav-sm nav-md"
+      [ngClass]="{'d-none': !isMenuShown}"
+      >
+        <ul class="list-unstyled subtitle2 mb-0">
+          <li class="mx-10p">Find practitioners</li>
+          <li class="mx-10p">Products</li>
+          <li class="mx-10p">About</li>
+          <li class="mx-10p">Blog</li>
+          <li class="mx-10p" *ngIf="!isLoggedIn">Login / Register</li>
+          <li class="mx-10p">
+            <dashboard-menu id="dashboardMenuButton" ui="button" buttonDirection="right"
+            [styleButton]="{background: '#ffffff33'}" [user]="user"
+            (click)="isDashboardMenuShown = !isDashboardMenuShown"
+            ></dashboard-menu>
+          </li>
+        </ul>
+        <button class="btn btn-icon d-md-none btn-menu-close" (click)="toggleMenuVisibility(false)">
+          <i class="icon-lg" iconPh="cross"></i>
+        </button>
+      </nav>
+      <div class="d-md-none">
+        <button class="btn btn-icon" (click)="toggleMenuVisibility()">
+          <i class="icon-lg" iconPh="menu"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+
 <header>
   <nav class="blur main-header position-fixed navbar-light shadow w-100" [ngClass]="{hide: !isHeaderShown}">
     <!-- <banner-top></banner-top> -->

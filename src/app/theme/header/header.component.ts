@@ -25,6 +25,19 @@ export class HeaderComponent implements OnInit {
     return !!this._router.url.match('product');
   }
 
+  /////// NEW
+  get isLoggedIn(): boolean { return !!this.token; }
+  public isMenuShown: boolean = false;
+  toggleMenuVisibility(show: boolean = null) {
+    if (show === null){
+      this.isMenuShown = !this.isMenuShown;
+    } else {
+      this.isMenuShown = show;
+    }
+  }
+  /////// NEW END
+
+
   constructor(
     private _router: Router,
     private _sharedService: SharedService,

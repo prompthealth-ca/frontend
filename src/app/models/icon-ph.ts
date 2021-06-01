@@ -200,6 +200,7 @@ export type IconName =
 'compass' |
 'notebook' |
 'pin' |
+'pin-filled' |
 'checkbox-filled' |
 'arrow-left-curved-circle' |
 'comment-dots' |

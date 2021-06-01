@@ -1,4 +1,47 @@
 @import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
+
+/////// NEW
+.image-logo {
+  height: 25px;
+  @media (min-width: $breakpointMd) { height: auto; }
+}
+
+nav.nav-sm{
+  @media (max-width: #{$breakpointMd - 1}) {
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $colorPrimaryLight;
+    li {
+      font-size: 20px;
+      margin: 20px 16px;
+    }
+
+    .btn-menu-close {
+      position: fixed;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+nav.nav-md{
+  @media (min-width: $breakpointMd) {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      li {
+        margin: 0 10px;
+      }
+    }
+  }  
+}
+
 
 
 .border-blue{ border-color: #3377C5 !important; }

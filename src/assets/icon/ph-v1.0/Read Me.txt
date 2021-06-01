@@ -1,9 +1,16 @@
 
 MESSAGE FROM YUKI
 
-BEFORE USE, DELETE ALL COLOR SETTING IN CSS FILE FOR BETTER USE CASE.
-you can use this regEx to delete all color setting 
-^\s*color:\s.+;\s*\n
+BEFORE USE, YOU MUST DO FOLLOWING
+
+  DELETE ALL COLOR SETTING IN CSS FILE FOR BETTER USE CASE.
+  you can use this regEx to delete all color setting 
+  ^\s*color:\s.+;\s*\n
+
+  MAKE SURE pin-filled EXISTS (IT'S USED IN SEARCH BAR)
+  CURRENTLY I CREATED THE ICON MANUALLY EDITING STYLE.CSS
+  (so if you update the iconset, it will be desappeared)
+
 
 AND THEN YOU CAN USE CUSOME DIRECTIVE [iconPh]
 ex) <i class="icon-chevron-right text-danger" iconPh></i>

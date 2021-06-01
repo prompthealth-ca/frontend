@@ -1671,6 +1671,14 @@ i {
   content: "\ea9f";
   margin-left: -1em;
 }
+.icon-pin-filled .path1:before {
+  content: "\ea9e";
+}
+.icon-pin-filled .path2:before {
+  content: "\ea9f";
+  margin-left: -1em;
+}
+
 .icon-gps .path1:before {
   content: "\eaa0";
   opacity: 0.16;

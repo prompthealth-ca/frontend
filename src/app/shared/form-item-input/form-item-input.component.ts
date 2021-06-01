@@ -21,10 +21,26 @@ export class FormItemInputComponent implements OnInit {
   @Input() controller: FormControl;
   @Input() max: number = null;
 
+  @Input() option: IFormItemTextfieldOption = {};
+
+
+  public _option: FormItemTextfieldOption;
 
   constructor() { }
 
   ngOnInit(): void {
+    this._option = new FormItemTextfieldOption(this.option);
+    console.log(this._option)
   }
+}
 
+
+interface IFormItemTextfieldOption {
+  transparent?: boolean;
+}
+
+class FormItemTextfieldOption {
+  get transparent() { return this.data.transparent || false; }
+
+  constructor(private data: IFormItemTextfieldOption) {}
 }

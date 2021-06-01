@@ -1,6 +1,6 @@
 /** margin and padding from 5px to 50px (step: 5px) */
 
-@for $i from 1 through 10 {
+@for $i from 1 through 20 {
   .mt-#{$i * 5}p,
   .my-#{$i * 5}p,
   .m-#{$i * 5}p {

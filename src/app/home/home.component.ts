@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, NgZone, HostListener } from '
 import { ToastrService } from 'ngx-toastr';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from '../shared/services/shared.service';
 import { HeaderStatusService } from '../shared/services/header-status.service';
 import { environment } from 'src/environments/environment';
@@ -34,8 +34,17 @@ export class HomeComponent implements OnInit {
     this.elHost = _el.nativeElement;
   }
 
+  ////// NEW
+  
   onTapAction() {console.log('onTapAction'); }
   onTap() {console.log('onTap'); }
+
+
+
+  ////// NEW END
+
+
+
 
   get f() {
     return this.homeForm.controls;

@@ -1,31 +1,35 @@
 <form (ngSubmit)="_onSubmit()">
-  <div class="search-bar-inner d-flex justify-content-between align-items-stretch">
-    <div class="d-flex align-items-center border-right ml-15p flex-grow-1">
-      <i class="icon-lg body1 text-placeholder" iconPh="briefcase-doctor"></i>
-      <form-item-input
-      class="flex-grow-1"
-      name="search"
-      placeholder="condition, doctor name"
-      type="text"
-      [controller]="f.searchBySituation"
-      [option]="{transparent: true}"
-      ></form-item-input>  
-    </div>
-
-    <div class="d-flex align-items-center ml-15p flex-grow-1">
-      <i class="icon-lg body1 text-placeholder" iconPh="pin-filled"></i>
-      <form-item-input
-      class="flex-grow-1"
-      name="search"
-      placeholder="city, state, zipcode"
-      type="text"
-      [controller]="f.searchByLocation"
-      [option]="{transparent: true}"
-      ></form-item-input>  
-    </div>
+  <div class="search-bar-inner justify-content-between align-items-stretch p-5p"
+  [ngClass]="{ 'align-horizontal':_option.fixAlignHorizontal }"
+  >
+    <ul class="searchboxes justify-content-between align-items-stretch p-0 flex-grow-1">
+      <li class="d-flex align-items-center pl-15p flex-grow-1 searchbox">
+        <i class="large body1 text-placeholder" iconPh="briefcase-doctor"></i>
+        <form-item-input
+        class="flex-grow-1"
+        name="search"
+        placeholder="condition, doctor name"
+        type="text"
+        [controller]="f.searchBySituation"
+        [option]="{transparent: true}"
+        ></form-item-input>  
+      </li>
+  
+      <li class="d-flex align-items-center pl-15p flex-grow-1 searchbox">
+        <i class="large body1 text-placeholder" iconPh="pin-filled"></i>
+        <form-item-input
+        class="flex-grow-1"
+        name="search"
+        placeholder="city, state, zipcode"
+        type="text"
+        [controller]="f.searchByLocation"
+        [option]="{transparent: true}"
+        ></form-item-input>  
+      </li>
+    </ul>
 
     <div>
-      <input type="submit" class="btn btn-primary m-5p" value="Find">
+      <input type="submit" class="btn btn-primary w-100" value="Find">
     </div>
   </div>
 </form>

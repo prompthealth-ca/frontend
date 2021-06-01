@@ -2,17 +2,11 @@
 
 /** new button design */
 @mixin btnInner() {
-  font-size: 16px;
-  line-height: 17.6px;
   padding: 16.5px 25px;
   &.large {
-    font-size: 18px;
-    line-height: 19.8px;
     padding: 21.5px 30px;
   }
   &.small {
-    font-size: 15px;
-    line-height: 16.5px;
     padding: 8.5px 15px;
   }
 }
@@ -50,14 +44,21 @@
 
 // .btn.btn-outline-secondary (if needed)
 
+a.btn-text, 
 .btn.btn-text {
   color: $colorPrimary;
-  border: 1px solid transparent;
-  @include btnInner();
+  text-decoration: underline;
+  font-weight: 700;
 
   &:hover:not(:disabled) {
     color: $colorPrimaryDark;    
+    text-decoration: underline;
   }
+}
+
+.btn.btn-text {
+  border: 1px solid transparent;
+  @include btnInner();
 }
 
 /** primary icon button */

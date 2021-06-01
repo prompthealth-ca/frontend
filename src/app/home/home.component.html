@@ -1,53 +1,100 @@
 <section class="bg-primary-light pt-90p pb-70p">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-md-8">
+      <div class="col-12 col-lg-7 col-xl-8">
         <h6 class="h6 text-primary mb-20p">Personalize. Compare. Connect.</h6>
         <h2 class="h2 mb-30p">Your health and wellness personal assistant</h2>
         <h6 class="h6 opacity-70pc mb-50p">Take control of your health with options tailored to you</h6>
         
-        <div class="bg-white color-border-primary-light-dark border rounded-lg">
+        <div class="bg-white color-border-primary-light-dark border rounded-lg mb-50p">
           <search-bar></search-bar>
+        </div>
+
+        <ul class="row list-unstyled">
+          <li class="col-12 col-md-4 col-xl-3">
+            <h5 class="text-primary-dark">+382</h5>
+            <p class="opacity-70pc">
+              Qualified Doctors & <br class="d-none d-md-inline">
+              Medical Specialists
+            </p>
+          </li>
+          <li class="col-12 col-md-4 col-xl-3">
+            <h5 class="text-primary-dark">+7400</h5>
+            <p class="opacity-70pc">
+              Successful bookings <br class="d-none d-md-inline">
+              through us
+            </p>
+          </li>
+          <li class="col-12 col-md-4 col-xl-3">
+            <h5 class="text-primary-dark">+65000</h5>
+            <p class="opacity-70pc">
+              Active users <br class="d-none d-md-inline">
+              in our system
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-5 col-xl-4">
+        <div class="position-relative mt-50p">
+          <div class="circle-container">
+            <div class="circle-secondary"></div>
+          </div>
+          <div class="video-dummy position-relative rounded-10p"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section class="container">
-  <ul class="row list-unstyled p-0">
-    <li class="col-12 col-md-4">
-      <list-item
-      leading="women-men-health"
-      leadingClass="text-primary"
-      [leadingStyle]="{fontSize: '30px'}"
-      action="chevron-right"
-      actionClass="text-primary"
-      (onTap)="onTap()"
-      (onTapAction)="onTapAction()"
-      [option]="{actionHasOriginalFunction: true}"
-      >
-        <h5 class="subtitle1 mb-0">Women/Men's Health</h5>
-        <div class="body2 color-gs-label">Hormens / PMS / ...</div>  
-      </list-item>  
-    </li>
-    <li class="col-12 col-md-4">
-      <list-item
-      leading="women-men-health"
-      leadingClass="text-primary"
-      [leadingStyle]="{fontSize: '30px'}"
-      action="chevron-right"
-      actionClass="text-primary"
-      (onTap)="onTap()"
-      (onTapAction)="onTapAction()"
-      [option]="{actionHasOriginalFunction: true}"
-      >
-        <h5 class="subtitle1 mb-0">Women/Men's Health</h5>
-        <div class="body2 color-gs-label">Hormens / PMS / ...</div>  
-      </list-item>  
-    </li>
 
+<section class="bg-primary-lighter py-65p">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-6">
+        <h4 class="text-primary-dark d-flex flex-nowrap align-items-center">
+          <i iconPh="heart-filled" class="text-secondary mr-2"></i>
+          <span>We're trusted by top health organizations: </span>
+        </h4>    
+      </div>
+      <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-6">
+            <a href="https://purepharmacy.com/" target="_blank">
+              <img src="/assets/img/pure_pharmacy_logo.png" alt="" style="width: 100%; height: auto;">
+            </a>    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="container mt-100p">
+  <ul class="row list-unstyled p-0">
+    <li class="col-12 col-md-6 col-lg-4" *ngFor="let cat of categories; let i = index;">
+      <list-item
+      [leading]="categoryIcon(cat)"
+      leadingClass="text-primary-dark"
+      [leadingStyle]="{fontSize: '30px'}"
+      action="chevron-right"
+      actionClass="text-primary btn btn-icon"
+      (onTap)="onTap()"
+      (onTapAction)="onTapAction()"
+      [option]="{actionHasOriginalFunction: true}"
+      >
+        <h5 class="subtitle1 mb-0">{{cat.item_text}}</h5>
+        <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(cat)}}</div>  
+      </list-item>  
+    </li>
   </ul>
 
+  <div class="d-flex h6 mt-50p">
+    <i iconPh="question" class="text-primary large mr-2"></i>
+    <div class="d-md-flex flex-nowrap">
+      <h6>Are you a wellness Provider?</h6>
+      <a class="btn-text text-nowrap mt-3 mt-md-0 ml-md-3" routerLink="/sitemaps">Click To See All 38 Provider Types</a>  
+    </div>
+  </div>
 </section>
 
 

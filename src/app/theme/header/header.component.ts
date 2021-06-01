@@ -21,20 +21,10 @@ import { UniversalService } from 'src/app/shared/services/universal.service';
 export class HeaderComponent implements OnInit {
 
   @ViewChild('signupModal') public signupModal: ModalDirective;
-  get onProductPage(){
-    return !!this._router.url.match('product');
-  }
+  get onProductPage(){ return !!this._router.url.match('product'); }
 
   /////// NEW
   get isLoggedIn(): boolean { return !!this.token; }
-  public isMenuShown: boolean = false;
-  toggleMenuVisibility(show: boolean = null) {
-    if (show === null){
-      this.isMenuShown = !this.isMenuShown;
-    } else {
-      this.isMenuShown = show;
-    }
-  }
   /////// NEW END
 
 

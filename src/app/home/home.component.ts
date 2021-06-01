@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Partner } from '../models/partner';
 import { PartnerSearchFilterQuery } from '../models/partner-search-filter-query';
 import { UniversalService } from '../shared/services/universal.service';
+import { Category, CategoryService } from '../shared/services/category.service';
 
 declare function registerEvent(eventId, action): void;
 
@@ -20,14 +21,15 @@ declare function registerEvent(eventId, action): void;
 export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
-    private _route: ActivatedRoute,
+    // private _route: ActivatedRoute,
     private formBuilder: FormBuilder,
     // tslint:disable-next-line: variable-name
     private _sharedService: SharedService,
     private _headerStatusService: HeaderStatusService,
     private toastr: ToastrService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
+    // private ngZone: NgZone,
+    private _catService: CategoryService,
     private _uService: UniversalService,
     _el: ElementRef,
   ) {
@@ -36,9 +38,21 @@ export class HomeComponent implements OnInit {
 
   ////// NEW
   
+  categoryIcon(cat: Category): string {
+    const img = cat.image;
+    console.log(img);
+    const img2 = img.toLowerCase().replace(/_/g, '-').replace('.png', '');
+    console.log(img2);
+    return img2
+  }
+  subCategoriesString(parent: Category) {
+    const categories = [];
+    parent.subCategory.forEach(sub => {categories.push(sub.item_text); });
+    return categories.join(' / ');
+  }
   onTapAction() {console.log('onTapAction'); }
   onTap() {console.log('onTap'); }
-
+  public categories: Category[];
 
 
   ////// NEW END
@@ -235,6 +249,10 @@ export class HomeComponent implements OnInit {
       title: 'PromptHealth | Your health and wellness personal assistant',
       description: 'Take control of your health with options tailored to you',
     });
+
+    this._catService.getCategoryAsync().then((cats => {
+      this.categories = cats;
+    }));
 
     const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;

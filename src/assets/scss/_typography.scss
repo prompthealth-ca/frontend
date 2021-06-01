@@ -26,10 +26,17 @@ p,
 .small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
 caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
 
+button, .button { 
+  @include typography(16px, 17.6px, $fontWeightBold, 0.5px);
+  &.large { @include typography(18px, 19.8px, $fontWeightBold, 0.5px); }
+  &.small { @include typography(15px, 16.5px, $fontWeightBold, 0.5px); }
+}
 
-i { @include typography(18px, 1, $fontWeightRegular, 0px); }
-i.icon-lg { @include typography(22px, 1, $fontWeightRegular, 0px); }
-i.icon-sm { @include typography(16px, 1, $fontWeightRegular, 0px); }
+i { 
+  @include typography(18px, 1, $fontWeightRegular, 0px); 
+  &.large { @include typography(22px, 1, $fontWeightRegular, 0px); }
+  &.small { @include typography(16px, 1, $fontWeightRegular, 0px); }  
+}
 
 /** if icon is used in some sentence, it should be aligned with text */
 h1, h2, h3, h4, h5, h6, 
@@ -39,5 +46,10 @@ p, span, caption,
   i {
     font-size: 1.15em;
     vertical-align: text-top; 
+  }
+
+  i.large {
+    font-size: 1.3em;
+    vertical-align: text-bottom;
   }
 }

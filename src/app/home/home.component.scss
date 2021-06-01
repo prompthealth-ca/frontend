@@ -1,16 +1,55 @@
 @import "../../assets/scss/mixins";
 
-.top-0 {
-  top: 0 !important;
+// .top-0 {
+//   top: 0 !important;
+// }
+
+// .right-0 {
+//   right: 0 !important;
+// }
+
+// @media (max-width: 768px) {
+//   .container {
+//     padding: 0 2em;
+//   }
+// }
+
+.bg-primary-lighter {
+  background: rgba($color: $colorPrimaryLight, $alpha: 0.7);
 }
 
-.right-0 {
-  right: 0 !important;
+.video-dummy {
+  width: 100%;
+  background: black;
+  box-shadow: 10px 10px 10px #00000050;
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+  }
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 2em;
+.circle-container{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 350px;
+  transform: translate(50%, -15%);
+
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  .circle-secondary {
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1000px;
+    background-color: $colorSecondary;
   }
 }
 

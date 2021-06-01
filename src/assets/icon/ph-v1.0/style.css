@@ -1303,6 +1303,9 @@ i {
   content: "\ea43";
   margin-left: -1em;
 }
+.icon-heart-filled:before {
+  content: "\ea42";
+}
 .icon-user .path1:before {
   content: "\ea44";
   opacity: 0.16;

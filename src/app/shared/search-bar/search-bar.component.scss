@@ -1,0 +1,39 @@
+@import "../../../assets//scss/variables";
+
+@mixin searchBarHorizontal() {
+  display: flex;
+
+  .searchboxes {
+    display: flex;
+    margin: 0;
+  }
+
+  .searchbox {
+    border-bottom: none;
+    border-right: solid 1px $colorGsLine;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.search-bar-inner {
+  display: block;
+
+  .searchboxes {
+    margin-bottom: 5px; 
+  }
+  .searchbox {
+    border-bottom: solid 1px $colorGsLine;
+  }
+
+
+  @media (min-width: $breakpointLg) {
+    @include searchBarHorizontal();
+  }
+
+  &.align-horizontal {
+    @include searchBarHorizontal();
+  }
+}
+

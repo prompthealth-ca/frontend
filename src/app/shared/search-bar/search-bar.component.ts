@@ -22,7 +22,7 @@ export class SearchBarComponent implements OnInit {
   ) { }
 
   private _form: FormGroup;
-  private _option: OptionSearchBar;
+  public _option: OptionSearchBar;
 
   ngOnInit(): void {
     this._form = this._fb.group({
@@ -31,6 +31,7 @@ export class SearchBarComponent implements OnInit {
     });
 
     this._option = new OptionSearchBar(this.option);
+    console.log(this._option)
   }
 
   _onSubmit() {
@@ -53,11 +54,13 @@ interface SearchKeywords {
 
 interface IOptionSearchBar {
   navigateToListing?: boolean;
+  fixAlignHorizontal?: boolean;
 }
 
 class OptionSearchBar implements IOptionSearchBar {
 
-  get navigateToListing() { return this.data.navigateToListing || true; }
+  get navigateToListing() { return (this.data.navigateToListing === false) ? false : true; }
+  get fixAlignHorizontal() { return (this.data.fixAlignHorizontal === true) ? true : false; }
   
   constructor(private data: IOptionSearchBar){}
 }

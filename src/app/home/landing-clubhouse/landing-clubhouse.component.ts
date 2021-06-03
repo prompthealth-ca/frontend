@@ -68,6 +68,7 @@ export class LandingClubhouseComponent implements OnInit {
 			imageType: 'image/png',
 		});
     this.form = _fb.group({
+			userType: new FormControl('', Validators.required),
       name: new FormControl('', validators.firstnameClient),
       email: new FormControl('', validators.email),
       title: new FormControl('', validators.professionalTitle),

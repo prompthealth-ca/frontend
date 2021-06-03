@@ -46,10 +46,10 @@ const routes: Routes = [
     path: "faq",
     component: FAQComponent
   },
-  {
-    path: "subscribe-email",
-    component: SubscriptionComponent
-  },
+  // {
+  //   path: "subscribe-email",
+  //   component: SubscriptionComponent
+  // },
   // {
   //   path: "map",
   //   component: MapComponent
@@ -150,7 +150,8 @@ const routes: Routes = [
 
   { path: 'invitation', component: InvitationComponent }, /** invitation for webinars */
   { path: 'invitation/:id', component: LandingAmbassadorComponent, data: {type: 'client'}}, /** invitation for clients by ambassador */
-  { path: 'clubhouse', component: LandingClubhouseComponent },
+  { path: 'clubhouse', redirectTo: 'subscribe-email' },
+  { path: 'subscribe-email', component: LandingClubhouseComponent },
   { 
     path: 'ambassador-program', 
     component: LandingAmbassadorComponent, 

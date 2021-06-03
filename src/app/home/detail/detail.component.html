@@ -249,7 +249,7 @@ class="container-fluid bg-grey p-4"
         <div class="row mt-5" *ngIf="userInfo?.amenityPreview && userInfo.amenityPreview.length > 0">
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenity</div>
           <div class="col-12 col-lg-8">
-            <app-image-row [images]="userInfo.amenityPreview" [option]="{col: 3}"></app-image-row>
+            <image-row [images]="userInfo.amenityPreview" [option]="{col: 3}"></image-row>
             <button class="btn text-blue border-blue rounded" (click)="openAmenityViewer()">Show detail</button>
             <image-viewer
             *ngIf="isAmenityViewerShown"
@@ -262,7 +262,7 @@ class="container-fluid bg-grey p-4"
         <div class="row mt-5" *ngIf="userInfo?.productPreview && userInfo.productPreview.length > 0">
           <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Product</div>
           <div class="col-12 col-lg-8">
-            <app-image-row [images]="userInfo.productPreview" [option]="{col: 3}"></app-image-row>
+            <image-row [images]="userInfo.productPreview" [option]="{col: 3}"></image-row>
             <button class="btn text-blue border-blue rounded" (click)="openProductViewer()">Show detail</button>
             <image-viewer
             *ngIf="isProductViewerShown"
@@ -314,7 +314,7 @@ class="container-fluid bg-grey p-4"
             <form-item-customer-health
             *ngIf="questionnaires"
             type="detail"
-            [data]="userInfo?.customerHealth"
+            [data]="userInfo?.allServiceId"
             [selections]="questionnaires.customerHealth.answers"
             [disabled]="true"
             ></form-item-customer-health>  
@@ -423,6 +423,12 @@ class="container-fluid bg-grey p-4"
                   <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
                   <td class="text-left">{{userInfo.address}}</td>
                 </tr>
+                <tr *ngIf="userInfo?.email">
+                  <td class="pr-0"><i class="fas fa-envelope color-card-icon"></i></td>
+                  <td class="text-left">
+                    <a [href]="'mailto:' + userInfo.email">{{userInfo.email}}</a>
+                  </td>
+                </tr>
                 <tr *ngIf="userInfo?.phone">
                   <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
                   <td class="text-left">{{userInfo.phone}}</td>
@@ -445,7 +451,7 @@ class="container-fluid bg-grey p-4"
             </ng-container>
             
             <div class="blur-contact" *ngIf="!isLoggedIn">
-              <button *ngIf="!userInfo?.bookingUrl && !isLoggedIn" class="btn btn-outline-primary px-5 font-regular" type="button" (click)="loginModal.show()">Login to See Information</button>  
+              <button class="btn btn-outline-primary px-5 font-regular" type="button" (click)="loginModal.show()">Login to See Information</button>  
             </div>
           </div>
         </div>

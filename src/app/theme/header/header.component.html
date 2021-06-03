@@ -54,20 +54,20 @@
     <!-- <div class="d-none d-md-block w-100">
       <div class="d-flex justify-content-center align-items-center w-100">
         <div class="nav-item">
-          <a class="nav-link" class="nav-link" [routerLink]="'/'">Home</a>
+          <a class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" [routerLink]="'/'">Home</a>
         </div>
         <div class="nav-item" (click)="showMenu(true)">
-          <a class="nav-link">Find practitioners</a>
+          <a class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" >Find practitioners</a>
         </div>
         <div class="nav-item">
-          <a class="nav-link" class="nav-link" [routerLink]="['/products']">Products/Services</a>
+          <a class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" [routerLink]="['/products']">Products/Services</a>
         </div>
         <div class="nav-item" *ngIf="priceType != null">
-          <a *ngIf="priceType == 'practitioner'" class="nav-link" class="nav-link" [routerLink]="['/plans']">Pricing</a>
-          <a *ngIf="priceType == 'product'" class="nav-link" class="nav-link" [routerLink]="['/plans/product']">Pricing</a>
+          <a *ngIf="priceType == 'practitioner'" class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" [routerLink]="['/plans']">Pricing</a>
+          <a *ngIf="priceType == 'product'" class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" [routerLink]="['/plans/product']">Pricing</a>
         </div>
         <div class="nav-item">
-          <a class="nav-link" class="nav-link" [routerLink]="['/blogs']">Blogs</a>
+          <a class="nav-link" [ngClass]="{'px-2': (margin == 'narrow')}" [routerLink]="['/blogs']">Blogs</a>
         </div>
       </div>
     </div> -->
@@ -112,6 +112,7 @@
 
 <dashboard-menu class="d-none d-md-block position-fixed dashboard-menu-wrapper-md" *ngIf="isDashboardMenuShown"
   [@fadeFast] [user]="user" [scrollDetector]="isDashboardMenuShown" [offset]="50"
+  [ngStyle]="positionDashboardMenuMd"
   (detect)="isDashboardMenuShown = false;" (logout)="logout()" (clickOutside)="onClickOutsideOfDashboardMenuMd($event)"
   (close)="isDashboardMenuShown = false"></dashboard-menu>
 

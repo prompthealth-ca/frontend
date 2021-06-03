@@ -6,6 +6,7 @@ import { Partner } from '../../models/partner';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../shared/services/category.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-profile-partner',
@@ -17,7 +18,7 @@ export class ProfilePartnerComponent implements OnInit {
   public profile: Partner;
   public currentTabIndex: number = 0;
 
-  public imageViewerTarget = null;
+  public imageViewerTarget = 0;
   public isDescriptionClamped = true;
 
   public urlCurrent: string;
@@ -31,6 +32,7 @@ export class ProfilePartnerComponent implements OnInit {
     private _catService: CategoryService,
     private _toastr: ToastrService,
     private _uService: UniversalService,
+    private _map: MapsAPILoader,
   ) { }
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class ProfilePartnerComponent implements OnInit {
             this.profile = new Partner(p);
             resolve(true);  
           }
-          else{ reject('Cannot find the partner'); }
+          else{ reject('Cannot find the data'); }
         }
         else { reject(res.message); }
       }, error => {
@@ -93,6 +95,10 @@ export class ProfilePartnerComponent implements OnInit {
 
   changeTabIndex(i: number){
     this.currentTabIndex = i;
+
+    this._map.load().then(()=>{
+      this.profile.setGoogleReviews();
+    });  
   }
 
   changeImageViewerTarget(i: number){

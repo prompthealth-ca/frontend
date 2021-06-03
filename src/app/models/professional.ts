@@ -152,6 +152,7 @@ export class Professional implements IProfessional {
   get name(){ return (this.firstname + ' ' + this.lastname).trim(); }
   get firstname() { return this.p.firstName || this.p.fname || ''; }
   get lastname() { return this.p.lastName || this.p.lname || ''; }
+  get email() { return this.p.displayEmail || null; }
   get image() { return this._image ? this._baseURLImage + '350x220/' + this._image : this._defaultAvator; }
   get imageFull() { return this._image ? this._baseURLImage + this._image : this._defaultAvator; }
   get imageType(){ return this._imageType; }
@@ -271,9 +272,10 @@ export class Professional implements IProfessional {
     return result;
 
   }
-  get customerHealth() {
-    return this.p.customer_health;
-  }
+  // get customerHealth() {
+  //   const array = this.p.customer_health.concat(this.p.services); /** customer_health was contained in services before */
+  //   return array;
+  // }
 
   get allServiceId() { return this.p.services || []; }
   get serviceOfferIds() { return this.p.serviceOfferIds || []};
@@ -499,13 +501,13 @@ export class Professional implements IProfessional {
       ctx.fillStyle = 'black';
       ctx.font = '14px bold -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"';
       const wText = ctx.measureText(this.mapLabel).width;
-      c.width = radCircle * 2 + gap + wText + padding + paddingRight;
+      c.width = radCircle * 2 + gap + wText + padding + paddingRight + 2;
       c.height = radCircle * 2 + padding * 2;
 
       ctx.beginPath();
       const x = 10;
       const y = padding + radCircle - hLabel / 2;
-      const w = c.width - 10;
+      const w = c.width - 12;
       const h = hLabel;
       const r = h / 2;
 

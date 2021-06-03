@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUserDetail } from 'src/app/models/user-detail';
+import { ButtonGuidelineComponent } from 'src/app/shared/button-guideline/button-guideline.component';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
 import { environment } from 'src/environments/environment';
@@ -26,9 +27,9 @@ export class LandingAmbassadorComponent implements OnInit {
 
   private canvas: HTMLElement;
   private disableAnalytics: boolean = environment.config.disableAnalytics;
-  public isSharePalletAvailable: boolean;
 
   @ViewChild('referralLink') private elLink: ElementRef;
+  @ViewChild(ButtonGuidelineComponent) private buttonGuideLine: ButtonGuidelineComponent;
 
   @HostListener('window:scroll') windowScroll() {
     if (this.canvas) {
@@ -47,9 +48,6 @@ export class LandingAmbassadorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const nav: any = window.navigator;
-    this.isSharePalletAvailable = !!(nav && nav.share);
-
     const user = this._uService.localStorage.getItem('user');
     if (user) {
       this.user = JSON.parse(user);
@@ -88,6 +86,14 @@ export class LandingAmbassadorComponent implements OnInit {
       if(data.id && this.faceType == 'client') {
         this.practitionerId = data.id;
         this.getUserDetail();
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+    this._route.queryParams.subscribe((data: {mediakit: string}) => {
+      if(typeof data.mediakit == 'string') {
+        this.buttonGuideLine.openModal();
       }
     });
   }

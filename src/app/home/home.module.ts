@@ -50,6 +50,8 @@ import { UserQuestionnaireItemSelectComponent } from "./user-questionnaire-item-
 import { UserQuestionaireComponent } from "./user-questionaire/user-questionaire.component";
 import { UserQuestionnaireItemGenderComponent } from "./user-questionnaire-item-gender/user-questionnaire-item-gender.component";
 import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan.component";
+import { AuthModule } from "../auth/auth.module";
+import { SitemapComponent } from './sitemap/sitemap.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,7 @@ import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan
     UserQuestionnaireItemSelectComponent,
     UserQuestionnaireItemBackgroundComponent,
     UserQuestionnaireItemSelectMultipleComponent,
+    SitemapComponent,
     // ProfessionalRegisterComponent
   ],
   imports: [
@@ -108,6 +111,7 @@ import { SubscriptionPlanComponent } from "./subscription-plan/subscription-plan
     ReactiveFormsModule,
     NgxSocialShareModule,
     SharedModule,
+    AuthModule,
     ModalModule.forRoot(),
   ],
 

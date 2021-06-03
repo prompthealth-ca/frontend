@@ -54,6 +54,9 @@ import { ListItemComponent } from './list-item/list-item.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { IconDirective } from './icon.directive';
 import { FormItemSearchComponent } from './form-item-search/form-item-search.component';
+import { ButtonGuidelineComponent } from './button-guideline/button-guideline.component';
+import { CardPractitionerComponent } from './card-practitioner/card-practitioner.component';
+import { SocialMediaKitComponent } from './socieal-media-kit/social-media-kit.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -116,6 +119,9 @@ import { FormItemSearchComponent } from './form-item-search/form-item-search.com
     SearchBarComponent,
     IconDirective,
     FormItemSearchComponent,
+    ButtonGuidelineComponent,
+    CardPractitionerComponent,
+    SocialMediaKitComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -160,6 +166,8 @@ import { FormItemSearchComponent } from './form-item-search/form-item-search.com
     ListItemComponent,
     SearchBarComponent,
     IconDirective,
+    ButtonGuidelineComponent,
+    CardPractitionerComponent,
   ]
 })
 export class SharedModule { }

@@ -76,21 +76,55 @@
 
 <section class="container my-40p mt-md-100p">
   <ul class="row list-unstyled p-0">
-    <li class="col-12 col-md-6 col-lg-4" *ngFor="let cat of categories; let i = index;">
-      <list-item
-      [leading]="categoryIcon(cat)"
-      leadingClass="text-primary-dark"
-      [leadingStyle]="{fontSize: '30px'}"
-      action="chevron-right"
-      actionClass="text-primary btn btn-icon"
-      (onTap)="onTap()"
-      (onTapAction)="onTapAction()"
-      [option]="{actionHasOriginalFunction: true}"
+    <ng-container *ngFor="let cat of categories; let i = index;">
+      <li class="col-12 col-md-6 col-xl-4">
+        <list-item
+        [leading]="categoryIcon(cat)"
+        leadingClass="text-primary-dark"
+        [leadingStyle]="{fontSize: '30px'}"
+        action="chevron-right"
+        actionClass="text-primary btn btn-icon"
+        [actionStyle]="{transform: 'rotate(' + ((i === idxSelectedCategory) ? 90 : 0) + 'deg)', transition: 'transform 150ms'}"
+        (onTap)="onTapMainCategory(i)"
+        >
+          <h5 class="subtitle1 mb-0">{{cat.item_text}}</h5>
+          <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(cat)}}</div>  
+        </list-item>  
+      </li>
+  
+      <li 
+      *ngIf="i === idxTargetSubcategoryInjector && idxSelectedCategory >= 0"
+      class="col-12 subcategory-injector overflow-hidden" 
+      [@expandVertical]
       >
-        <h5 class="subtitle1 mb-0">{{cat.item_text}}</h5>
-        <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(cat)}}</div>  
-      </list-item>  
-    </li>
+        <ul class="row list-unstyled p-0">
+          <li class="col-12 col-md-6 col-xl-4">
+            <list-item
+            [leading]="categoryIcon(categories[idxSelectedCategory])"
+            leadingClass="text-placeholder"
+            [leadingStyle]="{fontSize: '30px'}"
+            action="arrow-right"
+            actionClass="text-primary btn btn-icon"
+            (onTap)="navigateTo(['/practitioners', 'category', categories[idxSelectedCategory]._id])"
+            >
+              <p class="mb-0">All of {{categories[idxSelectedCategory].item_text}}</p>
+            </list-item>
+          </li>
+          <li class="col-12 col-md-6 col-xl-4" *ngFor="let sub of categories[idxSelectedCategory].subCategory; let j = index;">
+            <list-item
+            [leading]="categoryIcon(categories[idxSelectedCategory])"
+            leadingClass="text-placeholder"
+            [leadingStyle]="{fontSize: '30px'}"
+            action="arrow-right"
+            actionClass="text-primary btn btn-icon"
+            (onTap)="navigateTo(['/practitioners', 'category', sub._id])"
+            >
+              <p class="mb-0">{{sub.item_text}}</p>
+            </list-item>      
+          </li>
+        </ul>
+      </li>
+    </ng-container>
   </ul>
 
   <div class="d-flex h6 mt-50p">

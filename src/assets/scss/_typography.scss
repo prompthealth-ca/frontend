@@ -53,3 +53,22 @@ p, span, caption, li,
     vertical-align: text-bottom;
   }
 }
+
+@mixin clampTypogrraphy($line, $height) {
+  height: $line * $height;
+  line-height: $line * $height;
+}
+
+.clamp-1line {
+  &.subtitle2 { @include clampTypogrraphy(1, 18px); }
+  &.body2 { @include clampTypogrraphy(1, 22px); }
+  &.small { @include clampTypogrraphy(1, 16px); }
+
+  &h4, &.h4 { @include clampTypogrraphy(1, 32px); }
+  &h5, &.h5 { @include clampTypogrraphy(1, 26px); }
+
+  &h6, &.h6,
+  &p,
+  &.body1,
+  &.subtitle1 { @include clampTypogrraphy(1, 24px); }
+}

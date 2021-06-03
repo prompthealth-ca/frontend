@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { IFormItemSearchData } from 'src/app/models/form-item-search-data';
 import { validators } from 'src/app/_helpers/form-settings';
+import { locationsNested } from 'src/app/_helpers/location-data';
 
 @Component({
   selector: 'search-bar',
@@ -17,21 +18,15 @@ export class SearchBarComponent implements OnInit {
   get f() { return this._form.controls; }
 
   public _option: OptionSearchBar;
-  public cities: IFormItemSearchData[] = [
-    {id: 'bc', label: 'British Columbia', selectable: false, subitems: [
-      {id: 'vancouver', label: 'Vancouver'},
-      {id: 'surrey', label: 'Surrey'},
-    ]},
-    {id: 'bc', label: 'British Columbia', selectable: false, subitems: [
-      {id: 'vancouver', label: 'Vancouver'},
-      {id: 'surrey', label: 'Surrey'},
-    ]},
-  ]
+  public _cities: IFormItemSearchData[] = locationsNested;
+  public _afterViewInit: boolean = false;
   private _form: FormGroup;
+
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
+    private _changeDetector: ChangeDetectorRef,
   ) { }
 
 
@@ -45,13 +40,18 @@ export class SearchBarComponent implements OnInit {
     console.log(this._option)
   }
 
+  ngAfterViewInit() {
+    this._afterViewInit = true;
+    this._changeDetector.detectChanges();
+  }
+
   findClosestLocation(s: string): string {
     if(!s || s.length == 0) {
       return null;
     } else {
       const regex = new RegExp('^' + s.toLowerCase());
       let locationId: string;
-      for(let state of this.cities) {
+      for(let state of this._cities) {
         for(let city of state.subitems) {
           if(city.label.toLowerCase().match(regex)) {
             locationId = city.id;

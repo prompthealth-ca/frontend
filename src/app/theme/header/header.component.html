@@ -129,7 +129,11 @@
       </list-item>
     </li>
     <li>
-      <list-item (onTap)="scrollMenuSm(1)" action="chevron-right">
+      <list-item 
+      (onTap)="scrollMenuSm(1)"
+      action="chevron-right"
+      actionClass="text-primary"
+      >
         <a class="subtitle1">Find Practioners</a>  
       </list-item>
     </li>
@@ -176,12 +180,13 @@
   <ul class="menu-item sub" [ngClass]="{before: (levelMenuSm > 1), after: (levelMenuSm < 1)}">
     <li class="h6 mb-5p">
       <button class="btn btn-icon large" (click)="scrollMenuSm(0)">
-        <i iconPh="arrow-left" class="text-primary"></i>
+        <i iconPh="chevron-left" class="text-primary"></i>
       </button>
     </li>
     <li *ngFor="let cat of catService.categoryList; let i = index">
       <list-item
       action="chevron-right"
+      actionClass="text-primary"
       (onTap)="changeMenuCategory(i); scrollMenuSm(2)"
       >
         <a (click)="changeMenuCategory(i); scrollMenuSm(2)" class="d-flex justify-content-between subtitle1">
@@ -196,12 +201,16 @@
     
     <li class="h6 mb-5p">
       <button class="btn btn-icon large" (click)="scrollMenuSm(1)">
-        <i iconPh="arrow-left" class="text-primary"></i>
+        <i iconPh="chevron-left" class="text-primary"></i>
       </button>
     </li>
 
     <li>
-      <list-item (onTap)="hideMenu()">
+      <list-item 
+      action="arrow-right"
+      actionClass="text-primary"
+      (onTap)="hideMenu()"
+      >
         <a 
         class="d-flex justify-content-between subtitle1"
         [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]"
@@ -212,7 +221,11 @@
     </li>
 
     <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
-      <list-item (onTap)="hideMenu()">
+      <list-item 
+      action="arrow-right"
+      actionClass="text-primary"
+      (onTap)="hideMenu()"
+      >
         <a 
         class="d-flex justify-content-between subtitle1"
         [routerLink]="['/practitioners/category', sub._id]"

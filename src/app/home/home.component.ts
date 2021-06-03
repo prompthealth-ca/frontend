@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared/services/shared.service';
 import { HeaderStatusService } from '../shared/services/header-status.service';
@@ -6,9 +6,10 @@ import { environment } from 'src/environments/environment';
 // import { Partner } from '../models/partner';
 // import { PartnerSearchFilterQuery } from '../models/partner-search-filter-query';
 import { UniversalService } from '../shared/services/universal.service';
-import { Category, CategoryService } from '../shared/services/category.service';
+import { Category, CategoryService, SubCategory } from '../shared/services/category.service';
 import { IFormItemSearchData } from '../models/form-item-search-data';
 import { IUserDetail } from '../models/user-detail';
+import { expandVerticalAnimation } from '../_helpers/animations';
 
 /** for event bright */
 // declare function registerEvent(eventId, action): void;
@@ -16,7 +17,8 @@ import { IUserDetail } from '../models/user-detail';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [expandVerticalAnimation],
 })
 export class HomeComponent implements OnInit {
   constructor(
@@ -27,13 +29,13 @@ export class HomeComponent implements OnInit {
     private _headerStatusService: HeaderStatusService,
     // private toastr: ToastrService,
     private _uService: UniversalService,
+    private _changeDetector: ChangeDetectorRef,
     // _el: ElementRef,
   ) {
     // this.elHost = _el.nativeElement;
   }
 
-    ////// NEW
-  
+    ////// NEW  
     categoryIcon(cat: Category): string {
       const img = cat.image;
       const img2 = img.toLowerCase().replace(/_/g, '-').replace('.png', '');
@@ -44,11 +46,53 @@ export class HomeComponent implements OnInit {
       parent.subCategory.forEach(sub => {categories.push(sub.item_text); });
       return categories.join(' / ');
     }
-    onTapAction() {console.log('onTapAction'); }
-    onTap() {console.log('onTap'); }
+
     public categories: Category[];
+    public idxTargetSubcategoryInjector: number = null;
+    public idxSelectedCategory: number = null;
+    private _timerSubcategory: any = null    
+
+    onTapMainCategory(i: number) {
+      /** if main category is selected and same main category is clicked, hide subcategory */
+      if(this.idxSelectedCategory === i) {
+        this.hideSubcategory();
+      }
+      /** if no main category is selected, show subcategory */
+      else if (this.idxSelectedCategory === null) {
+        this.showSubcategory(i);
+      }
+      /** if main category is selected and another main category is clicked, hide current subcategory and then show new subcategory */
+      else {
+        clearTimeout(this._timerSubcategory);
+
+        this.hideSubcategory();
+        this._timerSubcategory = setTimeout(() => {
+          this.showSubcategory(i);
+          this._changeDetector.detectChanges();            
+        }, 300);
+      }
+    }
+
+    hideSubcategory() {
+      this.idxSelectedCategory = null;
+      this.idxTargetSubcategoryInjector = null;
+    }
+
+    showSubcategory(i: number) {
+      this.idxSelectedCategory = i;
+      const w = window.innerWidth || 320;
+      const colnum = (w < 768) ? 1 : (w < 1200) ? 2 : 3;
+      this.idxTargetSubcategoryInjector = (Math.floor(i / colnum) + 1) * colnum - 1;
+    }
+
+    navigateTo(route: string[] | string){
+      const _route: string[] = (typeof route == 'string') ? [route] : route;
+      this.router.navigate(_route);
+    }
   
     ////// NEW END
+
+
   // get f() {
   //   return this.homeForm.controls;
   // } /** NO NEED */

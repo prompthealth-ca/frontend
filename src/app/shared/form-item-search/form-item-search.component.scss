@@ -13,7 +13,12 @@
       &.active {
         background-color: $colorPrimaryLight;
         color: $colorPrimaryDark !important;
-      }  
+      }
+    }
+
+    a:hover {
+      background-color: $colorPrimaryLight;
+      color: $colorPrimaryDark !important;     
     }
   }
 

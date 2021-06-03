@@ -25,14 +25,6 @@ export class StarRateComponent implements OnInit {
     }
     return c.join(' ');
   }
-  get iconType() {
-    const c = [];
-    switch(this.sign){
-      case 'star': c.push('fa-star'); break;
-      case 'dollar': c.push('fa-dollar-sign'); break;
-    }
-    return c.join(' ');
-  }
 
   iconActive(i: number){
     return (i <= this.rate) ? 'active' : 'inactive';

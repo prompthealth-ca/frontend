@@ -28,20 +28,29 @@ a {
   cursor: pointer;
 }
 
+.opacity-0 { opacity: 0; }
+.opacity-1 { opacity: 1; }
 @for $i from 1 through 9 {
   .opacity-#{$i * 10}pc { 
     opacity: $i / 10
   }
 }
 
+@for $i from 1 through 3 {
+  .rounded-#{$i * 4}p {
+    border-radius: #{$i * 4}px;
+  }
+}
+
 .clamp-1line{
   display: -webkit-box;
-  height: 1em;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  height: 1em;
   line-height: 1em;
+  /** additional setting for height & line-height is in _typography.scss */
 }
 
 

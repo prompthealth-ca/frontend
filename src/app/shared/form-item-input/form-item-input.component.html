@@ -1,10 +1,16 @@
-<div class="input-group">
+<div class="input-group rounded"
+[ngClass]="{error: (controller.errors && submitted), 'transparent': _option.transparent}"
+>
   <div class="input-group-prepend" *ngIf="prepend || prependIcon">
     <span class="input-group-text" *ngIf="prepend">{{prepend}}</span>
-    <span class="input-group-text" *ngIf="prependIcon"><i [ngClass]="prependIcon"></i></span>
+    <span class="input-group-text text-placeholder" *ngIf="prependIcon">
+      <i [iconPh]="prependIcon"></i>
+    </span>
   </div>
   <input [type]="type" [id]="name" class="form-control"
-  [ngClass]="{error: (controller.errors && submitted), 'transparent': _option.transparent}"
+  (focus)="_onFocus()"
+  (blur)="_onBlur()"
+  (input)="_onChangeValue($event)"
   [formControl]="controller" [attr.disabled]="disabled ? 'disabled' : null"
   [placeholder]="placeholder"
   [attr.autocomplete]="autocomplete"

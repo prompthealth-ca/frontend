@@ -10,15 +10,18 @@
 
 a {
   color: $colorPrimary;
-  &:hover {
-    color: $colorPrimaryDark;
+  cursor: pointer;
+
+  &:not([href]) {
+    color: $colorPrimary;
     text-decoration: none;
   }
 
-  //   &:not([href]) {
-  //     color: initial;
-  //     text-decoration: none;
-  //   }
+  &:hover,
+  &:not([href]):hover {
+    color: $colorPrimaryDark;
+    text-decoration: none;
+  }
 }
 
 .cursor-pointer {

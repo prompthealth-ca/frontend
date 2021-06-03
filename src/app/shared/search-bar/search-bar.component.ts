@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { IFormItemSearchData } from 'src/app/models/form-item-search-data';
 import { validators } from 'src/app/_helpers/form-settings';
 
 @Component({
@@ -14,15 +15,25 @@ export class SearchBarComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<SearchKeywords>()
 
   get f() { return this._form.controls; }
-  
+
+  public _option: OptionSearchBar;
+  public cities: IFormItemSearchData[] = [
+    {id: 'bc', label: 'British Columbia', selectable: false, subitems: [
+      {id: 'vancouver', label: 'Vancouver'},
+      {id: 'surrey', label: 'Surrey'},
+    ]},
+    {id: 'bc', label: 'British Columbia', selectable: false, subitems: [
+      {id: 'vancouver', label: 'Vancouver'},
+      {id: 'surrey', label: 'Surrey'},
+    ]},
+  ]
+  private _form: FormGroup;
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
   ) { }
 
-  private _form: FormGroup;
-  public _option: OptionSearchBar;
 
   ngOnInit(): void {
     this._form = this._fb.group({
@@ -34,14 +45,43 @@ export class SearchBarComponent implements OnInit {
     console.log(this._option)
   }
 
+  findClosestLocation(s: string): string {
+    if(!s || s.length == 0) {
+      return null;
+    } else {
+      const regex = new RegExp('^' + s.toLowerCase());
+      let locationId: string;
+      for(let state of this.cities) {
+        for(let city of state.subitems) {
+          if(city.label.toLowerCase().match(regex)) {
+            locationId = city.id;
+            break;
+          }  
+        }
+        if(locationId) {
+          break;
+        }
+      }
+      return locationId;    
+    }
+  }
+
   _onSubmit() {
+    const valSituation = this.f.searchBySituation.value;
+    const valLocation = this.findClosestLocation(this.f.searchByLocation.value);
     this.onSubmit.emit({
-      searchBySituation: this.f.searchBySituation.value || '',
-      searchByLocation: this.f.searchByLocation.value || '',
+      searchBySituation: valSituation || '',
+      searchByLocation: valLocation,
     });
 
     if(this._option.navigateToListing) {
-      this._router.navigate(['/practitioners']);
+      let route = ["/practitioners"];
+      if(!!valLocation){ 
+        route = route.concat(['area', valLocation]);
+      }
+      let params: NavigationExtras;
+      if(valSituation && valSituation.length > 0) { params = {queryParams: {keyword: valSituation}}; }
+      this._router.navigate(route, params);
     }
   }
 

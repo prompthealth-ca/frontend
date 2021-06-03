@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { FormItemTextfieldOption, IFormItemTextfieldOption } from 'src/app/models/form-item-textfield-option';
 
 @Component({
   selector: 'form-item-input',
@@ -23,6 +24,9 @@ export class FormItemInputComponent implements OnInit {
 
   @Input() option: IFormItemTextfieldOption = {};
 
+  @Output() onFocus = new EventEmitter<boolean>()
+  @Output() onChangeValue = new EventEmitter<string>();
+
 
   public _option: FormItemTextfieldOption;
 
@@ -30,17 +34,18 @@ export class FormItemInputComponent implements OnInit {
 
   ngOnInit(): void {
     this._option = new FormItemTextfieldOption(this.option);
-    console.log(this._option)
+  }
+
+  _onFocus(){
+    this.onFocus.emit(true);
+  }
+
+  _onBlur(){
+    this.onFocus.emit(false);
+  }
+
+  _onChangeValue(e: InputEvent) {
+    this.onChangeValue.emit(e.data)
   }
 }
 
-
-interface IFormItemTextfieldOption {
-  transparent?: boolean;
-}
-
-class FormItemTextfieldOption {
-  get transparent() { return this.data.transparent || false; }
-
-  constructor(private data: IFormItemTextfieldOption) {}
-}

@@ -25,6 +25,13 @@ export class HeaderComponent implements OnInit {
 
   /////// NEW
   get isLoggedIn(): boolean { return !!this.token; }
+  navigateTo(route: string[] | string, hideMenu: boolean = true){
+    const _route: string[] = (typeof route == 'string') ? [route] : route;
+    this._router.navigate(_route);
+    if (hideMenu) {
+      this.hideMenu();
+    }
+  }
   /////// NEW END
 
 

@@ -4,12 +4,38 @@
   font-size: 16px;
 }
 
-.form-control{
+.input-group{
   font-size: 1em;
 
   color: $colorGsBlack;
   background: $colorPrimaryLight;
-  border-color: rgba($colorPrimary, 0.12);  
+  border: solid 1px rgba($colorPrimary, 0.12); 
+  
+  &:focus-within {
+    box-shadow: 0 0 0 1.5px $colorPrimary;
+  }
+
+  &.error {
+    background: $colorErrorLight;
+    border-color: $colorError;
+  
+    &:focus-within {
+      box-shadow: 0 0 0 1.5px $colorError;
+    }
+  }
+  
+  &.transparent{
+    border-color: transparent!important;
+    background-color: transparent!important;
+    &:focus-within {
+      box-shadow: none;
+    }
+  }  
+}
+
+.form-control {
+  background: transparent;
+  border: none;
 
   &:disabled {
     color: $colorGsPlaceholder;
@@ -20,23 +46,13 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 1.5px $colorPrimary;
-  }
-}
-
-.form-control.error {
-  background: $colorErrorLight;
-  border-color: $colorError;
-
-  &:focus {
-    box-shadow: 0 0 0 1.5px $colorError;
-  }
-}
-
-.form-control.transparent{
-  border-color: transparent!important;
-  background-color: transparent!important;
-  &:focus {
     box-shadow: none;
   }
 }
+
+.input-group-text { 
+  border: none;
+  background: transparent; 
+  padding: 0 0 0 15px;
+}
+

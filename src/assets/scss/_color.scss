@@ -24,8 +24,8 @@
 .text-success-light { color: $colorSuccessLight; }
 
 .text-black,
-.text-dark { color: $colorGsBlack; }
-.text-body { color: $colorGsBody; }
+.text-dark { color: $colorGsBlack!important; }
+.text-body { color: $colorGsBody!important; }
 .text-label { color: $colorGsLabel; }
 .text-placeholder { color: $colorGsPlaceholder; }
 // .text-line { color: $colorGsLine; }

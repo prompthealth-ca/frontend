@@ -1,13 +1,13 @@
 <form (ngSubmit)="_onSubmit()">
-  <div class="search-bar-inner justify-content-between align-items-stretch p-5p"
+  <div class="search-bar-inner justify-content-between align-items-stretch"
   [ngClass]="{ 'align-horizontal':_option.fixAlignHorizontal }"
   >
     <ul class="searchboxes justify-content-between align-items-stretch p-0 flex-grow-1">
-      <li class="d-flex align-items-center pl-15p flex-grow-1 searchbox">
-        <i class="large body1 text-placeholder" iconPh="briefcase-doctor"></i>
+      <li class="d-flex align-items-center flex-grow-1 searchbox">
         <form-item-input
         class="flex-grow-1"
         name="search"
+        prependIcon="briefcase-doctor"
         placeholder="condition, doctor name"
         type="text"
         [controller]="f.searchBySituation"
@@ -15,20 +15,21 @@
         ></form-item-input>  
       </li>
   
-      <li class="d-flex align-items-center pl-15p flex-grow-1 searchbox">
-        <i class="large body1 text-placeholder" iconPh="pin-filled"></i>
-        <form-item-input
+      <li class="d-flex align-items-center flex-grow-1 searchbox">
+        <form-item-search
         class="flex-grow-1"
         name="search"
         placeholder="city, state, zipcode"
         type="text"
+        prependIcon="pin-filled"
         [controller]="f.searchByLocation"
-        [option]="{transparent: true}"
-        ></form-item-input>  
+        [searchData]="cities"
+        [option]="{transparent: true, showSelectionsImmediately: true}"
+        ></form-item-search>  
       </li>
     </ul>
 
-    <div>
+    <div class="p-5p">
       <input type="submit" class="btn btn-primary w-100" value="Find">
     </div>
   </div>

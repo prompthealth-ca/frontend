@@ -25,8 +25,6 @@ export class IconDirective implements OnInit {
     const sPath1 = new StylePath(this.stylePath1);
     const sPath2 = new StylePath(this.stylePath2);
 
-    console.log(sPath1);
-    console.log(sPath2);
     Object.keys(sPath1).forEach(s => {
       p1.style[s] = sPath1[s];
     });

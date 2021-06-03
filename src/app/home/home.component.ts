@@ -10,6 +10,7 @@ import { Partner } from '../models/partner';
 import { PartnerSearchFilterQuery } from '../models/partner-search-filter-query';
 import { UniversalService } from '../shared/services/universal.service';
 import { Category, CategoryService } from '../shared/services/category.service';
+import { IFormItemSearchData } from '../models/form-item-search-data';
 
 declare function registerEvent(eventId, action): void;
 
@@ -40,9 +41,7 @@ export class HomeComponent implements OnInit {
   
   categoryIcon(cat: Category): string {
     const img = cat.image;
-    console.log(img);
     const img2 = img.toLowerCase().replace(/_/g, '-').replace('.png', '');
-    console.log(img2);
     return img2
   }
   subCategoriesString(parent: Category) {
@@ -53,7 +52,6 @@ export class HomeComponent implements OnInit {
   onTapAction() {console.log('onTapAction'); }
   onTap() {console.log('onTap'); }
   public categories: Category[];
-
 
   ////// NEW END
 

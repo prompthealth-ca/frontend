@@ -40,15 +40,15 @@ i {
 
 /** if icon is used in some sentence, it should be aligned with text */
 h1, h2, h3, h4, h5, h6, 
-p, span, caption, 
+p, span, caption, li,
 .h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2,
 .small, .caption {
-  i {
+  >i {
     font-size: 1.15em;
     vertical-align: text-top; 
   }
 
-  i.large {
+  >i.large {
     font-size: 1.3em;
     vertical-align: text-bottom;
   }

@@ -53,6 +53,7 @@ import { ButtonShareComponent } from './button-share/button-share.component';
 import { ListItemComponent } from './list-item/list-item.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { IconDirective } from './icon.directive';
+import { FormItemSearchComponent } from './form-item-search/form-item-search.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -114,6 +115,7 @@ import { IconDirective } from './icon.directive';
     ListItemComponent,
     SearchBarComponent,
     IconDirective,
+    FormItemSearchComponent,
   ],
   exports: [
     UserSidebarComponent,

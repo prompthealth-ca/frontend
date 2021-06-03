@@ -3,7 +3,8 @@
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <a routerLink="/">
-          <img class="image-logo" src="assets/img/logo.png" alt="PromptHealth">
+          <img class="d-lg-none" src="assets/img/logo-sm.png" alt="PromptHealth">
+          <img class="d-none d-lg-block" src="assets/img/logo.png" alt="PromptHealth">
         </a>
       </div>
       <nav>
@@ -21,9 +22,9 @@
             <a routerLink="/practitioners" class="text-body">Products</a>
           </li>
           <li class="mx-10p">About</li>
-          <li *ngIf="priceType != null">
-            <a *ngIf="priceType == 'practitioner'" class="text-blue" routerLink="'/plans'" (click)="hideMenu()">Pricing</a>
-            <a *ngIf="priceType == 'product'" class="text-blue" routerLink="/plans/product" (click)="hideMenu()">Pricing</a>
+          <li *ngIf="priceType != null" class="mx-10p">
+            <a *ngIf="priceType == 'practitioner'" class="text-body" routerLink="'/plans'" (click)="hideMenu()">Pricing</a>
+            <a *ngIf="priceType == 'product'" class="text-body" routerLink="/plans/product" (click)="hideMenu()">Pricing</a>
           </li>
           <li class="mx-10p">
             <a routerLink="/blogs" class="text-body">Blogs</a>
@@ -32,7 +33,7 @@
           <li class="mx-10p" *ngIf="!isLoggedIn">
             <a routerLink="/auth/login" class="text-body">Login</a> 
             / 
-            <span (click)="signupModal.show()"> Register</span>
+            <a (click)="signupModal.show()" class="text-body">Register</a>
           </li>
           <li class="mx-10p" *ngIf="isLoggedIn">
             <dashboard-menu id="dashboardMenuButton" ui="button" buttonDirection="right"
@@ -116,67 +117,108 @@
 
 
 <!-- Menu for Small view-->
-<div class="menu-sm" id="menu_sm" [ngClass]="(!isMenuMobileForcibly) ? 'd-md-none' : ''" *ngIf="isNavMenuShown" [@fade]>
+<div class="menu-sm bg-primary-light" id="menu_sm" [ngClass]="(!isMenuMobileForcibly) ? 'd-md-none' : ''" *ngIf="isNavMenuShown" [@fade]>
   <button class="btn btn-icon close-menu-sm mt-15p mr-15p">
     <i class="large" iconPh="cross" (click)="hideMenu()"></i>
   </button>
   <ul class="menu-item font-weight-bold" [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}">
-    <li><a class="text-blue" [routerLink]="'/'" (click)="hideMenu()">Home</a></li>
-    <li><a class="text-blue" (click)="scrollMenuSm(1)">Find Practioners</a></li>
-    <li><a class="text-blue" [routerLink]="['/products']" (click)="hideMenu()">Products/Services</a></li>
-    <li *ngIf="priceType != null">
-      <a *ngIf="priceType == 'practitioner'" class="text-blue" [routerLink]="['/plans']" (click)="hideMenu()">Pricing</a>
-      <a *ngIf="priceType == 'product'" class="text-blue" [routerLink]="['/plans/product']" (click)="hideMenu()">Pricing</a>
+    <li>
+      <list-item (onTap)="navigateTo('/')">
+        <a class="subtitle1">Home</a>  
+      </list-item>
     </li>
-    <li><a class="text-blue" [routerLink]="['/blogs']" (click)="hideMenu()">Blogs</a></li>
-
-    <li *ngIf="!token">
-      <!-- <a class="px-2 text-blue" data-toggle="modal" data-target="#loginmodal" (click)="hideMenu()">Log in</a> -->
-      <a class="px-2 text-blue" [routerLink]="['/auth/login']" (click)="hideMenu()">Log in</a>
-      <span class="display-inline-block mx-2">/</span>
-      <a class="px-2 text-blue" (click)="hideMenu(); signupModal.show()">Sign up</a>
+    <li>
+      <list-item (onTap)="scrollMenuSm(1)" action="chevron-right">
+        <a class="subtitle1">Find Practioners</a>  
+      </list-item>
+    </li>
+    <li>
+      <list-item (onTap)="navigateTo('/products')">
+        <a class="subtitle1">Products/Services</a>  
+      </list-item>
     </li>
 
-    <li class="dashboard-menu-wrapper d-md-none" *ngIf="token">
+    <li *ngIf="priceType == 'practitioner'" class="my-10p">
+      <list-item (onTap)="navigateTo('/plans')">
+        <a class="subtitle1">Pricing</a>  
+      </list-item>
+    </li>
+
+    <li *ngIf="priceType == 'product'" class="my-10p">
+      <list-item (onTap)="navigateTo('/plans/product')">
+        <a class="subtitle1">Pricing</a>  
+      </list-item>
+    </li>
+
+    <li>
+      <list-item (onTap)="navigateTo('/blogs')">
+        <a class="subtitle1">Blogs</a>  
+      </list-item>
+    </li>
+
+    <li *ngIf="!isLoggedIn">
+      <list-item>
+        <span class="subtitle1">
+          <a routerLink="/auth/login" (click)="hideMenu()">Log in</a>
+          <span class="display-inline-block mx-2">/</span>
+          <a routerLink="/auth/login" (click)="hideMenu(); signupModal.show()">Register</a>  
+        </span>
+      </list-item>
+    </li>
+
+    <li class="dashboard-menu-wrapper d-md-none" *ngIf="isLoggedIn">
       <dashboard-menu class="bg-white overflow-hidden" [user]="user" [styleMenu]="{ color: '#6d6e71'}"
         (close)="hideMenu()" (logout)="logout()"></dashboard-menu>
     </li>
   </ul>
 
   <ul class="menu-item sub" [ngClass]="{before: (levelMenuSm > 1), after: (levelMenuSm < 1)}">
-    <li class="menu-subtitle font-weight-bold">
-      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(0)">
-        <i class="fas fa-arrow-left"></i>
+    <li class="h6 mb-5p">
+      <button class="btn btn-icon large" (click)="scrollMenuSm(0)">
+        <i iconPh="arrow-left" class="text-primary"></i>
       </button>
-      Find Practioners
     </li>
     <li *ngFor="let cat of catService.categoryList; let i = index">
-      <span (click)="changeMenuCategory(i); scrollMenuSm(2)" class="d-flex justify-content-between">
-        <span>{{cat.item_text}}</span>
-        <i class="fas fa-chevron-right"></i>
-      </span>
+      <list-item
+      action="chevron-right"
+      (onTap)="changeMenuCategory(i); scrollMenuSm(2)"
+      >
+        <a (click)="changeMenuCategory(i); scrollMenuSm(2)" class="d-flex justify-content-between subtitle1">
+          <span>{{cat.item_text}}</span>
+        </a>  
+      </list-item>
     </li>
   </ul>
 
   <ul class="menu-item sub" *ngIf="catService.categoryList && catService.categoryList.length > 0"
     [ngClass]="{before: (levelMenuSm > 2), after: (levelMenuSm < 2)}">
-    <li class="menu-subtitle font-weight-bold d-flex align-items-center">
-      <button class="btn btn-icon text-blue" (click)="scrollMenuSm(1)">
-        <i class="fas fa-arrow-left"></i>
+    
+    <li class="h6 mb-5p">
+      <button class="btn btn-icon large" (click)="scrollMenuSm(1)">
+        <i iconPh="arrow-left" class="text-primary"></i>
       </button>
-      <span class="d-inline-block">
-        {{catService.categoryList[activeCategory].item_text}}
-      </span>
     </li>
 
     <li>
-      <a class="font-weight-bold" [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]"
-        (click)="hideMenu()">{{catService.categoryList[activeCategory].item_text}}</a>
+      <list-item (onTap)="hideMenu()">
+        <a 
+        class="d-flex justify-content-between subtitle1"
+        [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]"
+        >
+          <span>All of {{catService.categoryList[activeCategory].item_text}}</span>
+        </a>  
+      </list-item>
     </li>
 
     <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
-      <a [routerLink]="['/practitioners/category', sub._id]"
-        (click)="hideMenu()">{{sub.item_text}}</a>
+      <list-item (onTap)="hideMenu()">
+        <a 
+        class="d-flex justify-content-between subtitle1"
+        [routerLink]="['/practitioners/category', sub._id]"
+        >
+          {{sub.item_text}}
+        </a>  
+      </list-item>
     </li>
   </ul>
 </div>

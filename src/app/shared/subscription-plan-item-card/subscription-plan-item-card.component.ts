@@ -49,7 +49,6 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
     private _uService: UniversalService,
   ) { }
 
-
   async ngOnInit() {
     const ls = this._uService.localStorage;
 
@@ -122,8 +121,12 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
         break;
     }
     return link;
-
   }
+
+  onClickSignup() {
+    this._uService.sessionStorage.setItem('selectedPlan', JSON.stringify(this.data));
+  }
+
 
   triggerButtonClick() {
     if (this.profile.roles == 'U') {
@@ -171,7 +174,7 @@ export class SubscriptionPlanItemCardComponent implements OnInit {
       // payload.success_url += '?action=couponused';
     }
     this.stripeCheckout(payload);
-  }
+  } 
 
   stripeCheckout(payload: IStripeCheckoutData) {
     const path = `user/checkoutSession`;

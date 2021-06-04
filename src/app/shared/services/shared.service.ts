@@ -18,6 +18,10 @@ import { environment } from '../../../environments/environment';
 
 import { DOCUMENT } from '@angular/common';
 import { UniversalService } from './universal.service';
+import { IStripeCheckoutData } from 'src/app/models/stripe-checkout-data';
+import { StripeService } from 'ngx-stripe';
+import { IUserDetail } from 'src/app/models/user-detail';
+import { IDefaultPlan } from 'src/app/models/default-plan';
 
 declare var jQuery: any;
 
@@ -42,6 +46,7 @@ export class SharedService {
     private previousRouteService: PreviousRouteService,
     private _bs: BehaviorService,
     private _uService: UniversalService,
+    private _stripeService: StripeService,
 
     @Inject(DOCUMENT) private document,
     private http: HttpClient) {
@@ -434,9 +439,115 @@ export class SharedService {
 
   }
 
+  checkoutPlan(
+    user: IUserDetail, 
+    plan: IDefaultPlan, 
+    type: StripeCheckoutType,
+    option: ICheckoutPlanOption = {}
+  ): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      if(plan.price == 0 && plan.name == 'Basic') {
+        // basic plan for SP | C
+        const payload: IUserDetail = {_id: user._id, plan: plan};
+        this.post(payload, 'user/updateProfile').subscribe((res: any) => {
+          if(res.statusCode === 200) { resolve(true); } 
+          else { reject(res.message); }
+        }, err => {
+          console.log(err);
+          reject('There are some errors, please try again after some time!');
+        });
+      }else {
+        // premium plan for SP | C | P
+        const savedCoupon = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
+        const _option = new CheckoutPlanOption(option, user.roles);
+    
+        const payload: IStripeCheckoutData = {
+          cancel_url: _option.cancelUrl,
+          success_url: _option.successUrl,
+          userId: user._id,
+          userType: user.roles,
+          email: user.email,
+          plan: plan,
+          isMonthly: plan.isMonthly,
+          type: type,
+        };
+        if (savedCoupon) {
+          payload.coupon = savedCoupon.id;
+          // payload.success_url += '?action=couponused';
+        }
+        this.checkoutToStripe(payload);
+      }
+    });
+  }
+
+  checkoutToStripe(payload: IStripeCheckoutData) {
+    const path = `user/checkoutSession`;
+    console.log(payload);
+    this.post(payload, path).subscribe((res: any) => {
+      if(res.statusCode === 200) {
+        console.log(res.data);
+        this._stripeService.changeKey(environment.config.stripeKey);
+
+        if (res.data.type === 'checkout') {
+          // this._toastr.success('Checking out...');
+
+          this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
+            console.log('success!');
+          }, error => {
+            // this._toastr.error(error);
+            console.log(error);
+          });
+        }
+        if (res.data.type === 'portal') {
+          // this._toastr.success('You already have this plan. Redirecting to billing portal');
+          console.log(res.data);
+          location.href = res.data.url;
+        }
+
+      } else {
+        // this._toastr.error(res.message, 'Error');
+        console.log(res);
+      }
+    }, (error) => {
+      // this._toastr.error(error);
+    });
+  }
+
 }
 
 
+
+type StripeCheckoutType = 'default' | 'addon';
+
+interface ICheckoutPlanOption {
+  cancelUrl?: string;
+  successUrl?: string;
+  showSuccessMessage?: boolean;
+  showErrorMessage?: boolean;
+}
+
+class CheckoutPlanOption implements ICheckoutPlanOption{
+
+    /** if user cancel, user cannot go back to questionnaire page, because data is already destroyed and user will be guarded to access */
+  get cancelUrl() { 
+    const url = this.data.cancelUrl || ( location.origin + '/plans' + (this.role == 'P' ? '/product' : '') ); 
+    return url + (this._showErrorMessage ? '?message=stripe-cancel' : '');
+  }
+
+  /** currently, practitioner complete page url is same as product complete page. */
+  get successUrl() { 
+    const url = this.data.successUrl || location.origin + '/dashboard/register-product/complete'; 
+    return url + '?action=remove-plan' +  (this._showSuccessMessage ? '&message=stripe-success' : '');
+  }
+
+  private _showSuccessMessage: boolean;
+  private _showErrorMessage: boolean;
+
+  constructor(private data: ICheckoutPlanOption, private role: IUserDetail['roles']) {
+    this._showSuccessMessage = (data.showSuccessMessage === false) ? false : true;
+    this._showErrorMessage = (data.showErrorMessage === false) ? false : true;
+  }
+}
 
 export declare type LinkDefinition = {
   charset?: string;

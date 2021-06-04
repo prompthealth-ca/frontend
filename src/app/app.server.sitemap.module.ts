@@ -73,7 +73,7 @@ const sitemapMain = `<?xml version="1.0" encoding="UTF-8"?>
       <loc>${baseURL}faq</loc>
     </url>       
     <url>
-      <loc>${baseURL}subscribe-email</loc>
+      <loc>${baseURL}subscribe/newsletter</loc>
     </url>   
     <url>
       <loc>${baseURL}contact-us</loc>

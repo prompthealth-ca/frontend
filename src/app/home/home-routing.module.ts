@@ -150,8 +150,11 @@ const routes: Routes = [
 
   { path: 'invitation', component: InvitationComponent }, /** invitation for webinars */
   { path: 'invitation/:id', component: LandingAmbassadorComponent, data: {type: 'client'}}, /** invitation for clients by ambassador */
-  { path: 'clubhouse', redirectTo: 'subscribe-email' },
-  { path: 'subscribe-email', component: LandingClubhouseComponent },
+
+  { path: 'subscribe/newsletter', component: LandingClubhouseComponent },
+  { path: 'subscribe', redirectTo: '/subscribe/newsletter'},
+  { path: 'subscribe-email', redirectTo: '/subscribe/newsletter'},
+  { path: 'clubhouse', redirectTo: '/subscribe/newsletter' },
   { 
     path: 'ambassador-program', 
     component: LandingAmbassadorComponent, 

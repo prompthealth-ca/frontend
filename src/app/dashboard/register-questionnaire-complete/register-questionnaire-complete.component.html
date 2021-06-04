@@ -19,13 +19,15 @@
       </section>
 
       <section class="text-md-right mr-lg-5 to-home position-relative">
-        <a class="font-bigger" [routerLink]="routePlan">
-          See Plans
-        </a>
-        <br>
-        <a class="font-bigger" [routerLink]="['/ambassador-program']">
-          See Ambassador Program
-        </a>
+        <div class="d-inline-block text-md-left">
+          <a class="btn btn-primary mb-3" [routerLink]="routePlan">
+            See Plans
+          </a>
+          <br>
+          <a class="btn btn-primary" [routerLink]="['/ambassador-program']">
+            See Ambassador Program
+          </a>  
+        </div>
       </section>
 
     </div>    

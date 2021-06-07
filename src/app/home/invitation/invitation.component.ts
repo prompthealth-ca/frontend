@@ -51,7 +51,11 @@ export class InvitationComponent implements OnInit {
 
   logoutAndSignup(role: string) {
     this._sharedService.logout();
-    this._router.navigate(['/auth/registration', role]);
+    const route = ['plans'];
+    if(role == 'P') {
+      route.push('product');
+    }
+    this._router.navigate(route);
   }
 }
 

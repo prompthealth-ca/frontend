@@ -190,7 +190,7 @@
             <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->
         </a>
 
-        <button *ngIf="isLoggedIn && !hideButton" class="btn btn-more" (click)="triggerButtonClick()">
+        <button *ngIf="isLoggedIn && !hideButton" class="btn btn-more" (click)="onClickCheckout()">
             <span *ngIf="type == 'basic'">Explore</span>
             <span *ngIf="type != 'basic'">Get Started</span>
             <!-- <span *ngIf="type == 'partner'">Get in touch</span> -->

@@ -31,39 +31,36 @@ async ngOnInit() {
   }
 
   this._route.queryParams.subscribe((params: IAppQueryParams) => {
-    console.log(params);
-    if(params && params.message) {
-      switch(params.message) {
-        case 'stripe-success': this._toastr.success('Thank you for subscribing our premium plan!'); break;
+    const paramsCopy = JSON.parse(JSON.stringify(params));
+
+    if(params && params.action) {
+      switch(params.action) {
+        case 'stripe-success':
         case 'stripe-cancel': 
-          const uStr = this._uService.localStorage.getItem('user');
-          if(uStr) {
-            const user: IUserDetail = JSON.parse(uStr);
-            if(!user.plan || user.plan.price == 0) {
-              this._toastr.error('You haven\'t subscribed plan yet. You cannot access full feature unless you subscribe plan.'); 
-            }
-          }
+          this.onRedirectFromStripe(paramsCopy);
           break;
       }
     }
-    if(params && params.action) {
-      switch(params.action) {
-        case 'remove-plan': this._uService.sessionStorage.removeItem('selectedPlan'); break;
-      }
-    }
-
-    setTimeout(() => {
-      const copyParams = JSON.parse(JSON.stringify(params));
-      copyParams.message = null;
-      let queryList = [];
-      for(let key in copyParams) {
-        if(copyParams[key]){
-          queryList.push(key + '=' + copyParams[key]);
-        }
-      }
-      this._location.replaceState(location.pathname, '?'+queryList.join('&'));
-    }, 1000);
   });
+}
+
+onRedirectFromStripe(params: {[k: string]: any}) {
+  if(params.action == 'stripe-success') {
+    this._toastr.success('Thank you for subscribing our premium plan!');
+  } else if (params.action == 'stripe-cancel') {
+    this._toastr.error('You haven\'t completed subscribing plan.');
+  }
+
+  params.action = null;
+  let paramList = [];
+  for (let key in params) {
+    if(params[key]) {
+      paramList.push(key += '=' + params[key]);
+    }
+  }
+  
+  this._location.replaceState(location.pathname,  (paramList.length > 0) ? '?' + paramList.join('&') :'');
+
 }
 
 getPosition(): Promise<any> {
@@ -85,6 +82,5 @@ getPosition(): Promise<any> {
 
 
 interface IAppQueryParams {
-  message?: 'stripe-cancel' | 'stripe-success';
-  action?: 'remove-plan';
+  action?: 'stripe-cancel' | 'stripe-success';
 }

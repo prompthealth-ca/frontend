@@ -95,14 +95,23 @@ export class RegisterQuestionnaireComponent implements OnInit {
         const user = await this.save();
         const plan = this.retrieveSelectedPlan();
         if(plan) {
-          const isPlanBasic = await this._sharedService.checkoutPlan(user, plan, 'default');
-          if(isPlanBasic) {
-            this._uService.sessionStorage.removeItem('selectedPlan');
-            this._router.navigate(['/dashboard/register-product/complete']);
-          } else {
-            //if plan is premium, automatically goes to stripe page and doesn't come back here. no need to do something here.         
+          try {
+            const monthly = (this._uService.sessionStorage.getItem('selectedMonthly') === 'true') ? true : false;
+            const result = await this._sharedService.checkoutPlan(user, plan, 'default', monthly);
+            this._toastr.success(result.message);
+            switch(result.nextAction) {
+              case 'complete':
+                this._router.navigate(['/dashboard/register-product/complete']);
+                break;
+              case 'stripe':
+                //automatically redirect to stripe. nothing to do.
+                break;
+            }
+          } catch(error) {
+            this._toastr.error(error);
           }
-        }else {
+        } else {
+          this._toastr.error('You haven\'t selected plan yet. Please select Plan.');
           const route = ['/plans'];
           if(this.userRole == 'P') { route.push('product'); }
           this._router.navigate(route); 

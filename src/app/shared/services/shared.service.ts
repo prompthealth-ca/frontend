@@ -22,6 +22,7 @@ import { IStripeCheckoutData } from 'src/app/models/stripe-checkout-data';
 import { StripeService } from 'ngx-stripe';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { IDefaultPlan } from 'src/app/models/default-plan';
+import { IAddonPlan } from 'src/app/models/addon-plan';
 
 declare var jQuery: any;
 
@@ -436,80 +437,106 @@ export class SharedService {
           reject(err);
         });
     });
-
   }
 
-  checkoutPlan(
+  async checkoutPlan(
     user: IUserDetail, 
-    plan: IDefaultPlan, 
+    plan: IDefaultPlan | IAddonPlan, 
     type: StripeCheckoutType,
+    monthly: boolean,
+    metadata = {}, // this is for addon plan
     option: ICheckoutPlanOption = {}
-  ): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      if(plan.price == 0 && plan.name == 'Basic') {
-        // basic plan for SP | C
-        const payload: IUserDetail = {_id: user._id, plan: plan};
-        this.post(payload, 'user/updateProfile').subscribe((res: any) => {
-          if(res.statusCode === 200) { resolve(true); } 
-          else { reject(res.message); }
-        }, err => {
-          console.log(err);
-          reject('There are some errors, please try again after some time!');
-        });
-      }else {
-        // premium plan for SP | C | P
-        const savedCoupon = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
-        const _option = new CheckoutPlanOption(option, user.roles);
-    
-        const payload: IStripeCheckoutData = {
-          cancel_url: _option.cancelUrl,
-          success_url: _option.successUrl,
-          userId: user._id,
-          userType: user.roles,
-          email: user.email,
-          plan: plan,
-          isMonthly: plan.isMonthly,
-          type: type,
-        };
-        if (savedCoupon) {
-          payload.coupon = savedCoupon.id;
-          // payload.success_url += '?action=couponused';
-        }
-        this.checkoutToStripe(payload);
+  ): Promise<{message: string, nextAction: string}> {
+    const result = {message: null, nextAction: null};
+    if(plan.price == 0 && plan.name == 'Basic') {
+      try {
+        result.message = await this.checkoutFreePlan(user, (plan as IDefaultPlan));
+        result.nextAction = 'complete';
+        return result;
+      } catch (error) {
+        throw error;
       }
+    } else {
+      try {
+        result.message =  await this.checkoutPremiumPlan(user, plan, type, monthly, metadata, option);
+        result.nextAction = 'stripe';
+        return result;
+      } catch (error) {
+        throw error;
+      }
+    }
+  }
+
+  private checkoutFreePlan (user: IUserDetail, plan: IDefaultPlan): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const payload: IUserDetail = {_id: user._id, plan: plan};
+      this.post(payload, 'user/updateProfile').subscribe((res: any) => {
+        if(res.statusCode === 200) { resolve(res.message); } 
+        else { reject(res.message); }
+      }, err => {
+        console.log(err);
+        reject('There are some errors, please try again after some time!');
+      });
     });
   }
 
-  checkoutToStripe(payload: IStripeCheckoutData) {
-    const path = `user/checkoutSession`;
-    console.log(payload);
-    this.post(payload, path).subscribe((res: any) => {
-      if(res.statusCode === 200) {
-        console.log(res.data);
-        this._stripeService.changeKey(environment.config.stripeKey);
-
-        if (res.data.type === 'checkout') {
-          // this._toastr.success('Checking out...');
-
-          this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
-            console.log('success!');
-          }, error => {
-            // this._toastr.error(error);
-            console.log(error);
-          });
-        }
-        if (res.data.type === 'portal') {
-          // this._toastr.success('You already have this plan. Redirecting to billing portal');
-          console.log(res.data);
-          location.href = res.data.url;
-        }
-
-      } else {
-        // this._toastr.error(res.message, 'Error');
-        console.log(res);
+  private checkoutPremiumPlan(
+    user: IUserDetail, 
+    plan: IDefaultPlan | IAddonPlan, 
+    type: StripeCheckoutType,
+    monthly: boolean,
+    metadata = {},
+    option: ICheckoutPlanOption = {}
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const ss = this._uService.sessionStorage;
+      const savedCoupon = JSON.parse(ss.getItem('stripe_coupon_code'));
+      const _option = new CheckoutPlanOption(option, user.roles);
+  
+      const payload: IStripeCheckoutData = {
+        cancel_url: _option.cancelUrl,
+        success_url: _option.successUrl,
+        userId: user._id,
+        userType: user.roles,
+        email: user.email,
+        plan: plan,
+        isMonthly: monthly,
+        type: type,
+        metadata
+      };
+      if (savedCoupon) {
+        payload.coupon = savedCoupon.id;
+        // payload.success_url += '?action=couponused';
       }
-    }, (error) => {
-      // this._toastr.error(error);
+
+      this.post(payload, 'user/checkoutSession').subscribe((res: any) => {
+        if(res.statusCode === 200) {
+          console.log(res.data);
+          this._stripeService.changeKey(environment.config.stripeKey);
+  
+          if (res.data.type === 'checkout') {  
+            this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
+              console.log('success!');
+            }, error => {
+              console.log(error);
+            });
+            resolve('Checking out...');
+          } else if (res.data.type === 'portal') {
+            console.log(res.data);
+            location.href = res.data.url;
+            resolve('You already have this plan. Redirecting to billing portal.')
+          }  
+        } else {
+          console.log(res);
+          reject(res.message);
+        }
+      }, (error) => {
+        console.log(error);
+        if (error.errorCode === 'COUPON_INVALID') {
+          ss.removeItem('stripe_coupon_code');
+        }
+        reject(error);
+      });
     });
   }
 
@@ -530,14 +557,14 @@ class CheckoutPlanOption implements ICheckoutPlanOption{
 
     /** if user cancel, user cannot go back to questionnaire page, because data is already destroyed and user will be guarded to access */
   get cancelUrl() { 
-    const url = this.data.cancelUrl || ( location.origin + '/plans' + (this.role == 'P' ? '/product' : '') ); 
-    return url + (this._showErrorMessage ? '?message=stripe-cancel' : '');
+    const url = location.origin + (this.data.cancelUrl ? this.data.cancelUrl : ( '/plans' + (this.role == 'P' ? '/product' : '') )); 
+    return url + (this._showErrorMessage ? '?action=stripe-cancel' : '');
   }
 
   /** currently, practitioner complete page url is same as product complete page. */
   get successUrl() { 
-    const url = this.data.successUrl || location.origin + '/dashboard/register-product/complete'; 
-    return url + '?action=remove-plan' +  (this._showSuccessMessage ? '&message=stripe-success' : '');
+    const url = location.origin + (this.data.successUrl ? this.data.successUrl : '/dashboard/register-product/complete'); 
+    return url + (this._showSuccessMessage ? '?action=stripe-success' : '');
   }
 
   private _showSuccessMessage: boolean;

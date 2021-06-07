@@ -116,12 +116,24 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     const ls = this._uService.localStorage;
     if (ls.getItem('token')) {
       this.isLoggedIn = true;
-      const user = JSON.parse(ls.getItem('user'));
-      this.profile = await this._profileService.getProfileDetail(user);
+      this.profile = JSON.parse(ls.getItem('user'));
+      this.profile = await this._profileService.getProfileDetail(this.profile);
+    }else {
+      this.profile = null;
     }
   }
 
-  async triggerButtonClick() {
+  onClickSignup() {
+    if(!this.profile) {
+      this._toastr.error('To select addon, please login first.')
+    }
+  }
+
+  async onClickCheckout() {
+    if(this.profile.roles == 'U') {
+      this._toastr.error('You don\'t need to buy this addon');
+      return;
+    }
 
     if (this.data.name === 'The Networker') {
       const cat = await this._catService.getCategoryAsync();
@@ -136,74 +148,76 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
         const metadata = this._catService.categoryList[res];
         delete metadata.subCategory;
         metadata.userType = this.data.userType;
-        this.checkoutAddonPlan(metadata);
+        // this.checkoutAddonPlan(metadata);
+        this._sharedService.checkoutPlan(this.profile, this.data, 'addon', this.monthly, metadata);
       }).catch(error => {
         console.log(error);
       });
     } else {
-      this.checkoutAddonPlan();
+        this._sharedService.checkoutPlan(this.profile, this.data, 'addon', this.monthly);
+        // this.checkoutAddonPlan();
     }
   }
 
-  checkoutAddonPlan(metadata = {}) {
-    const savedCoupon = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
+  // checkoutAddonPlan(metadata = {}) {
+  //   const savedCoupon = JSON.parse(sessionStorage.getItem('stripe_coupon_code'));
 
-    const payload: IStripeCheckoutData = {
-      cancel_url: location.href,
-      success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
-      userId: this.profile._id,
-      userType: this.profile.roles,
-      email: this.profile.email,
-      plan: this.data,
-      isMonthly: this.monthly,
-      type: 'addon',
-      metadata
-    };
-    if (savedCoupon) {
-      payload.coupon = savedCoupon.id;
-      // payload.success_url += '?action=couponused';
-    }
-    this.stripeCheckout(payload);
-  }
+  //   const payload: IStripeCheckoutData = {
+  //     cancel_url: location.href,
+  //     success_url: location.origin + '/dashboard/profilemanagement/my-subscription',
+  //     userId: this.profile._id,
+  //     userType: this.profile.roles,
+  //     email: this.profile.email,
+  //     plan: this.data,
+  //     isMonthly: this.monthly,
+  //     type: 'addon',
+  //     metadata
+  //   };
+  //   if (savedCoupon) {
+  //     payload.coupon = savedCoupon.id;
+  //     // payload.success_url += '?action=couponused';
+  //   }
+  //   this.stripeCheckout(payload);
+  // }
 
-  stripeCheckout(payload: IStripeCheckoutData) {
-    const path = `user/checkoutSession`;
-    this._sharedService.loader('show');
-    this._sharedService.post(payload, path).subscribe((res: any) => {
-      console.log('there we go');
-      if (res.statusCode === 200) {
-        console.log(res);
-        this._stripeService.changeKey(environment.config.stripeKey);
+  // stripeCheckout(payload: IStripeCheckoutData) {
+  //   const path = `user/checkoutSession`;
+  //   this._sharedService.loader('show');
+  //   this._sharedService.post(payload, path).subscribe((res: any) => {
+  //     console.log('there we go');
+  //     if (res.statusCode === 200) {
+  //       console.log(res);
+  //       this._stripeService.changeKey(environment.config.stripeKey);
 
-        if (res.data.type === 'checkout') {
-          this._toastr.success('Checking out...');
+  //       if (res.data.type === 'checkout') {
+  //         this._toastr.success('Checking out...');
 
-          this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
-            console.log('success!');
-          }, error => {
-            this._toastr.error(error);
-            console.log(error);
-          });
-        }
-        if (res.data.type === 'portal') {
-          this._toastr.success('You already have this plan. Redirecting to billing portal');
-          console.log(res.data);
-          location.href = res.data.url;
-        }
-      } else {
-        this._toastr.error(res.message, 'Error');
+  //         this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
+  //           console.log('success!');
+  //         }, error => {
+  //           this._toastr.error(error);
+  //           console.log(error);
+  //         });
+  //       }
+  //       if (res.data.type === 'portal') {
+  //         this._toastr.success('You already have this plan. Redirecting to billing portal');
+  //         console.log(res.data);
+  //         location.href = res.data.url;
+  //       }
+  //     } else {
+  //       this._toastr.error(res.message, 'Error');
 
-        console.error(res);
-      }
+  //       console.error(res);
+  //     }
 
-      this._sharedService.loader('hide');
-    }, (error) => {
-      if (error.errorCode === 'COUPON_INVALID') {
-        sessionStorage.removeItem('stripe_coupon_code');
-      }
-      console.log(error);
-      this._toastr.error(error);
-      this._sharedService.loader('hide');
-    });
-  }
+  //     this._sharedService.loader('hide');
+  //   }, (error) => {
+  //     if (error.errorCode === 'COUPON_INVALID') {
+  //       sessionStorage.removeItem('stripe_coupon_code');
+  //     }
+  //     console.log(error);
+  //     this._toastr.error(error);
+  //     this._sharedService.loader('hide');
+  //   });
+  // }
 }

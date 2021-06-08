@@ -309,11 +309,11 @@ export class HeaderComponent implements OnInit {
   toggleDashboardMenuMdVisibility() {
     this.isDashboardMenuShown = !this.isDashboardMenuShown;
     if(this.isDashboardMenuShown) {
+      console.log(this.dashboardButton);
       const rect = this.dashboardButton.nativeElement.getBoundingClientRect();
       const right = (window.innerWidth - rect.right > 30) ? (window.innerWidth - rect.right - 10) : 10
       this.positionDashboardMenuMd = {
         right: right + 'px',
-        marginTop: '10px',
       };
     }
   }

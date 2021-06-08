@@ -1,6 +1,6 @@
 <div class="menu-button d-flex align-items-center"
   *ngIf="ui == 'button'"
-  [class]="buttonDirection"
+  [ngClass]="[buttonDirection]"
   [ngStyle]="styleButton"
 >
   <user-image
@@ -11,7 +11,7 @@
   [borderWidthVerified]="2"
   [shadowVerified]="null"
   ></user-image>  
-  <div class="user-info text-ellipsis font-small">
+  <div class="user-info max-w-150p text-ellipsis font-small">
     <span class="text-nowrap">{{getName()}}</span>
   </div>
 </div>

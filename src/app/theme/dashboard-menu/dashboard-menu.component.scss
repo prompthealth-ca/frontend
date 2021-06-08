@@ -12,6 +12,10 @@ user-image{
 .user-info{ 
   flex: 1 1 auto;
   padding: 0 15px;
+
+  &.max-w-150p {
+    max-width: 150px;
+  }
 }
 
 badge-verified{

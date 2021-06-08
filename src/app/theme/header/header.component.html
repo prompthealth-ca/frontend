@@ -35,10 +35,10 @@
             / 
             <a (click)="signupModal.show()" class="text-body">Register</a>
           </li>
-          <li class="mx-10p" *ngIf="isLoggedIn">
+          <li class="mx-10p" *ngIf="isLoggedIn" #dashboardButton>
             <dashboard-menu id="dashboardMenuButton" ui="button" buttonDirection="right"
             [styleButton]="{background: '#ffffff33'}" [user]="user"
-            (click)="isDashboardMenuShown = !isDashboardMenuShown"
+            (click)="toggleDashboardMenuMdVisibility()"
             ></dashboard-menu>
           </li>
         </ul>

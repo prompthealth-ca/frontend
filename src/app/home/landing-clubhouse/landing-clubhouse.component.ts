@@ -139,7 +139,8 @@ export class LandingClubhouseComponent implements OnInit {
 			if(res.statusCode == 200) {
 				this._toastr.success(res.message);
 			}else {
-				let message = 'Something went wrong. Please try again later.';
+				console.log(res);
+				let message = res.message;
 				if(res.message.match(/^E11000/)){
 					message = 'This email is already registered. Please try different email address.';
 				}

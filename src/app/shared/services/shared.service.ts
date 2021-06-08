@@ -485,7 +485,7 @@ export class SharedService {
     plan: IDefaultPlan | IAddonPlan, 
     type: StripeCheckoutType,
     monthly: boolean,
-    metadata = {},
+    metadata = null,
     option: ICheckoutPlanOption = {}
   ): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -502,8 +502,11 @@ export class SharedService {
         plan: plan,
         isMonthly: monthly,
         type: type,
-        metadata
       };
+      if(metadata) {
+        payload.metadata = metadata;
+      }
+      console.log(payload);
       if (savedCoupon) {
         payload.coupon = savedCoupon.id;
         // payload.success_url += '?action=couponused';

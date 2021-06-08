@@ -6,11 +6,9 @@ import { AddonSelectCategoryComponent } from '../addon-select-category/addon-sel
 import { CategoryService } from '../services/category.service';
 import { SharedService } from '../services/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import { StripeService } from 'ngx-stripe';
-import { environment } from 'src/environments/environment';
-import { IStripeCheckoutData } from 'src/app/models/stripe-checkout-data';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { UniversalService } from '../services/universal.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -108,8 +106,8 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
     private _catService: CategoryService,
     private _sharedService: SharedService,
     private _toastr: ToastrService,
-    private _stripeService: StripeService,
     private _uService: UniversalService,
+    private _router: Router,
   ) { }
 
   async ngOnInit() {
@@ -149,13 +147,33 @@ export class SubscriptionPlanAddonCardComponent implements OnInit {
         delete metadata.subCategory;
         metadata.userType = this.data.userType;
         // this.checkoutAddonPlan(metadata);
-        this._sharedService.checkoutPlan(this.profile, this.data, 'addon', this.monthly, metadata);
+        this.checkout(metadata);
       }).catch(error => {
         console.log(error);
       });
     } else {
-        this._sharedService.checkoutPlan(this.profile, this.data, 'addon', this.monthly);
+      this.checkout();
         // this.checkoutAddonPlan();
+    }
+  }
+
+  private async checkout(metadata = null) {
+    this._sharedService.loader('show');
+    try {
+      const result = await this._sharedService.checkoutPlan(this.profile, this.data, 'addon', this.monthly, metadata);
+      this._toastr.success(result.message);
+      switch(result.nextAction) {
+        case 'complete':
+          this._router.navigate(['/dashboard/register-product/complete']);
+          break;
+        case 'stripe':
+          //automatically redirect to stripe. nothing to do.
+          break;
+      }
+    } catch (error) {
+      this._toastr.error(error);
+    } finally {
+      this._sharedService.loader('hide');
     }
   }
 

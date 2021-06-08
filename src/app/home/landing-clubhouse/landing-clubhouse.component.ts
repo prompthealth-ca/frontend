@@ -95,7 +95,7 @@ export class LandingClubhouseComponent implements OnInit {
       if(value.length > 0) {
         const list = [];
         countryList.forEach(country => {
-          const regex = new RegExp('^' + value);
+          const regex = new RegExp('^' + value.toLowerCase());
           if(country.toLowerCase().match(regex)) {
             list.push(country);
           }

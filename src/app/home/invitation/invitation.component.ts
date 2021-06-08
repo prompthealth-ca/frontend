@@ -37,7 +37,8 @@ export class InvitationComponent implements OnInit {
 
         this._sharedService.get('user/get-coupon/' + this.couponCode).subscribe((res: any) => {
           sessionStorage.setItem('stripe_coupon_code', JSON.stringify(res.data));
-          this.couponData = res.data;
+          this.couponData = res.data
+          console.log(this.couponData);
         }, error => {
           console.error(error);
           this._router.navigate(['/404'], { replaceUrl: true });
@@ -51,7 +52,13 @@ export class InvitationComponent implements OnInit {
 
   logoutAndSignup(role: string) {
     this._sharedService.logout();
-    this._router.navigate(['/auth/registration', role]);
+    this._toaster.success('You are logged out.')
+
+    const route = ['plans'];
+    if(role == 'P') {
+      route.push('product');
+    }
+    this._router.navigate(route);
   }
 }
 

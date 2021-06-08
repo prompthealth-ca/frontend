@@ -1,6 +1,6 @@
 import { Component, HostBinding, HostListener, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
@@ -19,15 +19,8 @@ export class LandingClubhouseComponent implements OnInit {
   public idxCountryFocused = 0;
 
   private host: HTMLElement;
-  // private canvas: HTMLElement;
 
   get f(){ return this.form.controls; }
-
-	// @HostListener('window:scroll') windowScroll(){
-  //   if(this.canvas){
-  //     this.canvas.style.top = Math.floor(window.scrollY * 2 / 3) + 'px';
-  //   }
-  // }
 
   @HostListener('window:keydown', ['$event']) windowKeydown(e: KeyboardEvent) {
     if(this.countryList.length > 0){
@@ -59,6 +52,7 @@ export class LandingClubhouseComponent implements OnInit {
 		private _sharedService: SharedService,
 		private _uService: UniversalService,
 		private _router: Router,
+		private _route: ActivatedRoute,
   ) {
 		this._uService.setMeta(this._router.url, {
 			title: 'Join us on Clubhouse - HealthLoop | PromptHealth',
@@ -68,16 +62,35 @@ export class LandingClubhouseComponent implements OnInit {
 			imageType: 'image/png',
 		});
     this.form = _fb.group({
+			userType: new FormControl('', Validators.required),
       name: new FormControl('', validators.firstnameClient),
       email: new FormControl('', validators.email),
       title: new FormControl('', validators.professionalTitle),
       region: new FormControl('', Validators.required),
+			referrer: new FormControl('other'),
     });
     this.host = _el.nativeElement;
   }
 
   ngOnInit(): void {
-		// this.canvas = this.host.querySelector('.canvas');
+		this._route.queryParams.subscribe((params: {id: ReferrerId})=>{
+			if(params.id) {
+				let name: ReferrerName;
+				switch(params.id) {
+					case 'f': name = 'facebook'; break;
+					case 't': name = 'twitter'; break;
+					case 'i': name = 'instagram'; break;
+					case 'l': name = 'linkedin'; break;
+					case 'c': name = 'clubhouse'; break;
+					case 'y': name = 'youtube'; break;
+					case 'ti': name = 'tiktok'; break;
+					case 'ft': name = 'internal'; break;
+					default:  name = 'other'; break;
+				}
+				this.f.referrer.setValue(name);
+			}
+		});
+
     this.f.region.valueChanges.subscribe(value => {
       if(value.length > 0) {
         const list = [];
@@ -93,7 +106,6 @@ export class LandingClubhouseComponent implements OnInit {
         this.countryList = [];
       }
     });
-
   }
 
   hideCountryList(){ this.countryList = []; }
@@ -392,3 +404,11 @@ const countryList = [
 	"Åland Islands"
 ];
 
+type ReferrerId = 'f' | 't' | 'i' | 'c' | 'l' | 'y' | 'ti' | 'ft';
+type ReferrerName = 'facebook' | 'twitter' | 'instagram' | 'clubhouse' | 'linkedin' | 'youtube' | 'tiktok' | 'internal' | 'other';
+/** f: facebook */
+/** t: twitter */
+/** i: instagram */
+/** c: clubhouse */
+/** l: linkedin */
+/** y: youtube */

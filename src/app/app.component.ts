@@ -45,22 +45,23 @@ async ngOnInit() {
 }
 
 onRedirectFromStripe(params: {[k: string]: any}) {
-  if(params.action == 'stripe-success') {
-    this._toastr.success('Thank you for subscribing our premium plan!');
-  } else if (params.action == 'stripe-cancel') {
-    this._toastr.error('You haven\'t completed subscribing plan.');
-  }
-
-  params.action = null;
-  let paramList = [];
-  for (let key in params) {
-    if(params[key]) {
-      paramList.push(key += '=' + params[key]);
+  if(!this._uService.isServer) {
+    if(params.action == 'stripe-success') {
+      this._toastr.success('Thank you for subscribing our premium plan!');
+    } else if (params.action == 'stripe-cancel') {
+      this._toastr.error('You haven\'t completed subscribing plan.');
     }
-  }
   
-  this._location.replaceState(location.pathname,  (paramList.length > 0) ? '?' + paramList.join('&') :'');
-
+    params.action = null;
+    let paramList = [];
+    for (let key in params) {
+      if(params[key]) {
+        paramList.push(key += '=' + params[key]);
+      }
+    }
+    
+    this._location.replaceState(location.pathname,  (paramList.length > 0) ? '?' + paramList.join('&') :'');  
+  }
 }
 
 getPosition(): Promise<any> {

@@ -25,12 +25,7 @@
       <div class="col-12 col-md-5 text-center">
         <h5>You are not member yet?</h5>
         <div class="mb-3">
-          <a routerLink="/plans" class="btn btn-outline-primary w-100 font-regular">Sign up as
-            Service Provider</a>
-        </div>
-        <div class="mb-3">
-          <a routerLink="/plans"  class="btn btn-outline-primary w-100 font-regular">Sign up as
-            Centre</a>
+          <a routerLink="/plans" class="btn btn-outline-primary w-100 font-regular">Sign up as Practitioner</a>
         </div>
         <div class="mb-3">
           <a routerLink="/plans/product"  [queryParams]="{nextKeyword: 'buyplan'}" class="btn btn-outline-primary w-100 font-regular">Sign up as Product/Service</a>
@@ -54,15 +49,10 @@
 
       <div class="row flex-column justify-content-center align-items-center">
         <div class="col-12 col-md-5 mb-3">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('sp')">Sign up as Service
-            Provider</button>
-        </div>
-        <div class="col-12 col-md-5 mb-3">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('c')">Sign up as
-            Centre</button>
+          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('SP')">Sign up as Practitioner</button>
         </div>
         <div class="col-12 col-md-5">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('p')">Sign up as Product/Service</button>
+          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('P')">Sign up as Product/Service</button>
         </div>  
       </div>
 

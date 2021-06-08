@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
-import { IFormItemSearchData } from 'src/app/models/form-item-search-data';
+import { FormItemSearchData, IFormItemSearchData } from 'src/app/models/form-item-search-data';
 import { validators } from 'src/app/_helpers/form-settings';
 import { locationsNested } from 'src/app/_helpers/location-data';
+import { FormItemSearchComponent } from '../form-item-search/form-item-search.component';
 
 @Component({
   selector: 'search-bar',
@@ -22,6 +23,7 @@ export class SearchBarComponent implements OnInit {
   public _afterViewInit: boolean = false;
   private _form: FormGroup;
 
+  @ViewChild('searchLocation') private searchLocation: FormItemSearchComponent;
 
   constructor(
     private _fb: FormBuilder,
@@ -68,7 +70,9 @@ export class SearchBarComponent implements OnInit {
 
   _onSubmit() {
     const valSituation = this.f.searchBySituation.value;
-    const valLocation = this.findClosestLocation(this.f.searchByLocation.value);
+    const dataLocation = this.searchLocation.dataSelected;
+    console.log(dataLocation);
+    const valLocation = dataLocation ? dataLocation.id : this.f.searchByLocation.value;
     this.onSubmit.emit({
       searchBySituation: valSituation || '',
       searchByLocation: valLocation,

@@ -1,3 +1,5 @@
+import "../_helpers/levenshtein-distance";
+
 export interface IFormItemSearchData {
   id?: string;
   label?: string; /** same as item_text */
@@ -12,6 +14,37 @@ export class FormItemSearchData implements IFormItemSearchData {
   get selectable() { return this.data.selectable === false ? false : true; }
   get subitems() { return this._subitems; }
   get hasSubitems() { return this._subitems.length == 0 ? false : true; }
+
+  getClosest(value: string = ''): FormItemSearchData {
+    if(!this.selectable) {
+      if(this.subitems.length > 0) {
+        return this.subitems[0];
+      } else {
+        return null;
+      }
+    } else {
+      if (this.subitems.length == 0) {
+        return this;
+      } else {
+        const dist0 = levenshteinDistance(value, this.label);
+        const dist1 = levenshteinDistance(value, this.subitems[0].label);
+        return dist0 <= dist1 ? this : this.subitems[0];
+      }
+    }
+  }
+
+  getDataOf(id: string) {
+    if(this.id == id) { return this; }
+    else {
+      for(let item of this.subitems) {
+        let data: FormItemSearchData;
+        if(data = item.getDataOf(id)) {
+          return data;
+        }
+      }
+    }
+    return null;
+  }
 
   filter(word: string): FormItemSearchData {
     const regex = new RegExp('^' + (!word ? '' : word.toLowerCase()) );

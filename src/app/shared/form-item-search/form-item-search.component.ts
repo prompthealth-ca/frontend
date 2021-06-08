@@ -35,6 +35,8 @@ export class FormItemSearchComponent implements OnInit {
 
   @Output() onSelect = new EventEmitter<FormItemSearchData>();
 
+  get dataSelected(): FormItemSearchData { return this._dataSelected; }
+
 
   public _option: FormItemSearchOption;
   private _searchData: FormItemSearchData[];
@@ -42,6 +44,7 @@ export class FormItemSearchComponent implements OnInit {
 
   public _idDataFocused: string = null;
   public _isSelectionsShown: boolean = false;
+  private _dataSelected: FormItemSearchData = null;
 
   @ViewChild('selections') _elSelections: ElementRef;
   @ViewChild('container') _elContainer: ElementRef;
@@ -53,13 +56,26 @@ export class FormItemSearchComponent implements OnInit {
   onChangeFocusStatus(isFocus: boolean) {
     if(this._option.showSelectionsImmediately && isFocus) {
       this.showSelections();
-    }else if(!isFocus) {
-      // this._isSelectionsShown = false;
+      this.filterData(this.controller.value);
+      const data = this.getClosestData();
+      this._idDataFocused = data? data.id : null;
     }
   }
 
   onChangeValue(value: string) {
-    this._isSelectionsShown = true;;
+    this._dataSelected = null;
+
+    if(value.length > 0) {
+      this.showSelections();
+    } else if(!this._option.showSelectionsImmediately){
+      this.hideSelections();
+    }
+
+    if(this._isSelectionsShown) {
+      this.filterData(value);
+      const data = this.getClosestData(value);
+      this._idDataFocused = data ? data.id : null;
+    }
   }
 
   onClickOutside(e: MouseEvent | PointerEvent | TouchEvent) {
@@ -77,29 +93,28 @@ export class FormItemSearchComponent implements OnInit {
     }
   }
 
-  // @HostListener('window:keydown', ['$event']) windowKeydown(e: KeyboardEvent) {
-  //   if(this._searchData.length > 0){
-  //     switch(e.key){
-  //       case 'ArrowUp': 
-  //       case 'ArrowLeft':
-  //         e.preventDefault();
-  //         this.moveSelection(this._idxDataFocused + this._searchData.length - 1)
-  //         break;
-  //       case 'ArrowRight':
-  //       case 'ArrowDown': 
-  //         e.preventDefault();
-  //         this.moveSelection(this._idxDataFocused + 1);
-  //         break;
-  //       case 'Enter':
-  //         e.preventDefault();
-  //         this.selectData(this._searchData[this._idxDataFocused]);
-  //         break;
-	// 			case 'Escape':
-	// 				e.preventDefault();
-  //         this.hideSelections();
-  //     }
-  //   }
-  // }
+  @HostListener('keydown', ['$event']) windowKeydown(e: KeyboardEvent) {
+    if(this._searchData.length > 0){
+      switch(e.key){
+        case 'ArrowUp': 
+          e.preventDefault();
+          break;
+        case 'ArrowDown': 
+          e.preventDefault();
+          break;
+        case 'Enter':
+          if(this._isSelectionsShown && this._searchDataFiltered.length > 0){
+            e.preventDefault();
+            this.selectDataFocused();
+            this.hideSelections();  
+          }
+          break;
+				case 'Escape':
+					e.preventDefault();
+          this.hideSelections();
+      }
+    }
+  }
 
   ngOnInit(): void {
     this._option = new FormItemSearchOption(this.option);
@@ -113,13 +128,10 @@ export class FormItemSearchComponent implements OnInit {
       });
       this._searchData = searchData;
     }
-
-    this.controller.valueChanges.subscribe((val: string) => { this.filterData(val); });
   }
 
   showSelections() { 
     if(!this._isSelectionsShown) {
-      this.filterData(this.controller.value);
       this._isSelectionsShown = true;
     }
   }
@@ -150,9 +162,32 @@ export class FormItemSearchComponent implements OnInit {
 
   // }
 
+  getClosestData(value: string = ''): FormItemSearchData {
+    if (this._searchDataFiltered.length == 0) {
+      return null;
+    } else {
+      return this._searchDataFiltered[0].getClosest(value);
+    }
+  }
+
   selectData(data: FormItemSearchData) {
     this.controller.setValue(data.label);
     this._idDataFocused = data.id;
-    this.onSelect.emit(data);
+    this._dataSelected = data;
+  }
+
+  selectDataFocused() {
+    this._dataSelected = null;
+    for(let item of this._searchData) {
+      let data: FormItemSearchData;
+      if(data = item.getDataOf(this._idDataFocused)) {
+        this.selectData(data);
+        break;
+      }
+    }
+  }
+
+  emitData() {
+    this.onSelect.emit(this._dataSelected);
   }
 }

@@ -34,6 +34,9 @@ export class FormItemInputComponent implements OnInit {
 
   ngOnInit(): void {
     this._option = new FormItemTextfieldOption(this.option);
+    this.controller.valueChanges.subscribe(val => {
+      this.onChangeValue.emit(val);
+    });
   }
 
   _onFocus(){
@@ -42,10 +45,6 @@ export class FormItemInputComponent implements OnInit {
 
   _onBlur(){
     this.onFocus.emit(false);
-  }
-
-  _onChangeValue(e: InputEvent) {
-    this.onChangeValue.emit(e.data)
   }
 }
 

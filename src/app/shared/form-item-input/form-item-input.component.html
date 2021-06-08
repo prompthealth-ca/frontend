@@ -10,7 +10,6 @@
   <input [type]="type" [id]="name" class="form-control"
   (focus)="_onFocus()"
   (blur)="_onBlur()"
-  (input)="_onChangeValue($event)"
   [formControl]="controller" [attr.disabled]="disabled ? 'disabled' : null"
   [placeholder]="placeholder"
   [attr.autocomplete]="autocomplete"

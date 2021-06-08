@@ -55,10 +55,10 @@ export class LandingClubhouseComponent implements OnInit {
 		private _route: ActivatedRoute,
   ) {
 		this._uService.setMeta(this._router.url, {
-			title: 'Join us on Clubhouse - HealthLoop | PromptHealth',
-			description: 'We are on Clubhouse where we spark conversations in this forum on challenges of both health and wellness seekers and providers',
+			title: 'Newsletter | PromptHealth',
+			description: 'Subscribe to receive meaningful, illuminating insight into the wins and challenges of the health and wellness industry.',
 			image: 'https://prompthealth.ca/assets/img/clubhouse.png',
-			imageAlt: 'HealthLoop on Clubhouse',
+			imageAlt: 'newsletter',
 			imageType: 'image/png',
 		});
     this.form = _fb.group({

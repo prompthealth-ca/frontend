@@ -16,6 +16,7 @@ export class RegisterQuestionnaireCompleteComponent implements OnInit {
   ) { }
 
   public routePlan: string[];
+  public user: IUserDetail;
 
   ngOnInit(): void {
     this._uService.setMeta(this._router.url, {
@@ -25,8 +26,9 @@ export class RegisterQuestionnaireCompleteComponent implements OnInit {
     const routePlan = ['/plans'];
     const userStr = this._uService.localStorage.getItem('user');
     if(userStr) {
-      const user: IUserDetail = JSON.parse(userStr);
-      if(user.roles == 'P') {
+      this.user = JSON.parse(userStr);
+
+      if(this.user.roles == 'P') {
         routePlan.push('product');
       }
     }

@@ -71,3 +71,38 @@ export const locations: {[k:string]: LocationData} = {
   calgary: new LocationData( 51.040915,-114.065465, 100, 11),
 }
 
+export function getLabelByCityId (id: CityId) {
+  const list = id.split('_');
+
+  for(var i=0; i<list.length; i++){
+    list[i] = list[i].charAt(0).toUpperCase() + list[i].slice(1);
+  }
+
+  let label = list.join(' ');
+  return label;
+}
+
+export type CityId = 
+'abbotsford' | 
+'burnaby' | 
+'comox' |
+'coquitlam' |
+'duncan' |
+'kelowna' |
+'richmond' |
+'surrey'| 
+'vancouver' |
+'victoria' |
+'white_rock' |
+
+'hamilton' |
+'kitchener' |
+'mississauga' |
+'ottawa' |
+'toronto' |
+'vanghan' |
+
+'winnipeg' |
+
+'calgary' |
+'edmonton';

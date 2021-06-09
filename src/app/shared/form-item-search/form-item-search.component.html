@@ -26,10 +26,10 @@
 <ng-template #nestedSelections let-data>
   <ng-container *ngFor="let d of data; let i = index">
     <li class="list-unstyled">
-      <span *ngIf="!d.selectable">{{d.label}}</span>
+      <span *ngIf="!d.selectable" class="subtitle2 text-placeholder">{{d.label}}</span>
       <a 
       *ngIf="d.selectable"
-      class="d-block text-body"
+      class="d-block text-body subtitle2"
       [ngClass]="{active: (d.id == _idDataFocused)}"
       (click)="selectData(d)"
       >{{d.label}}</a>

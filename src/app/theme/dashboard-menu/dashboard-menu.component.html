@@ -4,8 +4,7 @@
   [ngStyle]="styleButton"
 >
   <user-image
-  [showBadge]="false"
-  [verifiedUser]="isVerified()"
+  [verified]="false"
   [image]="getImage()"
   [alt]="getName()"
   [borderWidthVerified]="2"
@@ -24,8 +23,7 @@
     [ngStyle]="styleHeader"
   >
     <user-image
-    [showBadge]="false"
-    [verifiedUser]="isVerified()"
+    [verified]="false"
     [image]="getImage()"
     [alt]="getName()"
     [borderWidthVerified]="0"

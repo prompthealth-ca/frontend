@@ -10,6 +10,8 @@ import { Category, CategoryService, SubCategory } from '../shared/services/categ
 import { IFormItemSearchData } from '../models/form-item-search-data';
 import { IUserDetail } from '../models/user-detail';
 import { expandVerticalAnimation } from '../_helpers/animations';
+import { Professional } from '../models/professional';
+import { CityId, getLabelByCityId } from '../_helpers/location-data';
 
 /** for event bright */
 // declare function registerEvent(eventId, action): void;
@@ -36,6 +38,9 @@ export class HomeComponent implements OnInit {
   }
 
     ////// NEW  
+    public practitionersFeatured: Professional[];
+    public citiesFeatured: {id: CityId, label: string}[];
+
     categoryIcon(cat: Category): string {
       const img = cat.image;
       const img2 = img.toLowerCase().replace(/_/g, '-').replace('.png', '');
@@ -287,6 +292,13 @@ export class HomeComponent implements OnInit {
       this.categories = cats;
     }));
 
+    const cityIdsFeatured: CityId[] = ['toronto', 'vancouver', 'victoria', 'hamilton', 'richmond', 'burnaby', 'calgary', 'winnipeg'];
+    const citiesFeatured: {id: CityId, label: string}[] = [];
+    for(let id of cityIdsFeatured) {
+      citiesFeatured.push({id: id, label: getLabelByCityId(id)});
+    }
+    this.citiesFeatured = citiesFeatured;
+
     const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;
     // this.roles = ls.getItem('roles') ? ls.getItem('roles') : ''; /** NO NEED */
@@ -334,32 +346,11 @@ export class HomeComponent implements OnInit {
   getPractitionersFeatured() {
     this._sharedService.getNoAuth('user/get-paid-spc').subscribe((res: any) => {
       if (res.statusCode === 200) {
-        const users: IUserDetail[] = res.data;
-        const usersMapByCategory: { [k: string]: any[] } = {};
-        for (const key of Object.keys(this.introBannerItems)) {
-          usersMapByCategory[key] = [];
-          for (const u of users) {
-            if (u.services.includes(key)) {
-              usersMapByCategory[key].push(u);
-            }
-          }
-        }
-
-        const shuffle = (array: any[]) => {
-          for (let i = array.length - 1; i >= 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }
-          return array;
-        };
-
-        Object.keys(this.introBannerItems).forEach(key => {
-          usersMapByCategory[key] = shuffle(usersMapByCategory[key]);
-          for (const u of usersMapByCategory[key]) {
-            this.introBannerItems[key].features.push({ userId: u });
-            if (this.introBannerItems[key].features.length >= 8) { break; }
-          }
+        const users: Professional[] = [];
+        res.data.forEach((d: IUserDetail) => {
+          users.push(new Professional(d._id, d));
         });
+        this.practitionersFeatured = users;
       }
     }, (error) => { console.log(error); });
   }

@@ -230,13 +230,13 @@
         </agm-marker>
       </agm-map>
       <div class="map-controller d-flex justify-content-between">
-        <button class="btn d-none d-lg-block bg-white font-regular rounded-10p" (click)="toggleMapSize()">
+        <button class="btn btn-icon d-none d-lg-block bg-white rounded-10p text-dark" (click)="toggleMapSize()">
           <span *ngIf="!isMapSizeBig">
-            <i class="fas fa-chevron-left"></i>
+            <i iconPh="arrow-left"></i>
           </span>
           <span *ngIf="isMapSizeBig" class="text-nowrap">
-            <i class="fas fa-chevron-right"></i>
-            Show list
+            <i iconPh="arrow-right"></i>
+            <span class="body1">Show list</span>
           </span>
         </button>
         
@@ -244,9 +244,10 @@
           Search in this area
         </button>
 
-        <button class="btn font-regular btn-get-location rounded-10p bg-white" [disabled]="isGettingCurrentLocation"
-        (click)="onClickGetLocationButton()" [ngClass]="{active: isGettingCurrentLocation}"><i
-          class="fas fa-crosshairs"></i></button>
+        <button class="btn btn-icon large btn-get-location rounded-10p bg-white" [disabled]="isGettingCurrentLocation"
+        (click)="onClickGetLocationButton()" [ngClass]="{active: isGettingCurrentLocation}">
+          <i class="text-dark" iconPh="gps"></i>
+        </button>
 
       </div>
     </div>
@@ -284,7 +285,7 @@
             <li class="col-12 mb-3" *ngFor="let p of pages.data[pages.current - 1]" [ngClass]="listingItemClass">
               <div class="card p-3 text-center border-blue rounded-15p font-small">
                 <div class="img-wrapper mb-3" [ngClass]="{verified: p.isVerified}">
-                  <user-image [verifiedUser]="p.isVerified" [image]="p.image" [alt]="p.name" [borderWidthVerified]="3">
+                  <user-image [verified]="p.isVerified" [image]="p.image" [alt]="p.name" [borderWidthVerified]="3">
                   </user-image>
                 </div>
                 <div class="price-tag bg-tagblue font-weight-bold" *ngIf="p.price">{{p.price}}</div>
@@ -350,7 +351,7 @@
 
 </section> -->
 
-<button class="btn switch-ui d-lg-none font-regular text-blue rounded-pill bg-blue text-light" *ngIf="!isVirtual" (click)="toggleView()">
-  <span *ngIf="!isMapView"><i class="fas fa-map-marked-alt"></i> <span class="pl-2">Map</span></span>
-  <span *ngIf="isMapView"><i class="fas fa-list"></i> <span class="pl-2">List</span></span>
+<button class="btn switch-ui d-lg-none font-regular text-blue rounded-pill bg-primary text-light" *ngIf="!isVirtual" (click)="toggleView()">
+  <span *ngIf="!isMapView"><i iconPh="map-view"></i> <span class="pl-2">Map</span></span>
+  <span *ngIf="isMapView"><i iconPh="layers"></i> <span class="pl-2">List</span></span>
 </button>

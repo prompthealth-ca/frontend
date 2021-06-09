@@ -29,29 +29,79 @@
   }
 }
 
-.circle-container{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 350px;
-  transform: translate(50%, -15%);
 
+[class^=circle-for] {
   &:after {
     content: '';
     display: block;
     padding-top: 100%;
   }
 
-  .circle-secondary {
-    z-index: 0;
+  &:before {
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 1000px;
-    background-color: $colorSecondary;
+    border-radius: 1000px;  
   }
 }
+
+.circle-for-video{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  transform: translate(45%, -10%);
+}
+
+// .circle-for-testimonial {
+//   position: absolute;
+//   top: 5%;
+//   right: 0;
+// }
+
+.circle-for-app {
+  position: relative;
+  width: 100%;
+}
+
+.circle-primary::before {
+  background-color: $colorPrimary;
+}
+
+.circle-secondary::before {
+  background-color: $colorSecondary;
+}
+
+.image-app {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+
+.card.personal-match {
+  max-width: 350px;
+  margin:auto;
+  box-shadow: 0 6px 25px rgba($color: #0051be, $alpha: 0.1);
+}
+
+.badge-appstore-top{
+  height: 48px;
+  width: auto;
+}
+.badge-playstore-top{
+  height: 70px;
+  width: auto;
+}
+
+
+
+
+
 
 .platform-message{
   text-shadow: 2px 2px 1px #9ebfe2, -1px -1px 1px #b9daff, 1px 1px 1px #e4effb;
@@ -65,14 +115,6 @@ h1.ph-title{
   }
 }
 
-.badge-appstore-top{
-  height: 43px;
-  width: auto;
-}
-.badge-playstore-top{
-  height: 61px;
-  width: auto;
-}
 
 // testimonials
 $testimonialsAvtarSize: 100px;
@@ -303,12 +345,6 @@ video {
     width: 100%;
     min-height: 100px;
   }
-}
-
-.image-app{
-  width: 100%;
-  height: auto;
-  @media (min-width: 768px){ transform: translateY(45px); }
 }
 
 .badge-appstore{

@@ -29,6 +29,9 @@
 .btn.btn-secondary {
   @include btn($colorGsWhite, $colorSecondary, $colorSecondaryDark);
 }
+.btn.btn-black {
+  @include btn($colorGsWhite, $colorGsBlack, $colorGsBody);
+}
 
 .btn.btn-outline {
   color: $colorPrimary;
@@ -44,29 +47,25 @@
 
 // .btn.btn-outline-secondary (if needed)
 
-a.btn-text, 
 .btn.btn-text {
   color: $colorPrimary;
-  text-decoration: underline;
+  // text-decoration: underline;
   font-weight: 700;
+  border: 1px solid transparent;
+  @include btnInner();
 
   &:hover:not(:disabled) {
     color: $colorPrimaryDark;    
-    text-decoration: underline;
+    // text-decoration: underline;
   }
-}
-
-.btn.btn-text {
-  border: 1px solid transparent;
-  @include btnInner();
 }
 
 /** primary icon button */
 .btn.btn-icon {
-  // color: $colorPrimary;
   font-size: 18px;
   line-height: 1em;
   padding: 7px;
+  color: $colorPrimary;
 
   &.large i {
     font-size: 22px;
@@ -74,17 +73,31 @@ a.btn-text,
   &.small i {
     font-size: 14px;
   }
-
-  &:before {
-    color: $colorPrimary;
-  }
-  .path1:before, .path2:before {
-    color: $colorPrimary;
-  }
 }
 
 // .btn.btn-text-secondary (if needed)
 
 .btn:disabled {
   opacity: 0.6;
+}
+
+.btn:focus,
+.btn:not(:disabled):not(.disabled).active:focus, 
+.btn:not(:disabled):not(.disabled):active:focus, 
+.show>.btn.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.btn {
+  i+span,
+  i+u,
+  i+b {
+    margin-left: 0.25em;
+  }
+
+  span+i,
+  u+i,
+  b+i {
+    margin-left: 0.25em; 
+  }
 }

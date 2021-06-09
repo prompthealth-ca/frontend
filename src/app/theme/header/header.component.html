@@ -10,18 +10,20 @@
       <nav>
         <div class="d-md-none">
           <button class="btn btn-icon" (click)="showMenu()">
-            <i class="large" iconPh="menu"></i>
+            <i class="large text-dark" iconPh="menu"></i>
           </button>
         </div>  
 
-        <ul class="d-none d-md-flex justify-content-between align-items-center list-unstyled subtitle2 mb-0">
+        <ul class="d-none d-md-flex justify-content-between align-items-center list-unstyled mb-0 subtitle2 text-body">
           <li class="mx-10p">
             <a routerLink="/practitioners" class="text-body">Find Practitioners</a>
           </li>
           <li class="mx-10p">
             <a routerLink="/practitioners" class="text-body">Products</a>
           </li>
-          <li class="mx-10p">About</li>
+          <li class="mx-10p">
+            <a href="" class="text-body">About</a>
+          </li>
           <li *ngIf="priceType != null" class="mx-10p">
             <a *ngIf="priceType == 'practitioner'" class="text-body" routerLink="'/plans'" (click)="hideMenu()">Pricing</a>
             <a *ngIf="priceType == 'product'" class="text-body" routerLink="/plans/product" (click)="hideMenu()">Pricing</a>

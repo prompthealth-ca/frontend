@@ -28,5 +28,8 @@ export class HeaderStatusService {
    changeLevelMenuSm(i: number){ 
      this.emitHeaderStatus('levelMenuSm', i);
    }
+
+   hideShadow() {}
+   showShadow() {}
   
 }

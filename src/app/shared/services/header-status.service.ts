@@ -29,7 +29,11 @@ export class HeaderStatusService {
      this.emitHeaderStatus('levelMenuSm', i);
    }
 
-   hideShadow() {}
-   showShadow() {}
+   hideShadow() {
+     this.emitHeaderStatus('isShadowShown', false);
+   }
+   showShadow() {
+     this.emitHeaderStatus('isShadowShown', true);
+   }
   
 }

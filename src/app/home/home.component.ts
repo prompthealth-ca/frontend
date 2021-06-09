@@ -90,11 +90,14 @@ export class HomeComponent implements OnInit {
       this.idxTargetSubcategoryInjector = (Math.floor(i / colnum) + 1) * colnum - 1;
     }
 
-    navigateTo(route: string[] | string){
-      const _route: string[] = (typeof route == 'string') ? [route] : route;
-      this.router.navigate(_route);
-    }
-  
+    changeHeaderShadowStatus(isShown: boolean) {
+      console.log(isShown);
+      if(isShown) {
+        this._headerStatusService.showShadow();
+      } else {
+        this._headerStatusService.hideShadow();
+      }
+    }  
     ////// NEW END
 
 

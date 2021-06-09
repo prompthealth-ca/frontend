@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ScrollTopService } from './scrolltop.service';
-import { SharedService } from './shared/services/shared.service';
+import { ActivationStart, NavigationEnd, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { HeaderStatusService } from './shared/services/header-status.service';
 import { UniversalService } from './shared/services/universal.service';
+
+
+declare let gtag: Function;
+declare let fbq: Function;
 
 @Component({
   selector: 'app-root',
@@ -9,34 +14,73 @@ import { UniversalService } from './shared/services/universal.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'wellness-frontend';
+
   constructor(
-    private scrollTopService: ScrollTopService,
     private _uService: UniversalService,
-    ) {
-}
+    private _router: Router,
+    private _headerService: HeaderStatusService,
+  ) {}
 
-async ngOnInit() {
-  this.scrollTopService.setScrollTop();
-  if(!this._uService.isServer){
-    try { await this.getPosition(); }
-    catch(error){ console.log(error); }  
+  private isInitial = true;
+  private disableAnalytics: boolean = environment.config.disableAnalytics;
+
+  async ngOnInit() {
+    if(!this._uService.isServer){
+      this._router.events.subscribe((event: NavigationEnd) => {
+        this.onRouteChanged(event);
+      });
+      
+      try { await this.getPosition(); }
+      catch(error){ console.log(error); }  
+    }
   }
-}
 
-getPosition(): Promise<any> {
-  return new Promise((resolve, reject) => {
+  onRouteChanged(event: NavigationEnd | ActivationStart) {
+    if (event instanceof ActivationStart) { 
+      this.isInitial = false; 
+      this._headerService.showShadow();
+    }
 
-    navigator.geolocation.getCurrentPosition(resp => {
-      resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+    if (event instanceof NavigationEnd) {
+      this._headerService.showHeader();
 
-      localStorage.setItem('ipLat', resp.coords.latitude.toString());
-      localStorage.setItem('ipLong', resp.coords.longitude.toString());
-    },
-    err => {
-      reject(err);
-    }, {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});
-  });
+      /** google analytics */
+      if(!this.disableAnalytics){
+        gtag('config', 'UA-192757039-1',{
+          'page_path': event.urlAfterRedirects
+        });
+        fbq('track', 'PageView');  
+      }
 
-}
+      if(event.url != '/') {
+        setTimeout(()=> {
+          this._headerService.showShadow();
+        }, 0);
+      }
+
+      if (event.url.match(/#addon/)) {
+        const timer = this.isInitial ? 1000 : 400;
+        setTimeout(() => {
+          const el = document.querySelector('#addon');
+          window.scrollBy(0, el.getBoundingClientRect().top - 100);
+        }, timer);
+      } else { window.scroll(0, 0); }
+    }
+  }
+
+  getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(resp => {
+        resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+
+        localStorage.setItem('ipLat', resp.coords.latitude.toString());
+        localStorage.setItem('ipLong', resp.coords.longitude.toString());
+      },
+      err => {
+        reject(err);
+      }, {enableHighAccuracy: true, maximumAge:0, timeout: 1000000});
+    });
+
+  }
 }

@@ -32,6 +32,12 @@ button, .btn {
   &.small { @include typography(15px, 16.5px, $fontWeightRegular, 0.5px); }
 }
 
+.btn-icon {
+  i { @include typography(18px, 1, $fontWeightRegular, 0px); }
+  &.large i { @include typography(22px, 1, $fontWeightRegular, 0px); }
+  &.small i { @include typography(16px, 1, $fontWeightRegular, 0px); }  
+}
+
 i { 
   @include typography(18px, 1, $fontWeightRegular, 0px); 
   &.large { @include typography(22px, 1, $fontWeightRegular, 0px); }

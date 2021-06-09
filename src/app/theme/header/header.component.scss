@@ -2,12 +2,19 @@
 @import "../../../assets/scss/variables";
 
 
-header.hide {
-  transition: transform 400ms;
+header {
+  transition-property: transform box-shadow;
+  transition-duration: 400ms;
+
   &.hide {
     transform: translateY(-100%);
   }
+  
+  &.shadow{
+    box-shadow: 0 2px 5px #d6dfea!important;
+  }
 }
+
 
 .dashboard-menu-wrapper-md{
   z-index: 10000;

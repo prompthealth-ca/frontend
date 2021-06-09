@@ -18,6 +18,7 @@
   @include btnInner();
   
   &:hover:not(:disabled) {
+    color: $color;
     background: $bgHover;
     border-color: $bgHover;
   }
@@ -62,16 +63,14 @@
 
 /** primary icon button */
 .btn.btn-icon {
-  font-size: 18px;
-  line-height: 1em;
   padding: 7px;
   color: $colorPrimary;
 
-  &.large i {
-    font-size: 22px;
+  &.large {
+    padding: 10px;
   }
-  &.small i {
-    font-size: 14px;
+  &.small {
+    padding: 5px;
   }
 }
 

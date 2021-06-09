@@ -1,4 +1,4 @@
-<header class="bg-primary-light sticky-top py-15p" [ngClass]="{hide: !isHeaderShown}">
+<header class="bg-primary-light sticky-top py-15p" [ngClass]="{hide: !isHeaderShown, shadow: isShadowShown}">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
       <div>
@@ -10,7 +10,7 @@
       <nav>
         <div class="d-md-none">
           <button class="btn btn-icon" (click)="showMenu()">
-            <i class="large text-dark" iconPh="menu"></i>
+            <i iconPh="menu" class="large"></i>
           </button>
         </div>  
 
@@ -19,7 +19,7 @@
             <a routerLink="/practitioners" class="text-body">Find Practitioners</a>
           </li>
           <li class="mx-10p">
-            <a routerLink="/practitioners" class="text-body">Products</a>
+            <a routerLink="/products" class="text-body">Products</a>
           </li>
           <li class="mx-10p">
             <a href="" class="text-body">About</a>
@@ -126,9 +126,11 @@
   </button>
   <ul class="menu-item font-weight-bold" [ngClass]="{before: (levelMenuSm > 0), after: (levelMenuSm < 0)}">
     <li>
-      <list-item (onTap)="navigateTo('/')">
-        <a class="subtitle1">Home</a>  
-      </list-item>
+      <a routerLink="/" (click)="hideMenu()">
+        <list-item>
+          <div class="subtitle1">Home</div>  
+        </list-item>
+      </a>
     </li>
     <li>
       <list-item 
@@ -136,31 +138,39 @@
       action="chevron-right"
       actionClass="text-primary"
       >
-        <a class="subtitle1">Find Practioners</a>  
+        <div class="subtitle1 text-primary">Find Practioners</div>  
       </list-item>
     </li>
     <li>
-      <list-item (onTap)="navigateTo('/products')">
-        <a class="subtitle1">Products/Services</a>  
-      </list-item>
+      <a routerLink="/products" (click)="hideMenu()">
+        <list-item>
+          <div class="subtitle1 text-primary">Products/Services</div>  
+        </list-item>
+      </a>
     </li>
 
     <li *ngIf="priceType == 'practitioner'" class="my-10p">
-      <list-item (onTap)="navigateTo('/plans')">
-        <a class="subtitle1">Pricing</a>  
-      </list-item>
+      <a routerLink="/plans" (click)="hideMenu()">
+        <list-item>
+          <div class="subtitle1 text-primary">Pricing</div>  
+        </list-item>
+      </a>
     </li>
 
     <li *ngIf="priceType == 'product'" class="my-10p">
-      <list-item (onTap)="navigateTo('/plans/product')">
-        <a class="subtitle1">Pricing</a>  
-      </list-item>
+      <a routerLink="/plans/product">
+        <list-item (onTap)="hideMenu();">
+          <div class="subtitle1 text-primary">Pricing</div>  
+        </list-item>
+      </a>
     </li>
 
     <li>
-      <list-item (onTap)="navigateTo('/blogs')">
-        <a class="subtitle1">Blogs</a>  
-      </list-item>
+      <a routerLink="/blogs" (click)="hideMenu()">
+        <list-item>
+          <div class="subtitle1 text-primary">Blogs</div>  
+        </list-item>
+        </a>
     </li>
 
     <li *ngIf="!isLoggedIn">
@@ -168,7 +178,7 @@
         <span class="subtitle1">
           <a routerLink="/auth/login" (click)="hideMenu()">Log in</a>
           <span class="display-inline-block mx-2">/</span>
-          <a routerLink="/auth/login" (click)="hideMenu(); signupModal.show()">Register</a>  
+          <a (click)="hideMenu(); signupModal.show()">Register</a> 
         </span>
       </list-item>
     </li>
@@ -191,9 +201,9 @@
       actionClass="text-primary"
       (onTap)="changeMenuCategory(i); scrollMenuSm(2)"
       >
-        <a (click)="changeMenuCategory(i); scrollMenuSm(2)" class="d-flex justify-content-between subtitle1">
-          <span>{{cat.item_text}}</span>
-        </a>  
+        <div (click)="changeMenuCategory(i); scrollMenuSm(2)" class="subtitle1 text-primary">
+          {{cat.item_text}}
+        </div>  
       </list-item>
     </li>
   </ul>
@@ -208,33 +218,27 @@
     </li>
 
     <li>
-      <list-item 
-      action="arrow-right"
-      actionClass="text-primary"
-      (onTap)="hideMenu()"
-      >
-        <a 
-        class="d-flex justify-content-between subtitle1"
-        [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]"
+      <a [routerLink]="['/practitioners/category', catService.categoryList[activeCategory]._id]" (click)="hideMenu()">
+        <list-item 
+        action="arrow-right"
+        actionClass="text-primary"
         >
-          <span>All of {{catService.categoryList[activeCategory].item_text}}</span>
-        </a>  
-      </list-item>
+          <div class="subtitle1 text-primary">
+            All of {{catService.categoryList[activeCategory].item_text}}
+          </div>  
+        </list-item>
+      </a>
     </li>
 
     <li *ngFor="let sub of catService.categoryList[activeCategory].subCategory">
-      <list-item 
-      action="arrow-right"
-      actionClass="text-primary"
-      (onTap)="hideMenu()"
-      >
-        <a 
-        class="d-flex justify-content-between subtitle1"
-        [routerLink]="['/practitioners/category', sub._id]"
+      <a [routerLink]="['/practitioners/category', sub._id]" (click)="hideMenu()">
+        <list-item 
+        action="arrow-right"
+        actionClass="text-primary"
         >
-          {{sub.item_text}}
-        </a>  
-      </list-item>
+          <div class="subtitle1 text-primary">{{sub.item_text}}</div>  
+        </list-item>
+      </a>
     </li>
   </ul>
 </div>

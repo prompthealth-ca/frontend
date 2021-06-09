@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit {
   public isHeaderShown = true;
   public isNavMenuShown = false;
   public isDashboardMenuShown = false;
+  public isShadowShown = false;
   public levelMenuSm = 0;
   public activeCategory = 0;
 

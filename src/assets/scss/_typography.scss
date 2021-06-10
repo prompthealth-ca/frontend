@@ -1,7 +1,6 @@
 @import "./variables";
 
 @mixin typography($fontSize, $lineHeight, $fontWeight, $letterSpacing) {
-  // color: $colorGsBlack;
   font-size: $fontSize;
   font-weight: $fontWeight;
   line-height: $lineHeight;
@@ -12,30 +11,10 @@ $fontWeightBold: 700;
 $fontWeightMedium: 500;
 $fontWeightRegular: 400;
 
-h1, .h1 { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
-h2, .h2 { @include typography(48px, 54px, $fontWeightBold, 0px); }
-h3, .h3 { @include typography(34px, 42px, $fontWeightBold, 0.25px); }
-h4, .h4 { @include typography(24px, 32px, $fontWeightBold, 0px); }
-h5, .h5 { @include typography(20px, 26px, $fontWeightBold, 0.2px); }
-h6, .h6 { @include typography(18px, 24px, $fontWeightMedium, 0.2px); }
-.subtitle1 { @include typography(16px, 24px, $fontWeightMedium, 0.25px); }
-.subtitle2 { @include typography(14px, 18px, $fontWeightMedium, 0.1px); }
-p,
-.body1 { @include typography(16px, 24px, $fontWeightRegular, 0.1px); }
-.body2 { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
-.small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
-caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
-
 button, .btn { 
   @include typography(16px, 17.6px, $fontWeightBold, 0.5px);
   &.large { @include typography(18px, 19.8px, $fontWeightBold, 0.5px); }
   &.small { @include typography(15px, 16.5px, $fontWeightRegular, 0.5px); }
-}
-
-.btn-icon {
-  i { @include typography(18px, 1, $fontWeightRegular, 0px); }
-  &.large i { @include typography(22px, 1, $fontWeightRegular, 0px); }
-  &.small i { @include typography(16px, 1, $fontWeightRegular, 0px); }  
 }
 
 i { 
@@ -47,8 +26,8 @@ i {
 /** if icon is used in some sentence, it should be aligned with text */
 h1, h2, h3, h4, h5, h6, 
 p, a, span, caption, li,
-.h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2,
-.small, .caption {
+.h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2, .body-small,
+.caption {
   >i {
     font-size: 1.15em;
     vertical-align: text-top; 
@@ -59,6 +38,23 @@ p, a, span, caption, li,
     vertical-align: text-bottom;
   }
 }
+
+h1, .h1 { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
+h2, .h2 { @include typography(48px, 54px, $fontWeightBold, 0px); }
+h3, .h3 { @include typography(34px, 42px, $fontWeightBold, 0.25px); }
+h4, .h4 { @include typography(24px, 32px, $fontWeightBold, 0px); }
+h5, .h5 { @include typography(20px, 26px, $fontWeightBold, 0.2px); }
+h6, .h6 { @include typography(18px, 24px, $fontWeightMedium, 0.2px); }
+.subtitle1 { @include typography(16px, 24px, $fontWeightMedium, 0.25px); }
+.subtitle2 { @include typography(14px, 18px, $fontWeightMedium, 0.1px); }
+p,
+td,
+ul,
+ol,
+.body1 { @include typography(16px, 24px, $fontWeightRegular, 0.1px); }
+.body2 { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
+.body-small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
+caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
 
 @mixin clamp($line, $height) {
   height: $line * $height;

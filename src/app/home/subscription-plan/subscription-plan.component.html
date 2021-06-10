@@ -58,5 +58,7 @@
   <div class="mb-2 font-weight-400">You have coupon!</div>
   <card-coupon [couponData]="couponCode" style="font-size: 11px;"></card-coupon>
 
-  <button class="btn btn-shrink" (click)="shrinkMessageCoupon($event)"><i class="fas fa-minus"></i></button>
+  <button class="btn btn-icon small btn-shrink" (click)="shrinkMessageCoupon($event)">
+    <i iconPh="chevron-right" class="large"></i>
+  </button>
 </div>

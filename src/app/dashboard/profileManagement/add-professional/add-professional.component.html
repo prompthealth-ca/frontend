@@ -3,9 +3,9 @@
       <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
     </p>
   </ngx-spinner>
-<h3 class="mb-3"  *ngIf="doctors && doctors.length">My Professionals
+<h4 class="mb-3"  *ngIf="doctors && doctors.length">My Professionals
     <button *ngIf="doctors && doctors.length" (click)="addMore = !addMore" class="btn btn-primary add-more">Add More</button>
-</h3>
+</h4>
 <input  *ngIf="doctors && doctors.length" type="text" [(ngModel)]="doctorSearch" placeholder="Serach.." class="form-control searchBar"/>
 <table class="table table-hover addprofessionaltable w-100" *ngIf="doctors && doctors.length">
     <thead>
@@ -40,8 +40,8 @@
             </td>
             <td class="whitespace-pre">{{ prod.description }}</td>
             <td>
-                <button (click)="deleteStaff(prod._id)" class="btn btn-danger mr-1 p-2"><i class="fa fa-minus-square" aria-hidden="true"></i></button>
-                <button (click)="editStaff(prod)" class="btn btn-primary p-2"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                <button (click)="deleteStaff(prod._id)" class="btn btn-error small mr-2"><i iconPh="trash"></i></button>
+                <button (click)="editStaff(prod)" class="btn btn-primary small">Edit</button>
             </td>
         </tr>
     </tbody>

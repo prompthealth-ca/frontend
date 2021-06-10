@@ -62,25 +62,23 @@
         <!-- only for partnerBasic -->
         <ng-container *ngIf="type == 'partnerBasic'">
             <li>
-                <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                <div class="font-weight-400">Be Visible</div>
+                <i iconPh="check-circle" class="large mr-2"></i>
+                <span class="subtitle1">Be Visible</span>
                 <p>Get in front of all Canadians with a professional profile on our platform + app homepage.</p>
             </li>
             <li>
-                <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                <div class="font-weight-400">Be Recognized</div>
+                <i iconPh="check-circle" class="large mr-2"></i>
+                <span class="subtitle1">Be Recognized</span>
                 <p>Photo gallery for your clients to get to know you.</p>
             </li>
             <li>
-                <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                <div class="font-weight-400">Share</div>
+                <i iconPh="check-circle" class="large mr-2"></i>
+                <span class="subtitle1">Share</span>
                 <p>Tell clients about yourself, link contact info, social media,promotions, and more</p>
             </li>
             <li>
-                <span class="fa-li"><i class="far fa-check-circle"></i></span>
-                <div class="font-weight-400">
-                    Be Trusted
-                </div>
+                <i iconPh="check-circle" class="large mr-2"></i>
+                <span class="subtitle1">Be Trusted</span>
                 <p>
                     <span class="badge badge-info">New</span>
                     connect google business account to your profile
@@ -94,11 +92,11 @@
 
         <ng-container *ngIf="type == 'partnerEnterprise'">
             <li>
-              <span class="fa-li"><i class="far fa-check-circle"></i></span>
-              <p>Get featured on the homepage of our website and app</p>
+                <i iconPh="check-circle" class="large mr-2"></i>
+                <p>Get featured on the homepage of our website and app</p>
             </li>
             <li>
-              <span class="fa-li"><i class="far fa-check-circle"></i></span>
+                <i iconPh="check-circle" class="large mr-2"></i>
               <div class="font-weight-400">
                 Analytics
                 <span class="badge badge-info">Coming Soon!</span>
@@ -109,45 +107,45 @@
 
         <!-- only for centre -->
         <li *ngIf="type == 'centre'">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             All the provider benefits
         </li>
 
         <!-- except centre and depend on data-->
         <li *ngIf="type != 'centre' && data?.professionalProfile">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             Your professional profile
         </li>
         <li *ngIf="type != 'centre' && data?.sideBySideComparisons">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             Differentiate yourself with side-by-side comparisons
         </li>
         <li *ngIf="type != 'centre' && data?.videoUpload">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             Showcase yourself with a video introduction
         </li>
         <li *ngIf="type != 'centre' && data?.reviewsAndFeedback">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             Genuine reviews and feedback
         </li>
         <li *ngIf="type != 'centre' && data?.receiveMessagesForBooking">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             Receive requests for booking /integration with your own booking system option
         </li>
         <li *ngIf="type != 'centre' && data?.performanceDashboard">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             <span class="badge badge-info">NEW</span>
 
             Performance dashboard
         </li>
         <li *ngIf="type != 'centre' && data?.socialMediaLink">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             <span class="badge badge-info">NEW</span>
 
             Link your social media accounts on your Prompthealth profile page
         </li>
         <li *ngIf="type != 'centre' && data?.verifiedBadge">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             <span class="badge badge-info">NEW</span>
             Apply for a verified badge and rank before everyone else in search results
         </li>
@@ -155,11 +153,11 @@
 
         <!-- depend on data -->
         <li *ngIf="data?.ListOfProviders">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             List special amenities
         </li>
         <li *ngIf="data?.ListOfProviders">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             List of providers
         </li>
 
@@ -170,13 +168,13 @@
         </li> -->
 
         <li *ngIf="type == 'centre'">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             <span class="badge badge-info">NEW</span>
             Link your google business profile and display your google reviews on your profile page
         </li>
 
         <li *ngIf="type == 'provider' || type == 'centre'">
-            <span class="fa-li"><i class="far fa-check-circle"></i></span>
+            <i iconPh="check-circle" class="large mr-2"></i>
             <span class="badge badge-info">NEW</span>
             Exciting features & benefits coming every month
         </li>

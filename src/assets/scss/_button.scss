@@ -33,6 +33,18 @@
 .btn.btn-black {
   @include btn($colorGsWhite, $colorGsBlack, $colorGsBody);
 }
+.btn.btn-google {
+  @include btn($colorGsWhite, $colorGoogle, $colorGoogleLight);
+}
+.btn.btn-facebook {
+  @include btn($colorGsWhite, $colorFacebook, $colorFacebookLight);
+}
+.btn-success {
+  @include btn($colorGsWhite, $colorSuccess, $colorSuccessDark);
+}
+.btn-error {
+  @include btn($colorGsWhite, $colorError, $colorErrorDark);
+}
 
 .btn.btn-outline {
   color: $colorPrimary;
@@ -48,39 +60,44 @@
 
 // .btn.btn-outline-secondary (if needed)
 
-.btn.btn-text {
-  color: $colorPrimary;
-  // text-decoration: underline;
-  font-weight: 700;
+@mixin btnText($color, $colorHover) {
+  color: $color;
   border: 1px solid transparent;
   @include btnInner();
-
   &:hover:not(:disabled) {
-    color: $colorPrimaryDark;    
-    // text-decoration: underline;
+    color: $colorHover;    
   }
+
 }
+.btn.btn-text {
+  @include btnText($colorPrimary, $colorPrimaryDark);
+}
+.btn.btn-text-black {
+  @include btnText($colorGsBody, $colorGsBlack);
+}
+
+
 
 /** primary icon button */
 .btn.btn-icon {
-  padding: 7px;
+  padding: 16.5px;
   color: $colorPrimary;
 
   &.large {
-    padding: 10px;
+    padding: 21.5px;
   }
   &.small {
-    padding: 5px;
+    padding: 8.5px;
   }
 }
 
 // .btn.btn-text-secondary (if needed)
 
 .btn:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
-.btn:focus,
+.btn:focus, .btn.focus,
 .btn:not(:disabled):not(.disabled).active:focus, 
 .btn:not(:disabled):not(.disabled):active:focus, 
 .show>.btn.dropdown-toggle:focus {
@@ -88,6 +105,10 @@
 }
 
 .btn {
+  >* {
+    vertical-align: middle;
+  }
+
   i+span,
   i+u,
   i+b {

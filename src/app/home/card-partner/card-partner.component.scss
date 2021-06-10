@@ -1,14 +1,13 @@
-:host{
-  font-size: 16px;
-}
+@import '../../../assets/scss/variables';
 
 .partner-card{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items:flex-start;
+  color: $colorGsBody;
 
-  @media (min-width:768px){
+  @media (min-width:$breakpointMd){
     flex-direction: column;
     border: solid 1px #e0e0e0;
     // box-shadow: 0 0 5px #949494;
@@ -20,7 +19,7 @@
 
 .image-container{
   position: relative;
-  @media (max-width: 767px){
+  @media (max-width: #{$breakpointMd - 1}){
     border-radius: 15px;
     flex: 0 0 40%;
   }
@@ -45,7 +44,7 @@
 
 
 .title{
-  @media (min-width: 768px){
+  @media (min-width: $breakpointMd){
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
@@ -53,9 +52,4 @@
     line-height: 1.3em;
     height: 2.6em;
   }
-}
-
-.clamp-3line{
-  line-height: 1.3em;
-  height: 3.9em;
 }

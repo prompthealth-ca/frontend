@@ -3,11 +3,11 @@
 >
   <button 
   type="button"
-  class="btn-share text-nowrap"
+  class="btn-share"
   [ngClass]="btnClass"
   (click)="onClickButton()"
   >
-    <i class="fas fa-share-alt"></i>
+    <i class="large" iconPh="share"></i>
     <span *ngIf="label" class="pl-2">{{label}}</span>
   </button>
 

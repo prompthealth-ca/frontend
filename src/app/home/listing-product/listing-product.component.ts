@@ -54,12 +54,12 @@ export class ListingProductComponent implements OnInit {
   @HostListener ('window:resize') onWindowResize(){
     if(this.timer){ clearTimeout(this.timer); }
     this.timer = setTimeout(() => {
-      this.isViewSmall = (window.innerWidth < 768) ? true : false;
+      this.isViewSmall = (window.innerWidth < 992) ? true : false;
     }, 300);
   }
 
   async ngOnInit() {
-    this.isViewSmall = (window.innerWidth < 768) ? true: false; 
+    this.isViewSmall = (window.innerWidth < 992) ? true: false; 
     this._uService.setMeta(this._router.url, {
       title: 'Products and Services | PromptHealth',
       description: 'Discover our favorite innovative health apps, products and services. Find promo codes, free samples and reviews.',

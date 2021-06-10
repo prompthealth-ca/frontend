@@ -33,11 +33,11 @@
       ></user-image>
     </div>
     <ul class="p-0 mb-0 ml-for-avoid-image list-unstyled d-inline-flex align-items-center position-relative">
-      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+      <li class='text-primary text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
         [ngClass]='{active: (indexTabItem == 0)}'
         (click)="changeTabTo(0)"
       >About</li>
-      <li class='text-blue text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
+      <li class='text-primary text-center tab-item flex-grow-0 flex-shrink-0 py-3' 
         [ngClass]='{active: (indexTabItem == 1)}'
         (click)='changeTabTo(1)'
       >Reviews</li>
@@ -64,24 +64,24 @@ class="container-fluid bg-grey p-4"
         <div *ngIf="userInfo">
           <ng-container *ngIf="userInfo.reviews.length > 0">
             <star-rate [rate]="((userInfo)? userInfo.rating : 0)" margin='big'></star-rate>
-            <span class='text-blue pl-4'>({{userInfo.reviews.length}})</span>
+            <span class='text-primary body1 pl-4'>({{userInfo.reviews.length}})</span>
           </ng-container>
 
-          <span *ngIf="userInfo.reviews.length == 0 && !userInfo.detailByGoogle" class="text-blue pl-4">No review yet</span>
+          <span *ngIf="userInfo.reviews.length == 0 && !userInfo.detailByGoogle" class="text-primary pl-4 body1">No review yet</span>
         </div>
 
         <div *ngIf="userInfo && userInfo.reviews.length > 0">
           <div class="my-5">
             <ul class="review-controller list-unstyled d-inline-flex mb-3">
-              <li class="btn text-blue mr-2 mr-md-4 font-regular "
+              <li class="btn btn-text small text-body mr-2 mr-md-4 "
                 (click)="sortReviewsBy(0)" 
                 [ngClass]="{active: indexSortReviews == 0}"
               >Highest Rated</li>
-              <li class="btn text-blue mr-2 mr-md-4 font-regular"
+              <li class="btn btn-text small text-body mr-2 mr-md-4"
                 (click)="sortReviewsBy(1)" 
                 [ngClass]="{active: indexSortReviews == 1}" 
               >Lowest Rated</li>
-              <li class="btn text-blue font-regular"
+              <li class="btn btn-text small text-body "
                 (click)="sortReviewsBy(2)" 
                 [ngClass]="{active: indexSortReviews == 2}"
               >Most Recent</li>
@@ -195,11 +195,11 @@ class="container-fluid bg-grey p-4"
   
         <!-- basic section -->
         <div class="row mb-5" *ngIf="userInfo && userInfo.description">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Practice Philosophy:</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Practice Philosophy:</div>
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.description}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Specialty Age Group</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Specialty Age Group</div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             id="age_range"
@@ -211,15 +211,15 @@ class="container-fluid bg-grey p-4"
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.ageRange.join(', ')}}</p>
         </div>
         <div class="row mb-5" *ngIf="!userInfo?.isCentre">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Professional organization</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Professional organization</div>
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.organization}}</p>
         </div>
         <div class="row mb-5" *ngIf="!userInfo?.isCentre">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Certification</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Certification</div>
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.certification}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Language</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Language</div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             *ngIf="questionnaires"
@@ -233,7 +233,7 @@ class="container-fluid bg-grey p-4"
           <p class="col-12 col-lg-8 mb-0 list-item">{{userInfo?.languages.join(', ')}}</p>
         </div>
         <div class="row mb-5">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Years Of Experience</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Years Of Experience</div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             *ngIf="userInfo"
@@ -247,10 +247,10 @@ class="container-fluid bg-grey p-4"
         </div>
 
         <div class="row mt-5" *ngIf="userInfo?.amenityPreview && userInfo.amenityPreview.length > 0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Amenity</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Amenity</div>
           <div class="col-12 col-lg-8">
             <image-row [images]="userInfo.amenityPreview" [option]="{col: 3}"></image-row>
-            <button class="btn text-blue border-blue rounded" (click)="openAmenityViewer()">Show detail</button>
+            <button class="btn btn-outline" (click)="openAmenityViewer()">Show detail</button>
             <image-viewer
             *ngIf="isAmenityViewerShown"
             [data]="userInfo.amenity"
@@ -260,10 +260,10 @@ class="container-fluid bg-grey p-4"
         </div>
 
         <div class="row mt-5" *ngIf="userInfo?.productPreview && userInfo.productPreview.length > 0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Product</div>
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Product</div>
           <div class="col-12 col-lg-8">
             <image-row [images]="userInfo.productPreview" [option]="{col: 3}"></image-row>
-            <button class="btn text-blue border-blue rounded" (click)="openProductViewer()">Show detail</button>
+            <button class="btn btn-outline" (click)="openProductViewer()">Show detail</button>
             <image-viewer
             *ngIf="isProductViewerShown"
             [data]="userInfo.product"
@@ -274,8 +274,8 @@ class="container-fluid bg-grey p-4"
 
   
         <!-- blue section -->
-        <div class="row bg-lightblue rounded-top pt-5 pb-0 mt-5">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Type of Provider:</div>
+        <div class="row bg-primary-light rounded-top pt-5 pb-0 mt-5">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Type of Provider:</div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             *ngIf="questionnaires"
@@ -291,8 +291,8 @@ class="container-fluid bg-grey p-4"
           </ul> -->
         </div>
         
-        <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Treatment Modalities: </div>
+        <div class="row bg-primary-light pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Treatment Modalities: </div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             *ngIf="questionnaires"
@@ -308,8 +308,8 @@ class="container-fluid bg-grey p-4"
           </ul> -->
         </div>
 
-        <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Health Status: </div>
+        <div class="row bg-primary-light pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Health Status: </div>
           <div class="col-12 col-lg-8">
             <form-item-customer-health
             *ngIf="questionnaires"
@@ -325,8 +325,8 @@ class="container-fluid bg-grey p-4"
         </div>
 
         
-        <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Service Delivery:</div>
+        <div class="row bg-primary-light pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Service Delivery:</div>
           <div class="col-12 col-lg-8">
             <form-item-checkbox-group
             *ngIf="questionnaires"
@@ -336,15 +336,15 @@ class="container-fluid bg-grey p-4"
             [selectionsByQuestionnaire]="questionnaires.serviceDelivery"
             [disabled]="true"
             ></form-item-checkbox-group>  
+            <p class="body-small mb-0 opacity-70pc" *ngIf="userInfo?.provideVirtual">**Virtual/Online services may not be available to all locations. Please inquire the service provider for confirmation.</p>
           </div>
           <!-- <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
             <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.serviceDelivery">{{item}}</li>
           </ul> -->
-          <p class="font-small col-12 mb-0 " *ngIf="userInfo?.provideVirtual">**Virtual/Online services may not be available to all locations. Please inquire the service provider for confirmation.</p>
         </div>
 
-        <div class="row bg-lightblue pt-5 pb-0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Services:</div>
+        <div class="row bg-primary-light pt-5 pb-0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Services:</div>
           <div class="col-12 col-lg-8">
             <form-item-service
             *ngIf="questionnaires"
@@ -354,23 +354,23 @@ class="container-fluid bg-grey p-4"
           </div>
         </div>
 
-        <div class="row bg-lightblue pt-5 pb-0" *ngIf="userInfo?.availability && userInfo.availability.length>0">
-          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-blue">Availability:</div>
+        <div class="row bg-primary-light pt-5 pb-0" *ngIf="userInfo?.availability && userInfo.availability.length>0">
+          <div class="col-12 col-lg-4 mb-3 mb-lg-0 text-primary subtitle1">Availability:</div>
           <ul class="col-12 col-lg-8 mb-0 list-unstyled d-flex flex-wrap">
             <li class="mb-2 mb-md-3 pr-3 table-item" *ngFor="let item of userInfo?.availability">{{item}}</li>
           </ul>
         </div>
         
-        <!-- <div class="row bg-lightblue rounded-bottom pt-5 pb-0" *ngIf="userInfo?.isCentre">
-          <div class="col-12 col-lg-4 mb-2 mb-lg-0 text-blue">Product:</div>
+        <!-- <div class="row bg-primary-light rounded-bottom pt-5 pb-0" *ngIf="userInfo?.isCentre">
+          <div class="col-12 col-lg-4 mb-2 mb-lg-0 text-primary subtitle1">Product:</div>
           <p class="col-12 col-lg-8 mb-0">{{userInfo?.product}}</p>
         </div> -->
-        <div class="row bg-lightblue rounded-bottom pt-5 mb-5"></div>
+        <div class="row bg-primary-light rounded-bottom pt-5 mb-5"></div>
   
         <!-- professionals at centre-->
         <div *ngIf="userInfo?.isCentre && userInfo.professionals && userInfo.professionals.length > 0">
           <div class="row bg-grey rounded-top py-4 mt-5 justify-content-start justify-content-md-between align-items-center">
-            <div class="col text-blue font-big font-md-bigger">Meet our professionals</div>
+            <div class="col text-primary subtitle1 font-big font-md-bigger">Meet our professionals</div>
           </div>
           <ul class='list-unstyled row text-center bg-grey py-4 mb-0'>
             <li class='col-12 col-md-6 mb-5' *ngFor="let pro of userInfo.professionals; let i = index;">
@@ -392,7 +392,7 @@ class="container-fluid bg-grey p-4"
           </ul>
           <div class="bg-grey row pb-4 rounded-bottom mb-5">
             <div class="col text-center">
-              <button class="btn border-blue text-blue"
+              <button class="btn btn-outline"
               *ngIf="userInfo && userInfo.professionals && userInfo.professionals.length > 0 && isProfessionalsMoreExist"
               type="button"
               (click)="getProfessionals()"
@@ -415,26 +415,26 @@ class="container-fluid bg-grey p-4"
         </div>
         <!-- contact info-->
         <div class="rounded shadow text-center pb-3 overflow-hidden mb-5">
-          <div class="card-title">Contact Information</div>
+          <h6 class="bg-primary text-center m-0 py-3 text-white">Contact Information</h6>
           <div class="position-relative">
             <table class="table table-borderless table-hover px-2">
               <tbody>
                 <tr *ngIf="userInfo?.address">
-                  <td class="pr-0"><i class="fas fa-map-marker-alt color-card-icon"></i></td>
+                  <td class="pr-0"><i iconPh="pin" class="large"></i></td>
                   <td class="text-left">{{userInfo.address}}</td>
                 </tr>
                 <tr *ngIf="userInfo?.email">
-                  <td class="pr-0"><i class="fas fa-envelope color-card-icon"></i></td>
+                  <td class="pr-0"><i iconPh="email" class="large"></i></td>
                   <td class="text-left">
                     <a [href]="'mailto:' + userInfo.email">{{userInfo.email}}</a>
                   </td>
                 </tr>
                 <tr *ngIf="userInfo?.phone">
-                  <td class="pr-0"><i class="fas fa-phone color-card-icon"></i></td>
+                  <td class="pr-0"><i iconPh="smartphone" class="large"></i></td>
                   <td class="text-left">{{userInfo.phone}}</td>
                 </tr>
                 <tr *ngIf="userInfo?.website">
-                  <td class="pr-0"><i class="fas fa-compass color-card-icon"></i></td>
+                  <td class="pr-0"><i iconPh="globe" class="large"></i></td>
                   <td class="text-left">
                     <a class="url" [href]="userInfo.website" target="_blank">{{userInfo.websiteLabel}}</a>
                   </td>
@@ -446,8 +446,8 @@ class="container-fluid bg-grey p-4"
               </tbody>
             </table>
             <ng-container *ngIf="userInfo && isLoggedIn">
-              <a *ngIf="userInfo.bookingUrl" class="btn border-blue text-blue px-5" [href]="userInfo.bookingUrl" target="_blank">Book</a>
-              <button *ngIf="!userInfo.bookingUrl" class="btn border-blue text-blue px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
+              <a *ngIf="userInfo.bookingUrl" class="btn btn-outline px-5" [href]="userInfo.bookingUrl" target="_blank">Book</a>
+              <button *ngIf="!userInfo.bookingUrl" class="btn btn-outline px-5" type="button" data-toggle="modal" data-target="#bookingmodal">Book</button>
             </ng-container>
             
             <div class="blur-contact" *ngIf="!isLoggedIn">
@@ -460,19 +460,19 @@ class="container-fluid bg-grey p-4"
         <div class="rounded shadow overflow-hidden pb-3 mb-5">
           <div class="m-3 d-flex align-items-center justify-content-between">
             <h5 class='m-0'>
-              <span class="text-blue">Video</span>
+              <span class="text-primary">Video</span>
               <span class="ml-2 font-small" *ngIf="userInfo && userInfo.videos.length>0">{{userInfo.videos.length}}</span>
             </h5> 
             <div *ngIf="userInfo && userInfo.videos.length > 0" class="text-right">
               <button *ngIf="iframe.length > countVideoShown" 
                 (click)="showMoreVideo()"
-                class="btn border-blue text-blue font-small" 
+                class="btn btn-outline small" 
                 type="button"
               >Load more videos</button>
 
               <button *ngIf="iframe.length <= countVideoShown && iframe.length > defaultVideoCount"
                 (click)="showLessVideo()"
-                class="btn border-blue text-blue font-small" 
+                class="btn btn-outline small" 
                 type="button"
               >Show less videos</button>
             </div>
@@ -493,7 +493,7 @@ class="container-fluid bg-grey p-4"
       
         <!-- endosements -->
         <div class="rounded shadow overflow-hidden mb-5">
-          <div class="card-title font-big font-md-regular text-center m-0">Endorsement</div>
+          <h6 class="bg-primary text-center m-0 py-3 text-white">Endorsement</h6>
           <div class="px-3 py-5 font-italic coming-soon-gradient font-bigger font-weight-bold">Coming soon...</div>
 
           <!-- <card-dummy *ngIf="!userInfo ||!userInfo.endosements"></card-dummy>

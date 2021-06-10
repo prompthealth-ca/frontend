@@ -1,4 +1,4 @@
-<div class="position-relative overflow-hidden ambassador-container pb-5">
+<div class="position-relative overflow-hidden pb-5 pt-50p">
   <section class="container text-dark position-relative">
     <ng-container *ngIf="faceType == 'provider'">
       <div class="row align-items-start">
@@ -33,6 +33,7 @@
               <button-share
               facebook twitter linkedin email
               label="Share"
+              btnClass="btn btn-primary small"
               [url]="FRONTEND_URL +'/invitation/' + user._id"
               title="Join PromptHealth!"
               text="Join PromptHealth to take control your health!"
@@ -62,7 +63,7 @@
             <p class="mb-2">
               The more engagement your shared referral link gets, the more credits you are awarded. The credits can then be used towards our premium services. 
             </p>
-            <a [routerLink]="'/dashboard/profilemanagement/my-payment'" class="btn btn-link px-0 font-regular">
+            <a [routerLink]="'/dashboard/profilemanagement/my-payment'" class="btn btn-text pl-0">
               Check credit balance
             </a>
           </div>
@@ -95,7 +96,9 @@
           <ul class="mb-3">
             <li>We will take care of your recognition and growth by creating and posting quality health content three times a week for your social media channels, allowing you to focus on what’s important – treating your clients. </li>
           </ul>
-          <a [routerLink]="'/plans'">Check out our services</a>
+          <div>
+            <a [routerLink]="'/plans'" class="btn btn-text pl-0">Check out our services</a>
+          </div>
 
         </div>
       </div>

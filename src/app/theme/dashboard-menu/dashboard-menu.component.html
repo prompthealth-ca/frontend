@@ -31,11 +31,11 @@
     ></user-image>
 
     <div class="user-info">
-      <div class="text-nowrap mb-1 d-flex align-items-center">
-        <badge-verified class="mr-2" *ngIf="isVerified()"></badge-verified>
+      <div class="text-nowrap mb-1 subtitle1">
+        <i iconPh="verified" class="mr-2" *ngIf="isVerified()"></i>
         {{getName()}}
       </div>
-      <div class="text-nowrap font-small m-0">{{getEmail()}}</div>
+      <div class="text-nowrap body2 m-0">{{getEmail()}}</div>
     </div>  
   </div>
 
@@ -45,18 +45,18 @@
     <div>
       <a *ngIf="hasProfile()" 
         (click)="onClose()"
-        class="btn font-regular pl-0 py-2 text-nowrap" 
+        class="btn btn-text small pl-0 text-nowrap" 
         [routerLink]="[ ((user.roles == 'P') ? '/products' : '/practitioners'), getId()]"
       >See my profile</a>
     </div>
     <div>
-      <a class="btn font-regular pl-0 py-2 text-nowrap" 
+      <a class="btn btn-text small pl-0 text-nowrap" 
         (click)="onClose()"  
         [routerLink]="['/dashboard/profilemanagement/']"
       >My Dashboard</a>
     </div>
     <div>
-      <button class="btn font-regular pl-0 py-2 text-nowrap logout" (click)="onClickLogout(); onClose();">Logout</button>
+      <button class="btn btn-text small pl-0 text-nowrap text-danger" (click)="onClickLogout(); onClose();">Logout</button>
     </div>  
   </div>
 </div>

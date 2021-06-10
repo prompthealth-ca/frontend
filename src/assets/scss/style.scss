@@ -28,17 +28,17 @@ a {
   cursor: pointer;
 }
 
-.opacity-0 { opacity: 0; }
-.opacity-1 { opacity: 1; }
+.opacity-0 { opacity: 0!important; }
+.opacity-1 { opacity: 1!important; }
 @for $i from 1 through 9 {
   .opacity-#{$i * 10}pc { 
-    opacity: $i / 10
+    opacity: $i / 10 !important
   }
 }
 
 @for $i from 1 through 3 {
   .rounded-#{$i * 4}p {
-    border-radius: #{$i * 4}px;
+    border-radius: #{$i * 4}px!important;
   }
 }
 
@@ -212,35 +212,35 @@ label {
   font-weight: 400;
 }
 
-.text-google {
-  color: $googleColor !important;
-}
+// .text-google {
+//   color: $googleColor !important;
+// }
 
-.text-facebook {
-  color: $facebookColor !important;
-}
+// .text-facebook {
+//   color: $facebookColor !important;
+// }
 
-.text-facebook {
-  color: $facebookColor !important;
-}
+// .text-facebook {
+//   color: $facebookColor !important;
+// }
 
-.text-facebook {
-  color: $facebookColor !important;
-}
-.text-linkedIn {
-  color: $linkedInColor !important;
-}
-.text-insta {
-  color: $instaColor !important;
-}
-.text-white {
-  color: white;
-}
+// .text-facebook {
+//   color: $facebookColor !important;
+// }
+// .text-linkedIn {
+//   color: $linkedInColor !important;
+// }
+// .text-insta {
+//   color: $instaColor !important;
+// }
+// .text-white {
+//   color: white;
+// }
 
 .form-control {
   line-height: normal !important;
   height: auto !important;
-  font-size: $themeFontSize;
+  font-size: 16px;
   line-height: $themeLignHeight;
   padding: 12px 15px !important;
 }
@@ -320,28 +320,6 @@ textarea.form-control {
 //   &:hover {
 //   }
 // }
-
-.btn-facebook {
-  background-color: $facebookColor !important;
-  border-color: $facebookColor !important;
-  color: #fff !important;
-  &:hover {
-    color: #fff !important;
-    background-color: $facebookColorH !important;
-    border-color: $facebookColorH !important;
-  }
-}
-
-.btn-google {
-  background-color: $googleColor !important;
-  border-color: $googleColor !important;
-  color: #fff !important;
-  &:hover {
-    color: #fff !important;
-    background-color: $googleColorH !important;
-    border-color: $googleColorH !important;
-  }
-}
 
 // .btn-primary {
 //   color: #fff !important;

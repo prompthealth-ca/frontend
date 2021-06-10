@@ -10,7 +10,7 @@
     </div>
   </section>
 
-  <section class="container" *ngIf="!user">
+  <section class="container my-5" *ngIf="!user">
     <div style="width: 100%; max-width: 400px; margin: 50px auto">
       <ng-container *ngTemplateOutlet="coupon"></ng-container>
     </div>
@@ -19,27 +19,27 @@
       <div class="col-12 col-md-5 text-center mb-4">
         <h5>Do you have an account?</h5>
         <a [routerLink]="['/auth/login']" [queryParams]="{nextKeyword: 'buyplan'}"
-          class="btn btn-outline-primary w-100 font-regular">Log in and see plans</a>
+          class="btn btn-outline w-100 font-regular">Log in and see plans</a>
       </div>
 
       <div class="col-12 col-md-5 text-center">
         <h5>You are not member yet?</h5>
         <div class="mb-3">
-          <a [routerLink]="['/auth/registration/sp']" class="btn btn-outline-primary w-100 font-regular">Sign up as
+          <a [routerLink]="['/auth/registration/sp']" class="btn btn-outline w-100 font-regular">Sign up as
             Service Provider</a>
         </div>
         <div class="mb-3">
-          <a [routerLink]="['/auth/registration/c']" class="btn btn-outline-primary w-100 font-regular">Sign up as
+          <a [routerLink]="['/auth/registration/c']" class="btn btn-outline w-100 font-regular">Sign up as
             Centre</a>
         </div>
         <div class="mb-3">
-          <a [routerLink]="['/auth/registration/p']" [queryParams]="{nextKeyword: 'buyplan'}" class="btn btn-outline-primary w-100 font-regular">Sign up as Product/Service</a>
+          <a [routerLink]="['/auth/registration/p']" [queryParams]="{nextKeyword: 'buyplan'}" class="btn btn-outline w-100 font-regular">Sign up as Product/Service</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="container" *ngIf="user">
+  <section class="container my-5" *ngIf="user">
     <div style="width: 100%; max-width: 400px; margin: 50px auto;">
       <ng-container *ngTemplateOutlet="coupon"></ng-container>
     </div>
@@ -54,15 +54,15 @@
 
       <div class="row flex-column justify-content-center align-items-center">
         <div class="col-12 col-md-5 mb-3">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('sp')">Sign up as Service
+          <button class="btn btn-outline w-100 font-regular" (click)="logoutAndSignup('sp')">Sign up as Service
             Provider</button>
         </div>
         <div class="col-12 col-md-5 mb-3">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('c')">Sign up as
+          <button class="btn btn-outline w-100 font-regular" (click)="logoutAndSignup('c')">Sign up as
             Centre</button>
         </div>
         <div class="col-12 col-md-5">
-          <button class="btn btn-outline-primary w-100 font-regular" (click)="logoutAndSignup('p')">Sign up as Product/Service</button>
+          <button class="btn btn-outline w-100 font-regular" (click)="logoutAndSignup('p')">Sign up as Product/Service</button>
         </div>  
       </div>
 
@@ -70,7 +70,7 @@
     <ng-template #messageProfessional>
       <div class="mt-5 text-center">
         <a [routerLink]="[(user.roles == 'P') ? '/plans/product' : '/plans']"
-          class="btn btn-outline-primary font-big">See our plans</a>
+          class="btn btn-outline font-big">See our plans</a>
       </div>
     </ng-template>
   </section>

@@ -35,7 +35,7 @@
   <div class="max-w-1200">
     <div class="d-flex align-items-center mb-3">
       <h2 class="text-blue-gradient font-weight-normal mb-0 expert-finder">Expert Finder</h2>
-      <a class="btn btn-outline small ml-md-3" [routerLink]="['/personal-match']">Start <span class="text-nowrap">Personal Match</span></a>
+      <a class="btn btn-primary small ml-md-3" [routerLink]="['/personal-match']">Start <span class="text-nowrap">Personal Match</span></a>
     </div>
     <ul *ngIf="isMainFilterOn" class="filters m-0 d-flex flex-nowrap list-unstyled pt-2 pb-3">
       <li *ngIf="keyword && keyword.length > 0" class="main text-nowrap rounded mr-3 border-primary">
@@ -80,7 +80,7 @@
           (click)="setFilterTarget(i)">{{f.item_text}}</button>
       </li>
       <li>
-        <button class="btn btn-text text-body small text-nowrap" (click)="removeFilterAll()"><u>Clear All</u></button>
+        <button class="btn btn-text-black small text-nowrap" (click)="removeFilterAll()"><u>Clear All</u></button>
       </li>
       <li class="pl-4 sticky-right" *ngIf="isApplyFilterButtonShown"  [@fade]>
         <button class="btn btn-primary small button-filter-apply" (click)="updateFilterAll()" #buttonApplyFilter>Apply</button>
@@ -94,7 +94,7 @@
           (click)="setFilterTarget(i)">{{f.item_text}}</button>
       </li>
       <li>
-        <button class="btn btn-text text-body small text-nowrap" (click)="removeFilterAll()"><u>Clear All</u></button>
+        <button class="btn btn-text-black small text-nowrap" (click)="removeFilterAll()"><u>Clear All</u></button>
       </li>
       <li class="pl-3 sticky-right" *ngIf="isApplyFilterButtonShown"  [@fade] >
         <button class="btn btn-primary py-1 button-filter-apply" (click)="updateFilterAll()" #buttonApplyFilter>Apply</button>

@@ -1,5 +1,5 @@
 <div class="input-group rounded"
-[ngClass]="{error: (controller.errors && submitted), 'transparent': _option.transparent}"
+[ngClass]="{error: (controller.errors && submitted), success: (!controller.errors && submitted), 'transparent': _option.transparent, 'disabled': disabled}"
 >
   <div class="input-group-prepend" *ngIf="prepend || prependIcon">
     <span class="input-group-text" *ngIf="prepend">{{prepend}}</span>

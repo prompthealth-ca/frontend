@@ -1,4 +1,8 @@
-<button type="button" class="btn btn-outline position-relative" *ngIf="!disabled">
+<button type="button" 
+*ngIf="!disabled"
+class="btn small position-relative" 
+[ngClass]="{'btn-outline': !submitted, 'btn-error': (!!submitted && !!controller.errors), 'btn-success': (!!submitted && !controller.errors)}"
+>
   Upload {{label | titlecase}}
   <input type="file" class="cursor-pointer" accept="image/jpeg, image/png" (change)="onSelectImage($event)">
 </button>

@@ -1,5 +1,7 @@
 @import "../../../assets/scss/mixins";
 @import '../../../assets/scss/responsive_variables';
+@import '../../../assets/scss/variables';
+
 :host{ font-size: 16px; }
 
 .text-blue{ color: #3377C5; }
@@ -7,8 +9,6 @@
 .bg-blue{ background: #3377C5; }
 
 .bg-lightblue{ background: rgba(128, 187, 255, 0.2);; }
-
-.bg-grey{ background: #F3F3F3; }
 
 .borderb-grey{ border-bottom: solid 2px #DFD9D9; }
 
@@ -88,8 +88,14 @@ $imageSize: 100, 130;
       }
     }
     h3{ 
+      font-size: 20px;
+      line-height: 1.2em;
+      @media (min-width: $breakpointMd) {
+        font-size: 34px;
+      }
       max-height: 3.6em; 
       font-weight: 500;
+      transition: line-height $transDurTabStick;
     }  
   }
 
@@ -105,7 +111,8 @@ $imageSize: 100, 130;
     text-shadow: none;
     color: inherit;
     
-    .title-wrapper, p{ padding: 0; }    
+    .title-wrapper, p{ padding: 0; }
+    h3 { line-height: 1em; }
     /* animation for h3 height is controlled by angular animation */
   }
 }
@@ -247,9 +254,7 @@ $imageSize: 100, 130;
 }
 
 .reviews{
-  >li{
-    background: #EBEBEB;
-  }
+
   .review-image{
     width: 70px;
     height: 70px;

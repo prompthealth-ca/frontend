@@ -47,7 +47,7 @@
   }
 }
 
-card-dummy{ border: solid 1px rgb(185, 185, 185); }
+// card-dummy{ border: solid 1px rgb(185, 185, 185); }
 
 .partners li:not(:last-child) .partner {
   @media (max-width: #{$breakpointMd - 1}) {

@@ -1,17 +1,15 @@
 @import "../../../assets/scss/variables";
 
-:host{
-  font-size: 16px;
-}
 
 .form-control{
-  font-size: 1em;
+  font-size: 16px;
 
-  color: $colorGsBlack;
+  color: $colorGsBody;
   background: $colorPrimaryLight;
   border-color: rgba($colorPrimary, 0.12);  
 
   &:disabled {
+    background: $colorGsBackground;
     color: $colorGsPlaceholder;
   }
 
@@ -30,5 +28,14 @@
 
   &:focus {
     box-shadow: 0 0 0 1.5px $colorError;
+  }
+}
+
+.form-control.success {
+  background: $colorSuccessLight;
+  border-color: $colorSuccess;
+
+  &:focus {
+    box-shadow: 0 0 0 1.5px $colorSuccess;
   }
 }

@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
     }
 
     if (event instanceof NavigationEnd) {
-      this._headerService.showHeader();
 
       /** google analytics */
       if(!this.disableAnalytics){
@@ -52,7 +51,7 @@ export class AppComponent implements OnInit {
         fbq('track', 'PageView');  
       }
 
-      if(event.url != '/') {
+      if(event.url != '/' && event.url != '/auth/login' ) {
         setTimeout(()=> {
           this._headerService.showShadow();
         }, 0);

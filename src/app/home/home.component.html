@@ -147,7 +147,7 @@
       There is more than one solution to every health need, and you deserve to find the care that works best for you.
     </p>
     <div class="col-12 col-md text-md-right">
-      <a class="btn btn-text body1 pb-0 pr-0" routerLink="/practitioners">
+      <a class="btn btn-text body1 pl-0 pr-md-0 pb-md-0" routerLink="/practitioners">
           <u>Find Practitioners</u>
         <i iconPh="arrow-right-circle"></i>
       </a>
@@ -170,14 +170,22 @@
       </div>
     </li>
     <ng-container *ngIf="!practitionersFeatured">
-      <li class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3" *ngFor="let i of [0,1,2]">
+      <li 
+      *ngFor="let i of [0,1,2]" 
+      class="col-6 col-md-6 col-lg-4 col-xl-3 mb-3" 
+      [ngClass]=" {'pr-5p': (i % 2 == 0), 'pl-5p': (i % 2 == 1)}"
+      >
         <div class="card h-100 rounded-12p">
           <card-dummy></card-dummy>
         </div>
       </li>
     </ng-container>
     <ng-container *ngIf="practitionersFeatured">
-      <li class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3" *ngFor="let p of practitionersFeatured">
+      <li 
+      *ngFor="let p of practitionersFeatured; let i = index;" 
+      class="col-6 col-md-6 col-lg-4 col-xl-3 mb-3 px-md-15p" 
+      [ngClass]=" {'pr-5p': (i % 2 == 0), 'pl-5p': (i % 2 == 1)}"
+      >
         <card-practitioner [data]="p" [showDistance]="false"></card-practitioner>
       </li>  
     </ng-container>

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row align-items-start mt-after-header">
+  <div class="row align-items-start my-40p">
     <section class="col-12 col-md-6 col-lg-7 col-xl-8 pt-3 position-sm-relative sticky-top d-md-flex flex-column mainview">
       <div class="d-lg-inline-flex align-items-center mb-3 mb-lg-0 flex-grow-0">
         <h2>{{profile?.name}}</h2>
@@ -66,19 +66,19 @@
           <table class="table table-borderless table-hover px-2 mt-3">
             <tbody>
               <tr *ngIf="profile?.address">
-                <td class="pl-4 text-primary subtitle1 text-center"><i iconPh="pin" class="large"></i></td>
+                <td class="pl-4 subtitle1 text-center"><i iconPh="pin" class="large"></i></td>
                 <td class="text-left pl-0">{{profile.address}}</td>
               </tr>
               <tr *ngIf="profile?.phone">
-                <td class="pl-4 text-primary subtitle1 text-center"><i iconPh="smartphone" class="large"></i></td>
+                <td class="pl-4 subtitle1 text-center"><i iconPh="smartphone" class="large"></i></td>
                 <td class="text-left pl-0">{{profile.phone}}</td>
               </tr>
               <tr *ngIf="profile?.email">
-                <td class="pl-4 text-primary subtitle1 text-center"><i iconPh="email" class="large"></i></td>
+                <td class="pl-4 subtitle1 text-center"><i iconPh="email" class="large"></i></td>
                 <td class="text-left pl-0"><a [href]="'mailto:' + profile.email" class="clamp-1line">{{profile.email}}</a></td>
               </tr>
               <tr *ngIf="profile?.website">
-                <td class="pl-4 text-primary subtitle1 text-center"><i iconPh="globe" class="large"></i></td>
+                <td class="pl-4 subtitle1 text-center"><i iconPh="globe" class="large"></i></td>
                 <td class="text-left pl-0"><a [href]="profile.website" target="_blank">{{profile.websiteLabel}}</a></td>
               </tr>
             </tbody>

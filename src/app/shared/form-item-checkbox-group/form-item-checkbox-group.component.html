@@ -49,7 +49,7 @@ class="position-relative d-inline-block selectbox"
   *ngIf="isSelectionsVisible" 
   >
     <li *ngFor="let item of selectionList; let i = index;">
-      <button class="btn btn-text-black body1" [focus]="isItemFocused(i)" (click)="select(i)" type="button"
+      <button class="btn btn-text-black subtitle2" [focus]="isItemFocused(i)" (click)="select(i)" type="button"
         (keydown)="onKeyDownOnItem($event)">{{item.label}}</button>
     </li>
   </ul>

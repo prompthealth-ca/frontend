@@ -53,7 +53,7 @@ export class FormPartnerGeneralComponent implements OnInit {
         Validators.email
       ]),
       displayEmail: new FormControl((this.data.displayEmail ? this.data.displayEmail : ''), validators.displayEmail),
-      address: new FormControl((this.data.address ? this.data.address : ''),   []),
+      address: new FormControl((this.data.address ? this.data.address : '')),
       latitude: new FormControl(((this.data.location && this.data.location[1]) ? this.data.location[1] : 0), []),
       longitude: new FormControl(((this.data.location && this.data.location[0]) ? this.data.location[0] : 0), []),
       city: new FormControl((this.data.city ? this.data.city : ''), []),
@@ -80,8 +80,8 @@ export class FormPartnerGeneralComponent implements OnInit {
   }
 
   onSubmit(){
-    this.isSubmitted = true;
     if(this.form.invalid){
+      this.isSubmitted = true;
       this._toastr.error('There are some items that require your attention.');
       return; 
     }

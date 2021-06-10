@@ -5,6 +5,7 @@
 header {
   transition-property: transform box-shadow;
   transition-duration: 400ms;
+  z-index: 100;
 
   &.hide {
     transform: translateY(-100%);

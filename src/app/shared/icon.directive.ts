@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core';
 import { IconName } from '../models/icon-ph';
 
 @Directive({
@@ -14,6 +14,15 @@ export class IconDirective implements OnInit {
     _el: ElementRef,  
   ) {
     this.host = _el.nativeElement;
+  }
+
+  ngOnChanges(e: SimpleChanges) {
+    if(e.iconPh && (e.iconPh.currentValue != e.iconPh.previousValue)) {
+      if(e.iconPh.previousValue) {
+        this.host.classList.remove('icon-' + e.iconPh.previousValue);
+      }
+      this.host.classList.add('icon-' + e.iconPh.currentValue);
+    }
   }
   
   private host: HTMLElement;
@@ -34,8 +43,6 @@ export class IconDirective implements OnInit {
     });
     this.host.appendChild(p1);
     this.host.appendChild(p2);
-    this.host.classList.add('icon-' + this.iconPh);
-
   }
 }
 

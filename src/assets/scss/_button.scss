@@ -46,16 +46,26 @@
   @include btn($colorGsWhite, $colorError, $colorErrorDark);
 }
 
-.btn.btn-outline {
-  color: $colorPrimary;
-  border: 1px solid $colorPrimary;
+@mixin btnOutline($color, $colorHover) {
+  color: $color;
+  border: 1px solid $color;
   @include btnInner();
 
   &:hover:not(:disabled) {
-    color: $colorGsWhite;
-    background: $colorPrimary;
-    border-color: $colorPrimary;
+    color: $colorHover;
+    background: $color;
+    border-color: $color;
   }
+}
+
+.btn.btn-outline {
+  @include btnOutline($colorPrimary, $colorGsWhite);
+}
+.btn.btn-outline-success {
+  @include btnOutline($colorSuccess, $colorGsWhite);
+}
+.btn.btn-outline-error {
+  @include btnOutline($colorError, $colorGsWhite);
 }
 
 // .btn.btn-outline-secondary (if needed)

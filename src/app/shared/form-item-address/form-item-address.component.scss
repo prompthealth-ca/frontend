@@ -33,8 +33,12 @@
   }
 }
 
-.errors{
-  margin: 0;
-  padding: 0;
-  list-style: none;
+
+.form-control.success {
+  background: $colorSuccessLight;
+  border-color: $colorSuccess;
+
+  &:focus {
+    box-shadow: 0 0 0 1.5px $colorSuccess;
+  }
 }

@@ -47,7 +47,7 @@ ul.selectbox-selections{
     position: absolute;
     width: 100%;
     overflow: auto;
-    max-height: 300px;
+    max-height: 200px;
     background: white;
 
     top: calc(100% - 4px);
@@ -64,17 +64,32 @@ ul.selectbox-selections{
         }    
     }
 
-    li{ 
-        position: relative;
-        z-index: 1; 
-    }
+    // li{ 
+    //     position: relative;
+    //     z-index: 1; 
+    // }
 
-    li button{
-        width: 100%;
-        border-radius: 0;
-        &:focus{
-            color: white;
-            background: $colorPrimary;
+    // li button{
+    //     width: 100%;
+    //     border-radius: 0;
+    //     &:focus{
+    //         color: white;
+    //         background: $colorPrimary;
+    //     }
+    // }
+
+
+    li {        
+        button {
+            display: inline-block;
+            padding: 12px 15px;
+            width: 100%;
+    
+            &:hover, 
+            &:focus {
+                background-color: $colorPrimaryLight;
+                color: $colorPrimaryDark !important;     
+            }
         }
     }
 }

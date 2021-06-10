@@ -19,10 +19,10 @@ import { DateTimeData, FormItemDatetimeComponent } from 'src/app/shared/form-ite
 
 
 const expandTitleAnimation = trigger('expandTitle', [
-  state('shrink', style({ height: '1.2em' })),
+  state('shrink', style({ height: '1em' })),
   state('expand', style({ height: 'auto' })),
   transition('shrink=>expand', animate('600ms ease', style({ height: '*' }))),
-  transition('expand=>shrink', style({ height: '1.2em' }))
+  transition('expand=>shrink', style({ height: '1em' }))
 ]);
 
 const expandSubtitleAnimation = trigger('expandSubtitle', [

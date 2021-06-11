@@ -55,10 +55,10 @@ export class LandingClubhouseComponent implements OnInit {
 		private _route: ActivatedRoute,
   ) {
 		this._uService.setMeta(this._router.url, {
-			title: 'Join us on Clubhouse - HealthLoop | PromptHealth',
-			description: 'We are on Clubhouse where we spark conversations in this forum on challenges of both health and wellness seekers and providers',
+			title: 'Newsletter | PromptHealth',
+			description: 'Subscribe to receive meaningful, illuminating insight into the wins and challenges of the health and wellness industry.',
 			image: 'https://prompthealth.ca/assets/img/clubhouse.png',
-			imageAlt: 'HealthLoop on Clubhouse',
+			imageAlt: 'newsletter',
 			imageType: 'image/png',
 		});
     this.form = _fb.group({
@@ -73,23 +73,35 @@ export class LandingClubhouseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-		this._route.queryParams.subscribe((params: {id: ReferrerId})=>{
-			if(params.id) {
-				let name: ReferrerName;
-				switch(params.id) {
-					case 'f': name = 'facebook'; break;
-					case 't': name = 'twitter'; break;
-					case 'i': name = 'instagram'; break;
-					case 'l': name = 'linkedin'; break;
-					case 'c': name = 'clubhouse'; break;
-					case 'y': name = 'youtube'; break;
-					case 'ti': name = 'tiktok'; break;
-					case 'ft': name = 'internal'; break;
-					default:  name = 'other'; break;
-				}
-				this.f.referrer.setValue(name);
+		if(!this._uService.isServer){
+			const ref = document.referrer;
+			let res: string;
+			if(!ref || ref.length  == 0) {
+				res = 'direct';
+			} else {
+				res = ref.replace(/http(s)?:\/\//, '').replace(/\/.*$/, '');
 			}
-		});
+			console.log(res);
+			this.f.referrer.setValue(res);
+		}
+
+		// this._route.queryParams.subscribe((params: {id: ReferrerId})=>{
+		// 	if(params.id) {
+		// 		let name: ReferrerName;
+		// 		switch(params.id) {
+		// 			case 'f': name = 'facebook'; break;
+		// 			case 't': name = 'twitter'; break;
+		// 			case 'i': name = 'instagram'; break;
+		// 			case 'l': name = 'linkedin'; break;
+		// 			case 'c': name = 'clubhouse'; break;
+		// 			case 'y': name = 'youtube'; break;
+		// 			case 'ti': name = 'tiktok'; break;
+		// 			case 'ft': name = 'internal'; break;
+		// 			default:  name = 'other'; break;
+		// 		}
+		// 		this.f.referrer.setValue(name);
+		// 	}
+		// });
 
     this.f.region.valueChanges.subscribe(value => {
       if(value.length > 0) {

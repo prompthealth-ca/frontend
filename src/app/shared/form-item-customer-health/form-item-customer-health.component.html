@@ -2,7 +2,7 @@
   <ul class="list-unstyled checkbox-group-root" *ngIf="disabled">
     <ng-container *ngFor="let item of selectionList; let i = index;">
       <li *ngIf="getFormArray('root').controls[i].value">
-        {{item.label}}
+        <span>{{item.label}}</span>
   
         <ul 
         *ngIf="getFormArray('root').controls[i].value && item.child"
@@ -11,7 +11,7 @@
         >
           <ng-container *ngFor="let itemSub of item.child; let j = index;">
             <li *ngIf="getFormArray(item.id).controls[j].value">
-              {{itemSub.label}}
+              <span>{{itemSub.label}}</span>
             </li>
           </ng-container>
         </ul>

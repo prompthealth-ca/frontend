@@ -25,7 +25,7 @@ i {
 
 /** if icon is used in some sentence, it should be aligned with text */
 h1, h2, h3, h4, h5, h6, 
-p, a, span, caption, li,
+p, a, span, u, b, caption, li,
 .h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2, .body-small,
 .caption {
   >i {
@@ -56,23 +56,61 @@ ol,
 .body-small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
 caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
 
+@media (min-width: #{$breakpointMd}) {
+  .h1-md { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
+  .h2-md { @include typography(48px, 54px, $fontWeightBold, 0px); }
+  .h3-md { @include typography(34px, 42px, $fontWeightBold, 0.25px); }
+  .h4-md { @include typography(24px, 32px, $fontWeightBold, 0px); }
+  .h5-md { @include typography(20px, 26px, $fontWeightBold, 0.2px); }
+  .h6-md { @include typography(18px, 24px, $fontWeightMedium, 0.2px); }
+  .subtitle1-md { @include typography(16px, 24px, $fontWeightMedium, 0.25px); }
+  .subtitle2-md { @include typography(14px, 18px, $fontWeightMedium, 0.1px); }
+  .body1-md { @include typography(16px, 24px, $fontWeightRegular, 0.1px); }
+  .body2-md { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
+  .body-small-md { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
+  .caption-md { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
+}
+
 @mixin clamp($line, $height) {
   height: $line * $height;
-  line-height: $line * $height;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+@mixin clampTemplate($i, $prefix: '') {
+  .subtitle2.clamp-#{$prefix}#{$i}line { @include clamp($i, 18px); }
+  .body2.clamp-#{$prefix}#{$i}line { @include clamp($i, 22px); }
+  .body-small.clamp-#{$prefix}#{$i}line { @include clamp($i, 16px); }
+
+  h4, .h4 {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 32px); }
+  }
+  h5, .h5 { 
+    &.clamp-#{$prefix}#{$i}line{ @include clamp($i, 26px); }
+  }
+  h6, .h6,
+  p,
+  .body1,
+  .subtitle1 { 
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 24px);} 
+  }
 }
 
 @for $i from 1 through 3 {
-  .clamp-#{$i}line {
-    &.subtitle2 { @include clamp($i, 18px); }
-    &.body2 { @include clamp($i, 22px); }
-    &.small { @include clamp($i, 16px); }
-  
-    &h4, &.h4 { @include clamp($i, 32px); }
-    &h5, &.h5 { @include clamp($i, 26px); }
-  
-    &h6, &.h6,
-    &p,
-    &.body1,
-    &.subtitle1 { @include clamp($i, 24px); }
+  @include clampTemplate($i);
+
+  @media (min-width: $breakpointMd) {
+    @include clampTemplate($i, 'md-');
+  }
+
+  @media (min-width: #{$breakpointLg}) {
+    @include clampTemplate($i, 'lg-');
+  }
+
+  @media (min-width: #{$breakpointXl}) {
+    @include clampTemplate($i, 'xl-');
   }
 }

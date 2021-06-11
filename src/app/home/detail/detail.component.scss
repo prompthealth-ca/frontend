@@ -2,28 +2,8 @@
 @import '../../../assets/scss/responsive_variables';
 @import '../../../assets/scss/variables';
 
-:host{ font-size: 16px; }
+.color-video{ color: #00D147; }
 
-.text-blue{ color: #3377C5; }
-.border-blue{ border: solid 1px #3377C5; }
-.bg-blue{ background: #3377C5; }
-
-.bg-lightblue{ background: rgba(128, 187, 255, 0.2);; }
-
-.borderb-grey{ border-bottom: solid 2px #DFD9D9; }
-
-.color-card-icon{ color: #646363; }
-.fa-video{ color: #00D147; }
-
-// .overflow-hidden{ overflow: hidden;}
-// .font-weight-300{ font-weight: 300;}
-// .font-weight-500{ font-weight: 500; }
-
-.mt-md-6{ @media screen and (min-width: 768px){ margin-top: 120px!important; }}
-// .font-md-regular{ @media screen and (min-width: 768px){ font-size: 1em; }}
-// .font-md-big{ @media screen and (min-width: 768px){ font-size: 1.2em; }}
-// .font-md-bigger{ @media screen and (min-width: 768px){ font-size: 1.4em; }}
-// .font-md-biggest{ @media screen and (min-width: 768px){ font-size: 1.6em; }}
 
 .url{ white-space: pre; }
 

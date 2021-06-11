@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 col-lg-7">
         <h6 class="h6 text-primary mb-20p">Personalize. Compare. Connect.</h6>
-        <h2 class="h2 mb-30p">Your health and wellness personal assistant</h2>
+        <h2 class="h3 h2-md mb-30p">Your health and wellness personal assistant</h2>
         <h6 class="h6 opacity-70pc mb-50p">Take control of your health with options tailored to you</h6>
         
         <div class="bg-white color-border-primary-light-dark border rounded-lg mb-50p">
@@ -74,7 +74,7 @@
 
 <!-- category start -->
 <section class="container my-40p my-md-100p">
-  <ul class="row list-unstyled p-0">
+  <ul class="row list-unstyled p-0 w-100">
     <ng-container *ngFor="let dataPerRow of categoryController?.dataPerRows; let i = index;">
       <li *ngFor="let cat of dataPerRow.categories; let j = index;" class="col-12 col-md-6 col-xl-4">
         <list-item
@@ -126,60 +126,6 @@
         </ul>
       </li>
     </ng-container>
-
-<!-- 
-    <ng-container *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
-      <li class="col-12 col-md-6 col-xl-4">
-        <list-item
-        *ngIf="categories && categories.length > i"
-        [leading]="categoryIcon(categories[i])"
-        leadingClass="text-primary-dark"
-        [leadingStyle]="{fontSize: '30px'}"
-        action="chevron-down"
-        actionClass="text-primary btn btn-icon"
-        [actionStyle]="{transform: 'rotateX(' + ((i === idxSelectedCategory) ? -180 : 0) + 'deg)', transition: 'transform 250ms'}"
-        (onTap)="onTapMainCategory(i)"
-        >
-          <h5 class="subtitle1 mb-0">{{categories[i].item_text}}</h5>
-          <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(categories[i])}}</div>  
-        </list-item>  
-      </li>
-  
-      <li 
-      *ngIf="i === idxTargetSubcategoryInjector && idxSelectedCategory >= 0"
-      class="col-12 subcategory-injector overflow-hidden" 
-      [@expandVertical]
-      >
-        <ul class="row list-unstyled p-0">
-          <li class="col-12 col-md-6 col-xl-4">
-            <a [routerLink]="['/practitioners', 'category', categories[idxSelectedCategory]._id]">
-              <list-item
-              [leading]="categoryIcon(categories[idxSelectedCategory])"
-              leadingClass="text-placeholder"
-              [leadingStyle]="{fontSize: '30px'}"
-              action="arrow-right"
-              actionClass="text-primary btn btn-icon"
-              >
-                <div class="subtitle1 text-body">All of {{categories[idxSelectedCategory].item_text}}</div>
-              </list-item>
-            </a>
-          </li>
-          <li class="col-12 col-md-6 col-xl-4" *ngFor="let sub of categories[idxSelectedCategory].subCategory; let j = index;">
-            <a [routerLink]="['/practitioners', 'category', sub._id]">
-              <list-item
-              [leading]="categoryIcon(categories[idxSelectedCategory])"
-              leadingClass="text-placeholder"
-              [leadingStyle]="{fontSize: '30px'}"
-              action="arrow-right"
-              actionClass="text-primary btn btn-icon"
-              >
-                <div class="subtitle1 text-body">{{sub.item_text}}</div>
-              </list-item>        
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ng-container> -->
   </ul>
 
   <div class="d-flex h6 mt-50p">
@@ -193,7 +139,7 @@
 <!-- category end -->
 
 <!-- expart finder start -->
-<section class="container">
+<section class="container mt-100p">
   <h2>Expart Finder</h2>
   <div class="row align-items-end justify-content-between">
     <p class="col-12 col-md-8 col-lg-7 mb-md-0">
@@ -266,7 +212,7 @@
 <!-- testimonial end-->
 
 <!-- app start-->
-<section class="container py-90p">
+<section class="container my-100p">
   <div class="row align-items-center">
     <div class="col-12 col-lg-6 col-xl-5">
       <h2 class="mb-20p">
@@ -307,7 +253,7 @@
 <!-- app end-->
 
 <!-- Find by city start -->
-<section class="container">
+<section class="container my-100p">
   <h2 class="mb-30p">Find By City</h2>
   <ul class="list-unstyled row">
     <li class="col-6 col-md-4 col-lg-3" *ngFor="let city of citiesFeatured">
@@ -325,7 +271,31 @@
 
 <!-- blogs start-->
 <section class="container my-100p">
-  <h2>Our Blogs</h2>
+  <h2 class="mb-30p">Our Blogs</h2>
+  <ul class="row list-unstyled mb-0">
+    <ng-container *ngIf="!blogs">
+      <li class="col-12 col-md-4 mb-20p" *ngFor="let i of [0,1,2]">
+        <div class="card"><card-dummy></card-dummy></div>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="blogs">
+      <li class="col-12 col-md-4 mb-20p" *ngFor="let b of blogs">
+        <a [routerLink]="['/blogs', b.id]">
+          <div class="bg-background rounded-12p p-20p">
+            <div class="body-small text-primary mb-10p">{{b.createdAt | date: 'longDate'}}</div>
+            <h6 class="clamp-md-2line clamp-lg-1line mb-10p text-body">{{b.title}}</h6>
+            <p class="body1 clamp-3line text-body">{{b.summary}}</p>
+            <div class="text-right">
+              <button class="btn btn-text pr-0 pb-0">
+                <u>Read</u>
+                <i iconPh="arrow-right-circle" class="large"></i>
+              </button>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
 </section>
 
 

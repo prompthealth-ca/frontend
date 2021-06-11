@@ -6,12 +6,15 @@ import { environment } from 'src/environments/environment';
 // import { Partner } from '../models/partner';
 // import { PartnerSearchFilterQuery } from '../models/partner-search-filter-query';
 import { UniversalService } from '../shared/services/universal.service';
-import { Category, CategoryService, SubCategory } from '../shared/services/category.service';
-import { IFormItemSearchData } from '../models/form-item-search-data';
+import { Category, CategoryService } from '../shared/services/category.service';
 import { IUserDetail } from '../models/user-detail';
+import { CategoryViewerController } from '../models/category-viewer-controller';
 import { expandVerticalAnimation } from '../_helpers/animations';
 import { Professional } from '../models/professional';
 import { CityId, getLabelByCityId } from '../_helpers/location-data';
+import { BlogSearchQuery, IBlogSearchResult } from '../models/blog-search-query';
+import { IResponseData } from '../models/response-data';
+import { Blog, IBlog } from '../models/blog';
 
 /** for event bright */
 // declare function registerEvent(eventId, action): void;
@@ -26,15 +29,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private _catService: CategoryService,
-    // private formBuilder: FormBuilder, /** NO NEED */
     private _sharedService: SharedService,
     private _headerStatusService: HeaderStatusService,
-    // private toastr: ToastrService,
     private _uService: UniversalService,
     private _changeDetector: ChangeDetectorRef,
-    // _el: ElementRef,
   ) {
-    // this.elHost = _el.nativeElement;
   }
 
     ////// NEW  
@@ -42,20 +41,26 @@ export class HomeComponent implements OnInit {
     public pageCurrentPractitionersFeatured: number = 0
     public countPractitionersFeaturedPerPage: number = 7;
     public citiesFeatured: {id: CityId, label: string}[];
+    public blogs: Blog[];
 
-    private timerCategory: any = null;
+    private timerResize: any = null;
+    private previousScreenWidth: number = 0;
+
     @HostListener('window:resize', ['$event']) WindowResize(e: Event) {
-      this.categoryController.disposeAll();
-      if(this.timerCategory) {
-        clearTimeout(this.timerCategory);
-      }
+      if(this.categories && window.innerWidth && window.innerWidth != this.previousScreenWidth) {
+        this.previousScreenWidth = window.innerWidth;
+        this.categoryController.disposeAll();
 
-      this.timerCategory = setTimeout(() => {
-        if(this.categories) {
+        if(this.timerResize) {
+          clearTimeout(this.timerResize);
+        }
+  
+        this.timerResize = setTimeout(() => {
           this.categoryController = new CategoryViewerController(this.categories);
           this._changeDetector.detectChanges();
-        }
-      }, 500); 
+        }, 500); 
+  
+      }
     }
 
     private categories: Category[];
@@ -67,7 +72,26 @@ export class HomeComponent implements OnInit {
       } else {
         this._headerStatusService.hideShadow();
       }
-    }  
+    }
+
+    async getBlog() {
+      const query = new BlogSearchQuery({limit: 3});
+      this._sharedService.getNoAuth('/blog/get-all', query.json ).subscribe((res: IResponseData) => {
+        if(res.statusCode === 200) {
+          const blogs = [];
+          (res.data as IBlogSearchResult).data.forEach(d => {
+            blogs.push(new Blog(d));
+          });
+          this.blogs = blogs;
+        } else {
+          console.log(res.message);
+          this.blogs = [];
+        }
+      }, (error) => {
+        console.log(error);
+        this.blogs= [];
+      });
+    }
     ////// NEW END
 
   AWS_S3 = '';
@@ -100,10 +124,13 @@ export class HomeComponent implements OnInit {
     const ls = this._uService.localStorage;
     this.AWS_S3 = environment.config.AWS_S3;
 
+    this.getBlog();
+
     if (!this._uService.isServer) {
       // await this.getHomePageFeatures(); /** need to reinstate after many practitioners buy addonPlan */
       this.getPractitionersFeatured(); /** temporary solition */
     }
+
   }
 
   /** need to reinstate after many practitioners buy addonPlan */
@@ -131,97 +158,3 @@ export class HomeComponent implements OnInit {
   }
 }
 
-class CategoryViewerController {
-
-  public dataPerRows: {
-    categories: Category[];
-    categoryInjected: Category;
-  }[];
-
-  isCategorySelected(idxRow: number, idxCol: number) {
-    const target = this.dataPerRows[idxRow].categories[idxCol];
-    const injected = this.dataPerRows[idxRow].categoryInjected;
-    return (injected && target._id == injected._id) ? true : false;
-  }
-
-  getIconOf(cat: Category): string {
-    const img = cat.image;
-    const img2 = img.toLowerCase().replace(/_/g, '-').replace('.png', '');
-    return img2
-  }
-
-  subCategoriesString(parent: Category) {
-    const categories = [];
-    parent.subCategory.forEach(sub => {categories.push(sub.item_text); });
-    return categories.join(' / ');
-  }
-
-  onTapMainCategory(idxRow: number, idxCol: number) {
-    const data = this.dataPerRows[idxRow];
-
-    if(this.isCategorySelected(idxRow, idxCol)) { this._dispose(data); }
-    else {
-      const injected = data.categoryInjected;
-      const target = data.categories[idxCol];
-
-      if(!injected) { 
-        this._inject(data, target); 
-      }
-      else {
-        this._dispose(data);
-        this.waitForInject = {idxRow: idxRow, idxCol: idxCol};
-      }
-    }
-
-    this.isCategorySelected(idxRow, idxCol)
-  }
-
-  onAnimationDone() {
-    if(this.waitForInject) {
-      const data = this.dataPerRows[this.waitForInject.idxRow];
-      const target = data.categories[this.waitForInject.idxCol];
-      this._inject(data, target);
-      this.waitForInject = null;
-    }
-  }
-
-  disposeAll() {
-    this.dataPerRows.forEach(data => { this._dispose(data); });
-  }
-
-  private waitForInject: {idxRow: number; idxCol: number} = null;
-
-  private _inject(dataPerRow: CategoryViewerController['dataPerRows'][0], target: Category) {
-    dataPerRow.categoryInjected = target;
-  }
-
-  private _dispose(dataPerRow: CategoryViewerController['dataPerRows'][0]) {
-    dataPerRow.categoryInjected = null;
-  }
-
-
-  constructor(categories: Category[]) {
-    this.dataPerRows = [];
-
-    let numcol: number;
-    if(!window.innerWidth || window.innerWidth < 768) { numcol = 1; }
-    else if(window.innerWidth < 1200) { numcol = 2} 
-    else { numcol = 3; }
-
-    const numrow = Math.ceil(categories.length / numcol);
-
-    for (let i=0; i<numrow; i++) {
-      const categoriesPerRow = [];
-      for (let j=0; j<numcol; j++) {
-        let k = i * numcol + j;
-        if(k >= categories.length) { break; }
-
-        categoriesPerRow.push(categories[k]);
-      }
-
-      if(categoriesPerRow.length == 0) { break; }
-      
-      this.dataPerRows.push({categories: categoriesPerRow, categoryInjected: null});
-    }
-  }
-}

@@ -42,16 +42,16 @@ a {
   }
 }
 
-.clamp-1line{
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  height: 1em;
-  line-height: 1em;
-  /** additional setting for height & line-height is in _typography.scss */
-}
+// .clamp-1line{
+//   display: -webkit-box;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   -webkit-line-clamp: 1;
+//   -webkit-box-orient: vertical;
+//   height: 1em;
+//   line-height: 1em;
+//   /** additional setting for height & line-height is in _typography.scss */
+// }
 
 
 ui-switch{

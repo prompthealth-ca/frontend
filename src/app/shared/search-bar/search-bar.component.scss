@@ -14,6 +14,8 @@ form {
   .searchbox {
     border-bottom: none;
     border-right: solid 1px $colorGsLine;
+    padding: 0!important;
+
     &:last-child {
       border-right: none;
     }

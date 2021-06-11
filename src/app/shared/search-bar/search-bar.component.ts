@@ -39,7 +39,6 @@ export class SearchBarComponent implements OnInit {
     });
 
     this._option = new OptionSearchBar(this.option);
-    console.log(this._option)
   }
 
   ngAfterViewInit() {
@@ -71,7 +70,6 @@ export class SearchBarComponent implements OnInit {
   _onSubmit() {
     const valSituation = this.f.searchBySituation.value;
     const dataLocation = this.searchLocation.dataSelected;
-    console.log(dataLocation);
     const valLocation = dataLocation ? dataLocation.id : this.f.searchByLocation.value;
     this.onSubmit.emit({
       searchBySituation: valSituation || '',

@@ -75,19 +75,73 @@
 <!-- category start -->
 <section class="container my-40p my-md-100p">
   <ul class="row list-unstyled p-0">
-    <ng-container *ngFor="let cat of categories; let i = index;">
-      <li class="col-12 col-md-6 col-xl-4">
+    <ng-container *ngFor="let dataPerRow of categoryController?.dataPerRows; let i = index;">
+      <li *ngFor="let cat of dataPerRow.categories; let j = index;" class="col-12 col-md-6 col-xl-4">
         <list-item
-        [leading]="categoryIcon(cat)"
+        [leading]="categoryController.getIconOf(cat)"
         leadingClass="text-primary-dark"
         [leadingStyle]="{fontSize: '30px'}"
-        action="chevron-right"
+        action="chevron-down"
         actionClass="text-primary btn btn-icon"
-        [actionStyle]="{transform: 'rotate(' + ((i === idxSelectedCategory) ? 90 : 0) + 'deg)', transition: 'transform 150ms'}"
-        (onTap)="onTapMainCategory(i)"
+        [actionStyle]="{transform: 'rotateX(' + ((categoryController.isCategorySelected(i, j)) ? -180 : 0) + 'deg)', transition: 'transform 250ms'}"
+        (onTap)="categoryController.onTapMainCategory(i, j)"
         >
           <h5 class="subtitle1 mb-0">{{cat.item_text}}</h5>
-          <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(cat)}}</div>  
+          <div class="body2 color-gs-label clamp-1line">{{categoryController.subCategoriesString(cat)}}</div>  
+        </list-item>  
+      </li>
+
+      <li *ngIf="dataPerRow.categoryInjected != null"
+      class="col-12 subcategory-injector overflow-hidden"
+      [@expandVertical]
+      (@expandVertical.done)="categoryController.onAnimationDone()"
+      >
+        <ul class="row list-unstyled p-0">
+          <li class="col-12 col-md-6 col-xl-4">
+            <a [routerLink]="['/practitioners', 'category', dataPerRow.categoryInjected._id]">
+              <list-item
+              [leading]="categoryController.getIconOf(dataPerRow.categoryInjected)"
+              leadingClass="text-placeholder"
+              [leadingStyle]="{fontSize: '30px'}"
+              action="arrow-right"
+              actionClass="text-primary btn btn-icon"
+              >
+                <div class="subtitle1 text-body">All of {{dataPerRow.categoryInjected.item_text}}</div>
+              </list-item>
+            </a>
+          </li>
+          <li class="col-12 col-md-6 col-xl-4" *ngFor="let sub of dataPerRow.categoryInjected.subCategory; let j = index;">
+            <a [routerLink]="['/practitioners', 'category', sub._id]">
+              <list-item
+              [leading]="categoryController.getIconOf(dataPerRow.categoryInjected)"
+              leadingClass="text-placeholder"
+              [leadingStyle]="{fontSize: '30px'}"
+              action="arrow-right"
+              actionClass="text-primary btn btn-icon"
+              >
+                <div class="subtitle1 text-body">{{sub.item_text}}</div>
+              </list-item>        
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ng-container>
+
+<!-- 
+    <ng-container *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]">
+      <li class="col-12 col-md-6 col-xl-4">
+        <list-item
+        *ngIf="categories && categories.length > i"
+        [leading]="categoryIcon(categories[i])"
+        leadingClass="text-primary-dark"
+        [leadingStyle]="{fontSize: '30px'}"
+        action="chevron-down"
+        actionClass="text-primary btn btn-icon"
+        [actionStyle]="{transform: 'rotateX(' + ((i === idxSelectedCategory) ? -180 : 0) + 'deg)', transition: 'transform 250ms'}"
+        (onTap)="onTapMainCategory(i)"
+        >
+          <h5 class="subtitle1 mb-0">{{categories[i].item_text}}</h5>
+          <div class="body2 color-gs-label clamp-1line">{{subCategoriesString(categories[i])}}</div>  
         </list-item>  
       </li>
   
@@ -125,7 +179,7 @@
           </li>
         </ul>
       </li>
-    </ng-container>
+    </ng-container> -->
   </ul>
 
   <div class="d-flex h6 mt-50p">
@@ -256,10 +310,10 @@
 <section class="container">
   <h2 class="mb-30p">Find By City</h2>
   <ul class="list-unstyled row">
-    <li class="col col-md-4 col-lg-3" *ngFor="let city of citiesFeatured">
+    <li class="col-6 col-md-4 col-lg-3" *ngFor="let city of citiesFeatured">
       <a [routerLink]="['/practitioners', 'area', city.id]">
         <list-item
-        action="chevron-right"
+        action="arrow-right"
         >
           <div class="subtitle1 text-body">{{city.label}}</div>
         </list-item>  

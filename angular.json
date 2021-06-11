@@ -35,7 +35,7 @@
               "node_modules/slick-carousel/slick/slick.scss",
               "node_modules/slick-carousel/slick/slick-theme.scss",
               "src/assets/scss/style.scss",
-              "src/assets/icon/ph-v1.0/style.css"
+              "src/assets/icon/ph-v1.1/style.css"
             ],
             "scripts": [
               "src/assets/js/jquery-3.4.1.slim.min.js",

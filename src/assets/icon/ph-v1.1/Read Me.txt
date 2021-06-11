@@ -1,19 +1,37 @@
-
 MESSAGE FROM YUKI
 
-BEFORE USE, YOU MUST DO FOLLOWING
+EXAMPLE:
+ex) 
+<i class="icon-chevron-right text-danger">
+  <span class="path1"></span>
+  <span class="path2"></span>
+</i>
 
+** most icon needs path1 and path2 in i tag.
+** you can set font color and size adding class to i tag.
+
+
+VERSION HISTORY:
+[1.1]
+added following new icons.
+* category icon - mood (mood/mental health)
+* social icons
+* finances (see assets in figma)
+* grid (see assets in figma)
+* security (see assets in figma)
+* images (see assets in figma)
+* editor (see assets in figma)
+* playlist-plus, shuffle, soundwave in audiovisual (see assets in figma)
+
+
+
+
+
+TO ME:
+BEFORE RELEASE, I SHOULD DO FOLLOWING
   DELETE ALL COLOR SETTING IN CSS FILE FOR BETTER USE CASE.
   you can use this regEx to delete all color setting 
   ^\s*color:\s.+;\s*\n
-
-  MAKE SURE pin-filled EXISTS (IT'S USED IN SEARCH BAR)
-  CURRENTLY I CREATED THE ICON MANUALLY EDITING STYLE.CSS
-  (so if you update the iconset, it will be desappeared)
-
-
-AND THEN YOU CAN USE CUSOME DIRECTIVE [iconPh]
-ex) <i class="icon-chevron-right text-danger" iconPh></i>
 
 
 

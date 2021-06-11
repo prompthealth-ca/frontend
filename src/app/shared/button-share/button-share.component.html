@@ -19,19 +19,19 @@
   >
     <ng-container *ngFor="let social of socials">
       <li>
-        <a class="btn btn-text py-3 px-2"
+        <a class="btn btn-text-black py-3 px-2"
         target="_blank"
         [href]="socialLink(social.id)"
         (click)="closeMenu()"
         >
-          <i [iconPh]="social.id"></i>
+          <i [iconPh]="social.id" class="mr-2"></i>
           <span>{{social.label}}</span>
         </a>
       </li>
     </ng-container>
     <li *ngIf="!hideCopy">
-      <a class="btn btn-text py-3 px-2" (click)="copyLink()">
-        <i iconPh="link-2"></i>
+      <a class="btn btn-text-black py-3 px-2" (click)="copyLink()">
+        <i iconPh="link-2-1" class="mr-2"></i>
         <span>
           <ng-container *ngIf="!isLinkCopied">Copy link</ng-container>
           <ng-container *ngIf="isLinkCopied">Link copied!</ng-container>

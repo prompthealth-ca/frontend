@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'ph';
   src:
-    url('fonts/ph.ttf?q6an2q') format('truetype'),
-    url('fonts/ph.woff?q6an2q') format('woff'),
-    url('fonts/ph.svg?q6an2q#ph') format('svg');
+    url('fonts/ph.ttf?om8hjp') format('truetype'),
+    url('fonts/ph.woff?om8hjp') format('woff'),
+    url('fonts/ph.svg?om8hjp#ph') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -24,6 +24,1285 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-lock-2-slash .path1:before {
+  content: "\ec58";
+  opacity: 0.16;
+}
+.icon-lock-2-slash .path2:before {
+  content: "\ec59";
+  margin-left: -1em;
+}
+.icon-lock-slash .path1:before {
+  content: "\ec5a";
+  opacity: 0.16;
+}
+.icon-lock-slash .path2:before {
+  content: "\ec5b";
+  margin-left: -1em;
+}
+.icon-lock .path1:before {
+  content: "\ec5c";
+  opacity: 0.16;
+}
+.icon-lock .path2:before {
+  content: "\ec5d";
+  margin-left: -1em;
+}
+.icon-key .path1:before {
+  content: "\ec5e";
+  opacity: 0.16;
+}
+.icon-key .path2:before {
+  content: "\ec5f";
+  margin-left: -1em;
+}
+.icon-shield .path1:before {
+  content: "\ec60";
+  opacity: 0.16;
+}
+.icon-shield .path2:before {
+  content: "\ec61";
+  margin-left: -1em;
+}
+.icon-shield-cross .path1:before {
+  content: "\ec62";
+  opacity: 0.16;
+}
+.icon-shield-cross .path2:before {
+  content: "\ec63";
+  margin-left: -1em;
+}
+.icon-server .path1:before {
+  content: "\ec64";
+  opacity: 0.16;
+}
+.icon-server .path2:before {
+  content: "\ec65";
+  margin-left: -1em;
+}
+.icon-lock-2-opened .path1:before {
+  content: "\ec66";
+  opacity: 0.16;
+}
+.icon-lock-2-opened .path2:before {
+  content: "\ec67";
+  margin-left: -1em;
+}
+.icon-scan .path1:before {
+  content: "\ec68";
+  opacity: 0.16;
+}
+.icon-scan .path2:before {
+  content: "\ec69";
+  margin-left: -1em;
+}
+.icon-eye-slash .path1:before {
+  content: "\ec6a";
+  opacity: 0.16;
+}
+.icon-eye-slash .path2:before {
+  content: "\ec6b";
+  margin-left: -1em;
+}
+.icon-lock-2 .path1:before {
+  content: "\ec6c";
+  opacity: 0.16;
+}
+.icon-lock-2 .path2:before {
+  content: "\ec6d";
+  margin-left: -1em;
+}
+.icon-face-id .path1:before {
+  content: "\ec6e";
+  opacity: 0.16;
+}
+.icon-face-id .path2:before {
+  content: "\ec6f";
+  margin-left: -1em;
+}
+.icon-server-2 .path1:before {
+  content: "\ec70";
+  opacity: 0.16;
+}
+.icon-server-2 .path2:before {
+  content: "\ec71";
+  margin-left: -1em;
+}
+.icon-bug .path1:before {
+  content: "\ec72";
+  opacity: 0.16;
+}
+.icon-bug .path2:before {
+  content: "\ec73";
+  margin-left: -1em;
+}
+.icon-lock-opened .path1:before {
+  content: "\ec74";
+  opacity: 0.16;
+}
+.icon-lock-opened .path2:before {
+  content: "\ec75";
+  margin-left: -1em;
+}
+.icon-eye .path1:before {
+  content: "\ec76";
+  opacity: 0.16;
+}
+.icon-eye .path2:before {
+  content: "\ec77";
+  margin-left: -1em;
+}
+.icon-shield-check .path1:before {
+  content: "\ec78";
+  opacity: 0.16;
+}
+.icon-shield-check .path2:before {
+  content: "\ec79";
+  margin-left: -1em;
+}
+.icon-fingerprint .path1:before {
+  content: "\ec7a";
+  opacity: 0.16;
+}
+.icon-fingerprint .path2:before {
+  content: "\ec7b";
+  margin-left: -1em;
+}
+.icon-lightning .path1:before {
+  content: "\ec7c";
+  opacity: 0.16;
+}
+.icon-lightning .path2:before {
+  content: "\ec7d";
+  margin-left: -1em;
+}
+.icon-camera-slash .path1:before {
+  content: "\ec7e";
+  opacity: 0.16;
+}
+.icon-camera-slash .path2:before {
+  content: "\ec7f";
+  margin-left: -1em;
+}
+.icon-image-upload .path1:before {
+  content: "\ec80";
+  opacity: 0.16;
+}
+.icon-image-upload .path2:before {
+  content: "\ec81";
+  margin-left: -1em;
+}
+.icon-apperture .path1:before {
+  content: "\ec82";
+  opacity: 0.16;
+}
+.icon-apperture .path2:before {
+  content: "\ec83";
+  margin-left: -1em;
+}
+.icon-image-check .path1:before {
+  content: "\ec84";
+  opacity: 0.16;
+}
+.icon-image-check .path2:before {
+  content: "\ec85";
+  margin-left: -1em;
+}
+.icon-image-plus .path1:before {
+  content: "\ec86";
+  opacity: 0.16;
+}
+.icon-image-plus .path2:before {
+  content: "\ec87";
+  margin-left: -1em;
+}
+.icon-image-slash .path1:before {
+  content: "\ec88";
+  opacity: 0.16;
+}
+.icon-image-slash .path2:before {
+  content: "\ec89";
+  margin-left: -1em;
+}
+.icon-image .path1:before {
+  content: "\ec8a";
+  opacity: 0.16;
+}
+.icon-image .path2:before {
+  content: "\ec8b";
+  margin-left: -1em;
+}
+.icon-color-filter .path1:before {
+  content: "\ec8c";
+  opacity: 0.16;
+}
+.icon-color-filter .path2:before {
+  content: "\ec8d";
+  margin-left: -1em;
+}
+.icon-camera .path1:before {
+  content: "\ec8e";
+  opacity: 0.16;
+}
+.icon-camera .path2:before {
+  content: "\ec8f";
+  margin-left: -1em;
+}
+.icon-image-2 .path1:before {
+  content: "\ec90";
+  opacity: 0.16;
+}
+.icon-image-2 .path2:before {
+  content: "\ec91";
+  margin-left: -1em;
+}
+.icon-image-edit .path1:before {
+  content: "\ec92";
+  opacity: 0.16;
+}
+.icon-image-edit .path2:before {
+  content: "\ec93";
+  margin-left: -1em;
+}
+.icon-image-3 .path1:before {
+  content: "\ec94";
+  opacity: 0.16;
+}
+.icon-image-3 .path2:before {
+  content: "\ec95";
+  margin-left: -1em;
+}
+.icon-image-cross .path1:before {
+  content: "\ec96";
+  opacity: 0.16;
+}
+.icon-image-cross .path2:before {
+  content: "\ec97";
+  margin-left: -1em;
+}
+.icon-lightning-slash .path1:before {
+  content: "\ec98";
+  opacity: 0.16;
+}
+.icon-lightning-slash .path2:before {
+  content: "\ec99";
+  margin-left: -1em;
+}
+.icon-image-download .path1:before {
+  content: "\ec9a";
+  opacity: 0.16;
+}
+.icon-image-download .path2:before {
+  content: "\ec9b";
+  margin-left: -1em;
+}
+.icon-grid .path1:before {
+  content: "\ec9c";
+  opacity: 0.16;
+}
+.icon-grid .path2:before {
+  content: "\ec9d";
+  margin-left: -1em;
+}
+.icon-slider-vertical-2 .path1:before {
+  content: "\ec9e";
+  opacity: 0.16;
+}
+.icon-slider-vertical-2 .path2:before {
+  content: "\ec9f";
+  margin-left: -1em;
+}
+.icon-padding .path1:before {
+  content: "\eca0";
+  opacity: 0.16;
+}
+.icon-padding .path2:before {
+  content: "\eca1";
+  margin-left: -1em;
+}
+.icon-elements-plus:before {
+  content: "\eca2";
+}
+.icon-elements-3-1 .path1:before {
+  content: "\eca3";
+  opacity: 0.16;
+}
+.icon-elements-3-1 .path2:before {
+  content: "\eca4";
+  margin-left: -1em;
+}
+.icon-crop .path1:before {
+  content: "\eca5";
+  opacity: 0.16;
+}
+.icon-crop .path2:before {
+  content: "\eca6";
+  margin-left: -1em;
+}
+.icon-align-bottom .path1:before {
+  content: "\eca7";
+  opacity: 0.16;
+}
+.icon-align-bottom .path2:before {
+  content: "\eca8";
+  margin-left: -1em;
+}
+.icon-transform .path1:before {
+  content: "\eca9";
+  opacity: 0.16;
+}
+.icon-transform .path2:before {
+  content: "\ecaa";
+  margin-left: -1em;
+}
+.icon-slider-vertical .path1:before {
+  content: "\ecab";
+  opacity: 0.16;
+}
+.icon-slider-vertical .path2:before {
+  content: "\ecac";
+  margin-left: -1em;
+}
+.icon-elements-4 .path1:before {
+  content: "\ecad";
+  opacity: 0.16;
+}
+.icon-elements-4 .path2:before {
+  content: "\ecae";
+  margin-left: -1em;
+}
+.icon-selection .path1:before {
+  content: "\ecaf";
+  opacity: 0.16;
+}
+.icon-selection .path2:before {
+  content: "\ecb0";
+  margin-left: -1em;
+}
+.icon-kanban .path1:before {
+  content: "\ecb1";
+  opacity: 0.16;
+}
+.icon-kanban .path2:before {
+  content: "\ecb2";
+  margin-left: -1em;
+}
+.icon-align-vertically .path1:before {
+  content: "\ecb3";
+  opacity: 0.16;
+}
+.icon-align-vertically .path2:before {
+  content: "\ecb4";
+  margin-left: -1em;
+}
+.icon-grid-08 .path1:before {
+  content: "\ecb5";
+  opacity: 0.16;
+}
+.icon-grid-08 .path2:before {
+  content: "\ecb6";
+  margin-left: -1em;
+}
+.icon-elements-3 .path1:before {
+  content: "\ecb7";
+  opacity: 0.16;
+}
+.icon-elements-3 .path2:before {
+  content: "\ecb8";
+  margin-left: -1em;
+}
+.icon-elements-2 .path1:before {
+  content: "\ecb9";
+  opacity: 0.16;
+}
+.icon-elements-2 .path2:before {
+  content: "\ecba";
+  margin-left: -1em;
+}
+.icon-grid-09 .path1:before {
+  content: "\ecbb";
+  opacity: 0.16;
+}
+.icon-grid-09 .path2:before {
+  content: "\ecbc";
+  margin-left: -1em;
+}
+.icon-fat-rows .path1:before {
+  content: "\ecbd";
+  opacity: 0.16;
+}
+.icon-fat-rows .path2:before {
+  content: "\ecbe";
+  margin-left: -1em;
+}
+.icon-grid-07 .path1:before {
+  content: "\ecbf";
+  opacity: 0.16;
+}
+.icon-grid-07 .path2:before {
+  content: "\ecc0";
+  margin-left: -1em;
+}
+.icon-elements .path1:before {
+  content: "\ecc1";
+  opacity: 0.16;
+}
+.icon-elements .path2:before {
+  content: "\ecc2";
+  margin-left: -1em;
+}
+.icon-grid-13 .path1:before {
+  content: "\ecc3";
+  opacity: 0.16;
+}
+.icon-grid-13 .path2:before {
+  content: "\ecc4";
+  margin-left: -1em;
+}
+.icon-align-horizontally .path1:before {
+  content: "\ecc5";
+  opacity: 0.16;
+}
+.icon-align-horizontally .path2:before {
+  content: "\ecc6";
+  margin-left: -1em;
+}
+.icon-align-right .path1:before {
+  content: "\ecc7";
+  opacity: 0.16;
+}
+.icon-align-right .path2:before {
+  content: "\ecc8";
+  margin-left: -1em;
+}
+.icon-grid-12 .path1:before {
+  content: "\ecc9";
+  opacity: 0.16;
+}
+.icon-grid-12 .path2:before {
+  content: "\ecca";
+  margin-left: -1em;
+}
+.icon-grid-06 .path1:before {
+  content: "\eccb";
+  opacity: 0.16;
+}
+.icon-grid-06 .path2:before {
+  content: "\eccc";
+  margin-left: -1em;
+}
+.icon-grid-10 .path1:before {
+  content: "\eccd";
+  opacity: 0.16;
+}
+.icon-grid-10 .path2:before {
+  content: "\ecce";
+  margin-left: -1em;
+}
+.icon-grid-04 .path1:before {
+  content: "\eccf";
+  opacity: 0.16;
+}
+.icon-grid-04 .path2:before {
+  content: "\ecd0";
+  margin-left: -1em;
+}
+.icon-iframe .path1:before {
+  content: "\ecd1";
+  opacity: 0.16;
+}
+.icon-iframe .path2:before {
+  content: "\ecd2";
+  margin-left: -1em;
+}
+.icon-elements-plus-1 .path1:before {
+  content: "\ecd3";
+  opacity: 0.16;
+}
+.icon-elements-plus-1 .path2:before {
+  content: "\ecd4";
+  margin-left: -1em;
+}
+.icon-grid-05 .path1:before {
+  content: "\ecd5";
+  opacity: 0.16;
+}
+.icon-grid-05 .path2:before {
+  content: "\ecd6";
+  margin-left: -1em;
+}
+.icon-grid-11 .path1:before {
+  content: "\ecd7";
+  opacity: 0.16;
+}
+.icon-grid-11 .path2:before {
+  content: "\ecd8";
+  margin-left: -1em;
+}
+.icon-grid-15 .path1:before {
+  content: "\ecd9";
+  opacity: 0.16;
+}
+.icon-grid-15 .path2:before {
+  content: "\ecda";
+  margin-left: -1em;
+}
+.icon-crop-rotate .path1:before {
+  content: "\ecdb";
+  opacity: 0.16;
+}
+.icon-crop-rotate .path2:before {
+  content: "\ecdc";
+  margin-left: -1em;
+}
+.icon-grid-14 .path1:before {
+  content: "\ecdd";
+  opacity: 0.16;
+}
+.icon-grid-14 .path2:before {
+  content: "\ecde";
+  margin-left: -1em;
+}
+.icon-grid-02 .path1:before {
+  content: "\ecdf";
+  opacity: 0.16;
+}
+.icon-grid-02 .path2:before {
+  content: "\ece0";
+  margin-left: -1em;
+}
+.icon-grid-16 .path1:before {
+  content: "\ece1";
+  opacity: 0.16;
+}
+.icon-grid-16 .path2:before {
+  content: "\ece2";
+  margin-left: -1em;
+}
+.icon-frame .path1:before {
+  content: "\ece3";
+  opacity: 0.16;
+}
+.icon-frame .path2:before {
+  content: "\ece4";
+  margin-left: -1em;
+}
+.icon-grid-03 .path1:before {
+  content: "\ece5";
+  opacity: 0.16;
+}
+.icon-grid-03 .path2:before {
+  content: "\ece6";
+  margin-left: -1em;
+}
+.icon-stack .path1:before {
+  content: "\ece7";
+  opacity: 0.16;
+}
+.icon-stack .path2:before {
+  content: "\ece8";
+  margin-left: -1em;
+}
+.icon-slider-horizontal-2 .path1:before {
+  content: "\ece9";
+  opacity: 0.16;
+}
+.icon-slider-horizontal-2 .path2:before {
+  content: "\ecea";
+  margin-left: -1em;
+}
+.icon-distribute-vertically .path1:before {
+  content: "\eceb";
+  opacity: 0.16;
+}
+.icon-distribute-vertically .path2:before {
+  content: "\ecec";
+  margin-left: -1em;
+}
+.icon-align-top .path1:before {
+  content: "\eced";
+  opacity: 0.16;
+}
+.icon-align-top .path2:before {
+  content: "\ecee";
+  margin-left: -1em;
+}
+.icon-slider-horizontal .path1:before {
+  content: "\ecef";
+  opacity: 0.16;
+}
+.icon-slider-horizontal .path2:before {
+  content: "\ecf0";
+  margin-left: -1em;
+}
+.icon-distribute-horizontally .path1:before {
+  content: "\ecf1";
+  opacity: 0.16;
+}
+.icon-distribute-horizontally .path2:before {
+  content: "\ecf2";
+  margin-left: -1em;
+}
+.icon-frame-bounds .path1:before {
+  content: "\ecf3";
+  opacity: 0.16;
+}
+.icon-frame-bounds .path2:before {
+  content: "\ecf4";
+  margin-left: -1em;
+}
+.icon-align-left .path1:before {
+  content: "\ecf5";
+  opacity: 0.16;
+}
+.icon-align-left .path2:before {
+  content: "\ecf6";
+  margin-left: -1em;
+}
+.icon-wallet-plus-1 .path1:before {
+  content: "\ecf7";
+  opacity: 0.16;
+}
+.icon-wallet-plus-1 .path2:before {
+  content: "\ecf8";
+  margin-left: -1em;
+}
+.icon-dollar:before {
+  content: "\ecf9";
+}
+.icon-credit-card-outcome .path1:before {
+  content: "\ecfa";
+  opacity: 0.16;
+}
+.icon-credit-card-outcome .path2:before {
+  content: "\ecfb";
+  margin-left: -1em;
+}
+.icon-dollar-circle .path1:before {
+  content: "\ecfc";
+  opacity: 0.16;
+}
+.icon-dollar-circle .path2:before {
+  content: "\ecfd";
+  margin-left: -1em;
+}
+.icon-euro-circle .path1:before {
+  content: "\ecfe";
+  opacity: 0.16;
+}
+.icon-euro-circle .path2:before {
+  content: "\ecff";
+  margin-left: -1em;
+}
+.icon-procent .path1:before {
+  content: "\ed00";
+  opacity: 0.16;
+}
+.icon-procent .path2:before {
+  content: "\ed01";
+  margin-left: -1em;
+}
+.icon-wallet-move .path1:before {
+  content: "\ed02";
+  opacity: 0.16;
+}
+.icon-wallet-move .path2:before {
+  content: "\ed03";
+  margin-left: -1em;
+}
+.icon-credit-card-minus .path1:before {
+  content: "\ed04";
+  opacity: 0.16;
+}
+.icon-credit-card-minus .path2:before {
+  content: "\ed05";
+  margin-left: -1em;
+}
+.icon-euro:before {
+  content: "\ed06";
+}
+.icon-credit-card-plus .path1:before {
+  content: "\ed07";
+  opacity: 0.16;
+}
+.icon-credit-card-plus .path2:before {
+  content: "\ed08";
+  margin-left: -1em;
+}
+.icon-wallet-plus .path1:before {
+  content: "\ed09";
+  opacity: 0.16;
+}
+.icon-wallet-plus .path2:before {
+  content: "\ed0a";
+  margin-left: -1em;
+}
+.icon-wallet .path1:before {
+  content: "\ed0b";
+  opacity: 0.16;
+}
+.icon-wallet .path2:before {
+  content: "\ed0c";
+  margin-left: -1em;
+}
+.icon-credit-card-scan .path1:before {
+  content: "\ed0d";
+  opacity: 0.16;
+}
+.icon-credit-card-scan .path2:before {
+  content: "\ed0e";
+  margin-left: -1em;
+}
+.icon-credit-card-slash .path1:before {
+  content: "\ed0f";
+  opacity: 0.16;
+}
+.icon-credit-card-slash .path2:before {
+  content: "\ed10";
+  margin-left: -1em;
+}
+.icon-cash .path1:before {
+  content: "\ed11";
+  opacity: 0.16;
+}
+.icon-cash .path2:before {
+  content: "\ed12";
+  margin-left: -1em;
+}
+.icon-credit-card .path1:before {
+  content: "\ed13";
+  opacity: 0.16;
+}
+.icon-credit-card .path2:before {
+  content: "\ed14";
+  margin-left: -1em;
+}
+.icon-credit-card-income .path1:before {
+  content: "\ed15";
+  opacity: 0.16;
+}
+.icon-credit-card-income .path2:before {
+  content: "\ed16";
+  margin-left: -1em;
+}
+.icon-pos .path1:before {
+  content: "\ed17";
+  opacity: 0.16;
+}
+.icon-pos .path2:before {
+  content: "\ed18";
+  margin-left: -1em;
+}
+.icon-procent-circle .path1:before {
+  content: "\ed19";
+  opacity: 0.16;
+}
+.icon-procent-circle .path2:before {
+  content: "\ed1a";
+  margin-left: -1em;
+}
+.icon-align-bottom1:before {
+  content: "\ed1b";
+}
+.icon-align-center-2:before {
+  content: "\ed1c";
+}
+.icon-align-center:before {
+  content: "\ed1d";
+}
+.icon-align-justify-2:before {
+  content: "\ed1e";
+}
+.icon-align-justify:before {
+  content: "\ed1f";
+}
+.icon-align-left-2:before {
+  content: "\ed20";
+}
+.icon-align-left1:before {
+  content: "\ed21";
+}
+.icon-align-right-2:before {
+  content: "\ed22";
+}
+.icon-align-middle:before {
+  content: "\ed23";
+}
+.icon-align-right1:before {
+  content: "\ed24";
+}
+.icon-align-top1:before {
+  content: "\ed25";
+}
+.icon-border-bottom .path1:before {
+  content: "\ed26";
+  opacity: 0.16;
+}
+.icon-border-bottom .path2:before {
+  content: "\ed27";
+  margin-left: -1em;
+}
+.icon-border-clear .path1:before {
+  content: "\ed28";
+  opacity: 0.16;
+}
+.icon-border-clear .path2:before {
+  content: "\ed29";
+  margin-left: -1em;
+}
+.icon-border-horizontal .path1:before {
+  content: "\ed2a";
+  opacity: 0.16;
+}
+.icon-border-horizontal .path2:before {
+  content: "\ed2b";
+  margin-left: -1em;
+}
+.icon-border-inner .path1:before {
+  content: "\ed2c";
+  opacity: 0.16;
+}
+.icon-border-inner .path2:before {
+  content: "\ed2d";
+  margin-left: -1em;
+}
+.icon-border-left .path1:before {
+  content: "\ed2e";
+  opacity: 0.16;
+}
+.icon-border-left .path2:before {
+  content: "\ed2f";
+  margin-left: -1em;
+}
+.icon-border-outer .path1:before {
+  content: "\ed30";
+  opacity: 0.16;
+}
+.icon-border-outer .path2:before {
+  content: "\ed31";
+  margin-left: -1em;
+}
+.icon-border-right .path1:before {
+  content: "\ed32";
+  opacity: 0.16;
+}
+.icon-border-right .path2:before {
+  content: "\ed33";
+  margin-left: -1em;
+}
+.icon-border-top .path1:before {
+  content: "\ed34";
+  opacity: 0.16;
+}
+.icon-border-top .path2:before {
+  content: "\ed35";
+  margin-left: -1em;
+}
+.icon-border-vertical .path1:before {
+  content: "\ed36";
+  opacity: 0.16;
+}
+.icon-border-vertical .path2:before {
+  content: "\ed37";
+  margin-left: -1em;
+}
+.icon-chart-bar .path1:before {
+  content: "\ed38";
+  opacity: 0.16;
+}
+.icon-chart-bar .path2:before {
+  content: "\ed39";
+  margin-left: -1em;
+}
+.icon-chart-column .path1:before {
+  content: "\ed3a";
+  opacity: 0.16;
+}
+.icon-chart-column .path2:before {
+  content: "\ed3b";
+  margin-left: -1em;
+}
+.icon-chart-line .path1:before {
+  content: "\ed3c";
+  opacity: 0.16;
+}
+.icon-chart-line .path2:before {
+  content: "\ed3d";
+  margin-left: -1em;
+}
+.icon-chart-pie .path1:before {
+  content: "\ed3e";
+  opacity: 0.16;
+}
+.icon-chart-pie .path2:before {
+  content: "\ed3f";
+  margin-left: -1em;
+}
+.icon-column-spacing .path1:before {
+  content: "\ed40";
+}
+.icon-column-spacing .path2:before {
+  content: "\ed41";
+  margin-left: -1em;
+  opacity: 0.16;
+}
+.icon-droplet-slash .path1:before {
+  content: "\ed42";
+  opacity: 0.16;
+}
+.icon-droplet-slash .path2:before {
+  content: "\ed43";
+  margin-left: -1em;
+}
+.icon-droplet .path1:before {
+  content: "\ed44";
+  opacity: 0.16;
+}
+.icon-droplet .path2:before {
+  content: "\ed45";
+  margin-left: -1em;
+}
+.icon-edit-2 .path1:before {
+  content: "\ed46";
+  opacity: 0.16;
+}
+.icon-edit-2 .path2:before {
+  content: "\ed47";
+  margin-left: -1em;
+}
+.icon-edit-3 .path1:before {
+  content: "\ed48";
+  opacity: 0.16;
+}
+.icon-edit-3 .path2:before {
+  content: "\ed49";
+  margin-left: -1em;
+}
+.icon-edit-slash .path1:before {
+  content: "\ed4a";
+  opacity: 0.16;
+}
+.icon-edit-slash .path2:before {
+  content: "\ed4b";
+  margin-left: -1em;
+}
+.icon-edit .path1:before {
+  content: "\ed4c";
+  opacity: 0.16;
+}
+.icon-edit .path2:before {
+  content: "\ed4d";
+  margin-left: -1em;
+}
+.icon-first-line-1 .path1:before {
+  content: "\ed4e";
+  opacity: 0.16;
+}
+.icon-first-line-1 .path2:before {
+  content: "\ed4f";
+  margin-left: -1em;
+}
+.icon-first-line-2 .path1:before {
+  content: "\ed50";
+  opacity: 0.16;
+}
+.icon-first-line-2 .path2:before {
+  content: "\ed51";
+  margin-left: -1em;
+}
+.icon-first-line-3:before {
+  content: "\ed52";
+}
+.icon-functions:before {
+  content: "\ed53";
+}
+.icon-indent-decrease:before {
+  content: "\ed54";
+}
+.icon-indent-first-line:before {
+  content: "\ed55";
+}
+.icon-indent-increase:before {
+  content: "\ed56";
+}
+.icon-letter-spacing-2:before {
+  content: "\ed57";
+}
+.icon-letter-spacing .path1:before {
+  content: "\ed58";
+  opacity: 0.16;
+}
+.icon-letter-spacing .path2:before {
+  content: "\ed59";
+  margin-left: -1em;
+}
+.icon-line-height-2:before {
+  content: "\ed5a";
+}
+.icon-line-height .path1:before {
+  content: "\ed5b";
+  opacity: 0.16;
+}
+.icon-line-height .path2:before {
+  content: "\ed5c";
+  margin-left: -1em;
+}
+.icon-link-1 .path1:before {
+  content: "\ed5d";
+  opacity: 0.16;
+}
+.icon-link-1 .path2:before {
+  content: "\ed5e";
+  margin-left: -1em;
+}
+.icon-link-2-1 .path1:before {
+  content: "\ed5f";
+  opacity: 0.16;
+}
+.icon-link-2-1 .path2:before {
+  content: "\ed60";
+  margin-left: -1em;
+}
+.icon-link-2 .path1:before {
+  content: "\ed61";
+  opacity: 0.16;
+}
+.icon-link-2 .path2:before {
+  content: "\ed62";
+  margin-left: -1em;
+}
+.icon-list-ordered-2:before {
+  content: "\ed63";
+}
+.icon-list-ordered-3:before {
+  content: "\ed64";
+}
+.icon-list-ordered:before {
+  content: "\ed65";
+}
+.icon-list-unordered-2 .path1:before {
+  content: "\ed66";
+  opacity: 0.16;
+}
+.icon-list-unordered-2 .path2:before {
+  content: "\ed67";
+  margin-left: -1em;
+}
+.icon-list-unordered-3 .path1:before {
+  content: "\ed68";
+  opacity: 0.16;
+}
+.icon-list-unordered-3 .path2:before {
+  content: "\ed69";
+  margin-left: -1em;
+}
+.icon-list-unordered-4:before {
+  content: "\ed6a";
+}
+.icon-list-unordered-5:before {
+  content: "\ed6b";
+}
+.icon-list-unordered:before {
+  content: "\ed6c";
+}
+.icon-page-break .path1:before {
+  content: "\ed6d";
+  opacity: 0.16;
+}
+.icon-page-break .path2:before {
+  content: "\ed6e";
+  margin-left: -1em;
+}
+.icon-paint-bucket .path1:before {
+  content: "\ed6f";
+  opacity: 0.16;
+}
+.icon-paint-bucket .path2:before {
+  content: "\ed70";
+  margin-left: -1em;
+}
+.icon-paint-tool .path1:before {
+  content: "\ed71";
+  opacity: 0.16;
+}
+.icon-paint-tool .path2:before {
+  content: "\ed72";
+  margin-left: -1em;
+}
+.icon-paperclip-2-slash:before {
+  content: "\ed73";
+}
+.icon-paperclip-2:before {
+  content: "\ed74";
+}
+.icon-paperclip-slash:before {
+  content: "\ed75";
+}
+.icon-paperclip:before {
+  content: "\ed76";
+}
+.icon-pen-tool-2 .path1:before {
+  content: "\ed77";
+  opacity: 0.16;
+}
+.icon-pen-tool-2 .path2:before {
+  content: "\ed78";
+  margin-left: -1em;
+}
+.icon-pen-tool .path1:before {
+  content: "\ed79";
+  opacity: 0.16;
+}
+.icon-pen-tool .path2:before {
+  content: "\ed7a";
+  margin-left: -1em;
+}
+.icon-pharagraph-spacing .path1:before {
+  content: "\ed7b";
+}
+.icon-pharagraph-spacing .path2:before {
+  content: "\ed7c";
+  margin-left: -1em;
+  opacity: 0.16;
+}
+.icon-printer-slash .path1:before {
+  content: "\ed7d";
+  opacity: 0.16;
+}
+.icon-printer-slash .path2:before {
+  content: "\ed7e";
+  margin-left: -1em;
+}
+.icon-printer .path1:before {
+  content: "\ed7f";
+  opacity: 0.16;
+}
+.icon-printer .path2:before {
+  content: "\ed80";
+  margin-left: -1em;
+}
+.icon-quotes-2 .path1:before {
+  content: "\ed81";
+  opacity: 0.16;
+}
+.icon-quotes-2 .path2:before {
+  content: "\ed82";
+  margin-left: -1em;
+}
+.icon-quotes .path1:before {
+  content: "\ed83";
+  opacity: 0.16;
+}
+.icon-quotes .path2:before {
+  content: "\ed84";
+  margin-left: -1em;
+}
+.icon-ruler .path1:before {
+  content: "\ed85";
+  opacity: 0.16;
+}
+.icon-ruler .path2:before {
+  content: "\ed86";
+  margin-left: -1em;
+}
+.icon-script:before {
+  content: "\ed87";
+}
+.icon-small-caps-2:before {
+  content: "\ed88";
+}
+.icon-small-caps:before {
+  content: "\ed89";
+}
+.icon-special-charachers:before {
+  content: "\ed8a";
+}
+.icon-text-2:before {
+  content: "\ed8b";
+}
+.icon-text-block .path1:before {
+  content: "\ed8c";
+  opacity: 0.16;
+}
+.icon-text-block .path2:before {
+  content: "\ed8d";
+  margin-left: -1em;
+}
+.icon-text-bold .path1:before {
+  content: "\ed8e";
+  opacity: 0.16;
+}
+.icon-text-bold .path2:before {
+  content: "\ed8f";
+  margin-left: -1em;
+}
+.icon-text-format .path1:before {
+  content: "\ed90";
+  opacity: 0.16;
+}
+.icon-text-format .path2:before {
+  content: "\ed91";
+  margin-left: -1em;
+}
+.icon-text-italic:before {
+  content: "\ed92";
+}
+.icon-text-slash-2:before {
+  content: "\ed93";
+}
+.icon-text-slash:before {
+  content: "\ed94";
+}
+.icon-text-strikethrough:before {
+  content: "\ed95";
+}
+.icon-text-underline:before {
+  content: "\ed96";
+}
+.icon-text:before {
+  content: "\ed97";
+}
+.icon-vector .path1:before {
+  content: "\ed98";
+  opacity: 0.16;
+}
+.icon-vector .path2:before {
+  content: "\ed99";
+  margin-left: -1em;
+}
+.icon-wrap-text:before {
+  content: "\ed9a";
+}
+.icon-facebook:before {
+  content: "\ec56";
+}
+.icon-pinterest:before {
+  content: "\eda0";
+}
+.icon-google:before {
+  content: "\ed9f";
+}
+.icon-clubhouse:before {
+  content: "\ec4f";
+}
+.icon-youtube:before {
+  content: "\ec50";
+}
+.icon-insta:before {
+  content: "\ec51";
+}
+.icon-spotify:before {
+  content: "\ec52";
+}
+.icon-tiktok:before {
+  content: "\ec53";
+}
+.icon-twitter:before {
+  content: "\ec54";
+}
+.icon-linkedin:before {
+  content: "\ec55";
+}
 .icon-briefcase-doctor:before {
   content: "\ec4e";
 }
@@ -1303,9 +2582,6 @@ i {
   content: "\ea43";
   margin-left: -1em;
 }
-.icon-heart-filled:before {
-  content: "\ea42";
-}
 .icon-user .path1:before {
   content: "\ea44";
   opacity: 0.16;
@@ -1608,158 +2884,6 @@ i {
 }
 .icon-calendar-cross .path2:before {
   content: "\ea8f";
-  margin-left: -1em;
-}
-.icon-globe-2 .path1:before {
-  content: "\ea90";
-  opacity: 0.16;
-}
-.icon-globe-2 .path2:before {
-  content: "\ea91";
-  margin-left: -1em;
-}
-.icon-gps-slash .path1:before {
-  content: "\ea92";
-  opacity: 0.16;
-}
-.icon-gps-slash .path2:before {
-  content: "\ea93";
-  margin-left: -1em;
-}
-.icon-pin-2 .path1:before {
-  content: "\ea94";
-  opacity: 0.16;
-}
-.icon-pin-2 .path2:before {
-  content: "\ea95";
-  margin-left: -1em;
-}
-.icon-pin-3 .path1:before {
-  content: "\ea96";
-  opacity: 0.16;
-}
-.icon-pin-3 .path2:before {
-  content: "\ea97";
-  margin-left: -1em;
-}
-.icon-pin-check .path1:before {
-  content: "\ea98";
-  opacity: 0.16;
-}
-.icon-pin-check .path2:before {
-  content: "\ea99";
-  margin-left: -1em;
-}
-.icon-direction-2 .path1:before {
-  content: "\ea9a";
-  opacity: 0.16;
-}
-.icon-direction-2 .path2:before {
-  content: "\ea9b";
-  margin-left: -1em;
-}
-.icon-pin-slash .path1:before {
-  content: "\ea9c";
-  opacity: 0.16;
-}
-.icon-pin-slash .path2:before {
-  content: "\ea9d";
-  margin-left: -1em;
-}
-.icon-pin .path1:before {
-  content: "\ea9e";
-  opacity: 0.16;
-}
-.icon-pin .path2:before {
-  content: "\ea9f";
-  margin-left: -1em;
-}
-.icon-pin-filled .path1:before {
-  content: "\ea9e";
-}
-.icon-pin-filled .path2:before {
-  content: "\ea9f";
-  margin-left: -1em;
-}
-
-.icon-gps .path1:before {
-  content: "\eaa0";
-  opacity: 0.16;
-}
-.icon-gps .path2:before {
-  content: "\eaa1";
-  margin-left: -1em;
-}
-.icon-direction .path1:before {
-  content: "\eaa2";
-  opacity: 0.16;
-}
-.icon-direction .path2:before {
-  content: "\eaa3";
-  margin-left: -1em;
-}
-.icon-map-view .path1:before {
-  content: "\eaa4";
-  opacity: 0.16;
-}
-.icon-map-view .path2:before {
-  content: "\eaa5";
-  margin-left: -1em;
-}
-.icon-degrees .path1:before {
-  content: "\eaa6";
-  opacity: 0.16;
-}
-.icon-degrees .path2:before {
-  content: "\eaa7";
-  margin-left: -1em;
-}
-.icon-pin-cross .path1:before {
-  content: "\eaa8";
-  opacity: 0.16;
-}
-.icon-pin-cross .path2:before {
-  content: "\eaa9";
-  margin-left: -1em;
-}
-.icon-pin-minus .path1:before {
-  content: "\eaaa";
-  opacity: 0.16;
-}
-.icon-pin-minus .path2:before {
-  content: "\eaab";
-  margin-left: -1em;
-}
-.icon-compass .path1:before {
-  content: "\eaac";
-  opacity: 0.16;
-}
-.icon-compass .path2:before {
-  content: "\eaad";
-  margin-left: -1em;
-}
-.icon-globe .path1:before {
-  content: "\eaae";
-  opacity: 0.16;
-}
-.icon-globe .path2:before {
-  content: "\eaaf";
-  margin-left: -1em;
-}
-.icon-route .path1:before {
-  content: "\eab0";
-  opacity: 0.16;
-}
-.icon-route .path2:before {
-  content: "\eab1";
-  margin-left: -1em;
-}
-.icon-pin-plus .path1:before {
-  content: "\eab2";
-  opacity: 0.16;
-}
-.icon-pin-plus .path2:before {
-  content: "\eab3";
   margin-left: -1em;
 }
 .icon-bell-minus .path1:before {
@@ -2265,6 +3389,15 @@ i {
 .icon-arrow-top-right-circle .path2:before {
   content: "\eb13";
   margin-left: -1em;
+}
+.icon-playlist-plus:before {
+  content: "\ed9b";
+}
+.icon-soundwave:before {
+  content: "\ed9c";
+}
+.icon-shuffle:before {
+  content: "\ed9d";
 }
 .icon-play-slowmotion .path1:before {
   content: "\eb14";
@@ -2801,9 +3934,6 @@ i {
 .icon-delay-aging:before {
   content: "\eb9a";
 }
-.icon-preventative-health:before {
-  content: "\eb9b";
-}
 .icon-fitness:before {
   content: "\eb9c";
 }
@@ -3338,7 +4468,7 @@ i {
   content: "\ec21";
   margin-left: -1em;
 }
-.icon-radio1:before {
+.icon-radiobutton:before {
   content: "\ec22";
 }
 .icon-checkbox:before {
@@ -3347,6 +4477,159 @@ i {
 .icon-checkbox-filled:before {
   content: "\ec24";
 }
-.icon-radio-filled:before {
+.icon-radiobutton-filled:before {
   content: "\ec25";
+}
+.icon-globe-2 .path1:before {
+  content: "\ea90";
+  opacity: 0.16;
+}
+.icon-globe-2 .path2:before {
+  content: "\ea91";
+  margin-left: -1em;
+}
+.icon-gps-slash .path1:before {
+  content: "\ea92";
+  opacity: 0.16;
+}
+.icon-gps-slash .path2:before {
+  content: "\ea93";
+  margin-left: -1em;
+}
+.icon-pin-2 .path1:before {
+  content: "\ea94";
+  opacity: 0.16;
+}
+.icon-pin-2 .path2:before {
+  content: "\ea95";
+  margin-left: -1em;
+}
+.icon-pin-3 .path1:before {
+  content: "\ea96";
+  opacity: 0.16;
+}
+.icon-pin-3 .path2:before {
+  content: "\ea97";
+  margin-left: -1em;
+}
+.icon-pin-check .path1:before {
+  content: "\ea98";
+  opacity: 0.16;
+}
+.icon-pin-check .path2:before {
+  content: "\ea99";
+  margin-left: -1em;
+}
+.icon-direction-2 .path1:before {
+  content: "\ea9a";
+  opacity: 0.16;
+}
+.icon-direction-2 .path2:before {
+  content: "\ea9b";
+  margin-left: -1em;
+}
+.icon-pin-slash .path1:before {
+  content: "\ea9c";
+  opacity: 0.16;
+}
+.icon-pin-slash .path2:before {
+  content: "\ea9d";
+  margin-left: -1em;
+}
+.icon-pin .path1:before {
+  content: "\ea9e";
+  opacity: 0.16;
+}
+.icon-pin .path2:before {
+  content: "\ea9f";
+  margin-left: -1em;
+}
+.icon-pin-filled:before {
+  content: "\ec57";
+}
+.icon-gps .path1:before {
+  content: "\eaa0";
+  opacity: 0.16;
+}
+.icon-gps .path2:before {
+  content: "\eaa1";
+  margin-left: -1em;
+}
+.icon-direction .path1:before {
+  content: "\eaa2";
+  opacity: 0.16;
+}
+.icon-direction .path2:before {
+  content: "\eaa3";
+  margin-left: -1em;
+}
+.icon-map-view .path1:before {
+  content: "\eaa4";
+  opacity: 0.16;
+}
+.icon-map-view .path2:before {
+  content: "\eaa5";
+  margin-left: -1em;
+}
+.icon-degrees .path1:before {
+  content: "\eaa6";
+  opacity: 0.16;
+}
+.icon-degrees .path2:before {
+  content: "\eaa7";
+  margin-left: -1em;
+}
+.icon-pin-cross .path1:before {
+  content: "\eaa8";
+  opacity: 0.16;
+}
+.icon-pin-cross .path2:before {
+  content: "\eaa9";
+  margin-left: -1em;
+}
+.icon-pin-minus .path1:before {
+  content: "\eaaa";
+  opacity: 0.16;
+}
+.icon-pin-minus .path2:before {
+  content: "\eaab";
+  margin-left: -1em;
+}
+.icon-compass .path1:before {
+  content: "\eaac";
+  opacity: 0.16;
+}
+.icon-compass .path2:before {
+  content: "\eaad";
+  margin-left: -1em;
+}
+.icon-globe .path1:before {
+  content: "\eaae";
+  opacity: 0.16;
+}
+.icon-globe .path2:before {
+  content: "\eaaf";
+  margin-left: -1em;
+}
+.icon-route .path1:before {
+  content: "\eab0";
+  opacity: 0.16;
+}
+.icon-route .path2:before {
+  content: "\eab1";
+  margin-left: -1em;
+}
+.icon-pin-plus .path1:before {
+  content: "\eab2";
+  opacity: 0.16;
+}
+.icon-pin-plus .path2:before {
+  content: "\eab3";
+  margin-left: -1em;
+}
+.icon-mood:before {
+  content: "\ed9e";
+}
+.icon-preventative-health:before {
+  content: "\eb9b";
 }

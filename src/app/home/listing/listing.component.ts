@@ -215,6 +215,7 @@ export class ListingComponent implements OnInit, OnDestroy {
     const ls = this._uService.localStorage;
 
     this.calcMapBoundingRect(); 
+    this._headerService.hideShadow();
 
     // if options which has to be fetched from server is not set correctly, fetch.
     if (this.filters[3].options.length == 0 || this.filters[4].options.length == 0 || this.filters[4].options.length == 0) {

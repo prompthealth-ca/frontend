@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         fbq('track', 'PageView');  
       }
 
-      if(event.url != '/' && event.url != '/auth/login' ) {
+      if(event.url != '/' && event.url != '/auth/login') {
         setTimeout(()=> {
           this._headerService.showShadow();
         }, 0);

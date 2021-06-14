@@ -1,5 +1,5 @@
 @import "../../assets/scss/mixins";
-
+@import "../../assets/scss/variables";
 // .top-0 {
 //   top: 0 !important;
 // }
@@ -82,6 +82,35 @@
   transform: translateX(-50%);
 }
 
+.expert-finder-scroll-horizontal {
+  padding: 25px 15px;
+  overflow: auto;
+
+  @mixin paddingLeft($maxWidth) {
+    padding-left: calc((100vw - #{$maxWidth} + 23px) / 2)
+  }
+
+  @media (min-width: $breakpointMd) {
+    @include paddingLeft(720px);
+  }
+  @media (min-width: $breakpointLg) {
+    @include paddingLeft(960px);
+  }
+  @media (min-width: $breakpointXl) {
+    @include paddingLeft(1150px);
+  }
+
+}
+.expert-finder-container {
+  li { flex: 0 0 220px; }
+  li.personal-match-container {
+    flex: 0 0 270px;
+  }
+
+  li:last-child {
+    padding-right: 15px;
+  }
+}
 
 .card.personal-match {
   // max-width: 350px;
@@ -97,8 +126,6 @@
   height: 70px;
   width: auto;
 }
-
-
 
 
 

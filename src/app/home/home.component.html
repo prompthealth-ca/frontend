@@ -74,7 +74,7 @@
 
 <!-- category start -->
 <section class="container my-40p my-md-100p">
-  <ul class="row list-unstyled p-0 w-100">
+  <ul class="row list-unstyled p-0">
     <ng-container *ngFor="let dataPerRow of categoryController?.dataPerRows; let i = index;">
       <li *ngFor="let cat of dataPerRow.categories; let j = index;" class="col-12 col-md-6 col-xl-4">
         <list-item
@@ -138,60 +138,76 @@
 </section>
 <!-- category end -->
 
-<!-- expart finder start -->
-<section class="container mt-100p">
-  <h2>Expart Finder</h2>
-  <div class="row align-items-end justify-content-between">
-    <p class="col-12 col-md-8 col-lg-7 mb-md-0">
-      Searching for treatment options is difficult. 
-      There is more than one solution to every health need, and you deserve to find the care that works best for you.
-    </p>
-    <div class="col-12 col-md text-md-right">
-      <a class="btn btn-text body1 pl-0 pr-md-0 pb-md-0" routerLink="/practitioners">
-          <u>Find Practitioners</u>
-        <i iconPh="arrow-right-circle"></i>
-      </a>
+<!-- expert finder start -->
+<section class="mt-100p">
+  <div class="container mb-25p">
+    <h2>Expert Finder</h2>
+    <div class="row align-items-end justify-content-between">
+      <p class="col-12 col-md-8 col-lg-7 mb-md-0">
+        Searching for treatment options is difficult. 
+        There is more than one solution to every health need, and you deserve to find the care that works best for you.
+      </p>
+      <div class="col-12 col-md text-md-right">
+        <a class="btn btn-text body1 pl-0 pr-md-0 pb-md-0" routerLink="/practitioners">
+            <u>Find Practitioners</u>
+          <i iconPh="arrow-right-circle"></i>
+        </a>
+      </div>
+    </div>  
+  </div>
+
+  <div class="container">
+    <div class="row mb-3" *ngIf="!expertFinderController || !expertFinderController.includePersonalMatchInFirstRow">
+      <div class="col-12">
+        <ng-container *ngTemplateOutlet="cardPersonalMatch"></ng-container>
+      </div>
     </div>
   </div>
 
-  <ul class="pt-50p list-unstyled row align-items-stretch">
-    <li class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
-      <div class="card align-items-center bg-primary h-100 rounded-12p personal-match p-3 text-white text-center">
-        <div class="mt-5p mb-10p">
-          <i iconPh="checkbox-square" style="font-size: 45px;"></i>
-        </div>
-        <h6 class="mb-15p">Need a personal match?</h6>
-        <p class="body2">
-          Get matched with and compare health and wellness practitioners tailored to 
-          your specific health and wellness goals, preferences, and needs.
-        </p>
-
-        <a class="btn btn-black" routerLink="/personal-match">Get Started</a>
-      </div>
-    </li>
-    <ng-container *ngIf="!practitionersFeatured">
-      <li 
-      *ngFor="let i of [0,1,2]" 
-      class="col-6 col-md-6 col-lg-4 col-xl-3 mb-3" 
-      [ngClass]=" {'pr-5p': (i % 2 == 0), 'pl-5p': (i % 2 == 1)}"
+  
+  <div *ngIf="!!expertFinderController" class="expert-finder-scroll-horizontal" #expertFinderScrollHorizontal>
+  <div class="intersection-observer" intersectionObserver rootMargin="10000px 0px -500px 0px" (changeStatus)="onEnterExpertFinder($event)"></div>
+    <ul *ngFor="let dataPerRow of expertFinderController.dataPerRows; let i = index"
+    class="d-flex align-items-stretch flex-nowrap list-unstyled expert-finder-container"
+    >
+      <li
+      *ngIf="!!expertFinderController.includePersonalMatchInFirstRow && i == 0"
+      class="personal-match-container mr-15p"
       >
-        <div class="card h-100 rounded-12p">
-          <card-dummy></card-dummy>
-        </div>
+        <ng-container *ngTemplateOutlet="cardPersonalMatch"></ng-container>
       </li>
-    </ng-container>
-    <ng-container *ngIf="practitionersFeatured">
+
       <li 
-      *ngFor="let p of practitionersFeatured; let i = index;" 
-      class="col-6 col-md-6 col-lg-4 col-xl-3 mb-3 px-md-15p" 
-      [ngClass]=" {'pr-5p': (i % 2 == 0), 'pl-5p': (i % 2 == 1)}"
+      *ngFor="let p of dataPerRow" 
+      class="mr-15p"
       >
-        <card-practitioner [data]="p" [showDistance]="false"></card-practitioner>
-      </li>  
-    </ng-container>
-  </ul>
+        <card-practitioner *ngIf="p" 
+        [data]="p" 
+        [showDistance]="false"
+        ></card-practitioner>
+
+        <div *ngIf="!p" 
+        class="card h-100 rounded-12p" 
+        ><card-dummy></card-dummy></div>  
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #cardPersonalMatch>
+    <div class="card card-personal-match align-items-center bg-primary h-100 rounded-12p personal-match p-3 text-white text-center">
+      <div class="mt-5p mb-10p">
+        <i iconPh="checkbox-square" style="font-size: 45px;"></i>
+      </div>
+      <h6 class="mb-15p">Need a personal match?</h6>
+      <p class="body2">
+        Get matched with and compare health and wellness practitioners tailored to 
+        your specific health and wellness goals, preferences, and needs.
+      </p>  
+      <a class="btn btn-black" routerLink="/personal-match">Get Started</a>
+    </div>
+  </ng-template>
 </section>
-<!-- expart finder end -->
+<!-- expert finder end -->
 
 <!-- testimonial start-->
 <section class="bg-primary-light py-100p position-relative overflow-hidden">

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared/services/shared.service';
 import { HeaderStatusService } from '../shared/services/header-status.service';
@@ -15,6 +15,8 @@ import { CityId, getLabelByCityId } from '../_helpers/location-data';
 import { BlogSearchQuery, IBlogSearchResult } from '../models/blog-search-query';
 import { IResponseData } from '../models/response-data';
 import { Blog, IBlog } from '../models/blog';
+import { ExpertFinderController } from '../models/expert-finder-controller';
+import { smoothHorizontalScrolling } from './smooth-scroll';
 
 /** for event bright */
 // declare function registerEvent(eventId, action): void;
@@ -36,10 +38,9 @@ export class HomeComponent implements OnInit {
   ) {
   }
 
-    ////// NEW  
-    public practitionersFeatured: Professional[];
+    ////// NEW
+    @ViewChild('expertFinderScrollHorizontal') elExpertFinderScrollHorizontal: ElementRef;
     public pageCurrentPractitionersFeatured: number = 0
-    public countPractitionersFeaturedPerPage: number = 7;
     public citiesFeatured: {id: CityId, label: string}[];
     public blogs: Blog[];
 
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
   
         this.timerResize = setTimeout(() => {
           this.categoryController = new CategoryViewerController(this.categories);
+          this.expertFinderController.initLayout();
           this._changeDetector.detectChanges();
         }, 500); 
   
@@ -65,6 +67,9 @@ export class HomeComponent implements OnInit {
 
     private categories: Category[];
     public categoryController: CategoryViewerController;
+
+    public expertFinderController: ExpertFinderController = new ExpertFinderController();
+    public countPractitionersFeaturedPerPage: number = 7;
 
     changeHeaderShadowStatus(isShown: boolean) {
       if(isShown) {
@@ -91,6 +96,20 @@ export class HomeComponent implements OnInit {
         console.log(error);
         this.blogs= [];
       });
+    }
+
+    ngAfterViewInit() {
+      this.elExpertFinderScrollHorizontal.nativeElement.scrollTo({left: 10000});
+    }
+
+    onEnterExpertFinder(isLeaving: boolean) {
+      if(!isLeaving) {
+        const el = this.elExpertFinderScrollHorizontal.nativeElement as HTMLElement;
+        const start = el.scrollLeft;
+        if(start > 0) {
+          smoothHorizontalScrolling(el, Math.floor(start * 2 / 9), -start, start);
+        }
+      }
     }
     ////// NEW END
 
@@ -152,7 +171,7 @@ export class HomeComponent implements OnInit {
         res.data.forEach((d: IUserDetail) => {
           users.push(new Professional(d._id, d));
         });
-        this.practitionersFeatured = users;
+        this.expertFinderController.addData(users);
       }
     }, (error) => { console.log(error); });
   }

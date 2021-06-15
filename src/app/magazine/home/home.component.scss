@@ -1,0 +1,33 @@
+@import '../temporary';
+
+////// TEMPORARY TODO: REMOVE LATER
+.bg-body {
+  background: rgba(41, 49, 72, 1)
+}
+////// TEMPORARY END TODO: REMOVE LATER
+
+.scroll-horizontal-container {
+  padding: 0 15px 10px;
+  overflow: auto;
+
+  @mixin paddingLeft($maxWidth) {
+    padding-left: calc((100vw - #{$maxWidth} + 23px) / 2)
+  }
+
+  @media (min-width: 768px) {
+    @include paddingLeft(720px);
+  }
+  @media (min-width: 992px) {
+    @include paddingLeft(960px);
+  }
+  @media (min-width: 1200px) {
+    @include paddingLeft(1150px);
+  }
+}
+
+.category-list {
+  li:not(:last-child) {
+    margin-right: 30px;
+    margin-bottom: 15px;
+  }
+}

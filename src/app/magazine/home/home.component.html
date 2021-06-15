@@ -55,23 +55,37 @@
 
 <section class="mt-70p mb-100p">
   <div class="container">
-    <div class="row">
-      <h4 class="h4 h3-md mb-20p mb-md-30p">Categories</h4>
-    </div>  
+    <h4 class="h4 h3-md mb-20p mb-md-30p">Categories</h4>
   </div>
 
-  <div class="scroll-horizontal-container">
-    <ul class="d-flex list-unstyled category-list">
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
-      <li>Hormonal Health</li>
+  <div class="scroll-horizontal-container border-bottom">
+    <ul class="d-flex list-unstyled category-list m-0">
+      <li
+      *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]"
+      class="text-nowrap position-relative"
+      [ngClass]="{active: (i == idxCategoryActive)}"
+      (click)="onTapCategory(i)"
+      >Hormonal Health</li>
     </ul>
+  </div>
+
+  <div class="container mt-20p mt-lg-40p">
+    <div class="row">
+      <ng-container *ngFor="let i of [0,1,2,3,4,5,6]">
+        <div 
+        class="col-12 col-lg-4 mb-30p mb-lg-50p"
+        [ngClass]="{'col-lg-4': (i < 3), 'col-lg-3': (i>=3) }"
+        >
+          <div class="d-none d-lg-block">
+            <card-post [size]="(i < 3) ? 'medium' : 'small'" [showCategory]="false"></card-post>
+          </div>
+          <div class="d-block d-lg-none">
+            <card-post size="small" [showCategory]="false"></card-post>
+          </div>
+        </div>
+    
+      </ng-container>
+  
+    </div>
   </div>
 </section>

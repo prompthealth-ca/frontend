@@ -18,15 +18,17 @@ class="card-post"
         <div class="author-dummy"></div>
       </div>
       <span class="mr-2 mb-10p text-nowrap">
-        <i class="far fa-calendar mr-2"></i>
+        <i class="far fa-calendar mr-1"></i>
         <span>Apr 22, 2021</span>
       </span>
       <span class="mr-2 mb-10p text-nowrap">
-        <i class="far fa-hourglass mr-2"></i>
-        <span>9 min read</span>
+        <i class="far fa-hourglass mr-1"></i>
+        <span>9 min 
+        <span [ngClass]="{'d-lg-none d-xl-inline': sizeS}"> read</span>
+        </span>
       </span>
-      <span class="mb-10p text-nowrap">
-        <i class="far fa-hourglass mr-2"></i>
+      <span class="mb-10p text-nowrap" *ngIf="showCategory">
+        <i class="far fa-hourglass mr-1"></i>
         <span>category</span>
       </span>
     </div>

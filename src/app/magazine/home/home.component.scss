@@ -7,7 +7,7 @@
 ////// TEMPORARY END TODO: REMOVE LATER
 
 .scroll-horizontal-container {
-  padding: 0 15px 10px;
+  padding: 0 15px 5px;
   overflow: auto;
 
   @mixin paddingLeft($maxWidth) {
@@ -26,8 +26,35 @@
 }
 
 .category-list {
-  li:not(:last-child) {
+  li {
+    white-space: nowrap;
     margin-right: 30px;
     margin-bottom: 15px;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      top: 100%;
+      left: 0;
+      border-bottom: solid 1px var(--ph-blue);
+      transition: transform 200ms;
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+  }
+  li:last-child {
+    margin-right: 0;
+    padding-right: 15px;
+  }
+
+  li.active{
+    color: var(--ph-blue);
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 }

@@ -10,6 +10,7 @@ export class CardPostComponent implements OnInit {
 
   @Input() data: Blog;
   @Input() size: 'large' | 'medium' | 'small' = 'medium';
+  @Input() showCategory: boolean = true;
 
   get sizeL() { return (this.size == 'large') ? true : false; }
   get sizeM() { return (this.size == 'medium') ? true : false; }

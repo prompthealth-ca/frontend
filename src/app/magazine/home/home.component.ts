@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { smoothHorizontalScrolling } from 'src/app/_helpers/smooth-scroll';
 
 @Component({
   selector: 'app-home',
@@ -55,8 +56,11 @@ export class HomeComponent implements OnInit {
     if(this.videosContainer) {
       const el: HTMLElement = this.videosContainer.nativeElement;
       const w = el.clientWidth;
-      const dist = (w + 15) * i;
-      el.scrollTo({left: dist, behavior: 'smooth'});
+      const start = el.scrollLeft;
+      const to = (w + 15) * i;
+      const amount = to - start;
+
+      smoothHorizontalScrolling(el, 250, amount, start);
       this.idxCurrentCarouselVideo = i;
 
       if(resetTimer) {

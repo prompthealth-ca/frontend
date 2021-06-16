@@ -12,7 +12,9 @@ import { SectionSignupComponent } from './section-signup/section-signup.componen
 const routes = [
   {path: '',             component: HomeComponent},
   {path: 'category/:id', component: ListComponent},
-  {path: 'category', redirectTo: ''},
+  {path: 'tag/:id',      component: ListComponent},
+  {path: 'category',     redirectTo: ''},
+  {path: 'tag',          redirectTo: ''},
   {path: ':id',          component: PageComponent},
 ]
 

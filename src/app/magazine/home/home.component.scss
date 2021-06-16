@@ -1,8 +1,15 @@
 @import '../temporary';
 
 ////// TEMPORARY TODO: REMOVE LATER
+:host {
+  color: rgba(41, 49, 72, 1)!important;
+}
+
 .bg-body {
   background: rgba(41, 49, 72, 1)
+}
+.color-placeholder {
+  color: rgba(160, 163, 189, 1);
 }
 ////// TEMPORARY END TODO: REMOVE LATER
 
@@ -58,3 +65,17 @@
     }
   }
 }
+
+.card-podcast {
+  .eyecatch-container { flex: 0 0 83px; }
+  .info-container { flex: 1 1 auto; }
+}
+
+.eyecatch,
+  .eyecatch-dummy{    
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+  }

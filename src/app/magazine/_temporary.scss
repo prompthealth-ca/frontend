@@ -63,7 +63,7 @@ $radius: 0.25rem;
 $ph-gradient: -webkit-linear-gradient(271.61deg, #5D7DC1 16.86%, #213F7A 101.15%);
 $ph-gradient-light: -webkit-linear-gradient(271.68deg, #21617D -10.74%, #4A7FCA -10.73%, #94B0ED 89.35%);
 @mixin typography($fontSize, $lineHeight, $fontWeight, $letterSpacing) {
-  font-size: $fontSize;
+  font-size: $fontSize!important;
   font-weight: $fontWeight;
   line-height: $lineHeight!important;
   letter-spacing: $letterSpacing;
@@ -79,26 +79,26 @@ button, .btn {
   &.small { @include typography(15px, 16.5px, $fontWeightRegular, 0.5px); }
 }
 
-i { 
-  @include typography(18px, 1, $fontWeightRegular, 0px); 
-  &.large { @include typography(22px, 1, $fontWeightRegular, 0px); }
-  &.small { @include typography(16px, 1, $fontWeightRegular, 0px); }  
-}
+// i { 
+//   @include typography(18px, 1, $fontWeightRegular, 0px); 
+//   &.large { @include typography(22px, 1, $fontWeightRegular, 0px); }
+//   &.small { @include typography(16px, 1, $fontWeightRegular, 0px); }  
+// }
 
 /** if icon is used in some sentence, it should be aligned with text */
-h1, h2, h3, h4, h5, h6, 
-p, a, span, u, b, caption, li,
-.h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2, .body-small, .btn, .caption {
-  >i {
-    font-size: 1.15em;
-    vertical-align: text-top; 
-  }
+// h1, h2, h3, h4, h5, h6, 
+// p, a, span, u, b, caption, li,
+// .h1, .h2, .h3, .h4, .h5, .h6, .subtitle1, .subtitle2, .body1, .body2, .body-small, .btn, .caption {
+//   >i {
+//     font-size: 1.15em;
+//     vertical-align: text-top; 
+//   }
 
-  >i.large {
-    font-size: 1.3em;
-    vertical-align: text-bottom;
-  }
-}
+//   >i.large {
+//     font-size: 1.3em;
+//     vertical-align: text-bottom;
+//   }
+// }
 
 .h1 { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
 .h2 { @include typography(48px, 54px, $fontWeightBold, 0px); }

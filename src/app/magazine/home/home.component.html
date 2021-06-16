@@ -44,11 +44,27 @@
 
 <section class="bg-body py-60p">
   <div class="container">
-    <div class="col-12 col-md-7">
-
-    </div>
-    <div class="col-12 col-md-5">
-
+    <div class="row">
+      <div class="col-12 col-md-7">
+        <h4 class="h4 h3-md text-white">Videos</h4>
+      </div>
+      <div class="col-12 col-md-5">
+        <h4 class="h4 h3-md text-white mb-20p mb-md-30p">Podcast</h4>
+        <ul class="mb-20p mb-md-30p p-0 list-unstyled">
+          <li *ngFor="let i of [0,1,2]" class="d-flex flex-nowrap align-items-stretch card-podcast mb-20p">
+            <div class="eyecatch-container position-relative">
+              <div class="eyecatch-dummy bg-white"></div>
+            </div>
+            <div class="info-container ml-3">
+              <div class="mb-10p text-nowrap body2 color-placeholder">
+                <i class="far fa-calendar mr-1"></i>
+                <span>Apr 22, 2021</span>
+              </div>
+              <h5 class="body1 text-white mb-0">Many people rush through or multitask during meals consuming.</h5>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>

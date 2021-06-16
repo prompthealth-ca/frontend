@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderMagazineComponent implements OnInit {
 
+  public isShadowShown: boolean = false; 
+  
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  showMenu() {}
 
 }

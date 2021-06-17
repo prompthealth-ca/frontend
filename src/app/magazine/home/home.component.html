@@ -1,11 +1,11 @@
 <section class="container mt-100p">
   <div class="row">
-    <ng-container *ngFor="let p of [0,1,2, 3]; let i = index">
+    <ng-container *ngFor="let p of latest; let i = index">
       <div 
       class="col-12 mb-md-100p"
       [ngClass]="{'col-md-12 mb-55p': (i == 0), 'col-lg-4 mb-30p': (i != 0)}"
       >
-        <card-post [size]="(i == 0) ? 'large' : 'medium'"></card-post>
+        <card-post [size]="(i == 0) ? 'large' : 'medium'" [data]="p"></card-post>
       </div>
   
     </ng-container>
@@ -96,16 +96,16 @@
 
   <div class="container mt-20p mt-lg-40p">
     <div class="row">
-      <ng-container *ngFor="let i of [0,1,2,3,4,5,6]">
+      <ng-container *ngFor="let p of latestByCategory; let i = index;">
         <div 
         class="col-12 col-lg-4 mb-30p mb-lg-50p"
         [ngClass]="{'col-lg-4': (i < 3), 'col-lg-3': (i>=3) }"
         >
           <div class="d-none d-lg-block">
-            <card-post [size]="(i < 3) ? 'medium' : 'small'" [showCategory]="false"></card-post>
+            <card-post [size]="(i < 3) ? 'medium' : 'small'" [showCategory]="false" [data]="p"></card-post>
           </div>
           <div class="d-block d-lg-none">
-            <card-post size="small" [showCategory]="false"></card-post>
+            <card-post size="small" [showCategory]="false" [data]="p"></card-post>
           </div>
         </div>
       </ng-container>

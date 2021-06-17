@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MagazineService } from '../magazine.service';
 
 @Component({
   selector: 'app-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _magazineService: MagazineService,
+  ) { }
 
   ngOnInit(): void {
+    this._magazineService.getLatest()
   }
 
 }

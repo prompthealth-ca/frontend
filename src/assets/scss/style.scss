@@ -823,10 +823,19 @@ $fontWeightRegular: 400;
 }
 
 @mixin clampTemplate($i, $prefix: '') {
-  .subtitle2.clamp-#{$prefix}#{$i}line { @include clamp($i, 18px); }
-  .body2.clamp-#{$prefix}#{$i}line { @include clamp($i, 22px); }
-  .body-small.clamp-#{$prefix}#{$i}line { @include clamp($i, 16px); }
+  .subtitle2-temp {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 18px); }
+  }
+  .body2-temp {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 22px); }
+  }
+  .body-small-temp {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 16px); }
+  }
 
+  .h2-temp {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 54px); }
+  }
   .h4-temp {
     &.clamp-#{$prefix}#{$i}line { @include clamp($i, 32px); }
   }
@@ -836,6 +845,31 @@ $fontWeightRegular: 400;
   .h6-temp,
   .body1-temp,
   .subtitle1-temp { 
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 24px);} 
+  }
+
+  .subtitle2-temp-md {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 18px); }
+  }
+  .body2-temp-md {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 22px); }
+  }
+  .body-small-temp-md {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 16px); }
+  }
+
+  .h2-temp-md {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 54px); }
+  }
+  .h4-temp-md {
+    &.clamp-#{$prefix}#{$i}line { @include clamp($i, 32px); }
+  }
+  .h5-temp-md { 
+    &.clamp-#{$prefix}#{$i}line{ @include clamp($i, 26px); }
+  }
+  .h6-temp-md,
+  .body1-temp-md,
+  .subtitle1-temp-md { 
     &.clamp-#{$prefix}#{$i}line { @include clamp($i, 24px);} 
   }
 }

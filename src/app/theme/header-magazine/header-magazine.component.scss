@@ -40,11 +40,10 @@
   width: 100vw;
   height: 100vh;
 
-  .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
+  .menu-top {
+    z-index: 100;
   }
+
 
   .menu-inner {
     flex: 0 0 100%;

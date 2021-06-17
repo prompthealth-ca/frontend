@@ -29,9 +29,15 @@
         <ul class="mb-20p mb-md-30p p-0 list-unstyled videos flex-grow-1" #videosContainer>
           <li 
           *ngFor="let v of videos; let i = index" 
-          class="card-video bg-white flex-grow-1 w-100"
+          class="card-video flex-grow-1 w-100 position-relative"
           >
-            <div class="eyecatch-container rounded-12p"></div>
+            <div class="position-relative eyecatch-container rounded-12p h-100">
+              <div class="eyecatch-dummy bg-dark"></div>
+            </div>
+            <h5 
+            class="title text-light h6 h5-md clamp-2line px-15p mb-15p"
+            [ngClass]="{'h5-lg px-lg-30p': (i == 0), 'subtitle1-lg px-lg-15p': (i > 0)}"
+            >Our neighborhood health story: The cooking class that became so much more</h5>
           </li>
         </ul>
         <div class="d-flex justify-content-center d-lg-none mb-30p">

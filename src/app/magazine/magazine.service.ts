@@ -1,43 +1,153 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Blog, IBlog } from '../models/blog';
+import { IBlogCategory } from '../models/blog-category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MagazineService {
 
-  constructor() { }
+  private categoryCache: IBlogCategory[];
+  private postCache: PostCache;
 
-  getLatest(categoryId?: string, countPerPage: number = 4): Promise<Blog[]> {
-    return new Promise((resolve, reject) => {
-      setTimeout(()=> {
-        const data: IBlog[] = [];
-        for(let i=0; i<countPerPage; i++) {
-          data.push(postDummy);
+  private countPerPage = 12;
+
+  get categories(): any[] {
+    return this.categoryCache;
+  }
+
+  postOf(slug: string) {
+    const data = this.postCache.dataMapById;
+    if(!data) { 
+      return null; 
+    } else {
+      let result = null;
+      for(let id in data) {
+        const d = data[id];
+        if(d.slug == slug) {
+          result = d;
+          break;
         }
+      }
+      return result;
+    }
+  }
+
+  postsOf(catId: string = null, page: number = 1, from: number = 0, count: number = this.countPerPage): Blog[] {
+    const cat = catId ? catId : 'all';
+    if(this.postCache.dataPerCategory[cat] && this.postCache.dataPerCategory[cat].dataPerPage[page]) {
+      const posts = [];
+      const data = this.postCache.dataPerCategory[cat].dataPerPage[page];
+      console.log(data)
+      const max = data.length > from + count ? from + count : data.length;
+      for(let i=from; i<max; i++) {
+        posts.push(data[i]);
+      }
+      return posts;
+    } else {
+      return null;
+    }
+  }
+
+  constructor() { 
+    this.categoryCache = null;
+    this.postCache = {
+      dataMapById: {},
+      dataPerCategory: {}
+    }
+  }
+
+  // fetchPosts(params: IBlogSearchQuery = {}): Promise<Blog[]> {
+  //   return new Promise((resolve, reject) => {
+  //     const query = new BlogSearchQuery(params);
+  //     const cat = query.categoryId ? query.categoryId : 'all';
+  //     const data = this.postCache.dataPerCategory[cat].dataPerPage[query.page]
+  //     if(data) {
+  //       resolve(data);
+  //     }else {
+  //       let path = 'blog/get-all' + query.toString();
+  //       this._sharedService.getNoAuth(path).subscribe((res: any) => { 
+
+  //       setTimeout(()=> {
+  //         const data: IBlog[] = [];
+  //         for(let i=0; i<query.limit; i++) {
+  //           data.push(postDummy);
+  //         }
+      
+  //         const posts = [];
+  //         data.forEach(d => {
+  //           posts.push(new Blog(d));
+  //         });
+ 
+  //         this.saveCache(posts, 10, query.page, cat);
+  //         resolve(this.postCache.dataPerCategory[cat].dataPerPage[query.page]);
   
-        const latest = [];
-        data.forEach(d => {
-          latest.push(new Blog(d));
-        });
+  //       }, 10000);    
+  //     }
+  //   });
+  // }
 
-        resolve(latest);
+  saveCache(res: {data: IBlog[], total: number}, page: number, catId: string = null): Blog[] {
+    const pageTotal = Math.ceil(res.total / this.countPerPage);
+    const dataPerPage = [];
 
-      }, 1000);  
-    })
+    for(let d of res.data) {
+      let idInMap = null;
+      for(let id in this.postCache.dataMapById) {
+        if(d._id == id) {
+          idInMap = id
+          break;
+        }
+      }
+      if(!idInMap) {
+        console.log(d)
+        this.postCache.dataMapById[d._id] = new Blog(d, this.categoryCache);
+        idInMap = d._id;
+      }
+      dataPerPage.push(this.postCache.dataMapById[idInMap]);
+    }
+
+    const targetCategory = catId ? catId : 'all';
+    if(!this.postCache.dataPerCategory[targetCategory]) {
+      this.postCache.dataPerCategory[targetCategory] = { pageTotal: pageTotal, dataPerPage: {} };
+    }
+    this.postCache.dataPerCategory[targetCategory].dataPerPage[page] = dataPerPage;
+    return dataPerPage;
+  }
+
+  saveCacheSingle(data: IBlog) {
+    if(!this.postCache.dataMapById[data._id]) {
+      this.postCache.dataMapById[data._id] = new Blog(data, this.categories);
+    }
+  }
+
+  saveCacheCategories(data: IBlogCategory[]) {
+    this.categoryCache = data;
+  }
+
+  createDummyArray(count: number) {
+    const data = [];
+    for(let i=0; i<count; i++) {
+      data.push(null);
+    }
+    return data;
+  }
+}
+type PostCache = {
+  dataMapById: {
+    [k: string]: Blog;
+  },
+  dataPerCategory : {
+    [k: string] : { // k is categoryId or 'all'
+      pageTotal: number,
+      dataPerPage: {
+        [k: number]: Blog[] // k is page number
+      }
+    };    
   }
 }
 
-const postDummy: IBlog = {
-  _id: 'asdfaserfaser',
-  categoryId: 'cafeafacserfsedr',
-  createdAt: 'Apr 22, 2021',
-  description: 
-    `<div>
-   <h2>What is Lorem Ipsum?</h2>
-   <p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-   </div>`,
-   image: 'https://www.typingpal.com/images/6/5/9/d/4/659d48c66b86704dd9890e1a374337013fdc755e-lorem-ipsum1x.png',
-   slug: 'this-is-test-slug',
-   title: '4 surprising health benefits of a home cooked meal',
- }
+
+
+

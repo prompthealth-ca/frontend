@@ -57,6 +57,9 @@ export interface IProfessional {
   product: ImageViewerData; /** all products data */
   productPreview: ImageGroupData[]; /** first 3 products for preview */
 
+  seeOtherRegion: string;
+  acceptInsurance: string;
+
   website: string;
   websiteLabel: string;
   bookingUrl: string;
@@ -177,6 +180,10 @@ export class Professional implements IProfessional {
   get provideVirtual() { return this.p.provideVirtual || false; }
   get videos() { return (this.p.plan && this.p.plan.videoUpload) ? this.p.videos : []; } /** showing videos are available only for premium user */
   get yearsOfExperience() { return this.p.years_of_experience || null; }
+
+  get acceptInsurance() { return this.p.acceptsInsurance || null; }
+  get seeOtherRegion() { return this.p.seeOtherRegion || null; }
+
   get languages() {
     const languages = [];
     this._languages.forEach(l => { languages.push(l.item_text); });

@@ -1,7 +1,7 @@
 
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd, ActivationStart } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
 declare let gtag: Function;
@@ -12,6 +12,7 @@ export class ScrollTopService {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
+    private _location: Location,
     private router: Router) {
   }
 
@@ -23,16 +24,29 @@ export class ScrollTopService {
       this.router.events.subscribe((event: NavigationEnd) => {
         if (event instanceof ActivationStart) { this.isInitial = false; }
 
+
         if (event instanceof NavigationEnd) {
+
           /** google analytics */
           if(!this.disableAnalytics){
             gtag('config', 'UA-192757039-1',{
               'page_path': event.urlAfterRedirects
             });
 
+            /** fb pixel */
             if(!window.location.href.match(/keyword/)){
+              /** remove queryparams becuase it may contain sensitive data */
+              /** after sending url to FB pixel, put queryparams back to url */
+              const path = this._location.path();
+              const pathNoParam = path.replace(/\?.*$/, '');
+              
+              this._location.replaceState(pathNoParam);
               fbq('track', 'PageView');  
-            }            
+
+              this._location.replaceState(path);
+            } else {
+              fbq('track', 'PageView');  
+            }
           }
 
 

@@ -40,6 +40,7 @@ import { PartnerOfferComponent } from './partner-offer/partner-offer.component';
 import { MyPostsComponent } from './my-posts/my-posts.component';
 import { MyPostComponent } from './my-post/my-post.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
     SharedModule, NgxDatatableModule,
     // OwlDateTimeModule, OwlNativeDateTimeModule,
     CommonModule, ProfileManagementRoutingModule, ReactiveFormsModule, FormsModule, NgbModule,
+    NgMultiSelectDropDownModule.forRoot(),
     QuillModule.forRoot({
       modules: {
         toolbar: [

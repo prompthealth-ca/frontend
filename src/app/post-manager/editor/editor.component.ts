@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import Quill from 'quill';
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { validators } from 'src/app/_helpers/form-settings';
-import { SharedService } from 'src/app/shared/services/shared.service';
-import { IBlogCategory } from 'src/app/models/blog-category';
-import { IBlog } from 'src/app/models/blog';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { IBlog } from 'src/app/models/blog';
+import { IBlogCategory } from 'src/app/models/blog-category';
+import { FormItemUploadImageButtonComponent } from 'src/app/shared/form-item-upload-image-button/form-item-upload-image-button.component';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { validators } from 'src/app/_helpers/form-settings';
 
 @Component({
-  selector: 'app-post-editor',
-  templateUrl: './post-editor.component.html',
-  styleUrls: ['./post-editor.component.scss']
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss']
 })
-export class PostEditorComponent implements OnInit {
+export class EditorComponent implements OnInit {
 
   get f() {return this.form.controls; }
+  get fVideo() { return ((this.f.videoLinks as FormArray).at(0) as FormGroup).controls; }
+  get fPodcast() { return ((this.f.podcastLinks as FormArray).at(0) as FormGroup).controls; }
+
+  isSelectedThumbnailType(type: string) {
+    return !!(this.selectedThumbnailType.findIndex(item => item._id == type) >= 0);
+  }
 
   categoryOf(id: string) {
     let cat: IBlogCategory = null;
@@ -44,17 +50,40 @@ export class PostEditorComponent implements OnInit {
     return tag;
   }
 
+  private post: IBlog;
   public categories: IBlogCategory[];
   public tags: IBlogCategory[];
-  private post: IBlog;
+  public statuses: IBlogCategory[] = [
+    {_id: 'draft', title: 'Draft'},
+    // {_id: 'review', title: 'Under review'},
+    {_id: 'publish', title: 'Publish'},
+    // {_id: 'rejected', title: 'Rejected by admin'},
+    {_id: 'archive', title: 'Archive'},
+  ];
+  public thumbnailTypes: IBlogCategory[] = [
+    {_id: 'image', title: 'Image' },
+    {_id: 'video', title: 'Video' },
+    {_id: 'podcast', title: 'Podcast' },
+  ];
 
   private form: FormGroup;
   public selectedCategories: IBlogCategory[] = [];
   public selectedTags: IBlogCategory[] = []
+  public selectedStatus: IBlogCategory[] = [];
+  public selectedThumbnailType: IBlogCategory[] = [];
 
   public isSubmitted: boolean = false;
   public isUploading: boolean = false;
 
+  
+  public dropdownSetting: IDropdownSettings = {
+    singleSelection: true,
+    idField: '_id',
+    textField: 'title',
+    itemsShowLimit: 1,
+    allowSearchFilter: false,
+  }
+  
   public dropdownSettingCategories: IDropdownSettings = {
     singleSelection: true,
     idField: '_id',
@@ -73,6 +102,8 @@ export class PostEditorComponent implements OnInit {
     allowSearchFilter: true,
   }
 
+  @ViewChild('imageSelector') imageSelector: FormItemUploadImageButtonComponent;
+
   constructor(
     private _sharedService: SharedService,
     private _route: ActivatedRoute,
@@ -86,11 +117,23 @@ export class PostEditorComponent implements OnInit {
       description: new FormControl(null),
       categoryId: new FormControl(null),
       tags: new FormArray([]),
-      videoLinks: new FormArray([]),
-      podcastLinks: new FormArray([]),
       readLength: new FormControl(0),
       author: new FormControl('test'),
       headliner: new FormControl(false),
+      
+      image: new FormControl(),
+      videoLinks: new FormArray([
+        new FormGroup({
+          title: new FormControl(null,),
+          url: new FormControl(null, validators.website),
+        }),
+      ]),
+      podcastLinks: new FormArray([
+        new FormGroup({
+          title: new FormControl(null,),
+          url: new FormControl(null, validators.website),
+        }),
+      ]),
     });
 
     this._route.params.subscribe((params: {id: string}) => {
@@ -183,6 +226,12 @@ export class PostEditorComponent implements OnInit {
     if('html' in e) {
       this.f.description.setValue(e.html);
     }
+  }
+
+  onSelectThumbnailType(e: IBlogCategory) {
+    if(e._id == 'image') {
+      this.imageSelector.select();
+    } 
   }
 
   onSubmit(publish: boolean = false) {

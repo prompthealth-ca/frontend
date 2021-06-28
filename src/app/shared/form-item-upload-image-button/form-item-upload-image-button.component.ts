@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { IUserDetail } from 'src/app/models/user-detail';
@@ -22,6 +22,8 @@ export class FormItemUploadImageButtonComponent implements OnInit {
 
   public baseURLImage = environment.config.AWS_S3;
 
+  @ViewChild('uploadImageSelector') imageSelector: ElementRef;
+
   constructor(
     private _sharedService: SharedService,
     private _toastr: ToastrService,
@@ -29,6 +31,13 @@ export class FormItemUploadImageButtonComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  select() {
+    const el = this.imageSelector.nativeElement as HTMLInputElement;
+    if(el) {
+      el.click();
+    }
   }
 
   async onSelectImage(e: Event){

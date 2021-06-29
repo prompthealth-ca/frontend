@@ -1,4 +1,9 @@
-<button type="button" class="btn px-5 text-blue border-blue font-regular position-relative" *ngIf="!disabled">
+<button 
+*ngIf="!disabled"
+type="button" 
+class="btn px-5 text-blue border-blue font-regular position-relative" 
+[ngClass]="{disabled: isUploading}"
+>
   Upload {{label | titlecase}}
   <input #uploadImageSelector
   type="file" 

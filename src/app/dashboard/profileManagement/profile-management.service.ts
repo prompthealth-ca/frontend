@@ -26,6 +26,7 @@ export class ProfileManagementService {
 
     return new Promise((resolve, reject) => {
       if(this.profileDetail && this.profileDetail._id == id){ 
+        console.log('from cache')
         resolve(this.profileDetail); 
       }else{
         const path = environment.config.API_URL + ((role == 'p') ? 'partner/get/' : 'user/get-profile/') + id;

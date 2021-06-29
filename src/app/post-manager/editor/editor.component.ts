@@ -3,11 +3,16 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
-import { IBlog } from 'src/app/models/blog';
+import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
+import { Blog, IBlog } from 'src/app/models/blog';
 import { IBlogCategory } from 'src/app/models/blog-category';
+import { IUserDetail } from 'src/app/models/user-detail';
+import { DateTimeData } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 import { FormItemUploadImageButtonComponent } from 'src/app/shared/form-item-upload-image-button/form-item-upload-image-button.component';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { UniversalService } from 'src/app/shared/services/universal.service';
 import { validators } from 'src/app/_helpers/form-settings';
+import { PostManagerService } from '../post-manager.service';
 
 @Component({
   selector: 'app-editor',
@@ -19,6 +24,9 @@ export class EditorComponent implements OnInit {
   get f() {return this.form.controls; }
   get fVideo() { return ((this.f.videoLinks as FormArray).at(0) as FormGroup).controls; }
   get fPodcast() { return ((this.f.podcastLinks as FormArray).at(0) as FormGroup).controls; }
+  
+  get categories() { return this._postsService.categories; }
+  get tags() { return this._postsService.tags; }
 
   isSelectedThumbnailType(type: string) {
     return !!(this.selectedThumbnailType.findIndex(item => item._id == type) >= 0);
@@ -50,9 +58,10 @@ export class EditorComponent implements OnInit {
     return tag;
   }
 
-  private post: IBlog;
-  public categories: IBlogCategory[];
-  public tags: IBlogCategory[];
+  public user: IUserDetail;
+  private post: Blog;
+  public description: any;
+
   public statuses: IBlogCategory[] = [
     {_id: 'draft', title: 'Draft'},
     // {_id: 'review', title: 'Under review'},
@@ -74,7 +83,11 @@ export class EditorComponent implements OnInit {
 
   public isSubmitted: boolean = false;
   public isUploading: boolean = false;
+  public isSettingShown: boolean = false;
+  public isEventShown: boolean = false;
 
+  public minDateTimeEventStart: DateTimeData;
+  public minDateTimeEventEnd: DateTimeData;
   
   public dropdownSetting: IDropdownSettings = {
     singleSelection: true,
@@ -105,32 +118,63 @@ export class EditorComponent implements OnInit {
   @ViewChild('imageSelector') imageSelector: FormItemUploadImageButtonComponent;
 
   constructor(
-    private _sharedService: SharedService,
     private _route: ActivatedRoute,
+    private _sharedService: SharedService,
+    private _profileService: ProfileManagementService,
+    private _uService: UniversalService,
+    private _postsService: PostManagerService,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+    const userLS = this._uService.localStorage.getItem('user');
+    if(userLS) {
+      this._profileService.getProfileDetail(JSON.parse(userLS)).then(res => {
+        this.user = res;
+      });
+    }
+
+    const now = new Date();
+    this.minDateTimeEventStart = {
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      day: now.getDate(),
+      hour: now.getHours() + 1,
+      minute: 0,
+    }
+    this.minDateTimeEventEnd = {
+      year: now.getFullYear(),
+      month: now.getMonth() + 1,
+      day: now.getDate(),
+      hour: now.getHours() + 1,
+      minute: 30
+    }
+
     this.form = new FormGroup({
       _id: new FormControl(null),
-      status: new FormControl(false),
-      title: new FormControl(null),
-      description: new FormControl(null),
+      status: new FormControl('DRAFT'),
+      title: new FormControl('', validators.savePostTitle),
+      description: new FormControl(''), // set validator later
       categoryId: new FormControl(null),
       tags: new FormArray([]),
-      readLength: new FormControl(0),
-      author: new FormControl('test'),
-      headliner: new FormControl(false),
+      authorId: new FormControl(null, validators.savePostAuthorId),
+      author: new FormControl(),
+      // headliner: new FormControl(false),
+      
+      eventStartTime: new FormControl(),
+      eventEndTime: new FormControl(),
+      joinEventLink: new FormControl(),
       
       image: new FormControl(),
       videoLinks: new FormArray([
         new FormGroup({
-          title: new FormControl(null,),
+          title: new FormControl(null),
           url: new FormControl(null, validators.website),
         }),
       ]),
       podcastLinks: new FormArray([
         new FormGroup({
-          title: new FormControl(null,),
+          title: new FormControl(null),
           url: new FormControl(null, validators.website),
         }),
       ]),
@@ -157,25 +201,42 @@ export class EditorComponent implements OnInit {
 
   initPost(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-
+      const path = 'blog/get-by-id/' + id;
+      this._sharedService.get(path).subscribe((res: any) => {
+        if(res.statusCode === 200) {
+          this._postsService.saveCacheSingle(res.data);
+          this.post = this._postsService.postOf(id);
+          resolve(true);
+        } else {
+          console.log(res.message);
+          reject(res.message);
+        }
+      }, err => {
+        console.log(err);
+        reject(err);
+      })
     });
   }
 
   initCategories(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const path = `category/get-categories`;
-      this._sharedService.getNoAuth(path).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this.categories = res.data;        
-          resolve(true);
-        }else {
-          console.log(res);
-          reject(res.message);
-        }
-      }, (error) => {
-        console.log(error);
-        reject(error);
-      });
+      if (this._postsService.categories) {
+        resolve(true);
+      } else {
+        const path = `category/get-all`;
+        this._sharedService.getNoAuth(path).subscribe((res: any) => {
+          if (res.statusCode === 200) {
+            this._postsService.saveCacheCategories(res.data.data);
+            resolve(true);
+          }else {
+            console.log(res);
+            reject(res.message);
+          }
+        }, (error) => {
+          console.log(error);
+          reject(error);
+        });
+      }  
     });
   }
 
@@ -184,7 +245,7 @@ export class EditorComponent implements OnInit {
       const path = `tag/get-all`;
       this._sharedService.getNoAuth(path).subscribe((res: any) => {
         if (res.statusCode === 200) {
-          this.tags = res.data.data;
+          this._postsService.saveCacheTags(res.data.data)
           resolve(true);
         }else {
           console.log(res);
@@ -199,17 +260,50 @@ export class EditorComponent implements OnInit {
 
   initForm() {
     if(this.post) {
+      console.log(this.post);
       this.f.title.setValue(this.post.title);
-      this.f.description.setValue(this.post.description);
-      this.f.status.setValue(this.post.status || false);
+      this.description = this.post.description;
 
-      if(this.post.categoryId) {
-        this.selectedCategories = [this.post.categoryId];
+      this.f.description.setValue(this.post.description);
+
+      this.f.status.setValue(this.post.status || 'DRAFT');
+
+      if(this.post.category) {
+        this.selectedCategories = [this.post.category];
+        this.onSelectCategory(this.post.category);
       }
 
       if(this.post.tags) {
         this.selectedTags = this.post.tags;
       }
+
+      if(this.post.image) {
+        this.selectedThumbnailType = [this.thumbnailTypes[0]];
+        this.f.image.setValue(this.post._image);
+      } else if(this.post.videoLinks.length > 0) {
+        this.selectedThumbnailType = [this.thumbnailTypes[1]];
+        this.fVideo.title.setValue(this.post.videoLinks[0].title);
+        this.fVideo.url.setValue(this.post.videoLinks[0].url);
+      } else if (this.post.podcastLinks.length > 0) {
+        this.selectedThumbnailType = [this.thumbnailTypes[2]];
+        this.fPodcast.title.setValue(this.post.podcastLinks[0].title);
+        this.fPodcast.url.setValue(this.post.podcastLinks[0].url);
+      } else {
+        this.selectedThumbnailType = [];
+      }
+
+      if(this.post.event.startAt) {
+        this.f.eventStartTime.setValue(this.post.event.startAt);
+      }
+
+      if(this.post.event.endAt) {
+        this.f.eventEndTime.setValue(this.post.event.endAt);
+      }
+
+      if(this.post.event.eventOn) {
+        this.f.joinEventLink.setValue(this.post.event.eventOn);
+      }
+
     } else {
       let catDefault: IBlogCategory = null;
       for(let c of this.categories) {
@@ -219,6 +313,7 @@ export class EditorComponent implements OnInit {
         }
       }
       this.selectedCategories = [catDefault];
+      this.f.status.setValue('DRAFT');
     }
   }
 
@@ -228,16 +323,84 @@ export class EditorComponent implements OnInit {
     }
   }
 
+  toggleSettingPanel () {
+    this.isSettingShown = !this.isSettingShown;
+  }
+
   onSelectThumbnailType(e: IBlogCategory) {
     if(e._id == 'image') {
       this.imageSelector.select();
     } 
   }
 
+  onChangeImage(e: any) {
+
+  }
+
+  onSelectCategory(e: IBlogCategory) {
+    if(e.title.toLowerCase().match(/event/)) {
+      this.showEventCalendar();
+    } else {
+      this.hideEventCalendar();
+    }
+  }
+
+  onDeselectCategory() {
+    this.hideEventCalendar();
+  }
+
+  showEventCalendar() {
+    this.isEventShown = true;
+  }
+  hideEventCalendar() {
+    console.log('kiteru?')
+    this.isEventShown = false;
+  }
+
+  onChangeStartDateTime (e: Date) {
+    this.minDateTimeEventEnd = {
+      year: e.getFullYear(),
+      month: e.getMonth() + 1,
+      day: e.getDate(),
+      hour: e.getHours(),
+      minute: e.getMinutes(),
+    }
+    this.f.eventEndTime.setValue(this.f.eventStartTime.value);
+  }
+
   onSubmit(publish: boolean = false) {
     this.isSubmitted = true;
 
+    this.f.authorId.setValue( this.user._id );
+    this.f.author.setValue( this.user.firstName );
     this.f.categoryId.setValue( this.selectedCategories.length > 0 ? this.selectedCategories[0]._id : null );
+    
+    if(!this.selectedThumbnailType || this.selectedThumbnailType.length == 0) {
+      this.f.image.setValue(null);
+      this.fVideo.title.setValue(null);
+      this.fVideo.url.setValue(null);
+      this.fPodcast.title.setValue(null);
+      this.fPodcast.url.setValue(null);
+    } else if(this.selectedThumbnailType[0]._id === 'image') {
+      this.fVideo.title.setValue(null);
+      this.fVideo.url.setValue(null);
+      this.fPodcast.title.setValue(null);
+      this.fPodcast.url.setValue(null);
+    } else if(this.selectedThumbnailType[0]._id === 'video') {
+      this.f.image.setValue(null);
+      this.fPodcast.title.setValue(null);
+      this.fPodcast.url.setValue(null);
+    } else if(this.selectedThumbnailType[0]._id === 'podcast') {
+      this.f.image.setValue(null);
+      this.fVideo.title.setValue(null);
+      this.fVideo.url.setValue(null);
+    }
+
+        
+
+
+
+
 
     const fTags = this.f.tags as FormArray;
     fTags.clear();
@@ -245,27 +408,29 @@ export class EditorComponent implements OnInit {
       fTags.push(new FormControl(t._id));
     });
 
-    if(publish) {
-      this.resetValidators(this.f.status.value);
+    if(!publish) {
+      console.log(this.f.status.value);
+      this.resetValidators(this.f.status.value != 'DRAFT');
     } else {
+      this.f.status.setValue('PENDING');
       this.resetValidators(true);
     }
 
+    console.log(this.form.invalid);
+    console.log(this.form);
     if(this.form.invalid) {
+      console.log(this.form.errors);
+      console.log(this.isSubmitted)
       return;
     }
 
-    const data = this.form.value;
-    let url: string = '';
-    if(!data._id) {
-      delete data._id;
-      url = 'blog/create';
-    } else {
-      url = 'blog/edit';
-    }
-    console.log(data);
+    // const data = this.form.value;
+    const data: ISaveQuery = new SaveQuery(this.form.value).toJson();
+    let url: string = ('_id' in data) ? 'blog/edit' : 'blog/create';
 
     this.isUploading = true;
+    console.log(data)
+    return;
     this._sharedService.post(data, url).subscribe((res: any) => {
       this.isSubmitted = false;
       this.isUploading = false;
@@ -277,15 +442,103 @@ export class EditorComponent implements OnInit {
   }
 
   resetValidators(published: boolean = false) {
+    console.log(published);
 
-    this.f.title.clearValidators();
     this.f.description.clearValidators();
-    this.f.categoryId.clearValidators();
-    this.f.tags.clearValidators();
-
-    this.f.title.setValidators( published ? validators.publishPostTitle : validators.savePostTitle);
     this.f.description.setValidators( published ? validators.publishPostDescription : validators.savePostDescription);
-    this.f.categoryId.setValidators( published ? validators.publishPostCategory : validators.savePostCategory);
+    this.f.description.updateValueAndValidity();
+
+    this.f.categoryId.clearValidators();
+    this.f.categoryId.updateValueAndValidity();
+
+    this.f.tags.clearValidators();
     this.f.tags.setValidators( published ? validators.publishPostTags : validators.savePostTags);
+    this.f.tags.updateValueAndValidity();
   }
+}
+
+
+interface ISaveQuery {
+  _id?: string,
+  status: IBlog['status'];
+  title: string;
+  authorId: string;
+  author: string;
+  
+  description?: string;
+  categoryId?: string;
+  tags?: string[],
+  readLength?: number;
+
+  eventStartTime?: string | Date;
+  eventEndTime?: string | Date;
+  joinEventLink?: string;
+  
+  image?: string;
+  videoLinks?: {
+    title: string;
+    url: string;
+  }[];
+  podcastLinks?: ISaveQuery['videoLinks'];
+}
+
+class SaveQuery implements ISaveQuery {
+
+  get _id() { return this.data._id; }
+  get status() { return this.data.status || 'DRAFT'; }
+  get title() { return this.data.title || null; }
+  get authorId() { return this.data.authorId || null; }
+  get author() { return this.data.author || null; }
+  get description() { return this.data.description || ''; }
+  get categoryId() { return this.data.categoryId || null; }
+  get tags() { return (this.data.tags && this.data.tags.length > 0) ? this.data.tags : null; }
+  get readLength() { return this.data.readLength || 0; }
+  
+  get eventStartTime() { return this.data.eventStartTime || null; }
+  get eventEndTime() { return this.data.eventEndTime || null; }
+  get joinEventLink() { return this.data.joinEventLink || ''; }
+  
+  get image() { return this.data.image || ''; }
+  get videoLinks() { 
+    let res: ISaveQuery['videoLinks'] = null;
+    if(this.data.videoLinks && this.data.videoLinks.length > 0) {
+      const data = this.data.videoLinks[0];
+      if(data.url) {
+        res = [{title: 'video', url: data.url}];
+      }
+    }
+    return res;
+  }
+  get podcastLinks() {
+    let res: ISaveQuery['podcastLinks'] = null;
+    if(this.data.podcastLinks && this.data.podcastLinks.length > 0) {
+      const data = this.data.podcastLinks[0];
+      if(data.url) {
+        res = [{title: 'podcast', url: data.url}];
+      }
+    }
+    return res;
+   }
+
+  toJson() { 
+    const data: ISaveQuery = {
+      status: this.status,
+      title: this.title,
+      authorId: this.authorId,
+      author: this.author,
+      readLength: this.readLength,
+      joinEventLink: this.joinEventLink,
+      description: this.description,
+      image: this.image,
+    };
+    if(this._id) { data._id = this._id; }
+    if(this.categoryId) { data.categoryId = this.categoryId; }
+    if(this.tags) { data.tags = this.tags; }
+    if(this.eventStartTime) { data.eventStartTime = this.eventStartTime; }
+    if(this.eventEndTime) { data.eventEndTime = this.eventEndTime; }
+    if(this.videoLinks) { data.videoLinks = this.videoLinks; }
+    if(this.podcastLinks) { data.podcastLinks = this.podcastLinks; }
+    return data;
+  }
+  constructor(private data: ISaveQuery) {}
 }

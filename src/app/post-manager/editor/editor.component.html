@@ -1,28 +1,41 @@
-  <form (ngSubmit)="onSubmit()">
-    <div class="h-100--header d-flex flex-column">
-      <section class="border-bottom">
+<ngx-spinner bdColor="#fff" size="medium" color="#fff">
+  <p style="font-size: 20px; color: white" class="loaderbg">
+    <img src="assets/img/favicon.jpg" class="loader-logo" width="100" />
+  </p>
+</ngx-spinner>
+
+
+<form (ngSubmit)="onSubmit()">
+  <div class="h-100--header d-flex flex-column">
+    <section class="border-bottom">
       <div class="container-fluid">
-        <div class="d-flex justify-content-end py-5p">
-          <input
-          type="submit"
-          class="btn btn-outline mr-10p"
-          [value]="(f.status.value === 'DRAFT') ? 'Save' : 'Update'"
-          [disabled]="this.isUploading || !this.user"
-          >
-          <button
-          *ngIf="f.status.value === 'DRAFT'"
-          class="btn btn-primary mr-10p"
-          (click)="onSubmit(true)"
-          [disabled]="this.isUploading || !this.user"
-          >Publish</button>
-  
-          <button 
-          class="btn d-lg-none" 
-          [ngClass]="{'btn-secondary': isSettingShown}"
-          (click)="toggleSettingPanel()"
-          >
-            <i class="fas fa-cog"></i>
-          </button>
+        <div class="d-flex justify-content-between py-5p">
+          <a routerLink="/dashboard/profilemanagement/my-posts" class="btn">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+
+          <div>
+            <input
+            type="submit"
+            class="btn btn-outline mr-10p"
+            [value]="(f.status.value === 'DRAFT') ? 'Save' : 'Update'"
+            [disabled]="this.isUploading || !this.user"
+            >
+            <button
+            *ngIf="f.status.value === 'DRAFT'"
+            class="btn btn-primary mr-10p"
+            (click)="onSubmit(true)"
+            [disabled]="this.isUploading || !this.user"
+            >Publish</button>
+    
+            <button 
+            class="btn d-lg-none" 
+            [ngClass]="{'btn-secondary': isSettingShown}"
+            (click)="toggleSettingPanel()"
+            >
+              <i class="fas fa-cog"></i>
+            </button>  
+          </div>
         </div>
       </div>
     </section>
@@ -90,7 +103,9 @@
             [settings]="dropdownSettingTags"
             [data]="tags"
             [(ngModel)]="selectedTags"
-            (onSelect)="onSelectThumbnailType($event)"
+            (onSelect)="onChangeTags()"
+            (onDeselectAll)="onChangeTags()"
+            (onDeSelect)="onChangeTags()"
             [ngModelOptions]="{standalone: true}"
             ></ng-multiselect-dropdown>
           </div>
@@ -157,6 +172,7 @@
               <form-item-datetime
               [controller]="f.eventEndTime"
               [minDateTime]="minDateTimeEventEnd"
+              (changeValue)="onChangeEndDateTime($event)"
               ></form-item-datetime>
             </div>
             <div class="mb-15p">
@@ -166,7 +182,6 @@
               placeholder="https://..."
               autocapitalize="off"
               [controller]="f.joinEventLink"
-
               ></form-item-input>
             </div>
           </div>

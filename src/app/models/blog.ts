@@ -113,4 +113,9 @@ export class Blog implements IBlog {
     }
     return res;
   }
+
+  /** this is used in post-editor only */
+  hide() {
+    this.data.status = 'HIDDEN';
+  }
 }

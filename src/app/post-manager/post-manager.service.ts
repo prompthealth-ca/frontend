@@ -11,10 +11,15 @@ export class PostManagerService {
   private categoryCache: IBlogCategory[] = null;
   private tagCache: IBlogCategory[] = null;
   private _countPerPage: number = 12;
-
+  private _statuses: Blog['status'][] = ['HIDDEN', 'DRAFT', 'PENDING', 'APPROVED', 'REJECTED'];
+  
+  private _isEditorLocked: boolean = false;
+ 
   get countPerPage() { return this._countPerPage; }
   get categories() { return this.categoryCache; }
   get tags() { return this.tagCache; }
+  get statuses() { return this._statuses; }
+  get isEditorLocked() { return this._isEditorLocked; }
 
   categoryNameOf(catId: string) {
     let res: string = null;
@@ -25,6 +30,19 @@ export class PostManagerService {
           break;
         }
       }
+    }
+    return res;
+  }
+
+  statusNameOf(status: Blog['status'] | string) {
+    let res: string = null;
+    switch(status) {
+      case ('HIDDEN'):    res = 'Deleted';      break;
+      case ('DRAFT'):     res = 'Draft';        break;
+      case ('PENDING'):   res = 'Under review'; break;
+      case ('APPROVED'):  res = 'Published';    break;
+      case ('REJECTED'):  res = 'Rejected';     break;
+      default:            res = null;           break;
     }
     return res;
   }
@@ -44,18 +62,18 @@ export class PostManagerService {
     return res || null;
   }
 
-  postsPerPageOf(catId: string = null, page: number = 1) {
+  postsPerPageOf(catId: string = null, page: number = 1, status: Blog['status'] | 'ALL' = null) {
     const from = this.countPerPage * (page - 1);
     const to = this.countPerPage * page;
-    const postsAll = this.postsAllOf(catId);
+    const postsAll = this.postsAllOf(catId, status);
     let res: Blog[] = null;
     if(postsAll) {
-      res = this.postCache.dataAll.slice(from, to);      
+      res = postsAll.slice(from, to);      
     }
     return res;
   }
 
-  postsAllOf(catId: string) {
+  postsAllOf(catId: string, status: Blog['status'] | 'ALL' = null) {
     let res: Blog[] = null;
     if(this.postCache.dataAll) {
       res = this.postCache.dataAll.filter(b => {
@@ -63,6 +81,15 @@ export class PostManagerService {
           return b.catId == catId;
         } else {
           return true;
+        }
+      });
+      res = res.filter(b => {
+        if(status == 'ALL') {
+          return true;
+        } else if(status) {
+          return b.status == status;
+        } else {
+          return b.status != 'HIDDEN';
         }
       });
     }
@@ -74,6 +101,13 @@ export class PostManagerService {
       dataMapById: {},
       dataAll: null,
     }
+  }
+
+  lockEditor() {
+    this._isEditorLocked = true;
+  }
+  unlockEditor() {
+    this._isEditorLocked = false;
   }
 
 

@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+import { ToastrService } from 'ngx-toastr';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
 import { Blog, IBlog } from 'src/app/models/blog';
 import { IBlogCategory } from 'src/app/models/blog-category';
@@ -27,6 +28,12 @@ export class EditorComponent implements OnInit {
   
   get categories() { return this._postsService.categories; }
   get tags() { return this._postsService.tags; }
+
+  @HostListener('window:beforeunload', ['$event']) onBeforeUnload(e: BeforeUnloadEvent) {
+    if(this._postsService.isEditorLocked) {
+      e.returnValue = true;
+    }
+  }
 
   isSelectedThumbnailType(type: string) {
     return !!(this.selectedThumbnailType.findIndex(item => item._id == type) >= 0);
@@ -123,8 +130,12 @@ export class EditorComponent implements OnInit {
     private _profileService: ProfileManagementService,
     private _uService: UniversalService,
     private _postsService: PostManagerService,
+    private _toastr: ToastrService,
   ) { }
 
+  ngOnDestroy() {
+    this._postsService.unlockEditor();
+  }
   async ngOnInit() {
 
     const userLS = this._uService.localStorage.getItem('user');
@@ -147,7 +158,7 @@ export class EditorComponent implements OnInit {
       month: now.getMonth() + 1,
       day: now.getDate(),
       hour: now.getHours() + 1,
-      minute: 30
+      minute: 0
     }
 
     this.form = new FormGroup({
@@ -181,6 +192,7 @@ export class EditorComponent implements OnInit {
     });
 
     this._route.params.subscribe((params: {id: string}) => {
+      this._sharedService.loader('show');
       const promiseAll = [
         this.initCategories(),
         this.initTags(),
@@ -194,7 +206,7 @@ export class EditorComponent implements OnInit {
       }).catch((err) => {
         console.log(err);
       }).finally(() => {
-
+        this._sharedService.loader('hide');
       });
     });
   }
@@ -261,6 +273,7 @@ export class EditorComponent implements OnInit {
   initForm() {
     if(this.post) {
       console.log(this.post);
+      this.f._id.setValue(this.post._id);
       this.f.title.setValue(this.post.title);
       this.description = this.post.description;
 
@@ -301,7 +314,7 @@ export class EditorComponent implements OnInit {
       }
 
       if(this.post.event.eventOn) {
-        this.f.joinEventLink.setValue(this.post.event.eventOn);
+        this.f.joinEventLink.setValue(this.post.event.link);
       }
 
     } else {
@@ -315,11 +328,17 @@ export class EditorComponent implements OnInit {
       this.selectedCategories = [catDefault];
       this.f.status.setValue('DRAFT');
     }
+
+    this.form.valueChanges.subscribe(() => {
+      console.log('formChanged!')
+      this._postsService.lockEditor();
+    });
   }
 
   changedEditor(e: EditorChangeContent | EditorChangeSelection) {
     if('html' in e) {
       this.f.description.setValue(e.html);
+      this._postsService.lockEditor();
     }
   }
 
@@ -334,10 +353,11 @@ export class EditorComponent implements OnInit {
   }
 
   onChangeImage(e: any) {
-
+    this._postsService.lockEditor();
   }
 
   onSelectCategory(e: IBlogCategory) {
+    this._postsService.lockEditor();
     if(e.title.toLowerCase().match(/event/)) {
       this.showEventCalendar();
     } else {
@@ -346,6 +366,7 @@ export class EditorComponent implements OnInit {
   }
 
   onDeselectCategory() {
+    this._postsService.lockEditor();
     this.hideEventCalendar();
   }
 
@@ -353,11 +374,15 @@ export class EditorComponent implements OnInit {
     this.isEventShown = true;
   }
   hideEventCalendar() {
-    console.log('kiteru?')
     this.isEventShown = false;
   }
 
+  onChangeTags() {
+    this._postsService.lockEditor();
+  }
+
   onChangeStartDateTime (e: Date) {
+    // this._postsService.lockEditor();
     this.minDateTimeEventEnd = {
       year: e.getFullYear(),
       month: e.getMonth() + 1,
@@ -367,14 +392,28 @@ export class EditorComponent implements OnInit {
     }
     this.f.eventEndTime.setValue(this.f.eventStartTime.value);
   }
+  onChangeEndDateTime(e: Date) {
+    // this._postsService.lockEditor();
+  }
 
   onSubmit(publish: boolean = false) {
     this.isSubmitted = true;
+
+    const statusCurrent = this.f.status.value;
+    const statusNext = (!publish && statusCurrent == 'DRAFT') ? 'DRAFT' : 'PENDING';
+    this.f.status.setValue(statusNext);
 
     this.f.authorId.setValue( this.user._id );
     this.f.author.setValue( this.user.firstName );
     this.f.categoryId.setValue( this.selectedCategories.length > 0 ? this.selectedCategories[0]._id : null );
     
+    const fTags = this.f.tags as FormArray;
+    fTags.clear();
+    this.selectedTags.forEach(t => {
+      fTags.push(new FormControl(t._id));
+    });
+
+    /** remove unnecessary thumbnail */
     if(!this.selectedThumbnailType || this.selectedThumbnailType.length == 0) {
       this.f.image.setValue(null);
       this.fVideo.title.setValue(null);
@@ -396,53 +435,39 @@ export class EditorComponent implements OnInit {
       this.fVideo.url.setValue(null);
     }
 
-        
+    this.resetValidators(this.f.status.value == 'PENDING');
 
-
-
-
-
-    const fTags = this.f.tags as FormArray;
-    fTags.clear();
-    this.selectedTags.forEach(t => {
-      fTags.push(new FormControl(t._id));
-    });
-
-    if(!publish) {
-      console.log(this.f.status.value);
-      this.resetValidators(this.f.status.value != 'DRAFT');
-    } else {
-      this.f.status.setValue('PENDING');
-      this.resetValidators(true);
-    }
-
-    console.log(this.form.invalid);
-    console.log(this.form);
     if(this.form.invalid) {
-      console.log(this.form.errors);
-      console.log(this.isSubmitted)
+      this._toastr.error('There are several items that requires your attention.')
       return;
     }
 
-    // const data = this.form.value;
     const data: ISaveQuery = new SaveQuery(this.form.value).toJson();
-    let url: string = ('_id' in data) ? 'blog/edit' : 'blog/create';
+    const req =  ('_id' in data) ? this._sharedService.put(data, `blog/update/${data._id}`) : this._sharedService.post(data, 'blog/create');
 
     this.isUploading = true;
-    console.log(data)
-    return;
-    this._sharedService.post(data, url).subscribe((res: any) => {
-      this.isSubmitted = false;
+
+    this._sharedService.loader('show');
+    req.subscribe((res: any) => {
       this.isUploading = false;
-      console.log(res);
+      this._sharedService.loader('hide');
+      if(res.statusCode === 200) {
+        this.isSubmitted = false;
+        this._postsService.unlockEditor();
+        console.log(res);
+        this._toastr.success('Updated successfully');  
+      } else {
+        this._toastr.error(res.message);
+      }
     }, (err) => {
       this.isUploading = false;
+      this._sharedService.loader('hide');
       console.log(err);
+      this._toastr.error(err);
     });
   }
 
   resetValidators(published: boolean = false) {
-    console.log(published);
 
     this.f.description.clearValidators();
     this.f.description.setValidators( published ? validators.publishPostDescription : validators.savePostDescription);

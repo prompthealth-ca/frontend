@@ -77,6 +77,15 @@
           <div class="mb-20p">
             <h6 class="subtitle1-temp">Status</h6>
             <div class="body1-temp">{{statusNameOf(f.status.value)}}</div>
+            <div 
+            *ngIf="f.status.value == 'PENDING'"
+            class="bg-background mt-10p p-2 body-small-temp"
+            >
+              <span class="opacity-70pc">
+                This post is not published yet. 
+                Administrator is reviewing now. Meanwhile, you can edit or change status to draft.
+              </span>
+            </div>
             <button
             *ngIf="f.status.value !== 'DRAFT'"
             type="button"

@@ -319,11 +319,15 @@ export class EditorComponent implements OnInit {
       }
 
       if(this.post.event.startAt) {
-        this.f.eventStartTime.setValue(this.post.event.startAt);
+        const dt = this.post.event.startAt;
+        const val = `${dt.getFullYear()}-${('0' + (dt.getMonth() + 1)).slice(-2)}-${('0' + dt.getDate()).slice(-2)} ${('0' + dt.getHours()).slice(-2)}:${('0' + dt.getMinutes()).slice(-2)}`
+        this.f.eventStartTime.setValue(val);
       }
 
       if(this.post.event.endAt) {
-        this.f.eventEndTime.setValue(this.post.event.endAt);
+        const dt = this.post.event.endAt;
+        const val = `${dt.getFullYear()}-${('0' + (dt.getMonth() + 1)).slice(-2)}-${('0' + dt.getDate()).slice(-2)} ${('0' + dt.getHours()).slice(-2)}:${('0' + dt.getMinutes()).slice(-2)}`
+        this.f.eventEndTime.setValue(val);
       }
 
       if(this.post.event.eventOn) {
@@ -498,6 +502,7 @@ export class EditorComponent implements OnInit {
     data.status = statusNext;
 
     const req =  this.post ? this._sharedService.put(data, `blog/update/${this.post._id}`) : this._sharedService.post(data, 'blog/create');
+    console.log('===PAYLOAD====')
     console.log(data);
 
     this.isUploading = true;
@@ -507,7 +512,17 @@ export class EditorComponent implements OnInit {
       this.isUploading = false;
       this._sharedService.loader('hide');
       if(res.statusCode === 200) {
-        console.log(res);
+        /** populate category and tag */
+        if(res.data.categoryId) {
+          res.data.categoryId = { _id: res.data.categoryId, title: this._postsService.categoryNameOf(res.data.categoryId) };
+        }
+        if(res.data.tags && res.data.tags.length > 0) {
+          const populated: IBlogCategory[] = [];
+          res.data.tags.forEach((id: string) => {
+            populated.push({ _id: id, title: this._postsService.tagNameOf(id) });
+          });
+          res.data.tags = populated;
+        }
 
         const isPostNew = (!this.post || !('_id' in this.post));
         if(isPostNew) {
@@ -515,7 +530,7 @@ export class EditorComponent implements OnInit {
         } else {
           this._postsService.saveCacheSingle(res.data, true);
         }
-        this.post = this._postsService.postOf(res._id);
+        this.post = this._postsService.postOf(res.data._id);
 
         this.initForm();
         this._postsService.unlockEditor();

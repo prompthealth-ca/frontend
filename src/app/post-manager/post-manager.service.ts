@@ -34,6 +34,19 @@ export class PostManagerService {
     return res;
   }
 
+  tagNameOf(tagId: string) {
+    let res: string = null;
+    if(this.tags) {
+      for (let tag of this.tags) {
+        if(tag._id == tagId) {
+          res = tag.title;
+          break;
+        }
+      }
+    }
+    return res;
+  }
+
   statusNameOf(status: Blog['status'] | string) {
     let res: string = null;
     switch(status) {

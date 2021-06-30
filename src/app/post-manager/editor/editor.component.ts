@@ -10,6 +10,7 @@ import { IBlogCategory } from 'src/app/models/blog-category';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { DateTimeData } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 import { FormItemUploadImageButtonComponent } from 'src/app/shared/form-item-upload-image-button/form-item-upload-image-button.component';
+import { HeaderStatusService } from 'src/app/shared/services/header-status.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
 import { validators } from 'src/app/_helpers/form-settings';
@@ -133,10 +134,12 @@ export class EditorComponent implements OnInit {
     private _uService: UniversalService,
     private _postsService: PostManagerService,
     private _toastr: ToastrService,
+    private _headerService: HeaderStatusService,
   ) { }
 
   ngOnDestroy() {
     this._postsService.unlockEditor();
+    this._headerService.showHeader();
   }
   async ngOnInit() {
 
@@ -572,10 +575,11 @@ export class EditorComponent implements OnInit {
     // this.f.tags.clearValidators();
     // this.f.tags.setValidators( published ? validators.publishPostTags : validators.savePostTags);
     // this.f.tags.updateValueAndValidity();
-
-
   }
-}
+
+  changeStickyStatus(isSticked: boolean) {
+    if (isSticked) { this._headerService.hideHeader(); } else { this._headerService.showHeader(); }
+  }}
 
 
 interface ISaveQuery {

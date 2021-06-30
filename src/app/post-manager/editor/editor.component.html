@@ -4,10 +4,10 @@
   </p>
 </ngx-spinner>
 
-
 <form (ngSubmit)="onSubmit()">
   <div class="h-100--header d-flex flex-column">
-    <section class="border-bottom">
+    <div class="intersection-observer" intersectionObserver rootMargin="-50px 0px 0px 0px" (changeStatus)="changeStickyStatus($event)"></div>
+    <section class="border-bottom sticky-top bg-white">
       <div class="container-fluid">
         <div class="d-flex justify-content-between py-5p">
           <a routerLink="/dashboard/profilemanagement/my-posts" class="btn">
@@ -16,7 +16,7 @@
 
           <div>
             <a 
-            *ngIf="post.slug"
+            *ngIf="post?.slug"
             [routerLink]="['/magazines', post.slug]"
             target="_blank"
             class="btn mr-10p"
@@ -37,7 +37,7 @@
             >Publish</button>
     
             <button 
-            class="btn d-lg-none pr-0" 
+            class="btn d-lg-none" 
             type="button"
             [ngClass]="{'btn-secondary': isSettingShown}"
             (click)="toggleSettingPanel()"
@@ -67,7 +67,7 @@
   
           <div class="position-relative flex-grow-1">
             <quill-editor
-            [styles]="{height: '450px', border: 'none'}"
+            [styles]="{minHeight: '450px', border: 'none', marginBottom: '150px'}"
             (onEditorChanged)="changedEditor($event)"
             [(ngModel)]="description"
             [ngModelOptions]="{standalone:true}"

@@ -66,9 +66,12 @@
   <li *ngFor="let p of posts; let i = index" class="mb-15p py-15p border-bottom">
     <a [routerLink]="['/dashboard/my-posts/edit', p._id]" class="d-flex align-items-start">
       <span 
-      class="border px-2 py-1 mr-5p text-body body-small-temp opacity-70pc"
-      [ngClass]="{'text-white bg-danger': (p.status == 'REJECTED')}"
-      >{{statusNameOf(p.status)}}</span>
+      class="px-2 py-1 mr-5p body-small-temp"
+      [ngClass]="{'text-light bg-danger': (p.status == 'REJECTED'), 'text-body opacity-70pc border': (p.status != 'REJECTED')}"
+      >
+      <i *ngIf="p.status == 'REJECTED'" class="fas fa-exclamation-circle"></i>
+        {{statusNameOf(p.status)}}
+      </span>
 
       <h6 class="subtitle1-temp">{{p.title}}</h6>
     </a>

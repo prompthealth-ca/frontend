@@ -414,16 +414,21 @@ export class EditorComponent implements OnInit {
     this._postsService.lockEditor();
   }
 
-  onChangeStartDateTime (e: Date) {
+  onChangeStartDateTime (start: Date) {
     // this._postsService.lockEditor();
     this.minDateTimeEventEnd = {
-      year: e.getFullYear(),
-      month: e.getMonth() + 1,
-      day: e.getDate(),
-      hour: e.getHours(),
-      minute: e.getMinutes(),
+      year: start.getFullYear(),
+      month: start.getMonth() + 1,
+      day: start.getDate(),
+      hour: start.getHours(),
+      minute: start.getMinutes(),
     }
-    this.f.eventEndTime.setValue(this.f.eventStartTime.value);
+
+    const end = new Date(this.f.eventEndTime.value);
+    if(start.getTime() - end.getTime() > 0) {
+      const val = `${start.getFullYear()}-${('0' + (start.getMonth() + 1)).slice(-2)}-${('0' + start.getDate()).slice(-2)} ${('0' + start.getHours()).slice(-2)}:${('0' + start.getMinutes()).slice(-2)}`
+      this.f.eventEndTime.setValue(val)
+    }
   }
   onChangeEndDateTime(e: Date) {
     // this._postsService.lockEditor();
@@ -652,9 +657,9 @@ class SaveQuery implements ISaveQuery {
       authorId: this.authorId,
       author: this.author,
       readLength: this.readLength,
-      joinEventLink: this.joinEventLink,
+      // joinEventLink: this.joinEventLink,
       description: this.description,
-      image: this.image,
+      // image: this.image,
       videoLinks: this.videoLinks,
       podcastLinks: this.podcastLinks,
       headliner: false,
@@ -664,7 +669,8 @@ class SaveQuery implements ISaveQuery {
     if(this.eventStartTime) { data.eventStartTime = new Date(this.eventStartTime); }
     if(this.eventEndTime) { data.eventEndTime = new Date(this.eventEndTime); }
     if(this.description) { data.description = this.description; }
-    // if(this.joinEventLink) { data.joinEventLink = this.joinEventLink; }
+    if(this.joinEventLink) { data.joinEventLink = this.joinEventLink; }
+    if(this.image) { data.image = this.image; }
 
     return data;
   }

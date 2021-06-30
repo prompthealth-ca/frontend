@@ -215,20 +215,26 @@ export class EditorComponent implements OnInit {
 
   initPost(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const path = 'blog/get-by-id/' + id;
-      this._sharedService.get(path).subscribe((res: any) => {
-        if(res.statusCode === 200) {
-          this._postsService.saveCacheSingle(res.data);
-          this.post = this._postsService.postOf(id);
-          resolve(true);
-        } else {
-          console.log(res.message);
-          reject(res.message);
-        }
-      }, err => {
-        console.log(err);
-        reject(err);
-      })
+      const post = this._postsService.postOf(id);
+      if (post) {
+        this.post = post;
+        resolve(true);
+      } else {
+        const path = 'blog/get-by-id/' + id;
+        this._sharedService.get(path).subscribe((res: any) => {
+          if(res.statusCode === 200) {
+            this._postsService.saveCacheSingle(res.data);
+            this.post = this._postsService.postOf(id);
+            resolve(true);
+          } else {
+            console.log(res.message);
+            reject(res.message);
+          }
+        }, err => {
+          console.log(err);
+          reject(err);
+        })  
+      }
     });
   }
 
@@ -256,19 +262,23 @@ export class EditorComponent implements OnInit {
 
   initTags() {
     return new Promise((resolve, reject) => {
-      const path = `tag/get-all`;
-      this._sharedService.getNoAuth(path).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this._postsService.saveCacheTags(res.data.data)
-          resolve(true);
-        }else {
-          console.log(res);
-          reject(res.message);
-        }
-      }, (error) => {
-        console.log(error);
-        reject(error);
-      });
+      if(this._postsService.tags) {
+        resolve(true);
+      } else {
+        const path = `tag/get-all`;
+        this._sharedService.getNoAuth(path).subscribe((res: any) => {
+          if (res.statusCode === 200) {
+            this._postsService.saveCacheTags(res.data.data)
+            resolve(true);
+          }else {
+            console.log(res);
+            reject(res.message);
+          }
+        }, (error) => {
+          console.log(error);
+          reject(error);
+        });
+      }
     });
   }
 
@@ -285,6 +295,7 @@ export class EditorComponent implements OnInit {
 
       if(this.post.category) {
         this.selectedCategories = [this.post.category];
+        this.f.categoryId.setValue(this.post.category._id);
         this.onSelectCategory(this.post.category);
       }
 
@@ -331,15 +342,24 @@ export class EditorComponent implements OnInit {
       this.f.status.setValue('DRAFT');
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this._postsService.lockEditor();
-    });
+    // wait for all form values are init, and then start checking form values.
+    // if any value is changed, lock editor.
+    setTimeout(() => {
+      this.form.valueChanges.subscribe((e: any) => {
+        this._postsService.lockEditor();
+      });  
+    }, 0);
   }
 
   changedEditor(e: EditorChangeContent | EditorChangeSelection) {
     if('html' in e) {
+      const current = this.f.description.value;
+      const next = e.html;
+
       this.f.description.setValue(e.html);
-      this._postsService.lockEditor();
+      if(current != next) {
+        this._postsService.lockEditor();
+      }
     }
   }
 
@@ -358,7 +378,12 @@ export class EditorComponent implements OnInit {
   }
 
   onSelectCategory(e: IBlogCategory) {
-    this._postsService.lockEditor();
+    const current = this.f.categoryId.value;
+    const next = e._id;
+    if(current != next) {
+      this._postsService.lockEditor();
+    }
+
     if(e.title.toLowerCase().match(/event/)) {
       this.showEventCalendar();
     } else {
@@ -407,9 +432,10 @@ export class EditorComponent implements OnInit {
     this._sharedService.put(data, path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if(res.statusCode === 200) {
-        this._toastr.success('Deleted successfully.');
+        this._toastr.success('Changed status to draft successfully.');
         this.post.draft();
         this.initForm();
+        this._postsService.unlockEditor();
       }
     });
 
@@ -481,11 +507,20 @@ export class EditorComponent implements OnInit {
       this.isUploading = false;
       this._sharedService.loader('hide');
       if(res.statusCode === 200) {
-        this.isSubmitted = false;
-        this._postsService.unlockEditor();
         console.log(res);
-        this._postsService.saveCacheSingle(res.data, true);
-        this.post = this._postsService.postOf(this.post._id);
+
+        const isPostNew = (!this.post || !('_id' in this.post));
+        if(isPostNew) {
+          this._postsService.addCache(0, res.data);
+        } else {
+          this._postsService.saveCacheSingle(res.data, true);
+        }
+        this.post = this._postsService.postOf(res._id);
+
+        this.initForm();
+        this._postsService.unlockEditor();
+
+        this.isSubmitted = false;
         this._toastr.success('Updated successfully');  
       } else {
         this._toastr.error(res.message);

@@ -108,7 +108,7 @@ export class FormItemDatetimeComponent implements OnInit {
     return datetime;
   }
 
-  showPicker(){ this.isPickerShown = true; console.log('koko')}
+  showPicker(){ this.isPickerShown = true; }
   hidePicker(){ this.isPickerShown = false; }
 }
 

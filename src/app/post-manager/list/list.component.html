@@ -61,6 +61,7 @@
   </button>
 </div>
 
+<p class="subtitle1-temp mt-50p" *ngIf="posts && posts.length == 0">No posts found...</p>
 <ul class="mt-25p p-0 list-unstyled">
   <li *ngFor="let p of posts; let i = index" class="mb-15p py-15p border-bottom">
     <a [routerLink]="['/dashboard/my-posts/edit', p._id]" class="d-flex align-items-start">
@@ -82,7 +83,7 @@
     <div class="d-flex justify-content-between mt-15p">
         <div class="d-flex">
           <a [routerLink]="['/dashboard/my-posts/edit', p._id]" class="btn mr-30p px-0">Edit</a>
-          <a [routerLink]="['/magazines/', p.slug]" class="btn px-0">View</a>  
+          <a [routerLink]="['/magazines/', p.slug]" target="_blank" class="btn px-0">View</a>  
         </div>
         <button class="btn text-danger mr-10p" type="button" (click)="hidePost(p)">
           <i class="fas fa-trash"></i>
@@ -91,7 +92,7 @@
   </li>
 </ul>
 
-<div>
+<div *ngIf="postsTotal > countPerPage">
   <pagination 
   [totalItems]="postsTotal" 
   [itemsPerPage]="countPerPage"

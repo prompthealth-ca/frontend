@@ -70,7 +70,7 @@ export class EditorComponent implements OnInit {
   }
 
   public user: IUserDetail;
-  private post: Blog;
+  public post: Blog;
   public description: any;
 
   public statuses: IBlogCategory[] = [

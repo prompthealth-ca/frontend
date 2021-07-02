@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { formatStringToDateTimeData } from 'src/app/_helpers/date-formatter';
+import { pattern } from 'src/app/_helpers/form-settings';
 import {slideVerticalAnimation } from '../../_helpers/animations';
 
 @Component({
@@ -30,16 +32,9 @@ export class FormItemDatetimeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
-    if(this.controller.value) {
-      const datetime = new Date(this.controller.value);
-      this.dateTime = {
-        year: datetime.getFullYear(),
-        month: datetime.getMonth() + 1,
-        day: datetime.getDate(),
-        hour: datetime.getHours(),
-        minute: datetime.getMinutes(),
-      }
+    const datetime = formatStringToDateTimeData(this.controller.value);
+    if(datetime) {
+      this.dateTime = datetime;
     } else {
       const now = new Date();
       const year = now.getFullYear();
@@ -87,9 +82,31 @@ export class FormItemDatetimeComponent implements OnInit {
     this.fTime.valueChanges.subscribe(() => {
       this.updateDateTime(true);
     });
+    // this.controller.valueChanges.subscribe(() => {
+    //   console.log(this.controller.value);
+    // })
 
   }
 
+  initDateTimePicker(dt: string) {
+    /** update using current controller value */
+    const dtArray = dt.trim().split(' ');
+    const dArray = dtArray[0].split('-');
+    const tArray = dtArray[1].split(':');
+    const date: DateData = {
+      year: Number(dArray[0]),
+      month: Number(dArray[1]),
+      day: Number(dArray[2]),
+    }
+    const time: TimeData = {
+      hour: Number(tArray[0]),
+      minute: Number(tArray[1]),
+    }
+    this.fDate.setValue(date);
+    this.fTime.setValue(time);
+  }
+
+  /** update controller value by selecting by datetime picker */
   updateDateTime(emit: boolean = false){
     const date: DateData = this.fDate.value;
     const time: TimeData = this.fTime.value;
@@ -108,7 +125,12 @@ export class FormItemDatetimeComponent implements OnInit {
     return datetime;
   }
 
-  showPicker(){ this.isPickerShown = true; console.log('koko')}
+  showPicker(){ 
+    if(!this.isPickerShown) {
+      this.initDateTimePicker(this.controller.value);
+    }
+    this.isPickerShown = true; 
+  }
   hidePicker(){ this.isPickerShown = false; }
 }
 

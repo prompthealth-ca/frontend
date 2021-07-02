@@ -6,6 +6,7 @@ import { Blog } from 'src/app/models/blog';
 import { IBlogCategory } from 'src/app/models/blog-category';
 import { BlogSearchQuery, IBlogSearchQuery } from 'src/app/models/blog-search-query';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { MetaData, UniversalService } from 'src/app/shared/services/universal.service';
 import { MagazineService } from '../magazine.service';
 
 @Component({
@@ -64,6 +65,7 @@ export class ListEventComponent implements OnInit {
     private _location: Location,
     private _mService: MagazineService,
     private _sharedService: SharedService,
+    private _uService: UniversalService,
   ) { }
 
   async ngOnInit() {
@@ -77,6 +79,12 @@ export class ListEventComponent implements OnInit {
 
     this._route.params.subscribe( async (params: { page: number }) => {
       this.pageCurrent = params.page || 1;
+
+      const meta: MetaData = {
+        title: 'Events | PromptHealth Magazines' + (this.pageCurrent > 1 ? ` (PAGE ${this.pageCurrent})` : '') ,
+        description: 'Check out our latest events related to health care' + (this.pageCurrent > 1 ? ` (page ${this.pageCurrent})` : ''),
+      }
+      this._uService.setMeta(this._router.url, meta);
 
       this.filterPosts();
     });
@@ -156,7 +164,7 @@ export class ListEventComponent implements OnInit {
     const posts= this._mService.postsOf(this.category._id, 1, 0, 10000);
     this.latest = (posts && posts.length > 0) ? posts[0] : null;
     
-    const archive = posts.slice(1);
+    const archive = posts;
 
     const now = new Date();
     const upcoming = archive.filter(b => {
@@ -200,7 +208,7 @@ export class ListEventComponent implements OnInit {
 
     this.archive = sorted.slice(offset, offset + this.countPerPage);
 
-    this.postTotal = upcoming.length;
+    this.postTotal = upcoming.length + (this.latest ? 1 : 0);
     this.pageTotal = Math.ceil(sorted.length / this.countPerPage);
     this.setPaginators();
   }

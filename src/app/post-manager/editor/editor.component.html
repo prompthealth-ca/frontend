@@ -4,10 +4,10 @@
   </p>
 </ngx-spinner>
 
-
 <form (ngSubmit)="onSubmit()">
-  <div class="h-100--header d-flex flex-column">
-    <section class="border-bottom">
+  <div class="d-flex flex-column" style="height: 100vh;">
+    <div class="intersection-observer" intersectionObserver rootMargin="-50px 0px 0px 0px" (changeStatus)="changeStickyStatus($event)"></div>
+    <section class="border-bottom sticky-top bg-white">
       <div class="container-fluid">
         <div class="d-flex justify-content-between py-5p">
           <a routerLink="/dashboard/profilemanagement/my-posts" class="btn">
@@ -15,6 +15,12 @@
           </a>
 
           <div>
+            <a 
+            *ngIf="post?.slug"
+            [routerLink]="['/magazines', post.slug]"
+            target="_blank"
+            class="btn mr-10p"
+            >View</a>
             <input
             type="submit"
             class="btn btn-outline mr-10p"
@@ -44,24 +50,33 @@
     </section>
   
     <section class="container-fluid flex-grow-1">
-      <div class="d-flex flex-nowrap editor-container overflow-hidden">
+      <div class="d-flex flex-nowrap editor-container overflow-hidden h-100">
         <div class="editor pt-15p d-flex flex-column">
           <div>
+            <div class="pl-15p">
+              <form-item-errors
+              [controller]="f.title"
+              label="Title"
+              [submitted]="isSubmitted"
+              ></form-item-errors>
+            </div>
             <input type="text"
             class="form-control form-control-title h4-temp h2-temp-md"
             placeholder="Enter Title..."
             [formControl]="f.title"
             >
-            <form-item-errors
-            [controller]="f.title"
-            label="Title"
-            [submitted]="isSubmitted"
-            ></form-item-errors>
           </div>
   
           <div class="position-relative flex-grow-1">
+            <div class="pl-15p">
+              <form-item-errors
+              [controller]="f.description"
+              label="Content"
+              [submitted]="isSubmitted"
+              ></form-item-errors>
+            </div>
             <quill-editor
-            [styles]="{height: '450px', border: 'none'}"
+            [styles]="{minHeight: '450px', border: 'none', marginBottom: '150px'}"
             (onEditorChanged)="changedEditor($event)"
             [(ngModel)]="description"
             [ngModelOptions]="{standalone:true}"
@@ -77,6 +92,25 @@
           <div class="mb-20p">
             <h6 class="subtitle1-temp">Status</h6>
             <div class="body1-temp">{{statusNameOf(f.status.value)}}</div>
+            <div 
+            *ngIf="f.status.value == 'PENDING'"
+            class="bg-background mt-10p p-2 body-small-temp"
+            >
+              <span class="opacity-70pc">
+                This post is not published yet. 
+                Administrator is reviewing now. Meanwhile, you can edit or change status to draft.
+              </span>
+            </div>
+            <div 
+            *ngIf="f.status.value == 'REJECTED'"
+            class="bg-warning-light text-warning-dark mt-10p p-2 body-small-temp"
+            >
+              <span>
+                This post has been rejected. 
+                Please modify appropriately.
+                If you have question, please contact administrator.
+              </span>
+            </div>
             <button
             *ngIf="f.status.value !== 'DRAFT'"
             type="button"
@@ -96,6 +130,7 @@
             (onDeSelect)="onDeselectCategory()"
             >
             </ng-multiselect-dropdown>
+            <form-item-errors [controller]="f.categoryId" [submitted]="isSubmitted" label="Category"></form-item-errors>
           </div>
   
           <div class="mb-20p">
@@ -132,6 +167,7 @@
               label="image"
               [controller]="f.image"
               [userid]="user?._id"
+              [option]="{shrinkByWidth: true}"
               uploadType="blogThumbnail"
               (changeImage)="onChangeImage($event)"
               ></form-item-upload-image-button>
@@ -143,8 +179,11 @@
             >
               <form-item-input
               placeholder="https://youtube..."
+              label="Video link"
+              type="url"
               [controller]="fVideo.url"
               [submitted]="isSubmitted"
+              autocapitalize="off"
               ></form-item-input>
             </div>
   
@@ -154,20 +193,32 @@
             >
               <form-item-input
               placeholder="https://spotify..."
+              label="Podcast link"
+              type="url"
               [controller]="fPodcast.url"
               [submitted]="isSubmitted"
+              autocapitalize="off"
               ></form-item-input>
+
+              <form-item-upload-image-button
+              label="image"
+              [controller]="f.image"
+              [userid]="user?._id"
+              [option]="{shrinkByWidth: true}"
+              uploadType="blogThumbnail"
+              (changeImage)="onChangeImage($event)"
+              ></form-item-upload-image-button>
             </div>
           </div>
  
-          <div class="mb-20p" *ngIf="isEventShown">
+          <div style="margin-bottom: 350px;" *ngIf="isEventShown">
             <h6 class="subtitle1-temp">Event data</h6>
             <div class="mb-15p">
               <div class="subtitle2-temp">Start at</div>
               <form-item-datetime
               [controller]="f.eventStartTime"
               [minDateTime]="minDateTimeEventStart"
-              (changeValue)="onChangeStartDateTime($event)"
+              (changeValue)="onChangeStartDateTime()"
               ></form-item-datetime>
               <form-item-errors
               [controller]="f.eventStartTime"
@@ -193,6 +244,7 @@
               <div class="subtitle2-temp">Event link</div>
               <form-item-input
               label="Link"
+              type="url"
               placeholder="https://..."
               autocapitalize="off"
               [controller]="f.joinEventLink"

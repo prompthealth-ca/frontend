@@ -37,19 +37,30 @@ export class Blog implements IBlog {
   get description() { return this.data.description; }
   get descriptionSanitized() { return this._description; }
   get summary() { return this._summary; }
-  get readLength() { return this.data.readLength; } /** UNIT: minute */
-  get readLengthFormatted(): string { return this.getFormattedTime(this.readLength);} 
+  get readLength() { return this._readLength; } /** UNIT: minute */
+  get readLengthFormatted(): string { return this.getFormattedTime(this._readLength);} 
 
   get isVideo() { return !!(this.videosEmbedded.length > 0); }
   get isPodcast() { return !!(this.podcastsEmbedded.length > 0); }
   get isEvent() { return (this.catTitle && this.catTitle.toLowerCase().match(/event/)); }
   
   get image() { return (this.data.image) ? this.AWS_S3 + this.data.image : '/assets/img/logo-square-primary-light.png'; }
+  // get imageSmall() { return (this.data.image) ? this.AWS_S3 + '350x220/' + this.data.image : '/assets/img/logo-square-primary-light.png';}
   get _image() { return (this.data.image) ? this.data.image : null };
+  get imageType() {
+    let imageType: string = '';
+    if(this.data.image) {
+      const regex = /\.(jpe?g|png)$/;
+      const match = this.data.image.match(regex);
+      imageType = match ? ('image/' + match[1]) : '';  
+    }
+    return imageType;
+  }
   get videoLinks() { return this.data.videoLinks || []; }
   get podcastLinks() { return this.data.podcastLinks || []; }
   get videosEmbedded() { return this._videosEmbedded; }
   get podcastsEmbedded() { return this._podcastsEmbedded; }
+  get videoAsThumbnail() { return this._videoAsThumbnail;}
 
   get category() { return this.data.categoryId ? this.data.categoryId : null; }
   get catTitle() { return this.data.categoryId ? this.data.categoryId.title : null; }
@@ -67,11 +78,13 @@ export class Blog implements IBlog {
 
   private AWS_S3 = environment.config.AWS_S3;
 
-  private _time: number;
+  private _readLength: number;
   private _summary: string;
   private _description: SafeHtml;
   private _videosEmbedded: SafeHtml [] = [];
   private _podcastsEmbedded: SafeHtml [] = [];
+
+  private _videoAsThumbnail: SafeHtml;
 
   private _eventData: EventData;
 
@@ -82,10 +95,10 @@ export class Blog implements IBlog {
 
     /** calculate readLength if it's 0 */
     if(data.readLength > 0) {
-      this._time = data.readLength;
+      this._readLength = data.readLength;
     } else {
       const words = data.title + this._summary;
-      this._time = Math.ceil(words.length / 200);
+      this._readLength = Math.ceil(words.length / 200);
     }
 
     this._eventData = new EventData(data);
@@ -101,6 +114,10 @@ export class Blog implements IBlog {
 
   addEmbedPodcast(v: SafeHtml) {
     this._podcastsEmbedded.push(v);
+  }
+
+  setEmbedVideoAsThumbnail(v: SafeHtml) {
+    this._videoAsThumbnail = v;
   }
 
   getFormattedTime(minutes: number) { 

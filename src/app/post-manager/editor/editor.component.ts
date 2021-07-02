@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 import { ToastrService } from 'ngx-toastr';
@@ -10,8 +11,10 @@ import { IBlogCategory } from 'src/app/models/blog-category';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { DateTimeData } from 'src/app/shared/form-item-datetime/form-item-datetime.component';
 import { FormItemUploadImageButtonComponent } from 'src/app/shared/form-item-upload-image-button/form-item-upload-image-button.component';
+import { HeaderStatusService } from 'src/app/shared/services/header-status.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
+import { formatDateTimeDataToString, formatDateToString, formatStringToDate, formatStringToDateTimeData } from 'src/app/_helpers/date-formatter';
 import { validators } from 'src/app/_helpers/form-settings';
 import { PostManagerService } from '../post-manager.service';
 
@@ -70,7 +73,7 @@ export class EditorComponent implements OnInit {
   }
 
   public user: IUserDetail;
-  private post: Blog;
+  public post: Blog;
   public description: any;
 
   public statuses: IBlogCategory[] = [
@@ -128,18 +131,21 @@ export class EditorComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
+    private _router: Router,
+    private _location: Location,
     private _sharedService: SharedService,
     private _profileService: ProfileManagementService,
     private _uService: UniversalService,
     private _postsService: PostManagerService,
     private _toastr: ToastrService,
+    private _headerService: HeaderStatusService,
   ) { }
 
   ngOnDestroy() {
     this._postsService.unlockEditor();
+    this._headerService.showHeader();
   }
   async ngOnInit() {
-
     const userLS = this._uService.localStorage.getItem('user');
     if(userLS) {
       this._profileService.getProfileDetail(JSON.parse(userLS)).then(res => {
@@ -167,8 +173,9 @@ export class EditorComponent implements OnInit {
       // _id: new FormControl(null),
       status: new FormControl('DRAFT'),
       title: new FormControl('', validators.savePostTitle),
+      slug: new FormControl(''),
       description: new FormControl(''), // set validator later
-      categoryId: new FormControl(null),
+      categoryId: new FormControl(null, validators.savePostCategory),
       tags: new FormArray([]),
       authorId: new FormControl(null, validators.savePostAuthorId),
       author: new FormControl(),
@@ -182,13 +189,13 @@ export class EditorComponent implements OnInit {
       videoLinks: new FormArray([
         new FormGroup({
           title: new FormControl(null),
-          url: new FormControl(null, validators.savePostMediaLink),
+          url: new FormControl(null, validators.savePostVideoLink),
         }),
       ]),
       podcastLinks: new FormArray([
         new FormGroup({
           title: new FormControl(null),
-          url: new FormControl(null, validators.savePostMediaLink),
+          url: new FormControl(null, validators.savePostPodcastLink),
         }),
       ]),
     });
@@ -205,6 +212,11 @@ export class EditorComponent implements OnInit {
 
       Promise.all(promiseAll).then(() => {
         this.initForm();
+        
+        this._uService.setMeta(this._router.url, {
+          title: (params.id ? `Edit | ${this.post.title}`  : 'Create new post') + ' | PromptHealth',
+        });
+
       }).catch((err) => {
         console.log(err);
       }).finally(() => {
@@ -215,20 +227,26 @@ export class EditorComponent implements OnInit {
 
   initPost(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const path = 'blog/get-by-id/' + id;
-      this._sharedService.get(path).subscribe((res: any) => {
-        if(res.statusCode === 200) {
-          this._postsService.saveCacheSingle(res.data);
-          this.post = this._postsService.postOf(id);
-          resolve(true);
-        } else {
-          console.log(res.message);
-          reject(res.message);
-        }
-      }, err => {
-        console.log(err);
-        reject(err);
-      })
+      const post = this._postsService.postOf(id);
+      if (post) {
+        this.post = post;
+        resolve(true);
+      } else {
+        const path = 'blog/get-by-id/' + id;
+        this._sharedService.get(path).subscribe((res: any) => {
+          if(res.statusCode === 200) {
+            this._postsService.saveCacheSingle(res.data);
+            this.post = this._postsService.postOf(id);
+            resolve(true);
+          } else {
+            console.log(res.message);
+            reject(res.message);
+          }
+        }, err => {
+          console.log(err);
+          reject(err);
+        })  
+      }
     });
   }
 
@@ -256,35 +274,42 @@ export class EditorComponent implements OnInit {
 
   initTags() {
     return new Promise((resolve, reject) => {
-      const path = `tag/get-all`;
-      this._sharedService.getNoAuth(path).subscribe((res: any) => {
-        if (res.statusCode === 200) {
-          this._postsService.saveCacheTags(res.data.data)
-          resolve(true);
-        }else {
-          console.log(res);
-          reject(res.message);
-        }
-      }, (error) => {
-        console.log(error);
-        reject(error);
-      });
+      if(this._postsService.tags) {
+        resolve(true);
+      } else {
+        const path = `tag/get-all`;
+        this._sharedService.getNoAuth(path).subscribe((res: any) => {
+          if (res.statusCode === 200) {
+            this._postsService.saveCacheTags(res.data.data)
+            resolve(true);
+          }else {
+            console.log(res);
+            reject(res.message);
+          }
+        }, (error) => {
+          console.log(error);
+          reject(error);
+        });
+      }
     });
   }
 
   initForm() {
     if(this.post) {
-      console.log(this.post);
-      // this.f._id.setValue(this.post._id);
       this.f.title.setValue(this.post.title);
-      this.description = this.post.description;
 
+      this.description = this.post.description;
       this.f.description.setValue(this.post.description);
 
       this.f.status.setValue(this.post.status || 'DRAFT');
 
+      if(this.post.slug) {
+        this.f.slug.setValue(this.post.slug);
+      }
+
       if(this.post.category) {
         this.selectedCategories = [this.post.category];
+        this.f.categoryId.setValue(this.post.category._id);
         this.onSelectCategory(this.post.category);
       }
 
@@ -292,10 +317,7 @@ export class EditorComponent implements OnInit {
         this.selectedTags = this.post.tags;
       }
 
-      if(this.post._image) {
-        this.selectedThumbnailType = [this.thumbnailTypes[0]];
-        this.f.image.setValue(this.post._image);
-      } else if(this.post.videoLinks.length > 0) {
+      if(this.post.videoLinks.length > 0) {
         this.selectedThumbnailType = [this.thumbnailTypes[1]];
         this.fVideo.title.setValue(this.post.videoLinks[0].title);
         this.fVideo.url.setValue(this.post.videoLinks[0].url);
@@ -303,16 +325,24 @@ export class EditorComponent implements OnInit {
         this.selectedThumbnailType = [this.thumbnailTypes[2]];
         this.fPodcast.title.setValue(this.post.podcastLinks[0].title);
         this.fPodcast.url.setValue(this.post.podcastLinks[0].url);
-      } else {
+        if(this.post._image) { this.f.image.setValue(this.post._image) };
+      } else if (this.post._image) {
+        this.selectedThumbnailType = [this.thumbnailTypes[0]];
+        this.f.image.setValue(this.post._image);
+      }  else {
         this.selectedThumbnailType = [];
       }
 
       if(this.post.event.startAt) {
-        this.f.eventStartTime.setValue(this.post.event.startAt);
+        const dt = this.post.event.startAt;
+        const val = formatDateToString(dt);
+        this.f.eventStartTime.setValue(val);
       }
 
       if(this.post.event.endAt) {
-        this.f.eventEndTime.setValue(this.post.event.endAt);
+        const dt = this.post.event.endAt;
+        const val = formatDateToString(dt);
+        this.f.eventEndTime.setValue(val);
       }
 
       if(this.post.event.eventOn) {
@@ -331,15 +361,24 @@ export class EditorComponent implements OnInit {
       this.f.status.setValue('DRAFT');
     }
 
-    this.form.valueChanges.subscribe(() => {
-      this._postsService.lockEditor();
-    });
+    // wait for all form values are init, and then start checking form values.
+    // if any value is changed, lock editor.
+    setTimeout(() => {
+      this.form.valueChanges.subscribe((e: any) => {
+        this._postsService.lockEditor();
+      });  
+    }, 0);
   }
 
   changedEditor(e: EditorChangeContent | EditorChangeSelection) {
     if('html' in e) {
+      const current = this.f.description.value;
+      const next = e.html;
+
       this.f.description.setValue(e.html);
-      this._postsService.lockEditor();
+      if(current != next) {
+        this._postsService.lockEditor();
+      }
     }
   }
 
@@ -358,7 +397,12 @@ export class EditorComponent implements OnInit {
   }
 
   onSelectCategory(e: IBlogCategory) {
-    this._postsService.lockEditor();
+    const current = this.f.categoryId.value;
+    const next = e._id;
+    if(current != next) {
+      this._postsService.lockEditor();
+    }
+
     if(e.title.toLowerCase().match(/event/)) {
       this.showEventCalendar();
     } else {
@@ -373,6 +417,17 @@ export class EditorComponent implements OnInit {
 
   showEventCalendar() {
     this.isEventShown = true;
+    if(!this.f.eventStartTime.value){
+      const dt = this.minDateTimeEventStart;
+      const val = formatDateTimeDataToString(dt);
+      this.f.eventStartTime.setValue(val);
+    }
+
+    if(!this.f.eventEndTime.value) {
+      const dt = this.minDateTimeEventEnd;
+      const val = formatDateTimeDataToString(dt);
+      this.f.eventEndTime.setValue(val);
+    }
   }
   hideEventCalendar() {
     this.isEventShown = false;
@@ -382,20 +437,32 @@ export class EditorComponent implements OnInit {
     this._postsService.lockEditor();
   }
 
-  onChangeStartDateTime (e: Date) {
-    // this._postsService.lockEditor();
-    this.minDateTimeEventEnd = {
-      year: e.getFullYear(),
-      month: e.getMonth() + 1,
-      day: e.getDate(),
-      hour: e.getHours(),
-      minute: e.getMinutes(),
+  onChangeStartDateTime () {
+    const start: Date = formatStringToDate(this.f.eventStartTime.value);
+    const end: Date = formatStringToDate(this.f.eventEndTime.value);
+
+    if(start) {
+      this.minDateTimeEventEnd = {
+        year: start.getFullYear(),
+        month: start.getMonth() + 1,
+        day: start.getDate(),
+        hour: start.getHours(),
+        minute: start.getMinutes(),
+      }  
     }
-    this.f.eventEndTime.setValue(this.f.eventStartTime.value);
+
+    if(start && end && (start.getTime() - end.getTime() > 0)) {
+      start.setHours(start.getHours() + 1);
+      const val = formatDateToString(start);
+      this.f.eventEndTime.setValue(val);
+    }
   }
+
   onChangeEndDateTime(e: Date) {
     // this._postsService.lockEditor();
   }
+
+  
 
   draftPost() {
     const data = {
@@ -407,9 +474,10 @@ export class EditorComponent implements OnInit {
     this._sharedService.put(data, path).subscribe((res: any) => {
       this._sharedService.loader('hide');
       if(res.statusCode === 200) {
-        this._toastr.success('Deleted successfully.');
+        this._toastr.success('Changed status to draft successfully.');
         this.post.draft();
         this.initForm();
+        this._postsService.unlockEditor();
       }
     });
 
@@ -448,7 +516,6 @@ export class EditorComponent implements OnInit {
       this.fPodcast.title.setValue(null);
       this.fPodcast.url.setValue(null);
     } else if(this.selectedThumbnailType[0]._id === 'podcast') {
-      this.f.image.setValue(null);
       this.fVideo.title.setValue(null);
       this.fVideo.url.setValue(null);
     }
@@ -472,6 +539,7 @@ export class EditorComponent implements OnInit {
     data.status = statusNext;
 
     const req =  this.post ? this._sharedService.put(data, `blog/update/${this.post._id}`) : this._sharedService.post(data, 'blog/create');
+    console.log('===PAYLOAD====')
     console.log(data);
 
     this.isUploading = true;
@@ -481,11 +549,31 @@ export class EditorComponent implements OnInit {
       this.isUploading = false;
       this._sharedService.loader('hide');
       if(res.statusCode === 200) {
-        this.isSubmitted = false;
+        /** populate category and tag */
+        if(res.data.categoryId) {
+          res.data.categoryId = { _id: res.data.categoryId, title: this._postsService.categoryNameOf(res.data.categoryId) };
+        }
+        if(res.data.tags && res.data.tags.length > 0) {
+          const populated: IBlogCategory[] = [];
+          res.data.tags.forEach((id: string) => {
+            populated.push({ _id: id, title: this._postsService.tagNameOf(id) });
+          });
+          res.data.tags = populated;
+        }
+
+        const isPostNew = (!this.post || !('_id' in this.post));
+        if(isPostNew) {
+          this._postsService.addCache(0, res.data);
+          this._location.replaceState('/dashboard/my-posts/edit/' + res.data._id);
+        } else {
+          this._postsService.saveCacheSingle(res.data, true);
+        }
+        this.post = this._postsService.postOf(res.data._id);
+
+        this.initForm();
         this._postsService.unlockEditor();
-        console.log(res);
-        this._postsService.saveCacheSingle(res.data, true);
-        this.post = this._postsService.postOf(this.post._id);
+
+        this.isSubmitted = false;
         this._toastr.success('Updated successfully');  
       } else {
         this._toastr.error(res.message);
@@ -522,10 +610,11 @@ export class EditorComponent implements OnInit {
     // this.f.tags.clearValidators();
     // this.f.tags.setValidators( published ? validators.publishPostTags : validators.savePostTags);
     // this.f.tags.updateValueAndValidity();
-
-
   }
-}
+
+  changeStickyStatus(isSticked: boolean) {
+    if (isSticked) { this._headerService.hideHeader(); } else { this._headerService.showHeader(); }
+  }}
 
 
 interface ISaveQuery {
@@ -534,7 +623,8 @@ interface ISaveQuery {
   title: string;
   authorId: string;
   author: string;
-  
+
+  // slug?: string;
   description?: string;
   categoryId?: string;
   tags?: string[],
@@ -560,12 +650,11 @@ class SaveQuery implements ISaveQuery {
   get authorId() { return this.data.authorId || null; }
   get author() { return this.data.author || null; }
   get description() { return this.data.description || ''; }
-  get categoryId() { return this.data.categoryId || null; }
-  get tags() { return (this.data.tags && this.data.tags.length > 0) ? this.data.tags : null; }
-  get readLength() { return this.data.readLength || 0; }
+  get categoryId() { return this.data.categoryId || ''; }
+  get tags() { return (this.data.tags && this.data.tags.length > 0) ? this.data.tags : []; }
   
-  get eventStartTime() { return this.data.eventStartTime || null; }
-  get eventEndTime() { return this.data.eventEndTime || null; }
+  get eventStartTime() { return this.data.eventStartTime ? formatStringToDate(this.data.eventStartTime as string) : null; }
+  get eventEndTime() { return this.data.eventEndTime ? formatStringToDate(this.data.eventEndTime as string) : null; }
   get joinEventLink() { return this.data.joinEventLink || null; }
   
   get image() { return this.data.image || ''; }
@@ -584,8 +673,7 @@ class SaveQuery implements ISaveQuery {
     if(this.data.podcastLinks && this.data.podcastLinks.length > 0) {
       const data = this.data.podcastLinks[0];
       if(data.url) {
-        const urlReplaced = data.url.replace(/\?.*/, '').replace(/com\/episode/, 'com/embed/episode')
-        res = [{title: 'podcast', url: urlReplaced}];
+        res = [{title: 'podcast', url: data.url}];
       }
     }
     return res;
@@ -594,25 +682,26 @@ class SaveQuery implements ISaveQuery {
   toJson() { 
     const data: ISaveQuery = {
       status: this.status,
-      title: this.title,
       authorId: this.authorId,
       author: this.author,
-      readLength: this.readLength,
-      joinEventLink: this.joinEventLink,
+
+      title: this.title,
       description: this.description,
+      
+      categoryId: this.categoryId,
+      tags: this.tags,
+      
+      joinEventLink: this.joinEventLink,
+      eventStartTime: this.eventStartTime,
+      eventEndTime: this.eventEndTime,
+
       image: this.image,
       videoLinks: this.videoLinks,
       podcastLinks: this.podcastLinks,
       headliner: false,
     };
-    if(this.categoryId) { data.categoryId = this.categoryId; }
-    if(this.tags) { data.tags = this.tags; }
-    if(this.eventStartTime) { data.eventStartTime = new Date(this.eventStartTime); }
-    if(this.eventEndTime) { data.eventEndTime = new Date(this.eventEndTime); }
-    if(this.description) { data.description = this.description; }
-    // if(this.joinEventLink) { data.joinEventLink = this.joinEventLink; }
-
     return data;
   }
   constructor(private data: ISaveQuery) {}
 }
+

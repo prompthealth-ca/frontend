@@ -56,8 +56,10 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._uService.setMeta(this._router.url, {
+      title: 'My posts | PromptHealth',
+    });
     this._route.params.subscribe(async (params: {page: number}) => {
-      this._sharedService.loader('show');
       this.pageCurrent = params.page || 1;
 
       const userLS = this._uService.localStorage.getItem('user');
@@ -66,7 +68,6 @@ export class ListComponent implements OnInit {
         await this.initCategories();
         await this.initPosts();
       }
-      this._sharedService.loader('hide');
     });
   }
 
@@ -98,6 +99,7 @@ export class ListComponent implements OnInit {
       this.setPosts();
       resolve(true);
       if(!posts) {
+        this.posts = [null, null, null, null, null, null, null, null];
         const path = 'blog/get-by-author/' + this.user._id;
         const query = new BlogSearchQuery();
         this._sharedService.get(path + query.queryParams).subscribe((res: any) => {
@@ -128,8 +130,8 @@ export class ListComponent implements OnInit {
     this.posts = this._postsService.postsPerPageOf(this.catIdSelected, this.pageCurrent, this.statusSelected, this.order);
   }
 
-  onChangePage(e: any) {
-    this._router.navigate(['../', e], {relativeTo: this._route});
+  onChangePage(e: {page: number, itemsPerPage: number} ) {
+    this._router.navigate(['../', e.page], {relativeTo: this._route});
   }
 
   onChangeFilterCategory(category: IBlogCategory = null) {
@@ -160,6 +162,7 @@ export class ListComponent implements OnInit {
       if(res.statusCode === 200) {
         this._toastr.success('Deleted successfully.');
         post.hide();
+        this.setPosts();
       }
     });
   }

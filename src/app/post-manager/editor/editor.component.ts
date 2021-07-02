@@ -668,8 +668,7 @@ class SaveQuery implements ISaveQuery {
     if(this.data.podcastLinks && this.data.podcastLinks.length > 0) {
       const data = this.data.podcastLinks[0];
       if(data.url) {
-        const urlReplaced = data.url.replace(/\?.*/, '').replace(/com\/episode/, 'com/embed/episode')
-        res = [{title: 'podcast', url: urlReplaced}];
+        res = [{title: 'podcast', url: data.url}];
       }
     }
     return res;

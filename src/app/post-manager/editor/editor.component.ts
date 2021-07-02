@@ -189,13 +189,13 @@ export class EditorComponent implements OnInit {
       videoLinks: new FormArray([
         new FormGroup({
           title: new FormControl(null),
-          url: new FormControl(null, validators.savePostMediaLink),
+          url: new FormControl(null, validators.savePostVideoLink),
         }),
       ]),
       podcastLinks: new FormArray([
         new FormGroup({
           title: new FormControl(null),
-          url: new FormControl(null, validators.savePostMediaLink),
+          url: new FormControl(null, validators.savePostPodcastLink),
         }),
       ]),
     });

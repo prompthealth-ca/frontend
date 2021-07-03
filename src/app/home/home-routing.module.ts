@@ -68,22 +68,13 @@ const routes: Routes = [
   //   path: "loyalty",
   //   component: LoyalityProgramsComponent
   // },
-  {
-    path: "blogs",
-    component: BlogComponent
-  },
-  {
-    path: "blogs/category/:id",
-    component: BlogCategoryComponent
-  },
-  { path: 'blogs/category', redirectTo: '/blogs'},
+  { path: "blogs/:id", redirectTo: '/magazines/:id'},
+  { path: 'blog-detail/:id', redirectTo: '/magazines/:id'},
 
-  {
-    path: "blogs/:id",
-    component: BlogDetailComponent
-  },
-  { path: 'blog-detail/:id', redirectTo: '/blogs/:id'}, /** this id is not objectId. it's slug */
-  { path: 'blog-category/:id', redirectTo: '/blogs/category/:id'},
+  { path: "blogs/category/:id", redirectTo: '/magazines'}, /** catId is deprecated. use slug to show category list. */
+  { path: 'blogs/category', redirectTo: '/magazines'},
+  { path: 'blog-category/:id', redirectTo: '/magazines'}, /** old route */
+  { path: "blogs", redirectTo: '/magazines' },
 
   {
     path: "contact-us",

@@ -15,6 +15,8 @@ import { throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { PostManagerService } from 'src/app/post-manager/post-manager.service';
+import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
 
 import { DOCUMENT } from '@angular/common';
 import { UniversalService } from './universal.service';
@@ -49,6 +51,8 @@ export class SharedService {
     private _bs: BehaviorService,
     private _uService: UniversalService,
     private _stripeService: StripeService,
+    private _postManager: PostManagerService,
+    private _profileManager: ProfileManagementService,
 
     @Inject(DOCUMENT) private document,
     private http: HttpClient) {
@@ -57,6 +61,9 @@ export class SharedService {
 
 
   logout(navigate: boolean = true) {
+    this._postManager.dispose();
+    this._profileManager.dispose();
+
     const ls = this._uService.localStorage;
   
     ls.removeItem('token');
@@ -162,6 +169,27 @@ export class SharedService {
       }
     });
   }
+
+  async shrinkImageByFixedWidth(file: File, width: number = 1500): Promise<{ file: Blob, filename: string }> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = (e: any) => {
+        const t = e.target;
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = img.height * width / img.width;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((b: Blob) => {
+          const filename = Date.now().toString() + '.' + b.type.replace('image/', '');
+          resolve({ file: b, filename });
+        }, file.type);
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
 
   async shrinkImageByFixedHeight(file: File, height: number = 100): Promise<{ file: Blob, filename: string }> {
     return new Promise((resolve, reject) => {
@@ -559,6 +587,16 @@ export class SharedService {
     });
   }
 
+  getReferrer() {
+    const ref = document.referrer;
+    let res: string;
+    if(!ref || ref.length  == 0) {
+      res = 'direct';
+    } else {
+      res = ref.replace(/http(s)?:\/\//, '').replace(/\/.*$/, '');
+    }
+    return res;
+  }
 }
 
 

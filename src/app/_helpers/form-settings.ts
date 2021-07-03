@@ -14,9 +14,12 @@ export const minmax = {
 export const pattern = {
   // url: 'http(s)?:\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&=]*)?',
   url: '(http(s)?:\\/\\/)?(www\\.)?([\\w-\\.])+(\\/[\\w-%?=@&+\\.]*)?',
+  urlVideo: '^http(s)?:\\/\\/(w{3}\\.)?((youtube|vimeo)\\.com|youtu.be)\/.+',
+  urlPodcast: '^http(s)?:\\/\\/(w{3}\\.)?(open\\.spotify)\\.com\/.+',
   phone: '^[0-9\\-\\(\\)\\s]+$',
   price: '^[0-9]{1,}(\\.[0-9]{1,2})?$',
-  password: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^\\.&\\-]).{8,}'
+  password: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^\\.&\\-]).{8,}',
+  datetime: '^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}\\s[0-9]{2}:[0-9]{2}$',
 }
 
 const validatorCheckboxSelectedAtLeast = (minRequired: number = 1): ValidatorFn => {
@@ -88,6 +91,18 @@ const validatorPatternPassword = (): ValidatorFn => {
   }
 }
 
+const validatorPatternDateTime = (): ValidatorFn => {
+  return function validate(formControl: FormControl) {
+    const regex = new RegExp(pattern.datetime);
+    if(!formControl.value || formControl.value.match(regex)) {
+      return null;
+    } else {
+      const errors = {'matchPatternDateTime': true};
+      return errors;
+    }
+  }
+}
+
 const validatorPatternURL = (): ValidatorFn => {
   return function validate(formControl: FormControl) {
     let val: string = formControl.value;
@@ -116,6 +131,7 @@ const validatorPatternURL = (): ValidatorFn => {
     }
   }
 }
+
 
 const validatorFirstNameClient = [Validators.maxLength(minmax.nameMax), Validators.required];
 const validatorLastNameClient = [Validators.maxLength(minmax.nameMax)];
@@ -169,5 +185,22 @@ export const validators = {
   
   password: validatorPatternPassword(),
   accredit: validatorRequiredTrue,
-  
+
+
+  /** blog post for users */
+  publishPostDescription: [Validators.required],
+  // publishPostCategory: [Validators.required],
+  // publishPostTags: [],
+  publishPostEventTime: [Validators.required, validatorPatternDateTime()], // might need pattern as well
+  publishPostEventLink: [Validators.required, validatorPatternURL()],
+  savePostTitle: [Validators.required],
+  savePostDescription: [],
+  savePostCategory: [Validators.required],
+  // savePostTags: [],
+  savePostEventTime: [validatorPatternDateTime()], // might need pattern as well
+  savePostEventLink: [validatorPatternURL()],
+  // savePostMediaLink: [validatorPatternURL()], 
+  savePostAuthorId: [Validators.required],
+  savePostVideoLink: [Validators.pattern(pattern.urlVideo)],
+  savePostPodcastLink: [Validators.pattern(pattern.urlPodcast)],
 }

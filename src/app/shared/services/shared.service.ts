@@ -26,6 +26,7 @@ import { IUserDetail } from 'src/app/models/user-detail';
 import { IDefaultPlan } from 'src/app/models/default-plan';
 import { IAddonPlan } from 'src/app/models/addon-plan';
 import { ICouponData } from 'src/app/models/coupon-data';
+import { RequestOptions } from '@angular/http';
 
 declare var jQuery: any;
 
@@ -65,7 +66,7 @@ export class SharedService {
     this._profileManager.dispose();
 
     const ls = this._uService.localStorage;
-  
+
     ls.removeItem('token');
     ls.removeItem('loginID');
     // localStorage.removeItem('isPayment');
@@ -230,7 +231,7 @@ export class SharedService {
   login(body) {
     const headers = this.getDefaultHeader();
     // return this.http.post(this.rootUrl + 'user/signinUser', body, { headers });
-    return this.http.post(this.rootUrl + 'user/signinUser', body, { headers }).pipe(
+    return this.http.post(this.rootUrl + 'oauth/withpassword', body, { headers }).pipe(
       map((response: any) => {
         return response;
       }),
@@ -263,9 +264,28 @@ export class SharedService {
     const headers = this.getDefaultHeader();
     return this.http.post(this.rootUrl + 'user/social-login-2', body, { headers });
   }
+  socialSignin(body, type) {
+    const headers = this.getDefaultHeader();
+    // console.log(headers);
+
+    switch (type) {
+      case 'google':
+        return this.http.get(this.rootUrl + 'oauth/googlesignin?access_token=' + body.authToken
+          + '&role=' + body.roles, {
+          headers
+        });
+      case 'facebook':
+        return this.http.get(this.rootUrl + 'oauth/facebooksignin?access_token=' + body.authToken
+          + '&role=' + body.userRole, {
+          headers
+        });
+      default:
+        break;
+    }
+  }
   logingOut() {
     const headers = this.getAuthorizationHeader();
-    return this.http.delete(this.rootUrl + 'user/logout', { headers });
+    return this.http.delete(this.rootUrl + 'oauth/logout', { headers });
   }
   getSubscriptionPlan() {
     const date = new Date().getTime().toString();
@@ -469,13 +489,13 @@ export class SharedService {
   }
 
   isCouponApplicableTo(coupon: ICouponData, role: string): boolean {
-    if(!coupon) { return false; }
-    if(!coupon.metadata.roles || coupon.metadata.roles.length == 0) {
+    if (!coupon) { return false; }
+    if (!coupon.metadata.roles || coupon.metadata.roles.length == 0) {
       return true;
     } else {
       const rolesStr = coupon.metadata.roles.replace(/'/g, '"');
       const roles: string[] = JSON.parse(rolesStr);
-      if(roles.includes(role)) {
+      if (roles.includes(role)) {
         return true;
       } else {
         return false;
@@ -484,15 +504,15 @@ export class SharedService {
   }
 
   async checkoutPlan(
-    user: IUserDetail, 
-    plan: IDefaultPlan | IAddonPlan, 
+    user: IUserDetail,
+    plan: IDefaultPlan | IAddonPlan,
     type: StripeCheckoutType,
     monthly: boolean,
     metadata = {}, // this is for addon plan
     option: ICheckoutPlanOption = {}
-  ): Promise<{message: string, nextAction: string}> {
-    const result = {message: null, nextAction: null};
-    if(plan.price == 0 && plan.name == 'Basic') {
+  ): Promise<{ message: string, nextAction: string }> {
+    const result = { message: null, nextAction: null };
+    if (plan.price == 0 && plan.name == 'Basic') {
       try {
         result.message = await this.checkoutFreePlan(user, (plan as IDefaultPlan));
         result.nextAction = 'complete';
@@ -502,7 +522,7 @@ export class SharedService {
       }
     } else {
       try {
-        result.message =  await this.checkoutPremiumPlan(user, plan, type, monthly, metadata, option);
+        result.message = await this.checkoutPremiumPlan(user, plan, type, monthly, metadata, option);
         result.nextAction = 'stripe';
         return result;
       } catch (error) {
@@ -511,12 +531,11 @@ export class SharedService {
     }
   }
 
-  private checkoutFreePlan (user: IUserDetail, plan: IDefaultPlan): Promise<string> {
+  private checkoutFreePlan(user: IUserDetail, plan: IDefaultPlan): Promise<string> {
     return new Promise((resolve, reject) => {
-      const payload: IUserDetail = {_id: user._id, plan: plan};
+      const payload: IUserDetail = { _id: user._id, plan };
       this.post(payload, 'user/updateProfile').subscribe((res: any) => {
-        if(res.statusCode === 200) { resolve(res.message); } 
-        else { reject(res.message); }
+        if (res.statusCode === 200) { resolve(res.message); } else { reject(res.message); }
       }, err => {
         console.log(err);
         reject('There are some errors, please try again after some time!');
@@ -525,8 +544,8 @@ export class SharedService {
   }
 
   private checkoutPremiumPlan(
-    user: IUserDetail, 
-    plan: IDefaultPlan | IAddonPlan, 
+    user: IUserDetail,
+    plan: IDefaultPlan | IAddonPlan,
     type: StripeCheckoutType,
     monthly: boolean,
     metadata = null,
@@ -536,18 +555,18 @@ export class SharedService {
       const ss = this._uService.sessionStorage;
       const savedCoupon: ICouponData = JSON.parse(ss.getItem('stripe_coupon_code'));
       const _option = new CheckoutPlanOption(option, user.roles);
-  
+
       const payload: IStripeCheckoutData = {
         cancel_url: _option.cancelUrl,
         success_url: _option.successUrl,
         userId: user._id,
         userType: user.roles,
         email: user.email,
-        plan: plan,
+        plan,
         isMonthly: monthly,
-        type: type,
+        type,
       };
-      if(metadata) {
+      if (metadata) {
         payload.metadata = metadata;
       }
 
@@ -557,11 +576,11 @@ export class SharedService {
       }
 
       this.post(payload, 'user/checkoutSession').subscribe((res: any) => {
-        if(res.statusCode === 200) {
+        if (res.statusCode === 200) {
           console.log(res.data);
           this._stripeService.changeKey(environment.config.stripeKey);
-  
-          if (res.data.type === 'checkout') {  
+
+          if (res.data.type === 'checkout') {
             this._stripeService.redirectToCheckout({ sessionId: res.data.sessionId }).subscribe(stripeResult => {
               console.log('success!');
             }, error => {
@@ -571,8 +590,8 @@ export class SharedService {
           } else if (res.data.type === 'portal') {
             console.log(res.data);
             location.href = res.data.url;
-            resolve('You already have this plan. Redirecting to billing portal.')
-          }  
+            resolve('You already have this plan. Redirecting to billing portal.');
+          }
         } else {
           console.log(res);
           reject(res.message);
@@ -590,7 +609,7 @@ export class SharedService {
   getReferrer() {
     const ref = document.referrer;
     let res: string;
-    if(!ref || ref.length  == 0) {
+    if (!ref || ref.length == 0) {
       res = 'direct';
     } else {
       res = ref.replace(/http(s)?:\/\//, '').replace(/\/.*$/, '');
@@ -610,17 +629,17 @@ interface ICheckoutPlanOption {
   showErrorMessage?: boolean;
 }
 
-class CheckoutPlanOption implements ICheckoutPlanOption{
+class CheckoutPlanOption implements ICheckoutPlanOption {
 
-    /** if user cancel, user cannot go back to questionnaire page, because data is already destroyed and user will be guarded to access */
-  get cancelUrl() { 
-    const url = location.origin + (this.data.cancelUrl ? this.data.cancelUrl : ( '/plans' + (this.role == 'P' ? '/product' : '') )); 
+  /** if user cancel, user cannot go back to questionnaire page, because data is already destroyed and user will be guarded to access */
+  get cancelUrl() {
+    const url = location.origin + (this.data.cancelUrl ? this.data.cancelUrl : ('/plans' + (this.role == 'P' ? '/product' : '')));
     return url + (this._showErrorMessage ? '?action=stripe-cancel' : '');
   }
 
   /** currently, practitioner complete page url is same as product complete page. */
-  get successUrl() { 
-    const url = location.origin + (this.data.successUrl ? this.data.successUrl : '/dashboard/register-product/complete'); 
+  get successUrl() {
+    const url = location.origin + (this.data.successUrl ? this.data.successUrl : '/dashboard/register-product/complete');
     return url + (this._showSuccessMessage ? '?action=stripe-success' : '');
   }
 

@@ -42,30 +42,38 @@ import { ProfileContactComponent } from './profile-contact/profile-contact.compo
 import { FollowListComponent } from './follow-list/follow-list.component';
 import { ProfileFollowListComponent } from './profile-follow-list/profile-follow-list.component';
 import { GuardIfNotLoggedInGuard } from '../auth/guard-if-not-logged-in.guard';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 
 const routes: Routes = [
   { path: '', component: BaseComponent, children: [
+    /** PUBLIC PROFILE */
     { path: 'profile/:userid', component: ProfileComponent, children: [
       { path: '', component: ProfileAboutComponent, data: {order: 1} } ,
       { path: 'service', component: ProfileServiceComponent, data: {order:2} } ,
       { path: 'feed', component: ProfileFeedComponent, data: {order: 3} },
       { path: 'review', component: ProfileReviewComponent, data: {order: 4} },
     ] },
-
     { path: 'profile/:userid/followings', component: ProfileFollowListComponent, data: {type: 'following'}},
 
+    /** CONTENT */
     { path: 'content/:postid', component: PageComponent },
     { path: 'content', pathMatch: 'full', redirectTo: 'feed' },
 
+    /** EDITOR */
     { path: 'create/article', component: EditorComponent, data: {type: 'article'}, canActivate: [GuardIfNotEligbleToCreatePostGuard], canDeactivate: [GuardIfEditorLockedGuard] },
     { path: 'create/event', component: EditorComponent, data: {type: 'event'}, canActivate: [GuardIfNotEligbleToCreatePostGuard], canDeactivate: [GuardIfEditorLockedGuard] },
     { path: 'create', redirectTo: 'create/article' },
     // { path: 'draft', component: DraftComponent, canActivate: [GuardIfNotEligbleToCreatePostGuard] },
+
+    /** DASHBOARD */
+    { path: 'dashboard', component: DashboardComponent, canActivate: [GuardIfNotLoggedInGuard]},
+
     { path: 'followings', component: FollowListComponent, data: {type: 'following'}, canActivate: [GuardIfNotLoggedInGuard], },
     { path: 'followers', component: FollowListComponent, data: {type: 'followed'}, canActivate: [GuardIfNotEligbleToCreatePostGuard], },
     { path: 'notification', component: NotificationComponent, canActivate: [GuardIfNotLoggedInGuard], },
 
+    /** FEED */
     { path: '', component: HomeComponent, children: [
       { path: ':taxonomyType', component: ListComponent },
       { path: ':taxonomyType/:topicId', component: ListComponent },  
@@ -110,6 +118,7 @@ const routes: Routes = [
     ProfileContactComponent,
     FollowListComponent,
     ProfileFollowListComponent,
+    DashboardComponent,
   ],
   providers: [
     CategoryService,

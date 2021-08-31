@@ -31,6 +31,7 @@ export interface IProfile {
   isProvider: boolean;
   isApproved: boolean;
   isVerified: boolean; /** verified for badge */
+  isPremium: boolean;
 
   linkToProfile: string;
 
@@ -83,6 +84,7 @@ export class Profile implements IProfile {
 
   get isApproved() { return this.isU || this.isSA || this.data.isApproved; }
   get isVerified() { return this.isSA || this.data.verifiedBadge || false; }
+  get isPremium() { return !!(this.data.isVipAffiliateUser || (this.data.plan && this.data.plan.planName != 'Basic')); }
 
   get linkToProfile() { return !this.isU ? '/community/profile/' + this._id : null; }
 

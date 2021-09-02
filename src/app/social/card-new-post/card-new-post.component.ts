@@ -298,14 +298,15 @@ export class CardNewPostComponent implements OnInit {
         this.formItemService.deselectAll();
         this.onPublished.emit(res.data as ISocialPost);
         this._editorService.resetForm();
+        this.imagePreview = null;
       } else {
-        console.log(res.message);   
+        console.log(res.message);
         this._toastr.error('Could not upload the note. Please try again later.');
       }
     }, error => {
+      this.isUploading = false;
       console.log(error);
       this._toastr.error('Could not upload the note. Please try again later.');
-      this.isUploading = false;
     });
   }
 

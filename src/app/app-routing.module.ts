@@ -11,12 +11,17 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { SocialModule } from './social/social.module';
 import { AuthModule } from './auth/auth.module';
+import { DashboardNewModule } from './dashboard-new/dashboard-new.module';
 
 
 const routes: Routes = [
   {
     path: 'community',
     loadChildren: () => SocialModule,
+  },
+  { 
+    path: 'dashboard', 
+    loadChildren: () => DashboardNewModule
   },
   { path: 'auth', 
     loadChildren: () => AuthModule,

@@ -76,6 +76,11 @@ a {
   }
 }
 
+.overflow-md-initial{
+  @media (min-width: $breakpointMd) {
+    overflow: initial!important;
+  }
+}
 
 .form-control.is-invalid {
   padding-right: 30px !important;

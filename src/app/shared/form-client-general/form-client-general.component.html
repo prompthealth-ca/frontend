@@ -1,30 +1,27 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form">
-  <div class="row mb-4">
-    <div class="col-md-4">
-      <label>
-        Profile image
-        <span class="text-danger">*</span>
-      </label>
+  <div class="text-center">
+    <div class="position-relative d-inline-block">
+      <profile-image 
+      size=70
+      [image]="data.profileImage ? s3 + data.profileImage : null"
+      ></profile-image>
+      <button
+      *ngIf="data.profileImage"
+      class="btn btn-icon bg-background small p-5p position-absolute"
+      style="top:-10px; right: -10px"
+      >
+        <i iconPh="cross" class="text-placeholder"></i>
+      </button>
     </div>
-    <div class="col-md-8">
-      <form-item-upload-image-button
-      [userid]="data?._id"
-      label="Profile image"
-      [disabled]="disabled"
-      [submitted]="isSubmitted"
-      [controller]="f.profileImage"
-      (changeImage)="onChangeImage($event)"
-      ></form-item-upload-image-button>
-    </div>
+    
   </div>
+
   <div class="row mb-4">
-    <div class="col-md-4">
+    <div class="col-12 col-lg-6">
       <label for="firstName">
         First Name
         <span class="text-danger">*</span>
       </label>
-    </div>
-    <div class="col-md-8">
       <form-item-input 
       name="firstName"
       label="First name"
@@ -35,16 +32,10 @@
       [submitted]="isSubmitted"
       ></form-item-input>
     </div>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-md-4">
+    <div class="col-12 col-lg-6">
       <label for="lastName">
         Last Name
-        <!-- <span class="text-danger">*</span> -->
       </label>
-    </div>
-    <div class="col-md-8">
       <form-item-input 
       name="lastName"
       label="Last name"
@@ -56,13 +47,13 @@
       ></form-item-input>
     </div>
   </div>
-  
+
   <div class="row mb-4">
-    <label class="col-md-4" for="userType">
-      Membership Type 
-      <!-- <span class="text-danger">*</span> -->
-    </label>
-    <div class="col-md-8">
+    <div class="col-12 col-lg-6">
+      <label for="userType">
+        Membership Type 
+        <!-- <span class="text-danger">*</span> -->
+      </label>
       <form-item-input 
       name="userType"
       label="Membership type"
@@ -71,30 +62,29 @@
       [disabled]="true"
       ></form-item-input>
     </div>
-  </div>
 
-  <div class="row mb-4">
-    <label class="col-md-4" for="email">
-      Email Address 
-      <!-- <span class="text-danger">*</span> -->
-    </label>
-    <div class="col-md-8">
-      <form-item-input 
-      name="email"
-      label="Email Address"
-      type="email"
-      autocapitalize="off"
-      autocomplete="email"
-      [controller]="f.email"
-      [disabled]="true"
-      ></form-item-input>
+    <div class="col-12 col-lg-6">
+      <label for="email">
+        Email Address 
+        <!-- <span class="text-danger">*</span> -->
+      </label>
+      <div>
+        <form-item-input 
+        name="email"
+        label="Email Address"
+        type="email"
+        autocapitalize="off"
+        autocomplete="email"
+        [controller]="f.email"
+        [disabled]="true"
+        ></form-item-input>
+      </div>
     </div>
   </div>
 
-  <div class="row mb-4">
+  <!-- <div class="row mb-4">
     <label class="col-md-4" for="phone">
       Phone Number 
-      <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
       <form-item-input 
@@ -106,30 +96,31 @@
       [disabled]="disabled"
       ></form-item-input>
     </div>
-  </div>
+  </div> -->
 
   <div class="row mb-4 pt-2">
-    <label class="col-md-4 mt-0">
-      Gender
-      <!-- <span class="text-danger">*</span> -->
-    </label>
-    <div class="col-md-8">
-      <form-item-checkbox-group
-      id="gender"
-      type="radio"
-      label="Gender"
-      [data]="data?.gender"
-      [controller]="f.gender"
-      [submitted]="isSubmitted"
-      [disabled]="disabled"
-      ></form-item-checkbox-group>
+    <div class="col-12">
+      <label>
+        Gender
+      </label>
+      <div>
+        <form-item-checkbox-group
+        id="gender"
+        type="radio"
+        label="Gender"
+        [data]="data?.gender"
+        [controller]="f.gender"
+        [submitted]="isSubmitted"
+        [disabled]="disabled"
+        [option]="{showInlineWhenEnabled: true}"
+        ></form-item-checkbox-group>
+      </div>  
     </div>
   </div>
 
-  <div class="row mb-4">
+  <!-- <div class="row mb-4">
     <label class="col-md-4" for="address">
       Location 
-      <!-- <span class="text-danger">*</span> -->
     </label>
     <div class="col-md-8">
       <form-item-address
@@ -140,7 +131,7 @@
       [disabled]="disabled"
       ></form-item-address>
     </div>
-  </div>
+  </div> -->
 
   <div class="row" *ngIf="!disabled">
     <div class="col text-right">

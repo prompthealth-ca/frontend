@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
 import { IUserDetail } from 'src/app/models/user-detail';
 import { minmax, validators } from 'src/app/_helpers/form-settings';
+import { environment } from 'src/environments/environment';
 import { FormItemCheckboxGroupComponent, CheckboxSelectionItem } from '../form-item-checkbox-group/form-item-checkbox-group.component';
 import { FormItemPricingComponent } from '../form-item-pricing/form-item-pricing.component';
 import { SharedService } from '../services/shared.service';
@@ -26,6 +27,7 @@ export class FormClientGeneralComponent implements OnInit {
   public isSubmitted = false;
 
   public maxName = minmax.nameMax;
+  public s3 = environment.config.AWS_S3;
 
   @ViewChildren(FormItemCheckboxGroupComponent) formItemCheckboxGroupComponents: QueryList<FormItemCheckboxGroupComponent>;
 
@@ -41,7 +43,7 @@ export class FormClientGeneralComponent implements OnInit {
       firstName: new FormControl(this.data.firstName ? this.data.firstName : '', validators.firstnameClient),
       lastName: new FormControl(this.data.lastName ? this.data.lastName : '', validators.lastnameClient),
       
-      userType: new FormControl('Client'),
+      userType: new FormControl('Health Seeker'),
       email: new FormControl(this.data.email ? this.data.email : '', validators.email),
       phone: new FormControl(this.data.phone ? this.data.phone : '', validators.phone),
       gender: new FormControl(this.data.gender ? this.data.gender: ''),

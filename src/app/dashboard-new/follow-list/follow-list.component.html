@@ -1,0 +1,29 @@
+<ng-container *ngIf="follows">
+  <ul class="bg-white rounded-8p px-15p px-md-30p list-unstyled">
+    <li *ngFor="let follow of follows; let i = index">
+      <div class="d-flex py-20p py-md-30p" [ngClass]="(i < follows.length - 1 ? 'border-bottom border-line' : '')">
+        <profile-image [image]="follow.profileImage" size=50></profile-image>
+        <div class="flex-grow-1 d-flex justify-content-between flex-wrap flex-md-nowrap ml-10p">
+          <div class="name-container">
+            <div class="subtitle1">{{followerNameOf(follow)}}</div>
+            <div class="body2 text-label description">{{follow.description}}</div>
+          </div>
+          <div *ngIf="!follow.isU" class="mt-10p mt-md-0p ml-md-30p">
+            <a [routerLink]="['/community/profile', follow._id]" class="btn btn-outline small text-nowrap">See
+              profile</a>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="follows && follows.length == 0" class="subtitle1 mt-25p text-center">No data found.</div>
+
+  <div *ngIf="existsMore && !isLoading" class="text-center">
+    <button class="btn btn-text small" (click)="fetchFollowData()">Load more</button>
+  </div>
+</ng-container>
+
+<div *ngIf="isLoading" class="text-center mt-25p">
+  <loader></loader>
+</div>

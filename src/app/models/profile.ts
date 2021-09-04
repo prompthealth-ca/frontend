@@ -36,6 +36,8 @@ export interface IProfile {
   linkToProfile: string;
 
   gender: string;
+
+  decode(): IUserDetail;
 }
 
 export class Profile implements IProfile {

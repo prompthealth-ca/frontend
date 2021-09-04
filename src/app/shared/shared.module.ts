@@ -66,6 +66,7 @@ import { DistancePipe } from './pipes/distance.pipe';
 import { ParallaxDirective } from './parallax.directive';
 import { SwitchComponent } from './switch/switch.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   imports: [
@@ -141,6 +142,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ParallaxDirective,
     SwitchComponent,
     TimeAgoPipe,
+    LoaderComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -196,6 +198,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     ParallaxDirective,
     SwitchComponent,
     TimeAgoPipe,
+    LoaderComponent,
   ]
 })
 export class SharedModule { }

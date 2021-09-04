@@ -1,0 +1,12 @@
+<card-notification>
+  <div 
+  *ngIf="notifications.length > 0"
+  class="text-center py-30p"
+  >
+    <button 
+    class="btn btn-text-grey small"
+    [disabled]="isUploading || notifications.length == 0"
+    (click)="archiveAllNotifications()"
+    >Archive all notifications</button>
+  </div>
+</card-notification>

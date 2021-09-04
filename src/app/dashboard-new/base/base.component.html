@@ -1,0 +1,60 @@
+<div 
+class="bg-background"
+style="min-height: 100vh;"
+>
+  <div class="sticky-top" style="z-index: 90;">
+    <header-social></header-social>
+    <alert-not-approved></alert-not-approved>
+  </div>
+
+  <div class="pt-30p pb-100p">
+    <div class="container">
+      <div 
+      class="row flex-nowrap overflow-hidden overflow-md-initial"
+      #dashboardContainer
+      >
+        <!-- MENU / LEFT -->
+        <div class="col-12 col-md-5 col-xl-3">
+          <ul class="bg-white px-20p rounded-8p list-unstyled">
+            <ng-container *ngFor="let menu of menus; let i = index">
+              <li>
+                <ng-container>
+                  <a 
+                  [routerLink]="['/dashboard/', menu.id]"
+                  #rla="routerLinkActive" 
+                  routerLinkActive 
+                  [ngClass]="(rla.isActive ? 'text-primary-dark' : 'text-body')" 
+                  >
+                    <list-item
+                    [leading]="menu.icon"
+                    [leadingClass]="rla.isActive ? 'text-primary' : 'text-label'"
+                    [action]="user.isU ? 'chevron-right' : ''"
+                    [actionClass]="rla.isActive ? 'text-primary' : 'text-label'"
+                    [option]="{hideBorderBottom: (i == menus.length - 1)}"
+                    >
+                      <div class="subtitle1">{{menu.title}}</div>
+                    </list-item>
+                  </a>
+                </ng-container>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <!-- CONTENT / CENTER / RIGHT -->
+        <div class="col-12 col-md-7 col-xl-9">
+          <a 
+          routerLink="/dashboard"
+          class="btn btn-text-body small px-0 d-md-none"
+          [replaceUrl]="true"
+          >
+            <i iconPh="arrow-left" class=""></i>
+            <span>Go back</span>
+          </a>
+          <div>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

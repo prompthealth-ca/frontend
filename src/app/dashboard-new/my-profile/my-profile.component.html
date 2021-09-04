@@ -1,0 +1,9 @@
+<div class="bg-white p-20p rounded-8p">
+  <ng-container *ngIf="user.isU">
+    <form-client-general
+    [data]="user.decode()"
+    [disabled]="isUploading" 
+    (submitForm)="onSubmit($event)"
+    ></form-client-general>
+  </ng-container>
+</div>  

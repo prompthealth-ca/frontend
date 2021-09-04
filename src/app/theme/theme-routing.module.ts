@@ -38,11 +38,11 @@ const routes: Routes = [
       //   path: 'auth',
       //   loadChildren: () => AuthModule,
       // },
-      {
-        path: 'dashboard',
-        loadChildren: () => DashboardModule,
-        // CanActivate: [AuthGuard]
-      },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () => DashboardModule,
+      //   // CanActivate: [AuthGuard]
+      // },
 
 
       // {

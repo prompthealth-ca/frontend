@@ -16,12 +16,6 @@ import { expandVerticalAnimation } from 'src/app/_helpers/animations';
 })
 export class BaseComponent implements OnInit {
 
-  get userId() { return this.user ? this.user._id : ''; }
-  get userRole() { return this.user ? this.user.role : 'U'; }
-  get userName() { return this.user ? this.user.nickname : ''; }
-  get user() { return this._profileService.profile; }
-
-
   get postForModal() { return this._modalService.data as ISocialPost; }
   get postTitleForModal() {
     const d: ISocialPost = this._modalService.data;
@@ -119,15 +113,6 @@ export class BaseComponent implements OnInit {
     }  
 
     return urlset;
-  }
-
-  onClickUserMenuItem(route: string[]) {
-    this._modalService.hide(true, route);
-  }
-
-  onClickUserMenuItemLogout() {
-    this._sharedService.logout(false);
-    this._modalService.hide();
   }
 
   onChangeLoginState(state: 'start'|'done') {

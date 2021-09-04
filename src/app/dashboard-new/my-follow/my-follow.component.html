@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-center border-bottom border-line mb-15p">
+  <a 
+  class="text-body subtitle1 btn btn-text px-0 small" 
+  [ngClass]="(rla2.isActive ? 'active' : '')"
+  routerLink="./followings" #rla2="routerLinkActive" 
+  routerLinkActive [routerLinkActiveOptions]="{exact: true}"
+  [replaceUrl]="true"
+  >Followings</a>
+
+  <a 
+  *ngIf="!user?.isU" 
+  class="text-body subtitle1 btn btn-text px-0 small ml-30p"
+  [ngClass]="(rla1.isActive ? 'active' : '')" 
+  routerLink="./followers" 
+  #rla1="routerLinkActive" 
+  routerLinkActive
+  [routerLinkActiveOptions]="{exact: true}" 
+  [replaceUrl]="true"
+  >Followers</a>
+</div>
+
+<router-outlet></router-outlet>

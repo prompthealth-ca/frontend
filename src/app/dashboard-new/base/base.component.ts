@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
 import { smoothHorizontalScrolling } from 'src/app/_helpers/smooth-scroll';
@@ -11,7 +11,9 @@ import { smoothHorizontalScrolling } from 'src/app/_helpers/smooth-scroll';
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit {
+
   get user() { return this._profileService.profile; }
+  get sizeS() { return window && window.innerWidth < 768; }
 
   public menus: MenuItem[] = [];
 
@@ -23,8 +25,18 @@ export class BaseComponent implements OnInit {
   ) { }
 
   private subscriptionLoginStatus: Subscription;
+  private timerResize: any;
 
   @ViewChild('dashboardContainer') private dashboardContainer: ElementRef;
+
+  @HostListener('window:resize', ['$event']) windowResize(e: Event) {
+    if(this.timerResize) {
+      clearTimeout(this.timerResize);
+    }
+    this.timerResize = setTimeout(() => {
+      this.onResize();
+    }, 300);
+  } 
 
   ngOnDestroy() {
     if(this.subscriptionLoginStatus) {
@@ -33,17 +45,18 @@ export class BaseComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this._location.path().match(/dashboard\/.+/)) {
-      this.changeScrollPosition(1, 'auto');
-    }
-    this._location.onUrlChange((url) => {
-      this.changeScrollPosition( url.match(/dashboard\/.+/) ? 1 : 0);
+    this.onUrlChange(false);
+    this._location.subscribe((daa) => {
+      console.log(daa);
+      console.log('before onUrlChange')
+      this.onUrlChange();
     });
   }
 
   ngOnInit(): void {
     this.observeLoginStatus();
-    }
+    
+  }
 
   observeLoginStatus() {
     const status = this._profileService.loginStatus;
@@ -59,6 +72,32 @@ export class BaseComponent implements OnInit {
     });
   }
 
+  onUrlChange(smooth = true) {
+    console.log('onURLChange');
+    const url = this._location.path();
+    const regexRoot = /dashboard\/?$/;
+    if(this.sizeS) {
+      this.changeScrollPosition(url.match(regexRoot) ? 0 : 1,smooth);
+    } else if (url.match(regexRoot)) {
+      this._router.navigate(['/dashboard/profile']);
+    }
+  }
+
+  onResize() {
+    console.log('onResize');
+    const url = this._location.path();
+    const regexRoot = /dashboard\/?$/;
+    const regexSub = /dashboard\/.+/;
+    if(this.sizeS) {
+      this.changeScrollPosition(url.match(regexSub) ? 1 : 0, false);
+    } else {
+      if(url.match(regexRoot)) {
+        this._router.navigate(['/dashboard/profile']);
+      }
+    }
+  }
+
+
   initMenu(){
     switch(this.user.role) {
       case 'U' :
@@ -68,13 +107,13 @@ export class BaseComponent implements OnInit {
     }
   }
 
-  changeScrollPosition(i: number, behavior = 'smooth') {
+  changeScrollPosition(i: number, smooth: boolean = true) {
     const el: HTMLDivElement = this.dashboardContainer ? this.dashboardContainer.nativeElement : null;
     if(el) {
       const wEl = el.getBoundingClientRect().width;
       const xCurrent = el.scrollLeft;
       
-      if(behavior == 'smooth') {
+      if(smooth) {
         smoothHorizontalScrolling(el, 200, (wEl * i - xCurrent), xCurrent);
       } else {
         el.scrollTo({left: wEl * i});

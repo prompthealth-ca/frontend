@@ -9,8 +9,15 @@
             <div class="body2 text-label description">{{follow.description}}</div>
           </div>
           <div *ngIf="!follow.isU" class="mt-10p mt-md-0p ml-md-30p">
-            <a [routerLink]="['/community/profile', follow._id]" class="btn btn-outline small text-nowrap">See
-              profile</a>
+            <button 
+            class="btn small"
+            [ngClass]="isFollowing(follow._id) ? 'btn-black' : 'btn-primary'"
+            (click)="onClickFollow(follow)"
+            [disabled]="isUploading"
+            >Follow{{isFollowing(follow._id) ? 'ing' : ''}}</button>
+            <!-- <a [routerLink]="['/community/profile', follow._id]" class="btn btn-outline small text-nowrap">
+              See profile
+            </a> -->
           </div>
         </div>
       </div>

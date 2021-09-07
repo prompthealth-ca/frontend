@@ -15,6 +15,7 @@ import { NgxStripeModule, StripeService } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AgmCoreModule } from '@agm/core';
+import { MyPasswordComponent } from './my-password/my-password.component';
 
 const routes: Routes = [
   { path: '', component: BaseComponent, canActivate: [GuardIfNotLoggedInGuard], children: [
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'followings'},
     ]},
     { path: 'notification', component: NotificationsComponent },
+    { path: 'password', component: MyPasswordComponent },
   ]},
 ];
 
@@ -35,6 +37,7 @@ const routes: Routes = [
     FollowListComponent,
     NotificationsComponent,
     MyProfileComponent,
+    MyPasswordComponent,
   ],
   providers: [
     CategoryService,

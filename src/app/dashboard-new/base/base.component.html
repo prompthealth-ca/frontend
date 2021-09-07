@@ -10,11 +10,11 @@ style="min-height: 100vh;"
   <div class="pt-30p pb-100p">
     <div class="container">
       <div 
-      class="row flex-nowrap overflow-hidden overflow-md-initial"
+      class="row flex-nowrap overflow-hidden overflow-md-initial justify-content-between"
       #dashboardContainer
       >
         <!-- MENU / LEFT -->
-        <div class="col-12 col-md-5 col-xl-3">
+        <div class="col-12 col-md-5 col-lg-4 col-xl-3">
           <ul class="bg-white px-20p rounded-8p list-unstyled">
             <ng-container *ngFor="let menu of menus; let i = index">
               <li>
@@ -41,7 +41,7 @@ style="min-height: 100vh;"
           </ul>
         </div>
         <!-- CONTENT / CENTER / RIGHT -->
-        <div class="col-12 col-md-7 col-xl-9">
+        <div class="col-12 col-md-7 col-lg-8">
           <a 
           routerLink="/dashboard"
           class="btn btn-text-body small px-0 d-md-none"

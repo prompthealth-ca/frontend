@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { skip } from 'rxjs-compat/operator/skip';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
-import { smoothHorizontalScrolling } from 'src/app/_helpers/smooth-scroll';
+import { smoothHorizontalScrolling, smoothScrollHorizontalTo } from 'src/app/_helpers/smooth-scroll';
 
 @Component({
   selector: 'app-base',
@@ -25,11 +26,12 @@ export class BaseComponent implements OnInit {
   ) { }
 
   private subscriptionLoginStatus: Subscription;
+  private subscriptionRouterEvent: Subscription;
   private timerResize: any;
 
   @ViewChild('dashboardContainer') private dashboardContainer: ElementRef;
 
-  @HostListener('window:resize', ['$event']) windowResize(e: Event) {
+  @HostListener('window:resize', ['$event']) windowResize() {
     if(this.timerResize) {
       clearTimeout(this.timerResize);
     }
@@ -42,14 +44,17 @@ export class BaseComponent implements OnInit {
     if(this.subscriptionLoginStatus) {
       this.subscriptionLoginStatus.unsubscribe();
     }
+    if(this.subscriptionRouterEvent) {
+      this.subscriptionRouterEvent.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
     this.onUrlChange(false);
-    this._location.subscribe((daa) => {
-      console.log(daa);
-      console.log('before onUrlChange')
-      this.onUrlChange();
+    this.subscriptionRouterEvent = this._router.events.subscribe(event => {
+      if(event instanceof NavigationEnd){
+        this.onUrlChange();  
+      }
     });
   }
 
@@ -73,18 +78,16 @@ export class BaseComponent implements OnInit {
   }
 
   onUrlChange(smooth = true) {
-    console.log('onURLChange');
     const url = this._location.path();
     const regexRoot = /dashboard\/?$/;
     if(this.sizeS) {
       this.changeScrollPosition(url.match(regexRoot) ? 0 : 1,smooth);
     } else if (url.match(regexRoot)) {
-      this._router.navigate(['/dashboard/profile']);
+      this._router.navigate(['/dashboard/profile'], {replaceUrl: true});
     }
   }
 
   onResize() {
-    console.log('onResize');
     const url = this._location.path();
     const regexRoot = /dashboard\/?$/;
     const regexSub = /dashboard\/.+/;
@@ -92,7 +95,7 @@ export class BaseComponent implements OnInit {
       this.changeScrollPosition(url.match(regexSub) ? 1 : 0, false);
     } else {
       if(url.match(regexRoot)) {
-        this._router.navigate(['/dashboard/profile']);
+        this._router.navigate(['/dashboard/profile']), {replaceUrl: true};
       }
     }
   }
@@ -114,7 +117,7 @@ export class BaseComponent implements OnInit {
       const xCurrent = el.scrollLeft;
       
       if(smooth) {
-        smoothHorizontalScrolling(el, 200, (wEl * i - xCurrent), xCurrent);
+        smoothScrollHorizontalTo(el, wEl * i);
       } else {
         el.scrollTo({left: wEl * i});
       }

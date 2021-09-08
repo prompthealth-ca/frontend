@@ -7,3 +7,18 @@
     ></form-client-general>
   </ng-container>
 </div>  
+
+<div 
+*ngIf="isUploading"
+class="modal-view"
+>
+  <div class="modal-drop"></div>
+  <div class="modal-body" style="max-width: 250px;">
+    <div class="title-container">
+      <h5 class="h4-md text-center">Uploading...</h5>
+    </div>
+    <div class="content-container text-center mt-30p mb-10p">
+      <loader></loader>
+    </div>
+  </div>
+</div>

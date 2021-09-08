@@ -67,6 +67,7 @@ import { ParallaxDirective } from './parallax.directive';
 import { SwitchComponent } from './switch/switch.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { LoaderComponent } from './loader/loader.component';
+import { FormItemProfileImageComponent } from './form-item-profile-image/form-item-profile-image.component';
 
 @NgModule({
   imports: [
@@ -143,6 +144,7 @@ import { LoaderComponent } from './loader/loader.component';
     SwitchComponent,
     TimeAgoPipe,
     LoaderComponent,
+    FormItemProfileImageComponent,
   ],
   exports: [
     UserSidebarComponent,
@@ -199,6 +201,7 @@ import { LoaderComponent } from './loader/loader.component';
     SwitchComponent,
     TimeAgoPipe,
     LoaderComponent,
+    FormItemProfileImageComponent,
   ]
 })
 export class SharedModule { }

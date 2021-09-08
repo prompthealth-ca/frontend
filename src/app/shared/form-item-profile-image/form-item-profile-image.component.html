@@ -1,0 +1,25 @@
+<div class="position-relative d-inline-block">
+  <profile-image
+  size=70
+  [image]="preview ? preview : null"
+  [option]="{'dummyIcon': 'camera', dummyBgClass: 'bg-background border border-line'}"
+  (click)="onClickProfileImage()"
+  ></profile-image>
+  
+  <button
+  *ngIf="preview"
+  class="btn btn-icon bg-background small p-5p position-absolute border border-label rounded-8p"
+  style="top:-10px; right: -10px"
+  type="button"
+  (click)="removeProfileImage($event)"
+  >
+    <i iconPh="cross" class="text-placeholder"></i>
+  </button>
+  <input #input
+  type="file" 
+  class="d-none"
+  accept="image/jpeg, image/png" 
+  imageUploader
+  (change)="onSelectProfileImage($event)"
+  >
+</div>

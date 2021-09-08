@@ -28,6 +28,49 @@ function SVS_B(e, sc, eAmt, start) {
   e.scrollTop = (eAmt * sc) + start;
 }
 
+export function smoothScrollHorizontalTo(target: HTMLElement, to: number) {
+  if(!window) {
+    return;
+  }
+  
+  const deltaDefault = 10;
+  const moveMin = 0;
+  const iterationMin = 10;
+  const iterationMax = 100;
+
+  const currentPosition = target.scrollLeft;
+  const move = (to - currentPosition);
+  const moveAbs = Math.abs(move);
+  if(moveAbs < moveMin) {
+    return;
+  }
+
+  let delta: number;
+  let iteration = moveAbs / deltaDefault;
+  if (iterationMin > iteration) {
+    delta = (move / iterationMin);
+    iteration = iterationMin;
+  } else if (iteration > iterationMax) {
+    delta = move / iterationMax;
+    iteration = iterationMax;
+  } else {
+    delta = deltaDefault * move / moveAbs;
+  }
+
+  let iterationCurrent = 0;
+
+  const interval = setInterval(() => {
+    target.scrollBy({left: delta});
+
+    if(iterationCurrent >= iteration - 1) {
+      //before last scrollBy, cancel the scrollBy iteration and scroll to exact position
+      clearInterval(interval);
+      target.scrollTo({left: to});
+    }
+
+    iterationCurrent++;
+  }, 3);
+}
 export function smoothWindowScrollTo(to: number) {
   if(!window) {
     return;

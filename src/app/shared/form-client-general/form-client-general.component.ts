@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef, ViewChildren, QueryList, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
@@ -25,6 +25,7 @@ export class FormClientGeneralComponent implements OnInit {
 
   public form: FormGroup;
   public isSubmitted = false;
+  public isProfileImageUploading = false;
 
   public maxName = minmax.nameMax;
   public s3 = environment.config.AWS_S3;
@@ -37,7 +38,6 @@ export class FormClientGeneralComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-
     this.form = this._fb.group({
       profileImage: new FormControl(this.data.profileImage ? this.data.profileImage : ''),
       firstName: new FormControl(this.data.firstName ? this.data.firstName : '', validators.firstnameClient),
@@ -56,8 +56,16 @@ export class FormClientGeneralComponent implements OnInit {
     }, {validators: validators.addressSelectedFromSuggestion});
   }
 
-  onChangeImage(imageURL: string) {
-    // this._profileService.update({profileImage: imageURL});
+  onProfileImageChanged(path: string) {
+    this.f.profileImage.setValue(path);
+  }
+
+  onProfileImageUploadStarted() {
+    this.isProfileImageUploading = true;
+  }
+
+  onProfileImageUploadDone() {
+    this.isProfileImageUploading = false;
   }
 
 

@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
-import { ICommentCreateResult } from 'src/app/models/response-data';
+import { ICommentCreateResult, IResponseData } from 'src/app/models/response-data';
 import { ISocialPost } from 'src/app/models/social-post';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -65,15 +65,61 @@ export class CardItemToolbarComponent implements OnInit {
         if(res.statusCode != 200) {
           console.log(res.message);
           this.changeLikeStatus(isLikedCurrent, numLikesCurrent);
-          this._toastr.error('Something went wrong');          
+          this._toastr.error('Something went wrong. Please try again later.')
         }
       }, error => {
         this.isUploading = false;
         console.log(error);
         this.changeLikeStatus(isLikedCurrent, numLikesCurrent);
-        this._toastr.error('Something went wrong');          
+        this._toastr.error('Something went wrong. Please try again later.')
       });
     }
+  }
+
+  async onClickBookmark(e: Event) {
+    this.stopPropagation(e);
+
+    const isBookmarkedCurrent = this.post.isBookmarked;
+    this.changeBookmarkStatus(!isBookmarkedCurrent)
+
+    this.isUploading = true;
+    const request = isBookmarkedCurrent ? this.unbookmark() : this.bookmark();
+    try {
+      await request;
+    } catch (error) {
+      this._toastr.error('Something went wrong. Please try again later.');
+      this.changeBookmarkStatus(isBookmarkedCurrent);
+    }
+  }
+
+  bookmark(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._sharedService.post({}, 'social/bookmark/' + this.post._id).subscribe((res: IResponseData) => {
+        if(res.statusCode == 200) {
+          resolve();
+        } else {
+          reject();
+        }
+      }, error => {
+        console.log(error);
+        reject();
+      });
+    })
+  }
+
+  unbookmark(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._sharedService.deleteContent('social/bookmark/' + this.post._id).subscribe((res: IResponseData) => {
+        if (res.statusCode == 200) {
+          resolve();
+        } else {
+          reject();
+        }
+      }, error => {
+        console.log(error);
+        reject();
+      });
+    });
   }
 
   changeLikeStatus(isLiked: boolean, numLikes: number) {
@@ -81,6 +127,14 @@ export class CardItemToolbarComponent implements OnInit {
       this.post.like(true, numLikes);
     } else {
       this.post.unlike(true, numLikes);
+    }
+  }
+
+  changeBookmarkStatus(isBookmarked: boolean) {
+    if(isBookmarked) {
+      this.post.bookmark();
+    } else {
+      this.post.unbookmark();
     }
   }
 
@@ -93,13 +147,7 @@ export class CardItemToolbarComponent implements OnInit {
     }
   }
 
-  onClickBookmark(e: Event) {
-    this.stopPropagation(e);
-    
-    setTimeout(() => {
-      this.post.isBookmarked = this.post.isBookmarked == true ? false : true;
-    }, 500);
-  }
+  
 
   onSubmitComment() {
     if(!this.user) {

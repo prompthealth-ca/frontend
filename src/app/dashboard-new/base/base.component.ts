@@ -144,7 +144,7 @@ const menuBook: MenuItem = {
 };
 
 const menuBookmark: MenuItem = {
-  id: 'bookmark',
+  id: 'bookmarks',
   title: 'Bookmarks',
   icon: 'bookmark',
 };

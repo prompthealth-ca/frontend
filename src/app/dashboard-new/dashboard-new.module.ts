@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { MyPasswordComponent } from './my-password/my-password.component';
+import { MyBookmarkComponent } from './my-bookmark/my-bookmark.component';
 
 const routes: Routes = [
   { path: '', component: BaseComponent, canActivate: [GuardIfNotLoggedInGuard], children: [
@@ -25,6 +26,8 @@ const routes: Routes = [
       { path: 'followers', component: FollowListComponent, data: {type: 'followed'}, canActivate: [GuardIfNotEligbleToCreatePostGuard], },
       { path: '', redirectTo: 'followings'},
     ]},
+
+    { path: 'bookmarks', component: MyBookmarkComponent },
     { path: 'notification', component: NotificationsComponent },
     { path: 'password', component: MyPasswordComponent },
   ]},
@@ -38,6 +41,7 @@ const routes: Routes = [
     NotificationsComponent,
     MyProfileComponent,
     MyPasswordComponent,
+    MyBookmarkComponent,
   ],
   providers: [
     CategoryService,

@@ -27,6 +27,8 @@ export interface ISocialPost {
   liked?: boolean;
   likes?: IUserDetail[];
 
+  bookmarked?: boolean;
+
   mentions?: any[];
 
   numComments?: number;
@@ -60,6 +62,8 @@ export interface ISocialPost {
   updateCommentCount?(s: number): void;
   like?(updateNumLikes?: boolean, numLikes?: number): void;
   unlike?(updateNumLikes?: boolean, numLikes?: number): void;
+  bookmark?(): void;
+  unbookmark?(): void;
   getImageTypeOf?(s: string): string;
 
   /** SocialArticle */
@@ -106,6 +110,7 @@ export class SocialPostBase implements ISocialPost {
   get isEvent() { return this.contentType == 'EVENT'; }
 
   get isLiked() { return !!this.data.liked; }
+  get isBookmarked() { return !!this.data.bookmarked; }
 
   get isMoreShown() { return !!(this._summary.length > this.summary.length); }
   get isCommentDoneInit() { return !!this._comments; }
@@ -170,6 +175,13 @@ export class SocialPostBase implements ISocialPost {
     if(changeNumLikes) {
       this.updateNumLikes(numLikes);
     }
+  }
+
+  bookmark() {
+    this.data.bookmarked = true;
+  }
+  unbookmark() {
+    this.data.bookmarked = false;
   }
 
   updateNumLikes(numLikes: number) {

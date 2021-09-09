@@ -24,7 +24,17 @@
     </li>
   </ul>
 
-  <div *ngIf="follows && follows.length == 0" class="subtitle1 mt-25p text-center">No data found.</div>
+  <ng-container *ngIf="follows && follows.length == 0">
+    <div class="bg-white rounded-8p py-50p text-center">
+      <img class="mb-50p" src="/assets/img/social/no-posts.png" alt="">
+      <h6 class="mb-30p text-primary-dark">No {{followTypeLabel}} Yet!</h6>
+      <a 
+      class="btn btn-primary"
+      routerLink="/practitioners"
+      >Find practitioners</a>
+    </div>
+  </ng-container>
+  
 
   <div *ngIf="existsMore && !isLoading" class="text-center">
     <button class="btn btn-text small" (click)="fetchFollowData()">Load more</button>

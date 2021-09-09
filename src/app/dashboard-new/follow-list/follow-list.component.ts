@@ -18,6 +18,14 @@ import { UniversalService } from 'src/app/shared/services/universal.service';
 export class FollowListComponent implements OnInit {
 
   get user() { return this._profileService.profile; }
+  get followTypeLabel() { 
+    let label = '';
+    switch(this.followType) {
+      case 'followed': label = 'Followers'; break;
+      case 'following': label = 'Followings'; break;
+    }            
+    return label;
+  }
   followerNameOf(data: Profile) { return data.name || '(No name)'; }
   
   public follows: Profile[] = null;

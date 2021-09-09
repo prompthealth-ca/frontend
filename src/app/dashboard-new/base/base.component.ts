@@ -4,7 +4,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { skip } from 'rxjs-compat/operator/skip';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { SharedService } from 'src/app/shared/services/shared.service';
 import { smoothHorizontalScrolling, smoothScrollHorizontalTo } from 'src/app/_helpers/smooth-scroll';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-base',
@@ -17,12 +20,14 @@ export class BaseComponent implements OnInit {
   get sizeS() { return window && window.innerWidth < 768; }
 
   public menus: MenuItem[] = [];
+  public linkToPH = '/community/profile/' + environment.config.idSA;
 
   constructor(
     private _router: Router,
     private _location: Location,
     private _route: ActivatedRoute,
     private _profileService: ProfileManagementService,
+    private _sharedService: SharedService,
   ) { }
 
   private subscriptionLoginStatus: Subscription;
@@ -30,6 +35,7 @@ export class BaseComponent implements OnInit {
   private timerResize: any;
 
   @ViewChild('dashboardContainer') private dashboardContainer: ElementRef;
+  @ViewChild('modalLogoutAlert') private modalLogoutAlert: ModalComponent;
 
   @HostListener('window:resize', ['$event']) windowResize() {
     if(this.timerResize) {
@@ -80,8 +86,9 @@ export class BaseComponent implements OnInit {
   onUrlChange(smooth = true) {
     const url = this._location.path();
     const regexRoot = /dashboard\/?$/;
-    if(this.sizeS) {
-      this.changeScrollPosition(url.match(regexRoot) ? 0 : 1,smooth);
+    const regexSub = /dashboard\/.+/;
+    if(this.sizeS && (url.match(regexRoot) || url.match(regexSub))) {
+      this.changeScrollPosition(url.match(regexRoot) ? 0 : 1, smooth);
     } else if (url.match(regexRoot)) {
       this._router.navigate(['/dashboard/profile'], {replaceUrl: true});
     }
@@ -122,6 +129,11 @@ export class BaseComponent implements OnInit {
         el.scrollTo({left: wEl * i});
       }
     }
+  }
+
+  onClickLogout() {
+    this._sharedService.logout();
+    this.modalLogoutAlert.hide();
   }
 }
 

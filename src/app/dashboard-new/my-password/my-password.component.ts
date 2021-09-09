@@ -59,6 +59,5 @@ export class MyPasswordComponent implements OnInit {
       this.isLoading = false;
       this.toastr.error(error);
     });
-    
   }
 }

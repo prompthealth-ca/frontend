@@ -39,10 +39,10 @@
   </ng-container>
 
   <ng-container *ngIf="doneInitNotification && notifications.length == 0">
-    <div 
-    class="p-20p subtitle1"
-    style="width: 250px;"
-    >You have no notification.</div>
+    <div class="text-center pt-50p pb-20p">
+      <img class="mb-50p" style="max-width: 100%;" src="/assets/img/social/no-posts.png" alt="">
+      <h6 class="mb-30p text-primary-dark">No Notifications!</h6>  
+    </div>
   </ng-container>
 
   <ng-container *ngIf="!doneInitNotification">

@@ -94,12 +94,12 @@ export interface IUploadImageResult extends IResponseData {
 
 export interface IGetSocialContentsResult extends IResponseData {
   data: {
-    data: (ISocialPost)[]
+    data: ISocialPost[]
   }
 }
 
 export interface IGetSocialContentsByAuthorResult extends IResponseData {
-  data: (ISocialPost)[]
+  data: ISocialPost[]
 }
 
 export interface IGetSocialContentResult extends IResponseData {

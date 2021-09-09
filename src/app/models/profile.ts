@@ -1,4 +1,8 @@
 import { environment } from "src/environments/environment";
+import { SocialArticle } from "./social-article";
+import { SocialEvent } from "./social-event";
+import { SocialNote } from "./social-note";
+import { ISocialPost, SocialPostBase } from "./social-post";
 import { IUserDetail } from "./user-detail";
 
 export interface IProfile {
@@ -22,6 +26,9 @@ export interface IProfile {
   numFollower: number;
   followings: Profile[]; /** should be saved in socialService? */
   followers: Profile[]; /** should be saved in socialService? */
+
+  bookmarks: ISocialPost[];
+  isBookmarksChanged: boolean;
 
   isC: boolean;
   isP: boolean;
@@ -77,6 +84,9 @@ export class Profile implements IProfile {
   get numFollowing() { return this.data.follow.following || 0; }
   get numFollower() { return this.data.follow.followed || 0; }
 
+  get bookmarks() { return this._bookmarks; }
+  get isBookmarksChanged() { return this._isBookmarksChanged; }
+
   get isU() { return !!(this.role == 'U'); }
   get isC() { return !!(this.role == 'C'); }
   get isSP() { return !!(this.role == 'SP'); }
@@ -96,6 +106,8 @@ export class Profile implements IProfile {
   private _profileImageType: string;
   private _followings: Profile[] = null;
   private _followers: Profile[] = null;
+  private _bookmarks: ISocialPost[] = null;
+  private _isBookmarksChanged: boolean = false;
 
   protected _s3 = environment.config.AWS_S3;
 
@@ -172,6 +184,42 @@ export class Profile implements IProfile {
     }
 
     this._followers.push(new Profile(user));
+  }
+
+  setBookmarks(posts: ISocialPost[]) {
+    if(!this._bookmarks) {
+      this._bookmarks = [];
+    }
+    posts.forEach(post => {
+      this.setBookmark(post);
+    });
+  }
+
+  setBookmark(post: ISocialPost) {
+    if(!this._bookmarks) {
+      this._bookmarks = [];
+    }
+
+    this._bookmarks.push(
+      post.contentType == 'NOTE' ? new SocialNote(post) :
+      post.contentType == 'ARTICLE' ? new SocialArticle(post) :
+      post.contentType == 'EVENT' ? new SocialEvent(post) :
+      new SocialPostBase(post)
+    )
+  }
+
+  removeBookmark(post: ISocialPost) {
+    const idx = this._bookmarks.findIndex(item => item._id == post._id);
+    this._bookmarks.splice(idx, 1);
+  }
+
+  markAsBookmarkChanged() {
+    this._isBookmarksChanged = true;
+  }
+
+  disposeBookmarks() {
+    this._bookmarks = null;
+    this._isBookmarksChanged = false;
   }
 
   countupFollowing() { this.data.follow.following = this.data.follow.following ? this.data.follow.following + 1 : 1; }

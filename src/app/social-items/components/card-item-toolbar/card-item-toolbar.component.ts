@@ -86,10 +86,12 @@ export class CardItemToolbarComponent implements OnInit {
     const request = isBookmarkedCurrent ? this.unbookmark() : this.bookmark();
     try {
       await request;
+      this.user.markAsBookmarkChanged();
     } catch (error) {
       this._toastr.error('Something went wrong. Please try again later.');
       this.changeBookmarkStatus(isBookmarkedCurrent);
     }
+    this.isUploading = false;
   }
 
   bookmark(): Promise<void> {

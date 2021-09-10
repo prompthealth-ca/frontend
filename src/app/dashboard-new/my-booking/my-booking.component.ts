@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
+import { Booking } from 'src/app/models/booking';
 import { GetQuery } from 'src/app/models/get-query';
 import { IGetBookingsResult, IResponseData } from 'src/app/models/response-data';
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -13,8 +14,14 @@ export class MyBookingComponent implements OnInit {
 
   get user() { return this._profileService.profile; }
 
-  public bookingsAsClient = [];
-  public bookingsAsPractitioner = [];
+  get isAvailableAsClient() { return true; }
+  get isAvailableAsProvider() { return this.user.isProvider; }
+
+  get doneInitBookingsAsClient() { return !!this.user.bookingsAsClient; }
+  get doneInitBookingsAsProvider() { return !!this.user.bookingsAsProvider; }
+
+  get bookingsAsClient() { return this.user.bookingsAsClient || []; }
+  get bookingsAsProvider() { return this.user.bookingsAsProvider || []; }
 
   private countPerPage: number = 20;
 
@@ -36,6 +43,10 @@ export class MyBookingComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  showDetail(booking: Booking) {
+    
   }
 
 }

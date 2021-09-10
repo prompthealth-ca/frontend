@@ -16,7 +16,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 })
 export class MyBookmarkComponent implements OnInit {
 
-  get user(): Profile { return this._profileService.profile; }
+  get user() { return this._profileService.profile; }
   get bookmarks(): ISocialPost[] { return this.user.bookmarks; }
   get currentPage(): number { return this.bookmarks ? Math.ceil(this.bookmarks.length / this.countPerPage) + 1 : 1; }
 

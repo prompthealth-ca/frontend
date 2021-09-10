@@ -7,7 +7,34 @@
     <button class="btn btn-grey-light small">
       <i iconPh="line-height-2"></i>
       <span>Sort by</span>
-
     </button>
+  </div>
+
+  <ul
+  *ngIf="doneInitBookingsAsClient" 
+  class="mt-30p list-unstyled"
+  >
+    <li *ngFor="let booking of bookingsAsClient">
+      <div class="d-flex">
+        <profile-image [image]="booking.provider.profileImage" size=60></profile-image>
+        <div class="ml-20p flex-grow-1 d-flex flex-column align-items-start flex-lg-row justify-content-lg-between align-items-lg-center">
+          <div>
+            <h6 class="mb-0">{{booking.provider.name}}</h6>
+            <div class="subtitle2 clamp-1line text-label">{{booking.provider.title}}</div>  
+          </div>
+          <button 
+          class="btn btn-outline small"
+          (click)="showDetail(booking)"
+          >View Details</button>    
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div 
+  *ngIf="!doneInitBookingsAsClient"
+  class="mt-30p text-center"
+  >
+    <loader></loader>
   </div>
 </div>  

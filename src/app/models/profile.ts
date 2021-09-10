@@ -1,15 +1,9 @@
 import { environment } from "src/environments/environment";
-import { Booking, IBooking } from "./booking";
-import { SocialArticle } from "./social-article";
-import { SocialEvent } from "./social-event";
-import { SocialNote } from "./social-note";
-import { ISocialPost, SocialPostBase } from "./social-post";
 import { IUserDetail } from "./user-detail";
 
 export interface IProfile {
   _id: IUserDetail['_id'];
   role: IUserDetail['roles'];
-  email: IUserDetail['email'];
 
   firstName: IUserDetail['firstName'];
   lastName: IUserDetail['lastName'];
@@ -25,11 +19,8 @@ export interface IProfile {
 
   numFollowing: number;
   numFollower: number;
-  followings: Profile[]; /** should be saved in socialService? */
-  followers: Profile[]; /** should be saved in socialService? */
-
-  bookmarks: ISocialPost[];
-  isBookmarksChanged: boolean;
+  followings: Profile[];
+  followers: Profile[];
 
   isC: boolean;
   isP: boolean;
@@ -50,7 +41,6 @@ export interface IProfile {
 
 export class Profile implements IProfile {
   get _id() { return this.data._id; }
-  get email() { return this.data.email || ''; }
   get role() { return this.data.roles; }
 
   get firstName() { return (this.data.firstName || this.data.fname || '').trim(); }
@@ -85,9 +75,6 @@ export class Profile implements IProfile {
   get numFollowing() { return this.data.follow.following || 0; }
   get numFollower() { return this.data.follow.followed || 0; }
 
-  get bookmarks() { return this._bookmarks; }
-  get isBookmarksChanged() { return this._isBookmarksChanged; }
-
   get isU() { return !!(this.role == 'U'); }
   get isC() { return !!(this.role == 'C'); }
   get isSP() { return !!(this.role == 'SP'); }
@@ -107,10 +94,6 @@ export class Profile implements IProfile {
   private _profileImageType: string;
   private _followings: Profile[] = null;
   private _followers: Profile[] = null;
-  private _bookmarks: ISocialPost[] = null;
-  private _isBookmarksChanged: boolean = false;
-  private _bookingsAsClient: any = [];
-  private _bookingsAsPractitioner: any = [];
 
   protected _s3 = environment.config.AWS_S3;
 
@@ -187,58 +170,6 @@ export class Profile implements IProfile {
     }
 
     this._followers.push(new Profile(user));
-  }
-
-  setBookmarks(posts: ISocialPost[]) {
-    if(!this._bookmarks) {
-      this._bookmarks = [];
-    }
-    posts.forEach(post => {
-      this.setBookmark(post);
-    });
-  }
-
-  setBookmark(post: ISocialPost) {
-    if(!this._bookmarks) {
-      this._bookmarks = [];
-    }
-
-    this._bookmarks.push(
-      post.contentType == 'NOTE' ? new SocialNote(post) :
-      post.contentType == 'ARTICLE' ? new SocialArticle(post) :
-      post.contentType == 'EVENT' ? new SocialEvent(post) :
-      new SocialPostBase(post)
-    )
-  }
-
-  removeBookmark(post: ISocialPost) {
-    const idx = this._bookmarks.findIndex(item => item._id == post._id);
-    this._bookmarks.splice(idx, 1);
-  }
-
-  markAsBookmarkChanged() {
-    this._isBookmarksChanged = true;
-  }
-
-  disposeBookmarks() {
-    this._bookmarks = null;
-    this._isBookmarksChanged = false;
-  }
-
-  setBookingsAsClient(bookings: IBooking[]) {
-    if(!this._bookingsAsClient) {
-      this._bookingsAsClient = [];
-    }
-    bookings.forEach(b => {
-      this.setBookingAsClient(b);
-    });
-  }
-
-  setBookingAsClient(booking: IBooking) {
-    if(!this._bookingsAsClient) {
-      this._bookingsAsClient = [];
-    }
-    this._bookingsAsClient(new Booking(booking));
   }
 
   countupFollowing() { this.data.follow.following = this.data.follow.following ? this.data.follow.following + 1 : 1; }

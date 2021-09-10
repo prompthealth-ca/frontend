@@ -17,6 +17,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { MyPasswordComponent } from './my-password/my-password.component';
 import { MyBookmarkComponent } from './my-bookmark/my-bookmark.component';
+import { MyBookingComponent } from './my-booking/my-booking.component';
 
 const routes: Routes = [
   { path: '', component: BaseComponent, canActivate: [GuardIfNotLoggedInGuard], children: [
@@ -27,8 +28,9 @@ const routes: Routes = [
       { path: '', redirectTo: 'followings'},
     ]},
 
+    { path: 'bookings', component: MyBookingComponent, },
     { path: 'bookmarks', component: MyBookmarkComponent },
-    { path: 'notification', component: NotificationsComponent },
+    { path: 'notifications', component: NotificationsComponent },
     { path: 'password', component: MyPasswordComponent },
   ]},
 ];
@@ -42,6 +44,7 @@ const routes: Routes = [
     MyProfileComponent,
     MyPasswordComponent,
     MyBookmarkComponent,
+    MyBookingComponent,
   ],
   providers: [
     CategoryService,

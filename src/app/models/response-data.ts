@@ -1,3 +1,4 @@
+import { IBooking } from "./booking";
 import { IDefaultPlan } from "./default-plan";
 import { ISocialNotification } from "./notification";
 import { ISocialComment, ISocialPost } from "./social-post";
@@ -131,3 +132,10 @@ export interface IGetNotificationsResult extends IResponseData {
 //     ok: number,
 //   }
 // }
+
+export interface IGetBookingsResult extends IResponseData {
+  data: {
+    data: IBooking[];
+    total: number;
+  }
+}

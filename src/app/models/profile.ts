@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { Booking, IBooking } from "./booking";
 import { SocialArticle } from "./social-article";
 import { SocialEvent } from "./social-event";
 import { SocialNote } from "./social-note";
@@ -108,6 +109,8 @@ export class Profile implements IProfile {
   private _followers: Profile[] = null;
   private _bookmarks: ISocialPost[] = null;
   private _isBookmarksChanged: boolean = false;
+  private _bookingsAsClient: any = [];
+  private _bookingsAsPractitioner: any = [];
 
   protected _s3 = environment.config.AWS_S3;
 
@@ -220,6 +223,22 @@ export class Profile implements IProfile {
   disposeBookmarks() {
     this._bookmarks = null;
     this._isBookmarksChanged = false;
+  }
+
+  setBookingsAsClient(bookings: IBooking[]) {
+    if(!this._bookingsAsClient) {
+      this._bookingsAsClient = [];
+    }
+    bookings.forEach(b => {
+      this.setBookingAsClient(b);
+    });
+  }
+
+  setBookingAsClient(booking: IBooking) {
+    if(!this._bookingsAsClient) {
+      this._bookingsAsClient = [];
+    }
+    this._bookingsAsClient(new Booking(booking));
   }
 
   countupFollowing() { this.data.follow.following = this.data.follow.following ? this.data.follow.following + 1 : 1; }

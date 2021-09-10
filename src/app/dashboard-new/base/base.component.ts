@@ -150,7 +150,7 @@ const menuFollow: MenuItem = {
 };
 
 const menuBook: MenuItem = {
-  id: 'book',
+  id: 'bookings',
   title: 'My Booking',
   icon: 'inbox-filled',
 };
@@ -162,7 +162,7 @@ const menuBookmark: MenuItem = {
 };
 
 const menuNotification: MenuItem = {
-  id: 'notification',
+  id: 'notifications',
   title: 'Notifications',
   icon: 'bell',
 };

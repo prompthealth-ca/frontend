@@ -68,6 +68,8 @@ import { SwitchComponent } from './switch/switch.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { FormItemProfileImageComponent } from './form-item-profile-image/form-item-profile-image.component';
+import { ModalUserMenuComponent } from './modal-user-menu/modal-user-menu.component';
+import { ImageUploaderDirective } from './image-uploader.directive';
 
 @NgModule({
   imports: [
@@ -145,6 +147,8 @@ import { FormItemProfileImageComponent } from './form-item-profile-image/form-it
     TimeAgoPipe,
     LoaderComponent,
     FormItemProfileImageComponent,
+    ModalUserMenuComponent,
+    ImageUploaderDirective,
   ],
   exports: [
     UserSidebarComponent,
@@ -202,6 +206,8 @@ import { FormItemProfileImageComponent } from './form-item-profile-image/form-it
     TimeAgoPipe,
     LoaderComponent,
     FormItemProfileImageComponent,
+    ModalUserMenuComponent,
+    ImageUploaderDirective,
   ]
 })
 export class SharedModule { }

@@ -68,8 +68,7 @@ export function app() {
   }));
 
   /** api proxy */
-  const apiProxy = proxy('/api', {target: environment.config.BACKEND_BASE});
-  server.use('/api', apiProxy);
+  const apiProxy = proxy('/api', {target: environment.config.BACKEND_BASE, changeOrigin: true});
 
   /** client side rendering */
   server.use('/auth',                  (req, res) => { res.sendFile(join(distFolder, 'index.html')); })

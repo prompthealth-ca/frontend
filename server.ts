@@ -69,7 +69,7 @@ export function app() {
 
   /** api proxy */
   const apiProxy = proxy('/api', {target: environment.config.BACKEND_BASE, changeOrigin: false});
-  server.use('/api', apiProxy)
+  server.use('/api', apiProxy);
 
   /** client side rendering */
   server.use('/auth',                  (req, res) => { res.sendFile(join(distFolder, 'index.html')); })

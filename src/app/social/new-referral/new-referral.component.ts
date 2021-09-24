@@ -11,6 +11,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { minmax, validators } from 'src/app/_helpers/form-settings';
 import { SocialService } from '../social.service';
 
+// marked as complicated (level: low)
+// observing loginStatus
+
+// when logout detected, leave to social top page
+
+
 @Component({
   selector: 'app-new-referral',
   templateUrl: './new-referral.component.html',

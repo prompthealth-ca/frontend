@@ -8,6 +8,11 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
 import { expandVerticalAnimation } from 'src/app/_helpers/animations';
 
+// marked as complicated (level: low)
+// when navigationChange detected, scroll to top if needed
+// also controling modal views in this component (get modalInfo from queryParams)
+
+
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',

@@ -21,6 +21,14 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { expandVerticalAnimation, fadeAnimation, slideHorizontalReverseAnimation, slideVerticalReverseAnimation } from 'src/app/_helpers/animations';
 import { SocialService } from '../social.service';
 
+// marked as complicated (level: medium)
+// observing login status.
+// if loggedin --> show user icon, fetch notifications
+// if not loggedin --> show login menu
+
+// also controlling mobileMenuModal,searchMeniModal
+ 
+
 @Component({
   selector: 'header-social',
   templateUrl: './header.component.html',

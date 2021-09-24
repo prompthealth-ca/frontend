@@ -10,6 +10,13 @@ import { IGetFollowingsResult } from 'src/app/models/response-data';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
 
+// marked as complicated (level: low)
+// state1: followType (following | follower)
+// state2: loginStatus
+
+// when logout detected, leave to social top page
+
+
 @Component({
   selector: 'app-follow-list',
   templateUrl: './follow-list.component.html',

@@ -11,6 +11,14 @@ import { IUserDetail } from 'src/app/models/user-detail';
 import { Subscription } from 'rxjs';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
+// marked as complicated (level: low)
+// observing login status.
+// if loggedin --> show user icon
+// if not loggedin --> show login/signup menu
+
+// also controling modal views in this component (get modalInfo from queryParams)
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

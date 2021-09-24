@@ -20,6 +20,15 @@ import { getDistanceFromLatLng } from 'src/app/_helpers/latlng-to-distance';
 import { smoothWindowScrollTo } from 'src/app/_helpers/smooth-scroll';
 import { titleCaseOf } from 'src/app/_helpers/titlecase';
 
+// marked as complicated (level: high)
+// state1: category
+// state2: typeOfPractitioner
+// state3: area
+// state4: other filters (distance | rating | gender ...) ** set by queryParams
+
+// create filters using these states.
+
+
 @Component({
   selector: 'app-expert-finder',
   templateUrl: './expert-finder.component.html',

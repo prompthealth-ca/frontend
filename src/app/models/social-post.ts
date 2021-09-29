@@ -115,15 +115,19 @@ export class SocialPostBase implements ISocialPost {
 
   get comments() { return this._comments; };
 
-  get linkToPost() { return '/community/content/' + this._id; }
+  get linkToPost() { 
+    const type = this.isNote ? 'note' : 
+      this.isArticle ? 'article' : 
+      this.isEvent ? 'event' : 
+      'content';
+    return `/community/${type}/${this._id}`; 
+  }
 
   protected _s3 = environment.config.AWS_S3; 
   protected _summary: string;
   private _description: SafeHtml;
 
-
   _comments: SocialComment[] = null;
-
 
   constructor(protected data: ISocialPost) {
     const desc = data.description || '';

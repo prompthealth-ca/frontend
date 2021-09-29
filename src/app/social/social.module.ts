@@ -68,6 +68,9 @@ const routes: Routes = [
     },
 
     { path: 'content/:postid', component: PageComponent },
+    { path: 'note/:postid', component: PageComponent, data: {postType: 'NOTE'} },
+    { path: 'event/:postid', component: PageComponent, data: {postType: 'EVENT'} },
+    { path: 'article/:postid', component: PageComponent, data: {postType: 'ARTICLE'} },
     { path: 'content', pathMatch: 'full', redirectTo: 'feed' },
 
     { path: 'create/article', component: EditorComponent, data: {type: 'article'}, canActivate: [GuardIfNotEligbleToCreatePostGuard], canDeactivate: [GuardIfEditorLockedGuard] },

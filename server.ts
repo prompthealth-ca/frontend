@@ -70,8 +70,6 @@ export function app() {
   /** api proxy */
   const apiProxy = proxy('/api', {target: environment.config.BACKEND_BASE, changeOrigin: false});
   server.use('/api', apiProxy);
-  const stripeProxy = proxy('/stripe', {target: environment.config.BACKEND_BASE, changeOrigin: false});
-  server.use('/stripe', stripeProxy);
 
   /** stripe proxy */
   const stripeProxy = proxy('/stripe', {target: environment.config.BACKEND_BASE, changeOrigin: false});

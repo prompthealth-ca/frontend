@@ -45,6 +45,12 @@ export class PageComponent implements OnInit {
       try {
         await this.fetchPost();
         this.post = this._socialService.postOf(this.postId);
+        const pageType = this._route.snapshot.data.postType;
+
+        if(this._uService.isBrowser && pageType != this.post.contentType) {
+          this._router.navigate(['/community', this.post.contentType.toLowerCase(), this.post._id], {replaceUrl: true});
+        }
+
       } catch (error) {
         console.log(error);
       }

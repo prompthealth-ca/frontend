@@ -12,6 +12,12 @@ import { smoothWindowScrollTo } from 'src/app/_helpers/smooth-scroll';
 import { IFAQItem } from '../_elements/faq-item/faq-item.component';
 import { first } from 'rxjs/operators';
 
+// marked as complicated (level: low)
+// observing login status.
+// if loggedin --> butPlanButton navigates to stripe page directly
+// if not loggedin --> butPlanButton navigates to signup page with plan data
+
+
 @Component({
   selector: 'app-about-practitioner',
   templateUrl: './about-practitioner.component.html',

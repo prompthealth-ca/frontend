@@ -13,6 +13,17 @@ import { UniversalService } from 'src/app/shared/services/universal.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
+// marked as complicated (level: high)
+// state1: listType (feed | articles | events | medias)
+// state2: topic (women's/men's health | skin health ...)
+// state3: loginStatus (loggedIn | notLoggedIn)
+
+// listData will be fetched from cache in memory (in socialService) if it's available
+// cache in memory will be disposed when topic state is changed in this component
+
+// noteEditor shows up if the loggedin user is eligble to create
+
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',

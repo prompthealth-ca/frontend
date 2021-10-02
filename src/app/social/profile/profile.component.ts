@@ -21,6 +21,14 @@ import { smoothHorizontalScrolling } from 'src/app/_helpers/smooth-scroll';
 import { environment } from 'src/environments/environment';
 import { SocialService } from '../social.service';
 
+//marked as complicated (level: low)
+//observing login status.
+//if loggedin --> check bellStatus & followStatus
+//if not loggedin --> mark bellStatus & followStatus as false
+
+// linkToRecommendationEditor shows up if the loggedin user is eligible.
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

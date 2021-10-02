@@ -18,6 +18,11 @@ import { formatDateToString, formatStringToDate } from 'src/app/_helpers/date-fo
 import { environment } from 'src/environments/environment';
 import { EditorService, ISaveQuery, SaveQuery } from '../editor.service';
 
+// marked as complicated (level: low)
+// observing login status.
+// when logout detected, leave to social top page
+
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',

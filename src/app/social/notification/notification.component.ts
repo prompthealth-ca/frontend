@@ -10,6 +10,12 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { UniversalService } from 'src/app/shared/services/universal.service';
 import { SocialService } from '../social.service';
 
+// marked as complicated (level: low)
+// observing loginStatus
+
+// when logout detected, leave to social top page
+
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',

@@ -474,6 +474,7 @@ export class ProfileComponent implements OnInit {
       data.bookingDateTime = this.formDateTimeComponent.getFormattedValue().toString();
       this.isBookingLoading = true;
       const path = `booking/create`;
+      console.log(data);
       this._sharedService.post(data, path).subscribe((res: any) => {
         this.isBookingLoading = false;
         if (res.statusCode === 200) {

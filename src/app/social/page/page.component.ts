@@ -64,6 +64,7 @@ export class PageComponent implements OnInit {
       this._sharedService.get(path).subscribe((res: IGetSocialContentResult) => {
         if(res.statusCode === 200) {
           this._socialService.saveCacheSingle(res.data);
+          console.log(res);
           resolve(true);
         } else {
           console.log(res);

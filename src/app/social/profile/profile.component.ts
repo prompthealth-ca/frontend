@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
   private subscriptionLoginStatus: Subscription;
 
   @ViewChild(FormItemDatetimeComponent) private formDateTimeComponent: FormItemDatetimeComponent;
-  @ViewChild('#modalBooking') private modalBooking: ModalComponent;
+  @ViewChild('modalBooking') private modalBooking: ModalComponent;
   @ViewChild('recommendationCarousel') private recommendationCarousel: ElementRef;
 
   constructor(

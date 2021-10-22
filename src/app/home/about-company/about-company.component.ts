@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { first } from 'rxjs/operators';
 import { ProfileManagementService } from 'src/app/dashboard/profileManagement/profile-management.service';
 import { ICouponData } from 'src/app/models/coupon-data';
 import { IPlanData, IPlanFeatureData, PlanTypeProduct } from 'src/app/models/default-plan';
@@ -45,7 +46,21 @@ export class AboutCompanyComponent implements OnInit {
     private _profileService: ProfileManagementService,
     private _router: Router,
     private _toastr: ToastrService,
+    private _route: ActivatedRoute,
+    private _el: ElementRef,
   ) { }
+
+  ngAfterViewInit() {
+    this._route.fragment.pipe( first() ).subscribe(fragment => {
+      const el: HTMLElement = this._el.nativeElement.querySelector('#' + fragment);
+      if(el) {
+        setTimeout(() => {
+          const top = el.getBoundingClientRect().top;
+          smoothWindowScrollTo(top);  
+        }, 300); 
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.initPlans();
@@ -165,12 +180,20 @@ const features = [
 const plans: {[k in PlanTypeProduct]: IPlanData} = {
   productBasic: {
     id: 'basic',
-    icon: 'file',
+    icon: 'shopping-bag-outline',
     title: 'Basic',
-    subtitle: 'For individual use',
+    subtitle: '',
     label: null,
     data: null,
   },
+  productCustom: {
+    id:'custom',
+    icon: 'rocket-outline',
+    title: 'Customize',
+    subtitle: '',
+    label: null,
+    data: null,
+  }
   // productAdvanced: {
   //   id: 'advanced',
   //   icon: 'briefcase-2',
@@ -183,15 +206,18 @@ const plans: {[k in PlanTypeProduct]: IPlanData} = {
 
 const planFeatures: IPlanFeatureData[] = [
   {item: 'Create a personalized profile', targetPlan: ['productBasic'], detail: 'explain yourself here.'},
-
   {item: 'Create dynamic discounts and send notifications to wellness seekers and providers about new promotions', targetPlan: ['productBasic'], detail: 'explain yourself here.'},
   {item: 'Create events and send notifications to wellness seekers and providers about your upcoming summit, course or webinar', targetPlan: ['productBasic'], detail: 'explain yourself here.'},
   {item: 'Receive recommendations and endorsement from wellness providers', targetPlan: ['productBasic'], detail: 'explain yourself here.'},
+
+  {item: 'Promotion on side panels of our social feed for custom duration of time', targetPlan: ['productCustom'], detail: null},
+  {item: 'Promotion on our social channels and podcast', targetPlan: ['productCustom'], detail: null},
+  {item: 'Promotion via monthly internal newsletter', targetPlan: ['productCustom'], detail: null},
 ];
 
 const faqs: IFAQItem[] = [
   {q: 'What is PromptHealth and why should I be involved?', a: 'PromptHealth is an online platform revolutionizing the health and wellness experience. We have created an ecosystem where wellness seekers can learn directly from the providers and get connected with them based on areas of interest. Wellness companies can also get displayed in front of the wellness seekers and providers based on different categories.', opened: false},
-  {q: 'What is known as a wellness company?', a: 'Brands in wellness which are not necessarily offered  by a wellness practitioner. It can range from Apps, products, services and resources that have an offering in one or more of the categories listed on PromptHealth.', opened: false,},
+  {q: 'What is known as a wellness company?', a: 'Brands in wellness which are not necessarily offered  by a wellness provider. It can range from Apps, products, services and resources that have an offering in one or more of the categories listed on PromptHealth.', opened: false,},
   {q: 'What do I get with my standard membership?', a: 'You get a profile with a description of your company and can upload pictures. You can promote any upcoming offers or events to inform the PromptHealth community with push notifications. You can also receive recommendations and endorsements from the wellness providers to gain more credibility. They can share your offering on their feeds as well.', opened: false},
   {q: 'What is the cost to join PromptHealth?', a: 'The standard profile for wellness companies costs $200/month with 20% discount for the yearly membership. There is an add-on option where we can promote your brand further on a custom base as required by you with ads on our social feed, on our different social media channels and newsletter. Details and features can be found on the pricing page.', opened: false},
   {q: 'How do I get listed?', a: 'After signing up by email, or by connecting your Facebook or Google account, you will be asked a series of questions to help us understand your background and specialities. This allows us to ensure you are listed under all of our relevant categories, and will show up when a user is searching for solutions to a particular concern.', opened: false},

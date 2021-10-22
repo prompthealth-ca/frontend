@@ -65,15 +65,11 @@
         <h4 class="mb-0">{{plan.value.title}}</h4>
         <p class="mb-0 body2 text-label">{{plan.value.subtitle}}</p>
 
-        <h2 
-        *ngIf="plan.value.data"
-        class="my-25p"
-        >
-          <ng-container *ngIf="!plan.value">  </ng-container>
-          <ng-container *ngIf="plan.value && isDurationMonthly">${{plan.value.data.price}}</ng-container>
-          <ng-container *ngIf="plan.value && !isDurationMonthly">${{plan.value.data.yearlyPrice}}</ng-container>
+        <h2 class="my-25p clamp-1line h2">
+          <ng-container *ngIf="plan.value?.data && isDurationMonthly">${{plan.value.data.price}}</ng-container>
+          <ng-container *ngIf="plan.value?.data && !isDurationMonthly">${{plan.value.data.yearlyPrice}}</ng-container>
 
-          <span class="h4 text-label">
+          <span class="h4 text-label" *ngIf="plan.value?.data">
             <ng-container *ngIf="isDurationMonthly">/mo</ng-container>
             <ng-container *ngIf="!isDurationMonthly">/yr</ng-container>
           </span>
@@ -89,26 +85,35 @@
               <span>{{feature.item}}</span>
             </li>  
           </ng-container>
+
+          <li class="position-relative mt-40p mb-20p subtitle2">
+            <i class="icon-pre text-primary" iconPh="megaphone"></i>
+            <a routerLink="/ambassador-program">Become ambassador and get credited</a>
+          </li>
         </ul>
 
-        <button 
-        *ngIf="!user"
-        class="btn"
-        [ngClass]="(plan.key == 'productAdvanced' ? 'btn-primary-dark' : 'btn-outline')"
-        (click)="onClickSignup(plan.key)"
-        >
-          <ng-container *ngIf="plan.key == 'productBasic'">Sign-up</ng-container>
-        </button>
+        <ng-container *ngIf="plan.key == 'productBasic'">
+          <button 
+          *ngIf="!user"
+          class="btn btn-primary-dark"
+          (click)="onClickSignup(plan.key)"
+          >
+            <ng-container *ngIf="plan.key == 'productBasic'">Sign-up</ng-container>
+          </button>
+  
+          <button 
+          *ngIf="!!user"
+          class="btn btn-primary-dark"
+          [disabled]="isLoading"
+          (click)="onClickCheckout(plan.key)"
+          >
+            <ng-container *ngIf="plan.key == 'productBasic'">Order now</ng-container>
+          </button>  
+        </ng-container>
 
-        <button 
-        *ngIf="!!user"
-        class="btn"
-        [ngClass]="(plan.key == 'productAdvanced' ? 'btn-primary-dark' : 'btn-outline')"
-        [disabled]="isLoading"
-        (click)="onClickCheckout(plan.key)"
-        >
-          <ng-container *ngIf="plan.key == 'productBasic'">Order now</ng-container>
-        </button>
+        <ng-container *ngIf="plan.key == 'productCustom'">
+          <a class="btn btn-outline" routerLink="/contact-us">Contact us</a>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -128,7 +133,11 @@
   ></table-plan-feature>
 </section> -->
 
-<section class="container my-100p">
+<section class="container my-100p position-relative">
+  <a 
+  id="faq" 
+  style="top: -100px; position: absolute;"
+  ></a>
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
       <h2 class="mb-50p text-center">

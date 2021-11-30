@@ -1,0 +1,31 @@
+{
+  "name": "PromptHealth - Your Wellness Navigator",
+  "short_name": "PromptHealth",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme-color": "#ffffff",
+  "description": "PromptHealth is an application that connects people to Canadian accredited medical and holistic health services.",
+  "icons": [
+    {
+      "src":"/assets/favicon/android-chrome-192x192.png",
+      "sizes":"192x192",
+      "type":"image/png"
+    },{
+      "src":"/assets/favicon/android-chrome-512x512.png",
+      "sizes":"512x512",
+      "type":"image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.prompthealth&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1",
+      "id": "com.prompthealth"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/ca/app/prompthealth/id1532951934"
+    }
+  ]
+}

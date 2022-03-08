@@ -240,8 +240,12 @@ export class AboutPractitionerComponent implements OnInit {
         link.push("sp");
         break;
 
-      case "centre":
+      case "custom":
         link = ["/contact-us"];
+        break;
+        
+        case "centre":
+        link.push("c")
         break;
     }
     this._uService.sessionStorage.setItem(
@@ -380,7 +384,7 @@ const plans: { [k in PlanTypePractitioner]: IPlanData } = {
   provider: {
     id: "provider",
     icon: "verified-outline",
-    title: "Advanced",
+    title: "Providers",
     subtitle: "",
     // subtitle: 'For solo providers.',
     label: "Popular",
@@ -388,6 +392,15 @@ const plans: { [k in PlanTypePractitioner]: IPlanData } = {
   },
   centre: {
     id: "centre",
+    icon: "users-outline",
+    title: "Centre",
+    // subtitle: 'For centers with multiple providers.',
+    subtitle: "",
+    label: null,
+    data: null,
+  },
+  custom: {
+    id: "custom",
     icon: "users-outline",
     title: "Custom",
     // subtitle: 'For centers with multiple providers.',
@@ -404,53 +417,73 @@ const planFeatures: IPlanFeatureData[] = [
     detail: null,
   },
   {
-    item: "Share your knowledge via voice memos and notes",
+    item: "Follow and engage with other users",
     targetPlan: ["basic", "provider", "centre"],
     detail: null,
   },
   {
-    item: "Share your knowledge via voice memos, notes, and images + articles, and events",
-    targetPlan: ["provider", "centre"],
+    item: "Share your knowledge via voice memos, notes, and images",
+    targetPlan: ["basic", "provider", "centre"],
     detail: null,
   },
   {
     item: "Receive booking requests",
+    targetPlan: ["basic", "provider", "centre"],
+    detail: null,
+  },
+  {
+    item: "Recommendations by other providers",
+    targetPlan: ["basic", "provider", "centre"],
+    detail: null,
+  },
+  // {
+  //   item: "Access to all basic features",
+  //   targetPlan: ["provider", "centre"],
+  //   detail: null,
+  // },
+  {
+    item: "Exclusive access to Online Academy Resources",
     targetPlan: ["provider", "centre"],
     detail: null,
   },
   {
-    item: "Inter referrals enabled",
+    item: "Social Collaborations with PromptHealth",
     targetPlan: ["provider", "centre"],
     detail: null,
   },
   {
-    item: "Ratings and reviews",
+    item: "Monthly Check- In with a PromptHealth Mentor",
     targetPlan: ["provider", "centre"],
     detail: null,
   },
-  {
-    item: "Performance analytics",
-    targetPlan: ["provider", "centre"],
-    detail: null,
-  },
+  // {
+  //   item: "Performance analytics",
+  //   targetPlan: ["provider", "centre"],
+  //   detail: null,
+  // },
 
   // {item: 'List different locations, services, and practitioners', targetPlan: ['centre'], detail: null},
   {
-    item: "Display company products and amenities",
+    item: "List all your providers for free",
     targetPlan: ["centre"],
     detail: null,
   },
   {
-    item: "Enrich your profile with videos",
-    targetPlan: ["centre"],
+    item: "3 month bundle",
+    targetPlan: ["custom"],
     detail: null,
   },
-  { item: "Tag your providers", targetPlan: ["centre"], detail: null },
   {
-    item: "PromptHealth personal assistant for onboarding",
-    targetPlan: ["centre"],
+    item: "6 month bundle",
+    targetPlan: ["custom"],
     detail: null,
   },
+  { item: "Social Media Management", targetPlan: ["custom"], detail: null },
+  // {
+  //   item: "PromptHealth personal assistant for onboarding",
+  //   targetPlan: ["centre"],
+  //   detail: null,
+  // },
 ];
 
 const faqs: IFAQItem[] = [
